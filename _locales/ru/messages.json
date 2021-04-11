@@ -1,0 +1,26 @@
+{
+    "extension_name": {
+        "message": "chatruletka++"
+    },
+    "extension_description": {
+        "message": "Расширение для Чат Рулетки (Видеочат RU): 'пробив' собеседника по IP, чёрный список, горячие клавиши и другое..."
+    },
+    "map_lang": {
+        "message": "ru"
+    },
+    "screen_remote": {
+        "message": "Сделать скриншот с камеры собеседника"
+    },
+    "screen_local": {
+        "message": "Сделать скриншот с вашей камеры"
+    },
+    "tab1": {
+        "message": "Remote IP"
+    },
+    "tab2": {
+        "message": "Карта"
+    },
+    "tab3": {
+        "message": "Настройки"
+    }
+}

@@ -1,0 +1,82 @@
+{
+  "name": "__MSG_extension_name__",
+  "version": "0.1",
+  "description": "__MSG_extension_description__",
+  "default_locale": "en",
+  "manifest_version": 2,
+  "content_scripts": [
+    {
+      "matches": [
+        "https://videochatru.com/*"
+      ],
+      "js": [
+        "js/2gis.js",
+        "js/arrive.min.js",
+        "js/jquery.min.js",
+        "videochatru.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{97a94ca5-b3e9-4a42-ac7a-e7fbe5940adf}"
+    }
+  },
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "web_accessible_resources": [
+    "injection.js",
+    "mirror.js",
+    "controls*.html",
+    "audio.mp3",
+    "images/*"
+  ],
+  "browser_action": {
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    },
+    "default_title": "chatruletka++"
+  },
+  "permissions": [
+    "storage",
+    "http://localhost/*"
+  ],
+  "background": {
+    "scripts": [
+      "background.js",
+      "js/jquery.min.js"
+    ]
+  },
+  "commands": {
+    "skip": {
+      "suggested_key": {
+        "default": "Alt+Left"
+      },
+      "description": "Skip"
+    },
+    "screen_remote": {
+      "suggested_key": {
+        "default": "Alt+Up"
+      },
+      "description": "Remote Screenshot"
+    },
+    "screen_local": {
+      "suggested_key": {
+        "default": "Alt+Down"
+      },
+      "description": "Local Screenshot"
+    },
+    "stop": {
+      "suggested_key": {
+        "default": "Alt+Right"
+      },
+      "description": "Stop"
+    }
+  }
+}

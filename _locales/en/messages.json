@@ -1,0 +1,26 @@
+{
+    "extension_name": {
+      "message": "chatroulette++"
+    },
+    "extension_description": {
+      "message": "Extension for ChatRoulette (aka ome.tv): interlocutor's IP location, blacklist, hotkeys and more..."
+    },
+    "map_lang": {
+        "message": "en"
+    },
+    "screen_remote": {
+        "message": "Make a screenshot from the interlocutor's camera"
+    },
+    "screen_local": {
+        "message": "Make a screenshot from your camera"
+    },
+    "tab1": {
+        "message": "Remote IP"
+    },
+    "tab2": {
+        "message": "Map"
+    },
+    "tab3": {
+        "message": "Settings"
+    }
+}
