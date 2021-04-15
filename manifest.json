@@ -18,11 +18,6 @@
       "run_at": "document_idle"
     }
   ],
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "{97a94ca5-b3e9-4a42-ac7a-e7fbe5940adf}"
-    }
-  },
   "icons": {
     "16": "icon.png",
     "48": "icon.png",
@@ -31,6 +26,7 @@
   "web_accessible_resources": [
     "injection.js",
     "mirror.js",
+    "mobile.svg",
     "controls*.html",
     "audio.mp3",
     "images/*"
@@ -44,8 +40,7 @@
     "default_title": "chatruletka++"
   },
   "permissions": [
-    "storage",
-    "http://localhost/*"
+    "storage"
   ],
   "background": {
     "scripts": [

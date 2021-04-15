@@ -1,9 +1,9 @@
 {
     "extension_name": {
-      "message": "chatroulette++"
+        "message": "chatroulette++"
     },
     "extension_description": {
-      "message": "Extension for ChatRoulette (aka ome.tv): interlocutor's IP location, blacklist, hotkeys and more..."
+        "message": "Extension for ChatRoulette (aka ome.tv): interlocutor's IP location, blacklist, hotkeys and more..."
     },
     "map_lang": {
         "message": "en"
@@ -22,5 +22,11 @@
     },
     "tab3": {
         "message": "Settings"
+    },
+    "api_working": {
+        "message": "<b>API works correctly.</b></br></br><b>Important:</b> 'Mobile: True' means that the interlocutor uses mobile Internet. In this case the city most likely identified wrong. "
+    },
+    "api_insecure": {
+        "message": "<b>API does not work.</b></br>The free version of the service for IP geolocation does not support SSL, which chrome requires.</br>There are two ways to bypass this problem:</br></br><b>1:</b></br>1. Allow insecure content for this site <a href = 'https://support.google.com/chrome/answer/114662?Co=Genie.Platform%3DDesktop#zippy=%2cpermissions-that-can-be-changed'> in the site settings</a>.</br></br><b>2:</b></br>1. Open 'chrome://flags/#unsafely-treat-insecure-origin-as-secure' in the browser.</br>2. Add 'http://ip-api.com' in the text field.</br>3. Enable the flag (Default -> Enable).</br>4. Restart the browser."
     }
 }

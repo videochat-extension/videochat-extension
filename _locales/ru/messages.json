@@ -22,5 +22,11 @@
     },
     "tab3": {
         "message": "Настройки"
+    },
+    "api_working": {
+        "message": "<b>API работает корректно.</b></br></br><b>Важно:</b> 'Mobile: true' означает, что собеседник использует мобильную связь. В этом случае город скорее всего неправильный."
+    },
+    "api_insecure": {
+        "message": "<b>API не работает.</b></br>Бесплатная версия сервиса для 'пробива' IP не поддерживает SSL, который требует Хром.</br>Есть два способа обойти эту проблему:</br></br><b>Способ первый:</b></br>1. Разрешите небезопасный контент для этого сайта <a href='https://support.google.com/chrome/answer/114662?co=GENIE.Platform%3DDesktop#zippy=%2Cpermissions-that-can-be-changed'>в настройках</a>.</br></br><b>Способ второй:</b></br>1. Откройте 'chrome://flags/#unsafely-treat-insecure-origin-as-secure' в браузере.</br>2. Добавьте 'http://ip-api.com' в текстовое поле.</br>3. Включите этот флаг (Default -> Enable).</br>4. Перезапустите браузер."
     }
 }

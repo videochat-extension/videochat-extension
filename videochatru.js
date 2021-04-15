@@ -121,13 +121,6 @@ chrome.storage.sync.get(null, function (result) {
                 font-weight: bold;
               }
               
-              .column {
-                float: left;
-                width: 50%;
-                box-sizing: border-box;
-                padding: 10px;
-              }
-      
               .row:after {
                 content: "";
                 display: table;
@@ -137,7 +130,7 @@ chrome.storage.sync.get(null, function (result) {
             }),
             createElement('div', {
                 id: "remoteIPInfo",
-                style: "display: none"
+                style: "display: none;"
             }),
             createElement('div', {
                 id: "localStage",
@@ -212,15 +205,13 @@ chrome.storage.sync.get(null, function (result) {
                 })
             ]),
             createElement('div', {
-                className: "tabs__content active row"
+                className: "tabs__content active row",
+                id: "apiInfoContent",
+                style: "height:100%;"
             }, [
                 createElement('div', {
-                    className: "column",
-                    id: "remoteInfo"
-                }),
-                createElement('div', {
-                    className: "column",
-                    id: "localInfo"
+                    id: "remoteInfo",
+                    style: "overflow-y: auto;"
                 })
             ]),
             createElement('div', {
@@ -307,6 +298,20 @@ chrome.storage.sync.get(null, function (result) {
 
     $(controls).insertBefore(".chat");
 
+    $.getJSON("http://ip-api.com/json/", { lang: navigator.language.slice(0, 2), fields: "status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query" })
+        .done(function (json) {
+            remoteInfo.innerHTML = chrome.i18n.getMessage("api_working")
+        })
+        .fail(function (jqxhr, textStatus, error) {
+            if (error == "") {
+                remoteInfo.innerHTML = chrome.i18n.getMessage("api_insecure")
+            } else {
+                var err = textStatus + ", " + error;
+                remoteInfo.innerHTML = "<b>" + err + "</b>"
+                console.error("Request Failed: " + err);
+            }
+        });
+
     if (hideWatermarkCheck.checked) {
         document.getElementsByClassName("remote-video__watermark")[0].style.opacity = 0.0
     } else {
@@ -330,7 +335,7 @@ chrome.storage.sync.get(null, function (result) {
 
     map = new mapgl.Map('mapid', {
         center: [39.2610736084446, 54.39525286954687],
-        zoom: 11,
+        zoom: 10,
         lang: chrome.i18n.getMessage("map_lang"),
         key: 'bfd8bbca-8abf-11ea-b033-5fa57aae2de7',
         style: 'c080bb6a-8134-4993-93a1-5b4d8c36a59b'
@@ -340,6 +345,8 @@ chrome.storage.sync.get(null, function (result) {
 
     function resizemap() {
         mapid.style.height = $("#faceapiContent")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight + "px"
+        remoteInfo.style.height = $("#apiInfoContent")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight + "px"
+
         map.invalidateSize()
     }
 
@@ -369,11 +376,18 @@ chrome.storage.sync.get(null, function (result) {
         if (typeof marker !== 'undefined')
             marker.destroy()
 
-        map.setCenter([json.longitude, json.latitude]);
+        map.setCenter([json.lon, json.lat]);
 
-        marker = new mapgl.Marker(map, {
-            coordinates: [json.longitude, json.latitude],
-        });
+        if (json.mobile) {
+            marker = new mapgl.Marker(map, {
+                coordinates: [json.lon, json.lat],
+                icon: chrome.extension.getURL('mobile.svg')
+            });
+        } else {
+            marker = new mapgl.Marker(map, {
+                coordinates: [json.lon, json.lat],
+            });
+        }
     };
 
 
