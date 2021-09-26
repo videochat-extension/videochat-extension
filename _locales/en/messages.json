@@ -1,9 +1,12 @@
 {
     "extension_name": {
-        "message": "chatroulette++"
+        "message": "Chat Roulette Extension"
     },
     "extension_description": {
-        "message": "Extension for ChatRoulette (aka ome.tv): interlocutor's IP location, blacklist, hotkeys and more..."
+        "message": "Extension for ChatRoulette (aka ome.tv): interlocutor's IP location, autoskip of the specified gender, hotkeys and more..."
+    },
+    "desc": {
+        "message": "This is a browser extension that extends the functionality of Chat Roulette (aka ome.tv)."
     },
     "map_lang": {
         "message": "en"
@@ -23,10 +26,61 @@
     "tab3": {
         "message": "Settings"
     },
+    "tab4": {
+        "message": "About"
+    },
     "api_working": {
-        "message": "<b>API works correctly.</b></br></br><b>Important:</b> 'Mobile: True' means that the interlocutor uses mobile Internet. In this case the city most likely identified wrong. "
+        "message": "<b>API works correctly.</b></br></br><b>Important:</b><br>There is no easy way to track exactly where the interlocutor is located.<br>In most cases, the location is determined with accuracy to the city/agglomeration.<br><br>If the city is not shown, it means that your interlocutor is using a mobile connection."
     },
     "api_insecure": {
-        "message": "<b>API does not work.</b></br>The free version of the service for IP geolocation does not support SSL, which chrome requires.</br>There are two ways to bypass this problem:</br></br><b>1:</b></br>1. Allow insecure content for this site <a href = 'https://support.google.com/chrome/answer/114662?Co=Genie.Platform%3DDesktop#zippy=%2cpermissions-that-can-be-changed'> in the site settings</a>.</br></br><b>2:</b></br>1. Open 'chrome://flags/#unsafely-treat-insecure-origin-as-secure' in the browser.</br>2. Add 'http://ip-api.com' in the text field.</br>3. Enable the flag (Default -> Enable).</br>4. Restart the browser."
+        "message": "<b>API does not work.</b></br>The free version of the IP geolocation service we use does not support SSL (https).</br></br>To protect your data from hackers, browsers prohibit its extensions from interacting with the Internet via unsecured http.</br>Since there is nothing dangerous for you in the IP address of your interlocutor, which the extension sends to a third-party service, I recommend you to fix it manually.</br></br><b>There are two ways to bypass this problem:</b></br></br><b>1:</b></br>1. Allow insecure content for this site <a href = 'https://support.google.com/chrome/answer/114662?Co=Genie.Platform%3DDesktop#zippy=%2cpermissions-that-can-be-changed'> in the site settings</a>.</br></br><b>2:</b></br>1. Open 'chrome://flags/#unsafely-treat-insecure-origin-as-secure' in the browser.</br>2. Add 'http://ip-api.com' in the text field.</br>3. Enable the flag (Default -> Enable).</br>4. Restart the browser."
+    },
+    "videochatru_mitm": {
+        "message": "If you are engaged in creating content on YouTube, you may find <b><a href='https://github.com/qrlk/videochatru-mitm' >videochatru-mitm</a></b> interesting."
+    },
+    "github": {
+        "message": "More useful information: <b><a style= 'text-decoration: none!important;' href='https://github.com/qrlk/videochatru-mitm'>github</a></b>."
+    },
+    "author": {
+        "message": "<b>Maintainer:</b>"
+    },
+    "testers": {
+        "message": "<b>Tester:</b>"
+    },
+    "sasha": {
+        "message": "Sasha \"KRIZH\" Gromshtein"
+    },
+    "inspired": {
+        "message": "<b>Inspired by:</b>"
+    },
+    "libs": {
+        "message": "<b>Libs:</b>"
+    },
+    "3rdparty": {
+        "message": "<b>Third-party services:</b>"
+    },
+    "skip_males": {
+        "message": "skip men: "
+    },
+    "skip_females": {
+        "message": "skip women: "
+    },
+    "skip_sound": {
+        "message": "skip sound: "
+    },
+    "mirror": {
+        "message":  "mirror: "
+    },
+    "watermark": {
+        "message": "hide the watermark: "
+    },
+    "banner": {
+        "message": "hide the banner: "
+    },
+    "initialFaceDetect": {
+        "message": "faceapi: initial face detection..."
+    },
+    "hotkeys": {
+        "message": "<b>Hotkeys:</b><br>left arrow - skip<br>up arrow - stop<br>down arrow - report<br>report: left arrow - cancel<br>report: right arrow - send<br><br>More custom: 'chrome://extensions/shortcuts'<br>"
     }
 }

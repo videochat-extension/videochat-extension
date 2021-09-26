@@ -11,9 +11,9 @@
       ],
       "js": [
         "js/2gis.js",
-        "js/arrive.min.js",
+        "js/face-api.min.js",
         "js/jquery.min.js",
-        "videochatru.js"
+        "content.js"
       ],
       "run_at": "document_idle"
     }
@@ -24,20 +24,22 @@
     "128": "icon.png"
   },
   "web_accessible_resources": [
-    "injection.js",
-    "mirror.js",
-    "mobile.svg",
+    "injection/injection.js",
+    "injection/mirror.js",
+    "models",
+    "models/*",
+    "audio/*.mp3",
+    "img/mobile.svg",
     "controls*.html",
-    "audio.mp3",
     "images/*"
   ],
   "browser_action": {
     "default_icon": {
-      "16": "icon.png",
-      "48": "icon.png",
-      "128": "icon.png"
+      "16": "img/icon.png",
+      "48": "img/icon.png",
+      "128": "img/icon.png"
     },
-    "default_title": "chatruletka++"
+    "default_title": "__MSG_extension_name__"
   },
   "permissions": [
     "storage"

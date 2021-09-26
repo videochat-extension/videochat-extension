@@ -1,7 +1,10 @@
 var defaults = {
   "mirror": false,
   "hideWatermark": false,
-  "hideBanner": false
+  "hideBanner": false,
+  "skipMale": false,
+  "skipFemale": false,
+  "skipSound": false
 }
 
 chrome.storage.sync.get(defaults, function (result) {
