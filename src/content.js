@@ -751,3 +751,13 @@ chrome.runtime.onMessage.addListener(
         }
     }
 );
+
+$(document).arrive(".ban-popup__unban_msg.tr", function (el) {
+    Arrive.unbindAllArrive();
+    console.dir(el)
+    let new_el = $(el).clone()
+    new_el.css('height', '30px');
+    new_el.css('line-height', '26px');
+    new_el[0].innerHTML = chrome.i18n.getMessage("avoidBan"),
+        new_el.insertAfter(el)
+});
