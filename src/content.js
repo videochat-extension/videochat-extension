@@ -493,6 +493,8 @@ chrome.storage.sync.get(null, function (result) {
     console.log()
 
     async function detectGender() {
+        if (!settings.skipMale && !settings.skipFemale)
+            return
         let stop = false
         let skip_m = false
         let skip_f = false
