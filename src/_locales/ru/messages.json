@@ -84,7 +84,7 @@
         "message": "<b>Хоткеи:</b><br>стрелка влево - пропустить<br>стрелка вверх - стоп<br>стрелка вниз - пожаловаться<br>жалоба, стрелка влево - отмена<br>жалоба, стрелка вправо - отправить<br><br>Больше хоткеев: 'chrome://extensions/shortcuts'<br>"
     },
     "avoidBan": {
-        "message": "<b>Чат Рулетное Расширение: <a target ='_blank' style = 'text-decoration: none!important;' href = 'https://github.com/qrlk/videochatru-extension'>Меня забанили, что мне теперь делать?</a></b>"
+        "message": "<b>Чат Рулетное Расширение: <a target ='_blank' style = 'text-decoration: none!important;' href = 'https://github.com/qrlk/videochatru-extension/wiki/Ban-%28Russian%29'>Меня забанили, что мне теперь делать?</a></b>"
     }
 }
 

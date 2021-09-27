@@ -84,6 +84,6 @@
         "message": "<b>Hotkeys:</b><br>left arrow - skip<br>up arrow - stop<br>down arrow - report<br>report: left arrow - cancel<br>report: right arrow - send<br><br>More custom: 'chrome://extensions/shortcuts'<br>"
     },
     "avoidBan": {
-        "message": "<b>Chat Roulette Extension: <a target ='_blank' style = 'text-decoration: none!important;' href = 'https://github.com/qrlk/videochatru-extension'>I was banned. What should I do now?</a></b>"
+        "message": "<b>Chat Roulette Extension: <a target ='_blank' style = 'text-decoration: none!important;' href = 'https://github.com/qrlk/videochatru-extension/wiki/Ban'>I was banned. What should I do now?</a></b>"
     }
 }
