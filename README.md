@@ -77,5 +77,3 @@ If you have a desire to contribute, here is a small instruction.
 * Integration of the facial recognition API, services such as findclone.ru.
 * Button to clear cookies on ban popup.
 * Avoid fingerprinting.
-
-This project will be developed under the MIT license as soon as the dependency on 2gis is removed.
