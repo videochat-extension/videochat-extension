@@ -10,9 +10,10 @@
         "https://videochatru.com/*"
       ],
       "js": [
-        "js/2gis.js",
-        "js/face-api.min.js",
         "js/jquery.min.js",
+        "js/leaflet/leaflet.js",
+        "js/face-api.min.js",
+        "js/arrive.min.js",
         "content.js"
       ],
       "run_at": "document_idle"
@@ -28,10 +29,9 @@
     "injection/mirror.js",
     "models",
     "models/*",
+    "js/leaflet/*",
     "audio/*.mp3",
-    "img/mobile.svg",
-    "controls*.html",
-    "images/*"
+    "controls*.html"
   ],
   "browser_action": {
     "default_icon": {
