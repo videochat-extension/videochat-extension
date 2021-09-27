@@ -1,3 +1,4 @@
+[<sup>Как поучавствовать в разработке Google Chrome расширении для Чат Рулетки?</sup>](README.md)  
 # Contributing
 
 **videochatru-extension** is an open source project licensed under the MIT license.
