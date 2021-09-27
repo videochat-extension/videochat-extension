@@ -454,8 +454,8 @@ chrome.storage.sync.get(null, function (result) {
                                     style: "margin-inline-start: 20px;"
                                 }, [
                                     createElement('a', {
-                                        href: "https://2gis.ru",
-                                        innerText: "2gis",
+                                        href: "https://carto.com",
+                                        innerText: "carto",
                                         style: "text-decoration: none!important;"
                                     })
                                 ])
@@ -605,13 +605,16 @@ chrome.storage.sync.get(null, function (result) {
         resizemap()
     });
 
-    map = new mapgl.Map('mapid', {
-        center: [39.2610736084446, 54.39525286954687],
-        zoom: 10,
-        lang: chrome.i18n.getMessage("map_lang"),
-        key: 'bfd8bbca-8abf-11ea-b033-5fa57aae2de7',
-        style: 'c080bb6a-8134-4993-93a1-5b4d8c36a59b'
-    });
+    L.Icon.Default.imagePath = chrome.extension.getURL('js/leaflet/');
+
+    map = L.map('mapid', { zoomControl: false }).setView([54.39554, 39.266102], 17);
+    map.locate({ setView: true });
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png', {
+        minZoom: 3,
+        maxZoom: 18,
+        attribution: '&copy; <a href="https://carto.com/">carto.com</a>'
+    }).addTo(map);
 
     resize = false
 
@@ -647,20 +650,34 @@ chrome.storage.sync.get(null, function (result) {
         let json = JSON.parse(remoteIPInfo.innerText)
         console.log(json)
         if (typeof marker !== 'undefined')
-            marker.destroy()
+            map.removeLayer(marker)
 
-        map.setCenter([json.lon, json.lat]);
+        if (typeof circle !== 'undefined')
+            map.removeLayer(circle)
+
 
         if (json.mobile) {
-            marker = new mapgl.Marker(map, {
-                coordinates: [json.lon, json.lat],
-                icon: chrome.extension.getURL('mobile.svg')
-            });
-        } else {
-            marker = new mapgl.Marker(map, {
-                coordinates: [json.lon, json.lat],
-            });
+            circle = L.circle([json.lat, json.lon], 300000, {
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.2
+            })
+
+            map.setView(new L.LatLng(json.lat, json.lon), 5);
+            marker = new L.Marker([json.lat, json.lon]);
         }
+        else {
+            circle = L.circle([json.lat, json.lon], 30000, {
+                color: 'blue',
+                fillColor: '#808080',
+                fillOpacity: 0.1
+            })
+
+            map.setView(new L.LatLng(json.lat, json.lon), 13);
+            marker = new L.Marker([json.lat, json.lon]);
+        }
+        map.addLayer(circle)
+        map.addLayer(marker)
     };
 
     var observer2 = new MutationObserver(callback);

@@ -75,7 +75,6 @@ If you have a desire to contribute, here is a small instruction.
 * Usage statistics: time spent in conversations, the number of automatic skips, and so on.
 * Optionally add interlocutors to the permanent/temporary blacklist by IP.
 * Integration of the facial recognition API, services such as findclone.ru.
-* Switch from 2gis to openstreetmap for more map coverage.
 * Button to clear cookies on ban popup.
 * Avoid fingerprinting.
 
