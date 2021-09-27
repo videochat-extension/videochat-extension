@@ -27,7 +27,7 @@
 * Determine the location of the interlocutor by his/her/their IP address.
 * Determine the current time of the interlocutor's location.
 * Determine the gender of the interlocutor and skip it automatically if the gender does not meet your expectations.
-* Enable mirror mode. It's useful if you don't have a physical camera but still want to chat.
+* Enable mirror mode. It's useful [if you don't have a physical camera but still want to chat](https://github.com/qrlk/videochatru-extension/wiki/No-Physical-Cam).
 * Show a map of the interlocutor's city.
 * Take a full screenshot of the interlocutor's camera or your own.
 * Hide the video chat watermark / banner.
