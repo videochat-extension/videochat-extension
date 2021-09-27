@@ -30,14 +30,14 @@ function updateRemoteAddress(remoteAddress) {
             remoteIPInfo.innerText = JSON.stringify(json)
 
             if (json.mobile) {
-                remoteInfo.innerHTML = "<b>Страна: </b>" + json.country + " [" + json.countryCode + "] </br></br>" +
-                    "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", { timeZone: json.timezone }).slice(0, -3) + "</sup>)"
+                remoteInfo.innerHTML = "<b>Country: </b>" + json.country + " [" + json.countryCode + "] </br></br>" +
+                    "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString({ timeZone: json.timezone }).slice(0, -3) + "</sup>)"
             } else {
-                remoteInfo.innerHTML = "<b>Страна: </b>" + json.country + " [" + json.countryCode + "] </br>" +
+                remoteInfo.innerHTML = "<b>Country: </b>" + json.country + " [" + json.countryCode + "] </br>" +
                     "</br>" +
-                    "<b>Город: </b>" + json.city + " (" + json.region + ") </br>" +
-                    "<b>Регион: </b>" + json.regionName + "</br>" +
-                    "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", { timeZone: json.timezone }).slice(0, -3) + "</sup>)</br>"
+                    "<b>City: </b>" + json.city + " (" + json.region + ") </br>" +
+                    "<b>Region: </b>" + json.regionName + "</br>" +
+                    "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString({ timeZone: json.timezone }).slice(0, -3) + "</sup>)</br>"
             }
         })
         .fail(function (jqxhr, textStatus, error) {
