@@ -428,6 +428,15 @@ chrome.storage.sync.get(null, function (result) {
                                         style: "text-decoration: none!important;"
                                     })
                                 ]),
+                                createElement('dd', {
+                                    style: "margin-inline-start: 20px;"
+                                }, [
+                                    createElement('a', {
+                                        href: "https://github.com/uzairfarooq/arrive",
+                                        innerText: "arrive.js",
+                                        style: "text-decoration: none!important;"
+                                    })
+                                ]),
                                 createElement('dt', {
                                     innerHTML: chrome.i18n.getMessage("3rdparty")
                                 }),
