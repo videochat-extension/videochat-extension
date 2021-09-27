@@ -32,6 +32,7 @@
 * Show a map of the interlocutor's city.
 * Take a full screenshot of the interlocutor's camera or your own.
 * Hide the video chat watermark / banner.
+* Open the clean site version by clicking on the extension icon.
 * Help you with advice if you accidentally got banned.
 * Convenient keyboard shortcuts for the most popular buttons.
 
