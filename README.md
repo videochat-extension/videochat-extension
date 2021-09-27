@@ -4,18 +4,23 @@
 
 <p align="center">
 
-<img src="https://img.shields.io/chrome-web-store/users/12?label=chrome%20users">
+<img src="https://img.shields.io/chrome-web-store/users/emfkjghgdkajicmnicojahgojkemagcm?label=chrome%20users">
   
-<img src="https://img.shields.io/chrome-web-store/rating/12?label=chrome%20rating">
+<img src="https://img.shields.io/chrome-web-store/rating/emfkjghgdkajicmnicojahgojkemagcm?label=chrome%20rating">
 
-<img src="https://img.shields.io/amo/users/12?label=firefox%20users">
+<img src="https://img.shields.io/amo/users/adwhore-net?label=firefox%20users">
 
-<img src="https://img.shields.io/amo/rating/12?label=firefox%20rating">
+<img src="https://img.shields.io/amo/rating/adwhore-net?label=firefox%20rating">
 
-<img src="https://img.shields.io/date/1591563600?label=released" >
+<img src="https://img.shields.io/date/1632845154?label=released" >
+  
+<img src="https://img.shields.io/github/license/qrlk/videochatru-extension" >
+  
 </p>
 
-**This is a browser extension that adds a bunch of cool stuff to the 'Chat Roulette' website.**  
+**This is a browser extension that adds a bunch of cool stuff to the [Chat Roulette website](https://videochatru.com).**  
+
+**It can be installed from [Chrome Web Store](http://duckduckgo.com) and [Mozilla Add-ons](http://duckduckgo.com).**
 
 <img src="https://cdn.discordapp.com/attachments/612424362946985987/891630030294229042/unknown.png"> 
 
@@ -30,15 +35,6 @@
 * Help you with advice if you accidentally got banned.
 * Convenient keyboard shortcuts for the most popular buttons.
 
-## Please note
-* This extension is intended for real users who come to chat without destructive / hostile intentions.  
-* **There is a related project: [videochatru-mitm](https://github.com/qrlk/videochatru-mitm).**
-  * A desktop application designed for content creators and streamers.
-  * The active development of the project was stopped due to the reasons specified in its readme.
-  * The use of the program may cause ethical / legal problems, so the program is provided exclusively for educational purposes.
-  * To work, it requires **[obs-studio](https://obsproject.com)** and **[voicemeeter potato](https://vb-audio.com/Voicemeeter/potato.htm)**.
-  * The project is not intended for a wide audience and requires serious computer experience to set up and use.
-* All PRs with functionality that can harm users of the platform, such as bypassing the ban on virtual cameras to scare people with screamers, will be rejected.
 ## What is Chat Roulette?
 **By 'Chat Roulette' I mean a global platform consisting of mobile apps and many websites sharing the same userbase.**
 
@@ -77,3 +73,13 @@ If you have a desire to contribute, here is a small instruction.
 * Integration of the facial recognition API, services such as findclone.ru.
 * Button to clear cookies on ban popup.
 * Avoid fingerprinting.
+
+## Please note
+* This extension is intended for real users who come to chat without destructive / hostile intentions.  
+* **There is a related project: [videochatru-mitm](https://github.com/qrlk/videochatru-mitm).**
+  * A desktop application designed for content creators and streamers.
+  * The active development of the project was stopped due to the reasons specified in its readme.
+  * The use of the program may cause ethical / legal problems, so the program is provided exclusively for educational purposes.
+  * To work, it requires **[obs-studio](https://obsproject.com)** and **[voicemeeter potato](https://vb-audio.com/Voicemeeter/potato.htm)**.
+  * The project is not intended for a wide audience and requires serious computer experience to set up and use.
+* All PRs with functionality that can harm users of the platform, such as bypassing the ban on virtual cameras to scare people with screamers, will be rejected.
