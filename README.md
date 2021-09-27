@@ -81,5 +81,5 @@ If you have a desire to contribute, [here is a small instruction](CONTRIBUTING.m
   * The active development of the project was stopped due to the reasons specified in its readme.
   * The use of the program may cause ethical / legal problems, so the program is provided exclusively for educational purposes.
   * To work, it requires **[obs-studio](https://obsproject.com)** and **[voicemeeter potato](https://vb-audio.com/Voicemeeter/potato.htm)**.
-  * The project is not intended for a wide audience and requires serious computer experience to set up and use.
+  * videochatru-mitm is not intended for a wide audience and requires serious computer experience to set up and use.
 * All PRs with functionality that can harm users of the platform, such as bypassing the ban on virtual cameras to scare people with screamers, will be rejected.
