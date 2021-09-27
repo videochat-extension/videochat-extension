@@ -7,10 +7,6 @@
   
 <img src="https://img.shields.io/chrome-web-store/rating/emfkjghgdkajicmnicojahgojkemagcm?label=chrome%20rating">
 
-<img src="https://img.shields.io/amo/users/adwhore-net?label=firefox%20users">
-
-<img src="https://img.shields.io/amo/rating/adwhore-net?label=firefox%20rating">
-
 <img src="https://img.shields.io/date/1632845154?label=released" >
   
 <img src="https://img.shields.io/github/license/qrlk/videochatru-extension" >
@@ -19,7 +15,7 @@
 
 **This is a browser extension that adds a bunch of cool stuff to the [Chat Roulette website](https://videochatru.com).**  
 
-**It can be installed from [Chrome Web Store](http://duckduckgo.com) and [Mozilla Add-ons](http://duckduckgo.com).**
+**It can be installed from [Chrome Web Store](http://duckduckgo.com).**
 
 <img src="https://cdn.discordapp.com/attachments/612424362946985987/891630030294229042/unknown.png"> 
 
