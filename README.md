@@ -1,4 +1,4 @@
-[<sup>Подробнее о Google Chrome расширении для Чат Рулетки на русском языке можно прочитать по этой ссылке</sup>](README.md)  
+[<sup>Подробнее о Google Chrome расширении для Чат Рулетки на русском языке можно прочитать по этой ссылке</sup>](https://github.com/qrlk/videochatru-extension/blob/master/README.md)  
 <h1 align="center">Чат Рулетное Расширение (Chat Roulette Extension)</h1>
 
 <p align="center">
