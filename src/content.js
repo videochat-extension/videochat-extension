@@ -361,6 +361,20 @@ chrome.storage.sync.get(null, function (result) {
                         createElement('br'),
 
                         createElement('span', {
+                            innerHTML: "<b>Community:</b>",
+                        }),
+                        createElement('br'),
+                        createElement('span', {
+                            innerHTML: `<a href = "https://t.me/videochatru_extension"><img src="https://img.shields.io/endpoint?color=blue&label=News&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fvideochatru_extension"></a>`
+                        }),
+                        createElement('br'),
+                        createElement('span', {
+                            innerHTML: `<a href = "https://t.me/videochatru_chat"><img src="https://img.shields.io/endpoint?color=blue&label=Chat&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fvideochatru_chat"></a>`
+                        }),
+                        createElement('br'),
+                        createElement('br'),
+
+                        createElement('span', {
                             innerHTML: chrome.i18n.getMessage("hotkeys")
                         }),
 
@@ -460,11 +474,6 @@ chrome.storage.sync.get(null, function (result) {
                                     })
                                 ])
                             ]),
-                        createElement('br'),
-
-                        createElement('span', {
-                            innerHTML: chrome.i18n.getMessage("videochatru_mitm"),
-                        })
                     ]
                 )
             ])
