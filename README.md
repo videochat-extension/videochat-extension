@@ -53,6 +53,7 @@ The connection between users is established directly through webrtc, while the s
 * **https://videochatru.com**
 * **https://chatruletka.com**
 * **https://ruletka.chat**
+* **https://chatrulez.ru**
 * **https://chatalternative.com**
 * **https://chat-de.com**
 * **https://chat-pt.com**
