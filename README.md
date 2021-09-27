@@ -29,6 +29,10 @@
 * Help you with advice if you accidentally got banned.
 * Convenient keyboard shortcuts for the most popular buttons.
 
+## Please note
+* This extension is intended for real users who come to chat without destructive / hostile intentions.  
+* All PRs with functionality that can harm users of the platform, such as bypassing the ban on virtual cameras to scare people with screamers, will be rejected.
+
 ## What is Chat Roulette?
 **By 'Chat Roulette' I mean a global platform consisting of mobile apps and many websites sharing the same userbase.**
 
@@ -69,12 +73,3 @@ If you have a desire to contribute, [here is a small instruction](CONTRIBUTING.m
 * Button to clear cookies on ban popup.
 * Avoid fingerprinting.
 
-## Please note
-* This extension is intended for real users who come to chat without destructive / hostile intentions.  
-* **There is a related project: [videochatru-mitm](https://github.com/qrlk/videochatru-mitm).**
-  * A desktop application designed for content creators and streamers.
-  * The active development of the project was stopped due to the reasons specified in its readme.
-  * The use of the program may cause ethical / legal problems, so the program is provided exclusively for educational purposes.
-  * To work, it requires **[obs-studio](https://obsproject.com)** and **[voicemeeter potato](https://vb-audio.com/Voicemeeter/potato.htm)**.
-  * **videochatru-mitm** is not intended for a wide audience and requires serious computer experience to set up and use.
-* All PRs with functionality that can harm users of the platform, such as bypassing the ban on virtual cameras to scare people with screamers, will be rejected.
