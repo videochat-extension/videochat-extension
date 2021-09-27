@@ -7,7 +7,7 @@ function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min;
-  }
+}
 
 function toObject(from = {}, to = {}) {
     for (let key in from) {
@@ -363,7 +363,7 @@ chrome.storage.sync.get(null, function (result) {
                         createElement('span', {
                             innerHTML: chrome.i18n.getMessage("hotkeys")
                         }),
-                        
+
                         createElement('br'),
                         createElement('dl', {},
                             [
@@ -523,7 +523,7 @@ chrome.storage.sync.get(null, function (result) {
                 document.getElementsByClassName('buttons__button start-button')[0].click()
                 console.log("MALE SKIPPED")
                 if (settings.skipSound)
-                    if (getRandomInt(1,100)==69)
+                    if (getRandomInt(1, 100) == 69)
                         ban.play()
                     else
                         male.play()
@@ -534,7 +534,7 @@ chrome.storage.sync.get(null, function (result) {
                 document.getElementsByClassName('buttons__button start-button')[0].click()
                 console.log("FEMALE SKIPPED")
                 if (settings.skipSound)
-                    if (getRandomInt(1,100)==69)
+                    if (getRandomInt(1, 100) == 69)
                         ban.play()
                     else
                         female.play()
@@ -662,7 +662,6 @@ chrome.storage.sync.get(null, function (result) {
             });
         }
     };
-
 
     var observer2 = new MutationObserver(callback);
 
