@@ -65,7 +65,7 @@ The connection between users is established directly through webrtc, while the s
 * Less popular intances with similar design.
 
 ## Contribution
-If you have a desire to contribute, here is a small instruction.  
+If you have a desire to contribute, [here is a small instruction](CONTRIBUTING.md).  
 
 
 ### some ideas:
