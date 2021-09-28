@@ -115,7 +115,7 @@
 
         stream.getAudioTracks().forEach((track) => stream.removeTrack(track));
 
-        const newTrack = streamCanvas.captureStream(25).getVideoTracks()[0];
+        const newTrack = streamCanvas.captureStream(15).getVideoTracks()[0];
 
         newStream.addTrack(newTrack);
 
