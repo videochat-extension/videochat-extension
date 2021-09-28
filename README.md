@@ -17,8 +17,7 @@
 
 <img src="https://cdn.discordapp.com/attachments/612424362946985987/891630030294229042/unknown.png"> 
 
-**[More screens.](screens.md)**
-
+[<sup>more screens</sup>](screens.md)  
 ### As for now, "Chat Roulette Extension" can do following for you:
 * Determine the location of the interlocutor by his/her/their IP address.
 * Determine the current time of the interlocutor's location.
