@@ -2,8 +2,8 @@
 <h1 align="center">Чат Рулетное Расширение (Chat Roulette Extension)</h1>
 
 <p align="center">
-<a href = "https://t.me/videochatru_extension"><img src="https://img.shields.io/chrome-web-store/users/emfkjghgdkajicmnicojahgojkemagcm?label=chrome%20users"></a> 
-<a href = "https://t.me/videochatru_extension"><img src="https://img.shields.io/chrome-web-store/rating/emfkjghgdkajicmnicojahgojkemagcm?label=chrome%20rating"></a>
+<a href = "https://t.me/videochatru_extension"><img src="https://img.shields.io/chrome-web-store/users/_ID_?label=chrome%20users"></a> 
+<a href = "https://t.me/videochatru_extension"><img src="https://img.shields.io/chrome-web-store/rating/_ID_?label=chrome%20rating"></a>
 <a href = "https://t.me/videochatru_extension"><img src="https://img.shields.io/endpoint?color=blue&label=News&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fvideochatru_extension"></a> 
 <a href = "https://t.me/videochatru_chat"><img src="https://img.shields.io/endpoint?color=blue&label=Chat&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fvideochatru_chat"></a>
 <img src="https://img.shields.io/github/license/qrlk/videochatru-extension" >
@@ -11,7 +11,7 @@
   
 </p>
 
-**This is a browser extension that adds a bunch of cool stuff to the [Chat Roulette website](https://videochatru.com).**  
+**This is a browser extension that adds a bunch of cool stuff to the [Chat Roulette website](). (currently pending review)**  
 
 **It can be installed from [Chrome Web Store](http://duckduckgo.com). English and Russian locales available.**
 
