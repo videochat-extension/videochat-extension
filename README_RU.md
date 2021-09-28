@@ -6,7 +6,7 @@
 <a href = "https://t.me/videochatru_extension "><img src="https://img.shields.io/endpoint?color=blue&label=News&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fvideochatru_extension"></a>
 <a href = "https://t.me/videochatru_chat "><img src="https://img.shields.io/endpoint?color=blue&label=Chat&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fvideochatru_chat"></a>
 <img src="https://img.shields.io/github/license/qrlk/videochatru-extension " >
-<img src="https://img.shields.io/date/1632845154?label=released " >
+<img src="https://img.shields.io/date/1632816617?label=released " >
 
 </p>
 
