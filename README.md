@@ -11,9 +11,9 @@
   
 </p>
 
-**This is a browser extension that adds a bunch of cool stuff to the [Chat Roulette website](). (currently pending review)**  
+**This is a browser extension that adds a bunch of cool stuff to the [Chat Roulette website](https://videochatru.com).**  
 
-**It can be installed from [Chrome Web Store](http://duckduckgo.com). English and Russian locales available.**
+**It can be installed from [Chrome Web Store](http://duckduckgo.com). (currently pending review). English and Russian locales available.**
 
 <img src="https://cdn.discordapp.com/attachments/612424362946985987/891630030294229042/unknown.png"> 
 
