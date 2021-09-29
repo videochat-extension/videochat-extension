@@ -32,6 +32,7 @@
 
 ## Please note
 * This extension is intended for real users who come to chat without destructive / hostile intentions.  
+* There is a unfinished **[videochatru-mitm](https://github.com/qrlk/videochatru-mitm)** which is focused on the needs of YouTubers.
 * All PRs with functionality that can harm users of the platform, such as bypassing the ban on virtual cameras to scare people with screamers, will be rejected.
 
 ## What is Chat Roulette?
