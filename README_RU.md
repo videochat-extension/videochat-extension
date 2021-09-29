@@ -1,8 +1,8 @@
 <h1 align="center">Чат Рулетное Расширение (Chat Roulette Extension)</h1>
 
 <p align="center">
-<a href = "https://t.me/videochatru_extension "><img src="https://img.shields.io/chrome-web-store/users/_ID_?label=chrome%20users"></a>
-<a href = "https://t.me/videochatru_extension "><img src="https://img.shields.io/chrome-web-store/rating/_ID?label=chrome%20rating"></a>
+<a href = "https://t.me/videochatru_extension "><img src="https://img.shields.io/chrome-web-store/users/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20users"></a>
+<a href = "https://t.me/videochatru_extension "><img src="https://img.shields.io/chrome-web-store/rating/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20rating"></a>
 <a href = "https://t.me/videochatru_extension "><img src="https://img.shields.io/endpoint?color=blue&label=News&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fvideochatru_extension"></a>
 <a href = "https://t.me/videochatru_chat "><img src="https://img.shields.io/endpoint?color=blue&label=Chat&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fvideochatru_chat"></a>
 <img src="https://img.shields.io/github/license/qrlk/videochatru-extension " >
@@ -12,7 +12,7 @@
 
 **Это расширение для Chrome, которое расширяет функционал сайта [Чат Рулетки](https://videochatru.com).**
 
-**Его можно установить из [интернет-магазина Chrome](). (на рассмотрении)**
+**Его можно установить из [интернет-магазина Chrome](https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi). (на рассмотрении)**
 
 <img src="https://cdn.discordapp.com/attachments/612424362946985987/891630030294229042/unknown.png">
 
