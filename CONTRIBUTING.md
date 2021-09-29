@@ -43,7 +43,7 @@ If you would like to help, getting started is easy.
 5. Next, open Chrome/Brave/Chromium and enable developer mode via
    `Settings > Extensions > Manage Extensions` and toggle `Developer mode` in
    the top-right corner.
-6. Click `Load unpacked` and browse to the folder you cloned videospeed to.
+6. Click `Load unpacked` and browse to the folder you cloned src to.
 7. Try out your changes, make sure they work as expected
 8. Commit and push your changes to github
 
