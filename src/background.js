@@ -1,20 +1,49 @@
 var defaults = {
-  "mirror": false,
-  "hideWatermark": false,
-  "hideBanner": false,
-  "skipMale": false,
-  "skipFemale": false,
-  "skipSound": false
-}
-
+  mirror: false,
+  hideWatermark: false,
+  hideBanner: false,
+  skipMale: false,
+  skipFemale: false,
+  skipSound: false,
+};
 chrome.storage.sync.get(defaults, function (result) {
-  chrome.storage.sync.set(result)
+  chrome.storage.sync.set(result);
 });
 
+var tabId = -1,
+  chatId = -1,
+  curId = -1;
+
 chrome.commands.onCommand.addListener(function (command) {
-  console.log('Command:', command);
-  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    chrome.tabs.sendMessage(tabs[0].id, { command: command });
+  switch (command) {
+    case "switch":
+      if (curId === -1 || chatId === -1 || tabId === -1)
+		  return
+      if (curId == chatId) {
+        chrome.tabs.update(tabId, { highlighted: true });
+		curId = tabId;
+      } else {
+        chrome.tabs.update(chatId, { highlighted: true });
+		curId = chatId;
+      }
+      break;
+
+    default:
+      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, { command: command });
+      });
+      break;
+  }
+});
+
+chrome.tabs.onActivated.addListener(function (chTab) {
+  chrome.tabs.get(chTab["tabId"], function (tab) {
+    if (tab["url"].search(".*videochatru.com.*") != -1) {
+      chatId = tab["id"];
+    } else {
+      tabId = tab["id"];
+    }
+	curId = tab["id"];
   });
 });
 
@@ -24,5 +53,5 @@ chrome.browserAction.onClicked.addListener(function (tab) {
 
 chrome.runtime.onInstalled.addListener(function (details) {
   if (details.reason === "install")
-    chrome.tabs.create({ url: "https://videochatru.com/embed/" })
+    chrome.tabs.create({ url: "https://videochatru.com/embed/" });
 });
