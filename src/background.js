@@ -20,10 +20,10 @@ chrome.commands.onCommand.addListener(function (command) {
       if (curId === -1 || chatId === -1 || tabId === -1)
 		  return
       if (curId == chatId) {
-        chrome.tabs.update(tabId, { highlighted: true });
+        chrome.tabs.update(tabId, { selected: true });
 		curId = tabId;
       } else {
-        chrome.tabs.update(chatId, { highlighted: true });
+        chrome.tabs.update(chatId, { selected: true });
 		curId = chatId;
       }
       break;
