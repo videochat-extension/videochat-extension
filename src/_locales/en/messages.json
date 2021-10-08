@@ -36,7 +36,7 @@
         "message": "<b>API does not work.</b></br>The free version of the IP geolocation service we use does not support SSL (https).</br></br>To protect your data from hackers, browsers prohibit its extensions from interacting with the Internet via unsecured http.</br>Since there is nothing dangerous for you in the IP address of your interlocutor, which the extension sends to a third-party service, I recommend you to fix it manually.</br></br><b>There are two ways to bypass this problem:</b></br></br><b>1:</b></br>1. Allow insecure content for this site <a href = 'https://support.google.com/chrome/answer/114662?Co=Genie.Platform%3DDesktop#zippy=%2cpermissions-that-can-be-changed'> in the site settings</a>.</br></br><b>2:</b></br>1. Open 'chrome://flags/#unsafely-treat-insecure-origin-as-secure' in the browser.</br>2. Add 'http://ip-api.com' in the text field.</br>3. Enable the flag (Default -> Enable).</br>4. Restart the browser."
     },
     "github": {
-        "message": "More useful information: <b><a style= 'text-decoration: none!important;' href='https://github.com/qrlk/videochatru-mitm'>github</a></b>."
+        "message": "More useful information: <b><a style= 'text-decoration: none!important;' href='https://github.com/qrlk/videochatru-extension'>github</a></b>."
     },
     "author": {
         "message": "<b>Maintainer:</b>"

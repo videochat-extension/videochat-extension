@@ -36,7 +36,7 @@
         "message": "<b>API не работает.</b></br>Бесплатная версия сервиса геолокации IP, который мы используем, не поддерживает SSL (https).</br></br>Для защиты ваших данных от хакеров браузеры запрещают своим расширениям взаимодействовать с Интернетом по незащищенному http.</br>Поскольку в IP-адресе вашего собеседника, который расширение отправляет стороннему сервису, нет ничего опасного для вас, я рекомендую вам исправить это вручную.</br></br><b>Есть два способа обойти эту проблему:</b></br></br><b>Способ первый:</b></br>1. Разрешите небезопасный контент для этого сайта <a href='https://support.google.com/chrome/answer/114662?co=GENIE.Platform%3DDesktop#zippy=%2Cpermissions-that-can-be-changed'>в настройках</a>.</br></br><b>Способ второй:</b></br>1. Откройте 'chrome://flags/#unsafely-treat-insecure-origin-as-secure' в браузере.</br>2. Добавьте 'http://ip-api.com' в текстовое поле.</br>3. Включите этот флаг (Default -> Enable).</br>4. Перезапустите браузер."
     },
     "github": {
-        "message": "Больше полезной информации: <b><a style= 'text-decoration: none!important;' href='https://github.com/qrlk/videochatru-mitm'>github</a></b>."
+        "message": "Больше полезной информации: <b><a style= 'text-decoration: none!important;' href='https://github.com/qrlk/videochatru-extension'>github</a></b>."
     },
     "author": {
         "message": "<b>Автор:</b>"
