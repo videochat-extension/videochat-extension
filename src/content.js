@@ -324,6 +324,14 @@ chrome.storage.sync.get(null, function (result) {
                             id: 'stBnIp'
                         }),
                         createElement('br'),
+                        createElement('br'),
+                        createElement('span', {
+                            innerText: `time spent: `
+                        }),
+                        createElement('span', {
+                            id: 'stTime'
+                        }),
+                        createElement('br'),
                     ]
                 )
             ]),
@@ -600,6 +608,20 @@ chrome.storage.sync.get(null, function (result) {
         }
     });
 
+
+    function secondsToTime(secs) {
+        secs = Math.round(secs);
+        var hours = Math.floor(secs / (60 * 60));
+
+        var divisor_for_minutes = secs % (60 * 60);
+        var minutes = Math.floor(divisor_for_minutes / 60);
+
+        var divisor_for_seconds = divisor_for_minutes % 60;
+        var seconds = Math.ceil(divisor_for_seconds);
+
+        return hours + ":" + minutes + ":" + seconds;
+    }
+
     function updStats() {
         stWhole.innerText = settings.stats.countAll
         stMlSk.innerText = settings.stats.countMaleSkip
@@ -608,7 +630,10 @@ chrome.storage.sync.get(null, function (result) {
         stBnCt.innerText = settings.ips.length
         stNwIp.innerText = settings.stats.countNew
         stBnIp.innerText = settings.stats.countDup
-        chrome.storage.sync.set({ "ips": settings.ips, "stats": settings.stats});
+
+        stTime.innerText = secondsToTime(settings.stats.time)
+
+        chrome.storage.sync.set({ "ips": settings.ips, "stats": settings.stats });
     }
 
     var config = { attributes: true, childList: true, characterData: true };
@@ -840,6 +865,11 @@ chrome.storage.sync.get(null, function (result) {
     var observer2 = new MutationObserver(function (mutations) {
         mutations.forEach(function (mutation) {
             if (mutation.attributeName === "class") {
+
+                if (stage == 3) {
+                    settings.stats.time += parseInt((Date.now() - play) / 1000)
+                }
+
                 var attributeValue = $(mutation.target).prop(mutation.attributeName);
                 if (attributeValue.includes("s-search")) {
                     stage = 1
@@ -914,7 +944,7 @@ chrome.runtime.onMessage.addListener(
                 }
                 break;
 
-                
+
             case "stop":
                 document.getElementsByClassName('buttons__button stop-button')[0].click()
                 break;

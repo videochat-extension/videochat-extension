@@ -11,7 +11,8 @@ var defaults = {
     countDup: 0,
     countManSkip: 0,
     countMaleSkip: 0,
-    countFemaleSkip: 0
+    countFemaleSkip: 0,
+    time: 0
   },
   ips: []
 };
