@@ -5,6 +5,15 @@ var defaults = {
   skipMale: false,
   skipFemale: false,
   skipSound: false,
+  stats: {
+    countAll: 0,
+    countNew: 0,
+    countDup: 0,
+    countManSkip: 0,
+    countMaleSkip: 0,
+    countFemaleSkip: 0
+  },
+  ips: []
 };
 chrome.storage.sync.get(defaults, function (result) {
   chrome.storage.sync.set(result);

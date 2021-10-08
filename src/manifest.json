@@ -58,6 +58,9 @@
       },
       "description": "Skip"
     },
+    "skip_ban": {
+      "description": "Skip + Ban"
+    },
     "screen_remote": {
       "suggested_key": {
         "default": "Alt+Up"

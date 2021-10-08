@@ -134,6 +134,10 @@ chrome.storage.sync.get(null, function (result) {
                 clear: both;
               }`
             }),
+            createElement('p', {
+                id: "remoteIP",
+                style: "display: none;"
+            }),
             createElement('div', {
                 id: "remoteIPInfo",
                 style: "display: none;"
@@ -201,10 +205,16 @@ chrome.storage.sync.get(null, function (result) {
             }, [
                 createElement('li', {
                     className: "active",
-                    innerText: chrome.i18n.getMessage("tab1")
+                    innerText: chrome.i18n.getMessage("tab1"),
                 }),
                 createElement('li', {
-                    innerText: chrome.i18n.getMessage("tab2")
+                    innerText: chrome.i18n.getMessage("tab2"),
+                }),
+                createElement('li', {
+                    innerText: "Bans",
+                }),
+                createElement('li', {
+                    innerText: "Stats"
                 }),
                 createElement('li', {
                     innerText: chrome.i18n.getMessage("tab3")
@@ -236,107 +246,196 @@ chrome.storage.sync.get(null, function (result) {
                     style: "width: 100%"
                 })
             ]),
+
+            createElement('div', {
+                className: "tabs__content",
+                id: "bansPanel",
+                style: "height:100%;"
+            }, [
+                createElement('div', {
+                    id: "bansInfo",
+                    style: "overflow-y: auto; margin-top: 3px"
+                },
+                    [
+                        createElement('span', {
+                            innerHTML: chrome.i18n.getMessage("desc"),
+                        })
+                    ]
+                )
+            ]),
+
+            createElement('div', {
+                className: "tabs__content",
+                id: "statsPanel",
+                style: "height:100%;"
+            }, [
+                createElement('div', {
+                    id: "statsInfo",
+                    style: "overflow-y: auto; margin-top: 3px"
+                },
+                    [
+                        createElement('span', {
+                            innerText: `whole: `
+                        }),
+                        createElement('span', {
+                            id: 'stWhole'
+                        }),
+                        createElement('br'),
+                        createElement('span', {
+                            innerText: `male skip: `
+                        }),
+                        createElement('span', {
+                            id: 'stMlSk'
+                        }),
+                        createElement('br'),
+                        createElement('span', {
+                            innerText: `female skip: `
+                        }),
+                        createElement('span', {
+                            id: 'stFmlSk'
+                        }),
+                        createElement('br'),
+                        createElement('span', {
+                            innerText: `manual skip: `
+                        }),
+                        createElement('span', {
+                            id: 'stMnSk'
+                        }),
+                        createElement('br'),
+                        createElement('br'),
+                        createElement('span', {
+                            innerText: `banned ips: `
+                        }),
+                        createElement('span', {
+                            id: 'stBnCt'
+                        }),
+                        createElement('br'),
+                        createElement('span', {
+                            innerText: `good ips: `
+                        }),
+                        createElement('span', {
+                            id: 'stNwIp'
+                        }),
+                        createElement('br'),
+                        createElement('span', {
+                            innerText: `bad ips: `
+                        }),
+                        createElement('span', {
+                            id: 'stBnIp'
+                        }),
+                        createElement('br'),
+                    ]
+                )
+            ]),
             createElement('div', {
                 className: "tabs__content",
                 id: "settingsPanel",
+                style: "height:100%;"
             }, [
-                createElement('span', {
-                    innerText: chrome.i18n.getMessage("skip_males"),
-                }, [
-                    createElement('input', {
-                        type: "checkbox",
-                        checked: settings.skipMale,
-                        id: "skipMaleCheck",
-                        onclick: () => {
-                            chrome.storage.sync.set({ "skipMale": skipMaleCheck.checked }, function () {
-                                location.reload()
-                            });
-                        }
-                    })
-                ]),
-                createElement('br'),
-                createElement('span', {
-                    innerText: chrome.i18n.getMessage("skip_females"),
-                }, [
-                    createElement('input', {
-                        type: "checkbox",
-                        checked: settings.skipFemale,
-                        id: "skipFemaleCheck",
-                        onclick: () => {
-                            chrome.storage.sync.set({ "skipFemale": skipFemaleCheck.checked }, function () {
-                                location.reload()
-                            });
-                        }
-                    })
-                ]),
-                createElement('br'),
-                createElement('span', {
-                    innerText: chrome.i18n.getMessage("skip_sound"),
-                }, [
-                    createElement('input', {
-                        type: "checkbox",
-                        checked: settings.skipSound,
-                        id: "skipSoundCheck",
-                        onclick: () => {
-                            chrome.storage.sync.set({ "skipSound": skipSoundCheck.checked }, function () {
-                            });
-                        }
-                    })
-                ]),
-                createElement('br'),
-                createElement('span', {
-                    innerText: chrome.i18n.getMessage("mirror"),
-                }, [
-                    createElement('input', {
-                        type: "checkbox",
-                        checked: settings.mirror,
-                        id: "mirrorCheck",
-                        onclick: () => {
-                            chrome.storage.sync.set({ "mirror": mirrorCheck.checked }, function () {
-                                location.reload()
-                            });
-                        }
-                    })
-                ]),
-                createElement('br'),
+                createElement('div', {
+                    id: "settingsInfo",
+                    style: "overflow-y: auto; margin-top: 3px"
+                },
+                    [
 
-                createElement('span', {
-                    innerText: chrome.i18n.getMessage("watermark"),
-                }, [
-                    createElement('input', {
-                        type: "checkbox",
-                        checked: settings.hideWatermark,
-                        id: "hideWatermarkCheck",
-                        onclick: () => {
-                            chrome.storage.sync.set({ "hideWatermark": hideWatermarkCheck.checked }, function () {
-                                if (hideWatermarkCheck.checked) {
-                                    document.getElementsByClassName("remote-video__watermark")[0].style.opacity = 0.0
-                                } else {
-                                    document.getElementsByClassName("remote-video__watermark")[0].style.opacity = 1.0
+                        createElement('span', {
+                            innerText: chrome.i18n.getMessage("skip_males"),
+                        }, [
+                            createElement('input', {
+                                type: "checkbox",
+                                checked: settings.skipMale,
+                                id: "skipMaleCheck",
+                                onclick: () => {
+                                    chrome.storage.sync.set({ "skipMale": skipMaleCheck.checked }, function () {
+                                        location.reload()
+                                    });
                                 }
-                            });
-                        }
-                    })
-                ]),
-                createElement('br'),
-                createElement('span', {
-                    innerText: chrome.i18n.getMessage("banner"),
-                }, [
-                    createElement('input', {
-                        type: "checkbox",
-                        checked: settings.hideBanner,
-                        id: "hideBannerCheck",
-                        onclick: () => {
-                            chrome.storage.sync.set({ "hideBanner": hideBannerCheck.checked }, function () {
-                                if (hideBannerCheck.checked) {
-                                    document.getElementsByClassName("caption remote-video__info")[0].style.opacity = 0.0
-                                } else {
-                                    document.getElementsByClassName("caption remote-video__info")[0].style.opacity = 1.0
+                            })
+                        ]),
+                        createElement('br'),
+                        createElement('span', {
+                            innerText: chrome.i18n.getMessage("skip_females"),
+                        }, [
+                            createElement('input', {
+                                type: "checkbox",
+                                checked: settings.skipFemale,
+                                id: "skipFemaleCheck",
+                                onclick: () => {
+                                    chrome.storage.sync.set({ "skipFemale": skipFemaleCheck.checked }, function () {
+                                        location.reload()
+                                    });
                                 }
-                            });
-                        }
-                    })
-                ]),
+                            })
+                        ]),
+                        createElement('br'),
+                        createElement('span', {
+                            innerText: chrome.i18n.getMessage("skip_sound"),
+                        }, [
+                            createElement('input', {
+                                type: "checkbox",
+                                checked: settings.skipSound,
+                                id: "skipSoundCheck",
+                                onclick: () => {
+                                    chrome.storage.sync.set({ "skipSound": skipSoundCheck.checked }, function () {
+                                    });
+                                }
+                            })
+                        ]),
+                        createElement('br'),
+                        createElement('span', {
+                            innerText: chrome.i18n.getMessage("mirror"),
+                        }, [
+                            createElement('input', {
+                                type: "checkbox",
+                                checked: settings.mirror,
+                                id: "mirrorCheck",
+                                onclick: () => {
+                                    chrome.storage.sync.set({ "mirror": mirrorCheck.checked }, function () {
+                                        location.reload()
+                                    });
+                                }
+                            })
+                        ]),
+                        createElement('br'),
+
+                        createElement('span', {
+                            innerText: chrome.i18n.getMessage("watermark"),
+                        }, [
+                            createElement('input', {
+                                type: "checkbox",
+                                checked: settings.hideWatermark,
+                                id: "hideWatermarkCheck",
+                                onclick: () => {
+                                    chrome.storage.sync.set({ "hideWatermark": hideWatermarkCheck.checked }, function () {
+                                        if (hideWatermarkCheck.checked) {
+                                            document.getElementsByClassName("remote-video__watermark")[0].style.opacity = 0.0
+                                        } else {
+                                            document.getElementsByClassName("remote-video__watermark")[0].style.opacity = 1.0
+                                        }
+                                    });
+                                }
+                            })
+                        ]),
+                        createElement('br'),
+                        createElement('span', {
+                            innerText: chrome.i18n.getMessage("banner"),
+                        }, [
+                            createElement('input', {
+                                type: "checkbox",
+                                checked: settings.hideBanner,
+                                id: "hideBannerCheck",
+                                onclick: () => {
+                                    chrome.storage.sync.set({ "hideBanner": hideBannerCheck.checked }, function () {
+                                        if (hideBannerCheck.checked) {
+                                            document.getElementsByClassName("caption remote-video__info")[0].style.opacity = 0.0
+                                        } else {
+                                            document.getElementsByClassName("caption remote-video__info")[0].style.opacity = 1.0
+                                        }
+                                    });
+                                }
+                            })
+                        ]),
+                    ])
             ]),
             createElement('div', {
                 className: "tabs__content",
@@ -487,6 +586,48 @@ chrome.storage.sync.get(null, function (result) {
 
     $(controls).insertBefore(".chat");
 
+    var target = document.querySelector('#remoteIP')
+    var observer = new MutationObserver(function (mutations) {
+
+        if (settings.ips.includes(target.innerText)) {
+            settings.stats.countDup++
+            console.dir("old ip")
+            ban.play()
+            document.getElementsByClassName('buttons__button start-button')[0].click()
+        } else {
+            settings.stats.countNew++
+            console.dir("new ip")
+        }
+    });
+
+    function updStats() {
+        stWhole.innerText = settings.stats.countAll
+        stMlSk.innerText = settings.stats.countMaleSkip
+        stFmlSk.innerText = settings.stats.countFemaleSkip
+        stMnSk.innerText = settings.stats.countManSkip
+        stBnCt.innerText = settings.ips.length
+        stNwIp.innerText = settings.stats.countNew
+        stBnIp.innerText = settings.stats.countDup
+        chrome.storage.sync.set({ "ips": settings.ips, "stats": settings.stats});
+    }
+
+    var config = { attributes: true, childList: true, characterData: true };
+
+    observer.observe(target, config);
+
+    document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e) => {
+        if (e.target.outerText == "Next") {
+            if (stage == 3)
+                settings.stats.countManSkip++
+
+            if (e.shiftKey && !settings.ips.includes(remoteIP.innerText)) {
+                settings.ips.push(remoteIP.innerText)
+
+                male.play()
+            }
+        }
+    })
+
     male = new Audio(chrome.extension.getURL('audio/male.mp3'))
     ban = new Audio(chrome.extension.getURL('audio/ban.mp3'))
     female = new Audio(chrome.extension.getURL('audio/female.mp3'))
@@ -517,11 +658,11 @@ chrome.storage.sync.get(null, function (result) {
 
             for (var i = 0; i < array.length; i++) {
                 text += `<b>* ${array[i].gender} (${(array[i].genderProbability * 100).toFixed(0) + '%'}), ${(array[i].age).toFixed(0)}</b></br>`
-                if (array[i].gender == "male" && (array[i].genderProbability * 100).toFixed(0) > 70) {
+                if (array[i].gender == "male" && (array[i].genderProbability * 100).toFixed(0) > 90) {
                     skip_m = true
                     stop = true
                 }
-                if (array[i].gender == "female" && (array[i].genderProbability * 100).toFixed(0) > 70) {
+                if (array[i].gender == "female" && (array[i].genderProbability * 100).toFixed(0) > 90) {
                     skip_f = true
                     stop = true
                 }
@@ -531,22 +672,20 @@ chrome.storage.sync.get(null, function (result) {
                 text += `<b>male skipping...</b></br>`
                 document.getElementsByClassName('buttons__button start-button')[0].click()
                 console.log("MALE SKIPPED")
+                settings.stats.countMaleSkip++
+                settings.stats.countManSkip--
                 if (settings.skipSound)
-                    if (getRandomInt(1, 100) == 69)
-                        ban.play()
-                    else
-                        male.play()
+                    male.play()
             }
 
             if (skip_f && settings.skipFemale) {
                 text += `<b>female skipping...</b></br>`
                 document.getElementsByClassName('buttons__button start-button')[0].click()
                 console.log("FEMALE SKIPPED")
+                settings.stats.countFemaleSkip++
+                settings.stats.countManSkip--
                 if (settings.skipSound)
-                    if (getRandomInt(1, 100) == 69)
-                        ban.play()
-                    else
-                        female.play()
+                    female.play()
             }
 
             if (text != '')
@@ -632,6 +771,10 @@ chrome.storage.sync.get(null, function (result) {
         remoteInfo.style.height = $("#apiInfoContent")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
         aboutInfo.style.height = $("#aboutPanel")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
 
+        settingsInfo.style.height = $("#settingsPanel")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
+
+        bansInfo.style.height = $("#bansPanel")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
+        statsInfo.style.height = $("#statsPanel")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
         map.invalidateSize()
     }
 
@@ -711,6 +854,7 @@ chrome.storage.sync.get(null, function (result) {
 
                     search = Date.now()
                 } else if (attributeValue.includes("s-found")) {
+
                     // remoteFace.innerHTML = ''
                     stage = 2
                     localStage.innerText = 2
@@ -727,6 +871,8 @@ chrome.storage.sync.get(null, function (result) {
 
                     play = Date.now()
                     console.log("Loading took: ", parseFloat((play - found) / 1000).toFixed(2), "sec")
+
+                    settings.stats.countAll++
                 } else if (attributeValue.includes("s-stop")) {
                     // offline.play()
                     clearInterval(tim)
@@ -736,6 +882,8 @@ chrome.storage.sync.get(null, function (result) {
                     stage = 0
                     localStage.innerText = 0
                 }
+
+                updStats()
             }
         });
     });
@@ -757,6 +905,16 @@ chrome.runtime.onMessage.addListener(
                 document.getElementsByClassName('buttons__button start-button')[0].click()
                 break;
 
+            case "skip_ban":
+                document.getElementsByClassName('buttons__button start-button')[0].click()
+
+                if (!settings.ips.includes(remoteIP.innerText)) {
+                    settings.ips.push(remoteIP.innerText)
+                    male.play()
+                }
+                break;
+
+                
             case "stop":
                 document.getElementsByClassName('buttons__button stop-button')[0].click()
                 break;
