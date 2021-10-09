@@ -169,6 +169,17 @@ chrome.storage.sync.get(null, function (result) {
                             innerText: "^"
                         })
                     ]),
+                    createElement('button', {
+                        style: "color: green; height:15px",
+                        title: "pip remote",
+                        onclick: () => {
+                            document.getElementById("remote-video").requestPictureInPicture()
+                        },
+                    }, [
+                        createElement('b', {
+                            innerText: "^"
+                        })
+                    ]),
                 ]),
 
                 createElement('b', {
@@ -179,6 +190,17 @@ chrome.storage.sync.get(null, function (result) {
                 createElement('div', {
                     style: "position:absolute; right:0; top:0",
                 }, [
+                    createElement('button', {
+                        style: "color: green; height:15px",
+                        title: "pip local",
+                        onclick: () => {
+                            document.getElementById("local-video").requestPictureInPicture()
+                        },
+                    }, [
+                        createElement('b', {
+                            innerText: "^"
+                        })
+                    ]),
                     createElement('button', {
                         style: "color: red; height:15px",
                         title: chrome.i18n.getMessage("screen_local"),
