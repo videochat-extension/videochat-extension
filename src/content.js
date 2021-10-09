@@ -280,8 +280,26 @@ chrome.storage.sync.get(null, function (result) {
                 },
                     [
                         createElement('span', {
-                            innerHTML: chrome.i18n.getMessage("desc"),
-                        })
+                            innerText: `banned ips: `
+                        }),
+                        createElement('span', {
+                            id: 'stBnCt'
+                        }),
+                        createElement('br'),
+                        createElement('br'),
+                        createElement('span', {
+                            innerText: `good ips: `
+                        }),
+                        createElement('span', {
+                            id: 'stNwIp'
+                        }),
+                        createElement('br'),
+                        createElement('span', {
+                            innerText: `bad ips: `
+                        }),
+                        createElement('span', {
+                            id: 'stBnIp'
+                        }),
                     ]
                 )
             ]),
@@ -322,28 +340,6 @@ chrome.storage.sync.get(null, function (result) {
                         }),
                         createElement('span', {
                             id: 'stMnSk'
-                        }),
-                        createElement('br'),
-                        createElement('br'),
-                        createElement('span', {
-                            innerText: `banned ips: `
-                        }),
-                        createElement('span', {
-                            id: 'stBnCt'
-                        }),
-                        createElement('br'),
-                        createElement('span', {
-                            innerText: `good ips: `
-                        }),
-                        createElement('span', {
-                            id: 'stNwIp'
-                        }),
-                        createElement('br'),
-                        createElement('span', {
-                            innerText: `bad ips: `
-                        }),
-                        createElement('span', {
-                            id: 'stBnIp'
                         }),
                         createElement('br'),
                         createElement('br'),
