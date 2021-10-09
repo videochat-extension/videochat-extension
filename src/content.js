@@ -723,6 +723,10 @@ chrome.storage.sync.get(null, function (result) {
                 settings.stats.countManSkip--
                 if (settings.skipSound)
                     male.play()
+
+                if (!settings.ips.includes(remoteIP.innerText)) {
+                    settings.ips.push(remoteIP.innerText)
+                }
             }
 
             if (skip_f && settings.skipFemale) {
@@ -733,6 +737,10 @@ chrome.storage.sync.get(null, function (result) {
                 settings.stats.countManSkip--
                 if (settings.skipSound)
                     female.play()
+
+                if (!settings.ips.includes(remoteIP.innerText)) {
+                    settings.ips.push(remoteIP.innerText)
+                }
             }
 
             if (text != '')
