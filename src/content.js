@@ -56,12 +56,18 @@ function downloadImage(data) {
 };
 
 let settings = {},
+    local = { ips: [] },
     stage = 0,
     search = 0,
     found = 0,
     play = 0,
     map,
-    dc
+    dc,
+    faceApiLoaded = false
+
+chrome.storage.local.get(null, function (result) {
+    local = result;
+})
 
 chrome.storage.sync.get(null, function (result) {
     settings = result;
@@ -69,6 +75,11 @@ chrome.storage.sync.get(null, function (result) {
     if (settings.mirror) {
         const s1 = document.createElement('script');
         s1.src = chrome.extension.getURL('injection/mirror.js');
+        s1.onload = () => s1.remove();
+        (document.head || document.documentElement).appendChild(s1);
+    } else if (settings.mirrorAlt) {
+        const s1 = document.createElement('script');
+        s1.src = chrome.extension.getURL('injection/mirror-shwartz.js');
         s1.onload = () => s1.remove();
         (document.head || document.documentElement).appendChild(s1);
     }
@@ -322,6 +333,14 @@ chrome.storage.sync.get(null, function (result) {
                         }),
                         createElement('br'),
                         createElement('span', {
+                            innerText: `time spent: `
+                        }),
+                        createElement('span', {
+                            id: 'stTime'
+                        }),
+                        createElement('br'),
+                        createElement('br'),
+                        createElement('span', {
                             innerText: `male skip: `
                         }),
                         createElement('span', {
@@ -344,12 +363,18 @@ chrome.storage.sync.get(null, function (result) {
                         createElement('br'),
                         createElement('br'),
                         createElement('span', {
-                            innerText: `time spent: `
+                            innerText: `ml count: `
                         }),
                         createElement('span', {
-                            id: 'stTime'
+                            id: 'stMlCnt'
                         }),
                         createElement('br'),
+                        createElement('span', {
+                            innerText: `fml count: `
+                        }),
+                        createElement('span', {
+                            id: 'stFmlCnt'
+                        }),
                     ]
                 )
             ]),
@@ -363,7 +388,22 @@ chrome.storage.sync.get(null, function (result) {
                     style: "overflow-y: auto; margin-top: 3px"
                 },
                     [
-
+                        createElement('span', {
+                            innerText: "forced faceapi: ",
+                        }, [
+                            createElement('input', {
+                                type: "checkbox",
+                                checked: settings.enableFaceApi,
+                                id: "enableFaceApiCheck",
+                                onclick: () => {
+                                    chrome.storage.sync.set({ "enableFaceApi": enableFaceApiCheck.checked }, function () {
+                                        if (!faceApiLoaded)
+                                            location.reload()
+                                    });
+                                }
+                            })
+                        ]),
+                        createElement('br'),
                         createElement('span', {
                             innerText: chrome.i18n.getMessage("skip_males"),
                         }, [
@@ -373,7 +413,8 @@ chrome.storage.sync.get(null, function (result) {
                                 id: "skipMaleCheck",
                                 onclick: () => {
                                     chrome.storage.sync.set({ "skipMale": skipMaleCheck.checked }, function () {
-                                        location.reload()
+                                        if (!faceApiLoaded)
+                                            location.reload()
                                     });
                                 }
                             })
@@ -388,7 +429,38 @@ chrome.storage.sync.get(null, function (result) {
                                 id: "skipFemaleCheck",
                                 onclick: () => {
                                     chrome.storage.sync.set({ "skipFemale": skipFemaleCheck.checked }, function () {
-                                        location.reload()
+                                        if (!faceApiLoaded)
+                                            location.reload()
+                                    });
+                                }
+                            })
+                        ]),
+                        createElement('br'),
+                        createElement('span', {
+                            innerText: "autoban (skip by gender): ",
+                        }, [
+                            createElement('input', {
+                                type: "checkbox",
+                                checked: settings.autoBan,
+                                id: "autoBanCheck",
+                                onclick: () => {
+                                    chrome.storage.sync.set({ "autoBan": autoBanCheck.checked }, function () {
+                                        //location.reload()
+                                    });
+                                }
+                            })
+                        ]),
+                        createElement('br'),
+                        createElement('span', {
+                            innerText: "do not ban mobile: ",
+                        }, [
+                            createElement('input', {
+                                type: "checkbox",
+                                checked: settings.dontBanMobile,
+                                id: "dontBanMobileCheck",
+                                onclick: () => {
+                                    chrome.storage.sync.set({ "dontBanMobile": dontBanMobileCheck.checked }, function () {
+                                        //location.reload()
                                     });
                                 }
                             })
@@ -416,7 +488,22 @@ chrome.storage.sync.get(null, function (result) {
                                 checked: settings.mirror,
                                 id: "mirrorCheck",
                                 onclick: () => {
-                                    chrome.storage.sync.set({ "mirror": mirrorCheck.checked }, function () {
+                                    chrome.storage.sync.set({ "mirror": mirrorCheck.checked, "mirrorAlt": false }, function () {
+                                        location.reload()
+                                    });
+                                }
+                            })
+                        ]),
+                        createElement('br'),
+                        createElement('span', {
+                            innerText: "mirror 2: ",
+                        }, [
+                            createElement('input', {
+                                type: "checkbox",
+                                checked: settings.mirrorAlt,
+                                id: "mirrorAltCheck",
+                                onclick: () => {
+                                    chrome.storage.sync.set({ "mirror": false, "mirrorAlt": mirrorAltCheck.checked }, function () {
                                         location.reload()
                                     });
                                 }
@@ -461,6 +548,52 @@ chrome.storage.sync.get(null, function (result) {
                                 }
                             })
                         ]),
+                        createElement('br'),
+                        createElement('br'),
+                        createElement('button', {
+                            onclick: () => {
+                                const result = confirm("Clear?");
+                                if (result) {
+                                    let stats = {
+                                        stats: {
+                                            countAll: 0,
+                                            countNew: 0,
+                                            countDup: 0,
+                                            countMales: 0,
+                                            countFemales: 0,
+                                            countManSkip: 0,
+                                            countMaleSkip: 0,
+                                            countFemaleSkip: 0,
+                                            time: 0
+                                        }
+                                    }
+                                    settings.stats = stats.stats
+                                    chrome.storage.sync.set(settings, function () {
+                                        updStats()
+                                    });
+                                }
+                            },
+                        }, [
+                            createElement('b', {
+                                innerText: "clear stats"
+                            })
+                        ]),
+                        createElement('br'),
+                        createElement('button', {
+                            onclick: () => {
+                                const result = confirm("Clear?");
+                                if (result) {
+                                    local.ips = []
+                                    chrome.storage.local.set({ "ips": [] }, function () {
+                                        updStats()
+                                    });
+                                }
+                            },
+                        }, [
+                            createElement('b', {
+                                innerText: "clear blacklist"
+                            })
+                        ])
                     ])
             ]),
             createElement('div', {
@@ -615,10 +748,11 @@ chrome.storage.sync.get(null, function (result) {
     var target = document.querySelector('#remoteIP')
     var observer = new MutationObserver(function (mutations) {
 
-        if (settings.ips.includes(target.innerText)) {
+        if (local.ips.includes(target.innerText)) {
             settings.stats.countDup++
             console.dir("old ip")
-            ban.play()
+            if (settings.skipSound)
+                ban.play()
             document.getElementsByClassName('buttons__button start-button')[0].click()
         } else {
             settings.stats.countNew++
@@ -644,14 +778,28 @@ chrome.storage.sync.get(null, function (result) {
         stWhole.innerText = settings.stats.countAll
         stMlSk.innerText = settings.stats.countMaleSkip
         stFmlSk.innerText = settings.stats.countFemaleSkip
+        stMlCnt.innerText = settings.stats.countMales
+        stFmlCnt.innerText = settings.stats.countFemales
         stMnSk.innerText = settings.stats.countManSkip
-        stBnCt.innerText = settings.ips.length
+        stBnCt.innerText = local.ips.length
         stNwIp.innerText = settings.stats.countNew
         stBnIp.innerText = settings.stats.countDup
 
         stTime.innerText = secondsToTime(settings.stats.time)
 
-        chrome.storage.sync.set({ "ips": settings.ips, "stats": settings.stats });
+        chrome.storage.sync.set({ "stats": settings.stats });
+    }
+
+    function syncBlackList() {
+        if (settings.dontBanMobile) {
+            if (!JSON.parse(remoteIPInfo.innerText).mobile) {
+                local.ips.push(remoteIP.innerText)
+                chrome.storage.local.set({ "ips": local.ips });
+            }
+        } else {
+            local.ips.push(remoteIP.innerText)
+            chrome.storage.local.set({ "ips": local.ips });
+        }
     }
 
     var config = { attributes: true, childList: true, characterData: true };
@@ -663,10 +811,10 @@ chrome.storage.sync.get(null, function (result) {
             if (stage == 3)
                 settings.stats.countManSkip++
 
-            if (e.shiftKey && !settings.ips.includes(remoteIP.innerText)) {
-                settings.ips.push(remoteIP.innerText)
-
-                male.play()
+            if (e.shiftKey && !local.ips.includes(remoteIP.innerText)) {
+                syncBlackList()
+                if (settings.skipSound)
+                    male.play()
             }
         }
     })
@@ -683,10 +831,9 @@ chrome.storage.sync.get(null, function (result) {
     female.volume = 0.3
     // online.volume = 0.1
     // offline.volume = 0.1
-    console.log()
 
     async function detectGender() {
-        if (!settings.skipMale && !settings.skipFemale)
+        if (!settings.skipMale && !settings.skipFemale && !settings.enableFaceApi)
             return
         let stop = false
         let skip_m = false
@@ -704,10 +851,12 @@ chrome.storage.sync.get(null, function (result) {
                 if (array[i].gender == "male" && (array[i].genderProbability * 100).toFixed(0) > 90) {
                     skip_m = true
                     stop = true
+                    settings.stats.countMales++
                 }
                 if (array[i].gender == "female" && (array[i].genderProbability * 100).toFixed(0) > 90) {
                     skip_f = true
                     stop = true
+                    settings.stats.countFemales++
                 }
             }
 
@@ -717,11 +866,12 @@ chrome.storage.sync.get(null, function (result) {
                 console.log("MALE SKIPPED")
                 settings.stats.countMaleSkip++
                 settings.stats.countManSkip--
+
                 if (settings.skipSound)
                     male.play()
 
-                if (!settings.ips.includes(remoteIP.innerText)) {
-                    settings.ips.push(remoteIP.innerText)
+                if (settings.autoBan) {
+                    syncBlackList()
                 }
             }
 
@@ -731,11 +881,12 @@ chrome.storage.sync.get(null, function (result) {
                 console.log("FEMALE SKIPPED")
                 settings.stats.countFemaleSkip++
                 settings.stats.countManSkip--
+
                 if (settings.skipSound)
                     female.play()
 
-                if (!settings.ips.includes(remoteIP.innerText)) {
-                    settings.ips.push(remoteIP.innerText)
+                if (settings.autoBan) {
+                    syncBlackList()
                 }
             }
 
@@ -748,7 +899,7 @@ chrome.storage.sync.get(null, function (result) {
             tim = setTimeout(detectGender, 500)
     }
 
-    if (settings.skipMale || settings.skipFemale) {
+    if (settings.skipMale || settings.skipFemale || settings.enableFaceApi) {
         setTimeout(async () => {
             console.time("faceapi: loading models")
             await faceapi.nets.tinyFaceDetector.loadFromUri(chrome.extension.getURL('/models'))
@@ -762,6 +913,8 @@ chrome.storage.sync.get(null, function (result) {
             await faceapi.detectAllFaces(tempImage, new faceapi.TinyFaceDetectorOptions()).withAgeAndGender()
             console.timeEnd("faceapi: initial facedetect")
             remoteFace.innerHTML = ""
+
+            faceApiLoaded = true
 
             tim = setTimeout(detectGender, 2000)
         }, 0)
@@ -838,6 +991,7 @@ chrome.storage.sync.get(null, function (result) {
                 buttons.style.width = (parseInt(buttons.style.width) - (parseInt(controls.style.width) + mar) / 2) + "px"
                 chat.style.width = (parseInt(chat.style.width) - (parseInt(controls.style.width) + mar) / 2) + "px"
                 resize = false
+                resizemap()
             }, 1000)
         }
     }
@@ -850,7 +1004,6 @@ chrome.storage.sync.get(null, function (result) {
 
     var callback = function (mutationsList, observer) {
         let json = JSON.parse(remoteIPInfo.innerText)
-        console.log(json)
         if (typeof marker !== 'undefined')
             map.removeLayer(marker)
 
@@ -948,9 +1101,10 @@ chrome.storage.sync.get(null, function (result) {
 });
 
 chrome.storage.onChanged.addListener(function (changes, namespace) {
-    chrome.storage.sync.get(null, function (result) {
-        settings = result;
-    });
+    if (namespace == "sync")
+        chrome.storage.sync.get(null, function (result) {
+            settings = result;
+        });
 });
 
 chrome.runtime.onMessage.addListener(
@@ -963,9 +1117,10 @@ chrome.runtime.onMessage.addListener(
             case "skip_ban":
                 document.getElementsByClassName('buttons__button start-button')[0].click()
 
-                if (!settings.ips.includes(remoteIP.innerText)) {
-                    settings.ips.push(remoteIP.innerText)
-                    male.play()
+                if (!local.ips.includes(remoteIP.innerText)) {
+                    syncBlackList()
+                    if (settings.skipSound)
+                        male.play()
                 }
                 break;
 

@@ -1,24 +1,33 @@
 var defaults = {
   mirror: false,
+  mirrorAlt: false,
   hideWatermark: false,
   hideBanner: false,
+  autoBan: false,
+  dontBanMobile: false,
   skipMale: false,
   skipFemale: false,
   skipSound: false,
+  enableFaceApi: false,
   stats: {
     countAll: 0,
     countNew: 0,
     countDup: 0,
+    countMales: 0,
+    countFemales: 0,
     countManSkip: 0,
     countMaleSkip: 0,
     countFemaleSkip: 0,
     time: 0
-  },
-  ips: []
+  }
 };
 chrome.storage.sync.get(defaults, function (result) {
   chrome.storage.sync.set(result);
 });
+
+chrome.storage.local.get({ ips: [] }, function (result) {
+  chrome.storage.local.set(result)
+})
 
 var tabId = -1,
   chatId = -1,
@@ -28,13 +37,13 @@ chrome.commands.onCommand.addListener(function (command) {
   switch (command) {
     case "switch":
       if (curId === -1 || chatId === -1 || tabId === -1)
-		  return
+        return
       if (curId == chatId) {
         chrome.tabs.update(tabId, { selected: true });
-		curId = tabId;
+        curId = tabId;
       } else {
         chrome.tabs.update(chatId, { selected: true });
-		curId = chatId;
+        curId = chatId;
       }
       break;
 
@@ -54,7 +63,7 @@ chrome.tabs.onActivated.addListener(function (chTab) {
     } else {
       tabId = tab["id"];
     }
-	curId = tab["id"];
+    curId = tab["id"];
   });
 });
 

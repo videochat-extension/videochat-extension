@@ -27,6 +27,7 @@
   "web_accessible_resources": [
     "injection/injection.js",
     "injection/mirror.js",
+    "injection/mirror-shwartz.js",
     "models",
     "models/*",
     "js/leaflet/*",
@@ -43,7 +44,8 @@
   },
   "permissions": [
     "storage",
-	"tabs"
+    "unlimitedStorage",
+    "tabs"
   ],
   "background": {
     "scripts": [
@@ -79,7 +81,7 @@
       },
       "description": "Stop"
     },
-	"switch": {
+    "switch": {
       "description": "Switch from the current tab to the chat tab and back..."
     }
   }
