@@ -9,6 +9,8 @@ var defaults = {
   skipFemale: false,
   skipSound: false,
   enableFaceApi: false,
+  skipFourSec: false,
+  autoResume: false,
   stats: {
     countAll: 0,
     countNew: 0,

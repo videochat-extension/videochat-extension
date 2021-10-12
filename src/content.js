@@ -72,6 +72,29 @@ chrome.storage.local.get(null, function (result) {
 chrome.storage.sync.get(null, function (result) {
     settings = result;
 
+    setInterval(() => {
+        if (settings.skipFourSec) {
+            try {
+                if ((stage == 2) && (found + 4000 < Date.now())) {
+                    console.dir("Skipping due to loading time limit")
+                    document.getElementsByClassName('buttons__button start-button')[0].click()
+                }
+            } catch (e) {
+                console.dir(e)
+            }
+        }
+        
+        if (settings.autoResume) {
+            try {
+                if (document.getElementsByClassName("video-warning__btn")[0].firstElementChild.offsetParent != null)
+                    document.getElementsByClassName("video-warning__btn")[0].firstElementChild.click()
+            } catch (e) {
+                console.dir(e)
+            }
+        }
+    }, 1000)
+
+
     if (settings.mirror) {
         const s1 = document.createElement('script');
         s1.src = chrome.extension.getURL('injection/mirror.js');
@@ -510,7 +533,32 @@ chrome.storage.sync.get(null, function (result) {
                             })
                         ]),
                         createElement('br'),
-
+                        createElement('span', {
+                            innerText: "autoskip (4 seconds loading): ",
+                        }, [
+                            createElement('input', {
+                                type: "checkbox",
+                                checked: settings.skipFourSec,
+                                id: "skipFourSecCheck",
+                                onclick: () => {
+                                    chrome.storage.sync.set({ "skipFourSec": skipFourSecCheck.checked });
+                                }
+                            })
+                        ]),
+                        createElement('br'),
+                        createElement('span', {
+                            innerText: "autoresume ('make yourself visible'): ",
+                        }, [
+                            createElement('input', {
+                                type: "checkbox",
+                                checked: settings.autoResume,
+                                id: "autoResumeCheck",
+                                onclick: () => {
+                                    chrome.storage.sync.set({ "autoResume": autoResumeCheck.checked });
+                                }
+                            })
+                        ]),
+                        createElement('br'),
                         createElement('span', {
                             innerText: chrome.i18n.getMessage("watermark"),
                         }, [
