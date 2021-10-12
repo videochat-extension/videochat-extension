@@ -22,6 +22,9 @@
 * Determine the location of the interlocutor by his/her/their IP address.
 * Determine the current time of the interlocutor's location.
 * Determine the gender of the interlocutor and skip it automatically if the gender does not meet your expectations.
+* The ability to block the ip of the interlocutor in order not to meet with him again.
+* Count various stats.
+* Enable Picture-in-Picture mode.
 * Enable mirror mode. It's useful [if you don't have a physical camera but still want to chat](https://github.com/qrlk/videochatru-extension/wiki/No-Physical-Cam).
 * Show a map of the interlocutor's city.
 * Take a full screenshot of the interlocutor's camera or your own.
@@ -29,6 +32,7 @@
 * Open the clean site version by clicking on the extension icon.
 * Help you with advice if you accidentally got banned.
 * Convenient keyboard shortcuts for the most popular buttons.
+* Hotkey to switch between the active tab and the chat tab.
 
 ## Please note
 * This extension is intended for real users who come to chat without destructive / hostile intentions.  
@@ -69,9 +73,6 @@ If you have a desire to contribute, [here is a small instruction](CONTRIBUTING.m
 
 
 ### some ideas:
-* Usage statistics: time spent in conversations, the number of automatic skips, and so on.
-* Optionally add interlocutors to the permanent/temporary blacklist by IP.
 * Integration of the facial recognition API, services such as findclone.ru.
 * Button to clear cookies on ban popup.
 * Avoid fingerprinting.
-
