@@ -21,6 +21,25 @@ function toObject(from = {}, to = {}) {
         to[key] = value
     }
 }
+
+function syncBlackList() {
+    if (settings.dontBanMobile) {
+        if (!JSON.parse(remoteIPInfo.innerText).mobile) {
+            local.ips.push(remoteIP.innerText)
+            chrome.storage.local.set({ "ips": local.ips });
+
+            if (settings.skipSound)
+                male.play()
+        }
+    } else {
+        local.ips.push(remoteIP.innerText)
+        chrome.storage.local.set({ "ips": local.ips });
+    
+        if (settings.skipSound)
+            male.play()
+    }
+}
+
 var tim
 /**
  * @param {string} tagName 
@@ -475,7 +494,7 @@ chrome.storage.sync.get(null, function (result) {
                         ]),
                         createElement('br'),
                         createElement('span', {
-                            innerText: "do not ban mobile: ",
+                            innerText: "do not ban mobile (disable if ip api not working): ",
                         }, [
                             createElement('input', {
                                 type: "checkbox",
@@ -677,11 +696,11 @@ chrome.storage.sync.get(null, function (result) {
                         }),
                         createElement('br'),
                         createElement('span', {
-                            innerHTML: `<a href = "https://t.me/videochatru_extension"><img src="https://img.shields.io/endpoint?color=blue&label=News&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fvideochatru_extension"></a>`
+                            innerHTML: `<a target='_blank' style='text-decoration: none!important;' href = "https://t.me/videochatru_extension"><img src="https://img.shields.io/endpoint?color=blue&label=News&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fvideochatru_extension"></a>`
                         }),
                         createElement('br'),
                         createElement('span', {
-                            innerHTML: `<a href = "https://t.me/videochatru_chat"><img src="https://img.shields.io/endpoint?color=blue&label=Chat&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fvideochatru_chat"></a>`
+                            innerHTML: `<a target='_blank' style='text-decoration: none!important;' href = "https://t.me/videochatru_chat"><img src="https://img.shields.io/endpoint?color=blue&label=Chat&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fvideochatru_chat"></a>`
                         }),
                         createElement('br'),
                         createElement('br'),
@@ -702,7 +721,8 @@ chrome.storage.sync.get(null, function (result) {
                                     createElement('a', {
                                         href: "https://github.com/qrlk",
                                         innerText: "qrlk",
-                                        style: "text-decoration: none!important;"
+                                        style: "text-decoration: none!important;",
+                                        target: "_blank"
                                     })
                                 ]),
                                 createElement('dt', {
@@ -721,7 +741,8 @@ chrome.storage.sync.get(null, function (result) {
                                     createElement('a', {
                                         href: "https://github.com/unixpickle/camera-hijack",
                                         innerText: "camera-hijack",
-                                        style: "text-decoration: none!important;"
+                                        style: "text-decoration: none!important;",
+                                        target: "_blank"
                                     })
                                 ]),
                                 createElement('dd', {
@@ -730,7 +751,8 @@ chrome.storage.sync.get(null, function (result) {
                                     createElement('a', {
                                         href: "https://github.com/fippo/rtcstats",
                                         innerText: "rtcstats",
-                                        style: "text-decoration: none!important;"
+                                        style: "text-decoration: none!important;",
+                                        target: "_blank"
                                     })
                                 ]),
                                 createElement('dt', {
@@ -742,7 +764,8 @@ chrome.storage.sync.get(null, function (result) {
                                     createElement('a', {
                                         href: "https://jquery.com/",
                                         innerText: "jquery",
-                                        style: "text-decoration: none!important;"
+                                        style: "text-decoration: none!important;",
+                                        target: "_blank"
                                     })
                                 ]),
                                 createElement('dd', {
@@ -751,7 +774,8 @@ chrome.storage.sync.get(null, function (result) {
                                     createElement('a', {
                                         href: "https://github.com/justadudewhohacks/face-api.js",
                                         innerText: "face-api.js",
-                                        style: "text-decoration: none!important;"
+                                        style: "text-decoration: none!important;",
+                                        target: "_blank"
                                     })
                                 ]),
                                 createElement('dd', {
@@ -760,7 +784,8 @@ chrome.storage.sync.get(null, function (result) {
                                     createElement('a', {
                                         href: "https://github.com/uzairfarooq/arrive",
                                         innerText: "arrive.js",
-                                        style: "text-decoration: none!important;"
+                                        style: "text-decoration: none!important;",
+                                        target: "_blank"
                                     })
                                 ]),
                                 createElement('dt', {
@@ -773,7 +798,8 @@ chrome.storage.sync.get(null, function (result) {
                                     createElement('a', {
                                         href: "https://ip-api.com/",
                                         innerText: "ip-api",
-                                        style: "text-decoration: none!important;"
+                                        style: "text-decoration: none!important;",
+                                        target: "_blank"
                                     })
                                 ]),
                                 createElement('dd', {
@@ -782,7 +808,8 @@ chrome.storage.sync.get(null, function (result) {
                                     createElement('a', {
                                         href: "https://carto.com",
                                         innerText: "carto",
-                                        style: "text-decoration: none!important;"
+                                        style: "text-decoration: none!important;",
+                                        target: "_blank"
                                     })
                                 ])
                             ]),
@@ -844,18 +871,6 @@ chrome.storage.sync.get(null, function (result) {
         chrome.storage.sync.set({ "stats": settings.stats });
     }
 
-    function syncBlackList() {
-        if (settings.dontBanMobile) {
-            if (!JSON.parse(remoteIPInfo.innerText).mobile) {
-                local.ips.push(remoteIP.innerText)
-                chrome.storage.local.set({ "ips": local.ips });
-            }
-        } else {
-            local.ips.push(remoteIP.innerText)
-            chrome.storage.local.set({ "ips": local.ips });
-        }
-    }
-
     var config = { attributes: true, childList: true, characterData: true };
 
     observer.observe(target, config);
@@ -867,8 +882,6 @@ chrome.storage.sync.get(null, function (result) {
 
             if (e.shiftKey && !local.ips.includes(remoteIP.innerText)) {
                 syncBlackList()
-                if (settings.skipSound)
-                    male.play()
             }
         }
     })
@@ -1169,13 +1182,11 @@ chrome.runtime.onMessage.addListener(
                 break;
 
             case "skip_ban":
-                document.getElementsByClassName('buttons__button start-button')[0].click()
-
                 if (!local.ips.includes(remoteIP.innerText)) {
                     syncBlackList()
-                    if (settings.skipSound)
-                        male.play()
                 }
+
+                document.getElementsByClassName('buttons__button start-button')[0].click()
                 break;
 
 
