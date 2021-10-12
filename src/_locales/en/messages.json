@@ -3,7 +3,7 @@
         "message": "Chat Roulette Extension"
     },
     "extension_description": {
-        "message": "Extension for Chatruletka (aka ome.tv, Чат Рулетка): interlocutor's IP location, autoskip of the specified gender, hotkeys, etc..."
+        "message": "Extension for Chatruletka (aka ome.tv, Чат Рулетка): interlocutor's IP location, autoskip of the specified gender, blacklist, hotkeys, PiP, etc..."
     },
     "desc": {
         "message": "This is a browser extension that extends the functionality of Chat Roulette (aka ome.tv)."
