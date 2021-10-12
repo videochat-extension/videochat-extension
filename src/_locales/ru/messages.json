@@ -18,7 +18,7 @@
         "message": "Сделать скриншот с вашей камеры"
     },
     "tab1": {
-        "message": "Remote IP"
+        "message": "IP"
     },
     "tab2": {
         "message": "Карта"
@@ -78,7 +78,7 @@
         "message": "faceapi: пожалуйста, подождите..."
     },
     "hotkeys": {
-        "message": "<b>Хоткеи:</b><br>стрелка влево - пропустить<br>стрелка вверх - стоп<br>стрелка вниз - пожаловаться<br>жалоба, стрелка влево - отмена<br>жалоба, стрелка вправо - отправить<br><br>Больше хоткеев: 'chrome://extensions/shortcuts'<br>"
+        "message": "<b>Хоткеи:</b><br>стрелка влево - пропустить<br>шифт+стрелка влево - скип+бан<br>стрелка вверх - стоп<br>стрелка вниз - пожаловаться<br>жалоба, стрелка влево - отмена<br>жалоба, стрелка вправо - отправить<br><br>Больше хоткеев: 'chrome://extensions/shortcuts'<br>"
     },
     "avoidBan": {
         "message": "<b>Чат Рулетное Расширение: <a target ='_blank' style = 'text-decoration: none!important;' href = 'https://github.com/qrlk/videochatru-extension/wiki/Ban-%28Russian%29'>Меня забанили, что мне теперь делать?</a></b>"
