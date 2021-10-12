@@ -697,7 +697,7 @@ chrome.storage.sync.get(null, function (result) {
 
             clearInterval(tim)
 
-            array = await faceapi.detectAllFaces(document.getElementById('remote-video'), new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withAgeAndGender()
+            array = await faceapi.detectAllFaces(document.getElementById('remote-video'), new faceapi.TinyFaceDetectorOptions()).withAgeAndGender()
 
             for (var i = 0; i < array.length; i++) {
                 text += `<b>* ${array[i].gender} (${(array[i].genderProbability * 100).toFixed(0) + '%'}), ${(array[i].age).toFixed(0)}</b></br>`
@@ -752,7 +752,6 @@ chrome.storage.sync.get(null, function (result) {
         setTimeout(async () => {
             console.time("faceapi: loading models")
             await faceapi.nets.tinyFaceDetector.loadFromUri(chrome.extension.getURL('/models'))
-            await faceapi.nets.faceLandmark68Net.loadFromUri(chrome.extension.getURL('/models'))
             await faceapi.nets.ageGenderNet.loadFromUri(chrome.extension.getURL('/models'))
             console.timeEnd("faceapi: loading models")
 
@@ -760,7 +759,7 @@ chrome.storage.sync.get(null, function (result) {
             remoteFace.innerHTML = chrome.i18n.getMessage("initialFaceDetect")
             let tempImage = document.createElement('img')
             tempImage.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAMSURBVBhXY/j//z8ABf4C/qc1gYQAAAAASUVORK5CYII="
-            await faceapi.detectAllFaces(tempImage, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withAgeAndGender()
+            await faceapi.detectAllFaces(tempImage, new faceapi.TinyFaceDetectorOptions()).withAgeAndGender()
             console.timeEnd("faceapi: initial facedetect")
             remoteFace.innerHTML = ""
 
