@@ -80,6 +80,7 @@ window.RTCPeerConnection.prototype = origPeerConnection.prototype;
                 if (rmdaddr != args[0].address) {
                     updateRemoteAddress(args[0].address)
                     rmdaddr = args[0].address
+                    remoteIP.innerText = args[0].address
                 }
             }
             return new Promise(function (resolve, reject) {
