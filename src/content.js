@@ -934,9 +934,6 @@ chrome.storage.sync.get(null, function (result) {
                 settings.stats.countMaleSkip++
                 settings.stats.countManSkip--
 
-                if (settings.skipSound)
-                    male.play()
-
                 if (settings.autoBan) {
                     syncBlackList()
                 }
@@ -948,9 +945,6 @@ chrome.storage.sync.get(null, function (result) {
                 console.log("FEMALE SKIPPED")
                 settings.stats.countFemaleSkip++
                 settings.stats.countManSkip--
-
-                if (settings.skipSound)
-                    female.play()
 
                 if (settings.autoBan) {
                     syncBlackList()
