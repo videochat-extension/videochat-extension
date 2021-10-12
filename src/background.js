@@ -1,6 +1,7 @@
 var defaults = {
   mirror: false,
   mirrorAlt: false,
+  prikol: false,
   hideWatermark: false,
   hideBanner: false,
   autoBan: false,

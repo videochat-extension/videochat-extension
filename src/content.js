@@ -34,7 +34,7 @@ function syncBlackList() {
     } else {
         local.ips.push(remoteIP.innerText)
         chrome.storage.local.set({ "ips": local.ips });
-    
+
         if (settings.skipSound)
             male.play()
     }
@@ -102,7 +102,7 @@ chrome.storage.sync.get(null, function (result) {
                 console.dir(e)
             }
         }
-        
+
         if (settings.autoResume) {
             try {
                 if (document.getElementsByClassName("video-warning__btn")[0].firstElementChild.offsetParent != null)
@@ -122,6 +122,21 @@ chrome.storage.sync.get(null, function (result) {
     } else if (settings.mirrorAlt) {
         const s1 = document.createElement('script');
         s1.src = chrome.extension.getURL('injection/mirror-shwartz.js');
+        s1.onload = () => s1.remove();
+        (document.head || document.documentElement).appendChild(s1);
+    } else if (settings.prikol) {
+        const prikolV = document.createElement('video');
+        prikolV.id = "prikol"
+        prikolV.loop = "loop"
+        prikolV.autoplay = "autoplay"
+        prikolV.muted = true
+        prikolV.src = chrome.extension.getURL('prikol/prikol.mp4');
+        prikolV.onload = () => s1.remove();
+
+        header.appendChild(prikolV);
+
+        const s1 = document.createElement('script');
+        s1.src = chrome.extension.getURL('injection/prikol.js');
         s1.onload = () => s1.remove();
         (document.head || document.documentElement).appendChild(s1);
     }
@@ -530,7 +545,7 @@ chrome.storage.sync.get(null, function (result) {
                                 checked: settings.mirror,
                                 id: "mirrorCheck",
                                 onclick: () => {
-                                    chrome.storage.sync.set({ "mirror": mirrorCheck.checked, "mirrorAlt": false }, function () {
+                                    chrome.storage.sync.set({ "mirror": mirrorCheck.checked, "mirrorAlt": false, "prikol": false }, function () {
                                         location.reload()
                                     });
                                 }
@@ -545,7 +560,22 @@ chrome.storage.sync.get(null, function (result) {
                                 checked: settings.mirrorAlt,
                                 id: "mirrorAltCheck",
                                 onclick: () => {
-                                    chrome.storage.sync.set({ "mirror": false, "mirrorAlt": mirrorAltCheck.checked }, function () {
+                                    chrome.storage.sync.set({ "mirror": false, "mirrorAlt": mirrorAltCheck.checked, "prikol": false }, function () {
+                                        location.reload()
+                                    });
+                                }
+                            })
+                        ]),
+                        createElement('br'),
+                        createElement('span', {
+                            innerText: "prikol: ",
+                        }, [
+                            createElement('input', {
+                                type: "checkbox",
+                                checked: settings.prikol,
+                                id: "prikolCheck",
+                                onclick: () => {
+                                    chrome.storage.sync.set({ "mirror": false, "mirrorAlt": false, "prikol": prikolCheck.checked }, function () {
                                         location.reload()
                                     });
                                 }
@@ -684,7 +714,7 @@ chrome.storage.sync.get(null, function (result) {
                         }),
                         createElement('br'),
                         createElement('br'),
-                        
+
                         createElement('span', {
                             innerHTML: chrome.i18n.getMessage("github"),
                         }),

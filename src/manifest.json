@@ -28,10 +28,12 @@
     "injection/injection.js",
     "injection/mirror.js",
     "injection/mirror-shwartz.js",
+    "injection/prikol.js",
     "models",
     "models/*",
     "js/leaflet/*",
     "audio/*.mp3",
+    "prikol/*.mp4",
     "controls*.html"
   ],
   "browser_action": {
