@@ -661,6 +661,12 @@ chrome.storage.sync.get(null, function (result) {
                         createElement('br'),
 
                         createElement('span', {
+                            innerHTML: chrome.i18n.getMessage("rating"),
+                        }),
+                        createElement('br'),
+                        createElement('br'),
+                        
+                        createElement('span', {
                             innerHTML: chrome.i18n.getMessage("github"),
                         }),
                         createElement('br'),
