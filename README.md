@@ -51,9 +51,40 @@ The connection between users is established directly through webrtc, while the s
 * [**Ome.tv**](https://play.google.com/store/apps/details?id=omegle.tv) (50M+ users)
 * [**Minichat**](https://apps.apple.com/ua/app/minichat-video-chat-texting/id1506912979)
 
-**Web part of the 'platform' includes ~30 sites:**
+**Web part of the 'platform' includes 40+ sites:**
 
+* **https://videochatru.com**
 * **https://ome.tv**
+* **https://brvideochat.com**
+* **https://camki.com**
+* **https://chatbizar.com**
+* **https://chat-fr.com**
+* **https://chatgenerator.com**
+* **https://chat-nl.com**
+* **https://chat-pl.com**
+* **https://chatrooms.pro**
+* **https://chatruletka.ua**
+* **https://frvideochat.com**
+* **https://indiavideochat.com**
+* **https://ome.chat**
+* **https://roulette-espanol.com**
+* **https://roulettefrancais.com**
+* **https://ruletkavideochat.com**
+* **https://stickam.chat**
+* **https://turkishvideochat.com**
+* **https://ukr.chat**
+* **https://videochatau.com**
+* **https://videochatbr.com**
+* **https://videochatca.com**
+* **https://videochatde.com**
+* **https://videochatfr.com**
+* **https://videochatit.com**
+* **https://videochatjp.com**
+* **https://videochatmx.com**
+* **https://videochatpt.com**
+* **https://videochatruletka.com**
+* **https://videochatus.com**
+* **https://webcamchatta.com**
 * **https://videochatru.com**
 * **https://chatruletka.com**
 * **https://ruletka.chat**
@@ -66,7 +97,10 @@ The connection between users is established directly through webrtc, while the s
 * **https://videochatpl.com**
 * **https://videochatuk.com**
 * **https://chat-brasil.com**
-* Less popular intances with similar design.
+
+[Relationships proofs.](https://builtwith.com/relationships/videochatru.com)
+
+There is also some evidence that camsurf ([web](https://camsurf.com), [iOS](https://apps.apple.com/us/app/camsurf/id1491535834), [Android](https://play.google.com/store/apps/details?id=camsurf.com&hl=en)) is also associated with this platform, but I'm not sure if they have a shared user base.
 
 ## Contribution
 If you have a desire to contribute, [here is a small instruction](CONTRIBUTING.md).  
