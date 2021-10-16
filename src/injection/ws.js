@@ -30,18 +30,18 @@ TextEncoder.prototype.encode = function (data) {
                 if (js["ReportPics"].length > 10) {
                     js["ReportPics"] = shwartz
                     console.dir("ПОДМЕНА КАРТИНКИ ДЛЯ РЕПОРТА")
-                   // jaloba.play()
+                    // jaloba.play()
                 }
                 return this._encode(prefix + JSON.stringify(js));
                 break;
-            case "LOG":
-                console.dir("ПЕРЕЗАПИСАТЬ")
-                if (typeof asdas !== 'undefined') {
-                    connectionStatus.style.color = "red"
-                    js["AttachedData"] = "{\"Silenced\":true}"
-                }
-                return this._encode(prefix + JSON.stringify(js));
-                
+            // case "LOG":
+            //     console.dir("ПЕРЕЗАПИСАТЬ")
+            //     if (typeof asdas !== 'undefined') {
+            //         connectionStatus.style.color = "red"
+            //         js["AttachedData"] = "{\"Silenced\":true}"
+            //     }
+            //     return this._encode(prefix + JSON.stringify(js));
+
             case "WRD":
                 js["Data"]["hasStream"] = false
                 return this._encode(prefix + JSON.stringify(js));
@@ -76,16 +76,20 @@ TextDecoder.prototype.decode = function (data) {
 
     switch (prefix) {
         case "":
-            console.dir("DETECT")
-            console.dir(js)
-            //delete js["AttachedData"]
             if (typeof js["AttachedData"] !== 'undefined') {
-                asdas = true
-                delete js["AttachedData"]
+                remoteInfo.innerHTML = js["AttachedData"] + "<br>" + remoteInfo.innerHTML
             }
+            // console.dir("DETECT")
+            // console.dir(js)
+            // //delete js["AttachedData"]
+            // if (typeof js["AttachedData"] !== 'undefined') {
+            //     asdas = true
+            //     delete js["AttachedData"]
+            // }
 
-            console.dir(prefix + JSON.stringify(js))
-            return prefix + JSON.stringify(js);
+            // console.dir(prefix + JSON.stringify(js))
+            // return prefix + JSON.stringify(js);
+            return str;
         case "END":
             if (Date.now() - found > 3000 && Date.now() - last > 3000)
                 skip.play()
