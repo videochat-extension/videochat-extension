@@ -12,7 +12,7 @@ document.addEventListener('keyup', e => {
         case "ArrowUp":
             document.getElementsByClassName('buttons__button stop-button')[0].click()
             break;
-            
+
         case "ArrowDown":
             document.getElementsByClassName("message-report-link tr")[0].click()
             break;
