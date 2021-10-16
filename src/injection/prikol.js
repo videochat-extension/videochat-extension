@@ -51,7 +51,7 @@
 
         newStream.addTrack(newTrack);
 
-        activeStream = newStream
+        //activeStream = newStream
 
         return newStream;
     }
