@@ -25,10 +25,7 @@
     "128": "img/icon.png"
   },
   "web_accessible_resources": [
-    "injection/injection.js",
-    "injection/mirror.js",
-    "injection/mirror-shwartz.js",
-    "injection/prikol.js",
+    "injection/*.js",
     "models",
     "models/*",
     "js/leaflet/*",

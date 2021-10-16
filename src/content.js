@@ -113,6 +113,13 @@ chrome.storage.sync.get(null, function (result) {
         }
     }, 1000)
 
+    if (settings.ws) {
+        const wss = document.createElement('script');
+        wss.src = chrome.extension.getURL('injection/ws.js');
+        wss.onload = () => wss.remove();
+        (document.head || document.documentElement).appendChild(wss);
+    }
+
 
     if (settings.mirror) {
         const s1 = document.createElement('script');
@@ -538,6 +545,21 @@ chrome.storage.sync.get(null, function (result) {
                         ]),
                         createElement('br'),
                         createElement('span', {
+                            innerText: "ws experiments: ",
+                        }, [
+                            createElement('input', {
+                                type: "checkbox",
+                                checked: settings.ws,
+                                id: "wsCheck",
+                                onclick: () => {
+                                    chrome.storage.sync.set({ "ws": wsCheck.checked}, function () {
+                                        location.reload()
+                                    });
+                                }
+                            })
+                        ]),
+                        createElement('br'),
+                        createElement('span', {
                             innerText: chrome.i18n.getMessage("mirror"),
                         }, [
                             createElement('input', {
@@ -920,12 +942,15 @@ chrome.storage.sync.get(null, function (result) {
     ban = new Audio(chrome.extension.getURL('audio/ban.mp3'))
     female = new Audio(chrome.extension.getURL('audio/female.mp3'))
 
-    // online = new Audio(chrome.extension.getURL('audio/con.mp3'))
-    // offline = new Audio(chrome.extension.getURL('audio/dc.mp3'))
+    skip = document.createElement("AUDIO");
+    skip.id = "skip"
+    skip.src = chrome.extension.getURL('audio/skip.mp3')
+    document.body.appendChild(skip)
 
     male.volume = 0.3
     ban.volume = 0.45
     female.volume = 0.3
+    skip.volume = 0.4
     // online.volume = 0.1
     // offline.volume = 0.1
 
