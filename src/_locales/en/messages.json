@@ -1,6 +1,6 @@
 {
     "extension_name": {
-        "message": "Chat Roulette Extension"
+        "message": "Chatruletka Extension"
     },
     "extension_description": {
         "message": "Extension for Chatruletka (aka ome.tv, Чат Рулетка): interlocutor's IP location, autoskip of the specified gender, blacklist, hotkeys, PiP, etc..."
