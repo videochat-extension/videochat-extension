@@ -81,6 +81,7 @@ let settings = {},
     found = 0,
     play = 0,
     map,
+	countBeforeSaveStats = 0,
     dc,
     faceApiLoaded = false
 
@@ -688,7 +689,7 @@ chrome.storage.sync.get(null, function (result) {
                                     }
                                     settings.stats = stats.stats
                                     chrome.storage.sync.set(settings, function () {
-                                        updStats()
+                                        updStats(true)
                                     });
                                 }
                             },
@@ -704,7 +705,7 @@ chrome.storage.sync.get(null, function (result) {
                                 if (result) {
                                     local.ips = []
                                     chrome.storage.local.set({ "ips": [] }, function () {
-                                        updStats()
+                                        updStats(true)
                                     });
                                 }
                             },
@@ -907,7 +908,7 @@ chrome.storage.sync.get(null, function (result) {
         return hours + ":" + minutes + ":" + seconds;
     }
 
-    function updStats() {
+    function updStats(force) {
         stWhole.innerText = settings.stats.countAll
         stMlSk.innerText = settings.stats.countMaleSkip
         stFmlSk.innerText = settings.stats.countFemaleSkip
@@ -919,8 +920,11 @@ chrome.storage.sync.get(null, function (result) {
         stBnIp.innerText = settings.stats.countDup
 
         stTime.innerText = secondsToTime(settings.stats.time)
-
-        chrome.storage.sync.set({ "stats": settings.stats });
+		countBeforeSaveStats += 1
+		if (force || countBeforeSaveStats >= 10) {
+			countBeforeSaveStats = 0
+			chrome.storage.sync.set({ "stats": settings.stats });
+		}
     }
 
     var config = { attributes: true, childList: true, characterData: true };
@@ -1207,7 +1211,7 @@ chrome.storage.sync.get(null, function (result) {
                     localStage.innerText = 0
                 }
 
-                updStats()
+                updStats(false)
             }
         });
     });
