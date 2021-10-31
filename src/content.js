@@ -872,6 +872,7 @@ chrome.storage.sync.get(null, function (result) {
 		if (force || countBeforeSaveStats >= 10) {
 			countBeforeSaveStats = 0
 			chrome.storage.sync.set({ "stats": settings.stats });
+			console.dir("stats updated")
 		}
     }
 
