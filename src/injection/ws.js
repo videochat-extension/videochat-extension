@@ -91,7 +91,7 @@ TextDecoder.prototype.decode = function (data) {
             // return prefix + JSON.stringify(js);
             return str;
         case "END":
-            if (Date.now() - found > 3000 && Date.now() - last > 3000)
+            if (Date.now() - found > 5000 && Date.now() - last > 3000)
                 skip.play()
             return str;
 
