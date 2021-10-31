@@ -1,5 +1,5 @@
 [<sup>Подробнее о Google Chrome расширении для Чат Рулетки на русском языке можно прочитать по этой ссылке</sup>](README_RU.md)  
-<h1 align="center">Чат Рулетное Расширение (Chat Roulette Extension)</h1>
+<h1 align="center">Чат Рулетное Расширение (Chatruletka Extension)</h1>
 
 <p align="center">
 <a href = "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi"><img src="https://img.shields.io/chrome-web-store/users/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20users"></a> 
@@ -11,7 +11,7 @@
   
 </p>
 
-**This is a browser extension that adds a bunch of cool stuff to the [Chat Roulette website](https://videochatru.com).**  
+**This is a browser extension that adds a bunch of cool stuff to the [Chatruletka website](https://videochatru.com).**  
 
 **It can be installed from [Chrome Web Store](https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi). English and Russian locales are available.**
 
