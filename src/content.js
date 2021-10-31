@@ -950,7 +950,7 @@ chrome.storage.sync.get(null, function (result) {
     male.volume = 0.3
     ban.volume = 0.45
     female.volume = 0.3
-    skip.volume = 0.4
+    skip.volume = 0.3
     // online.volume = 0.1
     // offline.volume = 0.1
 
