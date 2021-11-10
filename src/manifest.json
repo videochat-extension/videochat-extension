@@ -27,6 +27,7 @@
   "web_accessible_resources": [
     "injection/*.js",
     "models",
+    "js/nsfwjs.min.js",
     "models/*",
     "js/leaflet/*",
     "audio/*.mp3",

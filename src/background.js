@@ -9,6 +9,7 @@ var defaults = {
   skipMale: false,
   skipFemale: false,
   ws: false,
+  nsfw: false,
   skipSound: false,
   enableFaceApi: false,
   skipFourSec: false,

@@ -26,14 +26,14 @@ function syncBlackList() {
     if (settings.dontBanMobile) {
         if (!JSON.parse(remoteIPInfo.innerText).mobile) {
             local.ips.push(remoteIP.innerText)
-            chrome.storage.local.set({ "ips": local.ips });
+            chrome.storage.local.set({"ips": local.ips});
 
             if (settings.skipSound)
                 male.play()
         }
     } else {
         local.ips.push(remoteIP.innerText)
-        chrome.storage.local.set({ "ips": local.ips });
+        chrome.storage.local.set({"ips": local.ips});
 
         if (settings.skipSound)
             male.play()
@@ -41,10 +41,11 @@ function syncBlackList() {
 }
 
 var tim
+
 /**
- * @param {string} tagName 
- * @param {Partial<HTMLElement> & {ref(v: HTMLDivElement) => void}} options 
- * @param {HTMLElement[]} childs 
+ * @param {string} tagName
+ * @param {Partial<HTMLElement> & {ref(v: HTMLDivElement) => void}} options
+ * @param {HTMLElement[]} childs
  */
 function createElement(tagName = '', options = {}, childs = []) {
     const element = document.createElement(tagName)
@@ -75,13 +76,13 @@ function downloadImage(data) {
 };
 
 let settings = {},
-    local = { ips: [] },
+    local = {ips: []},
     stage = 0,
     search = 0,
     found = 0,
     play = 0,
     map,
-	countBeforeSaveStats = 0,
+    countBeforeSaveStats = 0,
     dc,
     faceApiLoaded = false
 
@@ -121,6 +122,18 @@ chrome.storage.sync.get(null, function (result) {
         (document.head || document.documentElement).appendChild(wss);
     }
 
+    if (settings.nsfw) {
+        const nsfwjs = document.createElement('script');
+        nsfwjs.src = chrome.extension.getURL('js/nsfwjs.min.js');
+        nsfwjs.onload = () => {
+            nsfwjs.remove()
+            const nsfw = document.createElement('script');
+            nsfw.src = chrome.extension.getURL('injection/nsfw.js');
+            nsfw.onload = () => nsfw.remove();
+            (document.head || document.documentElement).appendChild(nsfw);
+        };
+        (document.head || document.documentElement).appendChild(nsfwjs);
+    }
 
     if (settings.mirror) {
         const s1 = document.createElement('script');
@@ -330,6 +343,10 @@ chrome.storage.sync.get(null, function (result) {
                     id: "remoteFace",
                 }),
                 createElement('div', {
+                    id: "nsfwInfo",
+                    style: "display: none;"
+                }),
+                createElement('div', {
                     id: "remoteInfo",
                     style: "overflow-y: auto;margin-top: 3px"
                 })
@@ -351,9 +368,9 @@ chrome.storage.sync.get(null, function (result) {
                 style: "height:100%;"
             }, [
                 createElement('div', {
-                    id: "bansInfo",
-                    style: "overflow-y: auto; margin-top: 3px"
-                },
+                        id: "bansInfo",
+                        style: "overflow-y: auto; margin-top: 3px"
+                    },
                     [
                         createElement('span', {
                             innerText: `banned ips: `
@@ -386,9 +403,9 @@ chrome.storage.sync.get(null, function (result) {
                 style: "height:100%;"
             }, [
                 createElement('div', {
-                    id: "statsInfo",
-                    style: "overflow-y: auto; margin-top: 3px"
-                },
+                        id: "statsInfo",
+                        style: "overflow-y: auto; margin-top: 3px"
+                    },
                     [
                         createElement('span', {
                             innerText: `whole: `
@@ -449,9 +466,9 @@ chrome.storage.sync.get(null, function (result) {
                 style: "height:100%;"
             }, [
                 createElement('div', {
-                    id: "settingsInfo",
-                    style: "overflow-y: auto; margin-top: 3px"
-                },
+                        id: "settingsInfo",
+                        style: "overflow-y: auto; margin-top: 3px"
+                    },
                     [
                         createElement('span', {
                             innerText: "forced faceapi: ",
@@ -461,7 +478,7 @@ chrome.storage.sync.get(null, function (result) {
                                 checked: settings.enableFaceApi,
                                 id: "enableFaceApiCheck",
                                 onclick: () => {
-                                    chrome.storage.sync.set({ "enableFaceApi": enableFaceApiCheck.checked }, function () {
+                                    chrome.storage.sync.set({"enableFaceApi": enableFaceApiCheck.checked}, function () {
                                         if (!faceApiLoaded)
                                             location.reload()
                                     });
@@ -477,7 +494,7 @@ chrome.storage.sync.get(null, function (result) {
                                 checked: settings.skipMale,
                                 id: "skipMaleCheck",
                                 onclick: () => {
-                                    chrome.storage.sync.set({ "skipMale": skipMaleCheck.checked }, function () {
+                                    chrome.storage.sync.set({"skipMale": skipMaleCheck.checked}, function () {
                                         if (!faceApiLoaded)
                                             location.reload()
                                     });
@@ -493,7 +510,7 @@ chrome.storage.sync.get(null, function (result) {
                                 checked: settings.skipFemale,
                                 id: "skipFemaleCheck",
                                 onclick: () => {
-                                    chrome.storage.sync.set({ "skipFemale": skipFemaleCheck.checked }, function () {
+                                    chrome.storage.sync.set({"skipFemale": skipFemaleCheck.checked}, function () {
                                         if (!faceApiLoaded)
                                             location.reload()
                                     });
@@ -509,7 +526,7 @@ chrome.storage.sync.get(null, function (result) {
                                 checked: settings.autoBan,
                                 id: "autoBanCheck",
                                 onclick: () => {
-                                    chrome.storage.sync.set({ "autoBan": autoBanCheck.checked }, function () {
+                                    chrome.storage.sync.set({"autoBan": autoBanCheck.checked}, function () {
                                         //location.reload()
                                     });
                                 }
@@ -524,7 +541,7 @@ chrome.storage.sync.get(null, function (result) {
                                 checked: settings.dontBanMobile,
                                 id: "dontBanMobileCheck",
                                 onclick: () => {
-                                    chrome.storage.sync.set({ "dontBanMobile": dontBanMobileCheck.checked }, function () {
+                                    chrome.storage.sync.set({"dontBanMobile": dontBanMobileCheck.checked}, function () {
                                         //location.reload()
                                     });
                                 }
@@ -539,7 +556,7 @@ chrome.storage.sync.get(null, function (result) {
                                 checked: settings.skipSound,
                                 id: "skipSoundCheck",
                                 onclick: () => {
-                                    chrome.storage.sync.set({ "skipSound": skipSoundCheck.checked }, function () {
+                                    chrome.storage.sync.set({"skipSound": skipSoundCheck.checked}, function () {
                                     });
                                 }
                             })
@@ -553,7 +570,22 @@ chrome.storage.sync.get(null, function (result) {
                                 checked: settings.ws,
                                 id: "wsCheck",
                                 onclick: () => {
-                                    chrome.storage.sync.set({ "ws": wsCheck.checked}, function () {
+                                    chrome.storage.sync.set({"ws": wsCheck.checked}, function () {
+                                        location.reload()
+                                    });
+                                }
+                            })
+                        ]),
+                        createElement('br'),
+                        createElement('span', {
+                            innerText: "nsfw detection experiments: ",
+                        }, [
+                            createElement('input', {
+                                type: "checkbox",
+                                checked: settings.nsfw,
+                                id: "nsfwCheck",
+                                onclick: () => {
+                                    chrome.storage.sync.set({"nsfw": nsfwCheck.checked}, function () {
                                         location.reload()
                                     });
                                 }
@@ -568,7 +600,11 @@ chrome.storage.sync.get(null, function (result) {
                                 checked: settings.mirror,
                                 id: "mirrorCheck",
                                 onclick: () => {
-                                    chrome.storage.sync.set({ "mirror": mirrorCheck.checked, "mirrorAlt": false, "prikol": false }, function () {
+                                    chrome.storage.sync.set({
+                                        "mirror": mirrorCheck.checked,
+                                        "mirrorAlt": false,
+                                        "prikol": false
+                                    }, function () {
                                         location.reload()
                                     });
                                 }
@@ -583,7 +619,11 @@ chrome.storage.sync.get(null, function (result) {
                                 checked: settings.mirrorAlt,
                                 id: "mirrorAltCheck",
                                 onclick: () => {
-                                    chrome.storage.sync.set({ "mirror": false, "mirrorAlt": mirrorAltCheck.checked, "prikol": false }, function () {
+                                    chrome.storage.sync.set({
+                                        "mirror": false,
+                                        "mirrorAlt": mirrorAltCheck.checked,
+                                        "prikol": false
+                                    }, function () {
                                         location.reload()
                                     });
                                 }
@@ -598,7 +638,11 @@ chrome.storage.sync.get(null, function (result) {
                                 checked: settings.prikol,
                                 id: "prikolCheck",
                                 onclick: () => {
-                                    chrome.storage.sync.set({ "mirror": false, "mirrorAlt": false, "prikol": prikolCheck.checked }, function () {
+                                    chrome.storage.sync.set({
+                                        "mirror": false,
+                                        "mirrorAlt": false,
+                                        "prikol": prikolCheck.checked
+                                    }, function () {
                                         location.reload()
                                     });
                                 }
@@ -613,7 +657,7 @@ chrome.storage.sync.get(null, function (result) {
                                 checked: settings.skipFourSec,
                                 id: "skipFourSecCheck",
                                 onclick: () => {
-                                    chrome.storage.sync.set({ "skipFourSec": skipFourSecCheck.checked });
+                                    chrome.storage.sync.set({"skipFourSec": skipFourSecCheck.checked});
                                 }
                             })
                         ]),
@@ -626,7 +670,7 @@ chrome.storage.sync.get(null, function (result) {
                                 checked: settings.autoResume,
                                 id: "autoResumeCheck",
                                 onclick: () => {
-                                    chrome.storage.sync.set({ "autoResume": autoResumeCheck.checked });
+                                    chrome.storage.sync.set({"autoResume": autoResumeCheck.checked});
                                 }
                             })
                         ]),
@@ -639,7 +683,7 @@ chrome.storage.sync.get(null, function (result) {
                                 checked: settings.hideWatermark,
                                 id: "hideWatermarkCheck",
                                 onclick: () => {
-                                    chrome.storage.sync.set({ "hideWatermark": hideWatermarkCheck.checked }, function () {
+                                    chrome.storage.sync.set({"hideWatermark": hideWatermarkCheck.checked}, function () {
                                         if (hideWatermarkCheck.checked) {
                                             document.getElementsByClassName("remote-video__watermark")[0].style.opacity = 0.0
                                         } else {
@@ -658,7 +702,7 @@ chrome.storage.sync.get(null, function (result) {
                                 checked: settings.hideBanner,
                                 id: "hideBannerCheck",
                                 onclick: () => {
-                                    chrome.storage.sync.set({ "hideBanner": hideBannerCheck.checked }, function () {
+                                    chrome.storage.sync.set({"hideBanner": hideBannerCheck.checked}, function () {
                                         if (hideBannerCheck.checked) {
                                             document.getElementsByClassName("caption remote-video__info")[0].style.opacity = 0.0
                                         } else {
@@ -704,7 +748,7 @@ chrome.storage.sync.get(null, function (result) {
                                 const result = confirm("Clear?");
                                 if (result) {
                                     local.ips = []
-                                    chrome.storage.local.set({ "ips": [] }, function () {
+                                    chrome.storage.local.set({"ips": []}, function () {
                                         updStats(true)
                                     });
                                 }
@@ -722,9 +766,9 @@ chrome.storage.sync.get(null, function (result) {
                 style: "height:100%;"
             }, [
                 createElement('div', {
-                    id: "aboutInfo",
-                    style: "overflow-y: auto; margin-top: 3px"
-                },
+                        id: "aboutInfo",
+                        style: "overflow-y: auto; margin-top: 3px"
+                    },
                     [
                         createElement('span', {
                             innerHTML: chrome.i18n.getMessage("desc"),
@@ -920,14 +964,14 @@ chrome.storage.sync.get(null, function (result) {
         stBnIp.innerText = settings.stats.countDup
 
         stTime.innerText = secondsToTime(settings.stats.time)
-		countBeforeSaveStats += 1
-		if (force || countBeforeSaveStats >= 10) {
-			countBeforeSaveStats = 0
-			chrome.storage.sync.set({ "stats": settings.stats });
-		}
+        countBeforeSaveStats += 1
+        if (force || countBeforeSaveStats >= 10) {
+            countBeforeSaveStats = 0
+            chrome.storage.sync.set({"stats": settings.stats});
+        }
     }
 
-    var config = { attributes: true, childList: true, characterData: true };
+    var config = {attributes: true, childList: true, characterData: true};
 
     observer.observe(target, config);
 
@@ -1041,7 +1085,10 @@ chrome.storage.sync.get(null, function (result) {
     }
 
 
-    $.getJSON("http://ip-api.com/json/", { lang: chrome.i18n.getMessage("@@UI_locale").slice(0, 2), fields: "status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query" })
+    $.getJSON("http://ip-api.com/json/", {
+        lang: chrome.i18n.getMessage("@@UI_locale").slice(0, 2),
+        fields: "status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query"
+    })
         .done(function (json) {
             remoteInfo.innerHTML = chrome.i18n.getMessage("api_working")
         })
@@ -1078,8 +1125,8 @@ chrome.storage.sync.get(null, function (result) {
 
     L.Icon.Default.imagePath = chrome.extension.getURL('js/leaflet/');
 
-    map = L.map('mapid', { zoomControl: false }).setView([54.39554, 39.266102], 17);
-    map.locate({ setView: true });
+    map = L.map('mapid', {zoomControl: false}).setView([54.39554, 39.266102], 17);
+    map.locate({setView: true});
 
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png', {
         minZoom: 3,
@@ -1120,7 +1167,7 @@ chrome.storage.sync.get(null, function (result) {
 
     var targetNode = document.getElementById('remoteIPInfo');
 
-    var config = { childList: true };
+    var config = {childList: true};
 
     var callback = function (mutationsList, observer) {
         let json = JSON.parse(remoteIPInfo.innerText)
@@ -1140,8 +1187,7 @@ chrome.storage.sync.get(null, function (result) {
 
             map.setView(new L.LatLng(json.lat, json.lon), 5);
             marker = new L.Marker([json.lat, json.lon]);
-        }
-        else {
+        } else {
             circle = L.circle([json.lat, json.lon], 30000, {
                 color: 'blue',
                 fillColor: '#808080',
@@ -1190,6 +1236,8 @@ chrome.storage.sync.get(null, function (result) {
                     found = Date.now()
                 } else if (attributeValue.includes("s-play")) {
                     // online.play()
+                    if (settings.nsfw)
+                        document.getElementById("local-video").style.filter = "blur(5px)"
 
                     stage = 3
                     localStage.innerText = 3
