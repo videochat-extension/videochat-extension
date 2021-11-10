@@ -1,47 +1,84 @@
+const PREDICATIONS_ARRAY_SIZE = 3
+const PANIC_PROPABILITY = 0.8
+const BLUR_FILTER = "blur(40px)"
+const WEIGHT_PORN = 2
+const WEIGHT_SEXY = 1
+const BLUR_DURATION = 5
+const BLUR_PANIC = 8
+const TIMEOUT = 150
+
 nsfwjs.load().then(function (model) {
     const vid = document.getElementById("local-video")
     let last_blur = 0
-
+    let first = true
     nsfwInfo.style.display = ""
 
+    let preds = []
 
     let nsfwTimeout = setTimeout(async function tick() {
         if (localStage.innerText === "3") {
-            const predictions = await model.classify(vid)
-            let text = ''
-            let blur = false
+            try {
+                const predictions = await model.classify(vid)
+                if (preds.length >= PREDICATIONS_ARRAY_SIZE)
+                    preds.shift()
 
-            predictions.forEach(item => {
-                if (item.className === "Porn" || item.className === "Sexy") {
-                    if (item.probability > 0.8) {
-                        blur = true
-                        console.dir("ОСНОВАНИЕ ДЛЯ БЛЮРА "+`<b>${item.className.charAt(0)}</b>: ${(item.probability * 100).toFixed(0) + '% '}`)
+                preds.push(predictions)
+
+                let blur = 0
+
+                preds.forEach(itemPred => {
+                    itemPred.forEach(item => {
+                        if (item.className === "Porn" || item.className === "Sexy") {
+                            if (item.probability > PANIC_PROPABILITY) {
+                                switch (item.className) {
+                                    case "Porn":
+                                        blur += WEIGHT_PORN
+                                        break;
+
+                                    case "Sexy":
+                                        blur += WEIGHT_SEXY
+                                        break;
+                                }
+                            }
+                        }
+                    })
+                })
+
+                let text = `<b>SCORE: ${blur}</b> || `
+                predictions.forEach(item => {
+                    text += `<b>${item.className.charAt(0)}</b>: ${(item.probability * 100).toFixed(0) + '% '}`
+                })
+
+                if (blur >= BLUR_PANIC) {
+                    vid.style.filter = BLUR_FILTER
+
+                    last_blur = +new Date()
+                } else {
+                    if (preds.length < PREDICATIONS_ARRAY_SIZE) {
+                        // vid.style.filter = BLUR_FILTER
+                    } else if (first) {
+                        first = false
+                        vid.style.filter = ""
+                        console.dir('РАЗБЛЮР ПЕРВЫЙ')
+                    } else if (last_blur !== 0 && +new Date() - last_blur > BLUR_DURATION * 1000) {
+                        vid.style.filter = ""
+                        console.dir('РАЗБЛЮР')
                     }
                 }
-                text += `<b>${item.className.charAt(0)}</b>: ${(item.probability * 100).toFixed(0) + '% '}`
-            })
 
-            if (blur) {
-                vid.style.filter = "blur(40px)"
-                last_blur = +new Date()
-            } else {
-                if (last_blur === 0) {
-                    vid.style.filter = ""
-                    console.dir('РАЗБЛЮР')
-                } else if (last_blur !== 0 && +new Date() - last_blur > 10*1000) {
-                    vid.style.filter = ""
-                    console.dir('РАЗБЛЮР')
-                }
+                nsfwInfo.style.display = ""
+                nsfwInfo.innerHTML = text
+            } catch (err) {
+                console.dir(err)
             }
-
-            nsfwInfo.style.display = ""
-            nsfwInfo.innerHTML = text
         } else {
             last_blur = 0
+            preds = []
+            first = true
             vid.style.filter = ""
             nsfwInfo.style.display = "none"
         }
 
-        nsfwTimeout = setTimeout(tick, 300); // (*)
+        nsfwTimeout = setTimeout(tick, TIMEOUT); // (*)
     }, 400);
 })
