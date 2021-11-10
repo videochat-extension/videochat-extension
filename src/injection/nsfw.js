@@ -10,7 +10,6 @@ const TIMEOUT = 150
 nsfwjs.load().then(function (model) {
     const vid = document.getElementById("local-video")
     let last_blur = 0
-    let first = true
     nsfwInfo.style.display = ""
 
     let preds = []
@@ -56,8 +55,7 @@ nsfwjs.load().then(function (model) {
                 } else {
                     if (preds.length < PREDICATIONS_ARRAY_SIZE) {
                         // vid.style.filter = BLUR_FILTER
-                    } else if (first) {
-                        first = false
+                    } else if (last_blur === 0) {
                         vid.style.filter = ""
                         console.dir('РАЗБЛЮР ПЕРВЫЙ')
                     } else if (last_blur !== 0 && +new Date() - last_blur > BLUR_DURATION * 1000) {
@@ -74,7 +72,6 @@ nsfwjs.load().then(function (model) {
         } else {
             last_blur = 0
             preds = []
-            first = true
             vid.style.filter = ""
             nsfwInfo.style.display = "none"
         }
