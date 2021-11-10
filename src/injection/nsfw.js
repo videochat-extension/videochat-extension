@@ -13,7 +13,7 @@ nsfwjs.load().then(function (model) {
 
             predictions.forEach(item => {
                 if (item.className === "Porn" || item.className === "Sexy") {
-                    if (item.probability > 0.95) {
+                    if (item.probability > 0.8) {
                         blur = true
                         console.dir("ОСНОВАНИЕ ДЛЯ БЛЮРА "+`<b>${item.className.charAt(0)}</b>: ${(item.probability * 100).toFixed(0) + '% '}`)
                     }
