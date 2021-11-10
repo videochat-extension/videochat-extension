@@ -22,7 +22,7 @@ nsfwjs.load().then(function (model) {
             })
 
             if (blur) {
-                vid.style.filter = "blur(20px)"
+                vid.style.filter = "blur(40px)"
                 last_blur = +new Date()
             } else {
                 if (last_blur === 0) {
