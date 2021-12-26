@@ -38,9 +38,6 @@
     "github": {
         "message": "More useful information: <b><a style= 'text-decoration: none!important;' target='_blank' href='https://github.com/qrlk/videochatru-extension'>github</a></b>."
     },
-    "rating": {
-        "message": "<a style= 'text-decoration: none!important;' target='_blank' href = 'https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi'><img src='https://img.shields.io/chrome-web-store/rating/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20rating'></a> <a style= 'text-decoration: none!important;' target='_blank' href = 'https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi'><img src='https://img.shields.io/chrome-web-store/users/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20users'></a>"
-    },
     "author": {
         "message": "<b>Maintainer:</b>"
     },
@@ -60,28 +57,45 @@
         "message": "<b>Third-party services:</b>"
     },
     "skip_males": {
-        "message": "skip men: "
+        "message": "skip men:"
     },
     "skip_females": {
-        "message": "skip women: "
+        "message": "skip women:"
     },
     "skip_sound": {
-        "message": "skip sound: "
+        "message": "skip sound:"
     },
     "mirror": {
-        "message":  "mirror: "
+        "message":  "mirror:"
     },
     "watermark": {
-        "message": "hide the watermark: "
+        "message": "hide the watermark:"
     },
     "banner": {
-        "message": "hide the banner: "
+        "message": "hide the banner:"
     },
+
+    "forcedApi": {
+        "message": "forced faceapi:"
+    },
+
+    "autoskip": {
+        "message": "autoban (skip by gender):"
+    },
+
+    "donotbanmobile": {
+        "message": "do not ban mobile:"
+    },
+
+    "m": {
+        "message": "m"
+    },
+
     "initialFaceDetect": {
         "message": "faceapi: initial face detection..."
     },
     "hotkeys": {
-        "message": "<b>Hotkeys:</b><br>left arrow - skip<br>shift+left arrow - skip+ban<br>up arrow - stop<br>down arrow - report<br>report: left arrow - cancel<br>report: right arrow - send<br><br>More custom: 'chrome://extensions/shortcuts'<br>"
+        "message": "<dd>left arrow - skip</dd><dd>shift+left arrow - skip+ban</dd><dd>up arrow - stop</dd><dd>down arrow - report</dd><dd style='margin-inline-start: 40px!important;'>left arrow - cancel report</dd><dd style='margin-inline-start: 40px!important;'>right arrow - send report</dd><br><dd>custom: 'chrome://extensions/shortcuts'</dd></dl>"
     },
     "avoidBan": {
         "message": "<b>Chat Roulette Extension: <a target ='_blank' style = 'text-decoration: none!important;' href = 'https://github.com/qrlk/videochatru-extension/wiki/Ban'>I was banned. What should I do now?</a></b>"

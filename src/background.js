@@ -14,6 +14,7 @@ var defaults = {
   enableFaceApi: false,
   skipFourSec: false,
   autoResume: false,
+  hotkeys: false,
   stats: {
     countAll: 0,
     countNew: 0,

@@ -3,6 +3,11 @@ s.src = chrome.extension.getURL('injection/injection.js');
 s.onload = () => s.remove();
 (document.head || document.documentElement).appendChild(s);
 
+const c = document.createElement('link');
+c.rel = "stylesheet";
+c.href = chrome.extension.getURL('css/css-tooltip.min.css');
+(document.head || document.documentElement).appendChild(c);
+
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -18,7 +23,37 @@ function toObject(from = {}, to = {}) {
             continue
         }
 
-        to[key] = value
+        if (key === "data-tooltip")
+            to.setAttribute(key, value)
+        else
+            to[key] = value
+    }
+}
+
+function hotkeys(e) {
+    if (e.srcElement.className === "emojionearea-editor")
+        return
+
+    switch (e.key) {
+        case "ArrowLeft":
+            if (document.getElementById("report-popup").style.display === "block")
+                document.getElementsByClassName("btn btn-gray")[2].click()
+            else
+                document.getElementsByClassName('buttons__button start-button')[0].click()
+            break;
+
+        case "ArrowUp":
+            document.getElementsByClassName('buttons__button stop-button')[0].click()
+            break;
+
+        case "ArrowDown":
+            document.getElementsByClassName("message-report-link tr")[0].click()
+            break;
+
+        case "ArrowRight":
+            if (document.getElementById("report-popup").style.display === "block")
+                document.getElementsByClassName("btn btn-main send-report")[1].click()
+            break;
     }
 }
 
@@ -162,6 +197,11 @@ chrome.storage.sync.get(null, function (result) {
         (document.head || document.documentElement).appendChild(s1);
     }
 
+    if (settings.hotkeys) {
+        document.removeEventListener('keyup', hotkeys)
+        document.addEventListener('keyup', hotkeys)
+    }
+
     controls = createElement('div', {
         className: 'chat',
         id: 'controls',
@@ -221,7 +261,16 @@ chrome.storage.sync.get(null, function (result) {
                 display: table;
                 box-sizing: border-box;
                 clear: both;
-              }`
+              }
+              
+              dd {
+                margin-inline-start: 20px!important;
+              }
+              
+              input {
+                margin-left: 5px!important
+              }
+              `
             }),
             createElement('p', {
                 id: "remoteIP",
@@ -470,294 +519,436 @@ chrome.storage.sync.get(null, function (result) {
                         style: "overflow-y: auto; margin-top: 3px"
                     },
                     [
-                        createElement('span', {
-                            innerText: "forced faceapi: ",
-                        }, [
-                            createElement('input', {
-                                type: "checkbox",
-                                checked: settings.enableFaceApi,
-                                id: "enableFaceApiCheck",
-                                onclick: () => {
-                                    chrome.storage.sync.set({"enableFaceApi": enableFaceApiCheck.checked}, function () {
-                                        if (!faceApiLoaded)
-                                            location.reload()
-                                    });
-                                }
-                            })
-                        ]),
-                        createElement('br'),
-                        createElement('span', {
-                            innerText: chrome.i18n.getMessage("skip_males"),
-                        }, [
-                            createElement('input', {
-                                type: "checkbox",
-                                checked: settings.skipMale,
-                                id: "skipMaleCheck",
-                                onclick: () => {
-                                    chrome.storage.sync.set({"skipMale": skipMaleCheck.checked}, function () {
-                                        if (!faceApiLoaded)
-                                            location.reload()
-                                    });
-                                }
-                            })
-                        ]),
-                        createElement('br'),
-                        createElement('span', {
-                            innerText: chrome.i18n.getMessage("skip_females"),
-                        }, [
-                            createElement('input', {
-                                type: "checkbox",
-                                checked: settings.skipFemale,
-                                id: "skipFemaleCheck",
-                                onclick: () => {
-                                    chrome.storage.sync.set({"skipFemale": skipFemaleCheck.checked}, function () {
-                                        if (!faceApiLoaded)
-                                            location.reload()
-                                    });
-                                }
-                            })
-                        ]),
-                        createElement('br'),
-                        createElement('span', {
-                            innerText: "autoban (skip by gender): ",
-                        }, [
-                            createElement('input', {
-                                type: "checkbox",
-                                checked: settings.autoBan,
-                                id: "autoBanCheck",
-                                onclick: () => {
-                                    chrome.storage.sync.set({"autoBan": autoBanCheck.checked}, function () {
-                                        //location.reload()
-                                    });
-                                }
-                            })
-                        ]),
-                        createElement('br'),
-                        createElement('span', {
-                            innerText: "do not ban mobile (disable if ip api not working): ",
-                        }, [
-                            createElement('input', {
-                                type: "checkbox",
-                                checked: settings.dontBanMobile,
-                                id: "dontBanMobileCheck",
-                                onclick: () => {
-                                    chrome.storage.sync.set({"dontBanMobile": dontBanMobileCheck.checked}, function () {
-                                        //location.reload()
-                                    });
-                                }
-                            })
-                        ]),
-                        createElement('br'),
-                        createElement('span', {
-                            innerText: chrome.i18n.getMessage("skip_sound"),
-                        }, [
-                            createElement('input', {
-                                type: "checkbox",
-                                checked: settings.skipSound,
-                                id: "skipSoundCheck",
-                                onclick: () => {
-                                    chrome.storage.sync.set({"skipSound": skipSoundCheck.checked}, function () {
-                                    });
-                                }
-                            })
-                        ]),
-                        createElement('br'),
-                        createElement('span', {
-                            innerText: "ws experiments: ",
-                        }, [
-                            createElement('input', {
-                                type: "checkbox",
-                                checked: settings.ws,
-                                id: "wsCheck",
-                                onclick: () => {
-                                    chrome.storage.sync.set({"ws": wsCheck.checked}, function () {
-                                        location.reload()
-                                    });
-                                }
-                            })
-                        ]),
-                        createElement('br'),
-                        createElement('span', {
-                            innerText: "nsfw detection experiments: ",
-                        }, [
-                            createElement('input', {
-                                type: "checkbox",
-                                checked: settings.nsfw,
-                                id: "nsfwCheck",
-                                onclick: () => {
-                                    chrome.storage.sync.set({"nsfw": nsfwCheck.checked}, function () {
-                                        location.reload()
-                                    });
-                                }
-                            })
-                        ]),
-                        createElement('br'),
-                        createElement('span', {
-                            innerText: chrome.i18n.getMessage("mirror"),
-                        }, [
-                            createElement('input', {
-                                type: "checkbox",
-                                checked: settings.mirror,
-                                id: "mirrorCheck",
-                                onclick: () => {
-                                    chrome.storage.sync.set({
-                                        "mirror": mirrorCheck.checked,
-                                        "mirrorAlt": false,
-                                        "prikol": false
-                                    }, function () {
-                                        location.reload()
-                                    });
-                                }
-                            })
-                        ]),
-                        createElement('br'),
-                        createElement('span', {
-                            innerText: "mirror 2: ",
-                        }, [
-                            createElement('input', {
-                                type: "checkbox",
-                                checked: settings.mirrorAlt,
-                                id: "mirrorAltCheck",
-                                onclick: () => {
-                                    chrome.storage.sync.set({
-                                        "mirror": false,
-                                        "mirrorAlt": mirrorAltCheck.checked,
-                                        "prikol": false
-                                    }, function () {
-                                        location.reload()
-                                    });
-                                }
-                            })
-                        ]),
-                        createElement('br'),
-                        createElement('span', {
-                            innerText: "prikol: ",
-                        }, [
-                            createElement('input', {
-                                type: "checkbox",
-                                checked: settings.prikol,
-                                id: "prikolCheck",
-                                onclick: () => {
-                                    chrome.storage.sync.set({
-                                        "mirror": false,
-                                        "mirrorAlt": false,
-                                        "prikol": prikolCheck.checked
-                                    }, function () {
-                                        location.reload()
-                                    });
-                                }
-                            })
-                        ]),
-                        createElement('br'),
-                        createElement('span', {
-                            innerText: "autoskip (4 seconds loading): ",
-                        }, [
-                            createElement('input', {
-                                type: "checkbox",
-                                checked: settings.skipFourSec,
-                                id: "skipFourSecCheck",
-                                onclick: () => {
-                                    chrome.storage.sync.set({"skipFourSec": skipFourSecCheck.checked});
-                                }
-                            })
-                        ]),
-                        createElement('br'),
-                        createElement('span', {
-                            innerText: "autoresume ('make yourself visible'): ",
-                        }, [
-                            createElement('input', {
-                                type: "checkbox",
-                                checked: settings.autoResume,
-                                id: "autoResumeCheck",
-                                onclick: () => {
-                                    chrome.storage.sync.set({"autoResume": autoResumeCheck.checked});
-                                }
-                            })
-                        ]),
-                        createElement('br'),
-                        createElement('span', {
-                            innerText: chrome.i18n.getMessage("watermark"),
-                        }, [
-                            createElement('input', {
-                                type: "checkbox",
-                                checked: settings.hideWatermark,
-                                id: "hideWatermarkCheck",
-                                onclick: () => {
-                                    chrome.storage.sync.set({"hideWatermark": hideWatermarkCheck.checked}, function () {
-                                        if (hideWatermarkCheck.checked) {
-                                            document.getElementsByClassName("remote-video__watermark")[0].style.opacity = 0.0
-                                        } else {
-                                            document.getElementsByClassName("remote-video__watermark")[0].style.opacity = 1.0
-                                        }
-                                    });
-                                }
-                            })
-                        ]),
-                        createElement('br'),
-                        createElement('span', {
-                            innerText: chrome.i18n.getMessage("banner"),
-                        }, [
-                            createElement('input', {
-                                type: "checkbox",
-                                checked: settings.hideBanner,
-                                id: "hideBannerCheck",
-                                onclick: () => {
-                                    chrome.storage.sync.set({"hideBanner": hideBannerCheck.checked}, function () {
-                                        if (hideBannerCheck.checked) {
-                                            document.getElementsByClassName("caption remote-video__info")[0].style.opacity = 0.0
-                                        } else {
-                                            document.getElementsByClassName("caption remote-video__info")[0].style.opacity = 1.0
-                                        }
-                                    });
-                                }
-                            })
-                        ]),
-                        createElement('br'),
-                        createElement('br'),
-                        createElement('button', {
-                            onclick: () => {
-                                const result = confirm("Clear?");
-                                if (result) {
-                                    let stats = {
-                                        stats: {
-                                            countAll: 0,
-                                            countNew: 0,
-                                            countDup: 0,
-                                            countMales: 0,
-                                            countFemales: 0,
-                                            countManSkip: 0,
-                                            countMaleSkip: 0,
-                                            countFemaleSkip: 0,
-                                            time: 0
-                                        }
-                                    }
-                                    settings.stats = stats.stats
-                                    chrome.storage.sync.set(settings, function () {
-                                        updStats(true)
-                                    });
-                                }
-                            },
-                        }, [
-                            createElement('b', {
-                                innerText: "clear stats"
-                            })
-                        ]),
-                        createElement('br'),
-                        createElement('button', {
-                            onclick: () => {
-                                const result = confirm("Clear?");
-                                if (result) {
-                                    local.ips = []
-                                    chrome.storage.local.set({"ips": []}, function () {
-                                        updStats(true)
-                                    });
-                                }
-                            },
-                        }, [
-                            createElement('b', {
-                                innerText: "clear blacklist"
-                            })
-                        ])
+                        createElement('dl', {},
+                            [
+                                createElement('dt', {
+                                    innerHTML: "<b>Interface</b>"
+                                }),
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: chrome.i18n.getMessage("watermark"),
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "hides the watermark in the upper left corner of the interlocutor's camera"
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.hideWatermark,
+                                            id: "hideWatermarkCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"hideWatermark": hideWatermarkCheck.checked}, function () {
+                                                    if (hideWatermarkCheck.checked) {
+                                                        document.getElementsByClassName("remote-video__watermark")[0].style.opacity = 0.0
+                                                    } else {
+                                                        document.getElementsByClassName("remote-video__watermark")[0].style.opacity = 1.0
+                                                    }
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: chrome.i18n.getMessage("banner"),
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "hides the banner with the current instance logo, current overall online, and mobile applications"
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.hideBanner,
+                                            id: "hideBannerCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"hideBanner": hideBannerCheck.checked}, function () {
+                                                    if (hideBannerCheck.checked) {
+                                                        document.getElementsByClassName("caption remote-video__info")[0].style.opacity = 0.0
+                                                    } else {
+                                                        document.getElementsByClassName("caption remote-video__info")[0].style.opacity = 1.0
+                                                    }
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+
+                                createElement('br'),
+                                createElement('dt', {
+                                    innerHTML: "<b>Automation</b>"
+                                }),
+
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+
+                                        createElement("p", {
+                                            innerText: "autoskip:",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "automatically skip interlocutors that are taking more than 4 seconds to connect to"
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.skipFourSec,
+                                            style: "margin",
+                                            id: "skipFourSecCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"skipFourSec": skipFourSecCheck.checked});
+                                            }
+                                        })
+                                    ]),
+                                ]),
+
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+
+                                        createElement("p", {
+                                            innerText: "autoresume:",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "automatically close 'make yourself visible' when the time comes"
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.autoResume,
+                                            id: "autoResumeCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"autoResume": autoResumeCheck.checked});
+                                            }
+                                        })
+                                    ]),
+                                ]),
+
+                                createElement('br'),
+                                createElement('dt', {
+                                    innerHTML: "<b>Gender recognition</b>"
+                                }),
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: chrome.i18n.getMessage("forcedApi"),
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "continues to determine the gender of the interlocutor even if the gender skipping is disabled"
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.enableFaceApi,
+                                            id: "enableFaceApiCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"enableFaceApi": enableFaceApiCheck.checked}, function () {
+                                                    if (!faceApiLoaded)
+                                                        location.reload()
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+
+                                        createElement("p", {
+                                            innerText: chrome.i18n.getMessage("skip_males"),
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "tries to determine the gender of the interlocutor and skips if nsfwjs is 90 percent sure that the gender of the interlocutor is male"
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.skipMale,
+                                            id: "skipMaleCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"skipMale": skipMaleCheck.checked}, function () {
+                                                    if (!faceApiLoaded)
+                                                        location.reload()
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: chrome.i18n.getMessage("skip_females"),
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "tries to determine the gender of the interlocutor and skips if nsfwjs is 90 percent sure that the gender of the interlocutor is female"
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.skipFemale,
+                                            id: "skipFemaleCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"skipFemale": skipFemaleCheck.checked}, function () {
+                                                    if (!faceApiLoaded)
+                                                        location.reload()
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+                                createElement('br'),
+                                createElement('dt', {
+                                    innerHTML: "<b>Camera hijack</b>"
+                                }),
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: chrome.i18n.getMessage("mirror"),
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "replaces your camera with a canvas that duplicates the image from the interlocutor's camera"
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.mirror,
+                                            id: "mirrorCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({
+                                                    "mirror": mirrorCheck.checked,
+                                                    "mirrorAlt": false,
+                                                    "prikol": false
+                                                }, function () {
+                                                    location.reload()
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: "mirror 2: ",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "replaces your camera with a canvas that duplicates the image from the interlocutor's camera"
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.mirrorAlt,
+                                            id: "mirrorAltCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({
+                                                    "mirror": false,
+                                                    "mirrorAlt": mirrorAltCheck.checked,
+                                                    "prikol": false
+                                                }, function () {
+                                                    location.reload()
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: "prikol: ",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "replaces your camera with 'prikol/prikol.mp4'. useless for casual users."
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.prikol,
+                                            id: "prikolCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({
+                                                    "mirror": false,
+                                                    "mirrorAlt": false,
+                                                    "prikol": prikolCheck.checked
+                                                }, function () {
+                                                    location.reload()
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+
+                                createElement('br'),
+                                createElement('dt', {
+                                    innerHTML: "<b>Blacklist</b>"
+                                }),
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: chrome.i18n.getMessage("autoskip"),
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "automatically adds the interlocutor's IP to the blacklist, if he/she was automatically skipped by gender"
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.autoBan,
+                                            id: "autoBanCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"autoBan": autoBanCheck.checked}, function () {
+                                                    //location.reload()
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: chrome.i18n.getMessage("donotbanmobile"),
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "Prohibits adding mobile IP addresses to the blacklist. They are temporary and can be used by many users. Please disable if IP API is not working."
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.dontBanMobile,
+                                            id: "dontBanMobileCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"dontBanMobile": dontBanMobileCheck.checked}, function () {
+                                                    //location.reload()
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+
+
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: chrome.i18n.getMessage("skip_sound"),
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "plays sound when added to the blacklist and when the banned interlocutor skips"
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.skipSound,
+                                            id: "skipSoundCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"skipSound": skipSoundCheck.checked}, function () {
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+
+                                createElement('dd', {}, [
+                                    createElement('button', {
+                                        onclick: () => {
+                                            const result = confirm("Clear?");
+                                            if (result) {
+                                                local.ips = []
+                                                chrome.storage.local.set({"ips": []}, function () {
+                                                    updStats(true)
+                                                });
+                                            }
+                                        },
+                                    }, [
+                                        createElement('b', {
+                                            innerText: "clear blacklist"
+                                        })
+                                    ])
+                                ]),
+
+                                createElement('br'),
+                                createElement('dt', {
+                                    innerHTML: "<b>Hotkeys</b>"
+                                }),
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: "enable hotkeys:",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "hotkeys"
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.hotkeys,
+                                            id: "hotkeysCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"hotkeys": hotkeysCheck.checked}, function () {
+                                                    if (hotkeysCheck.checked) {
+                                                        document.removeEventListener('keyup', hotkeys)
+                                                        document.addEventListener('keyup', hotkeys)
+                                                    } else {
+                                                        document.removeEventListener('keyup', hotkeys)
+                                                    }
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+                                createElement('br'),
+
+                                createElement('span', {
+                                    innerHTML: chrome.i18n.getMessage("hotkeys")
+                                }),
+
+                                createElement('br'),
+                                createElement('dt', {
+                                    innerHTML: "<b>Experiments</b>"
+                                }),
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: "ws experiments: ",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a venenatis massa."
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.ws,
+                                            id: "wsCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"ws": wsCheck.checked}, function () {
+                                                    location.reload()
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: "nsfw detection experiments: ",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a venenatis massa."
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.nsfw,
+                                            id: "nsfwCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"nsfw": nsfwCheck.checked}, function () {
+                                                    location.reload()
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+
+                                createElement('br'),
+                                createElement('dt', {
+                                    innerHTML: "<b>Stats</b>"
+                                }),
+                                createElement('dd', {}, [
+                                    createElement('button', {
+                                        onclick: () => {
+                                            const result = confirm("Clear?");
+                                            if (result) {
+                                                let stats = {
+                                                    stats: {
+                                                        countAll: 0,
+                                                        countNew: 0,
+                                                        countDup: 0,
+                                                        countMales: 0,
+                                                        countFemales: 0,
+                                                        countManSkip: 0,
+                                                        countMaleSkip: 0,
+                                                        countFemaleSkip: 0,
+                                                        time: 0
+                                                    }
+                                                }
+                                                settings.stats = stats.stats
+                                                chrome.storage.sync.set(settings, function () {
+                                                    updStats(true)
+                                                });
+                                            }
+                                        },
+                                    }, [
+                                        createElement('b', {
+                                            innerText: "clear stats"
+                                        })
+                                    ]),
+                                ]),
+                            ]),
                     ])
             ]),
             createElement('div', {
@@ -776,9 +967,26 @@ chrome.storage.sync.get(null, function (result) {
                         createElement('br'),
                         createElement('br'),
 
-                        createElement('span', {
-                            innerHTML: chrome.i18n.getMessage("rating"),
-                        }),
+                        createElement('span', {}, [
+                            createElement('a', {
+                                target: "_blank",
+                                style: "text-decoration: none!important;",
+                                href: "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi"
+                            }, [
+                                createElement('img', {
+                                    src: "https://img.shields.io/chrome-web-store/rating/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20rating"
+                                }),
+                            ]),
+                            createElement('a', {
+                                target: "_blank",
+                                style: "text-decoration: none!important; margin-left: 3px",
+                                href: "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi"
+                            }, [
+                                createElement('img', {
+                                    src: "https://img.shields.io/chrome-web-store/users/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20users"
+                                }),
+                            ]),
+                        ]),
                         createElement('br'),
                         createElement('br'),
 
@@ -787,34 +995,55 @@ chrome.storage.sync.get(null, function (result) {
                         }),
                         createElement('br'),
                         createElement('br'),
-
                         createElement('span', {
-                            innerHTML: "<b>Community:</b>",
-                        }),
+                            style: "margin-top: 10px"
+                        }, [
+                            createElement('a', {
+                                target: "_blank",
+                                style: "text-decoration: none!important",
+                                href: "https://t.me/videochatru_extension_ru"
+                            }, [
+                                createElement('img', {
+                                    src: "https://img.shields.io/badge/dynamic/json?label=Новости&query=result&suffix=%20Subscribers&logo=telegram&url=https%3A%2F%2Fapi.telegram.org%2Fbot5041993583%3AAAFGRQXy-mstURIBCaoA4IFczRrMeUNrVRc%2FgetChatMemberCount%3Fchat_id%3D%40videochatru_extension_ru"
+                                }),
+                            ]),
+                            createElement('a', {
+                                target: "_blank",
+                                style: "text-decoration: none!important; margin-left: 3px",
+                                href: "https://t.me/videochatru_chat_ru"
+                            }, [
+                                createElement('img', {
+                                    src: "https://img.shields.io/badge/dynamic/json?label=Чат&query=result&suffix=%20Members&logo=telegram&url=https%3A%2F%2Fapi.telegram.org%2Fbot5041993583%3AAAFGRQXy-mstURIBCaoA4IFczRrMeUNrVRc%2FgetChatMemberCount%3Fchat_id%3D%40videochatru_chat_ru"
+                                }),
+                            ]),
+                            createElement('br'),
+                            createElement('a', {
+                                target: "_blank",
+                                style: "text-decoration: none!important",
+                                href: "https://t.me/videochatru_extension"
+                            }, [
+                                createElement('img', {
+                                    src: "https://img.shields.io/badge/dynamic/json?label=News%20EN&query=result&suffix=%20Subscribers&logo=telegram&url=https%3A%2F%2Fapi.telegram.org%2Fbot5041993583%3AAAFGRQXy-mstURIBCaoA4IFczRrMeUNrVRc%2FgetChatMemberCount%3Fchat_id%3D%40videochatru_extension"
+                                }),
+                            ]),
+                            createElement('a', {
+                                target: "_blank",
+                                style: "text-decoration: none!important; margin-left: 3px",
+                                href: "https://t.me/videochatru_chat"
+                            }, [
+                                createElement('img', {
+                                    src: "https://img.shields.io/badge/dynamic/json?label=Chat&query=result&suffix=%20Members&logo=telegram&url=https%3A%2F%2Fapi.telegram.org%2Fbot5041993583%3AAAFGRQXy-mstURIBCaoA4IFczRrMeUNrVRc%2FgetChatMemberCount%3Fchat_id%3D%40videochatru_chat"
+                                }),
+                            ]),
+                        ]),
                         createElement('br'),
-                        createElement('span', {
-                            innerHTML: `<a target='_blank' style='text-decoration: none!important;' href = "https://t.me/videochatru_extension"><img src="https://img.shields.io/endpoint?color=blue&label=News&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fvideochatru_extension"></a>`
-                        }),
-                        createElement('br'),
-                        createElement('span', {
-                            innerHTML: `<a target='_blank' style='text-decoration: none!important;' href = "https://t.me/videochatru_chat"><img src="https://img.shields.io/endpoint?color=blue&label=Chat&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fvideochatru_chat"></a>`
-                        }),
-                        createElement('br'),
-                        createElement('br'),
-
-                        createElement('span', {
-                            innerHTML: chrome.i18n.getMessage("hotkeys")
-                        }),
-
                         createElement('br'),
                         createElement('dl', {},
                             [
                                 createElement('dt', {
                                     innerHTML: chrome.i18n.getMessage("author")
                                 }),
-                                createElement('dd', {
-                                    style: "margin-inline-start: 20px;"
-                                }, [
+                                createElement('dd', {}, [
                                     createElement('a', {
                                         href: "https://github.com/qrlk",
                                         innerText: "qrlk",
@@ -826,15 +1055,13 @@ chrome.storage.sync.get(null, function (result) {
                                     innerHTML: chrome.i18n.getMessage("testers")
                                 }),
                                 createElement('dd', {
-                                    style: "margin-inline-start: 20px;",
+
                                     innerText: chrome.i18n.getMessage("sasha")
                                 }),
                                 createElement('dt', {
                                     innerHTML: chrome.i18n.getMessage("inspired"),
                                 }),
-                                createElement('dd', {
-                                    style: "margin-inline-start: 20px;"
-                                }, [
+                                createElement('dd', {}, [
                                     createElement('a', {
                                         href: "https://github.com/unixpickle/camera-hijack",
                                         innerText: "camera-hijack",
@@ -842,9 +1069,7 @@ chrome.storage.sync.get(null, function (result) {
                                         target: "_blank"
                                     })
                                 ]),
-                                createElement('dd', {
-                                    style: "margin-inline-start: 20px;"
-                                }, [
+                                createElement('dd', {}, [
                                     createElement('a', {
                                         href: "https://github.com/fippo/rtcstats",
                                         innerText: "rtcstats",
@@ -855,9 +1080,7 @@ chrome.storage.sync.get(null, function (result) {
                                 createElement('dt', {
                                     innerHTML: chrome.i18n.getMessage("libs")
                                 }),
-                                createElement('dd', {
-                                    style: "margin-inline-start: 20px;"
-                                }, [
+                                createElement('dd', {}, [
                                     createElement('a', {
                                         href: "https://jquery.com/",
                                         innerText: "jquery",
@@ -865,9 +1088,7 @@ chrome.storage.sync.get(null, function (result) {
                                         target: "_blank"
                                     })
                                 ]),
-                                createElement('dd', {
-                                    style: "margin-inline-start: 20px;"
-                                }, [
+                                createElement('dd', {}, [
                                     createElement('a', {
                                         href: "https://github.com/justadudewhohacks/face-api.js",
                                         innerText: "face-api.js",
@@ -875,12 +1096,30 @@ chrome.storage.sync.get(null, function (result) {
                                         target: "_blank"
                                     })
                                 ]),
-                                createElement('dd', {
-                                    style: "margin-inline-start: 20px;"
-                                }, [
+                                createElement('dd', {}, [
                                     createElement('a', {
                                         href: "https://github.com/uzairfarooq/arrive",
                                         innerText: "arrive.js",
+                                        style: "text-decoration: none!important;",
+                                        target: "_blank"
+                                    })
+                                ]),
+                                createElement('dd', {}, [
+                                    createElement('a', {
+                                        href: "https://github.com/infinitered/nsfwjs",
+                                        innerText: "nsfwjs",
+                                        style: "text-decoration: none!important;",
+                                        target: "_blank"
+                                    })
+                                ]),
+                                createElement('dt', {
+                                    innerHTML: "<b>Css:</b>"
+                                }),
+
+                                createElement('dd', {}, [
+                                    createElement('a', {
+                                        href: "https://github.com/alterebro/css-tooltip",
+                                        innerText: "css-tooltip",
                                         style: "text-decoration: none!important;",
                                         target: "_blank"
                                     })
@@ -889,9 +1128,7 @@ chrome.storage.sync.get(null, function (result) {
                                     innerHTML: chrome.i18n.getMessage("3rdparty")
                                 }),
 
-                                createElement('dd', {
-                                    style: "margin-inline-start: 20px;"
-                                }, [
+                                createElement('dd', {}, [
                                     createElement('a', {
                                         href: "https://ip-api.com/",
                                         innerText: "ip-api",
@@ -899,9 +1136,7 @@ chrome.storage.sync.get(null, function (result) {
                                         target: "_blank"
                                     })
                                 ]),
-                                createElement('dd', {
-                                    style: "margin-inline-start: 20px;"
-                                }, [
+                                createElement('dd', {}, [
                                     createElement('a', {
                                         href: "https://carto.com",
                                         innerText: "carto",
@@ -925,13 +1160,19 @@ chrome.storage.sync.get(null, function (result) {
 
     var target = document.querySelector('#remoteIP')
     var observer = new MutationObserver(function (mutations) {
-
+        console.dir(target.innerText)
+        console.dir(local.ips)
+        console.dir((local.ips.includes(target.innerText)))
         if (local.ips.includes(target.innerText)) {
             settings.stats.countDup++
             console.dir("old ip")
             if (settings.skipSound)
                 ban.play()
-            document.getElementsByClassName('buttons__button start-button')[0].click()
+            document.getElementsByClassName('buttons__button stop-button')[0].click()
+            setTimeout(() => {
+                document.getElementsByClassName('buttons__button start-button')[0].click()
+            }, 250)
+            //document.getElementsByClassName('buttons__button start-button')[0].click()
         } else {
             settings.stats.countNew++
             console.dir("new ip")
@@ -1236,8 +1477,11 @@ chrome.storage.sync.get(null, function (result) {
                     found = Date.now()
                 } else if (attributeValue.includes("s-play")) {
                     // online.play()
-                    if (settings.nsfw)
-                        document.getElementById("local-video").style.filter = "blur(5px)"
+                    if (settings.nsfw) {
+                        document.getElementById("local-video").style.filter = "blur(40px)"
+
+                        document.getElementById("remote-video").style.filter = "blur(40px)"
+                    }
 
                     stage = 3
                     localStage.innerText = 3

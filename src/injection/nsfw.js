@@ -1,16 +1,22 @@
-const PREDICATIONS_ARRAY_SIZE = 3
+const PREDICATIONS_ARRAY_SIZE = 4
 const PANIC_PROPABILITY = 0.8
-const BLUR_FILTER = "blur(40px)"
+const BLUR_FILTER = "blur(55px)"
 const WEIGHT_PORN = 2
 const WEIGHT_SEXY = 1
 const BLUR_DURATION = 5
-const BLUR_PANIC = 8
+const BLUR_PANIC = 6
 const TIMEOUT = 150
 
 nsfwjs.load().then(function (model) {
     const vid = document.getElementById("local-video")
+    const rmt = document.getElementById("remote-video")
+
     let last_blur = 0
     nsfwInfo.style.display = ""
+
+    document.getElementById("logo-link").style.marginLeft="50px"
+    document.getElementsByClassName("btn btn-red")[0].style.display = "none"
+    document.getElementsByClassName("btn btn-main")[0].style.display = "none"
 
     let preds = []
 
@@ -50,6 +56,7 @@ nsfwjs.load().then(function (model) {
 
                 if (blur >= BLUR_PANIC) {
                     vid.style.filter = BLUR_FILTER
+                    rmt.style.filter = BLUR_FILTER
 
                     last_blur = +new Date()
                 } else {
@@ -57,9 +64,11 @@ nsfwjs.load().then(function (model) {
                         // vid.style.filter = BLUR_FILTER
                     } else if (last_blur === 0) {
                         vid.style.filter = ""
+                        rmt.style.filter = ""
                         console.dir('РАЗБЛЮР ПЕРВЫЙ')
                     } else if (last_blur !== 0 && +new Date() - last_blur > BLUR_DURATION * 1000) {
                         vid.style.filter = ""
+                        rmt.style.filter = ""
                         console.dir('РАЗБЛЮР')
                     }
                 }
@@ -73,6 +82,7 @@ nsfwjs.load().then(function (model) {
             last_blur = 0
             preds = []
             vid.style.filter = ""
+            rmt.style.filter = ""
             nsfwInfo.style.display = "none"
         }
 
