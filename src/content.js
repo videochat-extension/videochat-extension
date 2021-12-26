@@ -150,13 +150,6 @@ chrome.storage.sync.get(null, function (result) {
         }
     }, 1000)
 
-    if (settings.ws) {
-        const wss = document.createElement('script');
-        wss.src = chrome.extension.getURL('injection/ws.js');
-        wss.onload = () => wss.remove();
-        (document.head || document.documentElement).appendChild(wss);
-    }
-
     if (settings.nsfw) {
         const nsfwjs = document.createElement('script');
         nsfwjs.src = chrome.extension.getURL('js/nsfwjs.min.js');
@@ -846,7 +839,7 @@ chrome.storage.sync.get(null, function (result) {
                                         createElement("p", {
                                             innerText: "enable hotkeys:",
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "hotkeys"
+                                            "data-tooltip": "Enable cool arrows hotkeys. this does not affect the extension hotkeys that are configured in the browser settings."
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
@@ -873,14 +866,14 @@ chrome.storage.sync.get(null, function (result) {
 
                                 createElement('br'),
                                 createElement('dt', {
-                                    innerHTML: "<b>Experiments</b>"
+                                    innerHTML: "<b>WS</b>"
                                 }),
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
-                                            innerText: "ws experiments: ",
+                                            innerText: "enable websocket hacks: ",
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a venenatis massa."
+                                            "data-tooltip": "interferes with the protocol of communication with the Chatruletka server, which allows you to use the functions described below. bans are possible due to possible countermeasures."
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
@@ -894,6 +887,134 @@ chrome.storage.sync.get(null, function (result) {
                                         })
                                     ]),
                                 ]),
+                                createElement('br'),
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: "skip sound:",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "plays sound when your interlocutor clicks 'Next'"
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.wsconfig.theyskipsound,
+                                            id: "wsconfigtheyskipsoundCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"wsconfig":{"hotkeys": wsconfigtheyskipsoundCheck.checked}}, function () {
+
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: "skip wrong country:",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "instant skip if you are looking for someone from X country but service found you someone from Y country"
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.wsconfig.skipwrongcountry,
+                                            id: "wsconfigskipwrongcountryCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"wsconfig":{"skipwrongcountry": wsconfigskipwrongcountryCheck.checked}}, function () {
+
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: "replace preview:",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "replaces the preview that the interlocutor sees while the connection is being established"
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.wsconfig.replacePic,
+                                            id: "wsconfigreplacePicCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"wsconfig":{"replacePic": wsconfigreplacePicCheck.checked}}, function () {
+
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: "delete preview:",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "deletes the preview that the interlocutor sees while the connection is being established"
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.wsconfig.deletePic,
+                                            id: "wsconfigdeletePicCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"wsconfig":{"deletePic": wsconfigdeletePicCheck.checked}}, function () {
+
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+
+
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: "replace report pic:",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "replaces the image that the service uses to check you for violations. Avoiding accidental bans only. If lot of reports are sent to you, you will be banned anyway."
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.wsconfig.replaceReportPics,
+                                            id: "wsconfigreplaceReportPicsCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"wsconfig":{"replaceReportPics": wsconfigreplaceReportPicsCheck.checked}}, function () {
+
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+
+
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: "delete report pic:",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "deletes the image that the service uses to check you for violations. Avoiding accidental bans only. If you abuse and a lot of reports are sent to you, you will be banned anyway."
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.wsconfig.deleteReportPics,
+                                            id: "wsconfigdeleteReportPicsCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"wsconfig":{"deleteReportPics": wsconfigdeleteReportPicsCheck.checked}}, function () {
+
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+
+                                createElement('br'),
+                                createElement('dt', {
+                                    innerHTML: "<b>Experiments</b>"
+                                }),
+
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
@@ -1157,6 +1278,13 @@ chrome.storage.sync.get(null, function (result) {
     chat = $(".chat")[0]
 
     $(controls).insertBefore(".chat");
+
+    if (settings.ws) {
+        const wss = document.createElement('script');
+        wss.src = chrome.extension.getURL('injection/ws.js');
+        wss.onload = () => wss.remove();
+        (document.head || document.documentElement).appendChild(wss);
+    }
 
     var target = document.querySelector('#remoteIP')
     var observer = new MutationObserver(function (mutations) {
