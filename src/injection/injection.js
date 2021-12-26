@@ -1,43 +1,34 @@
 let language = document.getElementsByClassName("language-selector__popup-item selected")[0].dataset.value
 
-document.addEventListener('keyup', e => {
-    switch (e.key) {
-        case "ArrowLeft":
-            if (document.getElementById("report-popup").style.display == "block")
-                document.getElementsByClassName("btn btn-gray")[2].click()
-            else
-                document.getElementsByClassName('buttons__button start-button')[0].click()
-            break;
+function secondsToHms(d) {
+    d = Number(d);
+    var h = Math.floor(d / 3600);
+    var m = Math.floor(d % 3600 / 60);
+    var s = Math.floor(d % 3600 % 60);
 
-        case "ArrowUp":
-            document.getElementsByClassName('buttons__button stop-button')[0].click()
-            break;
-
-        case "ArrowDown":
-            document.getElementsByClassName("message-report-link tr")[0].click()
-            break;
-
-        case "ArrowRight":
-            if (document.getElementById("report-popup").style.display == "block")
-                document.getElementsByClassName("btn btn-main send-report")[1].click()
-            break;
-    }
-})
+    var hDisplay = h > 0 ? h + (h == 1 ? "H" : "H") : "";
+    var mDisplay = m > 0 ? m + (m == 1 ? "M, " : "M") : "";
+    var sDisplay = s > 0 ? s + (s == 1 ? "S" : "S") : "";
+    return hDisplay + mDisplay + sDisplay; 
+}
 
 function updateRemoteAddress(remoteAddress) {
     $.getJSON("http://ip-api.com/json/" + remoteAddress.replace("[", "").replace("]", ""), { lang: language, fields: "status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query" })
         .done(function (json) {
             remoteIPInfo.innerText = JSON.stringify(json)
+			startDate = +new Date()/1000
 
             if (json.mobile) {
                 remoteInfo.innerHTML = "<b>Country: </b>" + json.country + " [" + json.countryCode + "] </br></br>" +
-                    "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", { timeZone: json.timezone }).slice(0, -3) + "</sup>)"
+                    "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", { timeZone: json.timezone }).slice(0, -3) + "</sup>) </br>" + 
+                    "<b>TM: </b><sup id='remoteTM'>" + secondsToHms(+new Date()/1000-startDate) + "</sup>"
             } else {
                 remoteInfo.innerHTML = "<b>Country: </b>" + json.country + " [" + json.countryCode + "] </br>" +
                     "</br>" +
                     "<b>City: </b>" + json.city + " (" + json.region + ") </br>" +
                     "<b>Region: </b>" + json.regionName + "</br>" +
-                    "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", { timeZone: json.timezone }).slice(0, -3) + "</sup>)</br>"
+                    "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", { timeZone: json.timezone }).slice(0, -3) + "</sup>)</br>" + 
+                    "<b>TM: </b><sup id='remoteTM'>" + secondsToHms(+new Date()/1000-startDate) + "</sup>"
             }
         })
         .fail(function (jqxhr, textStatus, error) {
@@ -49,8 +40,8 @@ function updateRemoteAddress(remoteAddress) {
 }
 
 setInterval(() => {
-    if (typeof localTZ !== 'undefined' && typeof localTime !== 'undefined') {
-        localTime.innerText = new Date().toLocaleTimeString("ru", { timeZone: localTZ.innerText }).slice(0, -3)
+    if (typeof remoteTM !== 'undefined') {
+        remoteTM.innerText = secondsToHms(+new Date()/1000-startDate)
     }
     if (typeof remoteTZ !== 'undefined' && typeof remoteTime !== 'undefined') {
         remoteTime.innerText = new Date().toLocaleTimeString("ru", { timeZone: remoteTZ.innerText }).slice(0, -3)
