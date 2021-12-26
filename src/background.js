@@ -8,6 +8,7 @@ var defaults = {
     dontBanMobile: false,
     skipMale: false,
     skipFemale: false,
+    possibleReview: false,
     ws: false,
     nsfw: false,
     skipSound: false,
