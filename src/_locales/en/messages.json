@@ -220,5 +220,11 @@
   },
   "clearStats": {
     "message": "clear stats"
+  },
+  "tabStats": {
+    "message": "Stats"
+  },
+  "tabBans": {
+    "message": "Bans"
   }
 }

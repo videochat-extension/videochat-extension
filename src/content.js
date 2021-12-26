@@ -364,10 +364,10 @@ chrome.storage.sync.get(null, function (result) {
                     innerText: chrome.i18n.getMessage("tab2"),
                 }),
                 createElement('li', {
-                    innerText: "Bans",
+                    innerText: chrome.i18n.getMessage("tabBans")
                 }),
                 createElement('li', {
-                    innerText: "Stats"
+                    innerText: chrome.i18n.getMessage("tabStats")
                 }),
                 createElement('li', {
                     innerText: chrome.i18n.getMessage("tab3")
