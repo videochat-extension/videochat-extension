@@ -400,7 +400,7 @@ chrome.storage.sync.get(null, function (result) {
             }, [
                 createElement('div', {
                     id: "mapid",
-                    style: "width: 100%"
+                    style: "width: 100%; margin-top: 1px;"
                 })
             ]),
 
