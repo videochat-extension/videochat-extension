@@ -32,6 +32,7 @@
     "js/leaflet/*",
     "audio/*.mp3",
     "prikol/*.mp4",
+    "css/css-tooltip.min.css",
     "controls*.html"
   ],
   "browser_action": {
