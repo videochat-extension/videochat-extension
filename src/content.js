@@ -515,14 +515,14 @@ chrome.storage.sync.get(null, function (result) {
                         createElement('dl', {},
                             [
                                 createElement('dt', {
-                                    innerHTML: "<b>Interface</b>"
+                                    innerHTML: chrome.i18n.getMessage("settingsInterface")
                                 }),
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
                                             innerText: chrome.i18n.getMessage("watermark"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "hides the watermark in the upper left corner of the interlocutor's camera"
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipWatermark")
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
@@ -545,7 +545,7 @@ chrome.storage.sync.get(null, function (result) {
                                         createElement("p", {
                                             innerText: chrome.i18n.getMessage("banner"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "hides the banner with the current instance logo, current overall online, and mobile applications"
+                                            "data-tooltip": chrome.i18n.getMessage('tooltipBanner')
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
@@ -566,16 +566,16 @@ chrome.storage.sync.get(null, function (result) {
 
                                 createElement('br'),
                                 createElement('dt', {
-                                    innerHTML: "<b>Automation</b>"
+                                    innerHTML: chrome.i18n.getMessage('settingsAutomation')
                                 }),
 
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
 
                                         createElement("p", {
-                                            innerText: "autoskip:",
+                                            innerText: chrome.i18n.getMessage("autoskipfour"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "automatically skip interlocutors that are taking more than 4 seconds to connect to"
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipFour")
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
@@ -593,9 +593,9 @@ chrome.storage.sync.get(null, function (result) {
                                     createElement('span', {}, [
 
                                         createElement("p", {
-                                            innerText: "autoresume:",
+                                            innerText: chrome.i18n.getMessage("autoresume"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "automatically close 'make yourself visible' when the time comes"
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipAutoresume")
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
@@ -610,14 +610,14 @@ chrome.storage.sync.get(null, function (result) {
 
                                 createElement('br'),
                                 createElement('dt', {
-                                    innerHTML: "<b>Gender recognition</b>"
+                                    innerHTML: chrome.i18n.getMessage("genderRecognition")
                                 }),
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
                                             innerText: chrome.i18n.getMessage("forcedApi"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "continues to determine the gender of the interlocutor even if the gender skipping is disabled"
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipForcedRecognition")
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
@@ -638,7 +638,7 @@ chrome.storage.sync.get(null, function (result) {
                                         createElement("p", {
                                             innerText: chrome.i18n.getMessage("skip_males"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "tries to determine the gender of the interlocutor and skips if nsfwjs is 90 percent sure that the gender of the interlocutor is male"
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipSkipMales")
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
@@ -658,7 +658,7 @@ chrome.storage.sync.get(null, function (result) {
                                         createElement("p", {
                                             innerText: chrome.i18n.getMessage("skip_females"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "tries to determine the gender of the interlocutor and skips if nsfwjs is 90 percent sure that the gender of the interlocutor is female"
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipSkipFemales")
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
@@ -675,14 +675,14 @@ chrome.storage.sync.get(null, function (result) {
                                 ]),
                                 createElement('br'),
                                 createElement('dt', {
-                                    innerHTML: "<b>Camera hijack</b>"
+                                    innerHTML: chrome.i18n.getMessage("settingsCameraHijack")
                                 }),
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
                                             innerText: chrome.i18n.getMessage("mirror"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "replaces your camera with a canvas that duplicates the image from the interlocutor's camera"
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipMirror1")
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
@@ -704,9 +704,9 @@ chrome.storage.sync.get(null, function (result) {
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
-                                            innerText: "mirror 2: ",
+                                            innerText: chrome.i18n.getMessage("mirror2"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "replaces your camera with a canvas that duplicates the image from the interlocutor's camera"
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipMirror2")
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
@@ -728,9 +728,9 @@ chrome.storage.sync.get(null, function (result) {
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
-                                            innerText: "prikol: ",
+                                            innerText: chrome.i18n.getMessage("prikol"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "replaces your camera with 'prikol/prikol.mp4'. useless for casual users."
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipPrikol")
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
@@ -751,14 +751,14 @@ chrome.storage.sync.get(null, function (result) {
 
                                 createElement('br'),
                                 createElement('dt', {
-                                    innerHTML: "<b>Blacklist</b>"
+                                    innerHTML: chrome.i18n.getMessage("settingsBlacklist")
                                 }),
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
                                             innerText: chrome.i18n.getMessage("autoskip"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "automatically adds the interlocutor's IP to the blacklist, if he/she was automatically skipped by gender"
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipAutoskip")
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
@@ -777,7 +777,7 @@ chrome.storage.sync.get(null, function (result) {
                                         createElement("p", {
                                             innerText: chrome.i18n.getMessage("donotbanmobile"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "Prohibits adding mobile IP addresses to the blacklist. They are temporary and can be used by many users. Please disable if IP API is not working."
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipDonotbanmobile")
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
@@ -798,7 +798,7 @@ chrome.storage.sync.get(null, function (result) {
                                         createElement("p", {
                                             innerText: chrome.i18n.getMessage("skip_sound"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "plays sound when added to the blacklist and when the banned interlocutor skips"
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipSkipSound")
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
@@ -825,21 +825,21 @@ chrome.storage.sync.get(null, function (result) {
                                         },
                                     }, [
                                         createElement('b', {
-                                            innerText: "clear blacklist"
+                                            innerText: chrome.i18n.getMessage("clearblacklist")
                                         })
                                     ])
                                 ]),
 
                                 createElement('br'),
                                 createElement('dt', {
-                                    innerHTML: "<b>Hotkeys</b>"
+                                    innerHTML: chrome.i18n.getMessage("settingsHotkeys")
                                 }),
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
-                                            innerText: "enable hotkeys:",
+                                            innerText: chrome.i18n.getMessage("enablehotkeys"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "Enable cool arrows hotkeys. this does not affect the extension hotkeys that are configured in the browser settings."
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipEnableHotkeys")
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
@@ -866,14 +866,14 @@ chrome.storage.sync.get(null, function (result) {
 
                                 createElement('br'),
                                 createElement('dt', {
-                                    innerHTML: "<b>WS</b>"
+                                    innerHTML: chrome.i18n.getMessage("settingsWS")
                                 }),
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
-                                            innerText: "enable websocket hacks: ",
+                                            innerText: chrome.i18n.getMessage("enableWS"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "interferes with the protocol of communication with the Chatruletka server, which allows you to use the functions described below. bans are possible due to possible countermeasures."
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipEnableWS")
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
@@ -891,16 +891,16 @@ chrome.storage.sync.get(null, function (result) {
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
-                                            innerText: "skip sound:",
+                                            innerText: chrome.i18n.getMessage("skipSoundWS"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "plays sound when your interlocutor clicks 'Next'"
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipSkipSoundWS")
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
                                             checked: settings.wsconfig.theyskipsound,
                                             id: "wsconfigtheyskipsoundCheck",
                                             onclick: () => {
-                                                chrome.storage.sync.set({"wsconfig":{"hotkeys": wsconfigtheyskipsoundCheck.checked}}, function () {
+                                                chrome.storage.sync.set({"wsconfig": {"hotkeys": wsconfigtheyskipsoundCheck.checked}}, function () {
 
                                                 });
                                             }
@@ -911,16 +911,16 @@ chrome.storage.sync.get(null, function (result) {
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
-                                            innerText: "skip wrong country:",
+                                            innerText: chrome.i18n.getMessage("skipWrongCountry"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "instant skip if you are looking for someone from X country but service found you someone from Y country"
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipSkipWrongCountry")
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
                                             checked: settings.wsconfig.skipwrongcountry,
                                             id: "wsconfigskipwrongcountryCheck",
                                             onclick: () => {
-                                                chrome.storage.sync.set({"wsconfig":{"skipwrongcountry": wsconfigskipwrongcountryCheck.checked}}, function () {
+                                                chrome.storage.sync.set({"wsconfig": {"skipwrongcountry": wsconfigskipwrongcountryCheck.checked}}, function () {
 
                                                 });
                                             }
@@ -931,16 +931,16 @@ chrome.storage.sync.get(null, function (result) {
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
-                                            innerText: "replace preview:",
+                                            innerText: chrome.i18n.getMessage("replacePreview"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "replaces the preview that the interlocutor sees while the connection is being established"
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipReplacePreview")
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
                                             checked: settings.wsconfig.replacePic,
                                             id: "wsconfigreplacePicCheck",
                                             onclick: () => {
-                                                chrome.storage.sync.set({"wsconfig":{"replacePic": wsconfigreplacePicCheck.checked}}, function () {
+                                                chrome.storage.sync.set({"wsconfig": {"replacePic": wsconfigreplacePicCheck.checked}}, function () {
 
                                                 });
                                             }
@@ -951,16 +951,16 @@ chrome.storage.sync.get(null, function (result) {
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
-                                            innerText: "delete preview:",
+                                            innerText: chrome.i18n.getMessage("deletePreview"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "deletes the preview that the interlocutor sees while the connection is being established"
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipDeletePreview")
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
                                             checked: settings.wsconfig.deletePic,
                                             id: "wsconfigdeletePicCheck",
                                             onclick: () => {
-                                                chrome.storage.sync.set({"wsconfig":{"deletePic": wsconfigdeletePicCheck.checked}}, function () {
+                                                chrome.storage.sync.set({"wsconfig": {"deletePic": wsconfigdeletePicCheck.checked}}, function () {
 
                                                 });
                                             }
@@ -972,16 +972,16 @@ chrome.storage.sync.get(null, function (result) {
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
-                                            innerText: "replace report pic:",
+                                            innerText: chrome.i18n.getMessage("replaceReportPic"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "replaces the image that the service uses to check you for violations. Avoiding accidental bans only. If lot of reports are sent to you, you will be banned anyway."
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipReplaceReportPic")
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
                                             checked: settings.wsconfig.replaceReportPics,
                                             id: "wsconfigreplaceReportPicsCheck",
                                             onclick: () => {
-                                                chrome.storage.sync.set({"wsconfig":{"replaceReportPics": wsconfigreplaceReportPicsCheck.checked}}, function () {
+                                                chrome.storage.sync.set({"wsconfig": {"replaceReportPics": wsconfigreplaceReportPicsCheck.checked}}, function () {
 
                                                 });
                                             }
@@ -993,16 +993,16 @@ chrome.storage.sync.get(null, function (result) {
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
-                                            innerText: "delete report pic:",
+                                            innerText: chrome.i18n.getMessage("deleteReportPic"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "deletes the image that the service uses to check you for violations. Avoiding accidental bans only. If you abuse and a lot of reports are sent to you, you will be banned anyway."
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipDeleteReportPic")
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
                                             checked: settings.wsconfig.deleteReportPics,
                                             id: "wsconfigdeleteReportPicsCheck",
                                             onclick: () => {
-                                                chrome.storage.sync.set({"wsconfig":{"deleteReportPics": wsconfigdeleteReportPicsCheck.checked}}, function () {
+                                                chrome.storage.sync.set({"wsconfig": {"deleteReportPics": wsconfigdeleteReportPicsCheck.checked}}, function () {
 
                                                 });
                                             }
@@ -1012,7 +1012,7 @@ chrome.storage.sync.get(null, function (result) {
 
                                 createElement('br'),
                                 createElement('dt', {
-                                    innerHTML: "<b>Experiments</b>"
+                                    innerHTML: chrome.i18n.getMessage("settingsExperiments")
                                 }),
 
                                 createElement('dd', {}, [
@@ -1020,7 +1020,7 @@ chrome.storage.sync.get(null, function (result) {
                                         createElement("p", {
                                             innerText: "nsfw detection experiments: ",
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a venenatis massa."
+                                            "data-tooltip": "unfinished nsfwjs integration to auto blur NSFW interlocutors."
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
@@ -1037,7 +1037,7 @@ chrome.storage.sync.get(null, function (result) {
 
                                 createElement('br'),
                                 createElement('dt', {
-                                    innerHTML: "<b>Stats</b>"
+                                    innerHTML: chrome.i18n.getMessage("settingsStats")
                                 }),
                                 createElement('dd', {}, [
                                     createElement('button', {
@@ -1065,7 +1065,7 @@ chrome.storage.sync.get(null, function (result) {
                                         },
                                     }, [
                                         createElement('b', {
-                                            innerText: "clear stats"
+                                            innerText: chrome.i18n.getMessage("clearStats")
                                         })
                                     ]),
                                 ]),
@@ -1176,8 +1176,7 @@ chrome.storage.sync.get(null, function (result) {
                                     innerHTML: chrome.i18n.getMessage("testers")
                                 }),
                                 createElement('dd', {
-
-                                    innerText: chrome.i18n.getMessage("sasha")
+                                    innerText: "kryzh"
                                 }),
                                 createElement('dt', {
                                     innerHTML: chrome.i18n.getMessage("inspired"),

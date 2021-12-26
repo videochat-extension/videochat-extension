@@ -44,9 +44,6 @@
     "testers": {
         "message": "<b>Tester:</b>"
     },
-    "sasha": {
-        "message": "Sasha \"KRIZH\" Gromshtein"
-    },
     "inspired": {
         "message": "<b>Inspired by:</b>"
     },
@@ -87,9 +84,6 @@
         "message": "do not ban mobile:"
     },
 
-    "m": {
-        "message": "m"
-    },
 
     "initialFaceDetect": {
         "message": "faceapi: initial face detection..."
@@ -99,5 +93,144 @@
     },
     "avoidBan": {
         "message": "<b>Chat Roulette Extension: <a target ='_blank' style = 'text-decoration: none!important;' href = 'https://github.com/qrlk/videochatru-extension/wiki/Ban'>I was banned. What should I do now?</a></b>"
-    }
+    },
+
+
+
+    "settingsInterface": {
+        "message": "<b>Interface</b>"
+    },
+    "tooltipWatermark": {
+        "message": "hides the watermark in the upper left corner of the interlocutor's camera"
+    },
+    "tooltipBanner": {
+        "message": "hides the banner with the current instance logo, current overall online, and mobile applications"
+    },
+    "settingsAutomation": {
+        "message": "<b>Automation</b>"
+    },
+
+    "autoskipfour": {
+        "message": "autoskip:"
+    },
+    "tooltipFour": {
+        "message": "automatically skip interlocutors that are taking more than 4 seconds to connect to"
+    },
+    "autoresume": {
+        "message": "autoresume:"
+    },
+    "tooltipAutoresume": {
+        "message": "automatically close 'make yourself visible' when the time comes"
+    },
+    "genderRecognition": {
+        "message": "<b>Gender recognition</b>"
+    },
+    "tooltipForcedRecognition": {
+        "message": "continues to determine the gender of the interlocutor even if the gender skipping is disabled"
+    },
+    "tooltipSkipMales": {
+        "message": "tries to determine the gender of the interlocutor and skips if nsfwjs is 90 percent sure that the gender of the interlocutor is male"
+    },
+    "tooltipSkipFemales": {
+        "message": "tries to determine the gender of the interlocutor and skips if nsfwjs is 90 percent sure that the gender of the interlocutor is female"
+    },
+    "settingsCameraHijack": {
+        "message": "<b>Camera hijack</b>"
+    },
+    "tooltipMirror1": {
+        "message": "replaces your camera with a canvas that duplicates the image from the interlocutor's camera"
+    },
+    "mirror2": {
+        "message": "mirror 2:"
+    },
+    "tooltipMirror2": {
+        "message": "replaces your camera with a canvas that duplicates the image from the interlocutor's camera"
+    },
+    "prikol": {
+        "message": "prikol:"
+    },
+    "tooltipPrikol": {
+        "message": "replaces your camera with 'prikol/prikol.mp4'. useless for casual users."
+    },
+    "settingsBlacklist": {
+      "message": "<b>Blacklist</b>"
+    },
+    "tooltipAutoskip": {
+      "message": "automatically adds the interlocutor's IP to the blacklist, if he/she was automatically skipped by gender"
+    },
+    "tooltipDonotbanmobile": {
+      "message": "Prohibits adding mobile IP addresses to the blacklist. They are temporary and can be used by many users. Please disable if IP API is not working."
+    },
+    "tooltipSkipSound": {
+      "message": "plays sound when added to the blacklist and when the banned interlocutor skips"
+    },
+  "clearblacklist": {
+    "message": "clear blacklist"
+  },
+  "settingsHotkeys": {
+    "message": "<b>Hotkeys</b>"
+  },
+
+  "enableHotkeys": {
+    "message": "enable hotkeys:"
+  },
+  "tooltipEnableHotkeys": {
+    "message": "Enable cool arrows hotkeys. this does not affect the extension hotkeys that are configured in the browser settings."
+  },
+  "settingsWS": {
+    "message": "<b>WS</b>"
+  },
+  "enableWS": {
+    "message": "enable websocket hacks:"
+  },
+  "tooltipEnableWS": {
+    "message": "interferes with the protocol of communication with the Chatruletka server, which allows you to use the functions described below. bans are possible due to possible countermeasures."
+  },
+  "skipSoundWS": {
+    "message": "skip sound:"
+  },
+  "tooltipSkipSoundWS": {
+    "message": "plays sound when your interlocutor clicks 'Next'"
+  },
+  "skipWrongCountry": {
+    "message": "skip wrong country:"
+  },
+
+    "tooltipSkipWrongCountry": {
+        "message": "instant skip if you are looking for someone from X country but service found you someone from Y country"
+    },
+    "replacePreview": {
+        "message":  "replace preview:"
+    },
+    "tooltipReplacePreview": {
+        "message":  "replaces the preview that the interlocutor sees while the connection is being established"
+    },
+
+    "deletePreview": {
+        "message": "delete preview:"
+    },
+    "tooltipDeletePreview": {
+        "message": "deletes the preview that the interlocutor sees while the connection is being established"
+    },
+  "replaceReportPic": {
+    "message": "replace report pic:"
+  },
+  "tooltipReplaceReportPic": {
+    "message": "replaces the image that the service uses to check you for violations. Avoiding accidental bans only. If lot of reports are sent to you, you will be banned anyway."
+  },
+  "deleteReportPic": {
+    "message": "delete report pic:"
+  },
+  "tooltipDeleteReportPic": {
+    "message": "deletes the image that the service uses to check you for violations. Avoiding accidental bans only. If you abuse and a lot of reports are sent to you, you will be banned anyway."
+  },
+  "settingsExperiments": {
+    "message":  "<b>Experiments</b>"
+  },
+  "settingsStats": {
+    "message": "<b>Stats</b>"
+  },
+  "clearStats": {
+    "message": "clear stats"
+  }
 }
