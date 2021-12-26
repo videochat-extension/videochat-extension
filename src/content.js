@@ -1092,7 +1092,7 @@ chrome.storage.sync.get(null, function (result) {
                             createElement('a', {
                                 target: "_blank",
                                 style: "text-decoration: none!important;",
-                                href: "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi"
+                                href: "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi/reviews"
                             }, [
                                 createElement('img', {
                                     src: "https://img.shields.io/chrome-web-store/rating/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20rating"
