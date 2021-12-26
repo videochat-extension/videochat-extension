@@ -14,9 +14,9 @@ nsfwjs.load().then(function (model) {
     let last_blur = 0
     nsfwInfo.style.display = ""
 
-    document.getElementById("logo-link").style.marginLeft="50px"
-    document.getElementsByClassName("btn btn-red")[0].style.display = "none"
-    document.getElementsByClassName("btn btn-main")[0].style.display = "none"
+    // document.getElementById("logo-link").style.marginLeft="50px"
+    // document.getElementsByClassName("btn btn-red")[0].style.display = "none"
+    // document.getElementsByClassName("btn btn-main")[0].style.display = "none"
 
     let preds = []
 
