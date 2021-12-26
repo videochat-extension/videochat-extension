@@ -18,9 +18,9 @@ var defaults = {
     wsconfig: {
         theyskipsound: true,
         skipwrongcountry: true,
-        replacePic: true,
+        replacePic: false,
         deletePic: false,
-        replaceReportPics: true,
+        replaceReportPics: false,
         deleteReportPics: false
     },
     stats: {
