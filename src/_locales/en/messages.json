@@ -229,5 +229,37 @@
   },
   "beggingForReview": {
     "message": "Creating this extension took me dozens hours of unpaid work. Please rate my work in the Chrome Web Store reviews. This will help new users find the extension and give me the feedback I'm missing."
+  },
+
+  "bannedips": {
+    "message": "banned ips: "
+  },
+
+  "goodips": {
+    "message": "good ips: "
+  },
+  "badips": {
+    "message": "bad ips: "
+  },
+  "statsWhole": {
+    "message": "whole: "
+  },
+  "statsTimeSpent": {
+    "message": "time spent: "
+  },
+  "statsMaleSkip": {
+    "message": "male skip: "
+  },
+  "statsFemaleSkip": {
+    "message": "female skip: "
+  },
+  "statsManualSkip": {
+    "message": "manual skip: "
+  },
+  "statsMlCount": {
+    "message": "ml count: "
+  },
+  "statsFmlCount": {
+    "message": "fml count: "
   }
 }

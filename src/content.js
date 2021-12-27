@@ -445,7 +445,7 @@ chrome.storage.sync.get(null, function (result) {
                     },
                     [
                         createElement('span', {
-                            innerText: `banned ips: `
+                            innerText: chrome.i18n.getMessage("bannedips")
                         }),
                         createElement('span', {
                             id: 'stBnCt'
@@ -453,14 +453,14 @@ chrome.storage.sync.get(null, function (result) {
                         createElement('br'),
                         createElement('br'),
                         createElement('span', {
-                            innerText: `good ips: `
+                            innerText:  chrome.i18n.getMessage("goodips")
                         }),
                         createElement('span', {
                             id: 'stNwIp'
                         }),
                         createElement('br'),
                         createElement('span', {
-                            innerText: `bad ips: `
+                            innerText:  chrome.i18n.getMessage("badips")
                         }),
                         createElement('span', {
                             id: 'stBnIp'
@@ -480,14 +480,14 @@ chrome.storage.sync.get(null, function (result) {
                     },
                     [
                         createElement('span', {
-                            innerText: `whole: `
+                            innerText:  chrome.i18n.getMessage("statsWhole")
                         }),
                         createElement('span', {
                             id: 'stWhole'
                         }),
                         createElement('br'),
                         createElement('span', {
-                            innerText: `time spent: `
+                            innerText:  chrome.i18n.getMessage("statsTimeSpent")
                         }),
                         createElement('span', {
                             id: 'stTime'
@@ -495,21 +495,21 @@ chrome.storage.sync.get(null, function (result) {
                         createElement('br'),
                         createElement('br'),
                         createElement('span', {
-                            innerText: `male skip: `
+                            innerText:  chrome.i18n.getMessage("statsMaleSkip")
                         }),
                         createElement('span', {
                             id: 'stMlSk'
                         }),
                         createElement('br'),
                         createElement('span', {
-                            innerText: `female skip: `
+                            innerText:   chrome.i18n.getMessage("statsFemaleSkip")
                         }),
                         createElement('span', {
                             id: 'stFmlSk'
                         }),
                         createElement('br'),
                         createElement('span', {
-                            innerText: `manual skip: `
+                            innerText:  chrome.i18n.getMessage("statsManualSkip")
                         }),
                         createElement('span', {
                             id: 'stMnSk'
@@ -517,14 +517,14 @@ chrome.storage.sync.get(null, function (result) {
                         createElement('br'),
                         createElement('br'),
                         createElement('span', {
-                            innerText: `ml count: `
+                            innerText:  chrome.i18n.getMessage("statsMlCount")
                         }),
                         createElement('span', {
                             id: 'stMlCnt'
                         }),
                         createElement('br'),
                         createElement('span', {
-                            innerText: `fml count: `
+                            innerText: chrome.i18n.getMessage("statsFmlCount")
                         }),
                         createElement('span', {
                             id: 'stFmlCnt'
