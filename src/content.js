@@ -110,7 +110,7 @@ function syncBlackList() {
     }
 }
 
-var tim
+let tim;
 
 /**
  * @param {string} tagName
@@ -143,7 +143,7 @@ function downloadImage(data) {
     a.download = dateTime;
     document.body.appendChild(a);
     a.click();
-};
+}
 
 let settings = {},
     local = {ips: []},
@@ -166,7 +166,7 @@ chrome.storage.sync.get(null, function (result) {
     setInterval(() => {
         if (settings.skipFourSec) {
             try {
-                if ((stage == 2) && (found + 4000 < Date.now())) {
+                if ((stage === 2) && (found + 4000 < Date.now())) {
                     console.dir("Skipping due to loading time limit")
                     document.getElementsByClassName('buttons__button start-button')[0].click()
                 }
@@ -324,7 +324,7 @@ chrome.storage.sync.get(null, function (result) {
                             dwncanvas.width = document.getElementById('remote-video').videoWidth
                             dwncanvas.height = document.getElementById('remote-video').videoHeight
 
-                            var ctx = dwncanvas.getContext('2d');
+                            const ctx = dwncanvas.getContext('2d');
 
                             ctx.drawImage(document.getElementById("remote-video"), 0, 0, dwncanvas.width, dwncanvas.height);
                             downloadImage(dwncanvas.toDataURL('image/jpg'))
@@ -370,7 +370,7 @@ chrome.storage.sync.get(null, function (result) {
                             dwncanvas.width = document.getElementById('local-video').videoWidth
                             dwncanvas.height = document.getElementById('local-video').videoHeight
 
-                            var ctx = dwncanvas.getContext('2d');
+                            const ctx = dwncanvas.getContext('2d');
 
                             ctx.drawImage(document.getElementById("local-video"), 0, 0, dwncanvas.width, dwncanvas.height);
                             downloadImage(dwncanvas.toDataURL('image/jpg'))
@@ -1315,8 +1315,8 @@ chrome.storage.sync.get(null, function (result) {
         (document.head || document.documentElement).appendChild(wss);
     }
 
-    var target = document.querySelector('#remoteIP')
-    var observer = new MutationObserver(function (mutations) {
+    const target = document.querySelector('#remoteIP');
+    const observer = new MutationObserver(function (mutations) {
         console.dir(target.innerText)
         console.dir(local.ips)
         console.dir((local.ips.includes(target.innerText)))
@@ -1339,13 +1339,13 @@ chrome.storage.sync.get(null, function (result) {
 
     function secondsToTime(secs) {
         secs = Math.round(secs);
-        var hours = Math.floor(secs / (60 * 60));
+        const hours = Math.floor(secs / (60 * 60));
 
-        var divisor_for_minutes = secs % (60 * 60);
-        var minutes = Math.floor(divisor_for_minutes / 60);
+        const divisor_for_minutes = secs % (60 * 60);
+        const minutes = Math.floor(divisor_for_minutes / 60);
 
-        var divisor_for_seconds = divisor_for_minutes % 60;
-        var seconds = Math.ceil(divisor_for_seconds);
+        const divisor_for_seconds = divisor_for_minutes % 60;
+        const seconds = Math.ceil(divisor_for_seconds);
 
         return hours + ":" + minutes + ":" + seconds;
     }
@@ -1374,7 +1374,7 @@ chrome.storage.sync.get(null, function (result) {
     observer.observe(target, config);
 
     document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e) => {
-        if (stage == 3)
+        if (stage === 3)
             settings.stats.countManSkip++
 
         if (e.shiftKey && !local.ips.includes(remoteIP.innerText)) {
@@ -1405,21 +1405,21 @@ chrome.storage.sync.get(null, function (result) {
         let skip_m = false
         let skip_f = false
         let text = ''
-        if (stage == 3) {
+        if (stage === 3) {
             console.time("faceapi: detectAllFaces()")
 
             clearInterval(tim)
 
             array = await faceapi.detectAllFaces(document.getElementById('remote-video'), new faceapi.TinyFaceDetectorOptions()).withAgeAndGender()
 
-            for (var i = 0; i < array.length; i++) {
+            for (let i = 0; i < array.length; i++) {
                 text += `<b>* ${array[i].gender} (${(array[i].genderProbability * 100).toFixed(0) + '%'}), ${(array[i].age).toFixed(0)}</b></br>`
-                if (array[i].gender == "male" && (array[i].genderProbability * 100).toFixed(0) > 90) {
+                if (array[i].gender === "male" && (array[i].genderProbability * 100).toFixed(0) > 90) {
                     skip_m = true
                     stop = true
                     settings.stats.countMales++
                 }
-                if (array[i].gender == "female" && (array[i].genderProbability * 100).toFixed(0) > 90) {
+                if (array[i].gender === "female" && (array[i].genderProbability * 100).toFixed(0) > 90) {
                     skip_f = true
                     stop = true
                     settings.stats.countFemales++
@@ -1450,7 +1450,7 @@ chrome.storage.sync.get(null, function (result) {
                 }
             }
 
-            if (text != '')
+            if (text !== '')
                 remoteFace.innerHTML = text
 
             console.timeEnd("faceapi: detectAllFaces()")
@@ -1489,10 +1489,10 @@ chrome.storage.sync.get(null, function (result) {
             remoteInfo.innerHTML = chrome.i18n.getMessage("api_working")
         })
         .fail(function (jqxhr, textStatus, error) {
-            if (error == "") {
+            if (error === "") {
                 remoteInfo.innerHTML = chrome.i18n.getMessage("api_insecure")
             } else {
-                var err = textStatus + ", " + error;
+                const err = textStatus + ", " + error;
                 remoteInfo.innerHTML = "<b>" + err + "</b>"
                 console.error("Request Failed: " + err);
             }
@@ -1561,11 +1561,9 @@ chrome.storage.sync.get(null, function (result) {
 
     new ResizeObserver(outputsize).observe(document.getElementsByClassName("chat-container")[0])
 
-    var targetNode = document.getElementById('remoteIPInfo');
+    const targetNode = document.getElementById('remoteIPInfo');
 
-    var config = {childList: true};
-
-    var callback = function (mutationsList, observer) {
+    const callback = function (mutationsList, observer) {
         let json = JSON.parse(remoteIPInfo.innerText)
         if (typeof marker !== 'undefined')
             map.removeLayer(marker)
@@ -1599,18 +1597,18 @@ chrome.storage.sync.get(null, function (result) {
 
     var observer2 = new MutationObserver(callback);
 
-    observer2.observe(targetNode, config);
+    observer2.observe(targetNode, {childList: true});
 
-    var $div = $("#remote-video-wrapper");
-    var observer2 = new MutationObserver(function (mutations) {
+    const $div = $("#remote-video-wrapper");
+    var observer3 = new MutationObserver(function (mutations) {
         mutations.forEach(function (mutation) {
             if (mutation.attributeName === "class") {
 
-                if (stage == 3) {
+                if (stage === 3) {
                     settings.stats.time += parseInt((Date.now() - play) / 1000)
                 }
 
-                var attributeValue = $(mutation.target).prop(mutation.attributeName);
+                const attributeValue = $(mutation.target).prop(mutation.attributeName);
                 if (attributeValue.includes("s-search")) {
                     stage = 1
                     // offline.play()
@@ -1662,13 +1660,13 @@ chrome.storage.sync.get(null, function (result) {
             }
         });
     });
-    observer2.observe($div[0], {
+    observer3.observe($div[0], {
         attributes: true
     });
 });
 
 chrome.storage.onChanged.addListener(function (changes, namespace) {
-    if (namespace == "sync")
+    if (namespace === "sync")
         chrome.storage.sync.get(null, function (result) {
             settings = result;
         });
@@ -1727,6 +1725,6 @@ $(document).arrive(".ban-popup__unban_msg.tr", function (el) {
     let new_el = $(el).clone()
     new_el.css('height', '30px');
     new_el.css('line-height', '26px');
-    new_el[0].innerHTML = chrome.i18n.getMessage("avoidBan"),
-        new_el.insertAfter(el)
+    new_el[0].innerHTML = chrome.i18n.getMessage("avoidBan")
+    new_el.insertAfter(el)
 });
