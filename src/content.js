@@ -1317,9 +1317,6 @@ chrome.storage.sync.get(null, function (result) {
 
     const target = document.querySelector('#remoteIP');
     const observer = new MutationObserver(function (mutations) {
-        console.dir(target.innerText)
-        console.dir(local.ips)
-        console.dir((local.ips.includes(target.innerText)))
         if (local.ips.includes(target.innerText)) {
             settings.stats.countDup++
             console.dir("old ip")
@@ -1721,7 +1718,6 @@ chrome.runtime.onMessage.addListener(
 
 $(document).arrive(".ban-popup__unban_msg.tr", function (el) {
     Arrive.unbindAllArrive();
-    console.dir(el)
     let new_el = $(el).clone()
     new_el.css('height', '30px');
     new_el.css('line-height', '26px');
