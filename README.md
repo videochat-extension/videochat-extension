@@ -1,17 +1,17 @@
 [<sup>Подробнее о Google Chrome расширении для Чат Рулетки на русском языке можно прочитать по этой ссылке</sup>](README_RU.md)  
-<h1 align="center">Чат Рулетное Расширение (Chat Roulette Extension)</h1>
+<h1 align="center">Чат Рулетное Расширение (Chatruletka Extension)</h1>
 
 <p align="center">
 <a href = "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi"><img src="https://img.shields.io/chrome-web-store/users/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20users"></a> 
 <a href = "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi"><img src="https://img.shields.io/chrome-web-store/rating/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20rating"></a>
-<a href = "https://t.me/videochatru_extension"><img src="https://img.shields.io/endpoint?color=blue&label=News&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fvideochatru_extension"></a> 
-<a href = "https://t.me/videochatru_chat"><img src="https://img.shields.io/endpoint?color=blue&label=Chat&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fvideochatru_chat"></a>
+<a href = "https://t.me/videochatru_extension"><img src="https://img.shields.io/badge/dynamic/json?label=News&query=result&suffix=%20Subscribers&logo=telegram&url=https%3A%2F%2Fapi.telegram.org%2Fbot5041993583%3AAAFGRQXy-mstURIBCaoA4IFczRrMeUNrVRc%2FgetChatMemberCount%3Fchat_id%3D%40videochatru_extension"></a> 
+<a href = "https://t.me/videochatru_chat"><img src="https://img.shields.io/badge/dynamic/json?label=Chat&query=result&suffix=%20Members&logo=telegram&url=https%3A%2F%2Fapi.telegram.org%2Fbot5041993583%3AAAFGRQXy-mstURIBCaoA4IFczRrMeUNrVRc%2FgetChatMemberCount%3Fchat_id%3D%40videochatru_chat"></a>
 <img src="https://img.shields.io/github/license/qrlk/videochatru-extension" >
 <img src="https://img.shields.io/date/1632816617?label=released" >
   
 </p>
 
-**This is a browser extension that adds a bunch of cool stuff to the [Chat Roulette website](https://videochatru.com).**  
+**This is a browser extension that adds a bunch of cool stuff to the [Chatruletka website](https://videochatru.com).**  
 
 **It can be installed from [Chrome Web Store](https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi). English and Russian locales are available.**
 
@@ -22,6 +22,9 @@
 * Determine the location of the interlocutor by his/her/their IP address.
 * Determine the current time of the interlocutor's location.
 * Determine the gender of the interlocutor and skip it automatically if the gender does not meet your expectations.
+* The ability to block the ip of the interlocutor in order not to meet with him again.
+* Count various stats.
+* Enable Picture-in-Picture mode.
 * Enable mirror mode. It's useful [if you don't have a physical camera but still want to chat](https://github.com/qrlk/videochatru-extension/wiki/No-Physical-Cam).
 * Show a map of the interlocutor's city.
 * Take a full screenshot of the interlocutor's camera or your own.
@@ -29,6 +32,7 @@
 * Open the clean site version by clicking on the extension icon.
 * Help you with advice if you accidentally got banned.
 * Convenient keyboard shortcuts for the most popular buttons.
+* Hotkey to switch between the active tab and the chat tab.
 
 ## Please note
 * This extension is intended for real users who come to chat without destructive / hostile intentions.  
@@ -47,9 +51,40 @@ The connection between users is established directly through webrtc, while the s
 * [**Ome.tv**](https://play.google.com/store/apps/details?id=omegle.tv) (50M+ users)
 * [**Minichat**](https://apps.apple.com/ua/app/minichat-video-chat-texting/id1506912979)
 
-**Web part of the 'platform' includes ~30 sites:**
+**Web part of the 'platform' includes 40+ sites:**
 
+* **https://videochatru.com**
 * **https://ome.tv**
+* **https://brvideochat.com**
+* **https://camki.com**
+* **https://chatbizar.com**
+* **https://chat-fr.com**
+* **https://chatgenerator.com**
+* **https://chat-nl.com**
+* **https://chat-pl.com**
+* **https://chatrooms.pro**
+* **https://chatruletka.ua**
+* **https://frvideochat.com**
+* **https://indiavideochat.com**
+* **https://ome.chat**
+* **https://roulette-espanol.com**
+* **https://roulettefrancais.com**
+* **https://ruletkavideochat.com**
+* **https://stickam.chat**
+* **https://turkishvideochat.com**
+* **https://ukr.chat**
+* **https://videochatau.com**
+* **https://videochatbr.com**
+* **https://videochatca.com**
+* **https://videochatde.com**
+* **https://videochatfr.com**
+* **https://videochatit.com**
+* **https://videochatjp.com**
+* **https://videochatmx.com**
+* **https://videochatpt.com**
+* **https://videochatruletka.com**
+* **https://videochatus.com**
+* **https://webcamchatta.com**
 * **https://videochatru.com**
 * **https://chatruletka.com**
 * **https://ruletka.chat**
@@ -62,16 +97,16 @@ The connection between users is established directly through webrtc, while the s
 * **https://videochatpl.com**
 * **https://videochatuk.com**
 * **https://chat-brasil.com**
-* Less popular intances with similar design.
+
+[Relationships proofs.](https://builtwith.com/relationships/videochatru.com)
+
+There is also some evidence that camsurf ([web](https://camsurf.com), [iOS](https://apps.apple.com/us/app/camsurf/id1491535834), [Android](https://play.google.com/store/apps/details?id=camsurf.com&hl=en)) is also associated with this platform, but I'm not sure if they have a shared user base.
 
 ## Contribution
 If you have a desire to contribute, [here is a small instruction](CONTRIBUTING.md).  
 
 
 ### some ideas:
-* Usage statistics: time spent in conversations, the number of automatic skips, and so on.
-* Optionally add interlocutors to the permanent/temporary blacklist by IP.
 * Integration of the facial recognition API, services such as findclone.ru.
 * Button to clear cookies on ban popup.
 * Avoid fingerprinting.
-

@@ -160,6 +160,7 @@ let settings = {},
     play = 0,
     map,
     countBeforeSaveStats = 0,
+
     dc,
     faceApiLoaded = false
 
@@ -1044,6 +1045,7 @@ function createControls() {
                                     ]),
                                 ]),
                             ]),
+
                     ])
             ]),
             createElement('div', {
@@ -1385,6 +1387,7 @@ chrome.storage.sync.get(null, function (result) {
             countBeforeSaveStats = 0
             chrome.storage.sync.set({"stats": settings.stats});
         }
+
     }
 
     var config = {attributes: true, childList: true, characterData: true};

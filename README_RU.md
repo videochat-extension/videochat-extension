@@ -1,4 +1,4 @@
-<h1 align="center">Чат Рулетное Расширение (Chat Roulette Extension)</h1>
+<h1 align="center">Чат Рулетное Расширение (Chatruletka Extension)</h1>
 
 <p align="center">
 <a href = "https://t.me/videochatru_extension "><img src="https://img.shields.io/chrome-web-store/users/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20users"></a>
