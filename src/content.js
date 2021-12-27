@@ -930,7 +930,8 @@ chrome.storage.sync.get(null, function (result) {
                                             checked: settings.wsconfig.theyskipsound,
                                             id: "wsconfigtheyskipsoundCheck",
                                             onclick: () => {
-                                                chrome.storage.sync.set({"wsconfig": {"hotkeys": wsconfigtheyskipsoundCheck.checked}}, function () {
+                                                settings.wsconfig.theyskipsound = wsconfigtheyskipsoundCheck.checked
+                                                chrome.storage.sync.set({"wsconfig": settings.wsconfig}, function () {
 
                                                 });
                                             }
@@ -950,7 +951,8 @@ chrome.storage.sync.get(null, function (result) {
                                             checked: settings.wsconfig.skipwrongcountry,
                                             id: "wsconfigskipwrongcountryCheck",
                                             onclick: () => {
-                                                chrome.storage.sync.set({"wsconfig": {"skipwrongcountry": wsconfigskipwrongcountryCheck.checked}}, function () {
+                                                settings.wsconfig.skipwrongcountry = wsconfigskipwrongcountryCheck.checked
+                                                chrome.storage.sync.set({"wsconfig": settings.wsconfig}, function () {
 
                                                 });
                                             }
@@ -970,7 +972,8 @@ chrome.storage.sync.get(null, function (result) {
                                             checked: settings.wsconfig.replacePic,
                                             id: "wsconfigreplacePicCheck",
                                             onclick: () => {
-                                                chrome.storage.sync.set({"wsconfig": {"replacePic": wsconfigreplacePicCheck.checked}}, function () {
+                                                settings.wsconfig.replacePic = wsconfigreplacePicCheck.checked
+                                                chrome.storage.sync.set({"wsconfig": settings.wsconfig}, function () {
 
                                                 });
                                             }
@@ -990,7 +993,8 @@ chrome.storage.sync.get(null, function (result) {
                                             checked: settings.wsconfig.deletePic,
                                             id: "wsconfigdeletePicCheck",
                                             onclick: () => {
-                                                chrome.storage.sync.set({"wsconfig": {"deletePic": wsconfigdeletePicCheck.checked}}, function () {
+                                                settings.wsconfig.deletePic = wsconfigdeletePicCheck.checked
+                                                chrome.storage.sync.set({"wsconfig": settings.wsconfig}, function () {
 
                                                 });
                                             }
@@ -1011,7 +1015,8 @@ chrome.storage.sync.get(null, function (result) {
                                             checked: settings.wsconfig.replaceReportPics,
                                             id: "wsconfigreplaceReportPicsCheck",
                                             onclick: () => {
-                                                chrome.storage.sync.set({"wsconfig": {"replaceReportPics": wsconfigreplaceReportPicsCheck.checked}}, function () {
+                                                settings.wsconfig.replaceReportPics = wsconfigreplaceReportPicsCheck.checked
+                                                chrome.storage.sync.set({"wsconfig": settings.wsconfig}, function () {
 
                                                 });
                                             }
@@ -1032,7 +1037,8 @@ chrome.storage.sync.get(null, function (result) {
                                             checked: settings.wsconfig.deleteReportPics,
                                             id: "wsconfigdeleteReportPicsCheck",
                                             onclick: () => {
-                                                chrome.storage.sync.set({"wsconfig": {"deleteReportPics": wsconfigdeleteReportPicsCheck.checked}}, function () {
+                                                settings.wsconfig.deleteReportPics = wsconfigdeleteReportPicsCheck.checked
+                                                chrome.storage.sync.set({"wsconfig": settings.wsconfig}, function () {
 
                                                 });
                                             }
