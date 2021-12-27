@@ -705,82 +705,6 @@ chrome.storage.sync.get(null, function (result) {
                                 ]),
                                 createElement('br'),
                                 createElement('dt', {
-                                    innerHTML: chrome.i18n.getMessage("settingsCameraHijack")
-                                }),
-                                createElement('dd', {}, [
-                                    createElement('span', {}, [
-                                        createElement("p", {
-                                            innerText: chrome.i18n.getMessage("mirror"),
-                                            className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": chrome.i18n.getMessage("tooltipMirror1")
-                                        }),
-                                        createElement('input', {
-                                            type: "checkbox",
-                                            checked: settings.mirror,
-                                            id: "mirrorCheck",
-                                            onclick: () => {
-                                                chrome.storage.sync.set({
-                                                    "mirror": mirrorCheck.checked,
-                                                    "mirrorAlt": false,
-                                                    "prikol": false
-                                                }, function () {
-                                                    location.reload()
-                                                });
-                                            }
-                                        })
-                                    ]),
-                                ]),
-
-                                createElement('dd', {}, [
-                                    createElement('span', {}, [
-                                        createElement("p", {
-                                            innerText: chrome.i18n.getMessage("mirror2"),
-                                            className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": chrome.i18n.getMessage("tooltipMirror2")
-                                        }),
-                                        createElement('input', {
-                                            type: "checkbox",
-                                            checked: settings.mirrorAlt,
-                                            id: "mirrorAltCheck",
-                                            onclick: () => {
-                                                chrome.storage.sync.set({
-                                                    "mirror": false,
-                                                    "mirrorAlt": mirrorAltCheck.checked,
-                                                    "prikol": false
-                                                }, function () {
-                                                    location.reload()
-                                                });
-                                            }
-                                        })
-                                    ]),
-                                ]),
-
-                                createElement('dd', {}, [
-                                    createElement('span', {}, [
-                                        createElement("p", {
-                                            innerText: chrome.i18n.getMessage("prikol"),
-                                            className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": chrome.i18n.getMessage("tooltipPrikol")
-                                        }),
-                                        createElement('input', {
-                                            type: "checkbox",
-                                            checked: settings.prikol,
-                                            id: "prikolCheck",
-                                            onclick: () => {
-                                                chrome.storage.sync.set({
-                                                    "mirror": false,
-                                                    "mirrorAlt": false,
-                                                    "prikol": prikolCheck.checked
-                                                }, function () {
-                                                    location.reload()
-                                                });
-                                            }
-                                        })
-                                    ]),
-                                ]),
-
-                                createElement('br'),
-                                createElement('dt', {
                                     innerHTML: chrome.i18n.getMessage("settingsBlacklist")
                                 }),
                                 createElement('dd', {}, [
@@ -896,7 +820,87 @@ chrome.storage.sync.get(null, function (result) {
 
                                 createElement('br'),
                                 createElement('dt', {
-                                    innerHTML: chrome.i18n.getMessage("settingsWS")
+                                    innerHTML: chrome.i18n.getMessage("settingsCameraHijack"),
+                                    className: "tooltip-multiline tooltip-bottom-left",
+                                    "data-tooltip": chrome.i18n.getMessage("warningCameraHijack")
+                                }),
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: chrome.i18n.getMessage("mirror"),
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipMirror1")
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.mirror,
+                                            id: "mirrorCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({
+                                                    "mirror": mirrorCheck.checked,
+                                                    "mirrorAlt": false,
+                                                    "prikol": false
+                                                }, function () {
+                                                    location.reload()
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: chrome.i18n.getMessage("mirror2"),
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipMirror2")
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.mirrorAlt,
+                                            id: "mirrorAltCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({
+                                                    "mirror": false,
+                                                    "mirrorAlt": mirrorAltCheck.checked,
+                                                    "prikol": false
+                                                }, function () {
+                                                    location.reload()
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: chrome.i18n.getMessage("prikol"),
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipPrikol")
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.prikol,
+                                            id: "prikolCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({
+                                                    "mirror": false,
+                                                    "mirrorAlt": false,
+                                                    "prikol": prikolCheck.checked
+                                                }, function () {
+                                                    location.reload()
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+
+                                createElement('br'),
+                                createElement('dt', {
+                                    innerHTML: chrome.i18n.getMessage("settingsWS"),
+                                    className: "tooltip-multiline tooltip-bottom-left",
+                                    "data-tooltip": chrome.i18n.getMessage("warningWS")
                                 }),
                                 createElement('dd', {}, [
                                     createElement('span', {}, [

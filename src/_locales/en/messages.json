@@ -126,7 +126,7 @@
     "message": "tries to determine the gender of the interlocutor and skips if nsfwjs is 90 percent sure that the gender of the interlocutor is female"
   },
   "settingsCameraHijack": {
-    "message": "<b>Camera hijack</b>"
+    "message": "<b style='color:red'>Camera hijack</b>"
   },
   "tooltipMirror1": {
     "message": "replaces your camera with a canvas that duplicates the image from the interlocutor's camera"
@@ -168,7 +168,13 @@
     "message": "Enable cool arrows hotkeys. this does not affect the extension hotkeys that are configured in the browser settings."
   },
   "settingsWS": {
-    "message": "<b>WS</b>"
+    "message": "<b style='color:red'>WS</b>"
+  },
+  "warningWS": {
+    "message": "Use this only if you understand what you are doing."
+  },
+  "warningCameraHijack": {
+    "message": "You can get banned in the chat for abusing these functions."
   },
   "enableWS": {
     "message": "enable websocket hacks:"
