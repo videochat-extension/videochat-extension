@@ -59,8 +59,8 @@
   "skip_females": {
     "message": "skip women:"
   },
-  "skip_sound": {
-    "message": "skip sound:"
+  "ban_sound": {
+    "message": "ban sound:"
   },
   "mirror": {
     "message": "mirror:"

@@ -826,7 +826,7 @@ chrome.storage.sync.get(null, function (result) {
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
-                                            innerText: chrome.i18n.getMessage("skip_sound"),
+                                            innerText: chrome.i18n.getMessage("ban_sound"),
                                             className: "tooltip-multiline tooltip-bottom-left",
                                             "data-tooltip": chrome.i18n.getMessage("tooltipSkipSound")
                                         }),

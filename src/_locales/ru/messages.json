@@ -59,8 +59,8 @@
   "skip_females": {
     "message": "пропускать женщин: "
   },
-  "skip_sound": {
-    "message": "озвучивать скип: "
+  "ban_sound": {
+    "message": "озвучивать бан: "
   },
   "mirror": {
     "message": "зеркало: "
