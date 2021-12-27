@@ -1,10 +1,10 @@
 <h1 align="center">Чат Рулетное Расширение (Chatruletka Extension)</h1>
 
 <p align="center">
-<a href = "https://t.me/videochatru_extension "><img src="https://img.shields.io/chrome-web-store/users/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20users"></a>
-<a href = "https://t.me/videochatru_extension "><img src="https://img.shields.io/chrome-web-store/rating/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20rating"></a>
-<a href = "https://t.me/videochatru_extension "><img src="https://img.shields.io/endpoint?color=blue&label=News&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fvideochatru_extension"></a>
-<a href = "https://t.me/videochatru_chat "><img src="https://img.shields.io/endpoint?color=blue&label=Chat&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Fvideochatru_chat"></a>
+<a href = "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi"><img src="https://img.shields.io/chrome-web-store/users/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20users"></a>
+<a href = "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi"><img src="https://img.shields.io/chrome-web-store/rating/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20rating"></a>
+<a href = "https://t.me/videochatru_extension_ru"><img src="https://img.shields.io/badge/dynamic/json?label=Новости&amp;query=result&amp;suffix=%20Subscribers&amp;logo=telegram&amp;url=https%3A%2F%2Fapi.telegram.org%2Fbot5041993583%3AAAFGRQXy-mstURIBCaoA4IFczRrMeUNrVRc%2FgetChatMemberCount%3Fchat_id%3D%40videochatru_extension_ru"></a>
+<a href = "https://t.me/videochatru_chat_ru"><img src="https://img.shields.io/badge/dynamic/json?label=Чат&amp;query=result&amp;suffix=%20Members&amp;logo=telegram&amp;url=https%3A%2F%2Fapi.telegram.org%2Fbot5041993583%3AAAFGRQXy-mstURIBCaoA4IFczRrMeUNrVRc%2FgetChatMemberCount%3Fchat_id%3D%40videochatru_chat_ru"></a>
 <img src="https://img.shields.io/github/license/qrlk/videochatru-extension " >
 <img src="https://img.shields.io/date/1632816617?label=released " >
 
