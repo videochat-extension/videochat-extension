@@ -230,11 +230,9 @@
   "beggingForReview": {
     "message": "Creating this extension took me dozens hours of unpaid work. Please rate my work in the Chrome Web Store reviews. This will help new users find the extension and give me the feedback I'm missing."
   },
-
   "bannedips": {
     "message": "banned ips: "
   },
-
   "goodips": {
     "message": "good ips: "
   },
