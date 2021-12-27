@@ -1374,13 +1374,11 @@ chrome.storage.sync.get(null, function (result) {
     observer.observe(target, config);
 
     document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e) => {
-        if (e.target.outerText == "Next") {
-            if (stage == 3)
-                settings.stats.countManSkip++
+        if (stage == 3)
+            settings.stats.countManSkip++
 
-            if (e.shiftKey && !local.ips.includes(remoteIP.innerText)) {
-                syncBlackList()
-            }
+        if (e.shiftKey && !local.ips.includes(remoteIP.innerText)) {
+            syncBlackList()
         }
     })
 
