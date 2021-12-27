@@ -163,81 +163,8 @@ let settings = {},
     dc,
     faceApiLoaded = false
 
-chrome.storage.local.get(null, function (result) {
-    local = result;
-})
-
-chrome.storage.sync.get(null, function (result) {
-    settings = result;
-
-    setInterval(() => {
-        if (settings.skipFourSec) {
-            try {
-                if ((stage === 2) && (found + 4000 < Date.now())) {
-                    console.dir("Skipping due to loading time limit")
-                    document.getElementsByClassName('buttons__button start-button')[0].click()
-                }
-            } catch (e) {
-                //console.dir(e)
-            }
-        }
-
-        if (settings.autoResume) {
-            try {
-                if (document.getElementsByClassName("video-warning__btn")[0].firstElementChild.offsetParent != null)
-                    document.getElementsByClassName("video-warning__btn")[0].firstElementChild.click()
-            } catch (e) {
-                // console.dir(e)
-            }
-        }
-    }, 1000)
-
-    if (settings.nsfw) {
-        const nsfwjs = document.createElement('script');
-        nsfwjs.src = chrome.extension.getURL('js/nsfwjs.min.js');
-        nsfwjs.onload = () => {
-            nsfwjs.remove()
-            const nsfw = document.createElement('script');
-            nsfw.src = chrome.extension.getURL('injection/nsfw.js');
-            nsfw.onload = () => nsfw.remove();
-            (document.head || document.documentElement).appendChild(nsfw);
-        };
-        (document.head || document.documentElement).appendChild(nsfwjs);
-    }
-
-    if (settings.mirror) {
-        const s1 = document.createElement('script');
-        s1.src = chrome.extension.getURL('injection/mirror.js');
-        s1.onload = () => s1.remove();
-        (document.head || document.documentElement).appendChild(s1);
-    } else if (settings.mirrorAlt) {
-        const s1 = document.createElement('script');
-        s1.src = chrome.extension.getURL('injection/mirror-shwartz.js');
-        s1.onload = () => s1.remove();
-        (document.head || document.documentElement).appendChild(s1);
-    } else if (settings.prikol) {
-        const prikolV = document.createElement('video');
-        prikolV.id = "prikol"
-        prikolV.loop = "loop"
-        prikolV.autoplay = "autoplay"
-        prikolV.muted = true
-        prikolV.src = chrome.extension.getURL('prikol/prikol.mp4');
-        prikolV.onload = () => s1.remove();
-
-        header.appendChild(prikolV);
-
-        const s1 = document.createElement('script');
-        s1.src = chrome.extension.getURL('injection/prikol.js');
-        s1.onload = () => s1.remove();
-        (document.head || document.documentElement).appendChild(s1);
-    }
-
-    if (settings.hotkeys) {
-        document.removeEventListener('keyup', hotkeys)
-        document.addEventListener('keyup', hotkeys)
-    }
-
-    controls = createElement('div', {
+function createControls() {
+    return createElement('div', {
         className: 'chat',
         id: 'controls',
         style: "width:350px; margin-right: calc(100vh / 768 * 10);"
@@ -1317,6 +1244,83 @@ chrome.storage.sync.get(null, function (result) {
             ])
         ])
     ])
+}
+
+chrome.storage.local.get(null, function (result) {
+    local = result;
+})
+
+chrome.storage.sync.get(null, function (result) {
+    settings = result;
+
+    setInterval(() => {
+        if (settings.skipFourSec) {
+            try {
+                if ((stage === 2) && (found + 4000 < Date.now())) {
+                    console.dir("Skipping due to loading time limit")
+                    document.getElementsByClassName('buttons__button start-button')[0].click()
+                }
+            } catch (e) {
+                //console.dir(e)
+            }
+        }
+
+        if (settings.autoResume) {
+            try {
+                if (document.getElementsByClassName("video-warning__btn")[0].firstElementChild.offsetParent != null)
+                    document.getElementsByClassName("video-warning__btn")[0].firstElementChild.click()
+            } catch (e) {
+                // console.dir(e)
+            }
+        }
+    }, 1000)
+
+    if (settings.nsfw) {
+        const nsfwjs = document.createElement('script');
+        nsfwjs.src = chrome.extension.getURL('js/nsfwjs.min.js');
+        nsfwjs.onload = () => {
+            nsfwjs.remove()
+            const nsfw = document.createElement('script');
+            nsfw.src = chrome.extension.getURL('injection/nsfw.js');
+            nsfw.onload = () => nsfw.remove();
+            (document.head || document.documentElement).appendChild(nsfw);
+        };
+        (document.head || document.documentElement).appendChild(nsfwjs);
+    }
+
+    if (settings.mirror) {
+        const s1 = document.createElement('script');
+        s1.src = chrome.extension.getURL('injection/mirror.js');
+        s1.onload = () => s1.remove();
+        (document.head || document.documentElement).appendChild(s1);
+    } else if (settings.mirrorAlt) {
+        const s1 = document.createElement('script');
+        s1.src = chrome.extension.getURL('injection/mirror-shwartz.js');
+        s1.onload = () => s1.remove();
+        (document.head || document.documentElement).appendChild(s1);
+    } else if (settings.prikol) {
+        const prikolV = document.createElement('video');
+        prikolV.id = "prikol"
+        prikolV.loop = "loop"
+        prikolV.autoplay = "autoplay"
+        prikolV.muted = true
+        prikolV.src = chrome.extension.getURL('prikol/prikol.mp4');
+        prikolV.onload = () => s1.remove();
+
+        header.appendChild(prikolV);
+
+        const s1 = document.createElement('script');
+        s1.src = chrome.extension.getURL('injection/prikol.js');
+        s1.onload = () => s1.remove();
+        (document.head || document.documentElement).appendChild(s1);
+    }
+
+    if (settings.hotkeys) {
+        document.removeEventListener('keyup', hotkeys)
+        document.addEventListener('keyup', hotkeys)
+    }
+
+    controls = createControls()
 
     $(".gender-selector")[0].parentElement.remove()
 
