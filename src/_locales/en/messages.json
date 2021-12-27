@@ -265,5 +265,8 @@
   },
   "statsFmlCount": {
     "message": "fml count: "
+  },
+  "reload": {
+    "message": "Reload is required. Reload now?"
   }
 }

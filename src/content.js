@@ -65,6 +65,13 @@ function createSmartReviewBeggingHeader() {
     }
 }
 
+function confirmAndReload() {
+    const result = confirm(chrome.i18n.getMessage("reload"));
+    if (result) {
+        location.reload()
+    }
+}
+
 function hotkeys(e) {
     if (e.srcElement.className === "emojionearea-editor")
         return
@@ -453,14 +460,14 @@ chrome.storage.sync.get(null, function (result) {
                         createElement('br'),
                         createElement('br'),
                         createElement('span', {
-                            innerText:  chrome.i18n.getMessage("goodips")
+                            innerText: chrome.i18n.getMessage("goodips")
                         }),
                         createElement('span', {
                             id: 'stNwIp'
                         }),
                         createElement('br'),
                         createElement('span', {
-                            innerText:  chrome.i18n.getMessage("badips")
+                            innerText: chrome.i18n.getMessage("badips")
                         }),
                         createElement('span', {
                             id: 'stBnIp'
@@ -480,14 +487,14 @@ chrome.storage.sync.get(null, function (result) {
                     },
                     [
                         createElement('span', {
-                            innerText:  chrome.i18n.getMessage("statsWhole")
+                            innerText: chrome.i18n.getMessage("statsWhole")
                         }),
                         createElement('span', {
                             id: 'stWhole'
                         }),
                         createElement('br'),
                         createElement('span', {
-                            innerText:  chrome.i18n.getMessage("statsTimeSpent")
+                            innerText: chrome.i18n.getMessage("statsTimeSpent")
                         }),
                         createElement('span', {
                             id: 'stTime'
@@ -495,21 +502,21 @@ chrome.storage.sync.get(null, function (result) {
                         createElement('br'),
                         createElement('br'),
                         createElement('span', {
-                            innerText:  chrome.i18n.getMessage("statsMaleSkip")
+                            innerText: chrome.i18n.getMessage("statsMaleSkip")
                         }),
                         createElement('span', {
                             id: 'stMlSk'
                         }),
                         createElement('br'),
                         createElement('span', {
-                            innerText:   chrome.i18n.getMessage("statsFemaleSkip")
+                            innerText: chrome.i18n.getMessage("statsFemaleSkip")
                         }),
                         createElement('span', {
                             id: 'stFmlSk'
                         }),
                         createElement('br'),
                         createElement('span', {
-                            innerText:  chrome.i18n.getMessage("statsManualSkip")
+                            innerText: chrome.i18n.getMessage("statsManualSkip")
                         }),
                         createElement('span', {
                             id: 'stMnSk'
@@ -517,7 +524,7 @@ chrome.storage.sync.get(null, function (result) {
                         createElement('br'),
                         createElement('br'),
                         createElement('span', {
-                            innerText:  chrome.i18n.getMessage("statsMlCount")
+                            innerText: chrome.i18n.getMessage("statsMlCount")
                         }),
                         createElement('span', {
                             id: 'stMlCnt'
@@ -656,7 +663,7 @@ chrome.storage.sync.get(null, function (result) {
                                             onclick: () => {
                                                 chrome.storage.sync.set({"enableFaceApi": enableFaceApiCheck.checked}, function () {
                                                     if (!faceApiLoaded)
-                                                        location.reload()
+                                                        confirmAndReload()
                                                 });
                                             }
                                         })
@@ -677,7 +684,7 @@ chrome.storage.sync.get(null, function (result) {
                                             onclick: () => {
                                                 chrome.storage.sync.set({"skipMale": skipMaleCheck.checked}, function () {
                                                     if (!faceApiLoaded)
-                                                        location.reload()
+                                                        confirmAndReload()
                                                 });
                                             }
                                         })
@@ -697,7 +704,7 @@ chrome.storage.sync.get(null, function (result) {
                                             onclick: () => {
                                                 chrome.storage.sync.set({"skipFemale": skipFemaleCheck.checked}, function () {
                                                     if (!faceApiLoaded)
-                                                        location.reload()
+                                                        confirmAndReload()
                                                 });
                                             }
                                         })
@@ -720,7 +727,7 @@ chrome.storage.sync.get(null, function (result) {
                                             id: "autoBanCheck",
                                             onclick: () => {
                                                 chrome.storage.sync.set({"autoBan": autoBanCheck.checked}, function () {
-                                                    //location.reload()
+                                                    //confirmAndReload()
                                                 });
                                             }
                                         })
@@ -739,7 +746,7 @@ chrome.storage.sync.get(null, function (result) {
                                             id: "dontBanMobileCheck",
                                             onclick: () => {
                                                 chrome.storage.sync.set({"dontBanMobile": dontBanMobileCheck.checked}, function () {
-                                                    //location.reload()
+                                                    //confirmAndReload()
                                                 });
                                             }
                                         })
@@ -841,7 +848,7 @@ chrome.storage.sync.get(null, function (result) {
                                                     "mirrorAlt": false,
                                                     "prikol": false
                                                 }, function () {
-                                                    location.reload()
+                                                    confirmAndReload()
                                                 });
                                             }
                                         })
@@ -865,7 +872,7 @@ chrome.storage.sync.get(null, function (result) {
                                                     "mirrorAlt": mirrorAltCheck.checked,
                                                     "prikol": false
                                                 }, function () {
-                                                    location.reload()
+                                                    confirmAndReload()
                                                 });
                                             }
                                         })
@@ -889,7 +896,7 @@ chrome.storage.sync.get(null, function (result) {
                                                     "mirrorAlt": false,
                                                     "prikol": prikolCheck.checked
                                                 }, function () {
-                                                    location.reload()
+                                                    confirmAndReload()
                                                 });
                                             }
                                         })
@@ -915,7 +922,7 @@ chrome.storage.sync.get(null, function (result) {
                                             id: "wsCheck",
                                             onclick: () => {
                                                 chrome.storage.sync.set({"ws": wsCheck.checked}, function () {
-                                                    location.reload()
+                                                    confirmAndReload()
                                                 });
                                             }
                                         })
@@ -1068,7 +1075,7 @@ chrome.storage.sync.get(null, function (result) {
                                             id: "nsfwCheck",
                                             onclick: () => {
                                                 chrome.storage.sync.set({"nsfw": nsfwCheck.checked}, function () {
-                                                    location.reload()
+                                                    confirmAndReload()
                                                 });
                                             }
                                         })
