@@ -1,89 +1,272 @@
 {
-    "extension_name": {
-        "message": "Chatruletka Extension"
-    },
-    "extension_description": {
-        "message": "Extension for Chatruletka (aka ome.tv, Чат Рулетка): interlocutor's IP location, skip by gender, blacklist, hotkeys, PiP, etc..."
-    },
-    "desc": {
-        "message": "This is a browser extension that extends the functionality of Chatruletka (aka ome.tv)."
-    },
-    "map_lang": {
-        "message": "en"
-    },
-    "screen_remote": {
-        "message": "Make a screenshot from the interlocutor's camera"
-    },
-    "screen_local": {
-        "message": "Make a screenshot from your camera"
-    },
-    "tab1": {
-        "message": "IP"
-    },
-    "tab2": {
-        "message": "Map"
-    },
-    "tab3": {
-        "message": "Settings"
-    },
-    "tab4": {
-        "message": "About"
-    },
-    "api_working": {
-        "message": "<b>API works correctly.</b></br></br><b>Important:</b><br>There is no easy way to track exactly where the interlocutor is located.<br>In most cases, the location is determined with accuracy to the city/agglomeration.<br><br>If the city is not shown, it means that your interlocutor is using a mobile connection."
-    },
-    "api_insecure": {
-        "message": "<b>API does not work.</b></br>The free version of the IP geolocation service we use does not support SSL (https).</br></br>To protect your data from hackers, browsers prohibit its extensions from interacting with the Internet via unsecured http.</br>Since there is nothing dangerous for you in the IP address of your interlocutor, which the extension sends to a third-party service, I recommend you to fix it manually.</br></br><b>There are two ways to bypass this problem:</b></br></br><b>1:</b></br>1. Allow insecure content for this site <a href = 'https://support.google.com/chrome/answer/114662?Co=Genie.Platform%3DDesktop#zippy=%2cpermissions-that-can-be-changed'> in the site settings</a>.</br></br><b>2:</b></br>1. Open 'chrome://flags/#unsafely-treat-insecure-origin-as-secure' in the browser.</br>2. Add 'http://ip-api.com' in the text field.</br>3. Enable the flag (Default -> Enable).</br>4. Restart the browser."
-    },
-    "github": {
-        "message": "More useful information: <b><a style= 'text-decoration: none!important;' target='_blank' href='https://github.com/qrlk/videochatru-extension'>github</a></b>."
-    },
-    "rating": {
-        "message": "<a style= 'text-decoration: none!important;' target='_blank' href = 'https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi'><img src='https://img.shields.io/chrome-web-store/rating/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20rating'></a> <a style= 'text-decoration: none!important;' target='_blank' href = 'https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi'><img src='https://img.shields.io/chrome-web-store/users/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20users'></a>"
-    },
-    "author": {
-        "message": "<b>Maintainer:</b>"
-    },
-    "testers": {
-        "message": "<b>Tester:</b>"
-    },
-    "sasha": {
-        "message": "Sasha \"KRIZH\" Gromshtein"
-    },
-    "inspired": {
-        "message": "<b>Inspired by:</b>"
-    },
-    "libs": {
-        "message": "<b>Libs:</b>"
-    },
-    "3rdparty": {
-        "message": "<b>Third-party services:</b>"
-    },
-    "skip_males": {
-        "message": "skip men: "
-    },
-    "skip_females": {
-        "message": "skip women: "
-    },
-    "skip_sound": {
-        "message": "skip sound: "
-    },
-    "mirror": {
-        "message":  "mirror: "
-    },
-    "watermark": {
-        "message": "hide the watermark: "
-    },
-    "banner": {
-        "message": "hide the banner: "
-    },
-    "initialFaceDetect": {
-        "message": "faceapi: initial face detection..."
-    },
-    "hotkeys": {
-        "message": "<b>Hotkeys:</b><br>left arrow - skip<br>shift+left arrow - skip+ban<br>up arrow - stop<br>down arrow - report<br>report: left arrow - cancel<br>report: right arrow - send<br><br>More custom: 'chrome://extensions/shortcuts'<br>"
-    },
-    "avoidBan": {
-        "message": "<b>Chat Roulette Extension: <a target ='_blank' style = 'text-decoration: none!important;' href = 'https://github.com/qrlk/videochatru-extension/wiki/Ban'>I was banned. What should I do now?</a></b>"
-    }
+  "extension_name": {
+    "message": "Chatruletka Extension"
+  },
+  "extension_description": {
+    "message": "Extension for Chatruletka (aka ome.tv, Чат Рулетка): interlocutor's IP location, autoskip of the specified gender, blacklist, hotkeys, PiP, etc..."
+  },
+  "desc": {
+    "message": "This is a browser extension that extends the functionality of Chatruletka (aka ome.tv)."
+  },
+  "map_lang": {
+    "message": "en"
+  },
+  "screen_remote": {
+    "message": "Make a screenshot from the interlocutor's camera"
+  },
+  "screen_local": {
+    "message": "Make a screenshot from your camera"
+  },
+  "tab1": {
+    "message": "IP"
+  },
+  "tab2": {
+    "message": "Map"
+  },
+  "tab3": {
+    "message": "Settings"
+  },
+  "tab4": {
+    "message": "About"
+  },
+  "api_working": {
+    "message": "<b>API works correctly.</b></br></br><b>Important:</b><br>There is no easy way to track exactly where the interlocutor is located.<br>In most cases, the location is determined with accuracy to the city/agglomeration.<br><br>If the city is not shown, it means that your interlocutor is using a mobile connection."
+  },
+  "api_insecure": {
+    "message": "<b>API does not work.</b></br>The free version of the IP geolocation service we use does not support SSL (https).</br></br>To protect your data from hackers, browsers prohibit its extensions from interacting with the Internet via unsecured http.</br>Since there is nothing dangerous for you in the IP address of your interlocutor, which the extension sends to a third-party service, I recommend you to fix it manually.</br></br><b>There are two ways to bypass this problem:</b></br></br><b>1:</b></br>1. Allow insecure content for this site <a href = 'https://support.google.com/chrome/answer/114662?Co=Genie.Platform%3DDesktop#zippy=%2cpermissions-that-can-be-changed'> in the site settings</a>.</br></br><b>2:</b></br>1. Open 'chrome://flags/#unsafely-treat-insecure-origin-as-secure' in the browser.</br>2. Add 'http://ip-api.com' in the text field.</br>3. Enable the flag (Default -> Enable).</br>4. Restart the browser."
+  },
+  "github": {
+    "message": "More useful information: <b><a style= 'text-decoration: none!important;' target='_blank' href='https://github.com/qrlk/videochatru-extension'>github</a></b>."
+  },
+  "author": {
+    "message": "<b>Maintainer:</b>"
+  },
+  "testers": {
+    "message": "<b>Tester:</b>"
+  },
+  "inspired": {
+    "message": "<b>Inspired by:</b>"
+  },
+  "libs": {
+    "message": "<b>Libs:</b>"
+  },
+  "3rdparty": {
+    "message": "<b>Third-party services:</b>"
+  },
+  "skip_males": {
+    "message": "skip men:"
+  },
+  "skip_females": {
+    "message": "skip women:"
+  },
+  "ban_sound": {
+    "message": "ban sound:"
+  },
+  "mirror": {
+    "message": "mirror:"
+  },
+  "watermark": {
+    "message": "hide the watermark:"
+  },
+  "banner": {
+    "message": "hide the banner:"
+  },
+  "forcedApi": {
+    "message": "forced faceapi:"
+  },
+  "autoskip": {
+    "message": "autoban (skip by gender):"
+  },
+  "donotbanmobile": {
+    "message": "do not ban mobile:"
+  },
+  "initialFaceDetect": {
+    "message": "faceapi: initial face detection..."
+  },
+  "hotkeys": {
+    "message": "<dd>left arrow - skip</dd><dd>shift+left arrow - skip+ban</dd><dd>up arrow - stop</dd><dd>down arrow - report</dd><dd style='margin-inline-start: 40px!important;'>left arrow - cancel report</dd><dd style='margin-inline-start: 40px!important;'>right arrow - send report</dd><br><dd>custom: 'chrome://extensions/shortcuts'</dd></dl>"
+  },
+  "avoidBan": {
+    "message": "<b>Chat Roulette Extension: <a target ='_blank' style = 'text-decoration: none!important;' href = 'https://github.com/qrlk/videochatru-extension/wiki/Ban'>I was banned. What should I do now?</a></b>"
+  },
+  "settingsInterface": {
+    "message": "<b>Interface</b>"
+  },
+  "tooltipWatermark": {
+    "message": "hides the watermark in the upper left corner of the interlocutor's camera"
+  },
+  "tooltipBanner": {
+    "message": "hides the banner with the current instance logo, current overall online, and mobile applications"
+  },
+  "settingsAutomation": {
+    "message": "<b>Automation</b>"
+  },
+  "autoskipfour": {
+    "message": "autoskip:"
+  },
+  "tooltipFour": {
+    "message": "automatically skip interlocutors that are taking more than 4 seconds to connect to"
+  },
+  "autoresume": {
+    "message": "autoresume:"
+  },
+  "tooltipAutoresume": {
+    "message": "automatically close 'make yourself visible' when the time comes"
+  },
+  "genderRecognition": {
+    "message": "<b>Gender recognition</b>"
+  },
+  "tooltipForcedRecognition": {
+    "message": "continues to determine the gender of the interlocutor even if the gender skipping is disabled"
+  },
+  "tooltipSkipMales": {
+    "message": "tries to determine the gender of the interlocutor and skips if nsfwjs is 90 percent sure that the gender of the interlocutor is male"
+  },
+  "tooltipSkipFemales": {
+    "message": "tries to determine the gender of the interlocutor and skips if nsfwjs is 90 percent sure that the gender of the interlocutor is female"
+  },
+  "settingsCameraHijack": {
+    "message": "<b style='color:red'>Camera hijack</b>"
+  },
+  "tooltipMirror1": {
+    "message": "replaces your camera with a canvas that duplicates the image from the interlocutor's camera"
+  },
+  "mirror2": {
+    "message": "mirror 2:"
+  },
+  "tooltipMirror2": {
+    "message": "replaces your camera with a canvas that duplicates the image from the interlocutor's camera"
+  },
+  "prikol": {
+    "message": "prikol:"
+  },
+  "tooltipPrikol": {
+    "message": "replaces your camera with 'prikol/prikol.mp4'. useless for casual users."
+  },
+  "settingsBlacklist": {
+    "message": "<b>Blacklist</b>"
+  },
+  "tooltipAutoskip": {
+    "message": "automatically adds the interlocutor's IP to the blacklist, if he/she was automatically skipped by gender"
+  },
+  "tooltipDonotbanmobile": {
+    "message": "Prohibits adding mobile IP addresses to the blacklist. They are temporary and can be used by many users. Please disable if IP API is not working."
+  },
+  "tooltipSkipSound": {
+    "message": "plays sound when added to the blacklist and when the banned interlocutor skips"
+  },
+  "clearblacklist": {
+    "message": "clear blacklist"
+  },
+  "settingsHotkeys": {
+    "message": "<b>Hotkeys</b>"
+  },
+  "enableHotkeys": {
+    "message": "enable hotkeys:"
+  },
+  "tooltipEnableHotkeys": {
+    "message": "Enable cool arrows hotkeys. this does not affect the extension hotkeys that are configured in the browser settings."
+  },
+  "settingsWS": {
+    "message": "<b style='color:red'>WS</b>"
+  },
+  "warningWS": {
+    "message": "Use this only if you understand what you are doing."
+  },
+  "warningCameraHijack": {
+    "message": "You can get banned in the chat for abusing these functions."
+  },
+  "enableWS": {
+    "message": "enable websocket hacks:"
+  },
+  "tooltipEnableWS": {
+    "message": "interferes with the protocol of communication with the Chatruletka server, which allows you to use the functions described below. bans are possible due to possible countermeasures."
+  },
+  "skipSoundWS": {
+    "message": "skip sound:"
+  },
+  "tooltipSkipSoundWS": {
+    "message": "plays sound when your interlocutor clicks 'Next'"
+  },
+  "skipWrongCountry": {
+    "message": "skip wrong country:"
+  },
+  "tooltipSkipWrongCountry": {
+    "message": "instant skip if you are looking for someone from X country but service found you someone from Y country"
+  },
+  "replacePreview": {
+    "message": "replace preview:"
+  },
+  "tooltipReplacePreview": {
+    "message": "replaces the preview that the interlocutor sees while the connection is being established"
+  },
+  "deletePreview": {
+    "message": "delete preview:"
+  },
+  "tooltipDeletePreview": {
+    "message": "deletes the preview that the interlocutor sees while the connection is being established"
+  },
+  "replaceReportPic": {
+    "message": "replace report pic:"
+  },
+  "tooltipReplaceReportPic": {
+    "message": "replaces the image that the service uses to check you for violations. Avoiding accidental bans only. If lot of reports are sent to you, you will be banned anyway."
+  },
+  "deleteReportPic": {
+    "message": "delete report pic:"
+  },
+  "tooltipDeleteReportPic": {
+    "message": "deletes the image that the service uses to check you for violations. Avoiding accidental bans only. If you abuse and a lot of reports are sent to you, you will be banned anyway."
+  },
+  "settingsExperiments": {
+    "message": "<b>Experiments</b>"
+  },
+  "settingsStats": {
+    "message": "<b>Stats</b>"
+  },
+  "clearStats": {
+    "message": "clear stats"
+  },
+  "tabStats": {
+    "message": "Stats"
+  },
+  "tabBans": {
+    "message": "Bans"
+  },
+  "beggingForReview": {
+    "message": "Creating this extension took me dozens hours of unpaid work. Please rate my work in the Chrome Web Store reviews. This will help new users find the extension and give me the feedback I'm missing."
+  },
+  "bannedips": {
+    "message": "banned ips: "
+  },
+  "goodips": {
+    "message": "good ips: "
+  },
+  "badips": {
+    "message": "bad ips: "
+  },
+  "statsWhole": {
+    "message": "whole: "
+  },
+  "statsTimeSpent": {
+    "message": "time spent: "
+  },
+  "statsMaleSkip": {
+    "message": "male skip: "
+  },
+  "statsFemaleSkip": {
+    "message": "female skip: "
+  },
+  "statsManualSkip": {
+    "message": "manual skip: "
+  },
+  "statsMlCount": {
+    "message": "ml count: "
+  },
+  "statsFmlCount": {
+    "message": "fml count: "
+  },
+  "reload": {
+    "message": "Reload is required. Reload now?"
+  }
 }

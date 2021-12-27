@@ -1,87 +1,273 @@
 {
-    "extension_name": {
-        "message": "Чат Рулетное Расширение"
-    },
-    "extension_description": {
-        "message": "Расширение для Чат Рулетки (Видеочат RU, ome.tv): 'пробив' собеседника по IP, распознавание пола, чёрный список, горячие клавиши, PiP и другое..."
-    },
-    "desc": {
-        "message": "Это браузерное расширение, которое расширяет функционал Чат Рулетки."
-    },
-    "map_lang": {
-        "message": "ru"
-    },
-    "screen_remote": {
-        "message": "Сделать скриншот с камеры собеседника"
-    },
-    "screen_local": {
-        "message": "Сделать скриншот с вашей камеры"
-    },
-    "tab1": {
-        "message": "IP"
-    },
-    "tab2": {
-        "message": "Карта"
-    },
-    "tab3": {
-        "message": "Настройки"
-    },
-    "tab4": {
-        "message": "Инфо"
-    },
-    "api_working": {
-        "message": "<b>API работает корректно.</b></br></br><b>Важно:</b><br>Отследить где именно находится ваш собеседник не получится.<br>В большинстве случаев местоположение определяется с точностью до города/агломерации.<br><br>Если город не отображается, это означает, что ваш собеседник использует мобильную связь."
-    },
-    "api_insecure": {
-        "message": "<b>API не работает.</b></br>Бесплатная версия сервиса геолокации IP, который мы используем, не поддерживает SSL (https).</br></br>Для защиты ваших данных от хакеров браузеры запрещают своим расширениям взаимодействовать с Интернетом по незащищенному http.</br>Поскольку в IP-адресе вашего собеседника, который расширение отправляет стороннему сервису, нет ничего опасного для вас, я рекомендую вам исправить это вручную.</br></br><b>Есть два способа обойти эту проблему:</b></br></br><b>Способ первый:</b></br>1. Разрешите небезопасный контент для этого сайта <a href='https://support.google.com/chrome/answer/114662?co=GENIE.Platform%3DDesktop#zippy=%2Cpermissions-that-can-be-changed'>в настройках</a>.</br></br><b>Способ второй:</b></br>1. Откройте 'chrome://flags/#unsafely-treat-insecure-origin-as-secure' в браузере.</br>2. Добавьте 'http://ip-api.com' в текстовое поле.</br>3. Включите этот флаг (Default -> Enable).</br>4. Перезапустите браузер."
-    },
-    "github": {
-        "message": "Больше полезной информации: <b><a target='_blank' style='text-decoration: none!important;' href='https://github.com/qrlk/videochatru-extension'>github</a></b>."
-    },
-    "author": {
-        "message": "<b>Автор:</b>"
-    },
-    "testers": {
-        "message": "<b>Тестирование:</b>"
-    },
-    "sasha": {
-        "message": "Саша \"Крыж\" Громштейн"
-    },
-    "inspired": {
-        "message": "<b>Вдохновлено:</b>"
-    },
-    "libs": {
-        "message": "<b>Библиотеки:</b>"
-    },
-    "3rdparty": {
-        "message": "<b>Сторонние сервисы:</b>"
-    },
-    "skip_males": {
-        "message": "пропускать мужчин: "
-    },
-    "skip_females": {
-        "message": "пропускать женщин: "
-    },
-    "skip_sound": {
-        "message": "озвучивать скип: "
-    },
-    "mirror": {
-        "message":  "зеркало: "
-    },
-    "watermark": {
-        "message": "скрыть ватермарку: "
-    },
-    "banner": {
-        "message": "скрыть баннер: "
-    },
-    "initialFaceDetect": {
-        "message": "faceapi: пожалуйста, подождите..."
-    },
-    "hotkeys": {
-        "message": "<b>Хоткеи:</b><br>стрелка влево - пропустить<br>шифт+стрелка влево - скип+бан<br>стрелка вверх - стоп<br>стрелка вниз - пожаловаться<br>жалоба, стрелка влево - отмена<br>жалоба, стрелка вправо - отправить<br><br>Больше хоткеев: 'chrome://extensions/shortcuts'<br>"
-    },
-    "avoidBan": {
-        "message": "<b>Чат Рулетное Расширение: <a target ='_blank' style = 'text-decoration: none!important;' href = 'https://github.com/qrlk/videochatru-extension/wiki/Ban-%28Russian%29'>Меня забанили, что мне теперь делать?</a></b>"
-    }
+  "extension_name": {
+    "message": "Чат Рулетное Расширение"
+  },
+  "extension_description": {
+    "message": "Расширение для Чат Рулетки (Видеочат RU, ome.tv): 'пробив' собеседника по IP, автопропуск мужчин/женщин, чёрный список, горячие клавиши, PiP и другое..."
+  },
+  "desc": {
+    "message": "Это браузерное расширение, которое расширяет функционал Чат Рулетки."
+  },
+  "map_lang": {
+    "message": "ru"
+  },
+  "screen_remote": {
+    "message": "Сделать скриншот с камеры собеседника"
+  },
+  "screen_local": {
+    "message": "Сделать скриншот с вашей камеры"
+  },
+  "tab1": {
+    "message": "IP"
+  },
+  "tab2": {
+    "message": "Карта"
+  },
+  "tab3": {
+    "message": "Настройки"
+  },
+  "tab4": {
+    "message": "Инфо"
+  },
+  "api_working": {
+    "message": "<b>API работает корректно.</b></br></br><b>Важно:</b><br>Отследить где именно находится ваш собеседник не получится.<br>В большинстве случаев местоположение определяется с точностью до города/агломерации.<br><br>Если город не отображается, это означает, что ваш собеседник использует мобильную связь."
+  },
+  "api_insecure": {
+    "message": "<b>API не работает.</b></br>Бесплатная версия сервиса геолокации IP, который мы используем, не поддерживает SSL (https).</br></br>Для защиты ваших данных от хакеров браузеры запрещают своим расширениям взаимодействовать с Интернетом по незащищенному http.</br>Поскольку в IP-адресе вашего собеседника, который расширение отправляет стороннему сервису, нет ничего опасного для вас, я рекомендую вам исправить это вручную.</br></br><b>Есть два способа обойти эту проблему:</b></br></br><b>Способ первый:</b></br>1. Разрешите небезопасный контент для этого сайта <a href='https://support.google.com/chrome/answer/114662?co=GENIE.Platform%3DDesktop#zippy=%2Cpermissions-that-can-be-changed'>в настройках</a>.</br></br><b>Способ второй:</b></br>1. Откройте 'chrome://flags/#unsafely-treat-insecure-origin-as-secure' в браузере.</br>2. Добавьте 'http://ip-api.com' в текстовое поле.</br>3. Включите этот флаг (Default -> Enable).</br>4. Перезапустите браузер."
+  },
+  "github": {
+    "message": "Больше полезной информации: <b><a target='_blank' style='text-decoration: none!important;' href='https://github.com/qrlk/videochatru-extension'>github</a></b>."
+  },
+  "author": {
+    "message": "<b>Автор:</b>"
+  },
+  "testers": {
+    "message": "<b>Тестирование:</b>"
+  },
+  "inspired": {
+    "message": "<b>Вдохновлено:</b>"
+  },
+  "libs": {
+    "message": "<b>Библиотеки:</b>"
+  },
+  "3rdparty": {
+    "message": "<b>Сторонние сервисы:</b>"
+  },
+  "skip_males": {
+    "message": "пропускать мужчин: "
+  },
+  "skip_females": {
+    "message": "пропускать женщин: "
+  },
+  "ban_sound": {
+    "message": "озвучивать бан: "
+  },
+  "mirror": {
+    "message": "зеркало: "
+  },
+  "watermark": {
+    "message": "скрыть ватермарку: "
+  },
+  "banner": {
+    "message": "скрыть баннер: "
+  },
+  "initialFaceDetect": {
+    "message": "faceapi: пожалуйста, подождите..."
+  },
+  "hotkeys": {
+    "message": "<dd>стрелка влево - пропустить</dd><dd>shift+стрелка влево - пропустить+бан</dd><dd>стрелка вверх - стоп</dd><dd>стрелка вниз - репорт</dd><dd style='margin-inline-start: 40px!important;'>стрелка влево - отменить</dd><dd style='margin-inline-start: 40px!important;'>стрелка вправо - отправить</dd><br><dd>больше: 'chrome://extensions/shortcuts'</dd></dl>"
+  },
+  "avoidBan": {
+    "message": "<b>Чат Рулетное Расширение: <a target ='_blank' style = 'text-decoration: none!important;' href = 'https://github.com/qrlk/videochatru-extension/wiki/Ban-%28Russian%29'>Меня забанили, что мне теперь делать?</a></b>"
+  },
+  "forcedApi": {
+    "message": "не выключать faceapi:"
+  },
+  "autoskip": {
+    "message": "автобан (по полу):"
+  },
+  "donotbanmobile": {
+    "message": "не банить мобилки:"
+  },
+  "settingsInterface": {
+    "message": "<b>Интерфейс</b>"
+  },
+  "tooltipWatermark": {
+    "message": "Прячет ватермарку в верхнем левом углу камеры собеседника."
+  },
+  "tooltipBanner": {
+    "message": "Прячет баннер с лого Чат Рулетки, текущим онлайном и мобильными приложениями."
+  },
+  "settingsAutomation": {
+    "message": "<b>Автоматизация</b>"
+  },
+  "autoskipfour": {
+    "message": "автоскип (4с):"
+  },
+  "tooltipFour": {
+    "message": "Автоматически пропускает собеседников, к которым не удалось подключиться за 4 секунды."
+  },
+  "autoresume": {
+    "message": "авто ОК:"
+  },
+  "tooltipAutoresume": {
+    "message": "Автоматически закрывает окно 'пожалуйста сделайте чтобы вас было видно', когда подходит таймер."
+  },
+  "genderRecognition": {
+    "message": "<b>Распознавание пола</b>"
+  },
+  "tooltipForcedRecognition": {
+    "message": "Продолжает определять пол собеседника, даже если он не нужен для скипа (только статистика)."
+  },
+  "tooltipSkipMales": {
+    "message": "Пытается определить пол собеседника и скипает, если nsfwjs на 90% уверен, что ваш собеседник мужчина."
+  },
+  "tooltipSkipFemales": {
+    "message": "Пытается определить пол собеседника и скипает, если nsfwjs на 90% уверен, что ваш собеседник женщина."
+  },
+  "settingsCameraHijack": {
+    "message": "<b style='color:red'>Перехват камеры</b>"
+  },
+  "tooltipMirror1": {
+    "message": "Заменяет вашу камеру холстом, который дублирует камеру собеседника."
+  },
+  "mirror2": {
+    "message": "зеркало 2:"
+  },
+  "tooltipMirror2": {
+    "message": "Заменяет вашу камеру холстом, который дублирует камеру собеседника."
+  },
+  "prikol": {
+    "message": "прикол:"
+  },
+  "tooltipPrikol": {
+    "message": "Заменяет вашу камеру видео 'prikol/prikol.mp4'. Бессмысленно для обычных юзеров, только в режиме разработчика."
+  },
+  "settingsBlacklist": {
+    "message": "<b>Чёрный список</b>"
+  },
+  "tooltipAutoskip": {
+    "message": "Автоматически добавляет IP собеседника в ЧС, если собеседник был скипнут распознованием пола."
+  },
+  "tooltipDonotbanmobile": {
+    "message": "Запрещает добавлять мобильные IP адресы в ЧС. Они временные и могут использоваться разными пользователями. Пожалуйста, не включайте, если у вас не работает API."
+  },
+  "tooltipSkipSound": {
+    "message": "Воспроизводит звук, когда вы добавляете кого-то в ЧС/скипаете кого-то из ЧС."
+  },
+  "clearblacklist": {
+    "message": "Очистить чёрный список"
+  },
+  "settingsHotkeys": {
+    "message": "<b>Хоткеи</b>"
+  },
+  "enableHotkeys": {
+    "message": "включить хоткеи:"
+  },
+  "tooltipEnableHotkeys": {
+    "message": "Включает горячие клавиши со стрелками. Это не влияет на специальные хоткеи расширения, настроенные в настройках браузера."
+  },
+  "settingsWS": {
+    "message": "<b style='color:red'>WS</b>"
+  },
+  "warningWS": {
+    "message": "Используйте это только в том случае, если вы понимаете, что делаете."
+  },
+  "warningCameraHijack": {
+    "message": "Вы можете быть забанены в чате за злоупотребление этими функциями."
+  },
+  "enableWS": {
+    "message": "включить ws хаки:"
+  },
+  "tooltipEnableWS": {
+    "message": "Вмешивается в протокол связи с сервером Chatruletka, что позволяет использовать функции, описанные ниже. Возможны баны из-за возможных контр-мер в будущем."
+  },
+  "skipSoundWS": {
+    "message": "звук при скипе:"
+  },
+  "tooltipSkipSoundWS": {
+    "message": "Воспроизводит звук, когда ваш собеседник вас скипает (минимум 5 секунд)."
+  },
+  "skipWrongCountry": {
+    "message": "скип неверную страну:"
+  },
+  "tooltipSkipWrongCountry": {
+    "message": "Мгновенно скипает, если сервис нашел вам собеседника не из той страны, которую вы поставили."
+  },
+  "replacePreview": {
+    "message": "заменять превью:"
+  },
+  "tooltipReplacePreview": {
+    "message": "Заменяет превью, которое видит ваш собеседник пока связь с вами устанавливается."
+  },
+  "deletePreview": {
+    "message": "удалять превью:"
+  },
+  "tooltipDeletePreview": {
+    "message": "Удаляет превью, которое видит ваш собеседник пока связь с вами устанавливается."
+  },
+  "replaceReportPic": {
+    "message": "заменять репорт:"
+  },
+  "tooltipReplaceReportPic": {
+    "message": "Заменяет снимок с вашей камеры, который сервис использует, чтобы искать нарушения. Поможет только против случайных банов, если будете злоупотреблять - вас забанит."
+  },
+  "deleteReportPic": {
+    "message": "удалять репорт:"
+  },
+  "tooltipDeleteReportPic": {
+    "message": "Удаляет снимок с вашей камеры, который сервис использует, чтобы искать нарушения. Поможет только против случайных банов, если будете злоупотреблять - вас забанит."
+  },
+  "settingsExperiments": {
+    "message": "<b>Эксперименты</b>"
+  },
+  "settingsStats": {
+    "message": "<b>Статистика</b>"
+  },
+  "clearStats": {
+    "message": "Очистить статистику"
+  },
+  "tabStats": {
+    "message": "Стата"
+  },
+  "tabBans": {
+    "message": "Баны"
+  },
+  "beggingForReview": {
+    "message": "Разработка расширения заняла десятки часов неоплачиваемой работы. Пожалуйста, оцените мою работу в отзывах в интернет-магазине Chrome. Это поможет новым пользователям найти расширение и даст мне обратную связь, которой очень не хватает."
+  },
+  "bannedips": {
+    "message": "IP в ЧС: "
+  },
+  "goodips": {
+    "message": "разрешено: "
+  },
+  "badips": {
+    "message": "заблокировано: "
+  },
+  "statsWhole": {
+    "message": "всего собеседников: "
+  },
+  "statsTimeSpent": {
+    "message": "потрачено: "
+  },
+  "statsMaleSkip": {
+    "message": "пропущено мужчин по полу: "
+  },
+  "statsFemaleSkip": {
+    "message": "пропущено женщин по полу: "
+  },
+  "statsManualSkip": {
+    "message": "пропущено вручную: "
+  },
+  "statsMlCount": {
+    "message": "распознано мужчин: "
+  },
+  "statsFmlCount": {
+    "message": "распознано женщин: "
+  },
+  "reload": {
+    "message": "Необходимо перезагрузить страницу. Перезагрузить сейчас?"
+  }
 }
 
