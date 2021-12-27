@@ -171,7 +171,7 @@ chrome.storage.sync.get(null, function (result) {
                     document.getElementsByClassName('buttons__button start-button')[0].click()
                 }
             } catch (e) {
-                console.dir(e)
+                //console.dir(e)
             }
         }
 
@@ -180,7 +180,7 @@ chrome.storage.sync.get(null, function (result) {
                 if (document.getElementsByClassName("video-warning__btn")[0].firstElementChild.offsetParent != null)
                     document.getElementsByClassName("video-warning__btn")[0].firstElementChild.click()
             } catch (e) {
-                console.dir(e)
+                // console.dir(e)
             }
         }
     }, 1000)
