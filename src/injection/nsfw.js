@@ -35,7 +35,8 @@ if (streamerKeysCheck.checked) {
                                     unblurLocal()
                                 }
                             }
-                        }
+                        } else
+                            nsfwInfo.style.display = "none"
                     } else {
                         if (rmt.style.filter === "") {
                             blurRemote()
