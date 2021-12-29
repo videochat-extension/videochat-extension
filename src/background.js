@@ -49,7 +49,7 @@ var defaults = {
         WEIGHT_PORN: 2,
         WEIGHT_SEXY: 1,
         BLUR_DURATION: 5,
-        BLUR_PANIC: 1,
+        BLUR_PANIC: 6,
         TIMEOUT: 100
     },
     letUnblur: true,
