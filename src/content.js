@@ -8,6 +8,11 @@ c.rel = "stylesheet";
 c.href = chrome.extension.getURL('css/css-tooltip.min.css');
 (document.head || document.documentElement).appendChild(c);
 
+const cs = document.createElement('link');
+cs.rel = "stylesheet";
+cs.href = chrome.extension.getURL("css/tooltipster.bundle.min.css");
+(document.head || document.documentElement).appendChild(cs);
+
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -1807,6 +1812,14 @@ function createTabAbout() {
                             createElement('a', {
                                 href: "https://github.com/infinitered/nsfwjs",
                                 innerText: "nsfwjs",
+                                style: "text-decoration: none!important;",
+                                target: "_blank"
+                            })
+                        ]),
+                        createElement('dd', {}, [
+                            createElement('a', {
+                                href: "https://github.com/calebjacob/tooltipster",
+                                innerText: "tooltipster",
                                 style: "text-decoration: none!important;",
                                 target: "_blank"
                             })

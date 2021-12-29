@@ -14,6 +14,7 @@
         "js/leaflet/leaflet.js",
         "js/face-api.min.js",
         "js/arrive.min.js",
+        "js/tooltipster.bundle.min.js",
         "content.js"
       ],
       "run_at": "document_idle"
@@ -33,7 +34,8 @@
     "audio/*.mp3",
     "prikol/*.mp4",
     "css/css-tooltip.min.css",
-    "controls*.html"
+    "controls*.html",
+    "css/tooltipster.bundle.min.css"
   ],
   "browser_action": {
     "default_icon": {
