@@ -57,7 +57,7 @@ var defaults = {
     cover: false,
     coverPreview: false,
     coverNoise: false,
-    coverSrc: "https://i.imgur.com/HL8tM10.jpeg"
+    coverSrc: "https://i.imgur.com/Ud2uLYQ.gif"
 };
 chrome.storage.sync.get(defaults, function (result) {
     chrome.storage.sync.set(result);
