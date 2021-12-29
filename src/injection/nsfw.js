@@ -1,13 +1,13 @@
 const BLUR_FILTER = "blur(" + blurFilter.value + "px)"
 const BLUR_FILTER_PREVIEW = "blur(" + blurPreviewFilter.value + "px)"
 
-const PREDICATIONS_ARRAY_SIZE= +sPredicationsArraySize.value
-const PANIC_PROPABILITY= +sPanicPropability.value
-const WEIGHT_PORN= +sWeightPorn.value
-const WEIGHT_SEXY= +sWeightSexy.value
-const BLUR_DURATION= +sBlurDuration.value
-const BLUR_PANIC= +sBlurPanic.value
-const TIMEOUT= +sTimeout.value
+const PREDICATIONS_ARRAY_SIZE = +sPredicationsArraySize.value
+const PANIC_PROPABILITY = +sPanicPropability.value
+const WEIGHT_PORN = +sWeightPorn.value
+const WEIGHT_SEXY = +sWeightSexy.value
+const BLUR_DURATION = +sBlurDuration.value
+const BLUR_PANIC = +sBlurPanic.value
+const TIMEOUT = +sTimeout.value
 
 const vid = document.getElementById("local-video")
 const rmt = document.getElementById("remote-video")
@@ -155,7 +155,7 @@ if (nsfwCheck.checked) {
                                 rmt.style.filter = ""
                                 if (coverCheck.checked)
                                     // cover.style.display = "none"
-                                console.dir('РАЗБЛЮР ПЕРВЫЙ')
+                                    console.dir('РАЗБЛЮР ПЕРВЫЙ')
                                 lastBlurred = -1
                             }
                         } else if (lastBlurred !== 0 && lastBlurred !== -1 && +new Date() - lastBlurred > BLUR_DURATION * 1000) {
@@ -165,7 +165,7 @@ if (nsfwCheck.checked) {
                                 rmt.style.filter = ""
                                 if (coverCheck.checked)
                                     // cover.style.display = "none"
-                                console.dir('РАЗБЛЮР')
+                                    console.dir('РАЗБЛЮР')
                             }
                         }
                     }
@@ -236,7 +236,7 @@ function onConversationEnd() {
     rmt.style.filter = ""
     if (coverCheck.checked)
         // cover.style.display = "none"
-    nsfwInfo.style.display = "none"
+        nsfwInfo.style.display = "none"
     manualBlur = false
     tempOff = false
     updStatus()
