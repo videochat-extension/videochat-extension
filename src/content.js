@@ -1057,9 +1057,9 @@ function createTabSettings() {
                         createElement('dd', {}, [
                             createElement('span', {}, [
                                 createElement("b", {
-                                    innerText: "STREAMER MODE: ",
+                                    innerText: chrome.i18n.getMessage("streamerMode"),
                                     className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": "Enables a special set of features for streamers. If you disable it, things below won't work."
+                                    "data-tooltip": chrome.i18n.getMessage("tooltipStreamerMode")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1077,9 +1077,9 @@ function createTabSettings() {
                         createElement('dd', {}, [
                             createElement('span', {}, [
                                 createElement("p", {
-                                    innerText: "streamer hotkeys: ",
+                                    innerText: chrome.i18n.getMessage("streamerHotkeys"),
                                     className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": "enable a special set of hotkeys for streamers"
+                                    "data-tooltip": chrome.i18n.getMessage("tooltipStreamerHotkeys")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1094,15 +1094,15 @@ function createTabSettings() {
                             ]),
                         ]),
                         createElement('span', {
-                            innerHTML: chrome.i18n.getMessage("streamerHotkeys")
+                            innerHTML: chrome.i18n.getMessage("streamerHotkeysText")
                         }),
 
                         createElement('dd', {}, [
                             createElement('span', {}, [
                                 createElement("p", {
-                                    innerText: "streamer pip: ",
+                                    innerText: chrome.i18n.getMessage("streamerPip"),
                                     className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": "Allows to open interlocutor's camera in Picture-in-Picture mode. It can be used to monitor the interlocutor's camera while it is blurred. PiP is a separate window, which does not affect the captured browser window (OBS)."
+                                    "data-tooltip": chrome.i18n.getMessage("tooltipStreamerPip")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1120,9 +1120,9 @@ function createTabSettings() {
                         createElement('dd', {}, [
                             createElement('span', {}, [
                                 createElement("p", {
-                                    innerText: "blur on start: ",
+                                    innerText: chrome.i18n.getMessage("blurOnStart"),
                                     className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": "every new conversation will start blurred"
+                                    "data-tooltip": chrome.i18n.getMessage("tooltipBlurOnStart")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1138,9 +1138,9 @@ function createTabSettings() {
                         createElement('dd', {}, [
                             createElement('span', {}, [
                                 createElement("p", {
-                                    innerText: "blur report screen: ",
+                                    innerText: chrome.i18n.getMessage("blurReport"),
                                     className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": "blur report screen image"
+                                    "data-tooltip": chrome.i18n.getMessage("tooltipBlurReport")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1162,9 +1162,9 @@ function createTabSettings() {
                         createElement('dd', {}, [
                             createElement('span', {}, [
                                 createElement("p", {
-                                    innerText: "remote blur strength: ",
+                                    innerText: chrome.i18n.getMessage("remoteBlurStrength"),
                                     className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": "Value for the blur filter."
+                                    "data-tooltip": chrome.i18n.getMessage("tooltipRemoteBlurStrength")
                                 }),
                                 createElement('input', {
                                     type: "range",
@@ -1184,9 +1184,9 @@ function createTabSettings() {
                         createElement('dd', {}, [
                             createElement('span', {}, [
                                 createElement("p", {
-                                    innerText: "blur previews: ",
+                                    innerText: chrome.i18n.getMessage("blurPreviews"),
                                     className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": "Blur the preview in case your interlocutor uses a custom client that sends NSFW previews."
+                                    "data-tooltip": chrome.i18n.getMessage("tooltipBlurPreviews")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1202,9 +1202,9 @@ function createTabSettings() {
                         createElement('dd', {}, [
                             createElement('span', {}, [
                                 createElement("p", {
-                                    innerText: "preview blur strength: ",
+                                    innerText: chrome.i18n.getMessage("previewBlurStrength"),
                                     className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": "Value for the preview's blur filter."
+                                    "data-tooltip": chrome.i18n.getMessage("tooltipPreviewBlurStrength")
                                 }),
                                 createElement('input', {
                                     type: "range",
@@ -1227,9 +1227,9 @@ function createTabSettings() {
                         createElement('dd', {}, [
                             createElement('span', {}, [
                                 createElement("p", {
-                                    innerText: "blur/cover local: ",
+                                    innerText: chrome.i18n.getMessage("blurCoverLocal"),
                                     className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": "enable this if you want to blur/cover local video as well (mirror)"
+                                    "data-tooltip": chrome.i18n.getMessage("tooltipBlurCoverLocal")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1248,9 +1248,9 @@ function createTabSettings() {
                         createElement('dd', {}, [
                             createElement('span', {}, [
                                 createElement("p", {
-                                    innerText: "cover over blur: ",
+                                    innerText: chrome.i18n.getMessage("coverOverBlur"),
                                     className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": "enable this if you want custom image instead of blur"
+                                    "data-tooltip": chrome.i18n.getMessage("tooltipCoverOverBlur")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1268,9 +1268,9 @@ function createTabSettings() {
                         createElement('dd', {}, [
                             createElement('span', {}, [
                                 createElement("p", {
-                                    innerText: "cover over preview: ",
+                                    innerText: chrome.i18n.getMessage("coverOverPreview"),
                                     className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": "enable this if you want custom image instead of previews"
+                                    "data-tooltip": chrome.i18n.getMessage("tooltipCoverOverPreview")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1289,9 +1289,9 @@ function createTabSettings() {
                         createElement('dd', {}, [
                             createElement('span', {}, [
                                 createElement("p", {
-                                    innerText: "cover over noise: ",
+                                    innerText: chrome.i18n.getMessage("coverOverNoise"),
                                     className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": "enable this if you want custom image instead of noise"
+                                    "data-tooltip": chrome.i18n.getMessage("tooltipCoverOverNoise")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1300,7 +1300,6 @@ function createTabSettings() {
                                     onclick: () => {
                                         chrome.storage.sync.set({"coverNoise": coverNoiseCheck.checked}, function () {
                                             confirmAndReload()
-
                                         });
                                     }
                                 })
@@ -1309,7 +1308,7 @@ function createTabSettings() {
                         createElement('dd', {}, [
                             createElement('button', {
                                 onclick: () => {
-                                    const result = prompt("Enter direct link to img/gif (4:3) to use as a cover", settings.coverSrc);
+                                    const result = prompt(chrome.i18n.getMessage("promptCoverSrc"), settings.coverSrc)
                                     if (result) {
                                         chrome.storage.sync.set({"coverSrc": result}, function () {
                                             cover.src = result
@@ -1318,7 +1317,7 @@ function createTabSettings() {
                                 },
                             }, [
                                 createElement('b', {
-                                    innerText: "cover source"
+                                    innerText: chrome.i18n.getMessage("coverSrc")
                                 })
                             ]),
                         ]),
@@ -1326,9 +1325,9 @@ function createTabSettings() {
                         createElement('dd', {}, [
                             createElement('span', {}, [
                                 createElement("b", {
-                                    innerText: "nsfwjs [ALFA]: ",
+                                    innerText: chrome.i18n.getMessage("nsfwjsAlfa"),
                                     className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": "Enable nsfwjs integration. It checks the image from the interlocutor's camera every N ms for NSFW, counts points if the image is suspicious, if enough points are scored for the last N checks, blurs the interlocutor for N seconds. Use with caution."
+                                    "data-tooltip": chrome.i18n.getMessage("tooltipNsfwjsAlfa")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1346,9 +1345,9 @@ function createTabSettings() {
                         createElement('dd', {}, [
                             createElement('span', {}, [
                                 createElement("p", {
-                                    innerText: "let nsfwjs unblur initial blur: ",
+                                    innerText: chrome.i18n.getMessage("letUnblurInitial"),
                                     className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": "If you enable this and 'blur on start' is on, then nsfwjs will be able to unblur first initial blur. If you disable it, you will have to unblur it manually."
+                                    "data-tooltip": chrome.i18n.getMessage("tooltipLetUnblurInitial")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1366,9 +1365,9 @@ function createTabSettings() {
                         createElement('dd', {}, [
                             createElement('span', {}, [
                                 createElement("p", {
-                                    innerText: "let nsfwjs unblur auto blurs: ",
+                                    innerText: chrome.i18n.getMessage("letUnblurAuto"),
                                     className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": "If you enable this and nsfwjs blurs something, it will unblur it after N seconds if nsfw is no longer on screen."
+                                    "data-tooltip": chrome.i18n.getMessage("tooltipLetUnblurAuto")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1388,14 +1387,14 @@ function createTabSettings() {
                         createElement('dd', {}, [
                             createElement('details', {}, [
                                 createElement("summary", {
-                                    innerText: "nsfwjs config",
+                                    innerText: chrome.i18n.getMessage("nsfwjsConfig")
                                 }),
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
-                                            innerText: "blur duration: ",
+                                            innerText: chrome.i18n.getMessage("blurDuration"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "how long to keep the blur (in sec) after the system has considered that the image is acceptable?"
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipBlurDuration")
                                         }),
 
                                         createElement('input', {
@@ -1415,9 +1414,9 @@ function createTabSettings() {
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
-                                            innerText: "delay: ",
+                                            innerText: chrome.i18n.getMessage("delay"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "delay between checks in ms"
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipDelay")
                                         }),
 
                                         createElement('input', {
@@ -1436,9 +1435,9 @@ function createTabSettings() {
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
-                                            innerText: "predications array size: ",
+                                            innerText: chrome.i18n.getMessage("predicationsArraySize"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "how many last nsfw checks to count?"
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipPredicationsArraySize")
                                         }),
 
                                         createElement('input', {
@@ -1459,9 +1458,9 @@ function createTabSettings() {
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
-                                            innerText: "score to blur: ",
+                                            innerText: chrome.i18n.getMessage("scoreToBlur"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "how many points do nsfwjs need to score to blur?"
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipScoreToBlur")
                                         }),
 
                                         createElement('input', {
@@ -1481,9 +1480,9 @@ function createTabSettings() {
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
-                                            innerText: "propability to count: ",
+                                            innerText: chrome.i18n.getMessage("propabilityToCount"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "required probability to add points (0.1=10%, 0.9=90%)"
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipPropabilityToCount")
                                         }),
 
                                         createElement('input', {
@@ -1503,9 +1502,9 @@ function createTabSettings() {
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
-                                            innerText: "'porn' weight: ",
+                                            innerText: chrome.i18n.getMessage("pornWeight"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "how many points to add if image is considered 'porn'?"
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipPornWeight")
                                         }),
 
                                         createElement('input', {
@@ -1525,9 +1524,9 @@ function createTabSettings() {
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
-                                            innerText: "'sexy' weight: ",
+                                            innerText: chrome.i18n.getMessage("sexyWeight"),
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "how many points to add if image is considered 'sexy'?"
+                                            "data-tooltip": chrome.i18n.getMessage("tooltipSexyWeight")
                                         }),
 
                                         createElement('input', {
@@ -1547,7 +1546,7 @@ function createTabSettings() {
                                 createElement('dd', {}, [
                                     createElement('button', {
                                         onclick: () => {
-                                            const result = confirm("Save?");
+                                            const result = confirm(chrome.i18n.getMessage("saveConfirm"))
                                             if (result) {
                                                 let nsfwjs = {
                                                     nsfwjs: {
@@ -1568,13 +1567,13 @@ function createTabSettings() {
                                         },
                                     }, [
                                         createElement('b', {
-                                            innerText: "save"
+                                            innerText: chrome.i18n.getMessage("save")
                                         })
                                     ]),
 
                                     createElement('button', {
                                         onclick: () => {
-                                            const result = confirm("Reset?");
+                                            const result = confirm(chrome.i18n.getMessage("resetConfirm"))
                                             if (result) {
                                                 let nsfwjs = {
                                                     nsfwjs: {
@@ -1595,7 +1594,7 @@ function createTabSettings() {
                                         },
                                     }, [
                                         createElement('b', {
-                                            innerText: "reset"
+                                            innerText: chrome.i18n.getMessage("reset")
                                         })
                                     ]),
                                 ]),
