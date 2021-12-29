@@ -9,26 +9,29 @@ function secondsToHms(d) {
     var hDisplay = h > 0 ? h + (h == 1 ? "H" : "H") : "";
     var mDisplay = m > 0 ? m + (m == 1 ? "M, " : "M") : "";
     var sDisplay = s > 0 ? s + (s == 1 ? "S" : "S") : "";
-    return hDisplay + mDisplay + sDisplay; 
+    return hDisplay + mDisplay + sDisplay;
 }
 
 function updateRemoteAddress(remoteAddress) {
-    $.getJSON("http://ip-api.com/json/" + remoteAddress.replace("[", "").replace("]", ""), { lang: language, fields: "status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query" })
+    $.getJSON("http://ip-api.com/json/" + remoteAddress.replace("[", "").replace("]", ""), {
+        lang: language,
+        fields: "status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query"
+    })
         .done(function (json) {
             remoteIPInfo.innerText = JSON.stringify(json)
-			startDate = +new Date()/1000
+            startDate = +new Date() / 1000
 
             if (json.mobile) {
                 remoteInfo.innerHTML = "<b>Country: </b>" + json.country + " [" + json.countryCode + "] </br></br>" +
-                    "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", { timeZone: json.timezone }).slice(0, -3) + "</sup>) </br>" + 
-                    "<b>TM: </b><sup id='remoteTM'>" + secondsToHms(+new Date()/1000-startDate) + "</sup>"
+                    "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>" +
+                    "<b>TM: </b><sup id='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
             } else {
                 remoteInfo.innerHTML = "<b>Country: </b>" + json.country + " [" + json.countryCode + "] </br>" +
                     "</br>" +
                     "<b>City: </b>" + json.city + " (" + json.region + ") </br>" +
                     "<b>Region: </b>" + json.regionName + "</br>" +
-                    "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", { timeZone: json.timezone }).slice(0, -3) + "</sup>)</br>" + 
-                    "<b>TM: </b><sup id='remoteTM'>" + secondsToHms(+new Date()/1000-startDate) + "</sup>"
+                    "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>)</br>" +
+                    "<b>TM: </b><sup id='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
             }
         })
         .fail(function (jqxhr, textStatus, error) {
@@ -41,10 +44,11 @@ function updateRemoteAddress(remoteAddress) {
 
 setInterval(() => {
     if (typeof remoteTM !== 'undefined') {
-        remoteTM.innerText = secondsToHms(+new Date()/1000-startDate)
+        if (localStage.innerText === "3")
+            remoteTM.innerText = secondsToHms(+new Date() / 1000 - startDate)
     }
     if (typeof remoteTZ !== 'undefined' && typeof remoteTime !== 'undefined') {
-        remoteTime.innerText = new Date().toLocaleTimeString("ru", { timeZone: remoteTZ.innerText }).slice(0, -3)
+        remoteTime.innerText = new Date().toLocaleTimeString("ru", {timeZone: remoteTZ.innerText}).slice(0, -3)
     }
 }, 1000)
 // based on magic from https://github.com/fippo/rtcstats (MIT)
@@ -76,18 +80,18 @@ window.RTCPeerConnection.prototype = origPeerConnection.prototype;
             }
             return new Promise(function (resolve, reject) {
                 nativeMethod.apply(pc, [args[0],
-                function () {
-                    resolve();
-                    if (args.length >= 2) {
-                        args[1].apply(null, []);
-                    }
-                },
-                function (err) {
-                    reject(err);
-                    if (args.length >= 3) {
-                        args[2].apply(null, [err]);
-                    }
-                }]
+                    function () {
+                        resolve();
+                        if (args.length >= 2) {
+                            args[1].apply(null, []);
+                        }
+                    },
+                    function (err) {
+                        reject(err);
+                        if (args.length >= 3) {
+                            args[2].apply(null, [err]);
+                        }
+                    }]
                 );
             });
         };
