@@ -1884,29 +1884,21 @@ chrome.storage.sync.get(null, function (result) {
         }).observe($(".ok")[0], {attributes: true});
     }
 
-    if (settings.mirror) {
+    if (settings.mirror || settings.mirrorAlt || settings.prikol) {
+        if (settings.prikol) {
+            const prikolV = document.createElement('video');
+            prikolV.id = "prikol"
+            prikolV.loop = "loop"
+            prikolV.autoplay = "autoplay"
+            prikolV.muted = true
+            prikolV.src = chrome.extension.getURL('prikol/prikol.mp4');
+            prikolV.onload = () => s1.remove();
+
+            header.appendChild(prikolV);
+        }
+
         const s1 = document.createElement('script');
         s1.src = chrome.extension.getURL('injection/mirror.js');
-        s1.onload = () => s1.remove();
-        (document.head || document.documentElement).appendChild(s1);
-    } else if (settings.mirrorAlt) {
-        const s1 = document.createElement('script');
-        s1.src = chrome.extension.getURL('injection/mirror-shwartz.js');
-        s1.onload = () => s1.remove();
-        (document.head || document.documentElement).appendChild(s1);
-    } else if (settings.prikol) {
-        const prikolV = document.createElement('video');
-        prikolV.id = "prikol"
-        prikolV.loop = "loop"
-        prikolV.autoplay = "autoplay"
-        prikolV.muted = true
-        prikolV.src = chrome.extension.getURL('prikol/prikol.mp4');
-        prikolV.onload = () => s1.remove();
-
-        header.appendChild(prikolV);
-
-        const s1 = document.createElement('script');
-        s1.src = chrome.extension.getURL('injection/prikol.js');
         s1.onload = () => s1.remove();
         (document.head || document.documentElement).appendChild(s1);
     }
