@@ -106,7 +106,7 @@ if (nsfwCheck.checked) {
         nsfwInfo.style.display = ""
 
         let nsfwTimeout = setTimeout(async function tick() {
-            if (currentStage === 3) {
+            if (currentStage === 3 && !tempOff) {
                 try {
                     const predictions = await model.classify(rmt)
                     if (preds.length >= PREDICATIONS_ARRAY_SIZE)
