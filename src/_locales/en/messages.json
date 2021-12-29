@@ -219,7 +219,7 @@
     "message": "deletes the image that the service uses to check you for violations. Avoiding accidental bans only. If you abuse and a lot of reports are sent to you, you will be banned anyway."
   },
   "settingsExperiments": {
-    "message": "<b>Experiments</b>"
+    "message": "<b>Streamers</b>"
   },
   "settingsStats": {
     "message": "<b>Stats</b>"
