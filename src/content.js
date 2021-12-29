@@ -1162,9 +1162,74 @@ function createTabSettings() {
                         createElement('dd', {}, [
                             createElement('span', {}, [
                                 createElement("p", {
-                                    innerText: "blur local: ",
+                                    innerText: "remote blur strength: ",
                                     className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": "enable this if you need to blur local video as well (mirror)"
+                                    "data-tooltip": "Value for the blur filter."
+                                }),
+                                createElement('input', {
+                                    type: "range",
+                                    id: "blurFilter",
+                                    style: "vertical-align: middle!important;",
+                                    min: 0,
+                                    max: 200,
+                                    value: settings.blurFilter,
+                                    onchange: () => {
+                                        chrome.storage.sync.set({"blurFilter": blurFilter.value}, function () {
+                                            confirmAndReload()
+                                        })
+                                    }
+                                })
+                            ]),
+                        ]),
+                        createElement('dd', {}, [
+                            createElement('span', {}, [
+                                createElement("p", {
+                                    innerText: "blur previews: ",
+                                    className: "tooltip-multiline tooltip-bottom-left",
+                                    "data-tooltip": "Blur the preview in case your interlocutor uses a custom client that sends NSFW previews."
+                                }),
+                                createElement('input', {
+                                    type: "checkbox",
+                                    checked: settings.blurPreview,
+                                    id: "blurPreviewCheck",
+                                    onclick: () => {
+                                        chrome.storage.sync.set({"blurPreview": blurPreviewCheck.checked}, function () {
+                                        });
+                                    }
+                                })
+                            ]),
+                        ]),
+                        createElement('dd', {}, [
+                            createElement('span', {}, [
+                                createElement("p", {
+                                    innerText: "preview blur strength: ",
+                                    className: "tooltip-multiline tooltip-bottom-left",
+                                    "data-tooltip": "Value for the preview's blur filter."
+                                }),
+                                createElement('input', {
+                                    type: "range",
+                                    id: "blurPreviewFilter",
+                                    style: "vertical-align: middle!important;",
+                                    min: 0,
+                                    max: 200,
+                                    value: settings.blurPreviewFilter,
+                                    onchange: () => {
+                                        chrome.storage.sync.set({"blurPreviewFilter": blurPreviewFilter.value}, function () {
+                                            confirmAndReload()
+                                        })
+                                    }
+                                })
+                            ]),
+                        ]),
+
+                        createElement('br'),
+
+                        createElement('dd', {}, [
+                            createElement('span', {}, [
+                                createElement("p", {
+                                    innerText: "blur/cover local: ",
+                                    className: "tooltip-multiline tooltip-bottom-left",
+                                    "data-tooltip": "enable this if you want to blur/cover local video as well (mirror)"
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1177,6 +1242,9 @@ function createTabSettings() {
                                 })
                             ]),
                         ]),
+
+                        createElement('br'),
+
                         createElement('dd', {}, [
                             createElement('span', {}, [
                                 createElement("p", {
@@ -1238,66 +1306,19 @@ function createTabSettings() {
                                 })
                             ]),
                         ]),
-
                         createElement('dd', {}, [
-                            createElement('span', {}, [
-                                createElement("p", {
-                                    innerText: "remote blur strength: ",
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": "Value for the blur filter."
-                                }),
-                                createElement('input', {
-                                    type: "range",
-                                    id: "blurFilter",
-                                    style: "vertical-align: middle!important;",
-                                    min: 0,
-                                    max: 200,
-                                    value: settings.blurFilter,
-                                    onchange: () => {
-                                        chrome.storage.sync.set({"blurFilter": blurFilter.value}, function () {
-                                            confirmAndReload()
-                                        })
-                                    }
-                                })
-                            ]),
-                        ]),
-                        createElement('dd', {}, [
-                            createElement('span', {}, [
-                                createElement("p", {
-                                    innerText: "blur previews: ",
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": "Blur the preview in case your interlocutor uses a custom client that sends NSFW previews."
-                                }),
-                                createElement('input', {
-                                    type: "checkbox",
-                                    checked: settings.blurPreview,
-                                    id: "blurPreviewCheck",
-                                    onclick: () => {
-                                        chrome.storage.sync.set({"blurPreview": blurPreviewCheck.checked}, function () {
+                            createElement('button', {
+                                onclick: () => {
+                                    const result = prompt("Enter direct link to img/gif (4:3) to use as a cover", settings.coverSrc);
+                                    if (result) {
+                                        chrome.storage.sync.set({"coverSrc": result}, function () {
+                                            cover.src = result
                                         });
                                     }
-                                })
-                            ]),
-                        ]),
-                        createElement('dd', {}, [
-                            createElement('span', {}, [
-                                createElement("p", {
-                                    innerText: "preview blur strength: ",
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": "Value for the preview's blur filter."
-                                }),
-                                createElement('input', {
-                                    type: "range",
-                                    id: "blurPreviewFilter",
-                                    style: "vertical-align: middle!important;",
-                                    min: 0,
-                                    max: 200,
-                                    value: settings.blurPreviewFilter,
-                                    onchange: () => {
-                                        chrome.storage.sync.set({"blurPreviewFilter": blurPreviewFilter.value}, function () {
-                                            confirmAndReload()
-                                        })
-                                    }
+                                },
+                            }, [
+                                createElement('b', {
+                                    innerText: "cover source"
                                 })
                             ]),
                         ]),
