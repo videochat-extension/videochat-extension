@@ -80,8 +80,10 @@ function hotkeys(e) {
         case "ArrowLeft":
             if (document.getElementById("report-popup").style.display === "block")
                 document.getElementsByClassName("btn btn-gray")[2].click()
-            else
-                document.getElementsByClassName('buttons__button start-button')[0].click()
+            else if (e.shiftKey && !local.ips.includes(remoteIP.innerText)) {
+                syncBlackList()
+            }
+            document.getElementsByClassName('buttons__button start-button')[0].click()
             break;
 
         case "ArrowUp":
@@ -231,7 +233,7 @@ function createControls() {
               }
               
               input {
-                margin-left: 5px!important
+                margin-left: 5px!important;
               }
               `
             }),
@@ -274,7 +276,30 @@ function createControls() {
                         style: "color: green; height:15px",
                         title: "pip remote",
                         onclick: () => {
-                            document.getElementById("remote-video").requestPictureInPicture()
+                            if (document.pictureInPictureElement === document.getElementById("remote-video"))
+                                document.exitPictureInPicture()
+                            else
+                                document.getElementById("remote-video").requestPictureInPicture()
+                        },
+                    }, [
+                        createElement('b', {
+                            innerText: "^"
+                        })
+                    ]),
+                    createElement('button', {
+                        style: function f() {
+                            if (settings.streamerPip) {
+                                return "height:15px"
+                            } else {
+                                return "display:none"
+                            }
+                        }(),
+                        title: "pip remote clone (for streamers)",
+                        onclick: () => {
+                            if (document.pictureInPictureElement === document.getElementById("echo-video"))
+                                document.exitPictureInPicture()
+                            else
+                                document.getElementById("echo-video").requestPictureInPicture()
                         },
                     }, [
                         createElement('b', {
@@ -290,7 +315,10 @@ function createControls() {
                         style: "color: green; height:15px",
                         title: "pip local",
                         onclick: () => {
-                            document.getElementById("local-video").requestPictureInPicture()
+                            if (document.pictureInPictureElement === document.getElementById("local-video"))
+                                document.exitPictureInPicture()
+                            else
+                                document.getElementById("local-video").requestPictureInPicture()
                         },
                     }, [
                         createElement('b', {
@@ -348,6 +376,10 @@ function createControls() {
             }, [
                 createElement('div', {
                     id: "remoteFace",
+                }),
+                createElement('div', {
+                    id: "streamerStatus",
+                    // style: "display: none;"
                 }),
                 createElement('div', {
                     id: "nsfwInfo",
@@ -725,7 +757,7 @@ function createControls() {
                                 }),
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
-                                        createElement("p", {
+                                        createElement("b", {
                                             innerText: chrome.i18n.getMessage("enablehotkeys"),
                                             className: "tooltip-multiline tooltip-bottom-left",
                                             "data-tooltip": chrome.i18n.getMessage("tooltipEnableHotkeys")
@@ -839,7 +871,7 @@ function createControls() {
                                 }),
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
-                                        createElement("p", {
+                                        createElement("b", {
                                             innerText: chrome.i18n.getMessage("enableWS"),
                                             className: "tooltip-multiline tooltip-bottom-left",
                                             "data-tooltip": chrome.i18n.getMessage("tooltipEnableWS")
@@ -989,13 +1021,260 @@ function createControls() {
                                 createElement('dt', {
                                     innerHTML: chrome.i18n.getMessage("settingsExperiments")
                                 }),
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("b", {
+                                            innerText: "STREAMER MODE: ",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "Enables a special set of features for streamers. If you disable it, things below won't work."
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.streamer,
+                                            id: "streamerCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"streamer": streamerCheck.checked}, function () {
+                                                    confirmAndReload()
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+                                createElement('br'),
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: "streamer hotkeys: ",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "enable a special set of hotkeys for streamers"
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.streamerKeys,
+                                            id: "streamerKeysCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"streamerKeys": streamerKeysCheck.checked}, function () {
+                                                    confirmAndReload()
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+                                createElement('span', {
+                                    innerHTML: chrome.i18n.getMessage("streamerHotkeys")
+                                }),
 
                                 createElement('dd', {}, [
                                     createElement('span', {}, [
                                         createElement("p", {
-                                            innerText: "nsfw detection experiments: ",
+                                            innerText: "streamer pip: ",
                                             className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": "unfinished nsfwjs integration to auto blur NSFW interlocutors."
+                                            "data-tooltip": "Allows to open interlocutor's camera in Picture-in-Picture mode. It can be used to monitor the interlocutor's camera while it is blurred. PiP is a separate window, which does not affect the captured browser window (OBS)."
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.streamerPip,
+                                            id: "streamerPipCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"streamerPip": streamerPipCheck.checked}, function () {
+                                                    confirmAndReload()
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+                                createElement('br'),
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: "blur on start: ",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "every new conversation will start blurred"
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.blurOnStart,
+                                            id: "blurOnStartCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"blurOnStart": blurOnStartCheck.checked}, function () {
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: "blur report screen: ",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "blur report screen image"
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.blurReport,
+                                            id: "blurReportCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"blurReport": blurReportCheck.checked}, function () {
+                                                    if (blurReportCheck.checked) {
+                                                        document.getElementById("report-screen").style.filter = "blur(10px)"
+                                                    } else {
+                                                        document.getElementById("report-screen").style.filter = ""
+                                                    }
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: "blur local: ",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "enable this if you need to blur local video as well (mirror)"
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.streamerMirror,
+                                            id: "streamerMirrorCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"streamerMirror": streamerMirrorCheck.checked}, function () {
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: "cover over blur: ",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "enable this if you want custom image instead of blur"
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.cover,
+                                            id: "coverCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"cover": coverCheck.checked}, function () {
+                                                    confirmAndReload()
+
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: "cover over preview: ",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "enable this if you want custom image instead of previews"
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.coverPreview,
+                                            id: "coverPreviewCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"coverPreview": coverPreviewCheck.checked}, function () {
+                                                    confirmAndReload()
+
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: "cover over noise: ",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "enable this if you want custom image instead of noise"
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.coverNoise,
+                                            id: "coverNoiseCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"coverNoise": coverNoiseCheck.checked}, function () {
+                                                    confirmAndReload()
+
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: "remote blur strength: ",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "Value for the blur filter."
+                                        }),
+                                        createElement('input', {
+                                            type: "range",
+                                            id: "blurFilter",
+                                            style: "vertical-align: middle!important;",
+                                            min: 0,
+                                            max: 200,
+                                            value: settings.blurFilter,
+                                            onchange: () => {
+                                                chrome.storage.sync.set({"blurFilter": blurFilter.value}, function () {
+                                                    confirmAndReload()
+                                                })
+                                            }
+                                        })
+                                    ]),
+                                ]),
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: "blur previews: ",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "Blur the preview in case your interlocutor uses a custom client that sends NSFW previews."
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.blurPreview,
+                                            id: "blurPreviewCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"blurPreview": blurPreviewCheck.checked}, function () {
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: "preview blur strength: ",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "Value for the preview's blur filter."
+                                        }),
+                                        createElement('input', {
+                                            type: "range",
+                                            id: "blurPreviewFilter",
+                                            style: "vertical-align: middle!important;",
+                                            min: 0,
+                                            max: 200,
+                                            value: settings.blurPreviewFilter,
+                                            onchange: () => {
+                                                chrome.storage.sync.set({"blurPreviewFilter": blurPreviewFilter.value}, function () {
+                                                    confirmAndReload()
+                                                })
+                                            }
+                                        })
+                                    ]),
+                                ]),
+                                createElement('br'),
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("b", {
+                                            innerText: "nsfwjs [ALFA]: ",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "Enable nsfwjs integration. It checks the image from the interlocutor's camera every N ms for NSFW, counts points if the image is suspicious, if enough points are scored for the last N checks, blurs the interlocutor for N seconds. Use with caution."
                                         }),
                                         createElement('input', {
                                             type: "checkbox",
@@ -1007,6 +1286,265 @@ function createControls() {
                                                 });
                                             }
                                         })
+                                    ]),
+                                ]),
+
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: "let nsfwjs unblur initial blur: ",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "If you enable this and 'blur on start' is on, then nsfwjs will be able to unblur first initial blur. If you disable it, you will have to unblur it manually."
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.nsfwjsUnblur,
+                                            id: "nsfwjsUnblurCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"nsfwjsUnblur": nsfwjsUnblurCheck.checked}, function () {
+                                                    confirmAndReload()
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+
+                                createElement('dd', {}, [
+                                    createElement('span', {}, [
+                                        createElement("p", {
+                                            innerText: "let nsfwjs unblur auto blurs: ",
+                                            className: "tooltip-multiline tooltip-bottom-left",
+                                            "data-tooltip": "If you enable this and nsfwjs blurs something, it will unblur it after N seconds if nsfw is no longer on screen."
+                                        }),
+                                        createElement('input', {
+                                            type: "checkbox",
+                                            checked: settings.letUnblur,
+                                            id: "letUnblurCheck",
+                                            onclick: () => {
+                                                chrome.storage.sync.set({"letUnblur": letUnblurCheck.checked}, function () {
+                                                    confirmAndReload()
+                                                });
+                                            }
+                                        })
+                                    ]),
+                                ]),
+
+
+                                createElement('br'),
+                                createElement('dd', {}, [
+                                    createElement('details', {}, [
+                                        createElement("summary", {
+                                            innerText: "nsfwjs config",
+                                        }),
+                                        createElement('dd', {}, [
+                                            createElement('span', {}, [
+                                                createElement("p", {
+                                                    innerText: "blur duration: ",
+                                                    className: "tooltip-multiline tooltip-bottom-left",
+                                                    "data-tooltip": "how long to keep the blur (in sec) after the system has considered that the image is acceptable?"
+                                                }),
+
+                                                createElement('input', {
+                                                    type: "number",
+                                                    value: settings.nsfwjs.BLUR_DURATION,
+                                                    min: 1,
+                                                    max: 20,
+                                                    step: 1,
+                                                    id: "sBlurDuration",
+                                                    onkeydown: (e) => {
+                                                        e.preventDefault()
+                                                    }
+                                                }),
+                                            ]),
+                                        ]),
+
+                                        createElement('dd', {}, [
+                                            createElement('span', {}, [
+                                                createElement("p", {
+                                                    innerText: "delay: ",
+                                                    className: "tooltip-multiline tooltip-bottom-left",
+                                                    "data-tooltip": "delay between checks in ms"
+                                                }),
+
+                                                createElement('input', {
+                                                    type: "number",
+                                                    value: settings.nsfwjs.TIMEOUT,
+                                                    min: 50,
+                                                    max: 10000,
+                                                    step: 10,
+                                                    id: "sTimeout",
+                                                    onkeydown: (e) => {
+                                                        e.preventDefault()
+                                                    }
+                                                }),
+                                            ]),
+                                        ]),
+                                        createElement('dd', {}, [
+                                            createElement('span', {}, [
+                                                createElement("p", {
+                                                    innerText: "predications array size: ",
+                                                    className: "tooltip-multiline tooltip-bottom-left",
+                                                    "data-tooltip": "how many last nsfw checks to count?"
+                                                }),
+
+                                                createElement('input', {
+                                                    type: "number",
+                                                    value: settings.nsfwjs.PREDICATIONS_ARRAY_SIZE,
+                                                    min: 1,
+                                                    max: 10,
+                                                    step: 1,
+                                                    id: "sPredicationsArraySize",
+                                                    onkeydown: (e) => {
+                                                        e.preventDefault()
+                                                    }
+                                                }),
+                                            ]),
+                                        ]),
+
+
+                                        createElement('dd', {}, [
+                                            createElement('span', {}, [
+                                                createElement("p", {
+                                                    innerText: "score to blur: ",
+                                                    className: "tooltip-multiline tooltip-bottom-left",
+                                                    "data-tooltip": "how many points do nsfwjs need to score to blur?"
+                                                }),
+
+                                                createElement('input', {
+                                                    type: "number",
+                                                    value: settings.nsfwjs.BLUR_PANIC,
+                                                    min: 1,
+                                                    max: 100,
+                                                    step: 1,
+                                                    id: "sBlurPanic",
+                                                    onkeydown: (e) => {
+                                                        e.preventDefault()
+                                                    }
+                                                }),
+                                            ]),
+                                        ]),
+
+                                        createElement('dd', {}, [
+                                            createElement('span', {}, [
+                                                createElement("p", {
+                                                    innerText: "propability to count: ",
+                                                    className: "tooltip-multiline tooltip-bottom-left",
+                                                    "data-tooltip": "required probability to add points (0.1=10%, 0.9=90%)"
+                                                }),
+
+                                                createElement('input', {
+                                                    type: "number",
+                                                    value: settings.nsfwjs.PANIC_PROPABILITY,
+                                                    min: 0.1,
+                                                    max: 1.0,
+                                                    step: 0.05,
+                                                    id: "sPanicPropability",
+                                                    onkeydown: (e) => {
+                                                        e.preventDefault()
+                                                    }
+                                                }),
+                                            ]),
+                                        ]),
+
+                                        createElement('dd', {}, [
+                                            createElement('span', {}, [
+                                                createElement("p", {
+                                                    innerText: "'porn' weight: ",
+                                                    className: "tooltip-multiline tooltip-bottom-left",
+                                                    "data-tooltip": "how many points to add if image is considered 'porn'?"
+                                                }),
+
+                                                createElement('input', {
+                                                    type: "number",
+                                                    value: settings.nsfwjs.WEIGHT_PORN,
+                                                    min: 0,
+                                                    max: 10,
+                                                    step: 1,
+                                                    id: "sWeightPorn",
+                                                    onkeydown: (e) => {
+                                                        e.preventDefault()
+                                                    }
+                                                }),
+                                            ]),
+                                        ]),
+
+                                        createElement('dd', {}, [
+                                            createElement('span', {}, [
+                                                createElement("p", {
+                                                    innerText: "'sexy' weight: ",
+                                                    className: "tooltip-multiline tooltip-bottom-left",
+                                                    "data-tooltip": "how many points to add if image is considered 'sexy'?"
+                                                }),
+
+                                                createElement('input', {
+                                                    type: "number",
+                                                    value: settings.nsfwjs.WEIGHT_SEXY,
+                                                    min: 0,
+                                                    max: 10,
+                                                    step: 1,
+                                                    id: "sWeightSexy",
+                                                    onkeydown: (e) => {
+                                                        e.preventDefault()
+                                                    }
+                                                }),
+                                            ]),
+                                        ]),
+                                        createElement('br'),
+                                        createElement('dd', {}, [
+                                            createElement('button', {
+                                                onclick: () => {
+                                                    const result = confirm("Save?");
+                                                    if (result) {
+                                                        let nsfwjs = {
+                                                            nsfwjs: {
+                                                                PREDICATIONS_ARRAY_SIZE: sPredicationsArraySize.value,
+                                                                PANIC_PROPABILITY: sPanicPropability.value,
+                                                                WEIGHT_PORN: sWeightPorn.value,
+                                                                WEIGHT_SEXY: sWeightSexy.value,
+                                                                BLUR_DURATION: sBlurDuration.value,
+                                                                BLUR_PANIC: sBlurPanic.value,
+                                                                TIMEOUT: sTimeout.value
+                                                            }
+                                                        }
+                                                        settings.nsfwjs = nsfwjs.nsfwjs
+                                                        chrome.storage.sync.set(settings, function () {
+                                                            confirmAndReload()
+                                                        });
+                                                    }
+                                                },
+                                            }, [
+                                                createElement('b', {
+                                                    innerText: "save"
+                                                })
+                                            ]),
+
+                                            createElement('button', {
+                                                onclick: () => {
+                                                    const result = confirm("Reset?");
+                                                    if (result) {
+                                                        let nsfwjs = {
+                                                            nsfwjs: {
+                                                                PREDICATIONS_ARRAY_SIZE: 4,
+                                                                PANIC_PROPABILITY: 0.8,
+                                                                WEIGHT_PORN: 2,
+                                                                WEIGHT_SEXY: 1,
+                                                                BLUR_DURATION: 5,
+                                                                BLUR_PANIC: 6,
+                                                                TIMEOUT: 100
+                                                            }
+                                                        }
+                                                        settings.nsfwjs = nsfwjs.nsfwjs
+                                                        chrome.storage.sync.set(settings, function () {
+                                                            confirmAndReload()
+                                                        });
+                                                    }
+                                                },
+                                            }, [
+                                                createElement('b', {
+                                                    innerText: "reset"
+                                                })
+                                            ]),
+                                        ]),
                                     ]),
                                 ]),
 
@@ -1248,6 +1786,7 @@ function createControls() {
     ])
 }
 
+
 chrome.storage.local.get(null, function (result) {
     local = result;
 })
@@ -1266,28 +1805,21 @@ chrome.storage.sync.get(null, function (result) {
                 //console.dir(e)
             }
         }
-
-        if (settings.autoResume) {
-            try {
-                if (document.getElementsByClassName("video-warning__btn")[0].firstElementChild.offsetParent != null)
-                    document.getElementsByClassName("video-warning__btn")[0].firstElementChild.click()
-            } catch (e) {
-                // console.dir(e)
-            }
-        }
     }, 1000)
 
-    if (settings.nsfw) {
-        const nsfwjs = document.createElement('script');
-        nsfwjs.src = chrome.extension.getURL('js/nsfwjs.min.js');
-        nsfwjs.onload = () => {
-            nsfwjs.remove()
-            const nsfw = document.createElement('script');
-            nsfw.src = chrome.extension.getURL('injection/nsfw.js');
-            nsfw.onload = () => nsfw.remove();
-            (document.head || document.documentElement).appendChild(nsfw);
-        };
-        (document.head || document.documentElement).appendChild(nsfwjs);
+    if (settings.autoResume) {
+        new MutationObserver(function (mutations) {
+            console.dir(mutations)
+            mutations.forEach(function (mutation) {
+                    if (mutation.attributeName === "class") {
+                        if (mutation.target.className.includes("disabled")) {
+                            $(".ok").removeClass("disabled")
+                            document.getElementsByClassName("video-warning__btn")[0].firstElementChild.click()
+                        }
+                    }
+                }
+            )
+        }).observe($(".ok")[0], {attributes: true});
     }
 
     if (settings.mirror) {
@@ -1336,6 +1868,43 @@ chrome.storage.sync.get(null, function (result) {
         wss.src = chrome.extension.getURL('injection/ws.js');
         wss.onload = () => wss.remove();
         (document.head || document.documentElement).appendChild(wss);
+    }
+
+    if (settings.streamer) {
+        if (settings.blurReport)
+            document.getElementById("report-screen").style.filter = "blur(10px)"
+
+        if (settings.cover) {
+            $(createElement('img', {
+                src: settings.coverSrc,
+                id: "cover",
+                style: "height:100%; position: absolute;"
+            })).insertBefore("#remote-video")
+
+            $(createElement('img', {
+                src: settings.coverSrc,
+                id: "cover2",
+                style: "height:100%; position: absolute; transform: scaleX(-1)"
+            })).insertBefore("#local-video")
+
+            if (settings.coverPreview)
+                $(".remote-video__preview")[0].style.display = "none"
+
+            if (settings.coverNoise) {
+            }
+            $(".remote-video__noise")[0].style.display = "none"
+        }
+
+        const nsfwjs = document.createElement('script');
+        nsfwjs.src = chrome.extension.getURL('js/nsfwjs.min.js');
+        nsfwjs.onload = () => {
+            nsfwjs.remove()
+            const nsfw = document.createElement('script');
+            nsfw.src = chrome.extension.getURL('injection/nsfw.js');
+            nsfw.onload = () => nsfw.remove();
+            (document.head || document.documentElement).appendChild(nsfw);
+        };
+        (document.head || document.documentElement).appendChild(nsfwjs);
     }
 
     const target = document.querySelector('#remoteIP');
@@ -1651,11 +2220,6 @@ chrome.storage.sync.get(null, function (result) {
                     found = Date.now()
                 } else if (attributeValue.includes("s-play")) {
                     // online.play()
-                    if (settings.nsfw) {
-                        document.getElementById("local-video").style.filter = "blur(40px)"
-
-                        document.getElementById("remote-video").style.filter = "blur(40px)"
-                    }
 
                     stage = 3
                     localStage.innerText = 3

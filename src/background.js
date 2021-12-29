@@ -34,7 +34,30 @@ var defaults = {
         countMaleSkip: 0,
         countFemaleSkip: 0,
         time: 0
-    }
+    },
+    streamer: false,
+    streamerKeys: false,
+    streamerMirror: false,
+    blurOnStart: true,
+    streamerPip: true,
+    blurPreview: true,
+    blurFilter: 55,
+    blurPreviewFilter: 20,
+    nsfwjs: {
+        PREDICATIONS_ARRAY_SIZE: 4,
+        PANIC_PROPABILITY: 0.8,
+        WEIGHT_PORN: 2,
+        WEIGHT_SEXY: 1,
+        BLUR_DURATION: 5,
+        BLUR_PANIC: 1,
+        TIMEOUT: 100
+    },
+    letUnblur: true,
+    blurReport: true,
+    cover: false,
+    coverPreview: false,
+    coverNoise: false,
+    coverSrc: "https://i.imgur.com/HL8tM10.jpeg"
 };
 chrome.storage.sync.get(defaults, function (result) {
     chrome.storage.sync.set(result);
