@@ -1662,11 +1662,20 @@ function createTabAbout() {
                 createElement('span', {}, [
                     createElement('a', {
                         target: "_blank",
-                        style: "text-decoration: none!important;",
+                        style: "text-decoration: none!important",
+                        href: "https://discord.gg/YZKnbKGWen"
+                    }, [
+                        createElement('img', {
+                            src: "https://img.shields.io/discord/925632108150530108?label=support&logo=discord"
+                        }),
+                    ]),
+                    createElement('a', {
+                        target: "_blank",
+                        style: "text-decoration: none!important; margin-left: 3px",
                         href: "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi/reviews"
                     }, [
                         createElement('img', {
-                            src: "https://img.shields.io/chrome-web-store/rating/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20rating"
+                            src: "https://img.shields.io/chrome-web-store/rating/alchldmijhnnapijdmchpkdeikibjgoi?label=rating"
                         }),
                     ]),
                     createElement('a', {
