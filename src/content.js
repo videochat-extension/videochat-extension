@@ -1872,7 +1872,6 @@ chrome.storage.sync.get(null, function (result) {
 
     if (settings.autoResume) {
         new MutationObserver(function (mutations) {
-            console.dir(mutations)
             mutations.forEach(function (mutation) {
                     if (mutation.attributeName === "class") {
                         if (mutation.target.className.includes("disabled")) {
