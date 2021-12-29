@@ -366,6 +366,10 @@ function createStyle() {
               input {
                 margin-left: 5px!important;
               }
+              
+              p {
+                display: inline-block;
+              }
               `
     })
 }
@@ -556,8 +560,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("watermark"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipWatermark")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipWatermark"),
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -579,8 +583,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("banner"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage('tooltipBanner')
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage('tooltipBanner')
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -609,8 +613,8 @@ function createTabSettings() {
 
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("autoskipfour"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipFour")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipFour")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -629,8 +633,8 @@ function createTabSettings() {
 
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("autoresume"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipAutoresume")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipAutoresume")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -651,8 +655,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("forcedApi"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipForcedRecognition")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipForcedRecognition")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -672,8 +676,8 @@ function createTabSettings() {
 
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("skip_males"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipSkipMales")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipSkipMales")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -692,8 +696,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("skip_females"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipSkipFemales")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipSkipFemales")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -716,8 +720,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("autoskip"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipAutoskip")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipAutoskip")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -735,8 +739,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("donotbanmobile"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipDonotbanmobile")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipDonotbanmobile")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -756,8 +760,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("ban_sound"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipSkipSound")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipSkipSound")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -797,8 +801,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("b", {
                                     innerText: chrome.i18n.getMessage("enablehotkeys"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipEnableHotkeys")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipEnableHotkeys")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -826,15 +830,16 @@ function createTabSettings() {
                         createElement('br'),
                         createElement('dt', {
                             innerHTML: chrome.i18n.getMessage("settingsCameraHijack"),
-                            className: "tooltip-multiline tooltip-bottom-left",
-                            "data-tooltip": chrome.i18n.getMessage("warningCameraHijack")
+                            className: "tooltip",
+                            style: "display: inline-block",
+                            title: chrome.i18n.getMessage("warningCameraHijack")
                         }),
                         createElement('dd', {}, [
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("mirror"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipMirror1")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipMirror1")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -857,8 +862,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("mirror2"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipMirror2")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipMirror2")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -881,8 +886,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("prikol"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipPrikol")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipPrikol")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -904,15 +909,16 @@ function createTabSettings() {
                         createElement('br'),
                         createElement('dt', {
                             innerHTML: chrome.i18n.getMessage("settingsWS"),
-                            className: "tooltip-multiline tooltip-bottom-left",
-                            "data-tooltip": chrome.i18n.getMessage("warningWS")
+                            className: "tooltip",
+                            style: "display: inline-block",
+                            title: chrome.i18n.getMessage("warningWS")
                         }),
                         createElement('dd', {}, [
                             createElement('span', {}, [
                                 createElement("b", {
                                     innerText: chrome.i18n.getMessage("enableWS"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipEnableWS")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipEnableWS")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -931,8 +937,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("skipSoundWS"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipSkipSoundWS")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipSkipSoundWS")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -952,8 +958,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("skipWrongCountry"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipSkipWrongCountry")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipSkipWrongCountry")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -973,8 +979,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("replacePreview"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipReplacePreview")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipReplacePreview")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -994,8 +1000,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("deletePreview"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipDeletePreview")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipDeletePreview")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1016,8 +1022,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("replaceReportPic"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipReplaceReportPic")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipReplaceReportPic")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1038,8 +1044,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("deleteReportPic"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipDeleteReportPic")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipDeleteReportPic")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1063,8 +1069,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("b", {
                                     innerText: chrome.i18n.getMessage("streamerMode"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipStreamerMode")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipStreamerMode")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1083,8 +1089,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("streamerHotkeys"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipStreamerHotkeys")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipStreamerHotkeys")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1106,8 +1112,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("streamerPip"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipStreamerPip")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipStreamerPip")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1126,8 +1132,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("blurOnStart"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipBlurOnStart")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipBlurOnStart")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1144,8 +1150,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("blurReport"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipBlurReport")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipBlurReport")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1168,8 +1174,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("remoteBlurStrength"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipRemoteBlurStrength")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipRemoteBlurStrength")
                                 }),
                                 createElement('input', {
                                     type: "range",
@@ -1190,8 +1196,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("blurPreviews"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipBlurPreviews")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipBlurPreviews")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1208,8 +1214,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("previewBlurStrength"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipPreviewBlurStrength")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipPreviewBlurStrength")
                                 }),
                                 createElement('input', {
                                     type: "range",
@@ -1233,8 +1239,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("blurCoverLocal"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipBlurCoverLocal")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipBlurCoverLocal")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1254,8 +1260,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("coverOverBlur"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipCoverOverBlur")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipCoverOverBlur")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1274,8 +1280,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("coverOverPreview"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipCoverOverPreview")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipCoverOverPreview")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1295,8 +1301,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("coverOverNoise"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipCoverOverNoise")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipCoverOverNoise")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1331,8 +1337,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("b", {
                                     innerText: chrome.i18n.getMessage("nsfwjsAlfa"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipNsfwjsAlfa")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipNsfwjsAlfa")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1351,8 +1357,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("letUnblurInitial"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipLetUnblurInitial")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipLetUnblurInitial")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1371,8 +1377,8 @@ function createTabSettings() {
                             createElement('span', {}, [
                                 createElement("p", {
                                     innerText: chrome.i18n.getMessage("letUnblurAuto"),
-                                    className: "tooltip-multiline tooltip-bottom-left",
-                                    "data-tooltip": chrome.i18n.getMessage("tooltipLetUnblurAuto")
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipLetUnblurAuto")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
@@ -1398,8 +1404,8 @@ function createTabSettings() {
                                     createElement('span', {}, [
                                         createElement("p", {
                                             innerText: chrome.i18n.getMessage("blurDuration"),
-                                            className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": chrome.i18n.getMessage("tooltipBlurDuration")
+                                            className: "tooltip",
+                                            title: chrome.i18n.getMessage("tooltipBlurDuration")
                                         }),
 
                                         createElement('input', {
@@ -1420,8 +1426,8 @@ function createTabSettings() {
                                     createElement('span', {}, [
                                         createElement("p", {
                                             innerText: chrome.i18n.getMessage("delay"),
-                                            className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": chrome.i18n.getMessage("tooltipDelay")
+                                            className: "tooltip",
+                                            title: chrome.i18n.getMessage("tooltipDelay")
                                         }),
 
                                         createElement('input', {
@@ -1441,8 +1447,8 @@ function createTabSettings() {
                                     createElement('span', {}, [
                                         createElement("p", {
                                             innerText: chrome.i18n.getMessage("predicationsArraySize"),
-                                            className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": chrome.i18n.getMessage("tooltipPredicationsArraySize")
+                                            className: "tooltip",
+                                            title: chrome.i18n.getMessage("tooltipPredicationsArraySize")
                                         }),
 
                                         createElement('input', {
@@ -1464,8 +1470,8 @@ function createTabSettings() {
                                     createElement('span', {}, [
                                         createElement("p", {
                                             innerText: chrome.i18n.getMessage("scoreToBlur"),
-                                            className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": chrome.i18n.getMessage("tooltipScoreToBlur")
+                                            className: "tooltip",
+                                            title: chrome.i18n.getMessage("tooltipScoreToBlur")
                                         }),
 
                                         createElement('input', {
@@ -1486,8 +1492,8 @@ function createTabSettings() {
                                     createElement('span', {}, [
                                         createElement("p", {
                                             innerText: chrome.i18n.getMessage("propabilityToCount"),
-                                            className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": chrome.i18n.getMessage("tooltipPropabilityToCount")
+                                            className: "tooltip",
+                                            title: chrome.i18n.getMessage("tooltipPropabilityToCount")
                                         }),
 
                                         createElement('input', {
@@ -1508,8 +1514,8 @@ function createTabSettings() {
                                     createElement('span', {}, [
                                         createElement("p", {
                                             innerText: chrome.i18n.getMessage("pornWeight"),
-                                            className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": chrome.i18n.getMessage("tooltipPornWeight")
+                                            className: "tooltip",
+                                            title: chrome.i18n.getMessage("tooltipPornWeight")
                                         }),
 
                                         createElement('input', {
@@ -1530,8 +1536,8 @@ function createTabSettings() {
                                     createElement('span', {}, [
                                         createElement("p", {
                                             innerText: chrome.i18n.getMessage("sexyWeight"),
-                                            className: "tooltip-multiline tooltip-bottom-left",
-                                            "data-tooltip": chrome.i18n.getMessage("tooltipSexyWeight")
+                                            className: "tooltip",
+                                            title: chrome.i18n.getMessage("tooltipSexyWeight")
                                         }),
 
                                         createElement('input', {
@@ -1662,7 +1668,6 @@ function createTabAbout() {
                 }),
                 createElement('br'),
                 createElement('br'),
-
                 createElement('span', {}, [
                     createElement('a', {
                         target: "_blank",
@@ -1928,6 +1933,8 @@ chrome.storage.sync.get(null, function (result) {
     chat = $(".chat")[0]
 
     $(controls).insertBefore(".chat");
+
+    $('.tooltip').tooltipster({maxWidth: 300, distance: -2})
 
     if (settings.ws) {
         const wss = document.createElement('script');

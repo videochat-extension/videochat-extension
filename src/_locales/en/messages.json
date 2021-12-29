@@ -111,7 +111,7 @@
     "message": "autoresume:"
   },
   "tooltipAutoresume": {
-    "message": "automatically close 'make yourself visible' when the time comes"
+    "message": "automatically close 'make yourself visible'"
   },
   "genderRecognition": {
     "message": "<b>Gender recognition</b>"
@@ -273,35 +273,35 @@
     "message": "STREAMER MODE: "
   },
   "tooltipStreamerMode": {
-    "message": "Enables a special set of features for streamers. If you disable it, things below won't work."
+    "message": "Enables a special set of functions for streamers. If you disable it, everything below will not work."
   },
   "streamerHotkeys": {
     "message": "streamer hotkeys: "
   },
   "tooltipStreamerHotkeys": {
-    "message": "enable a special set of hotkeys for streamers"
+    "message": "Enable a special set of hotkeys for streamers."
   },
   "streamerHotkeysText": {
     "message": "<dd style='margin-inline-start: 40px!important;'>right arrow - blur</dd><dd style='margin-inline-start: 40px!important;'>m - mute remote video</dd><dd style='margin-inline-start: 40px!important;'>shift+right arrow - disable nsfwjs for session</dd>"
   },
 
   "streamerPip": {
-    "message": "streamer pip: "
+    "message": "streamer's pip: "
   },
   "tooltipStreamerPip": {
-    "message": "Allows to open interlocutor's camera in Picture-in-Picture mode. It can be used to monitor the interlocutor's camera while it is blurred. PiP is a separate window, which does not affect the captured browser window (OBS)."
+    "message": "Allows you to open the interlocutor's camera in Picture-in-Picture mode. It can be used to monitor the interlocutor's camera while it is blurred. PiP is a separate window that does not affect the captured browser window (OBS)."
   },
   "blurOnStart": {
     "message": "blur on start: "
   },
   "tooltipBlurOnStart": {
-    "message": "every new conversation will start blurred"
+    "message": "Every new conversation will start blurred."
   },
   "blurReport": {
     "message": "blur report screen: "
   },
   "tooltipBlurReport": {
-    "message": "blur report screen image"
+    "message": "Blur the report screen image."
   },
   "remoteBlurStrength": {
     "message": "remote blur strength: "
@@ -319,34 +319,34 @@
     "message": "preview blur strength: "
   },
   "tooltipPreviewBlurStrength": {
-    "message": "Value for the preview's blur filter."
+    "message": "Value for the preview blur filter."
   },
   "blurCoverLocal": {
-    "message": "blur/cover local: "
+    "message": "local blur/coverage: "
   },
   "tooltipBlurCoverLocal": {
-    "message": "enable this if you want to blur/cover local video as well (mirror)"
+    "message": "Enable this if you also want to blur/cover your local video (mirror)."
   },
   "coverOverBlur": {
     "message": "cover over blur: "
   },
   "tooltipCoverOverBlur": {
-    "message": "enable this if you want custom image instead of blur"
+    "message": "Enable this if you want custom image instead of blur."
   },
   "coverOverPreview": {
     "message": "cover over preview: "
   },
   "tooltipCoverOverPreview": {
-    "message": "enable this if you want custom image instead of previews"
+    "message": "Enable this if you want custom image/gif instead of preview."
   },
   "coverOverNoise": {
     "message": "cover over noise: "
   },
   "tooltipCoverOverNoise": {
-    "message": "enable this if you want custom image instead of noise"
+    "message": "Enable this if you need a custom image instead of noise."
   },
   "promptCoverSrc": {
-    "message": "Enter direct link to img/gif (4:3) to use as a cover"
+    "message": "Enter a direct link to the picture/gif (4:3) for use as the cover."
   },
   "coverSrc": {
     "message": "cover source"
@@ -355,19 +355,19 @@
     "message": "nsfwjs [ALFA]: "
   },
   "tooltipNsfwjsAlfa": {
-    "message": "Enable nsfwjs integration. It checks the image from the interlocutor's camera every N ms for NSFW, counts points if the image is suspicious, if enough points are scored for the last N checks, blurs the interlocutor for N seconds. Use with caution."
+    "message": "Enables nsfwjs integration. It checks the image from the interlocutor's camera every N ms for the presence of NSFW, calculates points if the image is suspicious. If enough points have been scored in the last N checks, it blurs the interlocutor for N seconds. Use with caution."
   },
   "letUnblurInitial": {
-    "message": "let nsfwjs unblur initial blur: "
+    "message": "unblur the initial blur: "
   },
   "tooltipLetUnblurInitial": {
-    "message": "If you enable this and 'blur on start' is on, then nsfwjs will be able to unblur first initial blur. If you disable it, you will have to unblur it manually."
+    "message": "If you turn this on and turn on 'startup blur', then nsfwjs will be able to remove the first initial blur. If you disable it you will have to unlock it manually."
   },
   "letUnblurAuto": {
-    "message": "let nsfwjs unblur auto blurs: "
+    "message": "unblur auto blur: "
   },
   "tooltipLetUnblurAuto": {
-    "message": "If you enable this and nsfwjs blurs something, it will unblur it after N seconds if nsfw is no longer on screen."
+    "message": "If you enable this, and nsfwjs blurs something, it will unblur it after N seconds if nsfw is no longer displayed on screen."
   },
   "nsfwjsConfig": {
     "message": "nsfwjs config"
@@ -376,43 +376,43 @@
     "message": "blur duration: "
   },
   "tooltipBlurDuration": {
-    "message": "how long to keep the blur (in sec) after the system has considered that the image is acceptable?"
+    "message": "How long to keep the blur (in sec) after the system finds the image is acceptable?"
   },
   "delay": {
     "message": "delay: "
   },
   "tooltipDelay": {
-    "message": "delay between checks in ms"
+    "message": "The delay between checks in ms."
   },
   "predicationsArraySize": {
     "message": "predications array size: "
   },
   "tooltipPredicationsArraySize": {
-    "message": "how many last nsfw checks to count?"
+    "message": "How many nsfw checks to count?"
   },
   "scoreToBlur": {
     "message": "score to blur: "
   },
   "tooltipScoreToBlur": {
-    "message": "how many points do nsfwjs need to score to blur?"
+    "message": "How many points do nsfwjs need to score to blur?"
   },
   "propabilityToCount": {
     "message": "propability to count: "
   },
   "tooltipPropabilityToCount": {
-    "message": "required probability to add points (0.1=10%, 0.9=90%)"
+    "message": "Required probability to add points (0.1=10%, 0.9=90%)."
   },
   "pornWeight": {
     "message": "'porn' weight: "
   },
   "tooltipPornWeight": {
-    "message": "how many points to add if image is considered 'porn'?"
+    "message": "How many points to add, if image is considered 'porn'?"
   },
   "sexyWeight": {
     "message": "'sexy' weight: "
   },
   "tooltipSexyWeight": {
-    "message": "how many points to add if image is considered 'sexy'?"
+    "message": "How many points to add, if image is considered 'sexy'?"
   },
   "saveConfirm": {
     "message": "Save?"
