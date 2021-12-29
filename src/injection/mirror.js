@@ -284,7 +284,7 @@ function mirrorAlt() {
     };
 }
 
-function prikol() {
+function customVideo() {
     streamCanvas = document.createElement('canvas');
     streamCanvas.id = "streamCanvas"
     streamCanvas.width = 640
@@ -363,5 +363,5 @@ if (mirrorCheck.checked) {
 } else if (mirrorAltCheck.checked) {
     mirrorAlt()
 } else if (prikolCheck.checked) {
-    prikol()
+    customVideo()
 }
