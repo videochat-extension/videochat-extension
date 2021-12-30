@@ -6,9 +6,9 @@ function secondsToHms(d) {
     var m = Math.floor(d % 3600 / 60);
     var s = Math.floor(d % 3600 % 60);
 
-    var hDisplay = h > 0 ? h + (h == 1 ? "H" : "H") : "";
-    var mDisplay = m > 0 ? m + (m == 1 ? "M, " : "M") : "";
-    var sDisplay = s > 0 ? s + (s == 1 ? "S" : "S") : "";
+    var hDisplay = h > 0 ? h + (h === 1 ? "H" : "H") : "";
+    var mDisplay = m > 0 ? m + (m === 1 ? "M, " : "M") : "";
+    var sDisplay = s > 0 ? s + (s === 1 ? "S" : "S") : "";
     return hDisplay + mDisplay + sDisplay;
 }
 
@@ -72,7 +72,7 @@ window.RTCPeerConnection.prototype = origPeerConnection.prototype;
             var args = arguments;
             if (args[0].type === "srflx") {
                 console.dir("IP: " + args[0].address)
-                if (rmdaddr != args[0].address) {
+                if (rmdaddr !== args[0].address) {
                     updateRemoteAddress(args[0].address)
                     rmdaddr = args[0].address
                     remoteIP.innerText = args[0].address
