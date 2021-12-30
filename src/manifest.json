@@ -33,17 +33,17 @@
     }
   ],
   "icons": {
-    "16": "img/icon.png",
-    "48": "img/icon.png",
-    "128": "img/icon.png"
+    "16": "resources/img/icon.png",
+    "48": "resources/img/icon.png",
+    "128": "resources/img/icon.png"
   },
   "web_accessible_resources": [
     "injection/*.js",
-    "models",
+    "resources/models",
     "libs/js/nsfwjs.min.js",
-    "models/*",
+    "resources/models/*",
     "libs/js/leaflet/*",
-    "audio/*.mp3",
+    "resources/audio/*.mp3",
     "prikol/*.mp4",
     "libs/css/css-tooltip.min.css",
     "controls*.html",

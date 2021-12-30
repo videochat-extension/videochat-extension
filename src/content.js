@@ -360,13 +360,13 @@ chrome.storage.sync.get(null, function (result) {
         }
     })
 
-    male = new Audio(chrome.extension.getURL('audio/male.mp3'))
-    ban = new Audio(chrome.extension.getURL('audio/ban.mp3'))
-    female = new Audio(chrome.extension.getURL('audio/female.mp3'))
+    male = new Audio(chrome.extension.getURL('resources/audio/male.mp3'))
+    ban = new Audio(chrome.extension.getURL('resources/audio/ban.mp3'))
+    female = new Audio(chrome.extension.getURL('resources/audio/female.mp3'))
 
     skip = document.createElement("AUDIO");
     skip.id = "skip"
-    skip.src = chrome.extension.getURL('audio/skip.mp3')
+    skip.src = chrome.extension.getURL('resources/audio/skip.mp3')
     document.body.appendChild(skip)
 
     male.volume = 0.3
@@ -440,8 +440,8 @@ chrome.storage.sync.get(null, function (result) {
     if (settings.skipMale || settings.skipFemale || settings.enableFaceApi) {
         setTimeout(async () => {
             console.time("faceapi: loading models")
-            await faceapi.nets.tinyFaceDetector.loadFromUri(chrome.extension.getURL('/models'))
-            await faceapi.nets.ageGenderNet.loadFromUri(chrome.extension.getURL('/models'))
+            await faceapi.nets.tinyFaceDetector.loadFromUri(chrome.extension.getURL('resources/models'))
+            await faceapi.nets.ageGenderNet.loadFromUri(chrome.extension.getURL('resources/models'))
             console.timeEnd("faceapi: loading models")
 
             console.time("faceapi: initial facedetect")
