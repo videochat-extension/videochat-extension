@@ -141,7 +141,7 @@
     "message": "prikol:"
   },
   "tooltipPrikol": {
-    "message": "Replaces your camera with 'prikol/prikol.mp4'. Useful only when using the extension in developer mode."
+    "message": "Replaces your camera with 'resources/prikol.mp4'. Useful only when using the extension in developer mode."
   },
   "settingsBlacklist": {
     "message": "<b>Blacklist</b>"

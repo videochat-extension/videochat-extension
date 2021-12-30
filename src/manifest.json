@@ -44,7 +44,7 @@
     "resources/models/*",
     "libs/js/leaflet/*",
     "resources/audio/*.mp3",
-    "prikol/*.mp4",
+    "resources/*.mp4",
     "libs/css/css-tooltip.min.css",
     "controls*.html",
     "libs/css/tooltipster.bundle.min.css"
