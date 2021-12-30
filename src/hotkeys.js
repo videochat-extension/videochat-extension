@@ -73,3 +73,12 @@ chrome.runtime.onMessage.addListener(
         }
     }
 );
+
+document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e) => {
+    if (stage === 3)
+        settings.stats.countManSkip++
+
+    if (e.shiftKey && !local.ips.includes(remoteIP.innerText)) {
+        syncBlackList()
+    }
+})
