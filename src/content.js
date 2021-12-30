@@ -13,8 +13,12 @@ let settings = {},
     buttons = $(".buttons")[0],
     chat = $(".chat")[0],
     resize = false,
-    language = document.getElementsByClassName("language-selector__popup-item selected")[0].dataset.value
+    language = window.navigator.language.slice(0, 2)
 
+if (language === "pt")
+    language = "pt-BR"
+else if (language === "zh")
+    language = "zh-CN"
 
 const s = document.createElement('script');
 s.src = chrome.extension.getURL('injection/ip-api.js');
