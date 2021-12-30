@@ -15,7 +15,7 @@ var defaults = {
     enableFaceApi: false,
     skipFourSec: false,
     autoResume: false,
-    hotkeys: false,
+    hotkeys: true,
     wsconfig: {
         theyskipsound: true,
         skipwrongcountry: true,
@@ -36,7 +36,7 @@ var defaults = {
         time: 0
     },
     streamer: false,
-    streamerKeys: false,
+    streamerKeys: true,
     doNotReflect: false,
     hideCamera: false,
     risky: false,
