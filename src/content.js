@@ -8,7 +8,10 @@ let settings = {},
     countBeforeSaveStats = 0,
     tim,
     dc,
-    faceApiLoaded = false
+    faceApiLoaded = false,
+    buttons = $(".buttons")[0],
+    chat = $(".chat")[0],
+    resize = false
 
 const s = document.createElement('script');
 s.src = chrome.extension.getURL('injection/ip-api.js');
@@ -45,7 +48,24 @@ $(document).arrive(".ban-popup__unban_msg.tr", function (el) {
     new_el.insertAfter(el)
 });
 
-const onUpdateIP = function (mutationsList, observer) {
+const onUpdateIP = function (mutations) {
+    if (local.ips.includes(remoteIP.innerText)) {
+        settings.stats.countDup++
+        console.dir("old ip")
+        if (settings.skipSound)
+            ban.play()
+        document.getElementsByClassName('buttons__button stop-button')[0].click()
+        setTimeout(() => {
+            document.getElementsByClassName('buttons__button start-button')[0].click()
+        }, 250)
+        //document.getElementsByClassName('buttons__button start-button')[0].click()
+    } else {
+        settings.stats.countNew++
+        console.dir("new ip")
+    }
+}
+
+const onUpdateIPInfo = function (mutationsList, observer) {
     let json = JSON.parse(remoteIPInfo.innerText)
     if (typeof marker !== 'undefined')
         map.removeLayer(marker)
@@ -133,14 +153,117 @@ const onChangeStage = function (mutations) {
     });
 }
 
+function syncBlackList() {
+    if (settings.dontBanMobile) {
+        if (!JSON.parse(remoteIPInfo.innerText).mobile) {
+            local.ips.push(remoteIP.innerText)
+            chrome.storage.local.set({"ips": local.ips});
+
+            if (settings.skipSound)
+                male.play()
+        }
+    } else {
+        local.ips.push(remoteIP.innerText)
+        chrome.storage.local.set({"ips": local.ips});
+
+        if (settings.skipSound)
+            male.play()
+    }
+}
+
+async function detectGender() {
+    if (!settings.skipMale && !settings.skipFemale && !settings.enableFaceApi)
+        return
+    let stop = false
+    let skip_m = false
+    let skip_f = false
+    let text = ''
+    if (stage === 3) {
+        console.time("faceapi: detectAllFaces()")
+
+        clearInterval(tim)
+
+        array = await faceapi.detectAllFaces(document.getElementById('remote-video'), new faceapi.TinyFaceDetectorOptions()).withAgeAndGender()
+
+        for (let i = 0; i < array.length; i++) {
+            text += `<b>* ${array[i].gender} (${(array[i].genderProbability * 100).toFixed(0) + '%'}), ${(array[i].age).toFixed(0)}</b></br>`
+            if (array[i].gender === "male" && (array[i].genderProbability * 100).toFixed(0) > 90) {
+                skip_m = true
+                stop = true
+                settings.stats.countMales++
+            }
+            if (array[i].gender === "female" && (array[i].genderProbability * 100).toFixed(0) > 90) {
+                skip_f = true
+                stop = true
+                settings.stats.countFemales++
+            }
+        }
+
+        if (skip_m && settings.skipMale) {
+            text += `<b>male skipping...</b></br>`
+            document.getElementsByClassName('buttons__button start-button')[0].click()
+            console.log("MALE SKIPPED")
+            settings.stats.countMaleSkip++
+            settings.stats.countManSkip--
+
+            if (settings.autoBan) {
+                syncBlackList()
+            }
+        }
+
+        if (skip_f && settings.skipFemale) {
+            text += `<b>female skipping...</b></br>`
+            document.getElementsByClassName('buttons__button start-button')[0].click()
+            console.log("FEMALE SKIPPED")
+            settings.stats.countFemaleSkip++
+            settings.stats.countManSkip--
+
+            if (settings.autoBan) {
+                syncBlackList()
+            }
+        }
+
+        if (text !== '')
+            remoteFace.innerHTML = text
+
+        console.timeEnd("faceapi: detectAllFaces()")
+    }
+    if (!stop)
+        tim = setTimeout(detectGender, 500)
+}
+
+function resizemap() {
+    mapid.style.height = $("#faceapiContent")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight + "px"
+    remoteInfo.style.height = $("#apiInfoContent")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
+    aboutInfo.style.height = $("#aboutPanel")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
+
+    settingsInfo.style.height = $("#settingsPanel")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
+
+    bansInfo.style.height = $("#bansPanel")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
+    statsInfo.style.height = $("#statsPanel")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
+    map.invalidateSize()
+}
+
+function outputsize() {
+    resizemap()
+
+    if (!resize) {
+        resize = true
+        setTimeout(() => {
+            let mar = parseInt(window.getComputedStyle(controls).marginRight)
+            buttons.style.width = (parseInt(buttons.style.width) - (parseInt(controls.style.width) + mar) / 2) + "px"
+            chat.style.width = (parseInt(chat.style.width) - (parseInt(controls.style.width) + mar) / 2) + "px"
+            resize = false
+            resizemap()
+        }, 500)
+    }
+}
+
 chrome.storage.sync.get(null, function (result) {
     settings = result;
 
     controls = createControls()
     $(".gender-selector")[0].parentElement.remove()
-
-    const buttons = $(".buttons")[0]
-    const chat = $(".chat")[0]
 
     $(controls).insertBefore(".chat");
 
@@ -279,107 +402,6 @@ chrome.storage.sync.get(null, function (result) {
         (document.head || document.documentElement).appendChild(nsfwjs);
     }
 
-    const target = document.querySelector('#remoteIP');
-    const observer = new MutationObserver(function (mutations) {
-        if (local.ips.includes(target.innerText)) {
-            settings.stats.countDup++
-            console.dir("old ip")
-            if (settings.skipSound)
-                ban.play()
-            document.getElementsByClassName('buttons__button stop-button')[0].click()
-            setTimeout(() => {
-                document.getElementsByClassName('buttons__button start-button')[0].click()
-            }, 250)
-            //document.getElementsByClassName('buttons__button start-button')[0].click()
-        } else {
-            settings.stats.countNew++
-            console.dir("new ip")
-        }
-    });
-
-    var config = {attributes: true, childList: true, characterData: true};
-
-    observer.observe(target, config);
-
-
-    function syncBlackList() {
-        if (settings.dontBanMobile) {
-            if (!JSON.parse(remoteIPInfo.innerText).mobile) {
-                local.ips.push(remoteIP.innerText)
-                chrome.storage.local.set({"ips": local.ips});
-
-                if (settings.skipSound)
-                    male.play()
-            }
-        } else {
-            local.ips.push(remoteIP.innerText)
-            chrome.storage.local.set({"ips": local.ips});
-
-            if (settings.skipSound)
-                male.play()
-        }
-    }
-
-    async function detectGender() {
-        if (!settings.skipMale && !settings.skipFemale && !settings.enableFaceApi)
-            return
-        let stop = false
-        let skip_m = false
-        let skip_f = false
-        let text = ''
-        if (stage === 3) {
-            console.time("faceapi: detectAllFaces()")
-
-            clearInterval(tim)
-
-            array = await faceapi.detectAllFaces(document.getElementById('remote-video'), new faceapi.TinyFaceDetectorOptions()).withAgeAndGender()
-
-            for (let i = 0; i < array.length; i++) {
-                text += `<b>* ${array[i].gender} (${(array[i].genderProbability * 100).toFixed(0) + '%'}), ${(array[i].age).toFixed(0)}</b></br>`
-                if (array[i].gender === "male" && (array[i].genderProbability * 100).toFixed(0) > 90) {
-                    skip_m = true
-                    stop = true
-                    settings.stats.countMales++
-                }
-                if (array[i].gender === "female" && (array[i].genderProbability * 100).toFixed(0) > 90) {
-                    skip_f = true
-                    stop = true
-                    settings.stats.countFemales++
-                }
-            }
-
-            if (skip_m && settings.skipMale) {
-                text += `<b>male skipping...</b></br>`
-                document.getElementsByClassName('buttons__button start-button')[0].click()
-                console.log("MALE SKIPPED")
-                settings.stats.countMaleSkip++
-                settings.stats.countManSkip--
-
-                if (settings.autoBan) {
-                    syncBlackList()
-                }
-            }
-
-            if (skip_f && settings.skipFemale) {
-                text += `<b>female skipping...</b></br>`
-                document.getElementsByClassName('buttons__button start-button')[0].click()
-                console.log("FEMALE SKIPPED")
-                settings.stats.countFemaleSkip++
-                settings.stats.countManSkip--
-
-                if (settings.autoBan) {
-                    syncBlackList()
-                }
-            }
-
-            if (text !== '')
-                remoteFace.innerHTML = text
-
-            console.timeEnd("faceapi: detectAllFaces()")
-        }
-        if (!stop)
-            tim = setTimeout(detectGender, 500)
-    }
 
     if (settings.skipMale || settings.skipFemale || settings.enableFaceApi) {
         setTimeout(async () => {
@@ -438,38 +460,13 @@ chrome.storage.sync.get(null, function (result) {
         attribution: '&copy; <a href="https://carto.com/">carto.com</a>'
     }).addTo(map);
 
-    resize = false
-
-    function resizemap() {
-        mapid.style.height = $("#faceapiContent")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight + "px"
-        remoteInfo.style.height = $("#apiInfoContent")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
-        aboutInfo.style.height = $("#aboutPanel")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
-
-        settingsInfo.style.height = $("#settingsPanel")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
-
-        bansInfo.style.height = $("#bansPanel")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
-        statsInfo.style.height = $("#statsPanel")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
-        map.invalidateSize()
-    }
-
-    function outputsize() {
-        resizemap()
-
-        if (!resize) {
-            resize = true
-            setTimeout(() => {
-                let mar = parseInt(window.getComputedStyle(controls).marginRight)
-                buttons.style.width = (parseInt(buttons.style.width) - (parseInt(controls.style.width) + mar) / 2) + "px"
-                chat.style.width = (parseInt(chat.style.width) - (parseInt(controls.style.width) + mar) / 2) + "px"
-                resize = false
-                resizemap()
-            }, 500)
-        }
-    }
 
     new ResizeObserver(outputsize).observe(document.getElementsByClassName("chat-container")[0])
 
-    var observer2 = new MutationObserver(onUpdateIP);
+    const observer = new MutationObserver(onUpdateIP)
+    observer.observe(document.getElementById('remoteIP'), {attributes: true, childList: true, characterData: true});
+
+    var observer2 = new MutationObserver(onUpdateIPInfo);
     observer2.observe(document.getElementById('remoteIPInfo'), {childList: true});
 
     var observer3 = new MutationObserver(onChangeStage)
