@@ -10,11 +10,11 @@
         "https://videochatru.com/*"
       ],
       "js": [
-        "js/jquery.min.js",
-        "js/leaflet/leaflet.js",
-        "js/face-api.min.js",
-        "js/arrive.min.js",
-        "js/tooltipster.bundle.min.js",
+        "libs/js/jquery.min.js",
+        "libs/js/leaflet/leaflet.js",
+        "libs/js/face-api.min.js",
+        "libs/js/arrive.min.js",
+        "libs/js/tooltipster.bundle.min.js",
 
         "controls.js",
         "controls/header.js",
@@ -40,9 +40,9 @@
   "web_accessible_resources": [
     "injection/*.js",
     "models",
-    "js/nsfwjs.min.js",
+    "libs/js/nsfwjs.min.js",
     "models/*",
-    "js/leaflet/*",
+    "libs/js/leaflet/*",
     "audio/*.mp3",
     "prikol/*.mp4",
     "css/css-tooltip.min.css",
@@ -65,7 +65,7 @@
   "background": {
     "scripts": [
       "background.js",
-      "js/jquery.min.js"
+      "libs/js/jquery.min.js"
     ]
   },
   "commands": {

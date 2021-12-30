@@ -284,7 +284,7 @@ chrome.storage.sync.get(null, function (result) {
         }
 
         const nsfwjs = document.createElement('script');
-        nsfwjs.src = chrome.extension.getURL('js/nsfwjs.min.js');
+        nsfwjs.src = chrome.extension.getURL('libs/js/nsfwjs.min.js');
         nsfwjs.onload = () => {
             nsfwjs.remove()
             const nsfw = document.createElement('script');
@@ -497,7 +497,7 @@ chrome.storage.sync.get(null, function (result) {
         resizemap()
     });
 
-    L.Icon.Default.imagePath = chrome.extension.getURL('js/leaflet/');
+    L.Icon.Default.imagePath = chrome.extension.getURL('libs/js/leaflet/');
 
     map = L.map('mapid', {zoomControl: false}).setView([54.39554, 39.266102], 17);
     map.locate({setView: true});
