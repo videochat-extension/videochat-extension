@@ -1,3 +1,10 @@
+function confirmAndReload() {
+    const result = confirm(chrome.i18n.getMessage("reload"));
+    if (result) {
+        location.reload()
+    }
+}
+
 function createTabSettings() {
     return createElement('div', {
         className: "tabs__content",

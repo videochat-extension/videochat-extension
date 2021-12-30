@@ -97,3 +97,38 @@ function createHeader() {
         ]),
     ])
 }
+
+function createSmartReviewBeggingHeader() {
+    if (!settings.possibleReview && settings.stats.time > 3600) {
+        return createElement('a', {
+            target: "_blank",
+            style: "text-decoration: none!important;",
+            onclick: () => {
+                chrome.storage.sync.set({"possibleReview": true}, function () {
+                    connectionStatus.style.color = "#000000"
+                    connectionStatus.className = ""
+                    connectionStatus.removeAttribute("data-tooltip")
+                });
+            },
+            href: "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi/reviews"
+        }, [
+            createElement('b', {
+                innerText: chrome.i18n.getMessage("extension_name"),
+                id: "connectionStatus",
+                className: "tooltip-multiline tooltip-bottom",
+                "data-tooltip": chrome.i18n.getMessage("beggingForReview")
+            })
+        ])
+    } else {
+        return createElement('a', {
+            target: "_blank",
+            style: "text-decoration: none!important; color: #000000;",
+            href: "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi"
+        }, [
+            createElement('b', {
+                innerText: chrome.i18n.getMessage("extension_name"),
+                id: "connectionStatus",
+            })
+        ])
+    }
+}

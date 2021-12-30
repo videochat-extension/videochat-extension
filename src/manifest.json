@@ -28,7 +28,8 @@
         "controls/tab-stats.js",
 
         "content.js",
-        "hotkeys.js"
+        "hotkeys.js",
+        "utils.js"
       ],
       "run_at": "document_idle"
     }

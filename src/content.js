@@ -13,69 +13,7 @@ cs.rel = "stylesheet";
 cs.href = chrome.extension.getURL("libs/css/tooltipster.bundle.min.css");
 (document.head || document.documentElement).appendChild(cs);
 
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
-}
 
-function toObject(from = {}, to = {}) {
-    for (let key in from) {
-        let value = from[key]
-
-        if (typeof value === 'object' && value && !Array.isArray(value)) {
-            toObject(value, from[key])
-            continue
-        }
-
-        if (key === "data-tooltip")
-            to.setAttribute(key, value)
-        else
-            to[key] = value
-    }
-}
-
-function createSmartReviewBeggingHeader() {
-    if (!settings.possibleReview && settings.stats.time > 3600) {
-        return createElement('a', {
-            target: "_blank",
-            style: "text-decoration: none!important;",
-            onclick: () => {
-                chrome.storage.sync.set({"possibleReview": true}, function () {
-                    connectionStatus.style.color = "#000000"
-                    connectionStatus.className = ""
-                    connectionStatus.removeAttribute("data-tooltip")
-                });
-            },
-            href: "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi/reviews"
-        }, [
-            createElement('b', {
-                innerText: chrome.i18n.getMessage("extension_name"),
-                id: "connectionStatus",
-                className: "tooltip-multiline tooltip-bottom",
-                "data-tooltip": chrome.i18n.getMessage("beggingForReview")
-            })
-        ])
-    } else {
-        return createElement('a', {
-            target: "_blank",
-            style: "text-decoration: none!important; color: #000000;",
-            href: "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi"
-        }, [
-            createElement('b', {
-                innerText: chrome.i18n.getMessage("extension_name"),
-                id: "connectionStatus",
-            })
-        ])
-    }
-}
-
-function confirmAndReload() {
-    const result = confirm(chrome.i18n.getMessage("reload"));
-    if (result) {
-        location.reload()
-    }
-}
 
 function syncBlackList() {
     if (settings.dontBanMobile) {
@@ -95,41 +33,6 @@ function syncBlackList() {
     }
 }
 
-let tim;
-
-/**
- * @param {string} tagName
- * @param {Partial<HTMLElement> & {ref(v: HTMLDivElement) => void}} options
- * @param {HTMLElement[]} childs
- */
-function createElement(tagName = '', options = {}, childs = []) {
-    const element = document.createElement(tagName)
-
-    toObject(options, element)
-
-    for (let child of childs)
-        element.appendChild(child)
-
-    if (typeof options.ref == 'function')
-        options.ref(element)
-
-    return element
-}
-
-function downloadImage(data) {
-    let a = document.createElement('a');
-    a.href = data;
-
-    let current = new Date();
-    let cDate = current.getFullYear() + '-' + (current.getMonth() + 1) + '-' + current.getDate();
-    let cTime = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
-    let dateTime = cDate + ' ' + cTime;
-
-    a.download = dateTime;
-    document.body.appendChild(a);
-    a.click();
-}
-
 let settings = {},
     local = {ips: []},
     stage = 0,
@@ -138,7 +41,7 @@ let settings = {},
     play = 0,
     map,
     countBeforeSaveStats = 0,
-
+    tim,
     dc,
     faceApiLoaded = false
 
@@ -283,20 +186,6 @@ chrome.storage.sync.get(null, function (result) {
             console.dir("new ip")
         }
     });
-
-
-    function secondsToTime(secs) {
-        secs = Math.round(secs);
-        const hours = Math.floor(secs / (60 * 60));
-
-        const divisor_for_minutes = secs % (60 * 60);
-        const minutes = Math.floor(divisor_for_minutes / 60);
-
-        const divisor_for_seconds = divisor_for_minutes % 60;
-        const seconds = Math.ceil(divisor_for_seconds);
-
-        return hours + ":" + minutes + ":" + seconds;
-    }
 
     var config = {attributes: true, childList: true, characterData: true};
 
