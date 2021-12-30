@@ -172,7 +172,11 @@ function createTabSettings() {
                                     checked: settings.autoResume,
                                     id: "autoResumeCheck",
                                     onclick: () => {
-                                        chrome.storage.sync.set({"autoResume": autoResumeCheck.checked});
+                                        chrome.storage.sync.set({
+                                            "autoResume": autoResumeCheck.checked
+                                        }, () => {
+                                            confirmAndReload()
+                                        });
                                     }
                                 })
                             ]),
