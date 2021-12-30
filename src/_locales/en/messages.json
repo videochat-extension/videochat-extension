@@ -430,5 +430,11 @@
   },
   "tooltipDoNotReflect": {
     "message": "Turn it on if you are uncomfortable seeing yourself reflected."
+  },
+  "hideCamera": {
+    "message": "hide your camera:"
+  },
+  "tooltipHideCamera": {
+    "message": "Enable it to hide your camera to make the conversation more natural."
   }
 }

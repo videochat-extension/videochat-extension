@@ -628,6 +628,31 @@ function createTabSettings() {
                         ]),
 
 
+                        createElement('dd', {}, [
+                            createElement('span', {}, [
+                                createElement("p", {
+                                    innerText: chrome.i18n.getMessage('hideCamera'),
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage('tooltiphideCamera')
+                                }),
+                                createElement('input', {
+                                    type: "checkbox",
+                                    checked: settings.hideCamera,
+                                    id: "hideCameraCheck",
+                                    onclick: () => {
+                                        chrome.storage.sync.set({"hideCamera": hideCameraCheck.checked}, function () {
+                                            if (hideCameraCheck.checked) {
+                                                $("#local-video-wrapper")[0].style.display = "none"
+                                            } else {
+                                                $("#local-video-wrapper")[0].style.display = ""
+                                            }
+                                        });
+                                    }
+                                })
+                            ]),
+                        ]),
+
+
                         createElement('br'),
                         createElement('dt', {
                             innerHTML: chrome.i18n.getMessage('settingsAutomation')
@@ -1963,6 +1988,10 @@ chrome.storage.sync.get(null, function (result) {
 
     if (settings.doNotReflect) {
         $("#local-video").removeClass("video-container-local-video")
+    }
+
+    if (settings.hideCamera) {
+        $("#local-video-wrapper")[0].style.display = "none"
     }
 
     if (settings.ws) {
