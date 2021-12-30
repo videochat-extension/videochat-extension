@@ -211,7 +211,7 @@ function createHeader() {
             ]),
             createElement('button', {
                 style: function f() {
-                    if (settings.streamerPip) {
+                    if (settings.streamer && settings.streamerPip) {
                         return "height:15px"
                     } else {
                         return "display:none"
