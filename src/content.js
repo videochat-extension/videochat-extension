@@ -902,6 +902,8 @@ function createTabSettings() {
                                                 "risky": riskyCheck.checked,
                                             })
                                             riskyList.style.display = ""
+                                            if (settings.ws || settings.mirror || settings.mirrorAlt || settings.prikol)
+                                                confirmAndReload()
                                         } else {
                                             let reload = false
 
