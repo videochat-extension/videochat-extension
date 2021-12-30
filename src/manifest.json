@@ -27,7 +27,8 @@
         "controls/tab-settings-streamer.js",
         "controls/tab-stats.js",
 
-        "content.js"
+        "content.js",
+        "hotkeys.js"
       ],
       "run_at": "document_idle"
     }
