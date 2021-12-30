@@ -5,12 +5,12 @@ s.onload = () => s.remove();
 
 const c = document.createElement('link');
 c.rel = "stylesheet";
-c.href = chrome.extension.getURL('css/css-tooltip.min.css');
+c.href = chrome.extension.getURL('libs/css/css-tooltip.min.css');
 (document.head || document.documentElement).appendChild(c);
 
 const cs = document.createElement('link');
 cs.rel = "stylesheet";
-cs.href = chrome.extension.getURL("css/tooltipster.bundle.min.css");
+cs.href = chrome.extension.getURL("libs/css/tooltipster.bundle.min.css");
 (document.head || document.documentElement).appendChild(cs);
 
 function getRandomInt(min, max) {

@@ -45,9 +45,9 @@
     "libs/js/leaflet/*",
     "audio/*.mp3",
     "prikol/*.mp4",
-    "css/css-tooltip.min.css",
+    "libs/css/css-tooltip.min.css",
     "controls*.html",
-    "css/tooltipster.bundle.min.css"
+    "libs/css/tooltipster.bundle.min.css"
   ],
   "browser_action": {
     "default_icon": {
