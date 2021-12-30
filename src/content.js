@@ -1,3 +1,15 @@
+let settings = {},
+    local = {ips: []},
+    stage = 0,
+    search = 0,
+    found = 0,
+    play = 0,
+    map,
+    countBeforeSaveStats = 0,
+    tim,
+    dc,
+    faceApiLoaded = false
+
 const s = document.createElement('script');
 s.src = chrome.extension.getURL('injection/ip-api.js');
 s.onload = () => s.remove();
@@ -13,23 +25,25 @@ cs.rel = "stylesheet";
 cs.href = chrome.extension.getURL("libs/css/tooltipster.bundle.min.css");
 (document.head || document.documentElement).appendChild(cs);
 
-
-let settings = {},
-    local = {ips: []},
-    stage = 0,
-    search = 0,
-    found = 0,
-    play = 0,
-    map,
-    countBeforeSaveStats = 0,
-    tim,
-    dc,
-    faceApiLoaded = false
-
-
 chrome.storage.local.get(null, function (result) {
     local = result;
 })
+
+chrome.storage.onChanged.addListener(function (changes, namespace) {
+    if (namespace === "sync")
+        chrome.storage.sync.get(null, function (result) {
+            settings = result;
+        });
+});
+
+$(document).arrive(".ban-popup__unban_msg.tr", function (el) {
+    Arrive.unbindAllArrive();
+    let new_el = $(el).clone()
+    new_el.css('height', '30px');
+    new_el.css('line-height', '26px');
+    new_el[0].innerHTML = chrome.i18n.getMessage("avoidBan")
+    new_el.insertAfter(el)
+});
 
 chrome.storage.sync.get(null, function (result) {
     settings = result;
@@ -476,20 +490,4 @@ chrome.storage.sync.get(null, function (result) {
     observer3.observe($div[0], {
         attributes: true
     });
-});
-
-chrome.storage.onChanged.addListener(function (changes, namespace) {
-    if (namespace === "sync")
-        chrome.storage.sync.get(null, function (result) {
-            settings = result;
-        });
-});
-
-$(document).arrive(".ban-popup__unban_msg.tr", function (el) {
-    Arrive.unbindAllArrive();
-    let new_el = $(el).clone()
-    new_el.css('height', '30px');
-    new_el.css('line-height', '26px');
-    new_el[0].innerHTML = chrome.i18n.getMessage("avoidBan")
-    new_el.insertAfter(el)
 });
