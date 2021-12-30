@@ -50,9 +50,9 @@ TextEncoder.prototype.encode = function (data) {
             //     return this._encode(prefix + JSON.stringify(js));
 
             //case "WRD":
-                //js["Data"]["hasStream"] = "asdasd"
-				//delete js["Data"]["hasStream"]
-                //return this._encode(prefix + JSON.stringify(js));
+            //js["Data"]["hasStream"] = "asdasd"
+            //delete js["Data"]["hasStream"]
+            //return this._encode(prefix + JSON.stringify(js));
             case "FIL":
                 CO = js["Country"]
                 return this._encode(data);

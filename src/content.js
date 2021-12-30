@@ -14,7 +14,6 @@ cs.href = chrome.extension.getURL("libs/css/tooltipster.bundle.min.css");
 (document.head || document.documentElement).appendChild(cs);
 
 
-
 function syncBlackList() {
     if (settings.dontBanMobile) {
         if (!JSON.parse(remoteIPInfo.innerText).mobile) {
