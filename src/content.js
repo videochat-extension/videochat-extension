@@ -35,6 +35,10 @@ cs.rel = "stylesheet";
 cs.href = chrome.extension.getURL("libs/css/tooltipster.bundle.min.css");
 (document.head || document.documentElement).appendChild(cs);
 
+const css = document.createElement('style')
+css.textContent = "small {font-size: xx-small!important;}";
+(document.head || document.documentElement).appendChild(css);
+
 chrome.storage.local.get(null, function (result) {
     local = result;
 })
@@ -76,19 +80,36 @@ const onUpdateIP = function (mutations) {
             .done(function (json) {
                 curInfo = json
                 startDate = +new Date() / 1000
+                let strings = []
 
-                if (json.mobile) {
-                    remoteInfo.innerHTML = "<b>Country: </b>" + json.country + " [" + json.countryCode + "] </br></br>" +
-                        "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>" +
-                        "<b>TM: </b><sup id='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
+                if (settings.showMore && (json.mobile || json.proxy || json.hosting)) {
+                    if (json.mobile)
+                        strings.push("<small>MOBILE</small>")
+                    if (json.proxy)
+                        strings.push("<small>PROXY</small>")
+                    if (json.hosting)
+                        strings.push("<small>HOSTING</small>")
+                }
+
+                if (settings.hideMobileLocation && json.mobile) {
+                    remoteInfo.innerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br></br>"
+
+                    remoteInfo.innerHTML += "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>"
+                    remoteInfo.innerHTML += "<b>TM: </b><sup id='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
+
                 } else {
-                    remoteInfo.innerHTML = "<b>Country: </b>" + json.country + " [" + json.countryCode + "] </br>" +
-                        "</br>" +
-                        "<b>City: </b>" + json.city + " (" + json.region + ") </br>" +
-                        "<b>Region: </b>" + json.regionName + "</br>" +
+                    remoteInfo.innerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br>"
+
+                    remoteInfo.innerHTML += "</br>" +
+                        chrome.i18n.getMessage("apiCity") + json.city + " (" + json.region + ") </br>" +
+                        chrome.i18n.getMessage("apiRegion") + json.regionName + "</br>" +
                         "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>)</br>" +
                         "<b>TM: </b><sup id='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
                 }
+
+                if (strings.length > 0)
+                    remoteInfo.innerHTML += "</br>" + strings.join('<small> || </small>')
+
 
                 if (typeof marker !== 'undefined')
                     map.removeLayer(marker)
@@ -96,7 +117,7 @@ const onUpdateIP = function (mutations) {
                 if (typeof circle !== 'undefined')
                     map.removeLayer(circle)
 
-                if (json.mobile) {
+                if (settings.hideMobileLocation && json.mobile) {
                     circle = L.circle([json.lat, json.lon], 300000, {
                         color: 'red',
                         fillColor: '#f03',
@@ -269,7 +290,6 @@ chrome.storage.sync.get(null, function (result) {
     injectInterface()
 
     $.getJSON("http://ip-api.com/json/", {
-        lang: chrome.i18n.getMessage("@@UI_locale").slice(0, 2),
         fields: "status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query"
     }).done(function (json) {
         remoteInfo.innerHTML = chrome.i18n.getMessage("api_working")
@@ -329,6 +349,9 @@ chrome.storage.sync.get(null, function (result) {
             )
         }).observe($(".ok")[0], {attributes: true});
     }
+
+    if (!settings.ipApiLocalisation)
+        language = "en"
 
     if (settings.hotkeys) {
         document.removeEventListener('keyup', hotkeys)

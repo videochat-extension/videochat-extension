@@ -445,5 +445,35 @@
   },
   "tooltipEnableRisky": {
     "message": "gives access to dangerous functions whose careless use can lead to a ban"
+  },
+  "apiCountry": {
+    "message": "<b>Country: </b>"
+  },
+  "apiCity": {
+    "message": "<b>City: </b>"
+  },
+ "apiRegion": {
+   "message": "<b>Region: </b>"
+ },
+  "settingsGeolocation": {
+    "message": "<b>Geolocation</b>"
+  },
+  "apiLocalisation": {
+    "message": "localisation: "
+  },
+  "tooltipApiLocalisation": {
+    "message": "Enable this so that the locations are displayed in the browser language. Available languages: Russian, German, Spanish, Portuguese, French, Japanese, Chinese."
+  },
+  "hideMobile": {
+    "message": "hide mobile location: "
+  },
+  "tooltipHideMobile": {
+    "message": "Turn this on so that the city and region will be hidden if the interlocutor has mobile internet. Almost always these data are not correct."
+  },
+  "showMoreInfo": {
+    "message": "show more info: "
+  },
+  "tooltipShowMoreInfo": {
+    "message": "Enable this to display additional information about the IP address. Mobile - mobile (cellular) connection. Hosting -  proxy, VPN or Tor exit address. Hosting - hosting, colocated or data center."
   }
 }

@@ -161,7 +161,78 @@ function createTabSettings() {
                                 })
                             ]),
                         ]),
+                        createElement('br'),
+                        createElement('dt', {
+                            innerHTML: chrome.i18n.getMessage("settingsGeolocation"),
+                        }),
+                        createElement('dd', {}, [
+                            createElement('span', {}, [
+                                createElement("p", {
+                                    innerText: chrome.i18n.getMessage("apiLocalisation"),
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipApiLocalisation")
+                                }),
+                                createElement('input', {
+                                    type: "checkbox",
+                                    checked: settings.ipApiLocalisation,
+                                    id: "ipApiLocalisationCheck",
+                                    onclick: () => {
+                                        chrome.storage.sync.set({"ipApiLocalisation": ipApiLocalisationCheck.checked}, function () {
+                                            if (ipApiLocalisationCheck.checked) {
+                                                language = window.navigator.language.slice(0, 2)
 
+                                                if (language === "pt")
+                                                    language = "pt-BR"
+                                                else if (language === "zh")
+                                                    language = "zh-CN"
+                                            } else {
+                                                language = "en"
+                                            }
+                                        });
+                                    }
+                                })
+                            ]),
+                        ]),
+
+                        createElement('dd', {}, [
+                            createElement('span', {}, [
+                                createElement("p", {
+                                    innerText: chrome.i18n.getMessage("hideMobile"),
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipHideMobile")
+                                }),
+                                createElement('input', {
+                                    type: "checkbox",
+                                    checked: settings.hideMobileLocation,
+                                    id: "hideMobileLocationCheck",
+                                    onclick: () => {
+                                        chrome.storage.sync.set({"hideMobileLocation": hideMobileLocationCheck.checked}, function () {
+
+                                        });
+                                    }
+                                })
+                            ]),
+                        ]),
+
+                        createElement('dd', {}, [
+                            createElement('span', {}, [
+                                createElement("p", {
+                                    innerText: chrome.i18n.getMessage("showMoreInfo"),
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipShowMoreInfo")
+                                }),
+                                createElement('input', {
+                                    type: "checkbox",
+                                    checked: settings.showMore,
+                                    id: "showMoreCheck",
+                                    onclick: () => {
+                                        chrome.storage.sync.set({"showMore": showMoreCheck.checked}, function () {
+
+                                        });
+                                    }
+                                })
+                            ]),
+                        ]),
                         createElement('br'),
                         createElement('dt', {
                             innerHTML: chrome.i18n.getMessage("genderRecognition")

@@ -61,7 +61,10 @@ var defaults = {
     cover: false,
     coverPreview: false,
     coverNoise: false,
-    coverSrc: "https://i.imgur.com/Ud2uLYQ.gif"
+    coverSrc: "https://i.imgur.com/Ud2uLYQ.gif",
+    ipApiLocalisation: true,
+    hideMobileLocation: true,
+    showMore: false
 };
 chrome.storage.sync.get(defaults, function (result) {
     chrome.storage.sync.set(result);
