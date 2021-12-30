@@ -485,7 +485,6 @@
   "tooltipTargetSkipMobile": {
     "message": "Mobile network is known for inaccurate geolocation. Should extension skip mobile network users when you are targeting for a specific place?"
   },
-
   "targetCity": {
     "message": "target city: "
   },
@@ -498,7 +497,6 @@
   "prefixTargetCity": {
     "message": "target: "
   },
-
   "targetRegion": {
     "message": "target region: "
   },
@@ -511,5 +509,4 @@
   "prefixTargetRegion": {
     "message": "target: "
   }
-  
 }
