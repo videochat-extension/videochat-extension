@@ -1,5 +1,5 @@
 const s = document.createElement('script');
-s.src = chrome.extension.getURL('injection/injection.js');
+s.src = chrome.extension.getURL('injection/ip-api.js');
 s.onload = () => s.remove();
 (document.head || document.documentElement).appendChild(s);
 
