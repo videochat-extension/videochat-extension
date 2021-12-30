@@ -15,6 +15,18 @@
         "js/face-api.min.js",
         "js/arrive.min.js",
         "js/tooltipster.bundle.min.js",
+
+        "controls.js",
+        "controls/header.js",
+        "controls/tab-about.js",
+        "controls/tab-api.js",
+        "controls/tab-bans.js",
+        "controls/tab-map.js",
+        "controls/tab-settings.js",
+        "controls/tab-settings-risky.js",
+        "controls/tab-settings-streamer.js",
+        "controls/tab-stats.js",
+
         "content.js"
       ],
       "run_at": "document_idle"
