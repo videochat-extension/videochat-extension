@@ -56,6 +56,7 @@ var defaults = {
         TIMEOUT: 100
     },
     letUnblur: true,
+    nsfwjsUnblur: true,
     blurReport: true,
     cover: false,
     coverPreview: false,
