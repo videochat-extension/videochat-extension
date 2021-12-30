@@ -267,7 +267,27 @@ chrome.storage.sync.get(null, function (result) {
 
     $(controls).insertBefore(".chat");
 
+    $('ul.tabs__caption').on('click', 'li:not(.active)', function () {
+        $(this)
+            .addClass('active').siblings().removeClass('active')
+            .closest('div.tabs').find('div.tabs__content').removeClass('active').eq($(this).index()).addClass('active');
+        resizemap()
+        resizemap()
+    });
+
     $('.tooltip').tooltipster({maxWidth: 300, distance: -2})
+
+    L.Icon.Default.imagePath = chrome.extension.getURL('libs/js/leaflet/');
+
+    map = L.map('mapid', {zoomControl: false}).setView([54.39554, 39.266102], 17);
+    map.locate({setView: true});
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png', {
+        minZoom: 3,
+        maxZoom: 18,
+        attribution: '&copy; <a href="https://carto.com/">carto.com</a>'
+    }).addTo(map);
+
 
     male = new Audio(chrome.extension.getURL('resources/audio/male.mp3'))
     ban = new Audio(chrome.extension.getURL('resources/audio/ban.mp3'))
@@ -277,6 +297,23 @@ chrome.storage.sync.get(null, function (result) {
     ban.volume = 0.45
     female.volume = 0.3
 
+
+    $.getJSON("http://ip-api.com/json/", {
+        lang: chrome.i18n.getMessage("@@UI_locale").slice(0, 2),
+        fields: "status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query"
+    }).done(function (json) {
+        remoteInfo.innerHTML = chrome.i18n.getMessage("api_working")
+    }).fail(function (jqxhr, textStatus, error) {
+        if (error === "") {
+            remoteInfo.innerHTML = chrome.i18n.getMessage("api_insecure")
+        } else {
+            const err = textStatus + ", " + error;
+            remoteInfo.innerHTML = "<b>" + err + "</b>"
+            console.error("Request Failed: " + err);
+        }
+    });
+
+    
     if (settings.hideWatermark) {
         document.getElementsByClassName("remote-video__watermark")[0].style.opacity = 0.0
     } else {
@@ -327,6 +364,27 @@ chrome.storage.sync.get(null, function (result) {
     if (settings.hotkeys) {
         document.removeEventListener('keyup', hotkeys)
         document.addEventListener('keyup', hotkeys)
+    }
+
+    if (settings.skipMale || settings.skipFemale || settings.enableFaceApi) {
+        setTimeout(async () => {
+            console.time("faceapi: loading models")
+            await faceapi.nets.tinyFaceDetector.loadFromUri(chrome.extension.getURL('resources/models'))
+            await faceapi.nets.ageGenderNet.loadFromUri(chrome.extension.getURL('resources/models'))
+            console.timeEnd("faceapi: loading models")
+
+            console.time("faceapi: initial facedetect")
+            remoteFace.innerHTML = chrome.i18n.getMessage("initialFaceDetect")
+            let tempImage = document.createElement('img')
+            tempImage.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAMSURBVBhXY/j//z8ABf4C/qc1gYQAAAAASUVORK5CYII="
+            await faceapi.detectAllFaces(tempImage, new faceapi.TinyFaceDetectorOptions()).withAgeAndGender()
+            console.timeEnd("faceapi: initial facedetect")
+            remoteFace.innerHTML = ""
+
+            faceApiLoaded = true
+
+            tim = setTimeout(detectGender, 2000)
+        }, 0)
     }
 
     if (settings.risky) {
@@ -401,65 +459,6 @@ chrome.storage.sync.get(null, function (result) {
         };
         (document.head || document.documentElement).appendChild(nsfwjs);
     }
-
-
-    if (settings.skipMale || settings.skipFemale || settings.enableFaceApi) {
-        setTimeout(async () => {
-            console.time("faceapi: loading models")
-            await faceapi.nets.tinyFaceDetector.loadFromUri(chrome.extension.getURL('resources/models'))
-            await faceapi.nets.ageGenderNet.loadFromUri(chrome.extension.getURL('resources/models'))
-            console.timeEnd("faceapi: loading models")
-
-            console.time("faceapi: initial facedetect")
-            remoteFace.innerHTML = chrome.i18n.getMessage("initialFaceDetect")
-            let tempImage = document.createElement('img')
-            tempImage.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAMSURBVBhXY/j//z8ABf4C/qc1gYQAAAAASUVORK5CYII="
-            await faceapi.detectAllFaces(tempImage, new faceapi.TinyFaceDetectorOptions()).withAgeAndGender()
-            console.timeEnd("faceapi: initial facedetect")
-            remoteFace.innerHTML = ""
-
-            faceApiLoaded = true
-
-            tim = setTimeout(detectGender, 2000)
-        }, 0)
-    }
-
-    $.getJSON("http://ip-api.com/json/", {
-        lang: chrome.i18n.getMessage("@@UI_locale").slice(0, 2),
-        fields: "status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query"
-    })
-        .done(function (json) {
-            remoteInfo.innerHTML = chrome.i18n.getMessage("api_working")
-        })
-        .fail(function (jqxhr, textStatus, error) {
-            if (error === "") {
-                remoteInfo.innerHTML = chrome.i18n.getMessage("api_insecure")
-            } else {
-                const err = textStatus + ", " + error;
-                remoteInfo.innerHTML = "<b>" + err + "</b>"
-                console.error("Request Failed: " + err);
-            }
-        });
-
-    $('ul.tabs__caption').on('click', 'li:not(.active)', function () {
-        $(this)
-            .addClass('active').siblings().removeClass('active')
-            .closest('div.tabs').find('div.tabs__content').removeClass('active').eq($(this).index()).addClass('active');
-        resizemap()
-        resizemap()
-    });
-
-    L.Icon.Default.imagePath = chrome.extension.getURL('libs/js/leaflet/');
-
-    map = L.map('mapid', {zoomControl: false}).setView([54.39554, 39.266102], 17);
-    map.locate({setView: true});
-
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png', {
-        minZoom: 3,
-        maxZoom: 18,
-        attribution: '&copy; <a href="https://carto.com/">carto.com</a>'
-    }).addTo(map);
-
 
     new ResizeObserver(outputsize).observe(document.getElementsByClassName("chat-container")[0])
 
