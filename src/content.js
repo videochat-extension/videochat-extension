@@ -48,6 +48,44 @@ $(document).arrive(".ban-popup__unban_msg.tr", function (el) {
 chrome.storage.sync.get(null, function (result) {
     settings = result;
 
+    controls = createControls()
+
+    $(".gender-selector")[0].parentElement.remove()
+
+    const buttons = $(".buttons")[0]
+    $(controls).insertBefore(".chat");
+    const chat = $(".chat")[0]
+
+    $('.tooltip').tooltipster({maxWidth: 300, distance: -2})
+
+    male = new Audio(chrome.extension.getURL('resources/audio/male.mp3'))
+    ban = new Audio(chrome.extension.getURL('resources/audio/ban.mp3'))
+    female = new Audio(chrome.extension.getURL('resources/audio/female.mp3'))
+
+    male.volume = 0.3
+    ban.volume = 0.45
+    female.volume = 0.3
+
+    if (settings.hideWatermark) {
+        document.getElementsByClassName("remote-video__watermark")[0].style.opacity = 0.0
+    } else {
+        document.getElementsByClassName("remote-video__watermark")[0].style.opacity = 1.0
+    }
+
+    if (settings.hideBanner) {
+        document.getElementsByClassName("caption remote-video__info")[0].style.opacity = 0.0
+    } else {
+        document.getElementsByClassName("caption remote-video__info")[0].style.opacity = 1.0
+    }
+
+    if (settings.doNotReflect) {
+        $("#local-video").removeClass("video-container-local-video")
+    }
+
+    if (settings.hideCamera) {
+        $("#local-video-wrapper")[0].style.display = "none"
+    }
+
     setInterval(() => {
         if (settings.skipFourSec) {
             try {
@@ -80,25 +118,6 @@ chrome.storage.sync.get(null, function (result) {
         document.addEventListener('keyup', hotkeys)
     }
 
-    controls = createControls()
-
-    $(".gender-selector")[0].parentElement.remove()
-
-    buttons = $(".buttons")[0]
-    chat = $(".chat")[0]
-
-    $(controls).insertBefore(".chat");
-
-    $('.tooltip').tooltipster({maxWidth: 300, distance: -2})
-
-    if (settings.doNotReflect) {
-        $("#local-video").removeClass("video-container-local-video")
-    }
-
-    if (settings.hideCamera) {
-        $("#local-video-wrapper")[0].style.display = "none"
-    }
-
     if (settings.risky) {
         if (settings.mirror || settings.mirrorAlt || settings.prikol) {
             if (settings.prikol) {
@@ -120,6 +139,14 @@ chrome.storage.sync.get(null, function (result) {
         }
 
         if (settings.ws) {
+            if (settings.wsconfig.theyskipsound) {
+                skip = document.createElement("AUDIO");
+                skip.id = "skip"
+                skip.src = chrome.extension.getURL('resources/audio/skip.mp3')
+                document.body.appendChild(skip)
+                skip.volume = 0.3
+            }
+
             const wss = document.createElement('script');
             wss.src = chrome.extension.getURL('injection/ws.js');
             wss.onload = () => wss.remove();
@@ -186,22 +213,6 @@ chrome.storage.sync.get(null, function (result) {
 
     observer.observe(target, config);
 
-
-    male = new Audio(chrome.extension.getURL('resources/audio/male.mp3'))
-    ban = new Audio(chrome.extension.getURL('resources/audio/ban.mp3'))
-    female = new Audio(chrome.extension.getURL('resources/audio/female.mp3'))
-
-    skip = document.createElement("AUDIO");
-    skip.id = "skip"
-    skip.src = chrome.extension.getURL('resources/audio/skip.mp3')
-    document.body.appendChild(skip)
-
-    male.volume = 0.3
-    ban.volume = 0.45
-    female.volume = 0.3
-    skip.volume = 0.3
-    // online.volume = 0.1
-    // offline.volume = 0.1
 
     function syncBlackList() {
         if (settings.dontBanMobile) {
@@ -282,15 +293,6 @@ chrome.storage.sync.get(null, function (result) {
             tim = setTimeout(detectGender, 500)
     }
 
-    document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e) => {
-        if (stage === 3)
-            settings.stats.countManSkip++
-
-        if (e.shiftKey && !local.ips.includes(remoteIP.innerText)) {
-            syncBlackList()
-        }
-    })
-
     if (settings.skipMale || settings.skipFemale || settings.enableFaceApi) {
         setTimeout(async () => {
             console.time("faceapi: loading models")
@@ -312,7 +314,6 @@ chrome.storage.sync.get(null, function (result) {
         }, 0)
     }
 
-
     $.getJSON("http://ip-api.com/json/", {
         lang: chrome.i18n.getMessage("@@UI_locale").slice(0, 2),
         fields: "status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query"
@@ -329,19 +330,6 @@ chrome.storage.sync.get(null, function (result) {
                 console.error("Request Failed: " + err);
             }
         });
-
-    if (hideWatermarkCheck.checked) {
-        document.getElementsByClassName("remote-video__watermark")[0].style.opacity = 0.0
-    } else {
-        document.getElementsByClassName("remote-video__watermark")[0].style.opacity = 1.0
-    }
-
-    if (hideBannerCheck.checked) {
-        document.getElementsByClassName("caption remote-video__info")[0].style.opacity = 0.0
-    } else {
-        document.getElementsByClassName("caption remote-video__info")[0].style.opacity = 1.0
-    }
-
 
     $('ul.tabs__caption').on('click', 'li:not(.active)', function () {
         $(this)
