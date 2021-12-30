@@ -1,5 +1,3 @@
-let language = document.getElementsByClassName("language-selector__popup-item selected")[0].dataset.value
-
 function secondsToHms(d) {
     d = Number(d);
     var h = Math.floor(d / 3600);
@@ -10,36 +8,6 @@ function secondsToHms(d) {
     var mDisplay = m > 0 ? m + (m === 1 ? "M, " : "M") : "";
     var sDisplay = s > 0 ? s + (s === 1 ? "S" : "S") : "";
     return hDisplay + mDisplay + sDisplay;
-}
-
-function updateRemoteAddress(remoteAddress) {
-    $.getJSON("http://ip-api.com/json/" + remoteAddress.replace("[", "").replace("]", ""), {
-        lang: language,
-        fields: "status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query"
-    })
-        .done(function (json) {
-            remoteIPInfo.innerText = JSON.stringify(json)
-            startDate = +new Date() / 1000
-
-            if (json.mobile) {
-                remoteInfo.innerHTML = "<b>Country: </b>" + json.country + " [" + json.countryCode + "] </br></br>" +
-                    "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>" +
-                    "<b>TM: </b><sup id='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
-            } else {
-                remoteInfo.innerHTML = "<b>Country: </b>" + json.country + " [" + json.countryCode + "] </br>" +
-                    "</br>" +
-                    "<b>City: </b>" + json.city + " (" + json.region + ") </br>" +
-                    "<b>Region: </b>" + json.regionName + "</br>" +
-                    "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>)</br>" +
-                    "<b>TM: </b><sup id='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
-            }
-        })
-        .fail(function (jqxhr, textStatus, error) {
-            console.dir(error)
-            var err = textStatus + ", " + error;
-            remoteInfo.innerHTML = "<b>" + err + "</b>"
-            console.error("Request Failed: " + err);
-        });
 }
 
 setInterval(() => {
@@ -73,9 +41,9 @@ window.RTCPeerConnection.prototype = origPeerConnection.prototype;
             if (args[0].type === "srflx") {
                 console.dir("IP: " + args[0].address)
                 if (rmdaddr !== args[0].address) {
-                    updateRemoteAddress(args[0].address)
                     rmdaddr = args[0].address
                     remoteIP.innerText = args[0].address
+                    startDate = +new Date() / 1000
                 }
             }
             return new Promise(function (resolve, reject) {

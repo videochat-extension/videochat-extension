@@ -3,6 +3,7 @@ let settings = {},
     stage = 0,
     search = 0,
     found = 0,
+    curInfo = {},
     play = 0,
     map,
     countBeforeSaveStats = 0,
@@ -11,7 +12,9 @@ let settings = {},
     faceApiLoaded = false,
     buttons = $(".buttons")[0],
     chat = $(".chat")[0],
-    resize = false
+    resize = false,
+    language = document.getElementsByClassName("language-selector__popup-item selected")[0].dataset.value
+
 
 const s = document.createElement('script');
 s.src = chrome.extension.getURL('injection/ip-api.js');
@@ -62,40 +65,64 @@ const onUpdateIP = function (mutations) {
     } else {
         settings.stats.countNew++
         console.dir("new ip")
+        $.getJSON("http://ip-api.com/json/" + remoteIP.innerText.replace("[", "").replace("]", ""), {
+            lang: language,
+            fields: "status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query"
+        })
+            .done(function (json) {
+                curInfo = json
+                startDate = +new Date() / 1000
+
+                if (json.mobile) {
+                    remoteInfo.innerHTML = "<b>Country: </b>" + json.country + " [" + json.countryCode + "] </br></br>" +
+                        "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>" +
+                        "<b>TM: </b><sup id='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
+                } else {
+                    remoteInfo.innerHTML = "<b>Country: </b>" + json.country + " [" + json.countryCode + "] </br>" +
+                        "</br>" +
+                        "<b>City: </b>" + json.city + " (" + json.region + ") </br>" +
+                        "<b>Region: </b>" + json.regionName + "</br>" +
+                        "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>)</br>" +
+                        "<b>TM: </b><sup id='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
+                }
+
+                if (typeof marker !== 'undefined')
+                    map.removeLayer(marker)
+
+                if (typeof circle !== 'undefined')
+                    map.removeLayer(circle)
+
+                if (json.mobile) {
+                    circle = L.circle([json.lat, json.lon], 300000, {
+                        color: 'red',
+                        fillColor: '#f03',
+                        fillOpacity: 0.2
+                    })
+
+                    map.setView(new L.LatLng(json.lat, json.lon), 5);
+                    marker = new L.Marker([json.lat, json.lon]);
+                } else {
+                    circle = L.circle([json.lat, json.lon], 30000, {
+                        color: 'blue',
+                        fillColor: '#808080',
+                        fillOpacity: 0.1
+                    })
+
+                    map.setView(new L.LatLng(json.lat, json.lon), 13);
+                    marker = new L.Marker([json.lat, json.lon]);
+                }
+
+                map.addLayer(circle)
+                map.addLayer(marker)
+            })
+            .fail(function (jqxhr, textStatus, error) {
+                console.dir(error)
+                var err = textStatus + ", " + error;
+                remoteInfo.innerHTML = "<b>" + err + "</b>"
+                console.error("Request Failed: " + err);
+            });
     }
 }
-
-const onUpdateIPInfo = function (mutationsList, observer) {
-    let json = JSON.parse(remoteIPInfo.innerText)
-    if (typeof marker !== 'undefined')
-        map.removeLayer(marker)
-
-    if (typeof circle !== 'undefined')
-        map.removeLayer(circle)
-
-    if (json.mobile) {
-        circle = L.circle([json.lat, json.lon], 300000, {
-            color: 'red',
-            fillColor: '#f03',
-            fillOpacity: 0.2
-        })
-
-        map.setView(new L.LatLng(json.lat, json.lon), 5);
-        marker = new L.Marker([json.lat, json.lon]);
-    } else {
-        circle = L.circle([json.lat, json.lon], 30000, {
-            color: 'blue',
-            fillColor: '#808080',
-            fillOpacity: 0.1
-        })
-
-        map.setView(new L.LatLng(json.lat, json.lon), 13);
-        marker = new L.Marker([json.lat, json.lon]);
-    }
-
-    map.addLayer(circle)
-    map.addLayer(marker)
-};
 
 const onChangeStage = function (mutations) {
     mutations.forEach(function (mutation) {
@@ -155,7 +182,7 @@ const onChangeStage = function (mutations) {
 
 function syncBlackList() {
     if (settings.dontBanMobile) {
-        if (!JSON.parse(remoteIPInfo.innerText).mobile) {
+        if (!curInfo.mobile) {
             local.ips.push(remoteIP.innerText)
             chrome.storage.local.set({"ips": local.ips});
 
@@ -403,9 +430,6 @@ chrome.storage.sync.get(null, function (result) {
     const observer = new MutationObserver(onUpdateIP)
     observer.observe(document.getElementById('remoteIP'), {attributes: true, childList: true, characterData: true});
 
-    var observer2 = new MutationObserver(onUpdateIPInfo);
-    observer2.observe(document.getElementById('remoteIPInfo'), {childList: true});
-
-    var observer3 = new MutationObserver(onChangeStage)
-    observer3.observe(document.getElementById('remote-video-wrapper'), {attributes: true});
+    var observer2 = new MutationObserver(onChangeStage)
+    observer2.observe(document.getElementById('remote-video-wrapper'), {attributes: true});
 });
