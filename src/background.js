@@ -37,6 +37,7 @@ var defaults = {
     },
     streamer: false,
     streamerKeys: false,
+    doNotReflect: false,
     streamerMirror: false,
     blurOnStart: true,
     streamerPip: true,

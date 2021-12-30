@@ -284,7 +284,6 @@
   "streamerHotkeysText": {
     "message": "<dd style='margin-inline-start: 40px!important;'>right arrow - blur</dd><dd style='margin-inline-start: 40px!important;'>m - mute remote video</dd><dd style='margin-inline-start: 40px!important;'>shift+right arrow - disable nsfwjs for session</dd>"
   },
-
   "streamerPip": {
     "message": "streamer's pip: "
   },
@@ -425,5 +424,11 @@
   },
   "reset": {
     "message": "reset"
+  },
+  "doNotReflect": {
+    "message": "do not reflect the camera: "
+  },
+  "tooltipDoNotReflect": {
+    "message": "Turn it on if you are uncomfortable seeing yourself reflected."
   }
 }

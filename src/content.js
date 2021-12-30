@@ -603,6 +603,31 @@ function createTabSettings() {
                             ]),
                         ]),
 
+                        createElement('dd', {}, [
+                            createElement('span', {}, [
+                                createElement("p", {
+                                    innerText: chrome.i18n.getMessage('doNotReflect'),
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage('tooltipDoNotReflect')
+                                }),
+                                createElement('input', {
+                                    type: "checkbox",
+                                    checked: settings.doNotReflect,
+                                    id: "doNotReflectCheck",
+                                    onclick: () => {
+                                        chrome.storage.sync.set({"doNotReflect": doNotReflectCheck.checked}, function () {
+                                            if (doNotReflectCheck.checked) {
+                                                $("#local-video").removeClass("video-container-local-video")
+                                            } else {
+                                                $("#local-video").addClass("video-container-local-video")
+                                            }
+                                        });
+                                    }
+                                })
+                            ]),
+                        ]),
+
+
                         createElement('br'),
                         createElement('dt', {
                             innerHTML: chrome.i18n.getMessage('settingsAutomation')
@@ -1935,6 +1960,10 @@ chrome.storage.sync.get(null, function (result) {
     $(controls).insertBefore(".chat");
 
     $('.tooltip').tooltipster({maxWidth: 300, distance: -2})
+
+    if (settings.doNotReflect) {
+        $("#local-video").removeClass("video-container-local-video")
+    }
 
     if (settings.ws) {
         const wss = document.createElement('script');
