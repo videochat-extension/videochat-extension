@@ -2339,7 +2339,7 @@ chrome.storage.sync.get(null, function (result) {
                 chat.style.width = (parseInt(chat.style.width) - (parseInt(controls.style.width) + mar) / 2) + "px"
                 resize = false
                 resizemap()
-            }, 1000)
+            }, 500)
         }
     }
 
