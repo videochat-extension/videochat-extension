@@ -39,6 +39,7 @@ var defaults = {
     streamerKeys: false,
     doNotReflect: false,
     hideCamera: false,
+    risky: false,
     streamerMirror: false,
     blurOnStart: true,
     streamerPip: true,
