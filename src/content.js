@@ -14,24 +14,6 @@ cs.href = chrome.extension.getURL("libs/css/tooltipster.bundle.min.css");
 (document.head || document.documentElement).appendChild(cs);
 
 
-function syncBlackList() {
-    if (settings.dontBanMobile) {
-        if (!JSON.parse(remoteIPInfo.innerText).mobile) {
-            local.ips.push(remoteIP.innerText)
-            chrome.storage.local.set({"ips": local.ips});
-
-            if (settings.skipSound)
-                male.play()
-        }
-    } else {
-        local.ips.push(remoteIP.innerText)
-        chrome.storage.local.set({"ips": local.ips});
-
-        if (settings.skipSound)
-            male.play()
-    }
-}
-
 let settings = {},
     local = {ips: []},
     stage = 0,
@@ -190,14 +172,6 @@ chrome.storage.sync.get(null, function (result) {
 
     observer.observe(target, config);
 
-    document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e) => {
-        if (stage === 3)
-            settings.stats.countManSkip++
-
-        if (e.shiftKey && !local.ips.includes(remoteIP.innerText)) {
-            syncBlackList()
-        }
-    })
 
     male = new Audio(chrome.extension.getURL('resources/audio/male.mp3'))
     ban = new Audio(chrome.extension.getURL('resources/audio/ban.mp3'))
@@ -214,6 +188,24 @@ chrome.storage.sync.get(null, function (result) {
     skip.volume = 0.3
     // online.volume = 0.1
     // offline.volume = 0.1
+
+    function syncBlackList() {
+        if (settings.dontBanMobile) {
+            if (!JSON.parse(remoteIPInfo.innerText).mobile) {
+                local.ips.push(remoteIP.innerText)
+                chrome.storage.local.set({"ips": local.ips});
+
+                if (settings.skipSound)
+                    male.play()
+            }
+        } else {
+            local.ips.push(remoteIP.innerText)
+            chrome.storage.local.set({"ips": local.ips});
+
+            if (settings.skipSound)
+                male.play()
+        }
+    }
 
     async function detectGender() {
         if (!settings.skipMale && !settings.skipFemale && !settings.enableFaceApi)
@@ -275,6 +267,15 @@ chrome.storage.sync.get(null, function (result) {
         if (!stop)
             tim = setTimeout(detectGender, 500)
     }
+
+    document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e) => {
+        if (stage === 3)
+            settings.stats.countManSkip++
+
+        if (e.shiftKey && !local.ips.includes(remoteIP.innerText)) {
+            syncBlackList()
+        }
+    })
 
     if (settings.skipMale || settings.skipFemale || settings.enableFaceApi) {
         setTimeout(async () => {
