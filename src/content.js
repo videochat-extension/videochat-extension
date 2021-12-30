@@ -45,16 +45,104 @@ $(document).arrive(".ban-popup__unban_msg.tr", function (el) {
     new_el.insertAfter(el)
 });
 
+const onUpdateIP = function (mutationsList, observer) {
+    let json = JSON.parse(remoteIPInfo.innerText)
+    if (typeof marker !== 'undefined')
+        map.removeLayer(marker)
+
+    if (typeof circle !== 'undefined')
+        map.removeLayer(circle)
+
+
+    if (json.mobile) {
+        circle = L.circle([json.lat, json.lon], 300000, {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.2
+        })
+
+        map.setView(new L.LatLng(json.lat, json.lon), 5);
+        marker = new L.Marker([json.lat, json.lon]);
+    } else {
+        circle = L.circle([json.lat, json.lon], 30000, {
+            color: 'blue',
+            fillColor: '#808080',
+            fillOpacity: 0.1
+        })
+
+        map.setView(new L.LatLng(json.lat, json.lon), 13);
+        marker = new L.Marker([json.lat, json.lon]);
+    }
+    map.addLayer(circle)
+    map.addLayer(marker)
+};
+
+const onChangeStage = function (mutations) {
+    mutations.forEach(function (mutation) {
+        if (mutation.attributeName === "class") {
+
+            if (stage === 3) {
+                settings.stats.time += parseInt((Date.now() - play) / 1000)
+            }
+
+            const attributeValue = $(mutation.target).prop(mutation.attributeName);
+            if (attributeValue.includes("s-search")) {
+                stage = 1
+                // offline.play()
+
+                clearInterval(tim)
+                localStage.innerText = 1
+                // remoteFace.innerHTML = ''
+                if (play < search) {
+                    console.log("Dialog ended before even started")
+                }
+
+                search = Date.now()
+            } else if (attributeValue.includes("s-found")) {
+
+                // remoteFace.innerHTML = ''
+                stage = 2
+                localStage.innerText = 2
+
+                found = Date.now()
+            } else if (attributeValue.includes("s-play")) {
+                // online.play()
+
+                stage = 3
+                localStage.innerText = 3
+
+                clearInterval(tim)
+                tim = setTimeout(detectGender, 0)
+
+                play = Date.now()
+                console.log("Loading took: ", parseFloat((play - found) / 1000).toFixed(2), "sec")
+
+                settings.stats.countAll++
+            } else if (attributeValue.includes("s-stop")) {
+                // offline.play()
+                clearInterval(tim)
+
+                remoteFace.innerHTML = ''
+
+                stage = 0
+                localStage.innerText = 0
+            }
+
+            updStats(false)
+        }
+    });
+}
+
 chrome.storage.sync.get(null, function (result) {
     settings = result;
 
     controls = createControls()
-
     $(".gender-selector")[0].parentElement.remove()
 
     const buttons = $(".buttons")[0]
-    $(controls).insertBefore(".chat");
     const chat = $(".chat")[0]
+
+    $(controls).insertBefore(".chat");
 
     $('.tooltip').tooltipster({maxWidth: 300, distance: -2})
 
@@ -381,101 +469,9 @@ chrome.storage.sync.get(null, function (result) {
 
     new ResizeObserver(outputsize).observe(document.getElementsByClassName("chat-container")[0])
 
-    const targetNode = document.getElementById('remoteIPInfo');
+    var observer2 = new MutationObserver(onUpdateIP);
+    observer2.observe(document.getElementById('remoteIPInfo'), {childList: true});
 
-    const callback = function (mutationsList, observer) {
-        let json = JSON.parse(remoteIPInfo.innerText)
-        if (typeof marker !== 'undefined')
-            map.removeLayer(marker)
-
-        if (typeof circle !== 'undefined')
-            map.removeLayer(circle)
-
-
-        if (json.mobile) {
-            circle = L.circle([json.lat, json.lon], 300000, {
-                color: 'red',
-                fillColor: '#f03',
-                fillOpacity: 0.2
-            })
-
-            map.setView(new L.LatLng(json.lat, json.lon), 5);
-            marker = new L.Marker([json.lat, json.lon]);
-        } else {
-            circle = L.circle([json.lat, json.lon], 30000, {
-                color: 'blue',
-                fillColor: '#808080',
-                fillOpacity: 0.1
-            })
-
-            map.setView(new L.LatLng(json.lat, json.lon), 13);
-            marker = new L.Marker([json.lat, json.lon]);
-        }
-        map.addLayer(circle)
-        map.addLayer(marker)
-    };
-
-    var observer2 = new MutationObserver(callback);
-
-    observer2.observe(targetNode, {childList: true});
-
-    const $div = $("#remote-video-wrapper");
-    var observer3 = new MutationObserver(function (mutations) {
-        mutations.forEach(function (mutation) {
-            if (mutation.attributeName === "class") {
-
-                if (stage === 3) {
-                    settings.stats.time += parseInt((Date.now() - play) / 1000)
-                }
-
-                const attributeValue = $(mutation.target).prop(mutation.attributeName);
-                if (attributeValue.includes("s-search")) {
-                    stage = 1
-                    // offline.play()
-
-                    clearInterval(tim)
-                    localStage.innerText = 1
-                    // remoteFace.innerHTML = ''
-                    if (play < search) {
-                        console.log("Dialog ended before even started")
-                    }
-
-                    search = Date.now()
-                } else if (attributeValue.includes("s-found")) {
-
-                    // remoteFace.innerHTML = ''
-                    stage = 2
-                    localStage.innerText = 2
-
-                    found = Date.now()
-                } else if (attributeValue.includes("s-play")) {
-                    // online.play()
-
-                    stage = 3
-                    localStage.innerText = 3
-
-                    clearInterval(tim)
-                    tim = setTimeout(detectGender, 0)
-
-                    play = Date.now()
-                    console.log("Loading took: ", parseFloat((play - found) / 1000).toFixed(2), "sec")
-
-                    settings.stats.countAll++
-                } else if (attributeValue.includes("s-stop")) {
-                    // offline.play()
-                    clearInterval(tim)
-
-                    remoteFace.innerHTML = ''
-
-                    stage = 0
-                    localStage.innerText = 0
-                }
-
-                updStats(false)
-            }
-        });
-    });
-    observer3.observe($div[0], {
-        attributes: true
-    });
+    var observer3 = new MutationObserver(onChangeStage)
+    observer3.observe(document.getElementById('remote-video-wrapper'), {attributes: true});
 });
