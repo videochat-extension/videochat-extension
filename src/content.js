@@ -881,6 +881,8 @@ function createTabSettings() {
                         createElement('dt', {
                             innerHTML: chrome.i18n.getMessage("risky"),
                             style: "display: inline-block",
+                            className: "tooltip",
+                            title: chrome.i18n.getMessage("tooltipEnableRisky")
                         }),
 
                         createElement('br'),

@@ -141,7 +141,7 @@
     "message": "prikol:"
   },
   "tooltipPrikol": {
-    "message": "replaces your camera with 'prikol/prikol.mp4'. useless for casual users."
+    "message": "Replaces your camera with 'prikol/prikol.mp4'. Useful only when using the extension in developer mode."
   },
   "settingsBlacklist": {
     "message": "<b>Blacklist</b>"
@@ -165,7 +165,7 @@
     "message": "enable hotkeys:"
   },
   "tooltipEnableHotkeys": {
-    "message": "Enable cool arrows hotkeys. this does not affect the extension hotkeys that are configured in the browser settings."
+    "message": "Enable cool arrows hotkeys. This does not affect the extension hotkeys that are configured in the browser settings."
   },
   "settingsWS": {
     "message": "<b style='color:red'>WS</b>"
@@ -180,7 +180,7 @@
     "message": "enable websocket hacks:"
   },
   "tooltipEnableWS": {
-    "message": "interferes with the protocol of communication with the Chatruletka server, which allows you to use the functions described below. bans are possible due to possible countermeasures."
+    "message": "Interferes with the protocol of communication with the Chatruletka server, which allows you to use the functions described below. Bans are possible due to possible countermeasures/backend changes."
   },
   "skipSoundWS": {
     "message": "skip sound:"
@@ -210,13 +210,13 @@
     "message": "replace report pic:"
   },
   "tooltipReplaceReportPic": {
-    "message": "replaces the image that the service uses to check you for violations. Avoiding accidental bans only. If lot of reports are sent to you, you will be banned anyway."
+    "message": "Replaces the image that the service uses to check you for violations. Avoiding accidental bans only. If lot of reports are sent to you, you will be banned anyway."
   },
   "deleteReportPic": {
     "message": "delete report pic:"
   },
   "tooltipDeleteReportPic": {
-    "message": "deletes the image that the service uses to check you for violations. Avoiding accidental bans only. If you abuse and a lot of reports are sent to you, you will be banned anyway."
+    "message": "Deletes the image that the service uses to check you for violations. Avoiding accidental bans only. If you abuse and a lot of reports are sent to you, you will be banned anyway."
   },
   "settingsExperiments": {
     "message": "<b>Streamers</b>"
@@ -279,7 +279,7 @@
     "message": "streamer hotkeys: "
   },
   "tooltipStreamerHotkeys": {
-    "message": "Enable a special set of hotkeys for streamers."
+    "message": "enable a special set of hotkeys for streamers"
   },
   "streamerHotkeysText": {
     "message": "<dd style='margin-inline-start: 40px!important;'>right arrow - blur</dd><dd style='margin-inline-start: 40px!important;'>m - mute remote video</dd><dd style='margin-inline-start: 40px!important;'>shift+right arrow - disable nsfwjs for session</dd>"
@@ -294,55 +294,55 @@
     "message": "blur on start: "
   },
   "tooltipBlurOnStart": {
-    "message": "Every new conversation will start blurred."
+    "message": "every new conversation will start blurred"
   },
   "blurReport": {
     "message": "blur report screen: "
   },
   "tooltipBlurReport": {
-    "message": "Blur the report screen image."
+    "message": "blur the report screen image"
   },
   "remoteBlurStrength": {
     "message": "remote blur strength: "
   },
   "tooltipRemoteBlurStrength": {
-    "message": "Value for the blur filter."
+    "message": "value for the blur filter"
   },
   "blurPreviews": {
     "message": "blur previews: "
   },
   "tooltipBlurPreviews": {
-    "message": "Blur the preview in case your interlocutor uses a custom client that sends NSFW previews."
+    "message": "blur the preview in case your interlocutor uses a custom client that sends NSFW previews"
   },
   "previewBlurStrength": {
     "message": "preview blur strength: "
   },
   "tooltipPreviewBlurStrength": {
-    "message": "Value for the preview blur filter."
+    "message": "value for the preview blur filter"
   },
   "blurCoverLocal": {
     "message": "local blur/coverage: "
   },
   "tooltipBlurCoverLocal": {
-    "message": "Enable this if you also want to blur/cover your local video (mirror)."
+    "message": "enable this if you also want to blur/cover your local video (mirror)"
   },
   "coverOverBlur": {
     "message": "cover over blur: "
   },
   "tooltipCoverOverBlur": {
-    "message": "Enable this if you want custom image instead of blur."
+    "message": "enable this if you want custom image instead of blur"
   },
   "coverOverPreview": {
     "message": "cover over preview: "
   },
   "tooltipCoverOverPreview": {
-    "message": "Enable this if you want custom image/gif instead of preview."
+    "message": "enable this if you want custom image/gif instead of preview"
   },
   "coverOverNoise": {
     "message": "cover over noise: "
   },
   "tooltipCoverOverNoise": {
-    "message": "Enable this if you need a custom image instead of noise."
+    "message": "enable this if you need a custom image instead of noise"
   },
   "promptCoverSrc": {
     "message": "Enter a direct link to the picture/gif (4:3) for use as the cover."
@@ -366,7 +366,7 @@
     "message": "unblur auto blur: "
   },
   "tooltipLetUnblurAuto": {
-    "message": "If you enable this, and nsfwjs blurs something, it will unblur it after N seconds if nsfw is no longer displayed on screen."
+    "message": "if you enable this, and nsfwjs blurs something, it will unblur it after N seconds if nsfw is no longer displayed on screen"
   },
   "nsfwjsConfig": {
     "message": "nsfwjs config"
@@ -375,43 +375,43 @@
     "message": "blur duration: "
   },
   "tooltipBlurDuration": {
-    "message": "How long to keep the blur (in sec) after the system finds the image is acceptable?"
+    "message": "how long to keep the blur (in sec) after the system finds the image is acceptable?"
   },
   "delay": {
     "message": "delay: "
   },
   "tooltipDelay": {
-    "message": "The delay between checks in ms."
+    "message": "delay between checks in ms"
   },
   "predicationsArraySize": {
     "message": "predications array size: "
   },
   "tooltipPredicationsArraySize": {
-    "message": "How many nsfw checks to count?"
+    "message": "how many nsfw checks to count?"
   },
   "scoreToBlur": {
     "message": "score to blur: "
   },
   "tooltipScoreToBlur": {
-    "message": "How many points do nsfwjs need to score to blur?"
+    "message": "how many points do nsfwjs need to score to blur?"
   },
   "propabilityToCount": {
     "message": "propability to count: "
   },
   "tooltipPropabilityToCount": {
-    "message": "Required probability to add points (0.1=10%, 0.9=90%)."
+    "message": "required probability to add points (0.1=10%, 0.9=90%)"
   },
   "pornWeight": {
     "message": "'porn' weight: "
   },
   "tooltipPornWeight": {
-    "message": "How many points to add, if image is considered 'porn'?"
+    "message": "how many points to add, if image is considered 'porn'?"
   },
   "sexyWeight": {
     "message": "'sexy' weight: "
   },
   "tooltipSexyWeight": {
-    "message": "How many points to add, if image is considered 'sexy'?"
+    "message": "how many points to add, if image is considered 'sexy'?"
   },
   "saveConfirm": {
     "message": "Save?"
@@ -429,13 +429,13 @@
     "message": "do not reflect the camera: "
   },
   "tooltipDoNotReflect": {
-    "message": "Turn it on if you are uncomfortable seeing yourself reflected."
+    "message": "turn it on if you are uncomfortable seeing yourself reflected"
   },
   "hideCamera": {
     "message": "hide your camera:"
   },
   "tooltipHideCamera": {
-    "message": "Enable it to hide your camera to make the conversation more natural."
+    "message": "enable it to hide your camera to make the conversation more natural"
   },
   "risky": {
     "message": "<b style='color:red'>Danger zone</b>"
@@ -444,6 +444,6 @@
     "message": "enable: "
   },
   "tooltipEnableRisky": {
-    "message": "Gives access to dangerous functions whose careless use can lead to a ban."
+    "message": "gives access to dangerous functions whose careless use can lead to a ban"
   }
 }
