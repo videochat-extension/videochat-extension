@@ -73,7 +73,6 @@ const onUpdateIPInfo = function (mutationsList, observer) {
     if (typeof circle !== 'undefined')
         map.removeLayer(circle)
 
-
     if (json.mobile) {
         circle = L.circle([json.lat, json.lon], 300000, {
             color: 'red',
@@ -93,6 +92,7 @@ const onUpdateIPInfo = function (mutationsList, observer) {
         map.setView(new L.LatLng(json.lat, json.lon), 13);
         marker = new L.Marker([json.lat, json.lon]);
     }
+
     map.addLayer(circle)
     map.addLayer(marker)
 };
@@ -230,33 +230,6 @@ async function detectGender() {
     }
     if (!stop)
         tim = setTimeout(detectGender, 500)
-}
-
-function resizemap() {
-    mapid.style.height = $("#faceapiContent")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight + "px"
-    remoteInfo.style.height = $("#apiInfoContent")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
-    aboutInfo.style.height = $("#aboutPanel")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
-
-    settingsInfo.style.height = $("#settingsPanel")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
-
-    bansInfo.style.height = $("#bansPanel")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
-    statsInfo.style.height = $("#statsPanel")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
-    map.invalidateSize()
-}
-
-function outputsize() {
-    resizemap()
-
-    if (!resize) {
-        resize = true
-        setTimeout(() => {
-            let mar = parseInt(window.getComputedStyle(controls).marginRight)
-            buttons.style.width = (parseInt(buttons.style.width) - (parseInt(controls.style.width) + mar) / 2) + "px"
-            chat.style.width = (parseInt(chat.style.width) - (parseInt(controls.style.width) + mar) / 2) + "px"
-            resize = false
-            resizemap()
-        }, 500)
-    }
 }
 
 chrome.storage.sync.get(null, function (result) {
