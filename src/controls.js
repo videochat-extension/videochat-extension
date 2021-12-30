@@ -141,7 +141,7 @@ function injectInterface() {
         resizemap()
     });
 
-    $('.tooltip').tooltipster({maxWidth: 300, distance: -2})
+    $('.tooltip').tooltipster({maxWidth: 300, distance: -1})
 
     L.Icon.Default.imagePath = chrome.extension.getURL('libs/js/leaflet/');
 
