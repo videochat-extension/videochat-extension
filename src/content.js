@@ -114,6 +114,29 @@ const onUpdateIP = function (mutations) {
                 if (strings.length > 0)
                     remoteInfo.innerHTML += "</br>" + strings.join('<small> || </small>')
 
+                if (settings.enableTargetCity || settings.enableTargetRegion) {
+                    if (settings.skipMobileTarget && json.mobile) {
+                        stopAndStart()
+                        return
+                    } else {
+                        if (settings.enableTargetCity) {
+                            if (json.city !== settings.targetCity) {
+                                stopAndStart()
+                                return
+                            } else {
+                                console.dir(`FOUND TARGET CITY: ${settings.targetCity}`)
+                            }
+                        }
+                        if (settings.enableTargetRegion) {
+                            if (json.regionName !== settings.targetRegion) {
+                                stopAndStart()
+                                return
+                            } else {
+                                console.dir(`FOUND TARGET REGION: ${settings.targetRegion}`)
+                            }
+                        }
+                    }
+                }
 
                 if (typeof marker !== 'undefined')
                     map.removeLayer(marker)

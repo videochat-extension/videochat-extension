@@ -64,7 +64,12 @@ var defaults = {
     coverSrc: "https://i.imgur.com/Ud2uLYQ.gif",
     ipApiLocalisation: true,
     hideMobileLocation: true,
-    showMore: false
+    showMore: false,
+    skipMobileTarget: true,
+    enableTargetCity: false,
+    enableTargetRegion: false,
+    targetCity: "Moscow",
+    targetRegion: "Moscow",
 };
 chrome.storage.sync.get(defaults, function (result) {
     chrome.storage.sync.set(result);

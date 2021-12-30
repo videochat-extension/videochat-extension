@@ -1,7 +1,23 @@
+let needReload = false
 function confirmAndReload() {
-    const result = confirm(chrome.i18n.getMessage("reload"));
-    if (result) {
-        location.reload()
+    if (!needReload) {
+        const result = confirm(chrome.i18n.getMessage("reload"));
+        if (result) {
+            location.reload()
+        } else {
+            needReload = true
+            connectionStatus.setAttribute("data-tooltip", chrome.i18n.getMessage("reloadRequired"))
+            connectionStatus.className = "tooltip-multiline tooltip-bottom"
+            connectionStatus.parentElement.href = "."
+            connectionStatus.parentElement.target = ""
+            connectionStatus.style.color = "red"
+
+            document.getElementsByClassName('buttons__button start-button')[0].addEventListener('click', () => {
+                if (confirm(chrome.i18n.getMessage("reloadRequired"))) {
+                    location.reload()
+                }
+            })
+        }
     }
 }
 
@@ -234,6 +250,131 @@ function createTabSettings() {
                             ]),
                         ]),
                         createElement('br'),
+                        createElement('dd', {}, [
+                            createElement('span', {}, [
+                                createElement("p", {
+                                    innerText: chrome.i18n.getMessage("targetSkipMobile"),
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipTargetSkipMobile")
+                                }),
+                                createElement('input', {
+                                    type: "checkbox",
+                                    checked: settings.skipMobileTarget,
+                                    id: "skipMobileTargetCheck",
+                                    onclick: () => {
+                                        chrome.storage.sync.set({"skipMobileTarget": skipMobileTargetCheck.checked}, function () {
+
+                                        });
+                                    }
+                                })
+                            ]),
+                        ]),
+                        createElement('dd', {}, [
+                            createElement('span', {}, [
+                                createElement("p", {
+                                    innerText: chrome.i18n.getMessage("targetCity"),
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipTargetCity")
+                                }),
+                                createElement('input', {
+                                    type: "checkbox",
+                                    checked: settings.enableTargetCity,
+                                    id: "targetCityCheck",
+                                    onclick: () => {
+                                        chrome.storage.sync.set({"enableTargetCity": targetCityCheck.checked}, function () {
+                                            if (targetCityCheck.checked)
+                                                targetCityDiv.style.display = ""
+                                            else
+                                                targetCityDiv.style.display = "none"
+                                        });
+                                    }
+                                })
+                            ]),
+                        ]),
+                        createElement('div', {
+                            id: "targetCityDiv",
+                            style: function f() {
+                                if (settings.enableTargetCity) {
+                                    return ""
+                                } else {
+                                    return "display:none"
+                                }
+                            }(),
+                        }, [
+                            createElement('dd', {}, [
+                                createElement('button', {
+                                        id: "targetCityButton",
+                                        style: "margin-top: 2px",
+                                        onclick: () => {
+                                            const result = prompt(chrome.i18n.getMessage("promptTargetCity"), settings.targetCity)
+                                            if (result) {
+                                                chrome.storage.sync.set({"targetCity": result}, function () {
+                                                    targetCityButton.children[0].innerText = 'target: ' + result
+                                                });
+                                            }
+                                        },
+                                    },
+                                    [
+                                        createElement('b', {
+                                            innerText: chrome.i18n.getMessage("prefixTargetCity") + settings.targetCity
+                                        })
+                                    ]),
+                            ]),
+                        ]),
+
+                        createElement('dd', {}, [
+                            createElement('span', {}, [
+                                createElement("p", {
+                                    innerText: chrome.i18n.getMessage("targetRegion"),
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipTargetRegion")
+                                }),
+                                createElement('input', {
+                                    type: "checkbox",
+                                    checked: settings.enableTargetRegion,
+                                    id: "targetRegionCheck",
+                                    onclick: () => {
+                                        chrome.storage.sync.set({"enableTargetRegion": targetRegionCheck.checked}, function () {
+                                            if (targetRegionCheck.checked)
+                                                targetRegionDiv.style.display = ""
+                                            else
+                                                targetRegionDiv.style.display = "none"
+                                        });
+                                    }
+                                })
+                            ]),
+                        ]),
+                        createElement('div', {
+                            id: "targetRegionDiv",
+                            style: function f() {
+                                if (settings.enableTargetRegion) {
+                                    return ""
+                                } else {
+                                    return "display:none"
+                                }
+                            }(),
+                        }, [
+                            createElement('dd', {}, [
+                                createElement('button', {
+                                        id: "targetRegionButton",
+                                        style: "margin-top: 2px",
+                                        onclick: () => {
+                                            const result = prompt(chrome.i18n.getMessage("promptTargetRegion"), settings.targetRegion)
+                                            if (result) {
+                                                chrome.storage.sync.set({"targetRegion": result}, function () {
+                                                    targetRegionButton.children[0].innerText = chrome.i18n.getMessage("prefixTargetRegion") + result
+                                                });
+                                            }
+                                        },
+                                    },
+                                    [
+                                        createElement('b', {
+                                            innerText: chrome.i18n.getMessage("prefixTargetRegion") + settings.targetRegion
+                                        })
+                                    ]),
+                            ]),
+                        ]),
+                        createElement('br'),
                         createElement('dt', {
                             innerHTML: chrome.i18n.getMessage("genderRecognition")
                         }),
@@ -363,6 +504,7 @@ function createTabSettings() {
 
                         createElement('dd', {}, [
                             createElement('button', {
+                                style: "margin-top: 2px",
                                 onclick: () => {
                                     const result = confirm("Clear?");
                                     if (result) {
@@ -485,6 +627,7 @@ function createTabSettings() {
 
                         createElement('br'),
                         createElement('dt', {
+                            style: "margin-top: 2px",
                             innerHTML: chrome.i18n.getMessage("settingsStats")
                         }),
                         createElement('dd', {}, [

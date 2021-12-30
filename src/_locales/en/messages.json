@@ -141,7 +141,7 @@
     "message": "prikol:"
   },
   "tooltipPrikol": {
-    "message": "Replaces your camera with 'resources/prikol.mp4'. Useful only when using the extension in developer mode."
+    "message": "Replaces your camera with 'resources/prikol.mp4'. Useful only when using the extension in developer mode"
   },
   "settingsBlacklist": {
     "message": "<b>Blacklist</b>"
@@ -267,10 +267,13 @@
     "message": "fml count: "
   },
   "reload": {
-    "message": "Reload is required. Reload now?"
+    "message": "A page reload is needed for the changes to take effect. Reboot now or later?"
+  },
+  "reloadRequired": {
+    "message": "RELOAD IS REQUIRED"
   },
   "streamerMode": {
-    "message": "STREAMER MODE: "
+    "message": "STREAMER MODE:"
   },
   "tooltipStreamerMode": {
     "message": "Enables a special set of functions for streamers. If you disable it, everything below will not work."
@@ -475,5 +478,38 @@
   },
   "tooltipShowMoreInfo": {
     "message": "Enable this to display additional information about the IP address. Mobile - mobile (cellular) connection. Hosting -  proxy, VPN or Tor exit address. Hosting - hosting, colocated or data center."
+  },
+  "targetSkipMobile": {
+    "message": "skip mobile in target mode: "
+  },
+  "tooltipTargetSkipMobile": {
+    "message": "Mobile network is known for inaccurate geolocation. Should extension skip mobile network users when you are targeting for a specific place?"
+  },
+
+  "targetCity": {
+    "message": "target city: "
+  },
+  "tooltipTargetCity": {
+    "message": "if city is not X => skip"
+  },
+  "promptTargetCity": {
+    "message": "enter city which you want to find"
+  },
+  "prefixTargetCity": {
+    "message": "target: "
+  },
+
+  "targetRegion": {
+    "message": "target region: "
+  },
+  "tooltipTargetRegion": {
+    "message": "if region is not X => skip"
+  },
+  "promptTargetRegion": {
+    "message": "enter region which you want to find"
+  },
+  "prefixTargetRegion": {
+    "message": "target: "
   }
+  
 }

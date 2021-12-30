@@ -33,6 +33,8 @@ function createSettingsRisky() {
                             "mirrorAlt": false,
                             "prikol": false
                         }, function () {
+                            mirrorAltCheck.checked = false
+                            prikolCheck.checked = false
                             confirmAndReload()
                         });
                     }
@@ -53,10 +55,12 @@ function createSettingsRisky() {
                     id: "mirrorAltCheck",
                     onclick: () => {
                         chrome.storage.sync.set({
-                            "mirror": false,
+                            "": false,
                             "mirrorAlt": mirrorAltCheck.checked,
                             "prikol": false
                         }, function () {
+                            mirrorCheck.checked = false
+                            prikolCheck.checked = false
                             confirmAndReload()
                         });
                     }
@@ -81,6 +85,8 @@ function createSettingsRisky() {
                             "mirrorAlt": false,
                             "prikol": prikolCheck.checked
                         }, function () {
+                            mirrorCheck.checked = false
+                            mirrorAltCheck.checked = false
                             confirmAndReload()
                         });
                     }
