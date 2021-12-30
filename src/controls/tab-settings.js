@@ -253,25 +253,6 @@ function createTabSettings() {
                         createElement('dd', {}, [
                             createElement('span', {}, [
                                 createElement("p", {
-                                    innerText: chrome.i18n.getMessage("targetSkipMobile"),
-                                    className: "tooltip",
-                                    title: chrome.i18n.getMessage("tooltipTargetSkipMobile")
-                                }),
-                                createElement('input', {
-                                    type: "checkbox",
-                                    checked: settings.skipMobileTarget,
-                                    id: "skipMobileTargetCheck",
-                                    onclick: () => {
-                                        chrome.storage.sync.set({"skipMobileTarget": skipMobileTargetCheck.checked}, function () {
-
-                                        });
-                                    }
-                                })
-                            ]),
-                        ]),
-                        createElement('dd', {}, [
-                            createElement('span', {}, [
-                                createElement("p", {
                                     innerText: chrome.i18n.getMessage("targetCity"),
                                     className: "tooltip",
                                     title: chrome.i18n.getMessage("tooltipTargetCity")
@@ -372,6 +353,26 @@ function createTabSettings() {
                                             innerText: chrome.i18n.getMessage("prefixTargetRegion") + settings.targetRegion
                                         })
                                     ]),
+                            ]),
+                        ]),
+                        createElement('br'),
+                        createElement('dd', {}, [
+                            createElement('span', {}, [
+                                createElement("p", {
+                                    innerText: chrome.i18n.getMessage("targetSkipMobile"),
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipTargetSkipMobile")
+                                }),
+                                createElement('input', {
+                                    type: "checkbox",
+                                    checked: settings.skipMobileTarget,
+                                    id: "skipMobileTargetCheck",
+                                    onclick: () => {
+                                        chrome.storage.sync.set({"skipMobileTarget": skipMobileTargetCheck.checked}, function () {
+
+                                        });
+                                    }
+                                })
                             ]),
                         ]),
                         createElement('br'),
