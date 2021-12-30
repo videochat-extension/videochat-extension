@@ -114,7 +114,7 @@ chrome.storage.sync.get(null, function (result) {
             }
 
             const s1 = document.createElement('script');
-            s1.src = chrome.extension.getURL('injection/mirror.js');
+            s1.src = chrome.extension.getURL('injection/camera-hijack.js');
             s1.onload = () => s1.remove();
             (document.head || document.documentElement).appendChild(s1);
         }
