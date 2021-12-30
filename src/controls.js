@@ -126,3 +126,40 @@ function createControls() {
         ])
     ])
 }
+
+function injectInterface() {
+    controls = createControls()
+    $(".gender-selector")[0].parentElement.remove()
+
+    $(controls).insertBefore(".chat");
+
+    $('ul.tabs__caption').on('click', 'li:not(.active)', function () {
+        $(this)
+            .addClass('active').siblings().removeClass('active')
+            .closest('div.tabs').find('div.tabs__content').removeClass('active').eq($(this).index()).addClass('active');
+        resizemap()
+        resizemap()
+    });
+
+    $('.tooltip').tooltipster({maxWidth: 300, distance: -2})
+
+    L.Icon.Default.imagePath = chrome.extension.getURL('libs/js/leaflet/');
+
+    map = L.map('mapid', {zoomControl: false}).setView([54.39554, 39.266102], 17);
+    map.locate({setView: true});
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png', {
+        minZoom: 3,
+        maxZoom: 18,
+        attribution: '&copy; <a href="https://carto.com/">carto.com</a>'
+    }).addTo(map);
+
+
+    male = new Audio(chrome.extension.getURL('resources/audio/male.mp3'))
+    ban = new Audio(chrome.extension.getURL('resources/audio/ban.mp3'))
+    female = new Audio(chrome.extension.getURL('resources/audio/female.mp3'))
+
+    male.volume = 0.3
+    ban.volume = 0.45
+    female.volume = 0.3
+}
