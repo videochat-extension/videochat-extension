@@ -436,5 +436,14 @@
   },
   "tooltipHideCamera": {
     "message": "Enable it to hide your camera to make the conversation more natural."
+  },
+  "risky": {
+    "message": "<b style='color:red'>Danger zone</b>"
+  },
+  "enableRisky": {
+    "message": "enable: "
+  },
+  "tooltipEnableRisky": {
+    "message": "Gives access to dangerous functions whose careless use can lead to a ban."
   }
 }

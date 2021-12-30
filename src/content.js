@@ -879,10 +879,8 @@ function createTabSettings() {
 
                         createElement('br'),
                         createElement('dt', {
-                            innerHTML: "<b style='color:red'>Risky functions</b>",
-                            className: "tooltip",
+                            innerHTML: chrome.i18n.getMessage("risky"),
                             style: "display: inline-block",
-                            title: "functions whose careless use can lead to a ban. use it only if you understand what you are doing."
                         }),
 
                         createElement('br'),
@@ -890,7 +888,9 @@ function createTabSettings() {
                         createElement('dd', {}, [
                             createElement('span', {}, [
                                 createElement("p", {
-                                    innerText: "enable: ",
+                                    innerText: chrome.i18n.getMessage("enableRisky"),
+                                    className: "tooltip",
+                                    title: chrome.i18n.getMessage("tooltipEnableRisky")
                                 }),
                                 createElement('input', {
                                     type: "checkbox",
