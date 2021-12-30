@@ -415,6 +415,7 @@ chrome.storage.sync.get(null, function (result) {
                 prikolV.autoplay = "autoplay"
                 prikolV.muted = true
                 prikolV.src = chrome.extension.getURL('resources/prikol.mp4');
+                prikolV.width = 0
                 prikolV.onload = () => s1.remove();
 
                 header.appendChild(prikolV);
