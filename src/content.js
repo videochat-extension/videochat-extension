@@ -298,26 +298,6 @@ chrome.storage.sync.get(null, function (result) {
         return hours + ":" + minutes + ":" + seconds;
     }
 
-    function updStats(force) {
-        stWhole.innerText = settings.stats.countAll
-        stMlSk.innerText = settings.stats.countMaleSkip
-        stFmlSk.innerText = settings.stats.countFemaleSkip
-        stMlCnt.innerText = settings.stats.countMales
-        stFmlCnt.innerText = settings.stats.countFemales
-        stMnSk.innerText = settings.stats.countManSkip
-        stBnCt.innerText = local.ips.length
-        stNwIp.innerText = settings.stats.countNew
-        stBnIp.innerText = settings.stats.countDup
-
-        stTime.innerText = secondsToTime(settings.stats.time)
-        countBeforeSaveStats += 1
-        if (force || countBeforeSaveStats >= 10) {
-            countBeforeSaveStats = 0
-            chrome.storage.sync.set({"stats": settings.stats});
-        }
-
-    }
-
     var config = {attributes: true, childList: true, characterData: true};
 
     observer.observe(target, config);
