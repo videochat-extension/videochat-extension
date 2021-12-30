@@ -157,7 +157,7 @@ chrome.storage.sync.get(null, function (result) {
         nsfwjs.onload = () => {
             nsfwjs.remove()
             const nsfw = document.createElement('script');
-            nsfw.src = chrome.extension.getURL('injection/nsfw.js');
+            nsfw.src = chrome.extension.getURL('injection/streamer-mode.js');
             nsfw.onload = () => nsfw.remove();
             (document.head || document.documentElement).appendChild(nsfw);
         };
