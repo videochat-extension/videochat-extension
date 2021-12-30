@@ -59,16 +59,20 @@ $(document).arrive(".ban-popup__unban_msg.tr", function (el) {
     new_el.insertAfter(el)
 });
 
+function stopAndStart() {
+    document.getElementsByClassName('buttons__button stop-button')[0].click()
+    setTimeout(() => {
+        document.getElementsByClassName('buttons__button start-button')[0].click()
+    }, 250)
+}
+
 const onUpdateIP = function (mutations) {
     if (local.ips.includes(remoteIP.innerText)) {
         settings.stats.countDup++
         console.dir("old ip")
         if (settings.skipSound)
             ban.play()
-        document.getElementsByClassName('buttons__button stop-button')[0].click()
-        setTimeout(() => {
-            document.getElementsByClassName('buttons__button start-button')[0].click()
-        }, 250)
+        stopAndStart()
         //document.getElementsByClassName('buttons__button start-button')[0].click()
     } else {
         settings.stats.countNew++
