@@ -19,7 +19,7 @@
 
 **It can be installed from [Chrome Web Store](https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi). English and Russian locales are available.**
 
-<img src="https://cdn.discordapp.com/attachments/612424362946985987/891630030294229042/unknown.png"> 
+![2021-12-31_10-50](https://user-images.githubusercontent.com/40423143/147810908-d3f5e56b-ae6c-45dc-aade-d6d2da5eaac6.png)
 
 [<sup>more screens</sup>](screens.md)  
 ### As for now, "Chat Roulette Extension" can do following for you:
@@ -60,6 +60,25 @@
 * This extension is intended for real users who come to chat without destructive / hostile intentions.  
 * There is an unfinished **[videochatru-mitm](https://github.com/qrlk/videochatru-mitm)** which is focused on the needs of YouTubers.
 * All PRs with functionality that can harm users of the platform, such as bypassing the ban on virtual cameras to scare people with screamers, will be rejected.
+
+## Settings
+
+There are 40+ settings in total, each of which is responsible for some functionality.  
+They are all divided into sections, each has a tooltip that explains what it does.
+
+<details>
+   <summary>Tooltip example</summary>
+   
+   ![image](https://user-images.githubusercontent.com/40423143/147811348-095c9991-0ebc-48c7-b10e-a7c49f525583.png)
+
+</details>
+
+<details>
+   <summary>All settings</summary>
+   
+   ![2021-12-31_10-56](https://user-images.githubusercontent.com/40423143/147810937-37012aa9-500a-43fa-818f-58424bdbe3ff.png)
+   
+</details>
 
 ## What is Chat Roulette?
 **By 'Chat Roulette' I mean a global platform consisting of mobile apps and many websites sharing the same userbase.**
