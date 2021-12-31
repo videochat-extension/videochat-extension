@@ -24,19 +24,37 @@
 [<sup>more screens</sup>](screens.md)  
 ### As for now, "Chat Roulette Extension" can do following for you:
 * Determine the location of the interlocutor by his/her/their IP address.
+* Streamer mode
+    * hotkey to mute your interlocutor 
+  * **special features to combat NSFW on live broadcasts**
+    * hotkey to blur image from the interlocutor's camera
+    * ability to output the interlocutor's camera to PiP, which is not captured by OBS
+    * enable blur protection at the beginning of each new conversation
+    * use your own picture/gif as a cover instead of a blur
+    * nsfwjs integration to automate moderation/counter surprise attacks
+    * advanced settings that allow you to achieve the desired effect
+* Auto-skip skip people who are not from city/region you choose.
 * Determine the current time of the interlocutor's location.
+* Determine whether the interlocutor uses VPN/TOR to fake his location.
 * Determine the gender of the interlocutor and skip it automatically if the gender does not meet your expectations.
-* The ability to block the ip of the interlocutor in order not to meet with him again.
+* Block the ip of the interlocutor in order not to meet with him again.
 * Count various stats.
+* Play sound when your interlocutor breaks the connection with you.
 * Enable Picture-in-Picture mode.
 * Enable mirror mode. It's useful [if you don't have a physical camera but still want to chat](https://github.com/qrlk/videochatru-extension/wiki/No-Physical-Cam).
 * Show a map of the interlocutor's city.
 * Take a full screenshot of the interlocutor's camera or your own.
 * Hide the video chat watermark / banner.
+* Auto-skip the interlocutor if he/she is not from the country you are looking for.
+* Auto-skip people who take too long to connect to.
+* Automatically close the window "are you there?".
+* Сancel local camera reflection.
+* Hide your camera to make the conversation more natural.
 * Open the clean site version by clicking on the extension icon.
 * Help you with advice if you accidentally got banned.
 * Convenient keyboard shortcuts for the most popular buttons.
 * Hotkey to switch between the active tab and the chat tab.
+* Countless minor improvements.
 
 ## Please note
 * This extension is intended for real users who come to chat without destructive / hostile intentions.  

@@ -1,3 +1,6 @@
+> **Эта информация может быть устаревшей.**  
+> **Актуальная информация в README.md.**  
+
 <h1 align="center">Чат Рулетное Расширение (Chatruletka Extension)</h1>
 
 <p align="center">
