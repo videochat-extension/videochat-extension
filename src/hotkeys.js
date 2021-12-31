@@ -6,10 +6,12 @@ function hotkeys(e) {
         case "ArrowLeft":
             if (document.getElementById("report-popup").style.display === "block")
                 document.getElementsByClassName("btn btn-gray")[2].click()
-            else if (e.shiftKey && !local.ips.includes(remoteIP.innerText)) {
-                syncBlackList()
+            else {
+                if (e.shiftKey && !local.ips.includes(remoteIP.innerText))
+                    syncBlackList()
+
+                document.getElementsByClassName('buttons__button start-button')[0].click()
             }
-            document.getElementsByClassName('buttons__button start-button')[0].click()
             break;
 
         case "ArrowUp":
