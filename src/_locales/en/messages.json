@@ -508,5 +508,11 @@
   },
   "prefixTargetRegion": {
     "message": "target: "
+  },
+  "targetSound": {
+    "message": "target sound:"
+  },
+  "tooltipTargetSound": {
+    "message": "plays a sound when the target city/region is found"
   }
 }

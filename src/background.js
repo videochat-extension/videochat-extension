@@ -70,6 +70,7 @@ var defaults = {
     enableTargetRegion: false,
     targetCity: "Moscow",
     targetRegion: "Moscow",
+    targetSound: false
 };
 chrome.storage.sync.get(defaults, function (result) {
     chrome.storage.sync.set(result);

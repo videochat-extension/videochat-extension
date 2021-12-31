@@ -508,5 +508,11 @@
   },
   "prefixTargetRegion": {
     "message": "цель: "
+  },
+  "targetSound": {
+    "message": "озвучивать успех:"
+  },
+  "tooltipTargetSound": {
+    "message": "воспроизводит звук когда целевой город/регион найден"
   }
 }

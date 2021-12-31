@@ -152,7 +152,10 @@ const onUpdateIP = function (mutations) {
                                 stopAndStart()
                                 return
                             } else {
-                                console.dir(`FOUND TARGET CITY: ${settings.targetCity}`)
+                                if (settings.targetSound) {
+                                    targetSound.play()
+                                    console.dir(`FOUND TARGET CITY: ${settings.targetCity}`)
+                                }
                             }
                         }
                         if (settings.enableTargetRegion) {
@@ -160,7 +163,10 @@ const onUpdateIP = function (mutations) {
                                 stopAndStart()
                                 return
                             } else {
-                                console.dir(`FOUND TARGET REGION: ${settings.targetRegion}`)
+                                if (settings.targetSound) {
+                                    targetSound.play()
+                                    console.dir(`FOUND TARGET REGION: ${settings.targetRegion}`)
+                                }
                             }
                         }
                     }

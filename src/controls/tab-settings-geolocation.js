@@ -196,6 +196,26 @@ function createSettingsGeolocation() {
                     }
                 })
             ]),
+        ]),
+        createElement('dd', {}, [
+            createElement('span', {}, [
+                createElement("p", {
+                    innerText: chrome.i18n.getMessage("targetSound"),
+                    className: "tooltip",
+                    title: chrome.i18n.getMessage("tooltipTargetSound")
+                }),
+                createElement('input', {
+                    type: "checkbox",
+                    checked: settings.targetSound,
+                    id: "targetSoundCheck",
+                    onclick: () => {
+                        chrome.storage.sync.set({"targetSound": targetSoundCheck.checked}, function () {
+
+                        });
+                    }
+                })
+            ]),
         ])
+
     ])
 }
