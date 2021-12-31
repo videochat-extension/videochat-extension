@@ -294,7 +294,7 @@ function createTabSettings() {
                                             const result = prompt(chrome.i18n.getMessage("promptTargetCity"), settings.targetCity)
                                             if (result) {
                                                 chrome.storage.sync.set({"targetCity": result}, function () {
-                                                    targetCityButton.children[0].innerText = 'target: ' + result
+                                                    targetCityButton.children[0].innerText = chrome.i18n.getMessage("prefixTargetCity") + result
                                                 });
                                             }
                                         },
