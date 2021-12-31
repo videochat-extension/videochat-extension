@@ -69,10 +69,7 @@ function stopAndStart(delay) {
         document.getElementsByClassName('buttons__button stop-button')[0].click()
         clearTimeout(timeout)
         timeout = setTimeout(() => {
-            console.dir(document.getElementsByClassName('buttons__button start-button')[0].innerText)
             document.getElementsByClassName('buttons__button start-button')[0].click()
-
-            console.dir(document.getElementsByClassName('buttons__button start-button')[0].innerText)
         }, delay)
     } else {
         requestToStartTiming = +new Date()
@@ -222,7 +219,7 @@ const onChangeStage = function (mutations) {
             if (attributeValue.includes("s-search")) {
                 if (remoteIP.innerText !== "")
                     remoteIP.innerText = "-"
-                console.dir("СТАДИЯ ПОИСКА")
+                // console.dir("СТАДИЯ ПОИСКА")
                 stage = 1
                 // offline.play()
 
@@ -230,12 +227,12 @@ const onChangeStage = function (mutations) {
                 localStage.innerText = 1
                 // remoteFace.innerHTML = ''
                 if (play < search) {
-                    console.log("Dialog ended before even started")
+                    // console.log("Dialog ended before even started")
                 }
 
                 search = Date.now()
             } else if (attributeValue.includes("s-found")) {
-                console.dir("СТАДИЯ НАШЕЛ")
+                // console.dir("СТАДИЯ НАШЕЛ")
 
                 // remoteFace.innerHTML = ''
                 stage = 2
@@ -246,7 +243,7 @@ const onChangeStage = function (mutations) {
                     stopAndStart()
             } else if (attributeValue.includes("s-play")) {
                 // online.play()
-                console.dir("СТАДИЯ ВОСПРОИЗВЕДЕНИЯ")
+                // console.dir("СТАДИЯ ВОСПРОИЗВЕДЕНИЯ")
 
                 stage = 3
                 localStage.innerText = 3
@@ -266,7 +263,7 @@ const onChangeStage = function (mutations) {
             } else if (attributeValue.includes("s-stop")) {
                 // offline.play()
                 clearInterval(tim)
-                console.dir("СТАДИЯ СТОП")
+                // console.dir("СТАДИЯ СТОП")
                 if (remoteIP.innerText !== "")
                     remoteIP.innerText = "-"
                 remoteFace.innerHTML = ''
