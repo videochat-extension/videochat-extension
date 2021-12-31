@@ -55,8 +55,8 @@ var defaults = {
         BLUR_PANIC: 6,
         TIMEOUT: 100
     },
-    letUnblur: true,
-    nsfwjsUnblur: true,
+    letUnblur: false,
+    nsfwjsUnblur: false,
     blurReport: true,
     cover: false,
     coverPreview: false,
