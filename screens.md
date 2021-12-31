@@ -1,3 +1,5 @@
+> **These screenshots are outdated.**  
+> **Install the extension and try it yourself.**
 # screens
 ![main](screens/github.jpg)  
 * [English](#english)
