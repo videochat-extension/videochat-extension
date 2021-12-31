@@ -14,7 +14,9 @@ let settings = {},
     chat = $(".chat")[0],
     resize = false,
     language = window.navigator.language.slice(0, 2),
-    timeout
+    timeout,
+    requestToStartTiming = 0,
+    requestToSkip = false
 
 if (language === "pt")
     language = "pt-BR"
@@ -59,29 +61,29 @@ $(document).arrive(".ban-popup__unban_msg.tr", function (el) {
     new_el[0].innerHTML = chrome.i18n.getMessage("avoidBan")
     new_el.insertAfter(el)
 });
-skip = false
-function stopAndStart(delay) {
-    skip = false
 
-    document.getElementsByClassName('buttons__button stop-button')[0].click()
-    
-    console.dir("STOP EXECUTED")
+function stopAndStart(delay) {
+    requestToSkip = false
 
     if (typeof delay !== "undefined") {
+        document.getElementsByClassName('buttons__button stop-button')[0].click()
         clearTimeout(timeout)
         timeout = setTimeout(() => {
             console.dir(document.getElementsByClassName('buttons__button start-button')[0].innerText)
             document.getElementsByClassName('buttons__button start-button')[0].click()
-            console.dir("SKIP EXECUTED")
 
             console.dir(document.getElementsByClassName('buttons__button start-button')[0].innerText)
         }, delay)
     } else {
-        document.getElementsByClassName('buttons__button start-button')[0].click()
+        requestToStartTiming = +new Date()
+        document.getElementsByClassName('buttons__button stop-button')[0].click()
     }
 }
 
 document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e) => {
+    if (stage === 3)
+        settings.stats.countManSkip++
+
     clearTimeout(timeout)
 })
 
@@ -240,7 +242,7 @@ const onChangeStage = function (mutations) {
                 localStage.innerText = 2
 
                 found = Date.now()
-                if (skip)
+                if (requestToSkip)
                     stopAndStart()
             } else if (attributeValue.includes("s-play")) {
                 // online.play()
@@ -255,11 +257,12 @@ const onChangeStage = function (mutations) {
                 play = Date.now()
                 console.log("Loading took: ", parseFloat((play - found) / 1000).toFixed(2), "sec")
 
-                settings.stats.countAll++
-                if (skip || remoteIP.innerText === "-") {
+
+                if (requestToSkip || remoteIP.innerText === "-") {
+                    requestToStartTiming = +new Date()
                     document.getElementsByClassName('buttons__button stop-button')[0].click()
-                    document.getElementsByClassName('buttons__button start-button')[0].click()
-                }
+                } else
+                    settings.stats.countAll++
             } else if (attributeValue.includes("s-stop")) {
                 // offline.play()
                 clearInterval(tim)
@@ -270,6 +273,11 @@ const onChangeStage = function (mutations) {
 
                 stage = 0
                 localStage.innerText = 0
+
+                if (requestToStartTiming !== 0 && +new Date() - requestToStartTiming < 1000) {
+                    requestToStartTiming = 0
+                    document.getElementsByClassName('buttons__button start-button')[0].click()
+                }
             }
 
             updStats(false)
