@@ -364,6 +364,10 @@ chrome.storage.sync.get(null, function (result) {
     }, 1000)
 
     if (settings.autoResume) {
+        document.getElementById('overlay').style.background = "none"
+        // document.getElementById('overlay').style.position = "unset"
+
+        document.getElementById('local-video-warning-popup').style.filter = "opacity(0)"
         new MutationObserver(function (mutations) {
             mutations.forEach(function (mutation) {
                     if (mutation.attributeName === "class") {
