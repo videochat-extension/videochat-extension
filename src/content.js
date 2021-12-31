@@ -91,15 +91,14 @@ document.getElementsByClassName('buttons__button stop-button')[0].addEventListen
 const onUpdateIP = function (mutations) {
     if (remoteIP.innerText === "-" || remoteIP.innerText === "")
         return
-    console.dir("IP CHANGE LOCATED")
-    skip = false
+    console.dir("IP CHANGE DETECTED")
+    requestToSkip = false
     if (local.ips.includes(remoteIP.innerText)) {
         settings.stats.countDup++
         console.dir("old ip")
         if (settings.skipSound)
             ban.play()
-        skip = true
-        //document.getElementsByClassName('buttons__button start-button')[0].click()
+        stopAndStart()
     } else {
         settings.stats.countNew++
         console.dir("new ip")
