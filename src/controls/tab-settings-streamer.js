@@ -272,6 +272,7 @@ function createSettingsStreamer() {
             ]),
             createElement('dd', {}, [
                 createElement('button', {
+                    style: "margin-top: 2px",
                     onclick: () => {
                         const result = prompt(chrome.i18n.getMessage("promptCoverSrc"), settings.coverSrc)
                         if (result) {
