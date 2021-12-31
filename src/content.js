@@ -273,6 +273,8 @@ const onChangeStage = function (mutations) {
                     remoteIP.innerText = "-"
                 remoteFace.innerHTML = ''
 
+                nsfwInfo.style.display = "none"
+
                 stage = 0
                 localStage.innerText = 0
 
