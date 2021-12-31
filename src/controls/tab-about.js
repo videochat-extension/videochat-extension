@@ -45,7 +45,6 @@ function createTabAbout() {
                 ]),
                 createElement('br'),
                 createElement('br'),
-
                 createElement('span', {
                     innerHTML: chrome.i18n.getMessage("github"),
                 }),

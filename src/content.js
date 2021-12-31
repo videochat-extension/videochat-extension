@@ -13,7 +13,8 @@ let settings = {},
     buttons = $(".buttons")[0],
     chat = $(".chat")[0],
     resize = false,
-    language = window.navigator.language.slice(0, 2)
+    language = window.navigator.language.slice(0, 2),
+    timeout
 
 if (language === "pt")
     language = "pt-BR"
@@ -58,21 +59,47 @@ $(document).arrive(".ban-popup__unban_msg.tr", function (el) {
     new_el[0].innerHTML = chrome.i18n.getMessage("avoidBan")
     new_el.insertAfter(el)
 });
+skip = false
+function stopAndStart(delay) {
+    skip = false
 
-function stopAndStart() {
     document.getElementsByClassName('buttons__button stop-button')[0].click()
-    setTimeout(() => {
+    
+    console.dir("STOP EXECUTED")
+
+    if (typeof delay !== "undefined") {
+        clearTimeout(timeout)
+        timeout = setTimeout(() => {
+            console.dir(document.getElementsByClassName('buttons__button start-button')[0].innerText)
+            document.getElementsByClassName('buttons__button start-button')[0].click()
+            console.dir("SKIP EXECUTED")
+
+            console.dir(document.getElementsByClassName('buttons__button start-button')[0].innerText)
+        }, delay)
+    } else {
         document.getElementsByClassName('buttons__button start-button')[0].click()
-    }, 250)
+    }
 }
 
+document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e) => {
+    clearTimeout(timeout)
+})
+
+document.getElementsByClassName('buttons__button stop-button')[0].addEventListener("click", (e) => {
+    clearTimeout(timeout)
+})
+
 const onUpdateIP = function (mutations) {
+    if (remoteIP.innerText === "-" || remoteIP.innerText === "")
+        return
+    console.dir("IP CHANGE LOCATED")
+    skip = false
     if (local.ips.includes(remoteIP.innerText)) {
         settings.stats.countDup++
         console.dir("old ip")
         if (settings.skipSound)
             ban.play()
-        stopAndStart()
+        skip = true
         //document.getElementsByClassName('buttons__button start-button')[0].click()
     } else {
         settings.stats.countNew++
@@ -82,6 +109,9 @@ const onUpdateIP = function (mutations) {
             fields: "status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query"
         })
             .done(function (json) {
+                if (remoteIP.innerText.replace("[", "").replace("]", "") !== json.query) {
+                    return
+                }
                 curInfo = json
                 startDate = +new Date() / 1000
                 let strings = []
@@ -168,10 +198,12 @@ const onUpdateIP = function (mutations) {
                 map.addLayer(marker)
             })
             .fail(function (jqxhr, textStatus, error) {
-                console.dir(error)
-                var err = textStatus + ", " + error;
-                remoteInfo.innerHTML = "<b>" + err + "</b>"
-                console.error("Request Failed: " + err);
+                remoteInfo.innerHTML = "<b>HTTP ERROR " + jqxhr.status + "</b>"
+                if (settings.enableTargetCity || settings.enableTargetRegion) {
+                    if (jqxhr.status === 429) {
+                        stopAndStart(5000)
+                    }
+                }
             });
     }
 }
@@ -186,6 +218,9 @@ const onChangeStage = function (mutations) {
 
             const attributeValue = $(mutation.target).prop(mutation.attributeName);
             if (attributeValue.includes("s-search")) {
+                if (remoteIP.innerText !== "")
+                    remoteIP.innerText = "-"
+                console.dir("СТАДИЯ ПОИСКА")
                 stage = 1
                 // offline.play()
 
@@ -198,14 +233,18 @@ const onChangeStage = function (mutations) {
 
                 search = Date.now()
             } else if (attributeValue.includes("s-found")) {
+                console.dir("СТАДИЯ НАШЕЛ")
 
                 // remoteFace.innerHTML = ''
                 stage = 2
                 localStage.innerText = 2
 
                 found = Date.now()
+                if (skip)
+                    stopAndStart()
             } else if (attributeValue.includes("s-play")) {
                 // online.play()
+                console.dir("СТАДИЯ ВОСПРОИЗВЕДЕНИЯ")
 
                 stage = 3
                 localStage.innerText = 3
@@ -217,10 +256,16 @@ const onChangeStage = function (mutations) {
                 console.log("Loading took: ", parseFloat((play - found) / 1000).toFixed(2), "sec")
 
                 settings.stats.countAll++
+                if (skip || remoteIP.innerText === "-") {
+                    document.getElementsByClassName('buttons__button stop-button')[0].click()
+                    document.getElementsByClassName('buttons__button start-button')[0].click()
+                }
             } else if (attributeValue.includes("s-stop")) {
                 // offline.play()
                 clearInterval(tim)
-
+                console.dir("СТАДИЯ СТОП")
+                if (remoteIP.innerText !== "")
+                    remoteIP.innerText = "-"
                 remoteFace.innerHTML = ''
 
                 stage = 0
@@ -406,7 +451,7 @@ chrome.storage.sync.get(null, function (result) {
 
             faceApiLoaded = true
 
-            tim = setTimeout(detectGender, 2000)
+            tim = setTimeout(detectGender, 200)
         }, 0)
     }
 
