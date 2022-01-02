@@ -5,7 +5,7 @@
 <a href = "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi"><img src="https://img.shields.io/chrome-web-store/users/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20users"></a> 
 <a href = "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi/reviews"><img src="https://img.shields.io/chrome-web-store/rating/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20rating"></a>
 <a href = "https://discord.gg/YZKnbKGWen"><img src="https://img.shields.io/discord/925632108150530108?label=support&amp;logo=discord"></a> 
-<a href = "https://ko-fi.com/D1D27PA3O"><img src="https://img.shields.io/static/v1?label=Ko-fi%20&message=donate&color=red&logo=kofi"></a> 
+<a href = "https://buymeacoffee.com/qrlk"><img src="https://img.shields.io/static/v1?label=buymeacoffee%20&message=donate&color=red&logo=kofi"></a> 
 <img src="https://img.shields.io/github/license/qrlk/videochatru-extension" >
 <img src="https://img.shields.io/date/1632816617?label=released" >
 <br>
