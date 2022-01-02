@@ -38,6 +38,11 @@ cs.rel = "stylesheet";
 cs.href = chrome.extension.getURL("libs/css/tooltipster.bundle.min.css");
 (document.head || document.documentElement).appendChild(cs);
 
+const dark = document.createElement('link');
+dark.rel = "stylesheet";
+dark.id = "darkMode"
+dark.href = chrome.extension.getURL("resources/dark-mode.css");
+
 const css = document.createElement('style')
 css.textContent = "small {font-size: xx-small!important;}";
 (document.head || document.documentElement).appendChild(css);
@@ -541,6 +546,9 @@ chrome.storage.sync.get(null, function (result) {
         };
         (document.head || document.documentElement).appendChild(nsfwjs);
     }
+
+    if (settings.darkMode)
+        (document.body || document.documentElement).appendChild(dark);
 
     new ResizeObserver(outputsize).observe(document.getElementsByClassName("chat-container")[0])
 

@@ -514,5 +514,11 @@
   },
   "tooltipTargetSound": {
     "message": "воспроизводит звук когда целевой город/регион найден"
+  },
+  "darkMode": {
+    "message": "темная тема:"
+  },
+  "tooltipDarkMode": {
+    "message": "активирует темную тему"
   }
 }

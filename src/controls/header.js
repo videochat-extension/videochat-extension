@@ -105,7 +105,10 @@ function createSmartReviewBeggingHeader() {
             style: "text-decoration: none!important;",
             onclick: () => {
                 chrome.storage.sync.set({"possibleReview": true}, function () {
-                    connectionStatus.style.color = "#000000"
+                    if (settings.darkMode)
+                        connectionStatus.style.color = "#E8E6E3"
+                    else
+                        connectionStatus.style.color = "#000000"
                     connectionStatus.className = ""
                     connectionStatus.removeAttribute("data-tooltip")
                 });
@@ -122,7 +125,12 @@ function createSmartReviewBeggingHeader() {
     } else {
         return createElement('a', {
             target: "_blank",
-            style: "text-decoration: none!important; color: #000000;",
+            style: (() => {
+                if (settings.darkMode)
+                    return "text-decoration: none!important; color: #E8E6E3;"
+                else
+                    return "text-decoration: none!important; color: #000000;"
+            })(),
             href: "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi"
         }, [
             createElement('b', {

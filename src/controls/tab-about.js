@@ -180,6 +180,15 @@ function createTabAbout() {
 
                         createElement('dd', {}, [
                             createElement('a', {
+                                href: "https://darkreader.org/",
+                                innerText: "dark reader",
+                                style: "text-decoration: none!important;",
+                                target: "_blank"
+                            })
+                        ]),
+
+                        createElement('dd', {}, [
+                            createElement('a', {
                                 href: "https://github.com/alterebro/css-tooltip",
                                 innerText: "css-tooltip",
                                 style: "text-decoration: none!important;",

@@ -33,6 +33,7 @@
     * use your own picture/gif as a cover instead of a blur
     * nsfwjs integration to automate moderation/counter surprise attacks
     * advanced settings that allow you to achieve the desired effect
+* Dark Mode.
 * Auto-skip skip people who are not from city/region you choose.
 * Determine the current time of the interlocutor's location.
 * Determine whether the interlocutor uses VPN/TOR to fake his location.

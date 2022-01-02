@@ -514,5 +514,11 @@
   },
   "tooltipTargetSound": {
     "message": "plays a sound when the target city/region is found"
+  },
+  "darkMode": {
+    "message": "dark mode:"
+  },
+  "tooltipDarkMode": {
+    "message": "enables dark mode"
   }
 }

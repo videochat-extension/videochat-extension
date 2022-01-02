@@ -98,5 +98,32 @@ function createSettingsInterface() {
                 })
             ]),
         ]),
+
+        createElement('dd', {}, [
+            createElement('span', {}, [
+                createElement("p", {
+                    innerText: chrome.i18n.getMessage('darkMode'),
+                    className: "tooltip",
+                    title: chrome.i18n.getMessage('tooltipDarkMode')
+                }),
+                createElement('input', {
+                    type: "checkbox",
+                    checked: settings.darkMode,
+                    id: "darkModeCheck",
+                    onclick: () => {
+                        chrome.storage.sync.set({"darkMode": darkModeCheck.checked}, function () {
+                            if (darkModeCheck.checked) {
+                                connectionStatus.style.color = "#E8E6E3";
+                                (document.body || document.documentElement).appendChild(dark);
+                            } else {
+                                connectionStatus.style.color = "#000000"
+                                if (typeof darkMode != "undefined")
+                                    darkMode.remove()
+                            }
+                        });
+                    }
+                })
+            ]),
+        ]),
     ])
 }
