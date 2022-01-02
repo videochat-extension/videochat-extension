@@ -17,7 +17,7 @@
 
 **This is a browser extension that adds a bunch of cool stuff to the [Chatruletka website](https://videochatru.com).**  
 
-**It can be installed from [Chrome Web Store](https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi). English and Russian locales are available.**
+**It can be installed from the [Chrome Web Store](https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi). English and Russian locales are available.**
 
 ![2021-12-31_10-50](https://user-images.githubusercontent.com/40423143/147810908-d3f5e56b-ae6c-45dc-aade-d6d2da5eaac6.png)
 
