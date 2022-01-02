@@ -120,10 +120,10 @@
     "message": "continues to determine the gender of the interlocutor even if the gender skipping is disabled"
   },
   "tooltipSkipMales": {
-    "message": "tries to determine the gender of the interlocutor and skips if nsfwjs is 90 percent sure that the gender of the interlocutor is male"
+    "message": "tries to determine the gender of the interlocutor and skips if faceapi is 90 percent sure that the gender of the interlocutor is male"
   },
   "tooltipSkipFemales": {
-    "message": "tries to determine the gender of the interlocutor and skips if nsfwjs is 90 percent sure that the gender of the interlocutor is female"
+    "message": "tries to determine the gender of the interlocutor and skips if faceapi is 90 percent sure that the gender of the interlocutor is female"
   },
   "settingsCameraHijack": {
     "message": "<b style='color:red'>Camera hijack</b>"
