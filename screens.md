@@ -1,18 +1,36 @@
-> **These screenshots are outdated.**  
-> **Install the extension and try it yourself.**
+
 # screens
 ![main](screens/github.jpg)  
 * [English](#english)
 * [Russian](#russian)
 ## English
+![1](screens/en/0.7/en1_3.jpg)  
+![2](screens/en/0.7/en2.jpg)  
+![3](screens/en/0.7/en3.jpg)  
+![4](screens/en/0.7/en4.jpg)  
+![5](screens/en/0.7/en5.jpg)
+
+<details><summary>v0.1</summary>
+
 ![1](screens/en/1.png)  
 ![2](screens/en/2.png)  
 ![3](screens/en/3.png)  
 ![4](screens/en/4.png)  
 ![5](screens/en/5.png)
+</details>
+
 ## Russian
+![1](screens/ru/0.7/ru1.jpg)  
+![2](screens/ru/0.7/ru2.jpg)  
+![3](screens/ru/0.7/ru3.jpg)  
+![4](screens/ru/0.7/ru4.jpg)  
+![5](screens/ru/0.7/ru5.jpg)
+
+<details><summary>v0.1</summary>
+
 ![1](screens/ru/1.png)  
 ![2](screens/ru/2.png)  
 ![3](screens/ru/3.png)  
 ![4](screens/ru/4.png)  
 ![5](screens/ru/5.png)
+</details>
