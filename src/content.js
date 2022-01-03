@@ -394,14 +394,10 @@ chrome.storage.sync.get(null, function (result) {
 
     if (settings.hideWatermark) {
         document.getElementsByClassName("remote-video__watermark")[0].style.opacity = 0.0
-    } else {
-        document.getElementsByClassName("remote-video__watermark")[0].style.opacity = 1.0
     }
 
     if (settings.hideBanner) {
         document.getElementsByClassName("caption remote-video__info")[0].style.opacity = 0.0
-    } else {
-        document.getElementsByClassName("caption remote-video__info")[0].style.opacity = 1.0
     }
 
     if (settings.doNotReflect) {
