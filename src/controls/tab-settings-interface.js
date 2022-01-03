@@ -6,6 +6,29 @@ function createSettingsInterface() {
         createElement('dd', {}, [
             createElement('span', {}, [
                 createElement("p", {
+                    innerText: chrome.i18n.getMessage("hideLogo"),
+                    className: "tooltip",
+                    title: chrome.i18n.getMessage("tooltipHideLogo"),
+                }),
+                createElement('input', {
+                    type: "checkbox",
+                    checked: settings.hideLogo,
+                    id: "hideLogoCheck",
+                    onclick: () => {
+                        chrome.storage.sync.set({"hideLogo": hideLogoCheck.checked}, function () {
+                            if (hideLogoCheck.checked) {
+                                document.getElementById("logo-link").style.display = "none"
+                            } else {
+                                document.getElementById("logo-link").style.display = ""
+                            }
+                        });
+                    }
+                })
+            ]),
+        ]),
+        createElement('dd', {}, [
+            createElement('span', {}, [
+                createElement("p", {
                     innerText: chrome.i18n.getMessage("watermark"),
                     className: "tooltip",
                     title: chrome.i18n.getMessage("tooltipWatermark"),

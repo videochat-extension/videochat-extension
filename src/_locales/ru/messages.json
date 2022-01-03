@@ -520,5 +520,11 @@
   },
   "tooltipDarkMode": {
     "message": "активирует темную тему"
+  },
+  "hideLogo": {
+    "message": "скрыть лого:"
+  },
+  "tooltipHideLogo": {
+    "message": "скрыть логотип видеочата"
   }
 }

@@ -392,6 +392,10 @@ chrome.storage.sync.get(null, function (result) {
         }
     });
 
+    if (settings.hideLogo) {
+        document.getElementById("logo-link").style.display = "none"
+    }
+
     if (settings.hideWatermark) {
         document.getElementsByClassName("remote-video__watermark")[0].style.opacity = 0.0
     }

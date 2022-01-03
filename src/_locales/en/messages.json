@@ -520,5 +520,11 @@
   },
   "tooltipDarkMode": {
     "message": "enables dark mode"
+  },
+  "hideLogo": {
+    "message": "hide logo:"
+  },
+  "tooltipHideLogo": {
+    "message": "hides instance's logo"
   }
 }
