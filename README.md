@@ -18,8 +18,10 @@
 **This is a browser extension that adds a bunch of cool stuff to the [Chatruletka website](https://videochatru.com).**  
 
 **It can be installed from the [Chrome Web Store](https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi). English and Russian locales are available.**
+<center>
 
-![2021-12-31_10-50](https://user-images.githubusercontent.com/40423143/147810908-d3f5e56b-ae6c-45dc-aade-d6d2da5eaac6.png)
+[![Открыть](screens/basic.png)](https://www.youtube.com/watch?v=KXDwuV9YUjY)
+</center>
 
 [<sup>more screens</sup>](screens.md)  
 ### As for now, "Chat Roulette Extension" can do following for you:
