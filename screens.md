@@ -12,11 +12,11 @@
 
 <details><summary>v0.1</summary>
 
-![1](screens/en/1.png)  
-![2](screens/en/2.png)  
-![3](screens/en/3.png)  
-![4](screens/en/4.png)  
-![5](screens/en/5.png)
+![1](screens/en/0.1/1.png)  
+![2](screens/en/0.1/2.png)  
+![3](screens/en/0.1/3.png)  
+![4](screens/en/0.1/4.png)  
+![5](screens/en/0.1/5.png)
 </details>
 
 ## Russian
@@ -28,9 +28,9 @@
 
 <details><summary>v0.1</summary>
 
-![1](screens/ru/1.png)  
-![2](screens/ru/2.png)  
-![3](screens/ru/3.png)  
-![4](screens/ru/4.png)  
-![5](screens/ru/5.png)
+![1](screens/ru/0.1/1.png)  
+![2](screens/ru/0.1/2.png)  
+![3](screens/ru/0.1/3.png)  
+![4](screens/ru/0.1/4.png)  
+![5](screens/ru/0.1/5.png)
 </details>
