@@ -120,6 +120,8 @@ chrome.tabs.onActivated.addListener(function (chTab) {
     });
 });
 
+chrome.runtime.setUninstallURL("https://docs.google.com/forms/d/1TIynfMSRGrFb7_Co9Rb0ZEhts3WROMRcrCNPV8XE0ls")
+
 chrome.browserAction.onClicked.addListener(function (tab) {
     chrome.tabs.create({url: "https://videochatru.com/embed/"});
 });
