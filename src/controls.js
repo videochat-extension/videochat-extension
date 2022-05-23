@@ -149,7 +149,12 @@ function injectInterface() {
 
     L.Icon.Default.imagePath = chrome.extension.getURL('libs/js/leaflet/');
 
-    map = L.map('mapid', {zoomControl: false}).setView([54.39554, 39.266102], 17);
+    if (language === "ru") {
+        map = L.map('mapid', {zoomControl: false}).setView([54.39554, 39.266102], 17);
+    } else {
+        map = L.map('mapid', {zoomControl: false}).setView([47.75409, 12.832031], 3);
+    }
+
     map.locate({setView: true});
 
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png', {
