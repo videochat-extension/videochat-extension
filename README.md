@@ -8,11 +8,6 @@
 <a href = "https://buymeacoffee.com/qrlk"><img src="https://img.shields.io/static/v1?label=buymeacoffee%20&message=donate&color=red&logo=kofi"></a> 
 <img src="https://img.shields.io/github/license/qrlk/videochatru-extension" >
 <img src="https://img.shields.io/date/1632816617?label=released" >
-<br>
-<a href = "https://t.me/videochatru_extension_ru"><img src="https://img.shields.io/badge/dynamic/json?label=News%20RU&amp;query=result&amp;suffix=%20Subscribers&amp;logo=telegram&amp;url=https%3A%2F%2Fapi.telegram.org%2Fbot5041993583%3AAAFGRQXy-mstURIBCaoA4IFczRrMeUNrVRc%2FgetChatMemberCount%3Fchat_id%3D%40videochatru_extension_ru"></a>
-<a href = "https://t.me/videochatru_chat_ru"><img src="https://img.shields.io/badge/dynamic/json?label=Chat%20RU&amp;query=result&amp;suffix=%20Members&amp;logo=telegram&amp;url=https%3A%2F%2Fapi.telegram.org%2Fbot5041993583%3AAAFGRQXy-mstURIBCaoA4IFczRrMeUNrVRc%2FgetChatMemberCount%3Fchat_id%3D%40videochatru_chat_ru"></a>
-<a href = "https://t.me/videochatru_extension"><img src="https://img.shields.io/badge/dynamic/json?label=News&query=result&suffix=%20Subscribers&logo=telegram&url=https%3A%2F%2Fapi.telegram.org%2Fbot5041993583%3AAAFGRQXy-mstURIBCaoA4IFczRrMeUNrVRc%2FgetChatMemberCount%3Fchat_id%3D%40videochatru_extension"></a> 
-<a href = "https://t.me/videochatru_chat"><img src="https://img.shields.io/badge/dynamic/json?label=Chat&query=result&suffix=%20Members&logo=telegram&url=https%3A%2F%2Fapi.telegram.org%2Fbot5041993583%3AAAFGRQXy-mstURIBCaoA4IFczRrMeUNrVRc%2FgetChatMemberCount%3Fchat_id%3D%40videochatru_chat"></a>
 </p>
 
 **This is a browser extension that adds a bunch of cool stuff to the [Chatruletka website](https://videochatru.com).**  
