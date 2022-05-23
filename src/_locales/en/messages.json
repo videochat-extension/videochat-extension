@@ -90,7 +90,7 @@
     "message": "<dd>left arrow - skip</dd><dd>shift+left arrow - skip+ban</dd><dd>up arrow - stop</dd><dd>down arrow - report</dd><dd style='margin-inline-start: 40px!important;'>left arrow - cancel report</dd><dd style='margin-inline-start: 40px!important;'>right arrow - send report</dd><br><dd>custom: 'chrome://extensions/shortcuts'</dd>"
   },
   "avoidBan": {
-    "message": "<b>Chat Roulette Extension: <a target ='_blank' style = 'text-decoration: none!important;' href = 'https://github.com/qrlk/videochatru-extension/wiki/Ban'>I was banned. What should I do now?</a></b>"
+    "message": "<b>Chatruletka (ome.tv) Extension: <a target ='_blank' style = 'text-decoration: none!important;' href = 'https://github.com/qrlk/videochatru-extension/wiki/Ban'>I was banned. What should I do now?</a></b>"
   },
   "settingsInterface": {
     "message": "<b>Interface</b>"
