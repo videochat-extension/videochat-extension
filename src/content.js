@@ -91,6 +91,9 @@ document.getElementsByClassName('buttons__button start-button')[0].addEventListe
 })
 
 document.getElementsByClassName('buttons__button stop-button')[0].addEventListener("click", (e) => {
+    if (e.pointerType !== "") {
+        remoteInfo.innerHTML = chrome.i18n.getMessage("main")
+    }
     clearTimeout(timeout)
 })
 
