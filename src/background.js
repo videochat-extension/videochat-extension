@@ -106,7 +106,7 @@ chrome.commands.onCommand.addListener(function (command) {
             break;
 
         default:
-            chrome.tabs.sendMessage(curId, {command: command}).catch((error) => {
+            chrome.tabs.sendMessage(chatId, {command: command}).catch((error) => {
                 console.dir(error)
             })
 
