@@ -270,7 +270,7 @@
     "message": "A page reload is needed for the changes to take effect. Reboot now or later?"
   },
   "reloadRequired": {
-    "message": "RELOAD IS REQUIRED"
+    "message": "PAGE RELOAD IS REQUIRED BECAUSE YOU HAVE CHANGED SOME IMPORTANT SETTING"
   },
   "streamerMode": {
     "message": "STREAMER MODE:"

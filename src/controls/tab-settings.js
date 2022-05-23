@@ -2,23 +2,18 @@ let needReload = false
 
 function confirmAndReload() {
     if (!needReload) {
-        const result = confirm(chrome.i18n.getMessage("reload"));
-        if (result) {
-            location.reload()
-        } else {
-            needReload = true
-            connectionStatus.setAttribute("data-tooltip", chrome.i18n.getMessage("reloadRequired"))
-            connectionStatus.className = "tooltip-multiline tooltip-bottom"
-            connectionStatus.parentElement.href = "."
-            connectionStatus.parentElement.target = ""
-            connectionStatus.style.color = "red"
+        needReload = true
+        connectionStatus.setAttribute("data-tooltip", chrome.i18n.getMessage("reloadRequired"))
+        connectionStatus.className = "tooltip-multiline tooltip-bottom"
+        connectionStatus.parentElement.href = "."
+        connectionStatus.parentElement.target = ""
+        connectionStatus.style.color = "red"
 
-            document.getElementsByClassName('buttons__button start-button')[0].addEventListener('click', () => {
-                if (confirm(chrome.i18n.getMessage("reloadRequired"))) {
-                    location.reload()
-                }
-            })
-        }
+        document.getElementsByClassName('buttons__button start-button')[0].addEventListener('click', () => {
+            if (confirm(chrome.i18n.getMessage("reloadRequired"))) {
+                location.reload()
+            }
+        })
     }
 }
 
