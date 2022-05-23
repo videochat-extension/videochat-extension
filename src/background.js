@@ -75,24 +75,28 @@ var defaults = {
     darkMode: false,
     hideLogo: false
 };
+
 chrome.storage.sync.get(defaults, function (result) {
     chrome.storage.sync.set(result);
 });
 
-chrome.storage.local.get({ips: []}, function (result) {
-    chrome.storage.local.set(result)
-})
-
 var tabId = -1,
     chatId = -1,
     curId = -1;
+
+chrome.storage.local.get({ips: [], tabId: -1, chatId: -1, curId: -1}, function (result) {
+    chrome.storage.local.set(result)
+    tabId = result.tabId
+    chatId = result.chatId
+    curId = result.curId
+})
 
 chrome.commands.onCommand.addListener(function (command) {
     switch (command) {
         case "switch":
             if (curId === -1 || chatId === -1 || tabId === -1)
                 return
-            if (curId == chatId) {
+            if (curId === chatId) {
                 chrome.tabs.update(tabId, {selected: true});
                 curId = tabId;
             } else {
@@ -102,28 +106,31 @@ chrome.commands.onCommand.addListener(function (command) {
             break;
 
         default:
-            chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-                chrome.tabs.sendMessage(tabs[0].id, {command: command});
-            });
-            chrome.tabs.sendMessage(chatId, {command: command});
+            chrome.tabs.sendMessage(curId, {command: command}).catch((error) => {
+                console.dir(error)
+            })
+
             break;
     }
 });
 
 chrome.tabs.onActivated.addListener(function (chTab) {
     chrome.tabs.get(chTab["tabId"], function (tab) {
-        if (tab["url"].search(".*videochatru.com.*") != -1) {
+        if (tab["url"].search(".*videochatru.com.*") !== -1) {
             chatId = tab["id"];
+            chrome.storage.local.set({chatId: chatId})
         } else {
             tabId = tab["id"];
+            chrome.storage.local.set({tabId: tabId})
         }
         curId = tab["id"];
+        chrome.storage.local.set({curId: curId})
     });
 });
 
 chrome.runtime.setUninstallURL("https://docs.google.com/forms/d/1TIynfMSRGrFb7_Co9Rb0ZEhts3WROMRcrCNPV8XE0ls")
 
-chrome.browserAction.onClicked.addListener(function (tab) {
+chrome.action.onClicked.addListener(function (tab) {
     chrome.tabs.create({url: "https://videochatru.com/embed/"});
 });
 

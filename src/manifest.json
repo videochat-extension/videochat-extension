@@ -1,9 +1,9 @@
 {
   "name": "__MSG_extension_name__",
-  "version": "0.7.1",
+  "version": "1.0",
   "description": "__MSG_extension_description__",
   "default_locale": "en",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "content_scripts": [
     {
       "matches": [
@@ -15,7 +15,6 @@
         "libs/js/face-api.min.js",
         "libs/js/arrive.min.js",
         "libs/js/tooltipster.bundle.min.js",
-
         "controls.js",
         "controls/header.js",
         "controls/tab-about.js",
@@ -33,7 +32,6 @@
         "controls/tab-settings-stats.js",
         "controls/tab-settings-streamer.js",
         "controls/tab-stats.js",
-
         "content.js",
         "hotkeys.js",
         "utils.js"
@@ -47,19 +45,27 @@
     "128": "resources/img/icon.png"
   },
   "web_accessible_resources": [
-    "injection/*.js",
-    "resources/models",
-    "libs/js/nsfwjs.min.js",
-    "resources/models/*",
-    "libs/js/leaflet/*",
-    "resources/audio/*.mp3",
-    "resources/*.mp4",
-    "libs/css/css-tooltip.min.css",
-    "controls*.html",
-    "libs/css/tooltipster.bundle.min.css",
-    "resources/dark-mode.css"
+    {
+      "resources": [
+        "injection/*.js",
+        "resources/models",
+        "libs/js/nsfwjs.min.js",
+        "resources/models/*",
+        "libs/js/leaflet/*",
+        "resources/audio/*.mp3",
+        "resources/*.mp4",
+        "libs/css/css-tooltip.min.css",
+        "controls*.html",
+        "libs/css/tooltipster.bundle.min.css",
+        "resources/dark-mode.css"
+      ],
+      "matches": [
+        "https://videochatru.com/*"
+      ],
+      "extension_ids": []
+    }
   ],
-  "browser_action": {
+  "action": {
     "default_icon": {
       "16": "resources/img/icon.png",
       "48": "resources/img/icon.png",
@@ -73,10 +79,7 @@
     "tabs"
   ],
   "background": {
-    "scripts": [
-      "background.js",
-      "libs/js/jquery.min.js"
-    ]
+    "service_worker": "background.js"
   },
   "commands": {
     "skip": {

@@ -25,24 +25,24 @@ else if (language === "zh")
     language = "zh-CN"
 
 const s = document.createElement('script');
-s.src = chrome.extension.getURL('injection/ip-api.js');
+s.src = chrome.runtime.getURL('injection/ip-api.js');
 s.onload = () => s.remove();
 (document.head || document.documentElement).appendChild(s);
 
 const c = document.createElement('link');
 c.rel = "stylesheet";
-c.href = chrome.extension.getURL('libs/css/css-tooltip.min.css');
+c.href = chrome.runtime.getURL('libs/css/css-tooltip.min.css');
 (document.head || document.documentElement).appendChild(c);
 
 const cs = document.createElement('link');
 cs.rel = "stylesheet";
-cs.href = chrome.extension.getURL("libs/css/tooltipster.bundle.min.css");
+cs.href = chrome.runtime.getURL("libs/css/tooltipster.bundle.min.css");
 (document.head || document.documentElement).appendChild(cs);
 
 const dark = document.createElement('link');
 dark.rel = "stylesheet";
 dark.id = "darkMode"
-dark.href = chrome.extension.getURL("resources/dark-mode.css");
+dark.href = chrome.runtime.getURL("resources/dark-mode.css");
 
 const css = document.createElement('style')
 css.textContent = "small {font-size: xx-small!important;}";
@@ -584,8 +584,8 @@ chrome.storage.sync.get(null, function (result) {
     if (settings.skipMale || settings.skipFemale || settings.enableFaceApi) {
         setTimeout(async () => {
             console.time("faceapi: loading models")
-            await faceapi.nets.tinyFaceDetector.loadFromUri(chrome.extension.getURL('resources/models'))
-            await faceapi.nets.ageGenderNet.loadFromUri(chrome.extension.getURL('resources/models'))
+            await faceapi.nets.tinyFaceDetector.loadFromUri(chrome.runtime.getURL('resources/models'))
+            await faceapi.nets.ageGenderNet.loadFromUri(chrome.runtime.getURL('resources/models'))
             console.timeEnd("faceapi: loading models")
 
             console.time("faceapi: initial facedetect")
@@ -610,7 +610,7 @@ chrome.storage.sync.get(null, function (result) {
                 prikolV.loop = "loop"
                 prikolV.autoplay = "autoplay"
                 prikolV.muted = true
-                prikolV.src = chrome.extension.getURL('resources/prikol.mp4');
+                prikolV.src = chrome.runtime.getURL('resources/prikol.mp4');
                 prikolV.width = 0
                 prikolV.onload = () => s1.remove();
 
@@ -618,7 +618,7 @@ chrome.storage.sync.get(null, function (result) {
             }
 
             const s1 = document.createElement('script');
-            s1.src = chrome.extension.getURL('injection/camera-hijack.js');
+            s1.src = chrome.runtime.getURL('injection/camera-hijack.js');
             s1.onload = () => s1.remove();
             (document.head || document.documentElement).appendChild(s1);
         }
@@ -627,13 +627,13 @@ chrome.storage.sync.get(null, function (result) {
             if (settings.wsconfig.theyskipsound) {
                 skip = document.createElement("AUDIO");
                 skip.id = "skip"
-                skip.src = chrome.extension.getURL('resources/audio/skip.mp3')
+                skip.src = chrome.runtime.getURL('resources/audio/skip.mp3')
                 document.body.appendChild(skip)
                 skip.volume = 0.3
             }
 
             const wss = document.createElement('script');
-            wss.src = chrome.extension.getURL('injection/ws.js');
+            wss.src = chrome.runtime.getURL('injection/ws.js');
             wss.onload = () => wss.remove();
             (document.head || document.documentElement).appendChild(wss);
         }
@@ -665,11 +665,11 @@ chrome.storage.sync.get(null, function (result) {
         }
 
         const nsfwjs = document.createElement('script');
-        nsfwjs.src = chrome.extension.getURL('libs/js/nsfwjs.min.js');
+        nsfwjs.src = chrome.runtime.getURL('libs/js/nsfwjs.min.js');
         nsfwjs.onload = () => {
             nsfwjs.remove()
             const nsfw = document.createElement('script');
-            nsfw.src = chrome.extension.getURL('injection/streamer-mode.js');
+            nsfw.src = chrome.runtime.getURL('injection/streamer-mode.js');
             nsfw.onload = () => nsfw.remove();
             (document.head || document.documentElement).appendChild(nsfw);
         };

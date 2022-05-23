@@ -120,7 +120,7 @@ function injectInterface() {
 
     $('.tooltip').tooltipster({maxWidth: 300, distance: -1})
 
-    L.Icon.Default.imagePath = chrome.extension.getURL('libs/js/leaflet/');
+    L.Icon.Default.imagePath = chrome.runtime.getURL('libs/js/leaflet/');
 
     if (language === "ru") {
         map = L.map('mapid', {zoomControl: false}).setView([54.39554, 39.266102], 17);
@@ -135,9 +135,9 @@ function injectInterface() {
     }).addTo(map);
 
 
-    male = new Audio(chrome.extension.getURL('resources/audio/male.mp3'))
-    ban = new Audio(chrome.extension.getURL('resources/audio/ban.mp3'))
-    targetSound = new Audio(chrome.extension.getURL('resources/audio/found.mp3'))
+    male = new Audio(chrome.runtime.getURL('resources/audio/male.mp3'))
+    ban = new Audio(chrome.runtime.getURL('resources/audio/ban.mp3'))
+    targetSound = new Audio(chrome.runtime.getURL('resources/audio/found.mp3'))
 
     male.volume = 0.3
     ban.volume = 0.45
