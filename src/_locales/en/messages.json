@@ -266,9 +266,6 @@
   "statsFmlCount": {
     "message": "fml count: "
   },
-  "reload": {
-    "message": "A page reload is needed for the changes to take effect. Reboot now or later?"
-  },
   "reloadRequired": {
     "message": "PAGE RELOAD IS REQUIRED BECAUSE YOU HAVE CHANGED SOME IMPORTANT SETTING"
   },
