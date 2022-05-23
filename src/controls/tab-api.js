@@ -16,6 +16,10 @@ function createTabApi() {
             style: "display: none;"
         }),
         createElement('div', {
+            id: "apiStatus",
+            style: "margin-top: 3px"
+        }),
+        createElement('div', {
             id: "remoteInfo",
             style: "overflow-y: auto;margin-top: 3px"
         })
