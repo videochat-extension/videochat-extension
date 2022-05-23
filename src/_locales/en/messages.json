@@ -455,9 +455,9 @@
   "apiCity": {
     "message": "<b>City: </b>"
   },
- "apiRegion": {
-   "message": "<b>Region: </b>"
- },
+  "apiRegion": {
+    "message": "<b>Region: </b>"
+  },
   "settingsGeolocation": {
     "message": "<b>Geolocation</b>"
   },

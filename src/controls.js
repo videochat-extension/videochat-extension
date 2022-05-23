@@ -70,61 +70,33 @@ function createStyle() {
 function createTabs() {
     return createElement('ul', {
         className: "tabs__caption"
-    }, [
-        createElement('li', {
-            className: "active",
-            innerText: chrome.i18n.getMessage("tab1"),
-        }),
-        createElement('li', {
-            innerText: chrome.i18n.getMessage("tab2"),
-        }),
-        createElement('li', {
-            innerText: chrome.i18n.getMessage("tabBans")
-        }),
-        createElement('li', {
-            innerText: chrome.i18n.getMessage("tabStats")
-        }),
-        createElement('li', {
-            innerText: chrome.i18n.getMessage("tab3")
-        }),
-        createElement('li', {
-            innerText: chrome.i18n.getMessage("tab4")
-        })
-    ])
+    }, [createElement('li', {
+        className: "active", innerText: chrome.i18n.getMessage("tab1"),
+    }), createElement('li', {
+        innerText: chrome.i18n.getMessage("tab2"),
+    }), createElement('li', {
+        innerText: chrome.i18n.getMessage("tabBans")
+    }), createElement('li', {
+        innerText: chrome.i18n.getMessage("tabStats")
+    }), createElement('li', {
+        innerText: chrome.i18n.getMessage("tab3")
+    }), createElement('li', {
+        innerText: chrome.i18n.getMessage("tab4")
+    })])
 }
 
 function createControls() {
     return createElement('div', {
-        className: 'chat',
-        id: 'controls',
-        style: "width:350px; margin-right: calc(100vh / 768 * 10);"
-    }, [
-        createElement('div', {
-            className: "tabs chat"
-        }, [
-            createStyle(),
-            createElement('p', {
-                id: "remoteIP",
-                style: "display: none;"
-            }),
-            createElement('div', {
-                id: "remoteIPInfo",
-                style: "display: none;"
-            }),
-            createElement('div', {
-                id: "localStage",
-                style: "display: none"
-            }),
-            createHeader(),
-            createTabs(),
-            createTabApi(),
-            createTabMap(),
-            createTabBans(),
-            createTabStats(),
-            createTabSettings(),
-            createTabAbout(),
-        ])
-    ])
+        className: 'chat', id: 'controls', style: "width:350px; margin-right: calc(100vh / 768 * 10);"
+    }, [createElement('div', {
+        className: "tabs chat"
+    }, [createStyle(), createElement('p', {
+        id: "remoteIP", style: "display: none;"
+    }), createElement('div', {
+        id: "remoteIPInfo", style: "display: none;"
+    }), createElement('div', {
+        id: "localStage", style: "display: none"
+    }), createHeader(), createTabs(), createTabApi(), createTabMap(), createTabBans(), createTabStats(), createTabSettings(), createTabAbout(),])])
 }
 
 function injectInterface() {
@@ -158,9 +130,7 @@ function injectInterface() {
     map.locate({setView: true});
 
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png', {
-        minZoom: 3,
-        maxZoom: 18,
-        attribution: '&copy; <a href="https://carto.com/">carto.com</a>'
+        minZoom: 3, maxZoom: 18, attribution: '&copy; <a href="https://carto.com/">carto.com</a>'
     }).addTo(map);
 
 
