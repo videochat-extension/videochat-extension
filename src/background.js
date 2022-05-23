@@ -2,6 +2,7 @@ var defaults = {
     mirror: false,
     mirrorAlt: false,
     prikol: false,
+    expand: true,
     hideWatermark: false,
     hideBanner: false,
     autoBan: false,
