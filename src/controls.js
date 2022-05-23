@@ -137,8 +137,12 @@ function injectInterface() {
         $(this)
             .addClass('active').siblings().removeClass('active')
             .closest('div.tabs').find('div.tabs__content').removeClass('active').eq($(this).index()).addClass('active');
-        resizemap()
-        resizemap()
+
+        if (this.innerText === chrome.i18n.getMessage("tab3")) {
+            resizemap(true)
+        } else {
+            resizemap()
+        }
     });
 
     $('.tooltip').tooltipster({maxWidth: 300, distance: -1})
@@ -164,21 +168,58 @@ function injectInterface() {
     targetSound.volume = 0.5
 }
 
+let videoContainerHeight = 0, chatContainerHeight = 0
 
-function resizemap() {
-    mapid.style.height = $("#faceapiContent")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight + "px"
-    remoteInfo.style.height = $("#apiInfoContent")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
-    aboutInfo.style.height = $("#aboutPanel")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
+function resizemap(extend) {
+    if (extend && settings.expand) {
+        let newVideoContainerHeight = parseFloat(document.getElementById("video-container").style.height)
+        let newChatContainerHeight = parseFloat(document.getElementsByClassName("chat-container")[0].style.height)
 
-    settingsInfo.style.height = $("#settingsPanel")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
+        if (newVideoContainerHeight !== (newVideoContainerHeight + newChatContainerHeight) / 2) {
+            videoContainerHeight = parseFloat(document.getElementById("video-container").style.height)
+            chatContainerHeight = parseFloat(document.getElementsByClassName("chat-container")[0].style.height)
 
-    bansInfo.style.height = $("#bansPanel")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
-    statsInfo.style.height = $("#statsPanel")[0].offsetHeight - $(".tabs__caption")[0].offsetHeight - 4 + "px"
+            document.getElementById("video-container").style.height = (videoContainerHeight + chatContainerHeight) / 2 + "px"
+            document.getElementsByClassName("chat-container")[0].style.height = (videoContainerHeight + chatContainerHeight) / 2 + "px"
+        }
+    } else {
+        if (videoContainerHeight !== 0 && chatContainerHeight !== 0) {
+            document.getElementById("video-container").style.height = videoContainerHeight + "px"
+            document.getElementsByClassName("chat-container")[0].style.height = chatContainerHeight + "px"
+        }
+    }
+
+    let tabs = $(".tabs__caption")[0]
+
+    mapid.style.height = $("#faceapiContent")[0].offsetHeight - tabs.offsetHeight + "px"
+    mapid.style.height = $("#faceapiContent")[0].offsetHeight - tabs.offsetHeight + "px"
+
+    remoteInfo.style.height = $("#apiInfoContent")[0].offsetHeight - $("#apiStatus")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+    remoteInfo.style.height = $("#apiInfoContent")[0].offsetHeight - $("#apiStatus")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+
+    aboutInfo.style.height = $("#aboutPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+    aboutInfo.style.height = $("#aboutPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+
+    settingsInfo.style.height = $("#settingsPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+    settingsInfo.style.height = $("#settingsPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+
+    bansInfo.style.height = $("#bansPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+    bansInfo.style.height = $("#bansPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+
+    statsInfo.style.height = $("#statsPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+    statsInfo.style.height = $("#statsPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
     map.invalidateSize()
 }
 
 function outputsize() {
-    resizemap()
+    videoContainerHeight = 0
+    chatContainerHeight = 0
+
+    if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab3")) {
+        resizemap(true)
+    } else {
+        resizemap()
+    }
 
     if (!resize) {
         resize = true
@@ -187,7 +228,11 @@ function outputsize() {
             buttons.style.width = (parseInt(buttons.style.width) - (parseInt(controls.style.width) + mar) / 2) + "px"
             chat.style.width = (parseInt(chat.style.width) - (parseInt(controls.style.width) + mar) / 2) + "px"
             resize = false
-            resizemap()
-        }, 500)
+            if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab3")) {
+                resizemap(true)
+            } else {
+                resizemap()
+            }
+        }, 100)
     }
 }

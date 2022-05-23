@@ -148,5 +148,31 @@ function createSettingsInterface() {
                 })
             ]),
         ]),
+
+        createElement('dd', {}, [
+            createElement('span', {}, [
+                createElement("p", {
+                    innerText: chrome.i18n.getMessage('expand'),
+                    className: "tooltip",
+                    title: chrome.i18n.getMessage('tooltipExpand')
+                }),
+                createElement('input', {
+                    type: "checkbox",
+                    checked: settings.expand,
+                    id: "expandCheck",
+                    onclick: () => {
+                        chrome.storage.sync.set({"expand": expandCheck.checked}, function () {
+                            if (expandCheck.checked) {
+                                setTimeout(() => {
+                                    resizemap(true)
+                                }, 100)
+                            } else {
+                                resizemap()
+                            }
+                        });
+                    }
+                })
+            ]),
+        ]),
     ])
 }

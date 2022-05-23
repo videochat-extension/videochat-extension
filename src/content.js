@@ -550,7 +550,7 @@ chrome.storage.sync.get(null, function (result) {
     if (settings.darkMode)
         (document.body || document.documentElement).appendChild(dark);
 
-    new ResizeObserver(outputsize).observe(document.getElementsByClassName("chat-container")[0])
+    new ResizeObserver(outputsize).observe(document.getElementById("overlay"))
 
     const observer = new MutationObserver(onUpdateIP)
     observer.observe(document.getElementById('remoteIP'), {attributes: true, childList: true, characterData: true});

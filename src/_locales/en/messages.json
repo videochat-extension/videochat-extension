@@ -523,5 +523,11 @@
   },
   "tooltipHideLogo": {
     "message": "hides instance's logo"
+  },
+  "expand": {
+    "message": "expand 'Settings' tab:"
+  },
+  "tooltipExpand": {
+    "message": "expands the height of the 'Settings' tab to make it easier to customize"
   }
 }
