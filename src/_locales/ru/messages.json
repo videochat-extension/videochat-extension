@@ -1,4 +1,7 @@
 {
+  "loginWindow": {
+    "message": "<b>Чат Рулетное Расширение:</b><p style=\"font-size:75%;line-height: 23px;margin-bottom:15px\">Chatruletka — это то же самое, что ome.tv и Minichat.<br>Это крупнейшая в мире империя бесплатных видеочатов.<br>Платформа включает в себя три больших мобильных приложения и более 40 веб-сайтов (<a href=\"https://github.com/qrlk/videochatru-extension#what-is-chat-roulette\" style=\"color:yellow;text-decoration: none!important;\" target=\"_blank\">полный список</a>).<br>Неважно, с какого сайта/приложения вы подключаетесь к системе, потому что база пользователей у них общая.<br><b>Это расширение работает только на videochatru.com.</b></p>"
+  },
   "extension_name": {
     "message": "Чат Рулетное Расширение"
   },
