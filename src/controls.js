@@ -96,7 +96,8 @@ function createControls() {
         id: "remoteIPInfo", style: "display: none;"
     }), createElement('div', {
         id: "localStage", style: "display: none"
-    }), createHeader(), createTabs(), createTabApi(), createTabMap(), createTabBans(), createTabStats(), createTabSettings(), createTabAbout(),])])
+    }), createHeader(), createTabs(),
+        createTabApi(), createTabMap(), createTabBans(), createTabStats(), createTabSettings(), createTabAbout(),])])
 }
 
 function injectInterface() {
