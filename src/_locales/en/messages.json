@@ -527,6 +527,9 @@
   "tooltipHideLogo": {
     "message": "hides instance's logo"
   },
+  "discordBadge": {
+    "message": "https://img.shields.io/discord/925632108150530108?label=join%20our%20discord&logo=discord"
+  },
   "expand": {
     "message": "expand 'Settings' tab:"
   },
