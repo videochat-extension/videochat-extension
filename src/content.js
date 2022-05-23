@@ -562,7 +562,7 @@ chrome.storage.sync.get(null, function (result) {
                 if ((stage === 2) && (found + 4000 < Date.now())) {
                     console.dir("Skipping due to loading time limit")
                     document.getElementsByClassName('buttons__button start-button')[0].click()
-                    settings.stats.countManSkip--
+                    //settings.stats.countManSkip--
                 }
             } catch (e) {
                 //console.dir(e)
