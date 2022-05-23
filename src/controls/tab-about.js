@@ -107,12 +107,6 @@ function createTabAbout() {
                             })
                         ]),
                         createElement('dt', {
-                            innerHTML: chrome.i18n.getMessage("testers")
-                        }),
-                        createElement('dd', {
-                            innerText: "kryzh"
-                        }),
-                        createElement('dt', {
                             innerHTML: chrome.i18n.getMessage("inspired"),
                         }),
                         createElement('dd', {}, [

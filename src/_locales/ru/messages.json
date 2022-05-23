@@ -41,9 +41,6 @@
   "author": {
     "message": "<b>Автор:</b>"
   },
-  "testers": {
-    "message": "<b>Тестирование:</b>"
-  },
   "inspired": {
     "message": "<b>Вдохновлено:</b>"
   },
