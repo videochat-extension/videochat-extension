@@ -69,6 +69,7 @@ try {
     new_el[0].style.marginBottom = "15px"
 
     new_el.insertAfter(document.querySelector('[data-tr="sign_in_to"]'))
+    $(".login-popup__item.right")[0].style.overflowY = "auto"
 } catch (e) {
     console.dir(e)
 }
