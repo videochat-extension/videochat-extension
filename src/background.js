@@ -73,7 +73,8 @@ var defaults = {
     targetRegion: "Moscow",
     targetSound: false,
     darkMode: false,
-    hideLogo: false
+    hideLogo: false,
+    hideHeader: true
 };
 
 chrome.storage.sync.get(defaults, function (result) {

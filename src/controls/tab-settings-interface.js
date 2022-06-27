@@ -29,6 +29,25 @@ function createSettingsInterface() {
         createElement('dd', {}, [
             createElement('span', {}, [
                 createElement("p", {
+                    innerText: chrome.i18n.getMessage("hideHeader"),
+                    className: "tooltip",
+                    title: chrome.i18n.getMessage("tooltipHideHeader"),
+                }),
+                createElement('input', {
+                    type: "checkbox",
+                    checked: settings.hideHeader,
+                    id: "hideHeaderCheck",
+                    onclick: () => {
+                        chrome.storage.sync.set({"hideHeader": hideHeaderCheck.checked}, function () {
+                            confirmAndReload()
+                        });
+                    }
+                })
+            ]),
+        ]),
+        createElement('dd', {}, [
+            createElement('span', {}, [
+                createElement("p", {
                     innerText: chrome.i18n.getMessage("watermark"),
                     className: "tooltip",
                     title: chrome.i18n.getMessage("tooltipWatermark"),

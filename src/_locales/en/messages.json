@@ -527,6 +527,12 @@
   "tooltipHideLogo": {
     "message": "hides instance's logo"
   },
+  "hideHeader": {
+    "message": "hide header:"
+  },
+  "tooltipHideHeader": {
+    "message": "hides header (need reload)"
+  },
   "discordBadge": {
     "message": "https://img.shields.io/discord/925632108150530108?label=join%20our%20discord&logo=discord"
   },
