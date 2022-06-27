@@ -87,7 +87,7 @@ function createTabs() {
 
 function createControls() {
     return createElement('div', {
-        className: 'chat', id: 'controls', style: "width:350px; margin-right: calc(100vh / 768 * 10);"
+        className: 'chat', id: 'controls', style: "width:390px; margin-right: calc(100vh / 768 * 10);"
     }, [createElement('div', {
         className: "tabs chat"
     }, [createStyle(), createElement('p', {
