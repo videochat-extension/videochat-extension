@@ -544,9 +544,13 @@ chrome.storage.sync.get(null, function (result) {
         checkApi()
 
         if (settings.hideLogo) {
-            document.getElementById("logo-link").style.display = "none"
+            try {
+                document.getElementById("logo-link").style.display = "none"
+            } catch (e) {
+                console.dir(e)
+            }
         }
-        
+
         if (settings.hideHeader) {
             $("#header").hide()
             app.style.height = "100%"
