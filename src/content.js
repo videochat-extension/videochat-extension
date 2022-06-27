@@ -636,7 +636,7 @@ chrome.storage.sync.get(null, function (result) {
                     prikolV.width = 0
                     prikolV.onload = () => s1.remove();
 
-                    header.appendChild(prikolV);
+                    app.appendChild(prikolV);
                 }
 
                 const s1 = document.createElement('script');
