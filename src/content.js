@@ -107,6 +107,7 @@ document.getElementsByClassName('buttons__button start-button')[0].addEventListe
 document.getElementsByClassName('buttons__button stop-button')[0].addEventListener("click", (e) => {
     if (e.pointerType !== "") {
         remoteInfo.innerHTML = chrome.i18n.getMessage("main")
+        checkApi()
     }
     clearTimeout(timeout)
 })
@@ -502,41 +503,45 @@ async function detectGender() {
         tim = setTimeout(detectGender, 500)
 }
 
+function checkApi() {
+    $.getJSON("http://ip-api.com/json/", {
+        fields: "status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query"
+    }).done(function (json) {
+        // best case
+        api = 1
+        remoteInfo.innerHTML = chrome.i18n.getMessage("apiStatus1") + chrome.i18n.getMessage("main")
+        if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
+            resizemap()
+        }
+    }).fail(function (jqxhr, textStatus, error) {
+        $.getJSON("https://ipapi.co/json").done(function (json) {
+                // most common case
+                api = 2
+                apiStatus.innerHTML = chrome.i18n.getMessage("apiStatus2")
+                remoteInfo.innerHTML = chrome.i18n.getMessage("main")
+                if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
+                    resizemap()
+                }
+            }
+        ).fail(function (jqxhr, textStatus, error) {
+            // worst case
+            api = 0
+            apiStatus.innerHTML = chrome.i18n.getMessage("apiStatus0")
+            remoteInfo.innerHTML = chrome.i18n.getMessage("main")
+            if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
+                resizemap()
+            }
+        })
+    });
+}
+
 chrome.storage.sync.get(null, function (result) {
     Sentry.wrap(function () {
         settings = result;
 
         injectInterface()
 
-        $.getJSON("http://ip-api.com/json/", {
-            fields: "status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query"
-        }).done(function (json) {
-            // best case
-            api = 1
-            remoteInfo.innerHTML = chrome.i18n.getMessage("apiStatus1") + chrome.i18n.getMessage("main")
-            if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                resizemap()
-            }
-        }).fail(function (jqxhr, textStatus, error) {
-            $.getJSON("https://ipapi.co/json").done(function (json) {
-                    // most common case
-                    api = 2
-                    apiStatus.innerHTML = chrome.i18n.getMessage("apiStatus2")
-                    remoteInfo.innerHTML = chrome.i18n.getMessage("main")
-                    if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                        resizemap()
-                    }
-                }
-            ).fail(function (jqxhr, textStatus, error) {
-                // worst case
-                api = 0
-                apiStatus.innerHTML = chrome.i18n.getMessage("apiStatus0")
-                remoteInfo.innerHTML = chrome.i18n.getMessage("main")
-                if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                    resizemap()
-                }
-            })
-        });
+        checkApi()
 
         if (settings.hideLogo) {
             document.getElementById("logo-link").style.display = "none"
