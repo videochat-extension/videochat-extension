@@ -216,7 +216,7 @@ if (streamerPipCheck.checked) {
     echoV.playsInline = true
     echoV.width = 0
 
-    header.appendChild(echoV);
+    app.appendChild(echoV);
 
     function echoStart() {
         echoV.srcObject = document.getElementById("local-video").srcObject
