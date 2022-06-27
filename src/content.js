@@ -502,203 +502,205 @@ async function detectGender() {
 }
 
 chrome.storage.sync.get(null, function (result) {
-    settings = result;
+    Sentry.wrap(function () {
+        settings = result;
 
-    injectInterface()
+        injectInterface()
 
-    $.getJSON("http://ip-api.com/json/", {
-        fields: "status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query"
-    }).done(function (json) {
-        // best case
-        api = 1
-        remoteInfo.innerHTML = chrome.i18n.getMessage("apiStatus1") + chrome.i18n.getMessage("main")
-        if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-            resizemap()
-        }
-    }).fail(function (jqxhr, textStatus, error) {
-        $.getJSON("https://ipapi.co/json").done(function (json) {
-                // most common case
-                api = 2
-                apiStatus.innerHTML = chrome.i18n.getMessage("apiStatus2")
+        $.getJSON("http://ip-api.com/json/", {
+            fields: "status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query"
+        }).done(function (json) {
+            // best case
+            api = 1
+            remoteInfo.innerHTML = chrome.i18n.getMessage("apiStatus1") + chrome.i18n.getMessage("main")
+            if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
+                resizemap()
+            }
+        }).fail(function (jqxhr, textStatus, error) {
+            $.getJSON("https://ipapi.co/json").done(function (json) {
+                    // most common case
+                    api = 2
+                    apiStatus.innerHTML = chrome.i18n.getMessage("apiStatus2")
+                    remoteInfo.innerHTML = chrome.i18n.getMessage("main")
+                    if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
+                        resizemap()
+                    }
+                }
+            ).fail(function (jqxhr, textStatus, error) {
+                // worst case
+                api = 0
+                apiStatus.innerHTML = chrome.i18n.getMessage("apiStatus0")
                 remoteInfo.innerHTML = chrome.i18n.getMessage("main")
                 if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
                     resizemap()
                 }
-            }
-        ).fail(function (jqxhr, textStatus, error) {
-            // worst case
-            api = 0
-            apiStatus.innerHTML = chrome.i18n.getMessage("apiStatus0")
-            remoteInfo.innerHTML = chrome.i18n.getMessage("main")
-            if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                resizemap()
-            }
-        })
-    });
+            })
+        });
 
-    if (settings.hideLogo) {
-        document.getElementById("logo-link").style.display = "none"
-    }
-
-    if (settings.hideWatermark) {
-        document.getElementsByClassName("remote-video__watermark")[0].style.opacity = 0.0
-    }
-
-    if (settings.hideBanner) {
-        document.getElementsByClassName("caption remote-video__info")[0].style.opacity = 0.0
-    }
-
-    if (settings.doNotReflect) {
-        $("#local-video").removeClass("video-container-local-video")
-    }
-
-    if (settings.hideCamera) {
-        $("#local-video-wrapper")[0].style.display = "none"
-    }
-
-    setInterval(() => {
-        if (settings.skipFourSec) {
-            try {
-                if ((stage === 2) && (found + 4000 < Date.now())) {
-                    console.dir("Skipping due to loading time limit")
-                    document.getElementsByClassName('buttons__button start-button')[0].click()
-                    //settings.stats.countManSkip--
-                }
-            } catch (e) {
-                //console.dir(e)
-            }
+        if (settings.hideLogo) {
+            document.getElementById("logo-link").style.display = "none"
         }
-    }, 1000)
 
-    if (settings.autoResume) {
-        document.getElementById('overlay').style.background = "none"
-        // document.getElementById('overlay').style.position = "unset"
+        if (settings.hideWatermark) {
+            document.getElementsByClassName("remote-video__watermark")[0].style.opacity = 0.0
+        }
 
-        document.getElementById('local-video-warning-popup').style.filter = "opacity(0)"
-        new MutationObserver(function (mutations) {
-            mutations.forEach(function (mutation) {
-                    if (mutation.attributeName === "class") {
-                        if (mutation.target.className.includes("disabled")) {
-                            $(".ok").removeClass("disabled")
-                            document.getElementsByClassName("video-warning__btn")[0].firstElementChild.click()
+        if (settings.hideBanner) {
+            document.getElementsByClassName("caption remote-video__info")[0].style.opacity = 0.0
+        }
+
+        if (settings.doNotReflect) {
+            $("#local-video").removeClass("video-container-local-video")
+        }
+
+        if (settings.hideCamera) {
+            $("#local-video-wrapper")[0].style.display = "none"
+        }
+
+        setInterval(() => {
+            if (settings.skipFourSec) {
+                try {
+                    if ((stage === 2) && (found + 4000 < Date.now())) {
+                        console.dir("Skipping due to loading time limit")
+                        document.getElementsByClassName('buttons__button start-button')[0].click()
+                        //settings.stats.countManSkip--
+                    }
+                } catch (e) {
+                    //console.dir(e)
+                }
+            }
+        }, 1000)
+
+        if (settings.autoResume) {
+            document.getElementById('overlay').style.background = "none"
+            // document.getElementById('overlay').style.position = "unset"
+
+            document.getElementById('local-video-warning-popup').style.filter = "opacity(0)"
+            new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                        if (mutation.attributeName === "class") {
+                            if (mutation.target.className.includes("disabled")) {
+                                $(".ok").removeClass("disabled")
+                                document.getElementsByClassName("video-warning__btn")[0].firstElementChild.click()
+                            }
                         }
                     }
+                )
+            }).observe($(".ok")[0], {attributes: true});
+        }
+
+        if (!settings.ipApiLocalisation)
+            language = "en"
+
+        if (settings.hotkeys) {
+            document.removeEventListener('keyup', hotkeys)
+            document.addEventListener('keyup', hotkeys)
+        }
+
+        if (settings.skipMale || settings.skipFemale || settings.enableFaceApi) {
+            setTimeout(async () => {
+                console.time("faceapi: loading models")
+                await faceapi.nets.tinyFaceDetector.loadFromUri(chrome.runtime.getURL('resources/models'))
+                await faceapi.nets.ageGenderNet.loadFromUri(chrome.runtime.getURL('resources/models'))
+                console.timeEnd("faceapi: loading models")
+
+                console.time("faceapi: initial facedetect")
+                remoteFace.innerHTML = chrome.i18n.getMessage("initialFaceDetect")
+                let tempImage = document.createElement('img')
+                tempImage.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAMSURBVBhXY/j//z8ABf4C/qc1gYQAAAAASUVORK5CYII="
+                await faceapi.detectAllFaces(tempImage, new faceapi.TinyFaceDetectorOptions()).withAgeAndGender()
+                console.timeEnd("faceapi: initial facedetect")
+                remoteFace.innerHTML = ""
+
+                faceApiLoaded = true
+
+                tim = setTimeout(detectGender, 200)
+            }, 0)
+        }
+
+        if (settings.risky) {
+            if (settings.mirror || settings.mirrorAlt || settings.prikol) {
+                if (settings.prikol) {
+                    const prikolV = document.createElement('video');
+                    prikolV.id = "prikol"
+                    prikolV.loop = "loop"
+                    prikolV.autoplay = "autoplay"
+                    prikolV.muted = true
+                    prikolV.src = chrome.runtime.getURL('resources/prikol.mp4');
+                    prikolV.width = 0
+                    prikolV.onload = () => s1.remove();
+
+                    header.appendChild(prikolV);
                 }
-            )
-        }).observe($(".ok")[0], {attributes: true});
-    }
 
-    if (!settings.ipApiLocalisation)
-        language = "en"
-
-    if (settings.hotkeys) {
-        document.removeEventListener('keyup', hotkeys)
-        document.addEventListener('keyup', hotkeys)
-    }
-
-    if (settings.skipMale || settings.skipFemale || settings.enableFaceApi) {
-        setTimeout(async () => {
-            console.time("faceapi: loading models")
-            await faceapi.nets.tinyFaceDetector.loadFromUri(chrome.runtime.getURL('resources/models'))
-            await faceapi.nets.ageGenderNet.loadFromUri(chrome.runtime.getURL('resources/models'))
-            console.timeEnd("faceapi: loading models")
-
-            console.time("faceapi: initial facedetect")
-            remoteFace.innerHTML = chrome.i18n.getMessage("initialFaceDetect")
-            let tempImage = document.createElement('img')
-            tempImage.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAMSURBVBhXY/j//z8ABf4C/qc1gYQAAAAASUVORK5CYII="
-            await faceapi.detectAllFaces(tempImage, new faceapi.TinyFaceDetectorOptions()).withAgeAndGender()
-            console.timeEnd("faceapi: initial facedetect")
-            remoteFace.innerHTML = ""
-
-            faceApiLoaded = true
-
-            tim = setTimeout(detectGender, 200)
-        }, 0)
-    }
-
-    if (settings.risky) {
-        if (settings.mirror || settings.mirrorAlt || settings.prikol) {
-            if (settings.prikol) {
-                const prikolV = document.createElement('video');
-                prikolV.id = "prikol"
-                prikolV.loop = "loop"
-                prikolV.autoplay = "autoplay"
-                prikolV.muted = true
-                prikolV.src = chrome.runtime.getURL('resources/prikol.mp4');
-                prikolV.width = 0
-                prikolV.onload = () => s1.remove();
-
-                header.appendChild(prikolV);
+                const s1 = document.createElement('script');
+                s1.src = chrome.runtime.getURL('injection/camera-hijack.js');
+                s1.onload = () => s1.remove();
+                (document.head || document.documentElement).appendChild(s1);
             }
 
-            const s1 = document.createElement('script');
-            s1.src = chrome.runtime.getURL('injection/camera-hijack.js');
-            s1.onload = () => s1.remove();
-            (document.head || document.documentElement).appendChild(s1);
+            if (settings.ws) {
+                if (settings.wsconfig.theyskipsound) {
+                    skip = document.createElement("AUDIO");
+                    skip.id = "skip"
+                    skip.src = chrome.runtime.getURL('resources/audio/skip.mp3')
+                    document.body.appendChild(skip)
+                    skip.volume = 0.3
+                }
+
+                const wss = document.createElement('script');
+                wss.src = chrome.runtime.getURL('injection/ws.js');
+                wss.onload = () => wss.remove();
+                (document.head || document.documentElement).appendChild(wss);
+            }
         }
 
-        if (settings.ws) {
-            if (settings.wsconfig.theyskipsound) {
-                skip = document.createElement("AUDIO");
-                skip.id = "skip"
-                skip.src = chrome.runtime.getURL('resources/audio/skip.mp3')
-                document.body.appendChild(skip)
-                skip.volume = 0.3
+        if (settings.streamer) {
+            if (settings.blurReport)
+                document.getElementById("report-screen").style.filter = "blur(10px)"
+
+            if (settings.cover || settings.coverPreview || settings.coverNoise) {
+                $(createElement('img', {
+                    src: settings.coverSrc,
+                    id: "cover",
+                    style: "height:100%; position: absolute;"
+                })).insertBefore("#remote-video")
+
+                $(createElement('img', {
+                    src: settings.coverSrc,
+                    id: "cover2",
+                    style: "height:100%; position: absolute; transform: scaleX(-1)"
+                })).insertBefore("#local-video")
+
+                if (settings.coverPreview)
+                    $(".remote-video__preview")[0].style.display = "none"
+
+                if (settings.coverNoise) {
+                }
+                $(".remote-video__noise")[0].style.display = "none"
             }
 
-            const wss = document.createElement('script');
-            wss.src = chrome.runtime.getURL('injection/ws.js');
-            wss.onload = () => wss.remove();
-            (document.head || document.documentElement).appendChild(wss);
-        }
-    }
-
-    if (settings.streamer) {
-        if (settings.blurReport)
-            document.getElementById("report-screen").style.filter = "blur(10px)"
-
-        if (settings.cover || settings.coverPreview || settings.coverNoise) {
-            $(createElement('img', {
-                src: settings.coverSrc,
-                id: "cover",
-                style: "height:100%; position: absolute;"
-            })).insertBefore("#remote-video")
-
-            $(createElement('img', {
-                src: settings.coverSrc,
-                id: "cover2",
-                style: "height:100%; position: absolute; transform: scaleX(-1)"
-            })).insertBefore("#local-video")
-
-            if (settings.coverPreview)
-                $(".remote-video__preview")[0].style.display = "none"
-
-            if (settings.coverNoise) {
-            }
-            $(".remote-video__noise")[0].style.display = "none"
+            const nsfwjs = document.createElement('script');
+            nsfwjs.src = chrome.runtime.getURL('libs/js/nsfwjs.min.js');
+            nsfwjs.onload = () => {
+                nsfwjs.remove()
+                const nsfw = document.createElement('script');
+                nsfw.src = chrome.runtime.getURL('injection/streamer-mode.js');
+                nsfw.onload = () => nsfw.remove();
+                (document.head || document.documentElement).appendChild(nsfw);
+            };
+            (document.head || document.documentElement).appendChild(nsfwjs);
         }
 
-        const nsfwjs = document.createElement('script');
-        nsfwjs.src = chrome.runtime.getURL('libs/js/nsfwjs.min.js');
-        nsfwjs.onload = () => {
-            nsfwjs.remove()
-            const nsfw = document.createElement('script');
-            nsfw.src = chrome.runtime.getURL('injection/streamer-mode.js');
-            nsfw.onload = () => nsfw.remove();
-            (document.head || document.documentElement).appendChild(nsfw);
-        };
-        (document.head || document.documentElement).appendChild(nsfwjs);
-    }
+        if (settings.darkMode)
+            (document.body || document.documentElement).appendChild(dark);
 
-    if (settings.darkMode)
-        (document.body || document.documentElement).appendChild(dark);
+        new ResizeObserver(outputsize).observe(document.getElementById("overlay"))
 
-    new ResizeObserver(outputsize).observe(document.getElementById("overlay"))
+        const observer = new MutationObserver(onUpdateIP)
+        observer.observe(document.getElementById('remoteIP'), {attributes: true, childList: true, characterData: true});
 
-    const observer = new MutationObserver(onUpdateIP)
-    observer.observe(document.getElementById('remoteIP'), {attributes: true, childList: true, characterData: true});
-
-    var observer2 = new MutationObserver(onChangeStage)
-    observer2.observe(document.getElementById('remote-video-wrapper'), {attributes: true});
+        var observer2 = new MutationObserver(onChangeStage)
+        observer2.observe(document.getElementById('remote-video-wrapper'), {attributes: true});
+    })
 });

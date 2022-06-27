@@ -10,6 +10,8 @@
         "https://videochatru.com/*"
       ],
       "js": [
+        "libs/js/sentry-browser.min.js",
+        "sentry.js",
         "libs/js/jquery.min.js",
         "libs/js/leaflet/leaflet.js",
         "libs/js/face-api.min.js",
