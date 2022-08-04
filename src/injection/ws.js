@@ -87,6 +87,12 @@ TextDecoder.prototype.decode = function (data) {
             // return prefix + JSON.stringify(js);
             return str;
 
+        case "GEP":
+            if (typeof js["GetFaceData"] !== 'undefined') {
+                delete js["GetFaceData"]
+            }
+            return prefix + JSON.stringify(js);
+
         case "END":
             if (wsconfigtheyskipsoundCheck.checked)
                 if (Date.now() - found > 5000 && Date.now() - last > 3000)
