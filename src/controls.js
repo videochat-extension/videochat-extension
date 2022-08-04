@@ -209,6 +209,6 @@ function outputsize() {
             } else {
                 resizemap()
             }
-        }, 100)
+        }, 500)
     }
 }
