@@ -68,7 +68,7 @@ function createHeader() {
             href: "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi"
         }, [
             createElement('b', {
-                innerText: chrome.i18n.getMessage("extension_name").replace(" (ome.tv) ", " ") + " v" + chrome.runtime.getManifest().version,
+                innerText: chrome.i18n.getMessage("extension_name").replace(" (ome.tv) ", " ") + " v" + chrome.runtime.getManifest().version.substring(0,3),
                 id: "connectionStatus",
             })
         ]),
