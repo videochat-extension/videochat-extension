@@ -61,10 +61,10 @@ function createSettingsGeolocation() {
                 }),
                 createElement('input', {
                     type: "checkbox",
-                    checked: settings.showMore,
+                    checked: settings.showMoreEnabledByDefault,
                     id: "showMoreCheck",
                     onclick: () => {
-                        chrome.storage.sync.set({"showMore": showMoreCheck.checked}, function () {
+                        chrome.storage.sync.set({"showMoreEnabledByDefault": showMoreCheck.checked}, function () {
 
                         });
                     }

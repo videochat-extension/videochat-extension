@@ -154,7 +154,7 @@ function doLookupRequest1(ip) {
             startDate = +new Date() / 1000
             let strings = []
 
-            if (settings.showMore && (json.mobile || json.proxy || json.hosting)) {
+            if (settings.showMoreEnabledByDefault && (json.mobile || json.proxy || json.hosting)) {
                 if (json.mobile)
                     strings.push("<small>MOBILE</small>")
                 if (json.proxy)
