@@ -255,17 +255,17 @@ function doLookupRequest1(ip) {
 }
 
 function doLookupRequest2(ip) {
-    $.getJSON("https://ipapi.co/" + ip + "/json/")
+    $.getJSON("https://ipwho.is/" + ip)
         .done(function (js) {
             json = {
                 lat: js.latitude,
                 lon: js.longitude,
-                country: js.country_name,
+                country: js.country,
                 countryCode: js.country_code,
                 city: js.city,
                 region: js.region_code,
                 regionName: js.region,
-                timezone: js.timezone,
+                timezone: js.timezone.id,
                 query: js.ip,
                 mobile: false
             }
@@ -515,7 +515,7 @@ function checkApi() {
             resizemap()
         }
     }).fail(function (jqxhr, textStatus, error) {
-        $.getJSON("https://ipapi.co/json").done(function (json) {
+        $.getJSON("https://ipwho.is/1.1.1.1").done(function (json) {
                 // most common case
                 api = 2
                 apiStatus.innerHTML = chrome.i18n.getMessage("apiStatus2")
