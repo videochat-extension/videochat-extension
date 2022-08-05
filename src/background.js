@@ -129,6 +129,60 @@ chrome.tabs.onActivated.addListener(function (chTab) {
     });
 });
 
+chrome.runtime.onMessage.addListener(
+    function (request, sender, sendResponse) {
+        if (request.testApi) {
+            fetch(`http://ip-api.com/json/1.1.1.1`)
+                .then((response) => {
+                    if (response.ok) {
+                        response.json().then(
+                            function (data) {
+                                chrome.tabs.sendMessage(sender.tab.id, {
+                                    apiTestResult: data,
+                                    apiTestCode: response.status,
+                                })
+                            }
+                        )
+                    } else {
+                        chrome.tabs.sendMessage(sender.tab.id, {
+                            apiTestResult: response.status,
+                            apiTestCode: response.status,
+                        })
+                    }
+                }).catch(error => {
+                chrome.tabs.sendMessage(sender.tab.id, {
+                    apiTestResult: error,
+                    apiTestCode: 0
+                })
+            });
+            sendResponse('fetch should be in progress');
+        }
+        if (request.remoteIP) {
+            fetch(`http://ip-api.com/json/${request.remoteIP}?fields=status%2Cmessage%2Ccountry%2CcountryCode%2Cregion%2CregionName%2Ccity%2Cdistrict%2Czip%2Clat%2Clon%2Ctimezone%2Cisp%2Corg%2Cas%2Cmobile%2Cproxy%2Chosting%2Cquery&lang=${request.language}`)
+                .then((response) => {
+                    if (response.ok) {
+                        response.json().then(
+                            function (data) {
+                                chrome.tabs.sendMessage(sender.tab.id, {
+                                    ipData: data,
+                                    apiCode: response.status,
+                                    apiQuery: request.remoteIP
+                                })
+                            }
+                        )
+                    } else {
+                        chrome.tabs.sendMessage(sender.tab.id, {
+                            ipData: {},
+                            apiCode: response.status,
+                            apiQuery: request.remoteIP
+                        })
+                    }
+                })
+            sendResponse('fetch should be in progress');
+        }
+    }
+);
+
 chrome.runtime.setUninstallURL("https://docs.google.com/forms/d/1TIynfMSRGrFb7_Co9Rb0ZEhts3WROMRcrCNPV8XE0ls")
 
 chrome.action.onClicked.addListener(function (tab) {

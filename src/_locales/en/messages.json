@@ -42,7 +42,7 @@
     "message": "<b>API works correctly.</b></br></br>"
   },
   "apiStatus2": {
-    "message": "<b><a  target= '_blank'  style = 'text-decoration: none!important' href = 'https://github.com/qrlk/videochatru-extension/wiki/How-to-fix-the-cool-IP-API#how-to-enable-the-cool-api'>The extension is forced to use a limited IP API!</a></b></br></br>"
+    "message": "<b>API works correctly.</b></br></br>"
   },
   "github": {
     "message": "More useful information: <b><a style= 'text-decoration: none!important;' target='_blank' href='https://github.com/qrlk/videochatru-extension'>github</a></b>."

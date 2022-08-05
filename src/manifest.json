@@ -36,7 +36,8 @@
         "controls/tab-stats.js",
         "content.js",
         "hotkeys.js",
-        "utils.js"
+        "utils.js",
+        "background-listener.js"
       ],
       "run_at": "document_idle"
     }

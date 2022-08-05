@@ -142,109 +142,18 @@ const onUpdateIP = function (mutations) {
 }
 
 function doLookupRequest1(ip) {
+    console.dir('sending request to ip-api.com...')
     $.getJSON("http://ip-api.com/json/" + ip, {
         lang: language,
         fields: "status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query"
     })
         .done(function (json) {
-            if (ip !== json.query) {
-                return
-            }
-            curInfo = json
-            startDate = +new Date() / 1000
-            let strings = []
-
-            if (settings.showMoreEnabledByDefault && (json.mobile || json.proxy || json.hosting)) {
-                if (json.mobile)
-                    strings.push("<small>MOBILE</small>")
-                if (json.proxy)
-                    strings.push("<small>PROXY</small>")
-                if (json.hosting)
-                    strings.push("<small>HOSTING</small>")
-            }
-
-            if (settings.hideMobileLocation && json.mobile) {
-                remoteInfo.innerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br></br>"
-
-                remoteInfo.innerHTML += "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>"
-                remoteInfo.innerHTML += "<b>TM: </b><sup id='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
-
-            } else {
-                remoteInfo.innerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br>"
-
-                remoteInfo.innerHTML += "</br>" +
-                    chrome.i18n.getMessage("apiCity") + json.city + " (" + json.region + ") </br>" +
-                    chrome.i18n.getMessage("apiRegion") + json.regionName + "</br>" +
-                    "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>)</br>" +
-                    "<b>TM: </b><sup id='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
-            }
-
-            if (strings.length > 0)
-                remoteInfo.innerHTML += "</br>" + strings.join('<small> || </small>')
-
-            if (settings.enableTargetCity || settings.enableTargetRegion) {
-                if (settings.skipMobileTarget && json.mobile) {
-                    stopAndStart()
-                    return
-                } else {
-                    if (settings.enableTargetCity) {
-                        if (json.city !== settings.targetCity) {
-                            stopAndStart()
-                            return
-                        } else {
-                            if (settings.targetSound) {
-                                targetSound.play()
-                                console.dir(`FOUND TARGET CITY: ${settings.targetCity}`)
-                            }
-                        }
-                    }
-                    if (settings.enableTargetRegion) {
-                        if (json.regionName !== settings.targetRegion) {
-                            stopAndStart()
-                            return
-                        } else {
-                            if (settings.targetSound) {
-                                targetSound.play()
-                                console.dir(`FOUND TARGET REGION: ${settings.targetRegion}`)
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (typeof marker !== 'undefined')
-                map.removeLayer(marker)
-
-            if (typeof circle !== 'undefined')
-                map.removeLayer(circle)
-
-            if (settings.hideMobileLocation && json.mobile) {
-                circle = L.circle([json.lat, json.lon], 300000, {
-                    color: 'red',
-                    fillColor: '#f03',
-                    fillOpacity: 0.2
-                })
-
-                map.setView(new L.LatLng(json.lat, json.lon), 5);
-                marker = new L.Marker([json.lat, json.lon]);
-            } else {
-                circle = L.circle([json.lat, json.lon], 30000, {
-                    color: 'blue',
-                    fillColor: '#808080',
-                    fillOpacity: 0.1
-                })
-
-                map.setView(new L.LatLng(json.lat, json.lon), 13);
-                marker = new L.Marker([json.lat, json.lon]);
-            }
-
-            map.addLayer(circle)
-            map.addLayer(marker)
+            console.dir('ip-api.com responded: 200')
+            processData(json, ip)
         })
-        .fail(function (jqxhr, textStatus, error) {
+        .fail(function (jqxhr) {
+            console.dir(`ip-api.com request failed: ${jqxhr.status}`)
             console.dir(jqxhr)
-            console.dir(textStatus)
-            console.dir(error)
             remoteInfo.innerHTML = "<b>HTTP ERROR " + jqxhr.status + "</b>"
             if (settings.enableTargetCity || settings.enableTargetRegion) {
                 if (jqxhr.status === 429) {
@@ -255,97 +164,107 @@ function doLookupRequest1(ip) {
 }
 
 function doLookupRequest2(ip) {
-    $.getJSON("https://ipwho.is/" + ip)
-        .done(function (js) {
-            json = {
-                lat: js.latitude,
-                lon: js.longitude,
-                country: js.country,
-                countryCode: js.country_code,
-                city: js.city,
-                region: js.region_code,
-                regionName: js.region,
-                timezone: js.timezone.id,
-                query: js.ip,
-                mobile: false
-            }
-            if (ip !== json.query) {
-                return
-            }
-            curInfo = json
-            startDate = +new Date() / 1000
+    chrome.runtime.sendMessage({remoteIP: ip, language: language}, function (response) {
+        console.dir(`request to send ip-api request sent to service worker: ${response}`)
+    });
+}
 
+function processData(json, ip) {
+    if (ip !== json.query) {
+        return
+    }
+    curInfo = json
+    startDate = +new Date() / 1000
+    let strings = []
 
-            remoteInfo.innerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br>"
+    if (settings.showMoreEnabledByDefault && (json.mobile || json.proxy || json.hosting)) {
+        if (json.mobile)
+            strings.push("<small>MOBILE</small>")
+        if (json.proxy)
+            strings.push("<small>PROXY</small>")
+        if (json.hosting)
+            strings.push("<small>HOSTING</small>")
+    }
 
-            remoteInfo.innerHTML += "</br>" +
-                chrome.i18n.getMessage("apiCity") + json.city + " (" + json.region + ") </br>" +
-                chrome.i18n.getMessage("apiRegion") + json.regionName + "</br>" +
-                "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>)</br>" +
-                "<b>TM: </b><sup id='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
+    if (settings.hideMobileLocation && json.mobile) {
+        remoteInfo.innerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br></br>"
 
-            if (settings.enableTargetCity || settings.enableTargetRegion) {
-                if (settings.enableTargetCity) {
-                    if (json.city !== settings.targetCity) {
-                        stopAndStart()
-                        return
-                    } else {
-                        if (settings.targetSound) {
-                            targetSound.play()
-                            console.dir(`FOUND TARGET CITY: ${settings.targetCity}`)
-                        }
+        remoteInfo.innerHTML += "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>"
+        remoteInfo.innerHTML += "<b>TM: </b><sup id='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
+
+    } else {
+        remoteInfo.innerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br>"
+
+        remoteInfo.innerHTML += "</br>" +
+            chrome.i18n.getMessage("apiCity") + json.city + " (" + json.region + ") </br>" +
+            chrome.i18n.getMessage("apiRegion") + json.regionName + "</br>" +
+            "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>)</br>" +
+            "<b>TM: </b><sup id='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
+    }
+
+    if (strings.length > 0)
+        remoteInfo.innerHTML += "</br>" + strings.join('<small> || </small>')
+
+    if (settings.enableTargetCity || settings.enableTargetRegion) {
+        if (settings.skipMobileTarget && json.mobile) {
+            stopAndStart()
+            return
+        } else {
+            if (settings.enableTargetCity) {
+                if (json.city !== settings.targetCity) {
+                    stopAndStart()
+                    return
+                } else {
+                    if (settings.targetSound) {
+                        targetSound.play()
+                        console.dir(`FOUND TARGET CITY: ${settings.targetCity}`)
                     }
                 }
-                if (settings.enableTargetRegion) {
-                    if (json.regionName !== settings.targetRegion) {
-                        stopAndStart()
-                        return
-                    } else {
-                        if (settings.targetSound) {
-                            targetSound.play()
-                            console.dir(`FOUND TARGET REGION: ${settings.targetRegion}`)
-                        }
+            }
+            if (settings.enableTargetRegion) {
+                if (json.regionName !== settings.targetRegion) {
+                    stopAndStart()
+                    return
+                } else {
+                    if (settings.targetSound) {
+                        targetSound.play()
+                        console.dir(`FOUND TARGET REGION: ${settings.targetRegion}`)
                     }
                 }
             }
+        }
+    }
 
-            if (typeof marker !== 'undefined')
-                map.removeLayer(marker)
+    if (typeof marker !== 'undefined')
+        map.removeLayer(marker)
 
-            if (typeof circle !== 'undefined')
-                map.removeLayer(circle)
+    if (typeof circle !== 'undefined')
+        map.removeLayer(circle)
 
-            if (settings.hideMobileLocation && json.mobile) {
-                circle = L.circle([json.lat, json.lon], 300000, {
-                    color: 'red',
-                    fillColor: '#f03',
-                    fillOpacity: 0.2
-                })
-
-                map.setView(new L.LatLng(json.lat, json.lon), 5);
-                marker = new L.Marker([json.lat, json.lon]);
-            } else {
-                circle = L.circle([json.lat, json.lon], 30000, {
-                    color: 'blue',
-                    fillColor: '#808080',
-                    fillOpacity: 0.1
-                })
-
-                map.setView(new L.LatLng(json.lat, json.lon), 13);
-                marker = new L.Marker([json.lat, json.lon]);
-            }
-
-            map.addLayer(circle)
-            map.addLayer(marker)
+    if (settings.hideMobileLocation && json.mobile) {
+        circle = L.circle([json.lat, json.lon], 300000, {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.2
         })
-        .fail(function (jqxhr, textStatus, error) {
-            remoteInfo.innerHTML = "<b>HTTP ERROR " + jqxhr.status + "</b>"
-            if (settings.enableTargetCity || settings.enableTargetRegion) {
-                if (jqxhr.status === 429) {
-                    stopAndStart(5000)
-                }
-            }
-        });
+
+        map.setView(new L.LatLng(json.lat, json.lon), 5);
+        marker = new L.Marker([json.lat, json.lon]);
+    } else {
+        circle = L.circle([json.lat, json.lon], 30000, {
+            color: 'blue',
+            fillColor: '#808080',
+            fillOpacity: 0.1
+        })
+
+        map.setView(new L.LatLng(json.lat, json.lon), 13);
+        marker = new L.Marker([json.lat, json.lon]);
+    }
+
+    map.addLayer(circle)
+    map.addLayer(marker)
+
+    return true
 }
 
 const onChangeStage = function (mutations) {
@@ -505,34 +424,23 @@ async function detectGender() {
 }
 
 function checkApi() {
+    console.dir(`attemping to connect to http://ip-api.com directly (will fail unless user allow unsecure content)`)
     $.getJSON("http://ip-api.com/json/", {
         fields: "status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query"
     }).done(function (json) {
+        console.dir('direct ip-api.com connection test passed! proceeding with best possible speed')
         // best case
         api = 1
+        apiStatus.innerHTML = ''
         remoteInfo.innerHTML = chrome.i18n.getMessage("apiStatus1") + chrome.i18n.getMessage("main")
         if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
             resizemap()
         }
     }).fail(function (jqxhr, textStatus, error) {
-        $.getJSON("https://ipwho.is/1.1.1.1").done(function (json) {
-                // most common case
-                api = 2
-                apiStatus.innerHTML = chrome.i18n.getMessage("apiStatus2")
-                remoteInfo.innerHTML = chrome.i18n.getMessage("main")
-                if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                    resizemap()
-                }
-            }
-        ).fail(function (jqxhr, textStatus, error) {
-            // worst case
-            api = 0
-            apiStatus.innerHTML = chrome.i18n.getMessage("apiStatus0")
-            remoteInfo.innerHTML = chrome.i18n.getMessage("main")
-            if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                resizemap()
-            }
-        })
+        console.dir('direct ip-api.com connection test failed! trying to connect via extension\'s service worker')
+        chrome.runtime.sendMessage({testApi: true}, function (response) {
+            console.dir(`request to send test ip-api request sent to service worker: ${response}`)
+        });
     });
 }
 

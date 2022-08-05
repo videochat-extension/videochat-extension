@@ -42,7 +42,7 @@
     "message": "<b>API работает корректно.</b></br></br>"
   },
   "apiStatus2": {
-    "message": "<b><a  target= '_blank'  style = 'text-decoration: none!important' href = 'https://github.com/qrlk/videochatru-extension/wiki/How-to-fix-the-cool-IP-API-%28Russian%29#%D0%BA%D0%B0%D0%BA-%D0%B2%D0%BA%D0%BB%D1%8E%D1%87%D0%B8%D1%82%D1%8C-%D0%BA%D1%80%D1%83%D1%82%D0%BE%D0%B9-api'>Расширение вынуждено использовать ограниченный IP API!</a></b></br></br>"
+    "message": "<b>API работает корректно.</b></br></br>"
   },
   "github": {
     "message": "Больше полезной информации: <b><a target='_blank' style='text-decoration: none!important;' href='https://github.com/qrlk/videochatru-extension'>github</a></b>."
