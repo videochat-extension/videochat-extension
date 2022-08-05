@@ -43,7 +43,7 @@ window.RTCPeerConnection.prototype = origPeerConnection.prototype;
                 if (rmdaddr !== args[0].address) {
                     rmdaddr = args[0].address
                     remoteIP.innerText = args[0].address
-                    console.dir("IP CHANGE")
+                    console.dir("IP CHANGED")
                     startDate = +new Date() / 1000
                 }
             }
