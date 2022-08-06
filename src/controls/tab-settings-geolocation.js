@@ -235,7 +235,47 @@ function createSettingsGeolocation() {
                     }
                 })
             ]),
-        ])
+        ]),
+
+        createElement('br'),
+        createElement('dd', {}, [
+            createElement('span', {}, [
+                createElement("p", {
+                    innerText: chrome.i18n.getMessage("torrentsEnable"),
+                    className: "tooltip",
+                    title: chrome.i18n.getMessage("tooltipTorrentsEnable")
+                }),
+                createElement('input', {
+                    type: "checkbox",
+                    checked: settings.torrentsEnable,
+                    id: "torrentsEnableCheck",
+                    onclick: () => {
+                        chrome.storage.sync.set({"torrentsEnable": torrentsEnableCheck.checked}, function () {
+
+                        });
+                    }
+                })
+            ]),
+        ]),
+        createElement('dd', {}, [
+            createElement('span', {}, [
+                createElement("p", {
+                    innerText: chrome.i18n.getMessage("torrentsInfo"),
+                    className: "tooltip",
+                    title: chrome.i18n.getMessage("tooltipTorrentsInfo")
+                }),
+                createElement('input', {
+                    type: "checkbox",
+                    checked: settings.torrentsInfo,
+                    id: "torrentsInfoCheck",
+                    onclick: () => {
+                        chrome.storage.sync.set({"torrentsInfo": torrentsInfoCheck.checked}, function () {
+
+                        });
+                    }
+                })
+            ]),
+        ]),
 
     ])
 }

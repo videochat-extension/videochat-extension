@@ -17,7 +17,8 @@ let settings = {},
     language = window.navigator.language.slice(0, 2),
     timeout,
     requestToStartTiming = 0,
-    requestToSkip = false
+    requestToSkip = false,
+    torrenstsConfirmed = false
 
 if (language === "pt")
     language = "pt-BR"
@@ -169,6 +170,35 @@ function doLookupRequest2(ip) {
     });
 }
 
+function checkTorrents(ip) {
+    if (settings.torrentsEnable) {
+        if (torrenstsConfirmed || !settings.torrentsInfo) {
+            let url = `https://iknowwhatyoudownload.com/${chrome.i18n.getMessage("@@ui_locale")}/peer/?ip=${ip}`
+            chrome.runtime.sendMessage({checkTorrents: true, url: url}, function (response) {
+                console.dir(`request to open iknowwhatyoudownload in the new tab/window: ${response}`)
+            });
+        } else {
+            Swal.fire({
+                title: 'iknowwhatyoudownload',
+                heightAuto: false,
+                showCancelButton: true,
+                confirmButtonText: chrome.i18n.getMessage("YKWYDConfirmButtonText"),
+                cancelButtonText: chrome.i18n.getMessage("YKWYDCancelButtonText"),
+                html: chrome.i18n.getMessage("YKWYDHtml"),
+                reverseButtons: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    torrenstsConfirmed = true;
+                    let url = `https://iknowwhatyoudownload.com/${chrome.i18n.getMessage("@@ui_locale")}/peer/?ip=${ip}`
+                    chrome.runtime.sendMessage({checkTorrents: true, url: url}, function (response) {
+                        console.dir(`request to open iknowwhatyoudownload in the new tab/window: ${response}`)
+                    });
+                }
+            })
+        }
+    }
+}
+
 function processData(json, ip) {
     if (ip !== json.query) {
         return
@@ -176,6 +206,7 @@ function processData(json, ip) {
     curInfo = json
     startDate = +new Date() / 1000
     let strings = []
+    let newInnerHTML = ''
 
     if (settings.showMoreEnabledByDefault && (json.mobile || json.proxy || json.hosting)) {
         if (json.mobile)
@@ -187,23 +218,40 @@ function processData(json, ip) {
     }
 
     if (settings.hideMobileLocation && json.mobile) {
-        remoteInfo.innerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br></br>"
+        newInnerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br></br>"
 
-        remoteInfo.innerHTML += "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>"
-        remoteInfo.innerHTML += "<b>TM: </b><sup id='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
+        newInnerHTML += "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>"
+        newInnerHTML += "<b>TM: </b><sup id='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
 
     } else {
-        remoteInfo.innerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br>"
+        newInnerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br>"
 
-        remoteInfo.innerHTML += "</br>" +
+        newInnerHTML += "</br>" +
             chrome.i18n.getMessage("apiCity") + json.city + " (" + json.region + ") </br>" +
             chrome.i18n.getMessage("apiRegion") + json.regionName + "</br>" +
             "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>)</br>" +
             "<b>TM: </b><sup id='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
     }
 
+    if (settings.showISP) {
+        newInnerHTML += `<br><small style="font-size: x-small!important;"><b>${json.isp}</b></small>`
+    }
+
     if (strings.length > 0)
-        remoteInfo.innerHTML += "</br>" + strings.join('<small> || </small>')
+        newInnerHTML += "</br>" + strings.join('<small> || </small>')
+
+
+    remoteInfo.innerHTML = DOMPurify.sanitize(newInnerHTML)
+
+    if (settings.torrentsEnable && !json.mobile && !json.proxy && !json.hosting) {
+        remoteInfo.innerHTML += `<br><br>`
+        $(createElement('button', {
+            innerHTML: "<b>"+chrome.i18n.getMessage("YKWYDButtonText")+"</b>",
+            onclick: () => {
+                checkTorrents(DOMPurify.sanitize(json.query))
+            }
+        })).appendTo(remoteInfo)
+    }
 
     if (settings.enableTargetCity || settings.enableTargetRegion) {
         if (settings.skipMobileTarget && json.mobile) {

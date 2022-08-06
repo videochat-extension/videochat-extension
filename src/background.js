@@ -77,6 +77,8 @@ var defaults = {
     hideHeader: true,
     sentry: true,
     swalInfoCompleted: false,
+    torrentsEnable: true,
+    torrentsInfo: true,
     showISP: false
 };
 
@@ -86,13 +88,15 @@ chrome.storage.sync.get(defaults, function (result) {
 
 var tabId = -1,
     chatId = -1,
-    curId = -1;
+    curId = -1,
+    torrentWindowId = -1;
 
-chrome.storage.local.get({ips: [], tabId: -1, chatId: -1, curId: -1}, function (result) {
+chrome.storage.local.get({ips: [], tabId: -1, chatId: -1, curId: -1, torrentWindowId: -1}, function (result) {
     chrome.storage.local.set(result)
     tabId = result.tabId
     chatId = result.chatId
     curId = result.curId
+    torrentWindowId = result.torrentWindowId
 })
 
 chrome.commands.onCommand.addListener(function (command) {
@@ -122,6 +126,10 @@ chrome.tabs.onActivated.addListener(function (chTab) {
     chrome.tabs.get(chTab["tabId"], function (tab) {
         if (tab["url"].search(".*videochatru.com.*") !== -1) {
             chatId = tab["id"];
+            if (tab.windowId === torrentWindowId) {
+                torrentWindowId = -1;
+                chrome.storage.local.set({torrentWindowId: res.id})
+            }
             chrome.storage.local.set({chatId: chatId})
         } else {
             tabId = tab["id"];
@@ -182,6 +190,46 @@ chrome.runtime.onMessage.addListener(
                     }
                 })
             sendResponse('fetch should be in progress');
+        }
+
+        if (request.checkTorrents) {
+            chrome.windows.getAll().then(res => {
+                let found = false
+                for (var prop in res) {
+                    if (res[prop].id === torrentWindowId) {
+                        chrome.tabs.create({
+                            url: request.url,
+                            windowId: torrentWindowId,
+                            active: true
+                        })
+                        found = true
+                        chrome.windows.get(windowId = torrentWindowId, {populate: true}).then(res => {
+                                let list_to_close = []
+                                for (var prop in res.tabs) {
+                                    if (!res.tabs[prop].active && res.tabs[prop].url.includes("iknowwhatyoudownload")) {
+                                        list_to_close.push(res.tabs[prop].id)
+                                    }
+                                }
+
+                                chrome.tabs.remove(list_to_close)
+                            }
+                        )
+                        break
+                    }
+                }
+                if (!found) {
+                    chrome.windows.create({
+                        url: request.url
+                    }).then(res => {
+                            torrentWindowId = res.id;
+                            chrome.storage.local.set({torrentWindowId: res.id})
+                        }
+                    );
+                }
+
+            })
+
+            sendResponse('k');
         }
     }
 );

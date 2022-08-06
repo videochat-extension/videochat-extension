@@ -530,6 +530,18 @@
   "tooltipTargetSound": {
     "message": "plays a sound when the target city/region is found"
   },
+  "torrentsEnable": {
+    "message": "YKWYD:"
+  },
+  "tooltipTorrentsEnable": {
+    "message": "displays a button to search for torrents that your interlocutor probably downloaded (only for those IPs that are not recognized as mobile/tor/proxy)"
+  },
+  "torrentsInfo": {
+    "message": "show YKWYD warning:"
+  },
+  "tooltipTorrentsInfo": {
+    "message": "shows a modal explaining what the 'iknowwhatyoudownload' button means (it reappears after page reloads)"
+  },
   "darkMode": {
     "message": "dark mode:"
   },
@@ -601,5 +613,17 @@
   },
   "welcomeButtonText": {
     "message": "Open welcome window"
+  },
+  "YKWYDConfirmButtonText": {
+    "message": "Ok (will open window)"
+  },
+  "YKWYDCancelButtonText": {
+    "message": "Cancel"
+  },
+  "YKWYDHtml": {
+    "message": "iknowwhatyoudownload is a service that collects data from BitTorrent networks and associates pirate IP addresses with torrent distributions, earning money by working with copyright holders, advertisers and the police.<br><br>Simply put, you can find out what your interlocutor could have downloaded from torrents recently.<br><br>This is a great opportunity to discuss with the interlocutor his tastes in games, music, cinema and pornography!<br><br>You should not take this information as one hundred percent (one IP address could be used by several people + the service does not cover all pirate resources), but since the button is not displayed for mobile networks / known VPNs, the chances of success are very high!<br><br>Pay attention to the number of torrents: if there are 3-10, then it can be a real person, if there are 30+ of them, probably too many people used the IP address.<br><br><b>If you are a streamer, keep in mind that on the page that opens, the IP addresses of the interlocutor and YOURS ALSO will be displayed!</b><br>Make sure that you are using VPN / OBS is configured to capture exactly the Chatruletka window.<br><br>After clicking an 'OK' button, a window separate from Chatruletka will open, and if you click the button again, the old service tabs in this window will close.<br>You can display that new window on a second monitor/half screen."
+  },
+  "YKWYDButtonText": {
+    "message": "check torrents"
   }
 }
