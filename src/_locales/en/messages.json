@@ -207,7 +207,7 @@
     "message": "replaces the preview that the interlocutor sees while the connection is being established"
   },
   "deletePreview": {
-    "message": "delete preview:"
+    "message": "delete preview (use replace):"
   },
   "tooltipDeletePreview": {
     "message": "deletes the preview that the interlocutor sees while the connection is being established"
@@ -219,7 +219,7 @@
     "message": "Replaces the image that the service uses to check you for violations. Avoiding accidental bans only. If lot of reports are sent to you, you will be banned anyway."
   },
   "deleteReportPic": {
-    "message": "delete report pic:"
+    "message": "delete report pic (use replace):"
   },
   "tooltipDeleteReportPic": {
     "message": "Deletes the image that the service uses to check you for violations. Avoiding accidental bans only. If you abuse and a lot of reports are sent to you, you will be banned anyway."
