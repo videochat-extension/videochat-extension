@@ -601,7 +601,7 @@ chrome.storage.sync.get(null, function (result) {
 
         if (settings.risky) {
             if (settings.mirror || settings.mirrorAlt || settings.prikol) {
-                if (settings.prikol) {
+                if (settings.prikol && isDevMode()) {
                     const prikolV = document.createElement('video');
                     prikolV.id = "prikol"
                     prikolV.loop = "loop"

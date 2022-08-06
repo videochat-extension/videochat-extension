@@ -78,3 +78,6 @@ function secondsToTime(secs) {
     return hours + ":" + minutes + ":" + seconds;
 }
 
+function isDevMode() {
+    return !('update_url' in chrome.runtime.getManifest());
+}

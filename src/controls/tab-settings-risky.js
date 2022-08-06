@@ -105,8 +105,15 @@ function createSettingsRisky() {
                     })
                 ]),
             ]),
-
-            createElement('dd', {}, [
+            createElement('dd', {
+                style: function f() {
+                    if (isDevMode()) {
+                        return ""
+                    } else {
+                        return "display:none"
+                    }
+                }()
+            }, [
                 createElement('span', {}, [
                     createElement("p", {
                         innerText: chrome.i18n.getMessage("prikol"),
