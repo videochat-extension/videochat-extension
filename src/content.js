@@ -154,7 +154,7 @@ function doLookupRequest1(ip) {
         .fail(function (jqxhr) {
             console.dir(`ip-api.com request failed: ${jqxhr.status}`)
             console.dir(jqxhr)
-            remoteInfo.innerHTML = "<b>HTTP ERROR " + jqxhr.status + "</b>"
+            remoteInfo.innerHTML = DOMPurify.sanitize("<b>HTTP ERROR " + jqxhr.status + "</b>")
             if (settings.enableTargetCity || settings.enableTargetRegion) {
                 if (jqxhr.status === 429) {
                     stopAndStart(5000)
@@ -580,6 +580,11 @@ chrome.storage.sync.get(null, function (result) {
                     document.body.appendChild(skip)
                     skip.volume = 0.3
                 }
+
+                const purify = document.createElement('script');
+                purify.src = chrome.runtime.getURL('libs/js/purify.min.js');
+                purify.onload = () => wss.remove();
+                (document.head || document.documentElement).appendChild(purify);
 
                 const wss = document.createElement('script');
                 wss.src = chrome.runtime.getURL('injection/ws.js');

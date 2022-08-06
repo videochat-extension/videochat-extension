@@ -60,7 +60,7 @@ chrome.runtime.onMessage.addListener(
                 console.dir(`ip-api.com test passed: ${request.apiTestCode}`)
             } else {
                 api = 0
-                apiStatus.innerHTML = '<b>ERROR: ' + request.apiTestResult + ' || </b>' + chrome.i18n.getMessage("apiStatus0")
+                apiStatus.innerHTML = DOMPurify.sanitize('<b>ERROR: ' + request.apiTestResult + ' || </b>' + chrome.i18n.getMessage("apiStatus0"))
                 remoteInfo.innerHTML = chrome.i18n.getMessage("main")
                 if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
                     resizemap()
@@ -75,7 +75,7 @@ chrome.runtime.onMessage.addListener(
                 if (request.apiCode === 200) {
                     processData(request.ipData, request.apiQuery)
                 } else {
-                    remoteInfo.innerHTML = "<b>HTTP ERROR " + request.apiCode + "</b>"
+                    remoteInfo.innerHTML = DOMPurify.sanitize("<b>HTTP ERROR " + request.apiCode + "</b>")
                     if (settings.enableTargetCity || settings.enableTargetRegion) {
                         if (request.status === 429) {
                             stopAndStart(5000)

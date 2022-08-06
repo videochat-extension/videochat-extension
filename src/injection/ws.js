@@ -73,7 +73,7 @@ TextDecoder.prototype.decode = function (data) {
     switch (prefix) {
         case "":
             if (typeof js["AttachedData"] !== 'undefined') {
-                remoteInfo.innerHTML = js["AttachedData"] + "<br>" + remoteInfo.innerHTML
+                remoteInfo.innerHTML = DOMPurify.sanitize(js["AttachedData"]) + "<br>" + remoteInfo.innerHTML
             }
             // console.dir("DETECT")
             // console.dir(js)

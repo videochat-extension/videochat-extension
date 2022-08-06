@@ -124,6 +124,14 @@ function createTabAbout() {
                                 target: "_blank"
                             })
                         ]),
+                        createElement('dd', {}, [
+                            createElement('a', {
+                                href: "https://github.com/cure53/DOMPurify",
+                                innerText: "DOMPurify",
+                                style: "text-decoration: none!important;",
+                                target: "_blank"
+                            })
+                        ]),
                         createElement('dt', {
                             innerHTML: "<b>Css:</b>"
                         }),
