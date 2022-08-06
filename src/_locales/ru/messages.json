@@ -227,6 +227,15 @@
   "settingsExperiments": {
     "message": "<b>Стримерам</b>"
   },
+  "settingsMisc": {
+    "message": "<b>Разное</b>"
+  },
+  "sentry": {
+    "message": "собирать ошибки:"
+  },
+  "tooltipSentry": {
+    "message": "позволяет расширению собирать информацию о своих ошибках и отправлять их в sentry.io"
+  },
   "settingsStats": {
     "message": "<b>Статистика</b>"
   },

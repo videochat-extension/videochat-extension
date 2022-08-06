@@ -54,6 +54,9 @@ function createTabSettings() {
                         createSettingsStreamer(),
                         createElement('br'),
 
+                        createSettingsMisc(),
+                        createElement('br'),
+
                         createSettingsStats()
                     ]
                 ),

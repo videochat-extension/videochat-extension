@@ -227,6 +227,15 @@
   "settingsExperiments": {
     "message": "<b>Streamers</b>"
   },
+  "settingsMisc": {
+    "message": "<b>Misc</b>"
+  },
+  "sentry": {
+    "message": "error reporting:"
+  },
+  "tooltipSentry": {
+    "message": "allows the extension to collect information about its errors and send them to sentry.io"
+  },
   "settingsStats": {
     "message": "<b>Stats</b>"
   },
