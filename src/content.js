@@ -467,11 +467,19 @@ chrome.storage.sync.get(null, function (result) {
         }
 
         if (settings.hideWatermark) {
-            document.getElementsByClassName("remote-video__watermark")[0].style.opacity = 0.0
+            try {
+                document.getElementsByClassName("remote-video__watermark")[0].style.display = "none"
+            } catch (e) {
+                console.dir(e)
+            }
         }
 
         if (settings.hideBanner) {
-            document.getElementsByClassName("caption remote-video__info")[0].style.opacity = 0.0
+            try {
+                document.getElementsByClassName("caption remote-video__info")[0].style.display = "none"
+            } catch (e) {
+                console.dir(e)
+            }
         }
 
         if (settings.doNotReflect) {

@@ -59,9 +59,17 @@ function createSettingsInterface() {
                     onclick: () => {
                         chrome.storage.sync.set({"hideWatermark": hideWatermarkCheck.checked}, function () {
                             if (hideWatermarkCheck.checked) {
-                                document.getElementsByClassName("remote-video__watermark")[0].style.opacity = 0.0
+                                try {
+                                    document.getElementsByClassName("remote-video__watermark")[0].style.display = "none"
+                                } catch (e) {
+                                    console.dir(e)
+                                }
                             } else {
-                                document.getElementsByClassName("remote-video__watermark")[0].style.opacity = 1.0
+                                try {
+                                    document.getElementsByClassName("remote-video__watermark")[0].style.display = ""
+                                } catch (e) {
+                                    console.dir(e)
+                                }
                             }
                         });
                     }
@@ -82,9 +90,17 @@ function createSettingsInterface() {
                     onclick: () => {
                         chrome.storage.sync.set({"hideBanner": hideBannerCheck.checked}, function () {
                             if (hideBannerCheck.checked) {
-                                document.getElementsByClassName("caption remote-video__info")[0].style.opacity = 0.0
+                                try {
+                                    document.getElementsByClassName("caption remote-video__info")[0].style.display = "none"
+                                } catch (e) {
+                                    console.dir(e)
+                                }
                             } else {
-                                document.getElementsByClassName("caption remote-video__info")[0].style.opacity = 1.0
+                                try {
+                                    document.getElementsByClassName("caption remote-video__info")[0].style.display = ""
+                                } catch (e) {
+                                    console.dir(e)
+                                }
                             }
                         });
                     }
