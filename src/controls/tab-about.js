@@ -116,6 +116,14 @@ function createTabAbout() {
                                 target: "_blank"
                             })
                         ]),
+                        createElement('dd', {}, [
+                            createElement('a', {
+                                href: "https://github.com/sweetalert2/sweetalert2",
+                                innerText: "sweetalert2",
+                                style: "text-decoration: none!important;",
+                                target: "_blank"
+                            })
+                        ]),
                         createElement('dt', {
                             innerHTML: "<b>Css:</b>"
                         }),
@@ -158,6 +166,16 @@ function createTabAbout() {
                             })
                         ])
                     ]),
+                createElement('br'),
+                createElement('button', {
+                    onclick: () => {
+                        showSwalInfo()
+                    },
+                }, [
+                    createElement('b', {
+                        innerText: chrome.i18n.getMessage("welcomeButtonText")
+                    })
+                ]),
             ]
         )
     ])

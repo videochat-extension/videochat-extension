@@ -635,5 +635,9 @@ chrome.storage.sync.get(null, function (result) {
 
         var observer2 = new MutationObserver(onChangeStage)
         observer2.observe(document.getElementById('remote-video-wrapper'), {attributes: true});
+
+        if (!settings.swalInfoCompleted) {
+            showSwalInfo()
+        }
     })
 });

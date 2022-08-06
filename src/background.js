@@ -75,7 +75,8 @@ var defaults = {
     darkMode: false,
     hideLogo: false,
     hideHeader: true,
-    sentry: true
+    sentry: true,
+    swalInfoCompleted: false
 };
 
 chrome.storage.sync.get(defaults, function (result) {
