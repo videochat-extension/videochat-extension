@@ -76,7 +76,8 @@ var defaults = {
     hideLogo: false,
     hideHeader: true,
     sentry: true,
-    swalInfoCompleted: false
+    swalInfoCompleted: false,
+    showISP: false
 };
 
 chrome.storage.sync.get(defaults, function (result) {

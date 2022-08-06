@@ -488,6 +488,12 @@
   "tooltipShowMoreInfo": {
     "message": "Enable this to display additional information about the IP address. Mobile - mobile (cellular) connection. Hosting -  proxy, VPN or Tor exit address. Hosting - hosting, colocated or data center."
   },
+  "showISP": {
+    "message": "show isp: "
+  },
+  "tooltipShowISP": {
+    "message": "Enable this to show ISP (Internet Service Provider) data if available."
+  },
   "targetSkipMobile": {
     "message": "skip mobile in target mode: "
   },

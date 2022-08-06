@@ -71,6 +71,26 @@ function createSettingsGeolocation() {
                 })
             ]),
         ]),
+
+        createElement('dd', {}, [
+            createElement('span', {}, [
+                createElement("p", {
+                    innerText: chrome.i18n.getMessage("showISP"),
+                    className: "tooltip",
+                    title: chrome.i18n.getMessage("tooltipShowISP")
+                }),
+                createElement('input', {
+                    type: "checkbox",
+                    checked: settings.showISP,
+                    id: "showISPCheck",
+                    onclick: () => {
+                        chrome.storage.sync.set({"showISP": showISPCheck.checked}, function () {
+
+                        });
+                    }
+                })
+            ]),
+        ]),
         createElement('br'),
         createElement('dd', {}, [
             createElement('span', {}, [
