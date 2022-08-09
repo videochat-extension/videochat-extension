@@ -189,7 +189,7 @@ function checkTorrents(ip) {
             }).then((result) => {
                 if (result.isConfirmed) {
                     torrenstsConfirmed = true;
-                    let url = `https://iknowwhatyoudownload.com/${chrome.i18n.getMessage("@@ui_locale")}/peer/?ip=${ip}`
+                    let url = `https://iknowwhatyoudownload.com/${chrome.i18n.getMessage("iknowwhatyoudownload_lang")}/peer/?ip=${ip}`
                     chrome.runtime.sendMessage({checkTorrents: true, url: url}, function (response) {
                         console.dir(`request to open iknowwhatyoudownload in the new tab/window: ${response}`)
                     });
