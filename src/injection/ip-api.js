@@ -11,12 +11,17 @@ function secondsToHms(d) {
 }
 
 setInterval(() => {
-    if (typeof remoteTM !== 'undefined') {
-        if (localStage.innerText === "3")
-            remoteTM.innerText = secondsToHms(+new Date() / 1000 - startDate)
+    if (document.getElementsByClassName("remoteTM").length > 0) {
+        if (localStage.innerText === "3") {
+            for (let el of document.getElementsByClassName("remoteTM")) {
+                el.innerText = secondsToHms(+new Date() / 1000 - startDate)
+            }
+        }
     }
-    if (typeof remoteTZ !== 'undefined' && typeof remoteTime !== 'undefined') {
-        remoteTime.innerText = new Date().toLocaleTimeString("ru", {timeZone: remoteTZ.innerText}).slice(0, -3)
+    if (document.getElementsByClassName("remoteTZ").length > 0 && document.getElementsByClassName("remoteTime").length > 0) {
+        for (let el of document.getElementsByClassName("remoteTime")) {
+            el.innerText = new Date().toLocaleTimeString("ru", {timeZone: $(el).parent().find('.remoteTZ')[0].innerText}).slice(0, -3)
+        }
     }
 }, 1000)
 // based on magic from https://github.com/fippo/rtcstats (MIT)

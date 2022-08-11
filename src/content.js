@@ -5,6 +5,8 @@ let settings = {},
     search = 0,
     found = 0,
     curInfo = {},
+    curIps = [],
+    needToClear = false,
     play = 0,
     map,
     countBeforeSaveStats = 0,
@@ -115,8 +117,16 @@ document.getElementsByClassName('buttons__button stop-button')[0].addEventListen
 })
 
 const onUpdateIP = function (mutations) {
+
     if (remoteIP.innerText === "-" || remoteIP.innerText === "")
         return
+
+    let newIp = remoteIP.innerText.replace("[", "").replace("]", "")
+
+    if (curIps.includes(newIp)) {
+        return
+    }
+
     console.dir("IP CHANGE DETECTED")
     requestToSkip = false
     if (local.ips.includes(remoteIP.innerText)) {
@@ -126,14 +136,16 @@ const onUpdateIP = function (mutations) {
             ban.play()
         stopAndStart()
     } else {
+        curIps.push(newIp)
+        console.dir(curIps)
         settings.stats.countNew++
         console.dir("new ip")
         switch (api) {
             case 2:
-                doLookupRequest2(remoteIP.innerText.replace("[", "").replace("]", ""))
+                doLookupRequest2(newIp)
                 break;
             case 1:
-                doLookupRequest1(remoteIP.innerText.replace("[", "").replace("]", ""))
+                doLookupRequest1(newIp)
                 break;
             default:
                 break;
@@ -200,14 +212,14 @@ function checkTorrents(ip) {
 }
 
 function processData(json, ip) {
-    if (ip !== json.query) {
+    if (!curIps.includes(ip)) {
         return
     }
     curInfo = json
     startDate = +new Date() / 1000
     let strings = []
     let newInnerHTML = ''
-
+    let newIpDiv = createElement('div')
     if (settings.showMoreEnabledByDefault && (json.mobile || json.proxy || json.hosting)) {
         if (json.mobile)
             strings.push("<small>MOBILE</small>")
@@ -220,8 +232,8 @@ function processData(json, ip) {
     if (settings.hideMobileLocation && json.mobile) {
         newInnerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br></br>"
 
-        newInnerHTML += "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>"
-        newInnerHTML += "<b>TM: </b><sup id='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
+        newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>"
+        newInnerHTML += "<b>TM: </b><sup class='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
 
     } else {
         newInnerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br>"
@@ -229,8 +241,8 @@ function processData(json, ip) {
         newInnerHTML += "</br>" +
             chrome.i18n.getMessage("apiCity") + json.city + " (" + json.region + ") </br>" +
             chrome.i18n.getMessage("apiRegion") + json.regionName + "</br>" +
-            "<b>TZ: </b><sup id='remoteTZ'>" + json.timezone + "</sup> (<sup id = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>)</br>" +
-            "<b>TM: </b><sup id='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
+            "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>)</br>" +
+            "<b>TM: </b><sup class='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
     }
 
     if (settings.showISP) {
@@ -241,16 +253,23 @@ function processData(json, ip) {
         newInnerHTML += "</br>" + strings.join('<small> || </small>')
 
 
-    remoteInfo.innerHTML = DOMPurify.sanitize(newInnerHTML)
+    newIpDiv.innerHTML += DOMPurify.sanitize(newInnerHTML)
+    if (needToClear) {
+        needToClear = false
+        $(ipApiContainer).parent().children(':not(#ipApiContainer)').remove()
+        $(ipApiContainer).children().remove();
+    }
+    $(newIpDiv).appendTo(ipApiContainer)
+    console.dir("RENDER ++")
 
     if (settings.torrentsEnable && !json.mobile && !json.proxy && !json.hosting) {
-        remoteInfo.innerHTML += `<br><br>`
+        newIpDiv.innerHTML += `<br><br>`
         $(createElement('button', {
-            innerHTML: "<b>"+chrome.i18n.getMessage("YKWYDButtonText")+"</b>",
+            innerHTML: "<b>" + chrome.i18n.getMessage("YKWYDButtonText") + "</b>",
             onclick: () => {
                 checkTorrents(DOMPurify.sanitize(json.query))
             }
-        })).appendTo(remoteInfo)
+        })).appendTo(newIpDiv)
     }
 
     if (settings.enableTargetCity || settings.enableTargetRegion) {
@@ -327,8 +346,10 @@ const onChangeStage = function (mutations) {
             if (attributeValue.includes("s-search")) {
                 if (remoteIP.innerText !== "")
                     remoteIP.innerText = "-"
-                // console.dir("СТАДИЯ ПОИСКА")
                 stage = 1
+                curIps = []
+                needToClear = true
+                // console.dir("СТАДИЯ ПОИСКА")
                 // offline.play()
 
                 clearInterval(tim)
@@ -374,6 +395,9 @@ const onChangeStage = function (mutations) {
                 // console.dir("СТАДИЯ СТОП")
                 if (remoteIP.innerText !== "")
                     remoteIP.innerText = "-"
+                curIps = []
+                // remoteInfo.innerHTML = ''
+                needToClear = true
                 remoteFace.innerHTML = ''
 
                 nsfwInfo.style.display = "none"

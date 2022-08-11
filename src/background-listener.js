@@ -71,7 +71,7 @@ chrome.runtime.onMessage.addListener(
         }
         if (request.ipData) {
             console.dir(`ip-api.com returned ${request.apiCode} for ${request.apiQuery}.`)
-            if (remoteIP.innerText.replace("[", "").replace("]", "") === request.apiQuery) {
+            if (curIps.includes(request.apiQuery)) {
                 if (request.apiCode === 200) {
                     processData(request.ipData, request.apiQuery)
                 } else {
