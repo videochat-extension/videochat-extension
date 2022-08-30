@@ -45,7 +45,11 @@ cs.href = chrome.runtime.getURL("libs/css/tooltipster.bundle.min.css");
 const dark = document.createElement('link');
 dark.rel = "stylesheet";
 dark.id = "darkMode"
-dark.href = chrome.runtime.getURL("resources/dark-mode.css");
+if (location.href.includes('videochatru')) {
+    dark.href = chrome.runtime.getURL("resources/dark-mode.css");
+} else if (location.href.includes('ome.tv')) {
+    dark.href = chrome.runtime.getURL("resources/dark-mode-ometv.css");
+}
 
 const css = document.createElement('style')
 css.textContent = "small {font-size: xx-small!important;}";
