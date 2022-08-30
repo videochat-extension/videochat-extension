@@ -7,7 +7,8 @@
   "content_scripts": [
     {
       "matches": [
-        "https://videochatru.com/*"
+        "https://videochatru.com/*",
+        "https://ome.tv/*"
       ],
       "js": [
         "libs/js/sentry-browser.min.js",
@@ -68,7 +69,8 @@
         "resources/dark-mode.css"
       ],
       "matches": [
-        "https://videochatru.com/*"
+        "https://videochatru.com/*",
+        "https://ome.tv/*"
       ],
       "extension_ids": []
     }
