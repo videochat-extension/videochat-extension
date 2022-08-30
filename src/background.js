@@ -238,14 +238,22 @@ chrome.runtime.onMessage.addListener(
 chrome.runtime.setUninstallURL("https://docs.google.com/forms/d/1TIynfMSRGrFb7_Co9Rb0ZEhts3WROMRcrCNPV8XE0ls")
 
 chrome.action.onClicked.addListener(function (tab) {
-    chrome.tabs.create({url: "https://videochatru.com/embed/"});
+    if (chrome.i18n.getMessage("map_lang") === "ru") {
+        chrome.tabs.create({url: "https://videochatru.com/embed/"});
+    } else {
+        chrome.tabs.create({url: "https://ome.tv/"});
+    }
 });
 
 chrome.runtime.onInstalled.addListener(function (details) {
     if (details.reason === "install") {
         setTimeout(() => {
             chrome.storage.sync.set({askForMode: true}, function (params) {
-                chrome.tabs.create({url: "https://videochatru.com/embed/"});
+                if (chrome.i18n.getMessage("map_lang") === "ru") {
+                    chrome.tabs.create({url: "https://videochatru.com/embed/"});
+                } else {
+                    chrome.tabs.create({url: "https://ome.tv/"});
+                }
             });
         }, 1000)
     }
