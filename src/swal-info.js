@@ -5,7 +5,7 @@ const showSwalInfo = async function () {
         heightAuto: false,
         confirmButtonText: chrome.i18n.getMessage('confirmButtonText'),
         cancelButtonText: chrome.i18n.getMessage('cancelButtonText'),
-        allowOutsideClick: false, // optional classes to avoid backdrop blinking between steps
+        allowOutsideClick: false,
         allowEnterKey: true,
         reverseButtons: true,
         showClass: {popup: 'swal2-noanimation', backdrop: 'swal2-noanimation'},
