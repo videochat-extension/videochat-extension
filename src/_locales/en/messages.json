@@ -221,12 +221,6 @@
   "tooltipReplaceReportPic": {
     "message": "Replaces the image that the service uses to check you for violations. Avoiding accidental bans only. If lot of reports are sent to you, you will be banned anyway."
   },
-  "deleteReportPic": {
-    "message": "delete report pic (use replace):"
-  },
-  "tooltipDeleteReportPic": {
-    "message": "Deletes the image that the service uses to check you for violations. Avoiding accidental bans only. If you abuse and a lot of reports are sent to you, you will be banned anyway."
-  },
   "settingsExperiments": {
     "message": "<b>Streamers</b>"
   },

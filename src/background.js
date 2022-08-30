@@ -23,7 +23,6 @@ var defaults = {
         replacePic: false,
         deletePic: false,
         replaceReportPics: false,
-        deleteReportPics: false
     },
     stats: {
         countAll: 0,

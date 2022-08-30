@@ -274,27 +274,6 @@ function createSettingsRisky() {
                     ]),
                 ]),
 
-
-                createElement('dd', {}, [
-                    createElement('span', {}, [
-                        createElement("p", {
-                            innerText: chrome.i18n.getMessage("deleteReportPic"),
-                            className: "tooltip",
-                            title: chrome.i18n.getMessage("tooltipDeleteReportPic")
-                        }),
-                        createElement('input', {
-                            type: "checkbox",
-                            checked: settings.wsconfig.deleteReportPics,
-                            id: "wsconfigdeleteReportPicsCheck",
-                            onclick: () => {
-                                settings.wsconfig.deleteReportPics = wsconfigdeleteReportPicsCheck.checked
-                                chrome.storage.sync.set({"wsconfig": settings.wsconfig}, function () {
-
-                                });
-                            }
-                        })
-                    ]),
-                ]),
             ])
         ])
     ])

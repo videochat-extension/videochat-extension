@@ -22,8 +22,6 @@ TextEncoder.prototype.encode = function (data) {
                 if (js["ReportPics"].length > 10) {
                     if (wsconfigreplaceReportPicsCheck.checked) {
                         js["ReportPics"] = shwartz
-                    } else if (wsconfigdeleteReportPicsCheck.checked) {
-                        delete js["ReportPics"]
                     }
                     //console.dir("ПОДМЕНА КАРТИНКИ ДЛЯ РЕПОРТА")
                 }
