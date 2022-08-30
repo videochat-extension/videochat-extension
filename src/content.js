@@ -35,12 +35,10 @@ s.onload = () => s.remove();
 const c = document.createElement('link');
 c.rel = "stylesheet";
 c.href = chrome.runtime.getURL('libs/css/css-tooltip.min.css');
-(document.head || document.documentElement).appendChild(c);
 
 const cs = document.createElement('link');
 cs.rel = "stylesheet";
 cs.href = chrome.runtime.getURL("libs/css/tooltipster.bundle.min.css");
-(document.head || document.documentElement).appendChild(cs);
 
 const dark = document.createElement('link');
 dark.rel = "stylesheet";
@@ -53,7 +51,6 @@ if (location.href.includes('videochatru')) {
 
 const css = document.createElement('style')
 css.textContent = "small {font-size: xx-small!important;}";
-(document.head || document.documentElement).appendChild(css);
 
 chrome.storage.local.get(null, function (result) {
     local = result;
@@ -104,21 +101,6 @@ function stopAndStart(delay) {
         document.getElementsByClassName('buttons__button stop-button')[0].click()
     }
 }
-
-document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e) => {
-    if (stage === 3)
-        settings.stats.countManSkip++
-
-    clearTimeout(timeout)
-})
-
-document.getElementsByClassName('buttons__button stop-button')[0].addEventListener("click", (e) => {
-    if (e.pointerType !== "") {
-        remoteInfo.innerHTML = chrome.i18n.getMessage("main")
-        checkApi()
-    }
-    clearTimeout(timeout)
-})
 
 const onUpdateIP = function (mutations) {
 
@@ -563,12 +545,47 @@ chrome.storage.sync.get(null, function (result) {
             return
         } else {
             if (settings.minimalism) {
-                alert("minimalism baby")
-                return true
+                // alert("minimalism")
+                // checkApi()
+                // return true
             }
         }
 
+        (document.head || document.documentElement).appendChild(c);
+        (document.head || document.documentElement).appendChild(cs);
+        (document.head || document.documentElement).appendChild(css);
+
+        document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e) => {
+            if (stage === 3)
+                settings.stats.countManSkip++
+
+            clearTimeout(timeout)
+        })
+
+        document.getElementsByClassName('buttons__button stop-button')[0].addEventListener("click", (e) => {
+            if (e.pointerType !== "") {
+                remoteInfo.innerHTML = chrome.i18n.getMessage("main")
+                checkApi()
+            }
+            clearTimeout(timeout)
+        })
+
         injectInterface()
+
+        setInterval(() => {
+            if (document.getElementsByClassName("remoteTM").length > 0) {
+                if (localStage.innerText === "3") {
+                    for (let el of document.getElementsByClassName("remoteTM")) {
+                        el.innerText = secondsToHms(+new Date() / 1000 - startDate)
+                    }
+                }
+            }
+            if (document.getElementsByClassName("remoteTZ").length > 0 && document.getElementsByClassName("remoteTime").length > 0) {
+                for (let el of document.getElementsByClassName("remoteTime")) {
+                    el.innerText = new Date().toLocaleTimeString("ru", {timeZone: $(el).parent().find('.remoteTZ')[0].innerText}).slice(0, -3)
+                }
+            }
+        }, 1000)
 
         checkApi()
 

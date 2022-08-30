@@ -1,29 +1,3 @@
-function secondsToHms(d) {
-    d = Number(d);
-    var h = Math.floor(d / 3600);
-    var m = Math.floor(d % 3600 / 60);
-    var s = Math.floor(d % 3600 % 60);
-
-    var hDisplay = h > 0 ? h + (h === 1 ? "H" : "H") : "";
-    var mDisplay = m > 0 ? m + (m === 1 ? "M, " : "M") : "";
-    var sDisplay = s >= 0 ? s + (s === 1 ? "S" : "S") : "";
-    return hDisplay + mDisplay + sDisplay;
-}
-
-setInterval(() => {
-    if (document.getElementsByClassName("remoteTM").length > 0) {
-        if (localStage.innerText === "3") {
-            for (let el of document.getElementsByClassName("remoteTM")) {
-                el.innerText = secondsToHms(+new Date() / 1000 - startDate)
-            }
-        }
-    }
-    if (document.getElementsByClassName("remoteTZ").length > 0 && document.getElementsByClassName("remoteTime").length > 0) {
-        for (let el of document.getElementsByClassName("remoteTime")) {
-            el.innerText = new Date().toLocaleTimeString("ru", {timeZone: $(el).parent().find('.remoteTZ')[0].innerText}).slice(0, -3)
-        }
-    }
-}, 1000)
 // based on magic from https://github.com/fippo/rtcstats (MIT)
 
 var origPeerConnection = window.RTCPeerConnection;
