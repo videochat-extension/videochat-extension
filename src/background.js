@@ -78,7 +78,9 @@ var defaults = {
     swalInfoCompleted: false,
     torrentsEnable: true,
     torrentsInfo: true,
-    showISP: false
+    showISP: false,
+    askForMode: false,
+    minimalism: false,
 };
 
 chrome.storage.sync.get(defaults, function (result) {
@@ -240,6 +242,11 @@ chrome.action.onClicked.addListener(function (tab) {
 });
 
 chrome.runtime.onInstalled.addListener(function (details) {
-    if (details.reason === "install")
-        chrome.tabs.create({url: "https://videochatru.com/embed/"});
+    if (details.reason === "install") {
+        setTimeout(() => {
+            chrome.storage.sync.set({askForMode: true}, function (params) {
+                chrome.tabs.create({url: "https://videochatru.com/embed/"});
+            });
+        }, 1000)
+    }
 });

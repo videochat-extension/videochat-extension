@@ -532,6 +532,42 @@ chrome.storage.sync.get(null, function (result) {
     Sentry.wrap(function () {
         settings = result;
 
+        if (settings.askForMode) {
+            Swal.fire({
+                title: 'You have just installed Chatruletka (ome.tv) extension!',
+                allowOutsideClick: false,
+                heightAuto: false,
+                html: `Extension supports <a href=\"https://videochatru.com/embed" style=\"text-decoration: none!important;\" target=\"_blank\">videochatru.com</a> and <a href=\"https://ome.tv/embed" style=\"text-decoration: none!important;\" target=\"_blank\">ome.tv</a>.<br><br>Please choose the mod that suits you best.<br><br>
+ <form id="modeSelector">
+ <input type="radio" id="minimal" name="mode" value="minimalism">
+ <label for="minimal">minimalism (only geolocation)<br><img src="" width="300px"></label><br>
+ <input type="radio" id="full" name="mode" value="full" checked="checked">
+ <label for="full">full (full power with 50+ functions)<br><img src="" width="300px"></label></form>`,
+                preConfirm: () => {
+                    let newMode = $("#modeSelector").serializeArray()[0]['value']
+                    if (typeof newMode === "undefined") {
+                        return false
+                    } else {
+                        if (newMode === "minimalism") {
+                            chrome.storage.sync.set({askForMode: false, minimalism: true}, function (params) {
+                                location.reload()
+                            });
+                        } else {
+                            chrome.storage.sync.set({askForMode: false, minimalism: false}, function (params) {
+                                location.reload()
+                            });
+                        }
+                    }
+                }
+            })
+            return
+        } else {
+            if (settings.minimalism) {
+                alert("minimalism baby")
+                return true
+            }
+        }
+
         injectInterface()
 
         checkApi()
