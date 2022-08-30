@@ -282,7 +282,7 @@ function processData(json, ip) {
             return
         } else {
             if (settings.enableTargetCity) {
-                if (json.city !== settings.targetCity) {
+                if (!settings.targetCity.includes(json.city)) {
                     stopAndStart()
                     return
                 } else {
@@ -293,7 +293,7 @@ function processData(json, ip) {
                 }
             }
             if (settings.enableTargetRegion) {
-                if (json.regionName !== settings.targetRegion) {
+                if (!settings.targetRegion.includes(json.regionName)) {
                     stopAndStart()
                     return
                 } else {

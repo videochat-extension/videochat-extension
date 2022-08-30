@@ -501,10 +501,10 @@
     "message": "target city: "
   },
   "tooltipTargetCity": {
-    "message": "if city is not X => skip"
+    "message": "if interlocutor's city is not in provided list (City1, City2, City3) => skip."
   },
   "promptTargetCity": {
-    "message": "enter city which you want to find"
+    "message": "enter city/list of cities you want to find"
   },
   "prefixTargetCity": {
     "message": "target: "
@@ -513,10 +513,10 @@
     "message": "target region: "
   },
   "tooltipTargetRegion": {
-    "message": "if region is not X => skip"
+    "message": "if interlocutor's region is not in provided list (Region1, Region2, Region3) => skip."
   },
   "promptTargetRegion": {
-    "message": "enter region which you want to find"
+    "message": "enter region/list of regions you want to find"
   },
   "prefixTargetRegion": {
     "message": "target: "
