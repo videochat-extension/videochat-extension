@@ -5,6 +5,11 @@ const showSwalInfo = async function () {
         heightAuto: false,
         confirmButtonText: chrome.i18n.getMessage('confirmButtonText'),
         cancelButtonText: chrome.i18n.getMessage('cancelButtonText'),
+        showDenyButton: true,
+        denyButtonText: chrome.i18n.getMessage('denyButtonText'),
+        preDeny: () => {
+            chrome.storage.sync.set({"swalInfoCompleted": true})
+        },
         allowOutsideClick: false,
         allowEnterKey: true,
         reverseButtons: true,

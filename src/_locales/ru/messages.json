@@ -608,6 +608,9 @@
   "cancelButtonText": {
     "message": "Назад"
   },
+  "denyButtonText": {
+    "message": "Закрыть"
+  },
   "welcomeButtonText": {
     "message": "Открыть приветственное окно"
   },

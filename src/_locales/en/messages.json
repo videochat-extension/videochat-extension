@@ -608,6 +608,9 @@
   "cancelButtonText": {
     "message": "Back"
   },
+  "denyButtonText": {
+    "message": "Close"
+  },
   "welcomeButtonText": {
     "message": "Open welcome window"
   },
