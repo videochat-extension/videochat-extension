@@ -73,7 +73,8 @@ function createTabs() {
     }, [createElement('li', {
         className: "active", innerText: chrome.i18n.getMessage("tab1"),
     }), createElement('li', {
-        innerText: chrome.i18n.getMessage("tab2"),
+        id: "mapTabButton",
+        innerText: chrome.i18n.getMessage("tab2")
     }), createElement('li', {
         innerText: chrome.i18n.getMessage("tabBans")
     }), createElement('li', {
@@ -110,6 +111,8 @@ function injectInterface() {
         $(this)
             .addClass('active').siblings().removeClass('active')
             .closest('div.tabs').find('div.tabs__content').removeClass('active').eq($(this).index()).addClass('active');
+
+        updateMap(curInfo)
 
         if (this.innerText === chrome.i18n.getMessage("tab3")) {
             resizemap(true)

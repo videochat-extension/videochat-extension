@@ -306,6 +306,16 @@ function processData(json, ip) {
         }
     }
 
+    updateMap(curInfo)
+
+    return true
+}
+
+function updateMap(json) {
+    if (!$(mapTabButton).hasClass("active") || Object.keys(curInfo).length === 0) {
+        return
+    }
+
     if (typeof marker !== 'undefined')
         map.removeLayer(marker)
 
@@ -334,8 +344,6 @@ function processData(json, ip) {
 
     map.addLayer(circle)
     map.addLayer(marker)
-
-    return true
 }
 
 const onChangeStage = function (mutations) {
