@@ -52,10 +52,16 @@ chrome.runtime.onMessage.addListener(
         if (request.apiTestCode) {
             if (request.apiTestCode === 200) {
                 api = 2
-                apiStatus.innerHTML = ''
-                remoteInfo.innerHTML = chrome.i18n.getMessage("apiStatus2") + chrome.i18n.getMessage("main")
-                if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                    resizemap()
+
+                if (settings.minimalism) {
+                    $("<br><br>"+chrome.i18n.getMessage("apiStatus2")).appendTo($(".message-bubble")[0])
+                } else {
+                    apiStatus.innerHTML = ''
+                    remoteInfo.innerHTML = chrome.i18n.getMessage("apiStatus2") + chrome.i18n.getMessage("main")
+
+                    if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
+                        resizemap()
+                    }
                 }
                 console.dir(`ip-api.com test passed: ${request.apiTestCode}`)
             } else {

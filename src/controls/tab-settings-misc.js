@@ -23,5 +23,16 @@ function createSettingsMisc() {
                 })
             ]),
         ]),
+        createElement('dd', {}, [
+            createElement('button', {
+                onclick: () => {
+                    switchMode()
+                },
+            }, [
+                createElement('b', {
+                    innerText: "switch mode"
+                })
+            ])
+        ])
     ])
 }
