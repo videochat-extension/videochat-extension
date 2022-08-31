@@ -883,9 +883,15 @@ chrome.storage.sync.get(null, function (result) {
         if (!settings.swalInfoCompleted) {
             showSwalInfo()
         } else {
-            if (settings.showDangerWarning && settings.risky) {
-                showDangerWarning()
+            if (settings.lastVersion !== chrome.runtime.getManifest().version) {
+                showSwalChangelog(settings.lastVersion)
+            } else {
+                if (settings.showDangerWarning && settings.risky) {
+                    showDangerWarning()
+                }
             }
+
+            chrome.storage.sync.set({lastVersion: chrome.runtime.getManifest().version})
         }
     })
 });

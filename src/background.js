@@ -83,6 +83,7 @@ var defaults = {
     minimalism: false,
     lastInstanceOpened: "https://videochatru.com/embed/",
     showDangerWarning: true,
+    lastVersion: ""
 };
 
 chrome.storage.sync.get(defaults, function (result) {
@@ -256,5 +257,9 @@ chrome.runtime.onInstalled.addListener(function (details) {
                 }
             });
         }, 1000)
+    } else {
+        if (details.reason === "update") {
+            chrome.storage.sync.set({lastVersion: details.previousVersion})
+        }
     }
 });

@@ -177,6 +177,16 @@ function createTabAbout() {
                 createElement('br'),
                 createElement('button', {
                     onclick: () => {
+                        showSwalChangelog(settings.lastVersion)
+                    },
+                }, [
+                    createElement('b', {
+                        innerText: chrome.i18n.getMessage("changelogButtonText")
+                    })
+                ]),
+                createElement('br'),
+                createElement('button', {
+                    onclick: () => {
                         showSwalInfo()
                     },
                 }, [
