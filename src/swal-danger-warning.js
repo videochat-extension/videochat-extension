@@ -1,4 +1,4 @@
-function showDangerWarning() {
+async function showDangerWarning() {
     Swal.fire({
         title: chrome.i18n.getMessage("dangerWarningTitle"),
         icon: 'warning',
