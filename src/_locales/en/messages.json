@@ -649,5 +649,20 @@
   },
   "switchModeButtonText": {
     "message": "switch mode"
+  },
+  "dangerWarningTitle": {
+    "message": "'Danger Zone' actived"
+  },
+  "dangerWarningConfirmButtonText": {
+    "message": "close warning"
+  },
+  "dangerWarningCancelButtonText": {
+    "message": "don't show again"
+  },
+  "dangerWarningDenyButtonText": {
+    "message": "disable danger zone"
+  },
+  "dangerWarningHtmlContent": {
+    "message": "You have 'Danger Zone' enabled in your settings.<br><br>These are special features that can replace your camera with the interlocutors's camera or interfere with your connection to the Chatruletka server.<br><br>You can get banned from the chat for abusing certain features.<br><br>If you don't understand what they are doing or you think something is broken, turn off the 'danger zone', I warned you."
   }
 }

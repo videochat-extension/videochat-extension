@@ -23,11 +23,14 @@ function createSettingsRisky() {
                     onclick: () => {
                         chrome.storage.sync.set({
                             "risky": riskyCheck.checked,
+                            "showDangerWarning": riskyCheck.checked,
                         }, function () {
-                            if (riskyCheck.checked)
+                            if (riskyCheck.checked) {
                                 riskyList.style.display = ""
-                            else
+                                showDangerWarning()
+                            } else {
                                 riskyList.style.display = "none"
+                            }
 
                             if (settings.ws || settings.mirror || settings.mirrorAlt || settings.prikol)
                                 confirmAndReload()

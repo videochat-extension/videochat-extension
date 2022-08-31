@@ -875,6 +875,10 @@ chrome.storage.sync.get(null, function (result) {
 
         if (!settings.swalInfoCompleted) {
             showSwalInfo()
+        } else {
+            if (settings.showDangerWarning && settings.risky) {
+                showDangerWarning()
+            }
         }
     })
 });

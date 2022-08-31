@@ -81,7 +81,8 @@ var defaults = {
     showISP: false,
     askForMode: false,
     minimalism: false,
-    lastInstanceOpened: "https://videochatru.com/embed/"
+    lastInstanceOpened: "https://videochatru.com/embed/",
+    showDangerWarning: true,
 };
 
 chrome.storage.sync.get(defaults, function (result) {

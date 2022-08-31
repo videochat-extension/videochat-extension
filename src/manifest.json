@@ -40,6 +40,7 @@
         "controls/tab-stats.js",
         "content.js",
         "swal-info.js",
+        "swal-danger-warning.js",
         "hotkeys.js",
         "utils.js",
         "background-listener.js"
