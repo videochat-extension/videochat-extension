@@ -591,6 +591,16 @@ chrome.storage.sync.get(null, function (result) {
     Sentry.wrap(function () {
         settings = result;
 
+        let switchModeButton = createElement('button', {
+            onclick: () => {
+                switchMode()
+            },
+        }, [
+            createElement('b', {
+                innerText: chrome.i18n.getMessage("switchModeButtonText")
+            })
+        ])
+
         if (settings.askForMode) {
             switchMode()
             return
@@ -627,15 +637,6 @@ chrome.storage.sync.get(null, function (result) {
                     characterData: true
                 });
 
-                let switchModeButton = createElement('button', {
-                    onclick: () => {
-                        switchMode()
-                    },
-                }, [
-                    createElement('b', {
-                        innerText: chrome.i18n.getMessage("switchModeButtonText")
-                    })
-                ])
 
                 $(document).arrive("[data-tr=\"rules\"]", function (el) {
                     $("<br><br>").appendTo($(".message-bubble")[0])
@@ -645,6 +646,12 @@ chrome.storage.sync.get(null, function (result) {
                 return true
             }
         }
+
+        $(document).arrive("[data-tr=\"rules\"]", function (el) {
+            $("<br><br>").appendTo($(".message-bubble")[0])
+            $(switchModeButton).appendTo($(".message-bubble")[0])
+            $(document).unbindArrive("[data-tr=\"rules\"]");
+        });
 
         (document.head || document.documentElement).appendChild(c);
         (document.head || document.documentElement).appendChild(cs);
