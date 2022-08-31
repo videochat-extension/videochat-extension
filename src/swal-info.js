@@ -13,6 +13,8 @@ const showSwalInfo = async function () {
         allowOutsideClick: false,
         allowEnterKey: true,
         reverseButtons: true,
+
+        // TODO: FIX FLICKERING ON MODAL CHANGE
         showClass: {popup: 'swal2-noanimation', backdrop: 'swal2-noanimation'},
         hideClass: {backdrop: 'swal2-noanimation'}
     })
