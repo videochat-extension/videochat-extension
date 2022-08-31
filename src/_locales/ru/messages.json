@@ -635,6 +635,9 @@
   "minimalismExplainHosting" : {
     "message": "— IP адрес в списке хостингов и дата-центров."
   },
+  "minimalismImg":{
+    "message": "minimalism-ru.png"
+  },
   "switchModeTitle": {
     "message": "Вы успешно установили Чат Рулетное Расширение!"
   },

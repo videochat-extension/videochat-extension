@@ -635,6 +635,9 @@
   "minimalismExplainHosting" : {
     "message": "— IP address belongs to the data center."
   },
+  "minimalismImg":{
+    "message": "minimalism-en.png"
+  },
   "switchModeTitle": {
     "message": "You have just installed Chatruletka (ome.tv) Extension!"
   },
