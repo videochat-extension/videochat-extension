@@ -44,8 +44,10 @@ const dark = document.createElement('link');
 dark.rel = "stylesheet";
 dark.id = "darkMode"
 if (location.href.includes('videochatru')) {
+    chrome.storage.sync.set({lastInstanceOpened: "https://videochatru.com/embed/"})
     dark.href = chrome.runtime.getURL("resources/dark-mode.css");
 } else if (location.href.includes('ome.tv')) {
+    chrome.storage.sync.set({lastInstanceOpened: "https://ome.tv/embed/"})
     dark.href = chrome.runtime.getURL("resources/dark-mode-ometv.css");
 }
 

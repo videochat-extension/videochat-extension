@@ -81,6 +81,7 @@ var defaults = {
     showISP: false,
     askForMode: false,
     minimalism: false,
+    lastInstanceOpened: "https://videochatru.com/embed/"
 };
 
 chrome.storage.sync.get(defaults, function (result) {
@@ -238,11 +239,9 @@ chrome.runtime.onMessage.addListener(
 chrome.runtime.setUninstallURL("https://docs.google.com/forms/d/1TIynfMSRGrFb7_Co9Rb0ZEhts3WROMRcrCNPV8XE0ls")
 
 chrome.action.onClicked.addListener(function (tab) {
-    if (chrome.i18n.getMessage("map_lang") === "ru") {
-        chrome.tabs.create({url: "https://videochatru.com/embed/"});
-    } else {
-        chrome.tabs.create({url: "https://ome.tv/"});
-    }
+    chrome.storage.sync.get(["lastInstanceOpened"], function (result) {
+        chrome.tabs.create({url: result.lastInstanceOpened});
+    });
 });
 
 chrome.runtime.onInstalled.addListener(function (details) {
@@ -252,7 +251,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
                 if (chrome.i18n.getMessage("map_lang") === "ru") {
                     chrome.tabs.create({url: "https://videochatru.com/embed/"});
                 } else {
-                    chrome.tabs.create({url: "https://ome.tv/"});
+                    chrome.tabs.create({url: "https://ome.tv/embed/"});
                 }
             });
         }, 1000)
