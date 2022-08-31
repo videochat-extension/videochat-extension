@@ -890,8 +890,8 @@ chrome.storage.sync.get(null, function (result) {
                     showDangerWarning()
                 }
             }
-
-            chrome.storage.sync.set({lastVersion: chrome.runtime.getManifest().version})
         }
+
+        chrome.storage.sync.set({lastVersion: chrome.runtime.getManifest().version})
     })
 });
