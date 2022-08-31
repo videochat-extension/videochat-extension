@@ -205,7 +205,25 @@ function processData(json, ip) {
     }
 
     if (settings.minimalism) {
-        $('<br><span>' + json.query + '</span>').appendTo($(".message-bubble")[0])
+        setTimeout(() => {
+            if ($('span[data-tr="connection"]').length === 1) {
+                if (json.status === "success") {
+                    let ipApiString = `<b>${json.city} (${json.regionName}), ${json.country}.</b>`
+
+                    if (json.mobile) {
+                        ipApiString += `<br>${chrome.i18n.getMessage("minimalismExplainMobile")}`
+                    }
+                    if (json.proxy) {
+                        ipApiString += `<br>${chrome.i18n.getMessage("minimalismExplainProxy")}`
+                    }
+                    if (json.hosting) {
+                        ipApiString += `<br>${chrome.i18n.getMessage("minimalismExplainHosting")}`
+                    }
+
+                    $('<br><span>' + DOMPurify.sanitize(ipApiString) + '</span>').appendTo($(".message-bubble")[0])
+                }
+            }
+        }, 250)
         return
     }
 
@@ -505,10 +523,16 @@ function checkApi() {
         console.dir('direct ip-api.com connection test passed! proceeding with best possible speed')
         // best case
         api = 1
-        apiStatus.innerHTML = ''
-        remoteInfo.innerHTML = chrome.i18n.getMessage("apiStatus1") + chrome.i18n.getMessage("main")
-        if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-            resizemap()
+        if (settings.minimalism) {
+            if ($('span[data-tr="rules"]').length === 1) {
+                $("<span> </span>" + chrome.i18n.getMessage("apiStatus1")).appendTo($(".message-bubble")[0])
+            }
+        } else {
+            apiStatus.innerHTML = ''
+            remoteInfo.innerHTML = chrome.i18n.getMessage("apiStatus1") + "</br></br>" + chrome.i18n.getMessage("main")
+            if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
+                resizemap()
+            }
         }
     }).fail(function (jqxhr, textStatus, error) {
         console.dir('direct ip-api.com connection test failed! trying to connect via extension\'s service worker')
@@ -521,24 +545,25 @@ function checkApi() {
 function switchMode() {
     let preselect = settings.minimalism
     Swal.fire({
-        title: 'You have just installed Chatruletka (ome.tv) extension!',
+        title: chrome.i18n.getMessage("switchModeTitle"),
         allowOutsideClick: false,
         heightAuto: false,
-        html: `Extension supports <a href=\"https://videochatru.com/embed" style=\"text-decoration: none!important;\" target=\"_blank\">videochatru.com</a> and <a href=\"https://ome.tv/embed" style=\"text-decoration: none!important;\" target=\"_blank\">ome.tv</a>.<br><br>Please choose the mod that suits you best.<br><br>
+        html: `${chrome.i18n.getMessage("switchModeText")}<br><br>
  <form id="modeSelector">
  <input type="radio" id="minimalism" name="mode" value="minimalism">
- <label for="minimalism">minimalism (only geolocation)<br><img src="" width="300px"></label><br>
+ <label for="minimalism">${chrome.i18n.getMessage("switchModeLabelMod1")}<br><img src="${chrome.runtime.getURL('resources/img/minimalism.png')}" style="border:1px solid" width="250px"></label><br>
+ <br>
  <input type="radio" id="full" name="mode" value="full">
- <label for="full">full (full power with 50+ functions)<br><img src="" width="300px"></label></form>`,
+ <label for="full">${chrome.i18n.getMessage("switchModeLabelMod2")}</label></form>`,
         preConfirm: () => {
             let newMode = $("#modeSelector").serializeArray()[0]['value']
             if (typeof newMode === "undefined") {
                 return false
             } else {
                 if (!settings.askForMode && newMode === "minimalism" && preselect) {
-                    return
+                    return true
                 } else if (!settings.askForMode && newMode === "full" && !preselect) {
-                    return
+                    return true
                 } else {
                     if (newMode === "minimalism") {
                         chrome.storage.sync.set({askForMode: false, minimalism: true}, function (params) {
@@ -575,6 +600,26 @@ chrome.storage.sync.get(null, function (result) {
                     id: "remoteIP", style: "display: none;"
                 })).appendTo($("body"))
 
+                const onChangeStageMinimalism = function (mutations) {
+                    mutations.forEach(function (mutation) {
+                        if (mutation.attributeName === "class") {
+                            const attributeValue = $(mutation.target).prop(mutation.attributeName);
+                            if (attributeValue.includes("s-search")) {
+                                if (remoteIP.innerText !== "")
+                                    remoteIP.innerText = "-"
+                                curIps = []
+                            } else if (attributeValue.includes("s-stop")) {
+                                if (remoteIP.innerText !== "")
+                                    remoteIP.innerText = "-"
+                                curIps = []
+                            }
+                        }
+                    });
+                }
+
+                var observer3 = new MutationObserver(onChangeStageMinimalism)
+                observer3.observe(document.getElementById('remote-video-wrapper'), {attributes: true});
+
                 const observer = new MutationObserver(onUpdateIP)
                 observer.observe(document.getElementById('remoteIP'), {
                     attributes: true,
@@ -588,7 +633,7 @@ chrome.storage.sync.get(null, function (result) {
                     },
                 }, [
                     createElement('b', {
-                        innerText: "switch mode"
+                        innerText: chrome.i18n.getMessage("switchModeButtonText")
                     })
                 ])
 

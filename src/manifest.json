@@ -60,6 +60,7 @@
         "resources/models",
         "libs/js/nsfwjs.min.js",
         "resources/models/*",
+        "resources/img/*",
         "libs/js/leaflet/*",
         "resources/audio/*.mp3",
         "resources/*.mp4",

@@ -30,7 +30,7 @@ function createSettingsMisc() {
                 },
             }, [
                 createElement('b', {
-                    innerText: "switch mode"
+                    innerText: chrome.i18n.getMessage("switchModeButtonText")
                 })
             ])
         ])

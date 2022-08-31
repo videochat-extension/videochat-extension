@@ -42,10 +42,10 @@
     "message": "<b>IP geolocation API doesn't work at all.</b></br>You should read <a href='https://github.com/qrlk/videochatru-extension/wiki/How-to-fix-the-cool-IP-API' style = 'text-decoration: none!important'>this</a>, it might help.</br></br>"
   },
   "apiStatus1": {
-    "message": "<b>API works correctly.</b></br></br>"
+    "message": "<b>API works correctly.</b>"
   },
   "apiStatus2": {
-    "message": "<b>API works correctly.</b></br></br>"
+    "message": "<b>API works correctly.</b>"
   },
   "github": {
     "message": "More useful information: <b><a style= 'text-decoration: none!important;' target='_blank' href='https://github.com/qrlk/videochatru-extension'>github</a></b>."
@@ -625,5 +625,29 @@
   },
   "YKWYDButtonText": {
     "message": "check torrents"
+  },
+  "minimalismExplainMobile" : {
+    "message": "— IP address belongs to the mobile operator (the city may not be accurate)."
+  },
+  "minimalismExplainProxy" : {
+    "message": "— IP address belongs to Proxy/VPN/Tor."
+  },
+  "minimalismExplainHosting" : {
+    "message": "— IP address belongs to the data center."
+  },
+  "switchModeTitle": {
+    "message": "You have just installed Chatruletka (ome.tv) Extension!"
+  },
+  "switchModeText": {
+    "message": "<a href = \"https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi\" style=\"text-decoration: none!important;\" target=\"_blank\">Chatruletka Extension</a> supports <a href=\"https://videochatru.com/embed\" style=\"text-decoration: none!important;\" target=\"_blank\">videochatru.com</a> and <a href=\"https://ome.tv/embed\" style=\"text-decoration: none!important;\" target=\"_blank\">ome.tv</a>.<br><br><b>Please choose the mod that suits you best.</b>"
+  },
+  "switchModeLabelMod1": {
+    "message": "minimalism (only geolocation, nothing else)"
+  },
+  "switchModeLabelMod2": {
+    "message": "advanced (full power with 50+ functions)"
+  },
+  "switchModeButtonText": {
+    "message": "switch mode"
   }
 }

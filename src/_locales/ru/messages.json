@@ -42,10 +42,10 @@
     "message": "<b>Геолокация IP не работает.</b></br>Вам стоит прочитать вот <a href='https://github.com/qrlk/videochatru-extension/wiki/How-to-fix-the-cool-IP-API-%28Russian%29' style = 'text-decoration: none!important'>это</a>, может помочь.</br></br>"
   },
   "apiStatus1": {
-    "message": "<b>API работает корректно.</b></br></br>"
+    "message": "<b>API работает корректно.</b>"
   },
   "apiStatus2": {
-    "message": "<b>API работает корректно.</b></br></br>"
+    "message": "<b>API работает корректно.</b>"
   },
   "github": {
     "message": "Больше полезной информации: <b><a target='_blank' style='text-decoration: none!important;' href='https://github.com/qrlk/videochatru-extension'>github</a></b>."
@@ -625,5 +625,29 @@
   },
   "YKWYDButtonText": {
     "message": "проверить torrent"
+  },
+  "minimalismExplainMobile" : {
+    "message": "— IP адрес принадлежит мобильному оператору (город может быть неточным)."
+  },
+  "minimalismExplainProxy" : {
+    "message": "— IP адрес в списке Proxy/VPN/Tor."
+  },
+  "minimalismExplainHosting" : {
+    "message": "— IP адрес в списке хостингов и дата-центров."
+  },
+  "switchModeTitle": {
+    "message": "Вы успешно установили Чат Рулетное Расширение!"
+  },
+  "switchModeText": {
+  "message": "<a href = \"https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi\" style=\"text-decoration: none!important;\" target=\"_blank\">Расширение</a> поддерживает <a href=\"https://videochatru.com/embed\" style=\"text-decoration: none!important;\" target=\"_blank\">videochatru.com</a> и <a href=\"https://ome.tv/embed\" style=\"text-decoration: none!important;\" target=\"_blank\">ome.tv</a>.<br><br><b>Пожалуйста, выберите подходящий вам режим работы.</b>"
+},
+  "switchModeLabelMod1": {
+    "message": "минимализм (только геолокация, ничего лишнего)"
+  },
+  "switchModeLabelMod2": {
+    "message": "нормальный (полноценный режим с 50+ функциями)"
+  },
+  "switchModeButtonText": {
+    "message": "сменить режим"
   }
 }

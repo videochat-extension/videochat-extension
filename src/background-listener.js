@@ -54,10 +54,12 @@ chrome.runtime.onMessage.addListener(
                 api = 2
 
                 if (settings.minimalism) {
-                    $("<br><br>"+chrome.i18n.getMessage("apiStatus2")).appendTo($(".message-bubble")[0])
+                    if ($('span[data-tr="rules"]').length === 1) {
+                        $("<span> </span>" + chrome.i18n.getMessage("apiStatus2")).appendTo($(".message-bubble")[0])
+                    }
                 } else {
                     apiStatus.innerHTML = ''
-                    remoteInfo.innerHTML = chrome.i18n.getMessage("apiStatus2") + chrome.i18n.getMessage("main")
+                    remoteInfo.innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage("main")
 
                     if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
                         resizemap()
@@ -66,13 +68,19 @@ chrome.runtime.onMessage.addListener(
                 console.dir(`ip-api.com test passed: ${request.apiTestCode}`)
             } else {
                 api = 0
-                apiStatus.innerHTML = DOMPurify.sanitize('<b>ERROR: ' + request.apiTestResult + ' || </b>' + chrome.i18n.getMessage("apiStatus0"))
-                remoteInfo.innerHTML = chrome.i18n.getMessage("main")
-                if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                    resizemap()
-                }
                 console.dir(`ip-api.com test failed: ${request.apiTestResult} ${request.apiTestCode}`)
                 console.dir(chrome.i18n.getMessage("apiStatus0") + ' ERROR: ' + request.apiTestResult)
+                if (settings.minimalism) {
+                    if ($('span[data-tr="rules"]').length === 1) {
+                        $("<span> </span>" + DOMPurify.sanitize('<b>ERROR: ' + request.apiTestResult + ' || </b>' + chrome.i18n.getMessage("apiStatus0"))).appendTo($(".message-bubble")[0])
+                    }
+                } else {
+                    apiStatus.innerHTML = DOMPurify.sanitize('<b>ERROR: ' + request.apiTestResult + ' || </b>' + chrome.i18n.getMessage("apiStatus0"))
+                    remoteInfo.innerHTML = chrome.i18n.getMessage("main")
+                    if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
+                        resizemap()
+                    }
+                }
             }
         }
         if (request.ipData) {
