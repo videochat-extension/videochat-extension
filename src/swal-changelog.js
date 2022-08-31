@@ -3,7 +3,7 @@ const showSwalChangelog = async function (version) {
     if (version === "") {
         version = chrome.runtime.getManifest().version
     }
-    const steps = ['0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.7.1', '1.0', '1.1', '1.1.1', '1.1.2', '1.1.3', '1.1.4', '1.2.0', '1.3.0', '1.3.1', '1.3.2', '1.3.3']
+    const steps = ['0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.7.1', '1.0', '1.1', '1.1.1', '1.1.2', '1.1.3', '1.1.4', '1.2.0', '1.3.0', '1.3.1', '1.3.2', '1.3.3', '1.4.0']
     const swalQueueStep = Swal.mixin({
         progressSteps: steps,
         heightAuto: false,
@@ -46,7 +46,8 @@ const showSwalChangelog = async function (version) {
         'v1.3.0 (2022-08-07)',
         'v1.3.1 (2022-08-07)',
         'v1.3.2 (2022-08-09)',
-        'v1.3.3 (2022-08-12)'
+        'v1.3.3 (2022-08-12)',
+        'v1.4.0 (2022-09-01)'
     ]
 
     const values = {
@@ -73,7 +74,7 @@ const showSwalChangelog = async function (version) {
             '- Fixed report+left arrow hotkey.<br>' +
             '- Disabled nsfwjs unblur by default.<br>' +
             '- Fix typo: nsfjw -> faceapi in gender\'s tooltips.<br>' +
-            '- Add dark mode.<br>',
+            '- Add dark mode.<br>' +
             '- Switch from ko-fi to buymeacoffee.',
 
             // v0.7.1 (2022-01-07)
@@ -142,7 +143,26 @@ const showSwalChangelog = async function (version) {
             '- Fix: \'Check Torrents\' button for non en/ru UI locales',
 
             // v1.3.3 (2022-08-12)
-            '- The case when the interlocutor disclosed several IP addresses was taken into account: information on all of them will be displayed.'
+            '- The case when the interlocutor disclosed several IP addresses was taken into account: information on all of them will be displayed.',
+
+            // 1.4.0 (2022-09-01)
+            '- Added "minimalism" mode.<br>' +
+            '— When you install the extension, you will be prompted to choose how you want to use the extension.<br>' +
+            '— If you choose the minimalist mode, the extension will only show you the IP geolocation in the chat area.<br>' +
+            '— You can switch between modes with the button that should appear in the chat area.<br>' +
+            '- Added changelog.<br>' +
+            '— The changelog will open if you open the Chatruletka website (or ome.tv) with a newer version of the extension you used before.<br>' +
+            '— The changelog does not open in the "minimalism" mode.<br>' +
+            '— The changelog can also be opened from the About tab.<br>' +
+            '- Added ome.tv support.<br>' +
+            '— Some users have reported that videochatru.com is not working for them.<br>' +
+            '— ome.tv is the same chat platform, just a different instance, marketed as an alternative to Omegle.<br>' +
+            '— The extension has not been properly tested on ome.tv, so expect minor bugs.<br>' +
+            '- Ws hacks: Removed dangerous option to delete report photos.<br>' +
+            '- The map will only update if the "map" tab is selected.<br>' +
+            '- Added the ability to search for multiple cities/regions.<br>' +
+            '- Added a warning if "Danger Zone" is enabled.<br>' +
+            '- Added "close" button to "welcome window".'
         ],
         "ru": [
             // v0.1 (2021-09-27)
@@ -167,7 +187,7 @@ const showSwalChangelog = async function (version) {
             '- Исправлена горячая клавиша репорт+стрелка влево.<br>' +
             '- Отключено размывание nsfwjs по умолчанию.<br>' +
             '- Исправлена опечатка: nsfjw -> faceapi во всплывающих подсказках скипа faceapi.<br>' +
-            '- Добавлен темный режим.<br>',
+            '- Добавлен темный режим.<br>' +
             '- Переход с ko-fi на buymeacoffee.',
 
             // v0.7.1 (07.01.2022)
@@ -236,7 +256,26 @@ const showSwalChangelog = async function (version) {
             '- Исправлено: кнопка \'Проверить торренты\' для локалей пользовательского интерфейса, отличных от en/ru',
 
             // v1.3.3 (2022-08-12)
-            '- Учтён случай, когда собеседник раскрыл несколько IP адресов: будет отображаться информация по всем.'
+            '- Учтён случай, когда собеседник раскрыл несколько IP адресов: будет отображаться информация по всем.',
+
+            // 1.4.0 (01.09.2022)
+            '- Добавлен режим "минимализм".<br>' +
+            '— При установке расширения вам будет предложено выбрать способ его использования.<br>' +
+            '— Если вы выберете режим "минимализм", расширение будет показывать только IP-геолокацию в области чата.<br>' +
+            '— Вы можете переключаться между режимами с помощью кнопки, которая должна появиться в области чата.<br>' +
+            '- Добавлена история версий.<br>' +
+            '— История версий откроется, если вы откроете сайт Чатрулетки (или ome.tv) с более новой версией расширения, которое вы использовали ранее.<br>' +
+            '— История версий не открывается в режиме "минимализм".<br>' +
+            '— Историю версию также можно открыть на вкладке "Инфо".<br>' +
+            '- Добавлена поддержка ome.tv.<br>' +
+            '— Некоторые пользователи сообщали, что у них не работал videochatru.com.<br>' +
+            '— ome.tv - это та же чатрулетка, просто другой инстанс, позиционируемый как альтернатива Omegle.' +
+            '— Расширение не было должным образом протестировано на ome.tv, поэтому ожидайте незначительные баги.<br>' +
+            '- Ws hacks: Удалена опасная для пользователя опция удаления репорта.<br>' +
+            '- Карта будет обновляться, только если выбрана вкладка "карта".<br>' +
+            '- Добавлена возможность поиска по нескольким городам/регионам.<br>' +
+            '- Добавлено предупреждение, если "Опасная зона" включена.<br>' +
+            '- Добавлена кнопка "закрыть" в "окно приветствия".'
         ],
     }
 
