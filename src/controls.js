@@ -200,18 +200,16 @@ function outputsize() {
         resizemap()
     }
 
-    if (!resize) {
-        resize = true
-        setTimeout(() => {
-            let mar = parseInt(window.getComputedStyle(controls).marginRight)
-            buttons.style.width = (parseInt(buttons.style.width) - (parseInt(controls.style.width) + mar) / 2) + "px"
-            chat.style.width = (parseInt(chat.style.width) - (parseInt(controls.style.width) + mar) / 2) + "px"
-            resize = false
-            if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab3")) {
-                resizemap(true)
-            } else {
-                resizemap()
-            }
-        }, 500)
-    }
+    clearTimeout(resize)
+    resize = setTimeout(() => {
+        let mar = parseInt(window.getComputedStyle(controls).marginRight)
+        buttons.style.width = (parseInt(buttons.style.width) - (parseInt(controls.style.width) + mar) / 2) + "px"
+        chat.style.width = (parseInt(chat.style.width) - (parseInt(controls.style.width) + mar) / 2) + "px"
+        resize = false
+        if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab3")) {
+            resizemap(true)
+        } else {
+            resizemap()
+        }
+    }, 500)
 }
