@@ -11,7 +11,7 @@ const showSwalChangelog = async function (version) {
         cancelButtonText: chrome.i18n.getMessage('cancelButtonText'),
         showDenyButton: true,
         denyButtonText: chrome.i18n.getMessage('denyButtonText'),
-        // allowOutsideClick: false,
+        allowOutsideClick: false,
         allowEnterKey: true,
         progressStepsDistance: "4%",
         reverseButtons: true,
