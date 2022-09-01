@@ -292,7 +292,12 @@ const showSwalChangelog = async function (version) {
 
     let currentStep
 
-    for (currentStep = steps.indexOf(version); currentStep < steps.length;) {
+    let index = steps.indexOf(version)
+    if (steps.indexOf(version) + 1 < steps.length) {
+        index++
+    }
+
+    for (currentStep = index; currentStep < steps.length;) {
         const result = await swalQueueStep.fire({
             title: titles[currentStep],
             html: `<div style="text-align: left; max-height: 40vh">${values[chrome.i18n.getMessage('lang')][currentStep]}</div>`,
