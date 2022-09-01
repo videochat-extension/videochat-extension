@@ -3,7 +3,7 @@ const showSwalChangelog = async function (version) {
     if (version === "") {
         version = chrome.runtime.getManifest().version
     }
-    const steps = ['0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.7.1', '1.0', '1.1', '1.1.1', '1.1.2', '1.1.3', '1.1.4', '1.2.0', '1.3.0', '1.3.1', '1.3.2', '1.3.3', '1.4.0']
+    const steps = ['0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.7.1', '1.0', '1.1', '1.1.1', '1.1.2', '1.1.3', '1.1.4', '1.2.0', '1.3.0', '1.3.1', '1.3.2', '1.3.3', '1.4.0', '1.4.1']
     const swalQueueStep = Swal.mixin({
         progressSteps: steps,
         heightAuto: false,
@@ -47,7 +47,8 @@ const showSwalChangelog = async function (version) {
         'v1.3.1 (2022-08-07)',
         'v1.3.2 (2022-08-09)',
         'v1.3.3 (2022-08-12)',
-        'v1.4.0 (2022-09-01)'
+        'v1.4.0 (2022-09-01)',
+        'v1.4.1 (2022-09-02)'
     ]
 
     const values = {
@@ -162,7 +163,12 @@ const showSwalChangelog = async function (version) {
             '- The map will only update if the "map" tab is selected.<br>' +
             '- Added the ability to search for multiple cities/regions.<br>' +
             '- Added a warning if "Danger Zone" is enabled.<br>' +
-            '- Added "close" button to "welcome window".'
+            '- Added "close" button to "welcome window".',
+
+            // 1.4.1 (2022-09-02)
+            '- Limited the maximum height of the changelog container.<br>' +
+            '- Disabled closing by outside click (changelog).<br>' +
+            '- Improved control panel resizing method.'
         ],
         "ru": [
             // v0.1 (2021-09-27)
@@ -275,7 +281,12 @@ const showSwalChangelog = async function (version) {
             '- Карта будет обновляться, только если выбрана вкладка "карта".<br>' +
             '- Добавлена возможность поиска по нескольким городам/регионам.<br>' +
             '- Добавлено предупреждение, если "Опасная зона" включена.<br>' +
-            '- Добавлена кнопка "закрыть" в "окно приветствия".'
+            '- Добавлена кнопка "закрыть" в "окно приветствия".',
+
+            // 1.4.1 (2022-09-02)
+            '- Ограничена максимальная высота контейнера changelog.<br>' +
+            '- Отключено закрытие по внешнему клику (changelog).<br>' +
+            '- Улучшен метод изменения размера панели управления.'
         ],
     }
 
