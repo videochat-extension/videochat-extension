@@ -284,7 +284,7 @@ const showSwalChangelog = async function (version) {
     for (currentStep = steps.indexOf(version); currentStep < steps.length;) {
         const result = await swalQueueStep.fire({
             title: titles[currentStep],
-            html: `<div style="text-align: left">${values[chrome.i18n.getMessage('lang')][currentStep]}</div>`,
+            html: `<div style="text-align: left; max-height: 40vh">${values[chrome.i18n.getMessage('lang')][currentStep]}</div>`,
             showCancelButton: currentStep > 0,
             currentProgressStep: currentStep,
         })
