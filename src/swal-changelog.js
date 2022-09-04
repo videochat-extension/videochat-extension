@@ -28,273 +28,664 @@ const showSwalChangelog = async function (version) {
         '1.4.2'
     ]
 
+    const getGitHub = (tag, date) => {
+        return `<a href="https://github.com/qrlk/videochatru-extension/releases/tag/${tag}" style=\"text-decoration: none!important;\" target=\"_blank\">${tag} ${date}</a>`
+    }
+
     const titles = [
-        'v0.1 (2021-09-27)',
-        'v0.2 (2021-10-01)',
-        'v0.3 (2021-10-13)',
-        'v0.4 (2021-11-01)',
-        'v0.5 (2021-12-27)',
-        'v0.6 (2021-12-31)',
-        'v0.7 (2022-01-03)',
-        'v0.7.1 (2022-01-07)',
-        'v1.0 (2022-05-24)',
-        'v1.1 (2022-05-27)',
-        'v1.1.1 (2022-08-04)',
-        'v1.1.2 (2022-08-04)',
-        'v1.1.3 (2022-08-04)',
-        'v1.1.4 (2022-08-05)',
-        'v1.2.0 (2022-08-05)',
-        'v1.3.0 (2022-08-07)',
-        'v1.3.1 (2022-08-07)',
-        'v1.3.2 (2022-08-09)',
-        'v1.3.3 (2022-08-12)',
-        'v1.4.0 (2022-09-01)',
-        'v1.4.1 (2022-09-02)',
-        'v1.4.2 (2022-09-02)'
+        getGitHub('v0.1', '(2021-09-27)'),
+        getGitHub('v0.2', '(2021-10-01)'),
+        getGitHub('v0.3', '(2021-10-13)'),
+        getGitHub('v0.4', '(2021-11-01)'),
+        getGitHub('v0.5', '(2021-12-27)'),
+        getGitHub('v0.6', '(2021-12-31)'),
+        getGitHub('v0.7', '(2022-01-03)'),
+        getGitHub('v0.7.1', '(2022-01-07)'),
+        getGitHub('v1.0', '(2022-05-24)'),
+        getGitHub('v1.1', '(2022-05-27)'),
+        getGitHub('v1.1.1', '(2022-08-04)'),
+        getGitHub('v1.1.2', '(2022-08-04)'),
+        getGitHub('v1.1.3', '(2022-08-04)'),
+        getGitHub('v1.1.4', '(2022-08-05)'),
+        getGitHub('v1.2.0', '(2022-08-05)'),
+        getGitHub('v1.3.0', '(2022-08-07)'),
+        getGitHub('v1.3.1', '(2022-08-07)'),
+        getGitHub('v1.3.2', '(2022-08-09)'),
+        getGitHub('v1.3.3', '(2022-08-12)'),
+        getGitHub('v1.4.0', '(2022-09-01)'),
+        getGitHub('v1.4.1', '(2022-09-02)'),
+        getGitHub('v1.4.2', '(2022-09-02)')
     ]
 
     const values = {
         "en": [
             // v0.1 (2021-09-27)
-            '<a href="https://github.com/qrlk/videochatru-extension/compare/92cc2320b896b315cf5c6f9a4247d2bda826e582...027dea2001889f300ef5d3d5cc4cd3317ef6bfae" style=\"text-decoration: none!important;\" target=\"_blank\">View changes on github.</a>',
+            '<b>The first known version for a mass audience.</b><br>' +
+            '<br>' +
+            '<b>- Section \'Remote IP\'.</b><br>' +
+            '— Added the \'Remote IP\' section.<br>' +
+            '— The section displays information about the interlocutor\'s IP: country, city, region, time zone, network information: mobile/vps/vpn.<br>' +
+            '— In order for the geolocation service to work, you need to allow unsafe content in the site settings.<br>' +
+            '— At startup, an API check is triggered and information is given on how to fix the API if it does not work.<br>' +
+            '<br>' +
+            '<b>- Section \'Map\'.</b><br>' +
+            '— Added the \'Map\' section.<br>' +
+            '— The section shows the location of the interlocutor on the 2gis map.<br>' +
+            '<br>' +
+            '<b>- Section \'Settings\'.</b><br>' +
+            '— Added the \'Remote IP\' section.<br>' +
+            '— Added the ability to hide the watermark.<br>' +
+            '— Added the ability to hide the banner \'Video Chat RU\'.<br>' +
+            '— Added the ability to reflect the image from the interlocutor\'s camera (mirror).<br>' +
+            '<br>' +
+            '<b>- Hotkeys.</b><br>' +
+            '— Added chrome hotkeys: extension activation, skip, stop, a screenshot of the interlocutor/a screenshot of your camera.<br>' +
+            '<br>' +
+            '<b>- Miscellaneous.</b><br>' +
+            '— Added buttons (in the header) to save screenshots (^) from the user\'s camera and the interlocutor\'s camera.<br>' +
+            '— Clicking on the extension icon will open the version of roulette without garbage (embed).',
 
             // v0.2 (2021-10-01)
-            '<a href="https://github.com/qrlk/videochatru-extension/compare/027dea2001889f300ef5d3d5cc4cd3317ef6bfae...23032cf9f5eac63cac82f79d018a185e828ac9b2" style=\"text-decoration: none!important;\" target=\"_blank\">View changes on github.</a>',
+            '<b>Skipping interlocutors by gender, changing the map provider.</b><br>' +
+            '<br>' +
+            '<b>- Section \'Remote IP\'.</b><br>' +
+            '— Now the section is displayed in English.<br>' +
+            '— More detailed information about the problem which blocks http requests.<br>' +
+            '— Information about the city and region of mobile IP is now hidden.<br>' +
+            '— Information about mobile/VPN/VPS is no longer displayed.<br>' +
+            '— Show time in the interlocutor\'s time zone.<br>' +
+            '<br>' +
+            '<b>- Section \'Map\'.</b><br>' +
+            '— 2gis changed to carto.<br>' +
+            '<br>' +
+            '<b>- Section \'Settings\'.</b><br>' +
+            '— Added the ability to skip men/women (detection by faceapi on the client side).<br>' +
+            '— Added the ability to play a sound when the interlocutor is skipped on the floor.<br>' +
+            '<br>' +
+            '<b>- Section \'Info\'.</b><br>' +
+            '— Added the \'Info\' section.<br>' +
+            '— Information about the extension, various links.<br>' +
+            '<br>' +
+            '<b>- Hotkeys.</b><br>' +
+            '— Added local hotkeys binded to the arrows: skip, stop, report.<br>' +
+            '— Added chrome hotkey to quickly switch between the current tab and the chat tab.<br>' +
+            '<br>' +
+            '<b>- Miscellaneous.</b><br>' +
+            '— A link to instructions on how to bypass the ban has been added to the window with the ban.<br>' +
+            '— \'chatruletka++\' renamed to \'Chat Roulette Extension\' / \'Чат Рулетное Расширение\'.<br>' +
+            '— Minor fixes and improvements.',
 
             // v0.3 (2021-10-13)
-            '<a href="https://github.com/qrlk/videochatru-extension/compare/23032cf9f5eac63cac82f79d018a185e828ac9b2...b0604cbda3d3d8bd42597170d8e34a5b557780d5" style=\"text-decoration: none!important;\" target=\"_blank\">View changes on github.</a>',
+            '<b>Blacklist, statistics.</b><br>' +
+            '<br>' +
+            '<b>- Section \'Bans\'.</b><br>' +
+            '— Added the \'Bans\' section.<br>' +
+            '— Displays statistics on bans: IP in the blacklist, number of passed and blocked sessions.<br>' +
+            '<br>' +
+            '<b>- Section \'Stats\'.</b><br>' +
+            '— Added the \'Stats\' section.<br>' +
+            '— Displays statistics: number of conversations, time spent, number of manual and faceapi skips, number of male and female encounters.<br>' +
+            '<br>' +
+            '<b>- Section \'Settings\'.</b><br>' +
+            '— An alternative mirror has been added.<br>' +
+            '— Added the ability to activate faceapi when gender skips are disabled.<br>' +
+            '— Added the ability to add to the blacklist by skipping due to faceapi setting.<br>' +
+            '— Added the ability to skip interlocutors who take more than 4 seconds to load.<br>' +
+            '— Added the ability to automatically close the dialog \'Are you there?\' when the timer goes out.<br>' +
+            '<br>' +
+            '<b>- Hotkeys.</b><br>' +
+            '— Added the ability to ban the interlocutor by pressing the local/chrome hotkey.<br>' +
+            '<br>' +
+            '<b>- Miscellaneous.</b><br>' +
+            '— Added buttons (in the header) to open the user\'s camera or the interlocutor\'s camera in PiP.<br>' +
+            '— Minor fixes and improvements.',
 
             // v0.4 (2021-11-01)
-            '<a href="https://github.com/qrlk/videochatru-extension/compare/b0604cbda3d3d8bd42597170d8e34a5b557780d5...4716e2f00dd519fbf30d5e4ee2c7d069b8af483a" style=\"text-decoration: none!important;\" target=\"_blank\">View changes on github.</a>',
+            '<b>Extension name changed in English localization.</b><br>' +
+            '<br>' +
+            '<b>- Section \'Info\'.</b><br>' +
+            '— Added badges from shields.io .<br>' +
+            '<br>' +
+            '<b>- Miscellaneous.</b><br>' +
+            '— \'Chat Roulette Extension\' renamed to \'Chatruletka Extension\'.<br>' +
+            '— Minor fixes and improvements.',
 
             // v0.5 (2021-12-27)
-            '<a href="https://github.com/qrlk/videochatru-extension/compare/4716e2f00dd519fbf30d5e4ee2c7d069b8af483a...a9a59c7142e6a4331bc96fe2262679ae323ce225" style=\"text-decoration: none!important;\" target=\"_blank\">View changes on github.</a>',
+            '<b>Sections in settings, ws hacks, experiments with nsfw blocking.</b><br>' +
+            '<br>' +
+            '<b>- Section \'Bans\'.</b><br>' +
+            '— The section has been translated into Russian.<br>' +
+            '<br>' +
+            '<b>- Section \'Stats\'.</b><br>' +
+            '— The section has been translated into Russian.<br>' +
+            '<br>' +
+            '<b>- Section \'Settings\'.</b><br>' +
+            '— Added an alternative \'mirror\' from the local video.<br>' +
+            '— Experiments with ws hacks.<br>' +
+            '— Experiments with nsfw detection.<br>' +
+            '<br>' +
+            '<b>- Miscellaneous.</b><br>' +
+            '— Minor fixes and improvements.',
 
             // v0.6 (2021-12-31)
-            '<a href="https://github.com/qrlk/videochatru-extension/compare/a9a59c7142e6a4331bc96fe2262679ae323ce225...66bd53e275adc37d283a17395f6e5a9bf35f8a67" style=\"text-decoration: none!important;\" target=\"_blank\">View changes on github.</a>',
+            '<b>Streamer mode, search by city/region.</b><br>' +
+            '<br>' +
+            '<b>- Streamer mode.</b><br>' +
+            '— Streamer mode has been added: the ability to blur the interlocutor\'s camera on a hotkey, while looking at the original picture in Picture-in-Picture mode.<br>' +
+            '— The ability to automatically activate the blur / image after changing the interlocutor.<br>' +
+            '— The ability to customize the image.<br>' +
+            '— The ability to mute the interlocutor by hotkey.<br>' +
+            '— An attempt at automatic blur, if it recognizes nsfw (it is better not to use it in production, use hands).<br>' +
+            '<br>' +
+            '<b>- Section \'Settings\'.</b><br>' +
+            '— Added the ability to search for an interlocutor by city/region.<br>' +
+            '<br>' +
+            '<b>- Section \'Info\'.</b><br>' +
+            '— Discord badge added.<br>' +
+            '<br>' +
+            '<b>- Miscellaneous.</b><br>' +
+            '— A lot of fixes and cosmetic improvements.<br>' +
+            '— A lot of internal architectural changes.',
 
             // v0.7 (2022-01-03)
-            '- Fixed report+left arrow hotkey.<br>' +
-            '- Disabled nsfwjs unblur by default.<br>' +
-            '- Fix typo: nsfjw -> faceapi in gender\'s tooltips.<br>' +
-            '- Add dark mode.<br>' +
-            '- Switch from ko-fi to buymeacoffee.',
+            '<b>Dark mode.</b><br>' +
+            '<br>' +
+            '<b>- Section \'Settings\'.</b><br>' +
+            '— Added dark mode.<br>' +
+            '— Disabled nsfwjs blurring by default.<br>' +
+            '— Typo fixed: nsfjw -> faceapi in skip faceapi tooltips.<br>' +
+
+            '<br>' +
+            '<b>- Hotkeys.</b><br>' +
+            '— Fixed the hotkey report+left arrow.<br>' +
+            '<br>' +
+            '<b>- Miscellaneous.</b><br>' +
+            '— Switching from ko-fi to buymeacoffee.<br>',
 
             // v0.7.1 (2022-01-07)
-            '- Added a Google form asking the user why they removed the extension, the response is sent to the public channel in Discord.',
+            '<b>Polling when deleting an extension.</b><br>' +
+            '<br>' +
+            '<b>- Miscellaneous.</b><br>' +
+            '— Added a Google form asking the user why he deleted the extension, the response is sent to the public channel in Discord.',
 
             // v1.0 (2022-05-24)
-            '- Extension adapted to manifest v3.<br>' +
-            '— Will work in Chrome in 2023+.<br>' +
-            '- Added alternative IP geolocation API.<br>' +
-            '— It works via https, but it is much inferior to its http counterpart (1k requests per day, cannot determine the mobile Internet).<br>' +
-            '- A detailed instruction of how to activate the normal api has been added to the github wiki.<br>' +
-            '— If the http api is not available, the link to the article will be in the IP tab.<br>' +
-            '- A warning now appears on the login screen that Chatruletka and ome.tv are the same project.<br>' +
-            '— Many people uninstalled the extension without understanding why they couldn\'t use it on their Chatruletka instance.<br>' +
-            '- The donate button has been replaced by a button with a call to leave a review in the Chrome Web Store.<br>' +
-            '- \'Settings\' tab now expands to half the screen, can be turned off.<br>' +
-            '- If you change an important setting, the extension will remind you to refresh page only after pressing the \'Start\' button.<br>' +
-            '- By default, the map displays Europe (in the English version).<br>' +
-            '- Extension in English version is now called \'Chatruletka (ome.tv) extension\'.<br>' +
-            '- Control panel header now contains version number.<br>' +
-            '- Clicking the \'Stop\' button now resets the IP tab.<br>' +
-            '- Fixed a decrease in the number of manual skips when auto skipping due to too long connection.<br>' +
-            '- Removed extension groups/chats in Telegram.',
+            '<b>Manifest v3 (will work in 2023+).</b><br>' +
+            '<br>' +
+            '<b>- Section \'IP\'.</b><br>' +
+            '— Added an alternative IP geolocation API.<br>' +
+            '— It works via https, but is much inferior to its http counterpart (1k requests per day, cannot detect mobile Internet).<br>' +
+            '— A detailed analysis of how to activate the normal api has been added to the wiki on github.<br>' +
+            '— If the http api is unavailable, the link to the article will be in the IP tab.<br>' +
+            '— The donation button has been replaced with a button with a call to leave a review in the Chrome Web Store.<br>' +
+            '— When you click on the \'Stop\' button, the IP section is now reset.<br>' +
+            '<br>' +
+            '<b>- Section \'Map\'.</b><br>' +
+            '— By default, Europe is displayed on the map (in the English version).<br>' +
+            '<br>' +
+            '<b>- Section \'Stats\'.</b><br>' +
+            '— Fixed a decrease in the number of manual skips during auto-start due to too long connection.<br>' +
+            '<br>' +
+            '<b>- Section \'Settings\'.</b><br>' +
+            '— The \'Settings\' section now expands to half the screen, you can disable it.<br>' +
+            '— If you change an important setting, the extension will remind you to reboot only after clicking the \' buttonStart\'.<br>' +
+            '<br>' +
+            '<b>- Section \'Info\'.</b><br>' +
+            '— Telegram extension groups/chats have been cut/deleted.<br>' +
+            '<br>' +
+            '<b>- Miscellaneous.</b><br>' +
+            '— Extension adapted to manifest v3 (Will work in Chrome in 2023+)<br>' +
+            '— The extension in the English version is now named \'Chatruletka (ome.tv) extension\'.<br>' +
+            '— The extension version is now displayed in the control panel header.<br>' +
+            '— A warning now appears on the login screen that Chat Roulette and ome.tv is the same thing.<br>' +
+            '— Many people have deleted the extension, not understanding why they can\'t use it on their Chatruletka instance.<br>',
 
             // v1.1 (2022-05-27)
-            '- Increased the width of the control menu.<br>' +
-            '- Added option to hide the header (enabled by default).<br>' +
-            '- Added scroller bar to the login window.<br>' +
-            '- Fixed crash when trying to hide non-existent logo.<br>' +
-            '- Added an exception monitoring system to report errors in parts of extension code.',
+            '<b>Error monitoring system.</b><br>' +
+            '<br>' +
+            '<b>- Section \'Settings\'.</b><br>' +
+            '— Added the ability to hide the title (on by default).<br>' +
+            '— Fixed crash when trying to hide a non-existent logo.<br>' +
+            '<br>' +
+            '<b>- Miscellaneous.</b><br>' +
+            '— Added an error monitoring system to report errors in the extension code.<br>' +
+            '— Added a scroll bar to the login window.<br>' +
+            '— Increased the width of the control menu.<br>',
 
             // v1.1.1 (2022-08-04)
-            '- Attempt to fix tab freezing with enabled ws hacks.<br>' +
-            '- Limit version string in the control panel to 3 characters',
+            '<b>Unsuccessful hotfix of the tab hanging issue.</b><br>' +
+            '<br>' +
+            '<b>- Section \'Settings\'.</b><br>' +
+            '— Attempt to fix tab hanging with ws hacks enabled.<br>' +
+            '<br>' +
+            '<b>- Miscellaneous.</b><br>' +
+            '— Limit the version string in the control panel to 3 characters',
 
             // v1.1.2 (2022-08-04)
-            '- Disabled sending "face data", which was potentially causing the tab to freeze when ws hacks was enabled.',
+            '<b>A successful hotfix of the tab hanging issue.</b><br>' +
+            '<br>' +
+            '<b>- Section \'Settings\'.</b><br>' +
+            '— The sending of "face data" is disabled, which was the reason for the tab to hang when ws hacks is enabled.',
 
             // v1.1.3 (2022-08-04)
-            '- Increased delay before resizing after window resize.',
+            '<b>Minor fix.</b><br>' +
+            '<br>' +
+            '<b>- Miscellaneous.</b><br>' +
+            '— Increased the delay before resizing after resizing the window.',
 
             // v1.1.4 (2022-08-05)
-            '- Attempt to fix https ip api provider.',
+            '<b>Failed attempt to fix http error 429.</b><br>' +
+            '<br>' +
+            '<b>- Section \'IP\'.</b><br>' +
+            '— Failed attempt to replace the backup ip geolocation provider.',
 
             // v1.2.0 (2022-08-05)
-            '- IP geolocation should now work without the need to allow insecure content (but with a bit more delay).<br>' +
-            '- The back-up geolocation service was cut because its limit applied to all users of the extension, not just you as I thought before<br>' +
-            '- Option to show more information about IP (tor vpn mobile) is now enabled by default.',
+            '<b>IP geolocation without any browser settings.</b><br>' +
+            '<br>' +
+            '<b>- Section \'IP\'.</b><br>' +
+            '— IP geolocation should now work without the need to allow insecure content (but with a slightly longer delay).<br>' +
+            '— The backup geolocation service was cut out because its limits policy applied to all users of the extension, and not just to a specific one, as I thought before.<br>' +
+            '— The option to display additional IP information (tor vpn mobile) is now enabled by default.',
 
             // v1.3.0 (2022-08-07)
-            '- Add a modal queue that welcomes new users with bunch of useless information.<br>' +
-            '- Add an iknowwhatyoudownload button to open a link with possible torrent downloads of the interlocutor.<br>' +
-            '- Add an option to show ISP (disabled by default).<br>' +
-            '- Add the ability to disable the collection of errors.<br>' +
-            '- Show seconds >=0 in TM (IP tab).<br>' +
-            '- Change a way how hiding interface parts work<br>' +
-            '- Allow risky \'prikol\' thing only if extension is unpacked.<br>' +
-            '- Add notion to use replace not delete in risky ws hacks.<br>' +
-            '- Sanitization of innerHTML assignments.<br>' +
-            '- Hid the instructions for bypassing the ban behind the paywall due to reaching 5000 users gap.',
+            '<b>Checking torrents and a welcome window.</b><br>' +
+            '<br>' +
+            '<b>- Section \'IP\'.</b><br>' +
+            '— Added the iknowwhatyoudownload button to open a link with possible torrent downloads of the interlocutor.<br>' +
+            '— Added the ability to show the provider (disabled by default).<br>' +
+            '— Seconds are shown >=0 in TM.<br>' +
+            '<br>' +
+            '<b>- Section \'Settings\'.</b><br>' +
+            '— Changed the way to hide parts of the interface.<br>' +
+            '— Added the ability to disable error collection.<br>' +
+            '— Added a call not to use the removal of images in ws hacks, because perceived as empty.<br>' +
+            '— The dangerous "prikol" function is now only available if the extension is unpacked.<br>' +
+            '<br>' +
+            '<b>- Section \'Info\'.</b><br>' +
+            '— Added a modal queue that welcomes new users with a bunch of useless information.<br>' +
+            '<br>' +
+            '<b>- Miscellaneous.</b><br>' +
+            '— Sanitization of innerHTML assignments.<br>' +
+            '— Hid the instructions for bypassing the ban for a paywall due to reaching the threshold of 5000 users.',
+
 
             // v1.3.1 (2022-08-07)
-            '- Fix: Adapt dark mode css for alerts.',
+            '<b>Minor fix.</b><br>' +
+            '<br>' +
+            '<b>- Section \'Settings\'.</b><br>' +
+            '— Dark theme adapted for the welcome window.',
 
             // v1.3.2 (2022-08-09)
-            '- Fix: \'Check Torrents\' button for non en/ru UI locales',
+            '<b>Minor fix.</b><br>' +
+            '<br>' +
+            '<b>- Section \'IP\'.</b><br>' +
+            '— Fixed: \'buttonCheck torrents\' for UI locales other than en/ru.',
 
             // v1.3.3 (2022-08-12)
-            '- The case when the interlocutor disclosed several IP addresses was taken into account: information on all of them will be displayed.',
+            '<b>Information about multiple IP addresses.</b><br>' +
+            '<br>' +
+            '<b>- Section \'IP\'.</b><br>' +
+            '— The case is taken into account when the interlocutor revealed several IP addresses: information on all will be displayed.',
 
             // 1.4.0 (2022-09-01)
-            '- Added "minimalism" mode.<br>' +
-            '— When you install the extension, you will be prompted to choose how you want to use the extension.<br>' +
-            '— If you choose the minimalist mode, the extension will only show you the IP geolocation in the chat area.<br>' +
-            '— You can switch between modes with the button that should appear in the chat area.<br>' +
-            '- Added changelog.<br>' +
-            '— The changelog will open if you open the Chatruletka website (or ome.tv) with a newer version of the extension you used before.<br>' +
-            '— The changelog does not open in the "minimalism" mode.<br>' +
-            '— The changelog can also be opened from the About tab.<br>' +
-            '- Added ome.tv support.<br>' +
-            '— Some users have reported that videochatru.com is not working for them.<br>' +
-            '— ome.tv is the same chat platform, just a different instance, marketed as an alternative to Omegle.<br>' +
-            '— The extension has not been properly tested on ome.tv, so expect minor bugs.<br>' +
-            '- Ws hacks: Removed dangerous option to delete report photos.<br>' +
-            '- The map will only update if the "map" tab is selected.<br>' +
-            '- Added the ability to search for multiple cities/regions.<br>' +
-            '- Added a warning if "Danger Zone" is enabled.<br>' +
-            '- Added "close" button to "welcome window".',
+            '<b>Minimalism, ome.tv support, version history.</b><br>' +
+            '<br>' +
+            '<b>- Minimalism mode.</b><br>' +
+            '— Added the "minimalism" mode: the extension will only show IP geolocation in the chat area.<br>' +
+            '— When installing the extension, you will be prompted to choose how you want to use it.<br>' +
+            '— You can switch between modes using the button that should appear in the chat area.<br>' +
+            '<br>' +
+            '<b>- The "Map" section.</b><br>' +
+            '— The map will be updated only if the "map" tab is selected.<br>' +
+            '<br>' +
+            '<b>- The "Settings" section.</b><br>' +
+            '— Ws hacks: The option to delete a report that was dangerous for the user has been removed.<br>' +
+            '— Added the ability to search by multiple cities/regions.<br>' +
+            '— Added a warning if the "Danger Zone" is enabled.<br>' +
+            '<br>' +
+            '<b>- The "Info" section.</b><br>' +
+            '— Added version history.<br>' +
+            '— The version history will open if you open the Chatruletka site (or ome.tv) with a newer version of the extension that you used earlier.<br>' +
+            '— Version history does not open in the "minimalism" mode.<br>' +
+            '— Added the "close" button to the "welcome window".<br>' +
+            '<br>' +
+            '<b>- Miscellaneous.</b><br>' +
+            '— Added support for ome.tv .<br>' +
+            '— Some users reported that it didn\'t work for them videochatru.com .<br>' +
+            '— ome.tv is the same Chatruletka, just another instance positioned as an alternative to Omegle.<br>',
 
             // 1.4.1 (2022-09-02)
-            '- Limited the maximum height of the changelog container.<br>' +
-            '- Disabled closing by outside click (changelog).<br>' +
-            '- Improved control panel resizing method.',
+            '<b>Minor fixes.</b><br>' +
+            '<br>' +
+            '<b>- Section \'Info\'.</b><br>' +
+            '— The maximum height of the changelog container is limited.<br>' +
+            '— Disabled closing by external click (changelog).<br>' +
+            '<br>' +
+            '<b>- Miscellaneous.</b><br>' +
+            '— Improved the method of resizing the control panel.',
 
             // 1.4.2 (2022-09-02)
-            '- Now changelog displays new version when updated not the one you used before.'
+            '<b>Minor fix.</b><br>' +
+            '<br>' +
+            '<b>- Section \'Info\'.</b><br>' +
+            '— Now the version history displays the new version after update, not the one you used before.'
         ],
         "ru": [
             // v0.1 (2021-09-27)
-            '<a href="https://github.com/qrlk/videochatru-extension/compare/92cc2320b896b315cf5c6f9a4247d2bda826e582...027dea2001889f300ef5d3d5cc4cd3317ef6bfae" style=\"text-decoration: none!important;\" target=\"_blank\">View changes on github.</a>',
+            '<b>Первая известная версия для массовой аудитории.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'Remote IP\'.</b><br>' +
+            '— Добавлен раздел \'Remote IP\'.<br>' +
+            '— Определение информации об IP собеседника: страна, город, регион, временная зона, информация о сети: mobile/vps/vpn.<br>' +
+            '— Чтобы сервис геолокации работал, нужно разрешить небезопасный контент в настройках сайта.<br>' +
+            '— При старте срабатывает проверка и даётся информация о том, как починить API, если он не работает.<br>' +
+            '<br>' +
+            '<b>- Раздел \'Карта\'.</b><br>' +
+            '— Добавлен раздел \'Карта\'.<br>' +
+            '— Раздел показывает местоположение собеседника на карте 2gis.<br>' +
+            '<br>' +
+            '<b>- Раздел \'Настройки\'.</b><br>' +
+            '— Добавлен раздел \'Настройки\'.<br>' +
+            '— Добавлена возможность скрыть вотермарк.<br>' +
+            '— Добавлена возможность скрыть баннер \'Видеочат RU\'.<br>' +
+            '— Добавлена возможность отражать изображение с камеры собеседника (mirror).<br>' +
+            '<br>' +
+            '<b>- Хоткеи.</b><br>' +
+            '— Добавлены chrome хоткеи: активация расширения, скип, стоп, скриншот собеседника/скриншот вашей камеры.<br>' +
+            '<br>' +
+            '<b>- Разное.</b><br>' +
+            '— Добавлены кнопки (в заголовке) для сохранения скриншотов (^) с камеры пользователя и камеры собеседника.<br>' +
+            '— При клике на иконку расширения откроется версия рулетки без мусора (embed).',
 
             // v0.2 (2021-10-01)
-            '<a href="https://github.com/qrlk/videochatru-extension/compare/027dea2001889f300ef5d3d5cc4cd3317ef6bfae...23032cf9f5eac63cac82f79d018a185e828ac9b2" style=\"text-decoration: none!important;\" target=\"_blank\">View changes on github.</a>',
+            '<b>Пропуск собеседников по полу, смена провайдера карт.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'Remote IP\'.</b><br>' +
+            '— Теперь раздел отображается на английском.<br>' +
+            '— Более подробная информация о проблеме с блокировкой http запросов.<br>' +
+            '— Информация о городе и регионе мобильных IP теперь скрыта.<br>' +
+            '— Информация о mobile/VPN/VPS больше не отображается.<br>' +
+            '— Добавлено отображение времени в часовом поясе собеседника.<br>' +
+            '<br>' +
+            '<b>- Раздел \'Карта\'.</b><br>' +
+            '— 2gis сменен на carto.<br>' +
+            '<br>' +
+            '<b>- Раздел \'Настройки\'.</b><br>' +
+            '— Добавлена возможность пропускать мужчин/женщин (определение по faceapi на стороне клиента).<br>' +
+            '— Добавлена возможность проиграть звук, когда собеседник пропущен по полу.<br>' +
+            '<br>' +
+            '<b>- Раздел \'Инфо\'.</b><br>' +
+            '— Добавлен раздел \'Инфо\'.<br>' +
+            '— Информация о расширении, разные ссылки.<br>' +
+            '<br>' +
+            '<b>- Хоткеи.</b><br>' +
+            '— Добавлены локальные хоткеи на стрелочки: скип, стоп, репорт.<br>' +
+            '— Добавлен chrome хоткей для быстрого переключения между текущей вкладкой и вкладкой чата.<br>' +
+            '<br>' +
+            '<b>- Разное.</b><br>' +
+            '— В окошко с баном добавлена ссылка на инструкцию о том, как обойти бан.<br>' +
+            '— \'chatruletka++\' переименовано в \'Чат Рулетное Расширение\' / \'Chat Roulette Extension\'.<br>' +
+            '— Мелкие фиксы и улучшения.',
 
             // v0.3 (2021-10-13)
-            '<a href="https://github.com/qrlk/videochatru-extension/compare/23032cf9f5eac63cac82f79d018a185e828ac9b2...b0604cbda3d3d8bd42597170d8e34a5b557780d5" style=\"text-decoration: none!important;\" target=\"_blank\">View changes on github.</a>',
+            '<b>Чёрный список, статистика.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'Баны\'.</b><br>' +
+            '— Добавлен раздел \'Баны\'.<br>' +
+            '— Отображает статистику по банам: IP в чёрном списке, кол-во пропущенных и заблокированных разговоров.<br>' +
+            '<br>' +
+            '<b>- Раздел \'Стата\'.</b><br>' +
+            '— Добавлен раздел \'Стата\'.<br>' +
+            '— Отображает статистику: количество разговоров, потраченное время, количество ручных и faceapi скипов, количество встреченных male и female.<br>' +
+            '<br>' +
+            '<b>- Раздел \'Настройки\'.</b><br>' +
+            '— Добавлено альтернативное зеркало.<br>' +
+            '— Добавлена возможность активировать faceapi при отключенных скипах по полу.<br>' +
+            '— Добавлена возможность добавлять в чёрный список по пропуску из-за faceapi.<br>' +
+            '— Добавлена возможность скипать собеседников, которые загружаются больше 4х секунд.<br>' +
+            '— Добавлена возможность автоматически закрывать диалог \'Вы здесь?\', когда таймер выходит.<br>' +
+            '<br>' +
+            '<b>- Хоткеи.</b><br>' +
+            '— Добавлена возможность забанить собеседника по нажатию локального/chrome хоткея.<br>' +
+            '<br>' +
+            '<b>- Разное.</b><br>' +
+            '— Добавлены кнопки (в заголовке) для открытия в PiP камеры пользователя или камеры собеседника.<br>' +
+            '— Мелкие фиксы и улучшения.',
 
             // v0.4 (2021-11-01)
-            '<a href="https://github.com/qrlk/videochatru-extension/compare/b0604cbda3d3d8bd42597170d8e34a5b557780d5...4716e2f00dd519fbf30d5e4ee2c7d069b8af483a" style=\"text-decoration: none!important;\" target=\"_blank\">View changes on github.</a>',
+            '<b>Смена названия в английской локализации.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'Инфо\'.</b><br>' +
+            '— Добавлены бейджи с shields.io.<br>' +
+            '<br>' +
+            '<b>- Разное.</b><br>' +
+            '— \'Chat Roulette Extension\' переименовано в \'Chatruletka Extension\'.<br>' +
+            '— Мелкие фиксы и улучшения.',
 
             // v0.5 (2021-12-27)
-            '<a href="https://github.com/qrlk/videochatru-extension/compare/4716e2f00dd519fbf30d5e4ee2c7d069b8af483a...a9a59c7142e6a4331bc96fe2262679ae323ce225" style=\"text-decoration: none!important;\" target=\"_blank\">View changes on github.</a>',
+            '<b>Разделы в настройках, ws hacks, эксперименты с блокировкой nsfw.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'Баны\'.</b><br>' +
+            '— Раздел переведён на русский.<br>' +
+            '<br>' +
+            '<b>- Раздел \'Стата\'.</b><br>' +
+            '— Раздел переведён на русский.<br>' +
+            '<br>' +
+            '<b>- Раздел \'Настройки\'.</b><br>' +
+            '— Добавлено альтернативное \'зеркало\' из локального видео.<br>' +
+            '— Эксперименты с ws hacks.<br>' +
+            '— Эксперименты с обнаружением nsfw.<br>' +
+            '<br>' +
+            '<b>- Разное.</b><br>' +
+            '— Мелкие фиксы и улучшения.',
 
             // v0.6 (2021-12-31)
-            '<a href="https://github.com/qrlk/videochatru-extension/compare/a9a59c7142e6a4331bc96fe2262679ae323ce225...66bd53e275adc37d283a17395f6e5a9bf35f8a67" style=\"text-decoration: none!important;\" target=\"_blank\">View changes on github.</a>',
+            '<b>Режим стримера, поиск по городу/региону.</b><br>' +
+            '<br>' +
+            '<b>- Режим стримера.</b><br>' +
+            '— Добавлен режим стримера: возможность блюрить камеру собеседника по хоткею, смотря при этом на оригинальную картинку в режиме Картинка-в-Картинке.<br>' +
+            '— Возможность автоматически активировать блюр/заглушку после смены собеседника.<br>' +
+            '— Возможность кастомизировать заглушку.<br>' +
+            '— Возможность мутить собеседника по хоткею.<br>' +
+            '— Попытка в автоматический блюр, если распознает nsfw (лучше не использовать на практике, только ручками).<br>' +
+            '<br>' +
+            '<b>- Раздел \'Настройки\'.</b><br>' +
+            '— Добавлена возможность поиска собеседника по городу/региону.<br>' +
+            '<br>' +
+            '<b>- Раздел \'Инфо\'.</b><br>' +
+            '— Добавлен Discord.<br>' +
+            '<br>' +
+            '<b>- Разное.</b><br>' +
+            '— Добавлен Discord.<br>' +
+            '— Много фиксов и косметических улучшений.<br>' +
+            '— Много внутренние архитектурных изменений.',
 
             // v0.7 (2022-01-03)
-            '- Исправлена горячая клавиша репорт+стрелка влево.<br>' +
-            '- Отключено размывание nsfwjs по умолчанию.<br>' +
-            '- Исправлена опечатка: nsfjw -> faceapi во всплывающих подсказках скипа faceapi.<br>' +
-            '- Добавлен темный режим.<br>' +
-            '- Переход с ko-fi на buymeacoffee.',
+            '<b>Тёмный режим.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'Настройки\'.</b><br>' +
+            '— Добавлен темный режим.<br>' +
+            '— Отключено размывание nsfwjs по умолчанию.<br>' +
+            '— Исправлена опечатка: nsfjw -> faceapi во всплывающих подсказках скипа faceapi.<br>' +
+
+            '<br>' +
+            '<b>- Хоткеи.</b><br>' +
+            '— Исправлена горячая клавиша репорт+стрелка влево.<br>' +
+            '<br>' +
+            '<b>- Разное.</b><br>' +
+            '— Переход с ko-fi на buymeacoffee.<br>',
 
             // v0.7.1 (2022-01-07)
-            '- Добавлена форма Google, спрашивающая пользователя, почему он удалил расширение, ответ отправляется в публичный канал в Discord.',
+            '<b>Опрос при удалении расширения.</b><br>' +
+            '<br>' +
+            '<b>- Разное.</b><br>' +
+            '— Добавлена форма Google, спрашивающая пользователя, почему он удалил расширение, ответ отправляется в публичный канал в Discord.',
 
             // v1.0 (2022-05-24)
-            '- Расширение адаптировано под manifest v3<br>' +
-            '— Будет работать в Chrome в 2023+ г.<br>' +
-            '- Добавлен альтернативный API пробива IP.<br>' +
+            '<b>Manifest v3 (будет работать в 2023+).</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'IP\'.</b><br>' +
+            '— Добавлен альтернативный API пробива IP.<br>' +
             '— Он работает через https, но сильно уступает его http аналогу (1к запросов в день, не может определить мобильный интернет).<br>' +
-            '- В вики на гитхабе добавлен подробный разбор как активировать нормальный api.<br>' +
+            '— В вики на гитхабе добавлен подробный разбор как активировать нормальный api.<br>' +
             '— Если http апи недоступен, ссылка на статью будет в вкладке IP.<br>' +
-            '- На экране с логином теперь появляется предупреждение о том, что Чат Рулетка и оме.тв это одно и то же. <br>' +
-            '— Многие люди удаляли расширение, не понимая, почему они не могут использовать его на своём инстансе Чат Рулетки.<br>' +
-            '- Кнопка доната заменена кнопкой с призывом оставить отзыв в Chrome Web Store.<br>' +
-            '- Вкладка \'Настройки\' теперь расширяется до половины экрана, можно отключить.<br>' +
-            '- Если вы меняете важную настройку, расширение напомнит перезагрузиться только после нажатия на кнопку \'Старт\'.<br>' +
-            '- По умолчанию на карте отображается Европа (в английской версии).<br>' +
-            '- Расширение в английской версии теперь называется \'Chatruletka (ome.tv) extension\'.<br>' +
-            '- Теперь в заголовке контрольной панели отображается версия расширения.<br>' +
-            '- При нажатии на кнопку \'Стоп\' теперь вкладка IP сбрасывается.<br>' +
-            '- Пофикшено уменьшение числа ручных скипов при автопропуске из-за слишком долгого подключения.<br>' +
-            '- Вырезаны/удалены группы/чаты расширения в Telegram.',
+            '— Кнопка доната заменена кнопкой с призывом оставить отзыв в Chrome Web Store.<br>' +
+            '— При нажатии на кнопку \'Стоп\' теперь раздел IP сбрасывается.<br>' +
+            '<br>' +
+            '<b>- Раздел \'Карта\'.</b><br>' +
+            '— По умолчанию на карте отображается Европа (в английской версии).<br>' +
+            '<br>' +
+            '<b>- Раздел \'Стата\'.</b><br>' +
+            '— Пофикшено уменьшение числа ручных скипов при автопропуске из-за слишком долгого подключения.<br>' +
+            '<br>' +
+            '<b>- Раздел \'Настройки\'.</b><br>' +
+            '— Раздел \'Настройки\' теперь расширяется до половины экрана, можно отключить.<br>' +
+            '— Если вы меняете важную настройку, расширение напомнит перезагрузиться только после нажатия на кнопку \'Старт\'.<br>' +
+            '<br>' +
+            '<b>- Раздел \'Инфо\'.</b><br>' +
+            '— Вырезаны/удалены группы/чаты расширения в Telegram.<br>' +
+            '<br>' +
+            '<b>- Разное.</b><br>' +
+            '— Расширение адаптировано под manifest v3 (Будет работать в Chrome в 2023+)<br>' +
+            '— Расширение в английской версии теперь называется \'Chatruletka (ome.tv) extension\'.<br>' +
+            '— Теперь в заголовке контрольной панели отображается версия расширения.<br>' +
+            '— На экране с логином теперь появляется предупреждение о том, что Чат Рулетка и оме.тв это одно и то же.<br>' +
+            '— Многие люди удаляли расширение, не понимая, почему они не могут использовать его на своём инстансе Чат Рулетки.<br>',
 
             // v1.1 (2022-05-27)
-            '- Увеличена ширина меню управления.<br>' +
-            '- Добавлена возможность скрыть заголовок (по умолчанию вкл).<br>' +
-            '- Добавлена полоса прокрутки в окно входа.<br>' +
-            '- Исправлен вылет при попытке скрыть несуществующий логотип.<br>' +
-            '- Добавлена система мониторинга ошибок для сообщения об ошибках в коде расширения.',
+            '<b>Система мониторинга ошибок.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'Настройки\'.</b><br>' +
+            '— Добавлена возможность скрыть заголовок (по умолчанию вкл).<br>' +
+            '— Исправлен вылет при попытке скрыть несуществующий логотип.<br>' +
+            '<br>' +
+            '<b>- Разное.</b><br>' +
+            '— Добавлена система мониторинга ошибок для сообщения об ошибках в коде расширения.<br>' +
+            '— Добавлена полоса прокрутки в окно входа.<br>' +
+            '— Увеличена ширина меню управления.<br>',
+
 
             // v1.1.1 (2022-08-04)
-            '- Попытка исправить зависание вкладок с включенными взломами ws.<br>' +
-            '- Ограничить строку версии в панели управления до 3 символов',
+            '<b>Неудачный хотфикс фризов.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'Настройки\'.</b><br>' +
+            '— Попытка исправить зависание вкладок с включенными ws hacks.<br>' +
+            '<br>' +
+            '<b>- Разное.</b><br>' +
+            '— Ограничение строки версии в панели управления до 3 символов',
 
             // v1.1.2 (2022-08-04)
-            '- Отключена отправка "данных лица", которая была причиной зависания вкладки при включенном ws hacks.',
+            '<b>Удачный хотфикс фризов.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'Настройки\'.</b><br>' +
+            '— Отключена отправка "данных лица", которая была причиной зависания вкладки при включенном ws hacks.',
 
             // v1.1.3 (2022-08-04)
-            '- Увеличена задержка перед изменением размера после изменения размера окна.',
+            '<b>Мелкий фикс.</b><br>' +
+            '<br>' +
+            '<b>- Разное.</b><br>' +
+            '— Увеличена задержка перед изменением размера после изменения размера окна.',
 
             // v1.1.4 (2022-08-05)
-            '- Неудачная попытка исправить резервного провайдера ip геолокации.',
+            '<b>Неудачная попытка пофиксить http error 429.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'IP\'.</b><br>' +
+            '— Неудачная попытка заменить резервного провайдера ip геолокации.',
 
             // v1.2.0 (2022-08-05)
-            '- IP-геолокация теперь должна работать без необходимости разрешать небезопасный контент (но с немного большей задержкой).<br>' +
-            '- Служба резервной геолокации вырезана, потому что ее политика лимитов распространялась на всех пользователей расширения, а не только на конкретного, как я думал раньше.<br>' +
-            '- Опция отображения дополнительной информации об IP (tor vpn mobile) теперь включена по умолчанию.',
+            '<b>Геолокация IP без настройки браузера.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'IP\'.</b><br>' +
+            '— IP-геолокация теперь должна работать без необходимости разрешать небезопасный контент (но с немного большей задержкой).<br>' +
+            '— Служба резервной геолокации вырезана, потому что ее политика лимитов распространялась на всех пользователей расширения, а не только на конкретного, как я думал раньше.<br>' +
+            '— Опция отображения дополнительной информации об IP (tor vpn mobile) теперь включена по умолчанию.',
 
             // v1.3.0 (2022-08-07)
-            '- Добавлена модальная очередь, которая приветствует новых пользователей кучей бесполезной информации.<br>' +
-            '- Добавлена кнопка iknowwhatyoudownload для открытия ссылки с возможными торрент-загрузками собеседника.<br>' +
-            '- Добавлена возможность показывать провайдера (по умолчанию отключена).<br>' +
-            '- Добавлена возможность отключения сбора ошибок.<br>' +
-            '- Показываются секунды >=0 в TM (вкладка IP).<br>' +
-            '- Изменён способ скрытия частей интерфейса.<br>' +
-            '- Опасная функция "прикол" доступна только в том случае, если расширение распаковано.<br>' +
-            '- Добавлен призыв не использовать удаление картинок в ws hacks, тк воспринимается как пустая.<br>' +
-            '- Sanitization присвоений innerHTML.<br>' +
-            '- Спрятал инструкцию по обходу бана за пейвол из-за достижения порога в 5000 пользователей.',
+            '<b>Проверка торрентов и приветственное окно.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'IP\'.</b><br>' +
+            '— Добавлена кнопка iknowwhatyoudownload для открытия ссылки с возможными торрент-загрузками собеседника.<br>' +
+            '— Добавлена возможность показывать провайдера (по умолчанию отключена).<br>' +
+            '— Показываются секунды >=0 в TM.<br>' +
+            '<br>' +
+            '<b>- Раздел \'Настройки\'.</b><br>' +
+            '— Изменён способ скрытия частей интерфейса.<br>' +
+            '— Добавлена возможность отключения сбора ошибок.<br>' +
+            '— Добавлен призыв не использовать удаление картинок в ws hacks, тк воспринимается как пустая.<br>' +
+            '— Опасная функция "прикол" доступна только в том случае, если расширение распаковано.<br>' +
+            '<br>' +
+            '<b>- Раздел \'Инфо\'.</b><br>' +
+            '— Добавлена модальная очередь, которая приветствует новых пользователей кучей бесполезной информации.<br>' +
+            '<br>' +
+            '<b>- Разное.</b><br>' +
+            '— Sanitization присвоений innerHTML.<br>' +
+            '— Спрятал инструкцию по обходу бана за пейвол из-за достижения порога в 5000 пользователей.',
+
 
             // v1.3.1 (2022-08-07)
-            '- Исправлено: тёмная тема адаптирована для приветственного окна.',
+            '<b>Мелкий фикс.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'Настройки\'.</b><br>' +
+            '— Тёмная тема адаптирована для приветственного окна.',
 
             // v1.3.2 (2022-08-09)
-            '- Исправлено: кнопка \'Проверить торренты\' для локалей пользовательского интерфейса, отличных от en/ru',
+            '<b>Мелкий фикс.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'IP\'.</b><br>' +
+            '— Исправлено: кнопка \'Проверить торренты\' для локалей пользовательского интерфейса, отличных от en/ru.',
 
             // v1.3.3 (2022-08-12)
-            '- Учтён случай, когда собеседник раскрыл несколько IP адресов: будет отображаться информация по всем.',
+            '<b>Информация о нескольких IP адресах.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'IP\'.</b><br>' +
+            '— Учтён случай, когда собеседник раскрыл несколько IP адресов: будет отображаться информация по всем.',
 
             // 1.4.0 (2022-09-01)
-            '- Добавлен режим "минимализм".<br>' +
+            '<b>Минимализм, поддержка ome.tv, история версий.</b><br>' +
+            '<br>' +
+            '<b>- Режим "минимализм".</b><br>' +
+            '— Добавлен режим "минимализм": расширение будет показывать только IP-геолокацию в области чата.<br>' +
             '— При установке расширения вам будет предложено выбрать способ его использования.<br>' +
-            '— Если вы выберете режим "минимализм", расширение будет показывать только IP-геолокацию в области чата.<br>' +
             '— Вы можете переключаться между режимами с помощью кнопки, которая должна появиться в области чата.<br>' +
-            '- Добавлена история версий.<br>' +
+
+            '<br>' +
+            '<b>- Раздел "Карта".</b><br>' +
+            '— Карта будет обновляться, только если выбрана вкладка "карта".<br>' +
+
+            '<br>' +
+            '<b>- Раздел "Настройки".</b><br>' +
+            '— Ws hacks: Удалена опасная для пользователя опция удаления репорта.<br>' +
+            '— Добавлена возможность поиска по нескольким городам/регионам.<br>' +
+            '— Добавлено предупреждение, если "Опасная зона" включена.<br>' +
+
+            '<br>' +
+            '<b>- Раздел "Инфо".</b><br>' +
+            '— Добавлена история версий.<br>' +
             '— История версий откроется, если вы откроете сайт Чатрулетки (или ome.tv) с более новой версией расширения, которое вы использовали ранее.<br>' +
             '— История версий не открывается в режиме "минимализм".<br>' +
-            '— Историю версию также можно открыть на вкладке "Инфо".<br>' +
-            '- Добавлена поддержка ome.tv.<br>' +
+            '— Добавлена кнопка "закрыть" в "окно приветствия".<br>' +
+
+            '<br>' +
+            '<b>- Разное.</b><br>' +
+            '— Добавлена поддержка ome.tv.<br>' +
             '— Некоторые пользователи сообщали, что у них не работал videochatru.com.<br>' +
-            '— ome.tv - это та же чатрулетка, просто другой инстанс, позиционируемый как альтернатива Omegle.<br>' +
-            '— Расширение не было должным образом протестировано на ome.tv, поэтому ожидайте незначительные баги.<br>' +
-            '- Ws hacks: Удалена опасная для пользователя опция удаления репорта.<br>' +
-            '- Карта будет обновляться, только если выбрана вкладка "карта".<br>' +
-            '- Добавлена возможность поиска по нескольким городам/регионам.<br>' +
-            '- Добавлено предупреждение, если "Опасная зона" включена.<br>' +
-            '- Добавлена кнопка "закрыть" в "окно приветствия".',
+            '— ome.tv - это та же чатрулетка, просто другой инстанс, позиционируемый как альтернатива Omegle.<br>',
+
 
             // 1.4.1 (2022-09-02)
-            '- Ограничена максимальная высота контейнера changelog.<br>' +
-            '- Отключено закрытие по внешнему клику (changelog).<br>' +
-            '- Улучшен метод изменения размера панели управления.',
+            '<b>Мелкие фиксы.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'Инфо\'.</b><br>' +
+            '— Ограничена максимальная высота контейнера changelog.<br>' +
+            '— Отключено закрытие по внешнему клику (changelog).<br>' +
+            '<br>' +
+            '<b>- Разное.</b><br>' +
+            '— Улучшен метод изменения размера панели управления.',
 
             // 1.4.2 (2022-09-02)
-            '- Теперь история версий отображает новую версию при обновлении, а не ту, которую вы использовали раньше.'
+            '<b>Мелкий фикс.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'Инфо\'.</b><br>' +
+            '— Теперь история версий отображает новую версию при обновлении, а не ту, которую вы использовали раньше.'
         ],
     }
 
@@ -394,3 +785,4 @@ const showSwalChangelog = async function (version) {
         }
     )
 }
+showSwalChangelog('0.0')
