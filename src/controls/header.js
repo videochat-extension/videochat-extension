@@ -1,5 +1,7 @@
 function createHeader() {
-    return createElement('center', {}, [
+    return createElement('center', {
+        style: "user-select:none"
+    }, [
         createElement('div', {
             style: "position:absolute; left:0;top:0",
         }, [
