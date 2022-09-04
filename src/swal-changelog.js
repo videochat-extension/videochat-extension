@@ -316,7 +316,6 @@ const showSwalChangelog = async function (version) {
     let arrowsHotkeys = function (e) {
         switch (e.key) {
             case "ArrowLeft":
-                console.dir('left')
                 if (currentStep - 1 >= 0) {
                     currentStep = currentStep - 1
                     selectStep(currentStep)
