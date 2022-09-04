@@ -3,28 +3,8 @@ const showSwalChangelog = async function (version) {
     if (version === "") {
         version = chrome.runtime.getManifest().version
     }
+
     const steps = ['0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.7.1', '1.0', '1.1', '1.1.1', '1.1.2', '1.1.3', '1.1.4', '1.2.0', '1.3.0', '1.3.1', '1.3.2', '1.3.3', '1.4.0', '1.4.1', '1.4.2']
-    const swalQueueStep = Swal.mixin({
-        // disable animation
-        showClass: {
-            backdrop: 'swal2-noanimation',
-            popup: 'swal2-noanimation',
-        },
-        hideClass: {
-            backdrop: 'swal2-noanimation',
-        },
-        allowOutsideClick: false,
-        allowEscapeKey: true,
-        allowEnterKey: true,
-        showDenyButton: true,
-        confirmButtonText: chrome.i18n.getMessage('confirmButtonText'),
-        denyButtonText: chrome.i18n.getMessage('denyButtonText'),
-        cancelButtonText: chrome.i18n.getMessage('cancelButtonText'),
-        heightAuto: false,
-        reverseButtons: true,
-        progressSteps: steps,
-        progressStepsDistance: "4%",
-    })
 
     const titles = [
         'v0.1 (2021-09-27)',
@@ -304,7 +284,29 @@ const showSwalChangelog = async function (version) {
 
     let currentStep = index
 
-    let selectStep = function (step) {
+    const swalQueueStep = Swal.mixin({
+        // disable animation
+        showClass: {
+            backdrop: 'swal2-noanimation',
+            popup: 'swal2-noanimation',
+        },
+        hideClass: {
+            backdrop: 'swal2-noanimation',
+        },
+        allowOutsideClick: false,
+        allowEscapeKey: true,
+        allowEnterKey: true,
+        showDenyButton: true,
+        confirmButtonText: chrome.i18n.getMessage('confirmButtonText'),
+        denyButtonText: chrome.i18n.getMessage('denyButtonText'),
+        cancelButtonText: chrome.i18n.getMessage('cancelButtonText'),
+        heightAuto: false,
+        reverseButtons: true,
+        progressSteps: steps,
+        progressStepsDistance: "4%",
+    })
+
+    const selectStep = function (step) {
         swalQueueStep.update({
             title: titles[currentStep],
             html: `<div style="text-align: left; min-height: 25vh; max-height: 25vh">${values[chrome.i18n.getMessage('lang')][currentStep]}</div>`,
@@ -312,7 +314,7 @@ const showSwalChangelog = async function (version) {
         })
     }
 
-    let arrowHotkeys = function (e) {
+    const arrowHotkeys = function (e) {
         switch (e.key) {
             case "ArrowLeft":
                 Swal.getCancelButton().click()
