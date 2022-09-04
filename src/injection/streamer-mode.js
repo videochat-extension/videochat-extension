@@ -21,7 +21,7 @@ let lastBlurred = 0
 
 if (streamerKeysCheck.checked) {
     document.addEventListener('keyup', (e) => {
-        if (e.srcElement.className === "emojionearea-editor")
+        if (e.srcElement.className === "emojionearea-editor" || document.getElementsByClassName("swal2-popup").length > 0)
             return
         switch (e.key) {
             case "ArrowRight":

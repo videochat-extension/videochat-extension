@@ -1,5 +1,5 @@
 function hotkeys(e) {
-    if (e.srcElement.className === "emojionearea-editor")
+    if (e.srcElement.className === "emojionearea-editor" || $(".swal2-popup").length > 0)
         return
 
     switch (e.key) {
