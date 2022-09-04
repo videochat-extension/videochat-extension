@@ -327,7 +327,7 @@ const showSwalChangelog = async function (version) {
     const selectStep = function (step) {
         swalQueueStep.update({
             title: titles[currentStep],
-            html: `<div style="text-align: left; min-height: 25vh; max-height: 25vh">${values[chrome.i18n.getMessage('lang')][currentStep]}</div>`,
+            html: `<div style="text-align: left; min-height: 300px; max-height: 300px">${values[chrome.i18n.getMessage('lang')][currentStep]}</div>`,
             currentProgressStep: currentStep
         })
     }
@@ -352,7 +352,7 @@ const showSwalChangelog = async function (version) {
     const result = await swalQueueStep.fire(
         {
             title: titles[currentStep],
-            html: `<div style="text-align: left; min-height: 25vh; max-height: 25vh">${values[chrome.i18n.getMessage('lang')][currentStep]}</div>`,
+            html: `<div style="text-align: left; min-height: 300px; max-height: 300px">${values[chrome.i18n.getMessage('lang')][currentStep]}</div>`,
             currentProgressStep: currentStep,
 
             willOpen: (e) => {
