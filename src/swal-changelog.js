@@ -5,17 +5,6 @@ const showSwalChangelog = async function (version) {
     }
     const steps = ['0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.7.1', '1.0', '1.1', '1.1.1', '1.1.2', '1.1.3', '1.1.4', '1.2.0', '1.3.0', '1.3.1', '1.3.2', '1.3.3', '1.4.0', '1.4.1', '1.4.2']
     const swalQueueStep = Swal.mixin({
-        progressSteps: steps,
-        heightAuto: false,
-        confirmButtonText: chrome.i18n.getMessage('confirmButtonText'),
-        cancelButtonText: chrome.i18n.getMessage('cancelButtonText'),
-        showDenyButton: true,
-        denyButtonText: chrome.i18n.getMessage('denyButtonText'),
-        allowOutsideClick: false,
-        allowEnterKey: true,
-        progressStepsDistance: "4%",
-        reverseButtons: true,
-
         // disable animation
         showClass: {
             backdrop: 'swal2-noanimation',
@@ -24,6 +13,16 @@ const showSwalChangelog = async function (version) {
         hideClass: {
             backdrop: 'swal2-noanimation',
         },
+        allowOutsideClick: false,
+        allowEnterKey: true,
+        showDenyButton: true,
+        confirmButtonText: chrome.i18n.getMessage('confirmButtonText'),
+        denyButtonText: chrome.i18n.getMessage('denyButtonText'),
+        cancelButtonText: chrome.i18n.getMessage('cancelButtonText'),
+        heightAuto: false,
+        reverseButtons: true,
+        progressSteps: steps,
+        progressStepsDistance: "4%",
     })
 
     const titles = [
@@ -335,13 +334,6 @@ const showSwalChangelog = async function (version) {
             html: `<div style="text-align: left; min-height: 25vh; max-height: 25vh">${values[chrome.i18n.getMessage('lang')][currentStep]}</div>`,
             showCancelButton: currentStep > 0,
             currentProgressStep: currentStep,
-            didOpen: () => {
-                document.removeEventListener('keyup', arrowHotkeys)
-                document.addEventListener('keyup', arrowHotkeys)
-            },
-            willClose: () => {
-                document.removeEventListener('keyup', arrowHotkeys)
-            },
             willOpen: (e) => {
                 e.querySelector('.swal2-cancel').onclick = (e) => {
                     if (currentStep - 1 >= 0) {
@@ -360,6 +352,10 @@ const showSwalChangelog = async function (version) {
                     }
                 }
             },
+            didOpen: () => {
+                document.removeEventListener('keyup', arrowHotkeys)
+                document.addEventListener('keyup', arrowHotkeys)
+            },
             didRender: () => {
                 let progressSteps = $(".swal2-progress-step")
                 progressSteps.css({
@@ -370,6 +366,9 @@ const showSwalChangelog = async function (version) {
                     currentStep = steps.indexOf(el.target.innerText)
                     selectStep(currentStep)
                 })
+            },
+            willClose: () => {
+                document.removeEventListener('keyup', arrowHotkeys)
             }
         }
     )
