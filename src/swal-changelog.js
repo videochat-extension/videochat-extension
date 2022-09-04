@@ -361,7 +361,7 @@ const showSwalChangelog = async function (version) {
                         currentStep = currentStep - 1
                         selectStep(currentStep)
                     } else {
-                        Swal.close()
+                        // Swal.close()
                     }
                 }
                 e.querySelector('.swal2-confirm').onclick = (e) => {
