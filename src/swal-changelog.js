@@ -1,5 +1,4 @@
 const showSwalChangelog = async function (version) {
-    console.dir(version)
     if (version === "") {
         version = chrome.runtime.getManifest().version
     }
@@ -359,7 +358,7 @@ const showSwalChangelog = async function (version) {
             title: titles[currentStep],
             html: `<div style="text-align: left; min-height: 25vh; max-height: 25vh">${values[chrome.i18n.getMessage('lang')][currentStep]}</div>`,
             currentProgressStep: currentStep,
-            
+
             willOpen: (e) => {
                 e.querySelector('.swal2-cancel').onclick = (e) => {
                     if (currentStep - 1 >= 0) {
