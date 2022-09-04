@@ -316,19 +316,11 @@ const showSwalChangelog = async function (version) {
     let arrowsHotkeys = function (e) {
         switch (e.key) {
             case "ArrowLeft":
-                if (currentStep - 1 >= 0) {
-                    currentStep = currentStep - 1
-                    selectStep(currentStep)
-                }
+                Swal.getCancelButton().click()
                 break;
 
             case "ArrowRight":
-                currentStep = currentStep + 1
-                if (currentStep === steps.length) {
-                    Swal.close()
-                } else {
-                    selectStep(currentStep)
-                }
+                Swal.getConfirmButton().click()
                 break;
         }
         e.preventDefault()
