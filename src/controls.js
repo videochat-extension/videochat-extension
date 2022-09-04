@@ -26,6 +26,7 @@ function createStyle() {
                 position: absolute;
                 width: 100%;
                 border-bottom: 1px solid lightgray;
+                user-select: none;
               }
               
               .tabs__caption li {
