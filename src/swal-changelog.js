@@ -335,8 +335,8 @@ const showSwalChangelog = async function (version) {
         e.preventDefault()
     }
 
-    while (currentStep < steps.length) {
-        const result = await swalQueueStep.fire({
+    const result = await swalQueueStep.fire(
+        {
             title: titles[currentStep],
             html: `<div style="text-align: left; min-height: 25vh; max-height: 25vh">${values[chrome.i18n.getMessage('lang')][currentStep]}</div>`,
             showCancelButton: currentStep > 0,
@@ -377,14 +377,6 @@ const showSwalChangelog = async function (version) {
                     selectStep(currentStep)
                 })
             }
-        })
-
-        if (result.value) {
-            currentStep++
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-            currentStep--
-        } else {
-            break
         }
-    }
+    )
 }
