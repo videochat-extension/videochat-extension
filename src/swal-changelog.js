@@ -314,6 +314,7 @@ const showSwalChangelog = async function (version) {
         allowEscapeKey: true,
         allowEnterKey: true,
         showDenyButton: true,
+        showCancelButton: true,
         confirmButtonText: chrome.i18n.getMessage('confirmButtonText'),
         denyButtonText: chrome.i18n.getMessage('denyButtonText'),
         cancelButtonText: chrome.i18n.getMessage('cancelButtonText'),
