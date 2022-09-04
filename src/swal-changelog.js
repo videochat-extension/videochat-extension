@@ -348,6 +348,24 @@ const showSwalChangelog = async function (version) {
             didClose: () => {
                 document.removeEventListener('keyup', arrowsHotkeys)
             },
+            willOpen: (e) => {
+                e.querySelector('.swal2-cancel').onclick = (e) => {
+                    if (currentStep - 1 >= 0) {
+                        currentStep = currentStep - 1
+                        selectStep(currentStep)
+                    } else {
+                        Swal.close()
+                    }
+                }
+                e.querySelector('.swal2-confirm').onclick = (e) => {
+                    if (currentStep + 1 < steps.length) {
+                        currentStep = currentStep + 1
+                        selectStep(currentStep)
+                    } else {
+                        Swal.close()
+                    }
+                }
+            },
             didRender: () => {
                 let progressSteps = $(".swal2-progress-step")
                 progressSteps.css({
