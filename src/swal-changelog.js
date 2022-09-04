@@ -308,13 +308,8 @@ const showSwalChangelog = async function (version) {
 
     const swalQueueStep = Swal.mixin({
         // disable animation
-        showClass: {
-            backdrop: 'swal2-noanimation',
-            popup: 'swal2-noanimation',
-        },
-        hideClass: {
-            backdrop: 'swal2-noanimation',
-        },
+        showClass: {popup: 'swal2-noanimation', backdrop: 'swal2-noanimation'},
+        hideClass: {backdrop: 'swal2-noanimation'},
         allowOutsideClick: false,
         allowEscapeKey: true,
         allowEnterKey: true,
