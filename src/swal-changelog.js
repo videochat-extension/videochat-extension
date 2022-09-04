@@ -340,7 +340,7 @@ const showSwalChangelog = async function (version) {
                 document.removeEventListener('keyup', arrowsHotkeys)
                 document.addEventListener('keyup', arrowsHotkeys)
             },
-            didClose: () => {
+            willClose: () => {
                 document.removeEventListener('keyup', arrowsHotkeys)
             },
             willOpen: (e) => {
