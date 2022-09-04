@@ -319,6 +319,10 @@ const showSwalChangelog = async function (version) {
                 Swal.getCancelButton().click()
                 break;
 
+            case "ArrowUp":
+                Swal.getDenyButton().click()
+                break;
+
             case "ArrowRight":
                 Swal.getConfirmButton().click()
                 break;
