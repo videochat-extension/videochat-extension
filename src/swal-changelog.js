@@ -305,12 +305,50 @@ const showSwalChangelog = async function (version) {
 
     let currentStep = index
 
+    let selectStep = function (step) {
+        swalQueueStep.update({
+            title: titles[currentStep],
+            html: `<div style="text-align: left; max-height: 40vh">${values[chrome.i18n.getMessage('lang')][currentStep]}</div>`,
+            showCancelButton: currentStep > 0,
+            currentProgressStep: currentStep
+        })
+    }
+
+    let arrowsHotkeys = function (e) {
+        switch (e.key) {
+            case "ArrowLeft":
+                console.dir('left')
+                if (currentStep - 1 >= 0) {
+                    currentStep = currentStep - 1
+                    selectStep(currentStep)
+                }
+                break;
+
+            case "ArrowRight":
+                currentStep = currentStep + 1
+                if (currentStep === steps.length) {
+                    Swal.close()
+                } else {
+                    selectStep(currentStep)
+                }
+                break;
+        }
+        e.preventDefault()
+    }
+
     while (currentStep < steps.length) {
         const result = await swalQueueStep.fire({
             title: titles[currentStep],
             html: `<div style="text-align: left; max-height: 40vh">${values[chrome.i18n.getMessage('lang')][currentStep]}</div>`,
             showCancelButton: currentStep > 0,
             currentProgressStep: currentStep,
+            didOpen: () => {
+                document.removeEventListener('keyup', arrowsHotkeys)
+                document.addEventListener('keyup', arrowsHotkeys)
+            },
+            didClose: () => {
+                document.removeEventListener('keyup', arrowsHotkeys)
+            },
             didRender: () => {
                 let progressSteps = $(".swal2-progress-step")
                 progressSteps.css({
@@ -319,12 +357,7 @@ const showSwalChangelog = async function (version) {
                 })
                 progressSteps.click(function (el) {
                     currentStep = steps.indexOf(el.target.innerText)
-                    swalQueueStep.update({
-                        title: titles[currentStep],
-                        html: `<div style="text-align: left; max-height: 40vh">${values[chrome.i18n.getMessage('lang')][currentStep]}</div>`,
-                        showCancelButton: currentStep > 0,
-                        currentProgressStep: currentStep
-                    })
+                    selectStep(currentStep)
                 })
             }
         })
