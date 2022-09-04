@@ -16,14 +16,13 @@ const showSwalChangelog = async function (version) {
         progressStepsDistance: "4%",
         reverseButtons: true,
 
-        // TODO: FIX FLICKERING ON MODAL CHANGE
+        // disable animation
         showClass: {
-            backdrop: 'swal2-noanimation', // disable backdrop animation
-            popup: 'swal2-noanimation', // disable popup animation
+            backdrop: 'swal2-noanimation',
+            popup: 'swal2-noanimation',
         },
         hideClass: {
-            backdrop: 'swal2-noanimation', // disable popup fade-out animation
-            // popup: 'swal2-noanimation', // disable popup animation
+            backdrop: 'swal2-noanimation',
         },
     })
 
