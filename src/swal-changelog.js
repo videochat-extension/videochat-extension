@@ -313,7 +313,7 @@ const showSwalChangelog = async function (version) {
         })
     }
 
-    let arrowsHotkeys = function (e) {
+    let arrowHotkeys = function (e) {
         switch (e.key) {
             case "ArrowLeft":
                 Swal.getCancelButton().click()
@@ -337,11 +337,11 @@ const showSwalChangelog = async function (version) {
             showCancelButton: currentStep > 0,
             currentProgressStep: currentStep,
             didOpen: () => {
-                document.removeEventListener('keyup', arrowsHotkeys)
-                document.addEventListener('keyup', arrowsHotkeys)
+                document.removeEventListener('keyup', arrowHotkeys)
+                document.addEventListener('keyup', arrowHotkeys)
             },
             willClose: () => {
-                document.removeEventListener('keyup', arrowsHotkeys)
+                document.removeEventListener('keyup', arrowHotkeys)
             },
             willOpen: (e) => {
                 e.querySelector('.swal2-cancel').onclick = (e) => {
