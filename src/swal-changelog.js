@@ -14,6 +14,7 @@ const showSwalChangelog = async function (version) {
             backdrop: 'swal2-noanimation',
         },
         allowOutsideClick: false,
+        allowEscapeKey: true,
         allowEnterKey: true,
         showDenyButton: true,
         confirmButtonText: chrome.i18n.getMessage('confirmButtonText'),
