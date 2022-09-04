@@ -297,19 +297,36 @@ const showSwalChangelog = async function (version) {
         ],
     }
 
-    let currentStep
 
     let index = steps.indexOf(version)
     if (steps.indexOf(version) + 1 < steps.length) {
         index++
     }
 
-    for (currentStep = index; currentStep < steps.length;) {
+    let currentStep = index
+
+    while (currentStep < steps.length) {
         const result = await swalQueueStep.fire({
             title: titles[currentStep],
             html: `<div style="text-align: left; max-height: 40vh">${values[chrome.i18n.getMessage('lang')][currentStep]}</div>`,
             showCancelButton: currentStep > 0,
             currentProgressStep: currentStep,
+            didRender: () => {
+                let progressSteps = $(".swal2-progress-step")
+                progressSteps.css({
+                    "user-select": "none",
+                    'cursor': 'pointer'
+                })
+                progressSteps.click(function (el) {
+                    currentStep = steps.indexOf(el.target.innerText)
+                    swalQueueStep.update({
+                        title: titles[currentStep],
+                        html: `<div style="text-align: left; max-height: 40vh">${values[chrome.i18n.getMessage('lang')][currentStep]}</div>`,
+                        showCancelButton: currentStep > 0,
+                        currentProgressStep: currentStep
+                    })
+                })
+            }
         })
 
         if (result.value) {
