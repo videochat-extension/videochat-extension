@@ -41,6 +41,7 @@
         "content.js",
         "swal-info.js",
         "swal-changelog.js",
+        "swal-context-invalidated.js",
         "swal-danger-warning.js",
         "hotkeys.js",
         "utils.js",
