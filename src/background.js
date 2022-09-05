@@ -128,7 +128,7 @@ chrome.commands.onCommand.addListener(function (command) {
 
 chrome.tabs.onActivated.addListener(function (chTab) {
     chrome.tabs.get(chTab["tabId"], function (tab) {
-        if (tab["url"].search(".*videochatru.com.*") !== -1) {
+        if (tab["url"].search(".*videochatru.com.*") !== -1 || tab['url'].search(".*ome.tv.*") !== -1) {
             chatId = tab["id"];
             if (tab.windowId === torrentWindowId) {
                 torrentWindowId = -1;
