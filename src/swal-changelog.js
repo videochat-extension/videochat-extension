@@ -25,7 +25,8 @@ const showSwalChangelog = async function (version) {
         '1.3.3',
         '1.4.0',
         '1.4.1',
-        '1.4.2'
+        '1.4.2',
+        '1.5.0'
     ]
 
     const getGitHub = (tag, date) => {
@@ -54,7 +55,8 @@ const showSwalChangelog = async function (version) {
         getGitHub('v1.3.3', '(2022-08-12)'),
         getGitHub('v1.4.0', '(2022-09-01)'),
         getGitHub('v1.4.1', '(2022-09-02)'),
-        getGitHub('v1.4.2', '(2022-09-02)')
+        getGitHub('v1.4.2', '(2022-09-02)'),
+        getGitHub('v1.5.0', '(2022-09-05)'),
     ]
 
     const values = {
@@ -367,7 +369,31 @@ const showSwalChangelog = async function (version) {
             '<b>Minor fix.</b><br>' +
             '<br>' +
             '<b>- Section \'Info\'.</b><br>' +
-            '— Now the version history displays the new version after update, not the one you used before.'
+            '— Now the version history displays the new version after update, not the one you used before.',
+
+            // 1.5.0 (2022-09-05)
+            '<b>Cosmetic improvements, a new option to prohibit camera cropping for mobile interlocutors.</b><br>' +
+            '<br>' +
+            '<b>- Section \'IP\'.</b><br>' +
+            '— 0S will now be displayed in TM, example: \'1M, 0S\'.<br>' +
+            '<br>' +
+            '<b>- Section \'Settings\'.</b><br>' +
+            '— Added a new interface setting: "do not crop the interlocutor\'s camera".<br>' +
+            '— By default, if the interlocutor\'s camera does not shoot at 4:3, the image is simply cropped.<br>' +
+            '— A new option can fix it and you will be able to see the interlocutor completely at the price of black bars.<br>' +
+            '<br>' +
+            '<b>- Section \'Info\'.</b><br>' +
+            '— Cosmetic improvements to changelog and welcome window: smooth transition between alerts, keyboard arrows/click switching, fixed sizes and many minor improvements.<br>' +
+            '— The contents of the version history were rewritten from scratch.<br>' +
+            '— Clickable version numbers in changelog.<br>' +
+            '<br>' +
+            '<b>- Hotkeys.</b><br>' +
+            '— Fix the incompatibility of chrome hotkey \'switch between the active tab and the chat tab\' for ome.tv.<br>' +
+            '— Local hotkeys are disabled while the warning / version history / welcome window are active.<br>' +
+            '<br>' +
+            '<b>- Miscellaneous.</b><br>' +
+            '— Now if your browser updates the extension while you are in Chatruletka, you will receive a message that you need to reload the page.<br>' +
+            '— It is no longer possible to select text in the upper and lower parts of the control panel.'
         ],
         "ru": [
             // v0.1 (2021-09-27)
@@ -684,7 +710,31 @@ const showSwalChangelog = async function (version) {
             '<b>Мелкий фикс.</b><br>' +
             '<br>' +
             '<b>- Раздел \'Инфо\'.</b><br>' +
-            '— Теперь история версий отображает новую версию при обновлении, а не ту, которую вы использовали раньше.'
+            '— Теперь история версий отображает новую версию при обновлении, а не ту, которую вы использовали раньше.',
+
+            // 1.5.0 (2022-09-05)
+            '<b>Косметические улучшения, новая опция для запрета обрезания камеры у мобильных собеседников.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'IP\'.</b><br>' +
+            '— 0S теперь будет отображаться в TM, пример: 1M, 0S.<br>' +
+            '<br>' +
+            '<b>- Раздел \'Настройки\'.</b><br>' +
+            '— Добавлена новая настройка интерфейса: \'не обрезать камеру собеседника\'.<br>' +
+            '— По умолчанию если у собеседника камера не снимает в 4:3, изображение просто обрезается.<br>' +
+            '— Новая опция может исправить это недоразумение и вы сможете увидеть собеседника полностью.<br>' +
+            '<br>' +
+            '<b>- Раздел \'Инфо\'.</b><br>' +
+            '— Косметические улучшения changelog и приветственного окна: плавный переход между элементами, переключение стрелками клавиатуры/по клику, фиксированные размеры и много мелких доработок.<br>' +
+            '— Содержимое истории версий переписано с нуля.<br>' +
+            '— Кликабельные номера версий в changelog.<br>' +
+            '<br>' +
+            '<b>- Хоткеи.</b><br>' +
+            '— Фикс несовместимости chrome хоткея переключения между активной вкладкой и вкладкой чата для ome.tv.<br>' +
+            '— Локальные хоткеи отключены пока активно окно с предупреждением / историей версий / приветственным окном.<br>' +
+            '<br>' +
+            '<b>- Разное.</b><br>' +
+            '— Теперь если ваш браузер обновит расширение пока вы в рулетке, вы получите сообщение о том, что нужно перезагрузить страницу.<br>' +
+            '— Больше нельзя выделять текст в верхней и нижней частях контрольной панели.'
         ],
     }
 
