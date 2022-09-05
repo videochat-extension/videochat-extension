@@ -150,6 +150,7 @@ function injectInterface() {
 
 let videoContainerHeight = 0, chatContainerHeight = 0
 
+// TODO: FIX IT ON OME.TV: GO SETTINGS -> resize window -> GO OTHER TAB -> size wont change
 function resizemap(extend) {
     if (extend && settings.expand) {
         let newVideoContainerHeight = parseFloat(document.getElementById("video-container").style.height)
