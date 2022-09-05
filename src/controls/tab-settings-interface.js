@@ -147,10 +147,10 @@ function createSettingsInterface() {
                         chrome.storage.sync.set({"doNotCover": doNotCoverCheck.checked}, function () {
                             if (doNotCoverCheck.checked) {
                                 $("#remote-video").css({"object-fit": "contain"})
-                                $(".preview").css({"background-size": "contain"})
+                                // $(".preview").css({"background-size": "contain"})
                             } else {
                                 $("#remote-video").css({"object-fit": ""})
-                                $(".preview").css({"background-size": ""})
+                                // $(".preview").css({"background-size": ""})
                             }
                         });
                     }
