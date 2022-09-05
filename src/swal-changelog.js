@@ -785,4 +785,4 @@ const showSwalChangelog = async function (version) {
         }
     )
 }
-showSwalChangelog('0.0')
+// showSwalChangelog('0.0')
