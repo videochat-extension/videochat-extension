@@ -443,6 +443,12 @@
   "tooltipDoNotReflect": {
     "message": "turn it on if you are uncomfortable seeing yourself reflected"
   },
+  "doNotCover": {
+    "message": "do not crop the interlocutor's camera: "
+  },
+  "tooltipDoNotCover": {
+    "message": "enable this if you are uncomfortable looking at a cropped picture from mobile devices and want to see your interlocutor, and not the edge of his head"
+  },
   "hideCamera": {
     "message": "hide your camera:"
   },

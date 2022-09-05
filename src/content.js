@@ -725,6 +725,11 @@ chrome.storage.sync.get(null, function (result) {
             $("#local-video").removeClass("video-container-local-video")
         }
 
+        if (settings.doNotCover) {
+            $("#remote-video").css({"object-fit": "contain"})
+            $(".preview").css({"background-size": "contain"})
+        }
+
         if (settings.hideCamera) {
             $("#local-video-wrapper")[0].style.display = "none"
         }

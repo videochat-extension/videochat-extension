@@ -132,6 +132,32 @@ function createSettingsInterface() {
             ]),
         ]),
 
+        createElement('dd', {}, [
+            createElement('span', {}, [
+                createElement("p", {
+                    innerText: chrome.i18n.getMessage('doNotCover'),
+                    className: "tooltip",
+                    title: chrome.i18n.getMessage('tooltipDoNotCover')
+                }),
+                createElement('input', {
+                    type: "checkbox",
+                    checked: settings.doNotCover,
+                    id: "doNotCoverCheck",
+                    onclick: () => {
+                        chrome.storage.sync.set({"doNotCover": doNotCoverCheck.checked}, function () {
+                            if (doNotCoverCheck.checked) {
+                                $("#remote-video").css({"object-fit": "contain"})
+                                $(".preview").css({"background-size": "contain"})
+                            } else {
+                                $("#remote-video").css({"object-fit": ""})
+                                $(".preview").css({"background-size": ""})
+                            }
+                        });
+                    }
+                })
+            ]),
+        ]),
+
 
         createElement('dd', {}, [
             createElement('span', {}, [
