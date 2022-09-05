@@ -495,7 +495,6 @@ const showSwalChangelog = async function (version) {
             '— Добавлен Discord.<br>' +
             '<br>' +
             '<b>- Разное.</b><br>' +
-            '— Добавлен Discord.<br>' +
             '— Много фиксов и косметических улучшений.<br>' +
             '— Много внутренние архитектурных изменений.',
 
