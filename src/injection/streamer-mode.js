@@ -252,11 +252,17 @@ var observer3 = new MutationObserver(function (mutations) {
             if (attributeValue.includes("s-search")) {
                 currentStage = 1
                 onConversationEnd()
+                if (coverNoiseCheck.checked) {
+                    blurRemote()
+                }
             } else if (attributeValue.includes("s-found")) {
                 currentStage = 2
                 if (blurPreviewCheck.checked) {
                     document.getElementsByClassName("remote-video__preview")[0].children[0].style.filter = BLUR_FILTER_PREVIEW
                     document.getElementsByClassName("remote-video__preview")[0].children[1].style.filter = BLUR_FILTER_PREVIEW
+                }
+                if (coverPreviewCheck.checked) {
+                    blurRemote()
                 }
             } else if (attributeValue.includes("s-play")) {
                 manualBlur = false

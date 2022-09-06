@@ -854,12 +854,9 @@ chrome.storage.sync.get(null, function (result) {
                     style: "height:100%; position: absolute; transform: scaleX(-1)"
                 })).insertBefore("#local-video")
 
-                if (settings.coverPreview)
-                    $(".remote-video__preview")[0].style.display = "none"
+                $(".remote-video__preview").insertBefore("#cover")
 
-                if (settings.coverNoise) {
-                }
-                $(".remote-video__noise")[0].style.display = "none"
+                $(".remote-video__noise").insertBefore("#cover")
             }
 
             const nsfwjs = document.createElement('script');
