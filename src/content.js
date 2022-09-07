@@ -859,16 +859,23 @@ chrome.storage.sync.get(null, function (result) {
                 $(".remote-video__noise").insertBefore("#cover")
             }
 
-            const nsfwjs = document.createElement('script');
-            nsfwjs.src = chrome.runtime.getURL('libs/js/nsfwjs.min.js');
-            nsfwjs.onload = () => {
-                nsfwjs.remove()
+            if (settings.nsfw && isDevMode()) {
+                const nsfwjs = document.createElement('script');
+                nsfwjs.src = chrome.runtime.getURL('libs/js/nsfwjs.min.js');
+                nsfwjs.onload = () => {
+                    nsfwjs.remove()
+                    const nsfw = document.createElement('script');
+                    nsfw.src = chrome.runtime.getURL('injection/streamer-mode.js');
+                    nsfw.onload = () => nsfw.remove();
+                    (document.head || document.documentElement).appendChild(nsfw);
+                };
+                (document.head || document.documentElement).appendChild(nsfwjs);
+            } else {
                 const nsfw = document.createElement('script');
                 nsfw.src = chrome.runtime.getURL('injection/streamer-mode.js');
                 nsfw.onload = () => nsfw.remove();
                 (document.head || document.documentElement).appendChild(nsfw);
-            };
-            (document.head || document.documentElement).appendChild(nsfwjs);
+            }
         }
 
         if (settings.darkMode)

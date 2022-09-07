@@ -102,87 +102,87 @@ function unblurLocal() {
     }
 }
 
-if (nsfwCheck.checked) {
-    nsfwjs.load().then(function (model) {
-        nsfwInfo.style.display = ""
-
-        let nsfwTimeout = setTimeout(async function tick() {
-            if (currentStage === 3 && !tempOff) {
-                try {
-                    const predictions = await model.classify(rmt)
-                    if (preds.length >= PREDICATIONS_ARRAY_SIZE)
-                        preds.shift()
-
-                    preds.push(predictions)
-
-                    let blur = 0
-
-                    preds.forEach(itemPred => {
-                        itemPred.forEach(item => {
-                            if (item.className === "Porn" || item.className === "Sexy") {
-                                if (item.probability > PANIC_PROPABILITY) {
-                                    switch (item.className) {
-                                        case "Porn":
-                                            blur += WEIGHT_PORN
-                                            break;
-
-                                        case "Sexy":
-                                            blur += WEIGHT_SEXY
-                                            break;
-                                    }
-                                }
-                            }
-                        })
-                    })
-                    let text = `<b>SCORE: ${blur}</b> || `
-                    predictions.forEach(item => {
-                        text += `<b>${item.className.charAt(0)}</b>: ${(item.probability * 100).toFixed(0) + '% '}`
-                    })
-
-                    if (blur >= BLUR_PANIC) {
-                        if (streamerMirrorCheck.checked) {
-                            blurLocal()
-                        }
-                        blurRemote()
-
-                        lastBlurred = +new Date()
-                    } else {
-                        if (preds.length < PREDICATIONS_ARRAY_SIZE) {
-                            // vid.style.filter = BLUR_FILTER
-                        } else if (lastBlurred === 0) {
-                            if (!manualBlur) {
-                                if (streamerMirrorCheck.checked)
-                                    vid.style.filter = ""
-                                rmt.style.filter = ""
-                                if (coverCheck.checked)
-                                    // cover.style.display = "none"
-                                    console.dir('РАЗБЛЮР ПЕРВЫЙ')
-                                lastBlurred = -1
-                            }
-                        } else if (lastBlurred !== 0 && lastBlurred !== -1 && +new Date() - lastBlurred > BLUR_DURATION * 1000) {
-                            if (!manualBlur && letUnblurCheck.checked) {
-                                if (streamerMirrorCheck.checked)
-                                    vid.style.filter = ""
-                                rmt.style.filter = ""
-                                if (coverCheck.checked)
-                                    // cover.style.display = "none"
-                                    console.dir('РАЗБЛЮР')
-                            }
-                        }
-                    }
-                    if (currentStage === 3) {
-                        nsfwInfo.style.display = ""
-                        nsfwInfo.innerHTML = text
-                    }
-                } catch (err) {
-                    console.dir(err)
-                }
-            }
-
-            nsfwTimeout = setTimeout(tick, TIMEOUT); // (*)
-        }, 400);
-    })
-}
+// if (nsfwCheck.checked) {
+//     nsfwjs.load().then(function (model) {
+//         nsfwInfo.style.display = ""
+//
+//         let nsfwTimeout = setTimeout(async function tick() {
+//             if (currentStage === 3 && !tempOff) {
+//                 try {
+//                     const predictions = await model.classify(rmt)
+//                     if (preds.length >= PREDICATIONS_ARRAY_SIZE)
+//                         preds.shift()
+//
+//                     preds.push(predictions)
+//
+//                     let blur = 0
+//
+//                     preds.forEach(itemPred => {
+//                         itemPred.forEach(item => {
+//                             if (item.className === "Porn" || item.className === "Sexy") {
+//                                 if (item.probability > PANIC_PROPABILITY) {
+//                                     switch (item.className) {
+//                                         case "Porn":
+//                                             blur += WEIGHT_PORN
+//                                             break;
+//
+//                                         case "Sexy":
+//                                             blur += WEIGHT_SEXY
+//                                             break;
+//                                     }
+//                                 }
+//                             }
+//                         })
+//                     })
+//                     let text = `<b>SCORE: ${blur}</b> || `
+//                     predictions.forEach(item => {
+//                         text += `<b>${item.className.charAt(0)}</b>: ${(item.probability * 100).toFixed(0) + '% '}`
+//                     })
+//
+//                     if (blur >= BLUR_PANIC) {
+//                         if (streamerMirrorCheck.checked) {
+//                             blurLocal()
+//                         }
+//                         blurRemote()
+//
+//                         lastBlurred = +new Date()
+//                     } else {
+//                         if (preds.length < PREDICATIONS_ARRAY_SIZE) {
+//                             // vid.style.filter = BLUR_FILTER
+//                         } else if (lastBlurred === 0) {
+//                             if (!manualBlur) {
+//                                 if (streamerMirrorCheck.checked)
+//                                     vid.style.filter = ""
+//                                 rmt.style.filter = ""
+//                                 if (coverCheck.checked)
+//                                     // cover.style.display = "none"
+//                                     console.dir('РАЗБЛЮР ПЕРВЫЙ')
+//                                 lastBlurred = -1
+//                             }
+//                         } else if (lastBlurred !== 0 && lastBlurred !== -1 && +new Date() - lastBlurred > BLUR_DURATION * 1000) {
+//                             if (!manualBlur && letUnblurCheck.checked) {
+//                                 if (streamerMirrorCheck.checked)
+//                                     vid.style.filter = ""
+//                                 rmt.style.filter = ""
+//                                 if (coverCheck.checked)
+//                                     // cover.style.display = "none"
+//                                     console.dir('РАЗБЛЮР')
+//                             }
+//                         }
+//                     }
+//                     if (currentStage === 3) {
+//                         nsfwInfo.style.display = ""
+//                         nsfwInfo.innerHTML = text
+//                     }
+//                 } catch (err) {
+//                     console.dir(err)
+//                 }
+//             }
+//
+//             nsfwTimeout = setTimeout(tick, TIMEOUT); // (*)
+//         }, 400);
+//     })
+// }
 
 function updStatus() {
     let strings = []
