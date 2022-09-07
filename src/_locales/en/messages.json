@@ -282,7 +282,7 @@
     "message": "PAGE RELOAD IS REQUIRED BECAUSE YOU HAVE CHANGED SOME IMPORTANT SETTINGS"
   },
   "streamerMode": {
-    "message": "STREAMER MODE:"
+    "message": "STREAMER MODE (alfa):"
   },
   "tooltipStreamerMode": {
     "message": "Enables a special set of functions for streamers. If you disable it, everything below will not work."
