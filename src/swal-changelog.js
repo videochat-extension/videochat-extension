@@ -26,7 +26,8 @@ const showSwalChangelog = async function (version) {
         '1.4.0',
         '1.4.1',
         '1.4.2',
-        '1.5.0'
+        '1.5.0',
+        '1.5.1'
     ]
 
     const getGitHub = (tag, date) => {
@@ -57,6 +58,7 @@ const showSwalChangelog = async function (version) {
         getGitHub('v1.4.1', '(2022-09-02)'),
         getGitHub('v1.4.2', '(2022-09-02)'),
         getGitHub('v1.5.0', '(2022-09-05)'),
+        getGitHub('v1.5.1', '(2022-XX-XX)'),
     ]
 
     const values = {
@@ -393,7 +395,16 @@ const showSwalChangelog = async function (version) {
             '<br>' +
             '<b>- Miscellaneous.</b><br>' +
             '— Now if your browser updates the extension while you are in Chatruletka, you will receive a message that you need to reload the page.<br>' +
-            '— It is no longer possible to select text in the upper and lower parts of the control panel.'
+            '— It is no longer possible to select text in the upper and lower parts of the control panel.',
+
+            // 1.5.1 (2022-XX-XX)
+            '<b>A few changes for the \'streamer mode\'.</b><br><br>Streamer mode allows you to cover the interlocutor with a custom image / blur, watching him through the picture-in-picture mode to make sure that there is no NSFW.<br>' +
+            '<br>' +
+            '<b>- Section \'Settings\'.</b><br>' +
+            '— Improved cover logic: no more search noise flickering, use right arrow to cover/uncover.<br>' +
+            '— Use of cover is enabled by default.<br>' +
+            '— Added ability to apply cover on stop (cover applies if \'blur on start\' is enabled).<br>' +
+            '— Temporarily disabled broken nsfwjs integration and removed its settings.'
         ],
         "ru": [
             // v0.1 (2021-09-27)
@@ -734,7 +745,16 @@ const showSwalChangelog = async function (version) {
             '<br>' +
             '<b>- Разное.</b><br>' +
             '— Теперь если ваш браузер обновит расширение пока вы в рулетке, вы получите сообщение о том, что нужно перезагрузить страницу.<br>' +
-            '— Больше нельзя выделять текст в верхней и нижней частях контрольной панели.'
+            '— Больше нельзя выделять текст в верхней и нижней частях контрольной панели.',
+
+            // 1.5.1 (2022-ХХ-ХХ)
+            '<b>Несколько изменений для \'режима стримера\'.</b><br><br>Режим стримера позволяет закрыть собеседника заглушкой/размыть его картинку, наблюдая за ним через режим "картинка в картинке", чтобы убедиться, что у него нет NSFW.<br>' +
+            '<br>' +
+            '<b>- Раздел \'Настройки\'.</b><br>' +
+            '— Улучшена логика укрытия: больше не мерцает поисковый шум, используйте стрелку вправо, чтобы скрыть/открыть заглушку.<br>' +
+            '— Использование заглушки включено по умолчанию (при установке).<br>' +
+            '— Добавлена возможность применять обложку при остановке (обложка применяется, если включено «размытие при старте»).<br>' +
+            '— Временно отключена сломанная интеграция nsfwjs и удалены ее настройки.'
         ],
     }
 
