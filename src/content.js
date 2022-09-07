@@ -841,7 +841,7 @@ chrome.storage.sync.get(null, function (result) {
             if (settings.blurReport)
                 document.getElementById("report-screen").style.filter = "blur(10px)"
 
-            if (settings.cover || settings.coverPreview || settings.coverNoise) {
+            if (settings.cover || settings.coverPreview || settings.coverNoise|| settings.coverStop) {
                 $(createElement('img', {
                     src: settings.coverSrc,
                     id: "cover",

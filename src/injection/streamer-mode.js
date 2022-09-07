@@ -66,7 +66,7 @@ if (streamerKeysCheck.checked) {
 }
 
 function blurRemote() {
-    if (coverCheck.checked) {
+    if (coverCheck.checked || coverNoiseCheck.checked || coverPreviewCheck.checked || coverStopCheck.checked) {
         rmt.style.filter = "opacity(0%)"
         cover.style.display = ""
     } else {
@@ -75,7 +75,7 @@ function blurRemote() {
 }
 
 function unblurRemote() {
-    if (coverCheck.checked) {
+    if (coverCheck.checked || coverNoiseCheck.checked || coverPreviewCheck.checked || coverStopCheck.checked) {
         rmt.style.filter = ""
         cover.style.display = "none"
     } else {
@@ -84,8 +84,7 @@ function unblurRemote() {
 }
 
 function blurLocal() {
-
-    if (coverCheck.checked) {
+    if (coverCheck.checked || coverNoiseCheck.checked || coverPreviewCheck.checked || coverStopCheck.checked) {
         vid.style.filter = "opacity(0%)"
         cover2.style.display = ""
     } else {
@@ -94,7 +93,7 @@ function blurLocal() {
 }
 
 function unblurLocal() {
-    if (coverCheck.checked) {
+    if (coverCheck.checked || coverNoiseCheck.checked || coverPreviewCheck.checked || coverStopCheck.checked) {
         vid.style.filter = ""
         cover2.style.display = "none"
     } else {
@@ -252,7 +251,7 @@ var observer3 = new MutationObserver(function (mutations) {
             if (attributeValue.includes("s-search")) {
                 currentStage = 1
                 onConversationEnd()
-                if (coverNoiseCheck.checked) {
+                if (blurOnStartCheck.checked && coverNoiseCheck.checked) {
                     blurRemote()
                 }
             } else if (attributeValue.includes("s-found")) {
@@ -261,7 +260,7 @@ var observer3 = new MutationObserver(function (mutations) {
                     document.getElementsByClassName("remote-video__preview")[0].children[0].style.filter = BLUR_FILTER_PREVIEW
                     document.getElementsByClassName("remote-video__preview")[0].children[1].style.filter = BLUR_FILTER_PREVIEW
                 }
-                if (coverPreviewCheck.checked) {
+                if (blurOnStartCheck.checked && coverPreviewCheck.checked) {
                     blurRemote()
                 }
             } else if (attributeValue.includes("s-play")) {
@@ -276,11 +275,17 @@ var observer3 = new MutationObserver(function (mutations) {
                     if (streamerMirrorCheck.checked)
                         blurLocal()
 
-                    blurRemote()
+                    if (blurOnStartCheck.checked && coverPreviewCheck.checked) {
+                        blurRemote()
+                    }
                 }
             } else if (attributeValue.includes("s-stop")) {
                 currentStage = 0
                 onConversationEnd()
+
+                if (blurOnStartCheck.checked && coverStopCheck.checked) {
+                    blurRemote()
+                }
             }
         }
     });

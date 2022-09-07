@@ -270,6 +270,28 @@ function createSettingsStreamer() {
                     })
                 ]),
             ]),
+
+            createElement('dd', {}, [
+                createElement('span', {}, [
+                    createElement("p", {
+                        innerText: chrome.i18n.getMessage("coverOverStop"),
+                        className: "tooltip",
+                        title: chrome.i18n.getMessage("tooltipCoverOverStop")
+                    }),
+                    createElement('input', {
+                        type: "checkbox",
+                        checked: settings.coverStop,
+                        id: "coverStopCheck",
+                        onclick: () => {
+                            chrome.storage.sync.set({"coverStop": coverStopCheck.checked}, function () {
+                                confirmAndReload()
+                            });
+                        }
+                    })
+                ]),
+            ]),
+
+
             createElement('dd', {}, [
                 createElement('button', {
                     style: "margin-top: 2px",

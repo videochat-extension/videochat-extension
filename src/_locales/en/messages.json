@@ -342,19 +342,25 @@
     "message": "cover over blur: "
   },
   "tooltipCoverOverBlur": {
-    "message": "enable this if you want custom image instead of blur"
+    "message": "enable this if you want cover instead of blur"
   },
   "coverOverPreview": {
     "message": "cover over preview: "
   },
   "tooltipCoverOverPreview": {
-    "message": "enable this if you want custom image/gif instead of preview"
+    "message": "enable this if you want to activate cover when found (preview)"
   },
   "coverOverNoise": {
     "message": "cover over noise: "
   },
   "tooltipCoverOverNoise": {
-    "message": "enable this if you need a custom image instead of noise"
+    "message": "enable this if you want to activate cover when searching"
+  },
+  "coverOverStop": {
+    "message": "cover over stop: "
+  },
+  "tooltipCoverOverStop": {
+    "message": "enable this if you want to activate cover when stopped"
   },
   "promptCoverSrc": {
     "message": "Enter a direct link to the picture/gif (4:3) for use as the cover."
