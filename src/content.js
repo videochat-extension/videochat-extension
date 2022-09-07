@@ -243,8 +243,11 @@ function processData(json, ip) {
 
     if (settings.hideMobileLocation && json.mobile) {
         newInnerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br></br>"
-
-        newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>"
+        try {
+            newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>"
+        } catch {
+            newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + "???" + "</sup>) </br>"
+        }
         newInnerHTML += "<b>TM: </b><sup class='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
 
     } else {
@@ -252,9 +255,13 @@ function processData(json, ip) {
 
         newInnerHTML += "</br>" +
             chrome.i18n.getMessage("apiCity") + json.city + " (" + json.region + ") </br>" +
-            chrome.i18n.getMessage("apiRegion") + json.regionName + "</br>" +
-            "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>)</br>" +
-            "<b>TM: </b><sup class='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
+            chrome.i18n.getMessage("apiRegion") + json.regionName + "</br>"
+        try {
+            newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>"
+        } catch {
+            newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + "???" + "</sup>) </br>"
+        }
+        newInnerHTML += "<b>TM: </b><sup class='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
     }
 
     if (settings.showISP) {
@@ -684,7 +691,11 @@ chrome.storage.sync.get(null, function (result) {
             }
             if (document.getElementsByClassName("remoteTZ").length > 0 && document.getElementsByClassName("remoteTime").length > 0) {
                 for (let el of document.getElementsByClassName("remoteTime")) {
-                    el.innerText = new Date().toLocaleTimeString("ru", {timeZone: $(el).parent().find('.remoteTZ')[0].innerText}).slice(0, -3)
+                    try {
+                        el.innerText = new Date().toLocaleTimeString("ru", {timeZone: $(el).parent().find('.remoteTZ')[0].innerText}).slice(0, -3)
+                    } catch {
+                        el.innerText = "???"
+                    }
                 }
             }
         }, 1000)
@@ -841,7 +852,7 @@ chrome.storage.sync.get(null, function (result) {
             if (settings.blurReport)
                 document.getElementById("report-screen").style.filter = "blur(10px)"
 
-            if (settings.cover || settings.coverPreview || settings.coverNoise|| settings.coverStop) {
+            if (settings.cover || settings.coverPreview || settings.coverNoise || settings.coverStop) {
                 $(createElement('img', {
                     src: settings.coverSrc,
                     id: "cover",
