@@ -845,7 +845,7 @@ chrome.storage.sync.get(null, function (result) {
                 $(createElement('img', {
                     src: settings.coverSrc,
                     id: "cover",
-                    style: "height:100%; position: absolute;"
+                    style: "height:100%; position: absolute; display:none"
                 })).insertBefore("#remote-video")
 
                 $(createElement('img', {
