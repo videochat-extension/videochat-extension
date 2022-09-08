@@ -240,7 +240,7 @@ chrome.runtime.onMessage.addListener(
     }
 );
 
-chrome.runtime.setUninstallURL("https://docs.google.com/forms/d/1TIynfMSRGrFb7_Co9Rb0ZEhts3WROMRcrCNPV8XE0ls")
+// chrome.runtime.setUninstallURL("https://docs.google.com/forms/d/1TIynfMSRGrFb7_Co9Rb0ZEhts3WROMRcrCNPV8XE0ls")
 
 chrome.action.onClicked.addListener(function (tab) {
     chrome.storage.sync.get(["lastInstanceOpened"], function (result) {
