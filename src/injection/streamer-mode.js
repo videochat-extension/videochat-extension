@@ -275,9 +275,7 @@ var observer3 = new MutationObserver(function (mutations) {
                     if (streamerMirrorCheck.checked)
                         blurLocal()
 
-                    if (blurOnStartCheck.checked && coverPreviewCheck.checked) {
-                        blurRemote()
-                    }
+                    blurRemote()
                 }
             } else if (attributeValue.includes("s-stop")) {
                 currentStage = 0
