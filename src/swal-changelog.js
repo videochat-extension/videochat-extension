@@ -409,7 +409,7 @@ const showSwalChangelog = async function (version) {
             '— The use of a cover is enabled by default for new users who have enabled streamer mode.<br>' +
             '— Disable banner/watermark display when streamer mode is enabled, as it conflicts with the cover.<br>' +
             '— Added the ability to apply a cover when the chat is stopped.<br>' +
-            '— Temporarily disabled broken nsfwjs integration and removed its settings.' +
+            '— Temporarily disabled broken nsfwjs integration and removed its settings.<br>' +
             '<br>' +
             '<b>- Miscellaneous.</b><br>' +
             '— Removed poll when uninstalling an extension.<br>'
