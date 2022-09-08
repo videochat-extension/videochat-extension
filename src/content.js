@@ -716,7 +716,7 @@ chrome.storage.sync.get(null, function (result) {
             window.dispatchEvent(new Event('resize'));
         }
 
-        if (settings.hideWatermark) {
+        if (settings.hideWatermark || settings.streamer) {
             try {
                 document.getElementsByClassName("remote-video__watermark")[0].style.display = "none"
             } catch (e) {
@@ -724,7 +724,7 @@ chrome.storage.sync.get(null, function (result) {
             }
         }
 
-        if (settings.hideBanner) {
+        if (settings.hideBanner || settings.streamer) {
             try {
                 document.getElementsByClassName("caption remote-video__info")[0].style.display = "none"
             } catch (e) {
