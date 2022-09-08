@@ -58,7 +58,7 @@ const showSwalChangelog = async function (version) {
         getGitHub('v1.4.1', '(2022-09-02)'),
         getGitHub('v1.4.2', '(2022-09-02)'),
         getGitHub('v1.5.0', '(2022-09-05)'),
-        getGitHub('v1.5.1', '(2022-XX-XX)'),
+        getGitHub('v1.5.1', '(2022-09-08)'),
     ]
 
     const values = {
@@ -397,14 +397,22 @@ const showSwalChangelog = async function (version) {
             '— Now if your browser updates the extension while you are in Chatruletka, you will receive a message that you need to reload the page.<br>' +
             '— It is no longer possible to select text in the upper and lower parts of the control panel.',
 
-            // 1.5.1 (2022-XX-XX)
-            '<b>A few changes for the \'streamer mode\'.</b><br><br>Streamer mode allows you to cover the interlocutor with a custom image / blur, watching him through the picture-in-picture mode to make sure that there is no NSFW.<br>' +
+            // 1.5.1 (2022-09-08)
+            '<b>A few changes to the \'streamer mode\'.<br><br>Ignore this update if you haven\'t used \'streamer mode\' before, this information is useless to you.</b><br><br>Streamer mode allows you to cover your interlocutor with your custom image/blur his picture by watching him through the picture-in-picture mode (which is in a separate window and not captured by OBS) to make sure that he does not have NSFW and remove the cover. Previously, the neural network was responsible for evaluating the interlocutor, but this functionality broke down and in order to fix it for good, I would need to rewrite the entire extension from scratch (which would take 20+ hours of work and a lot of energy, I don’t have all this), so you have to evaluate it manually each time, by toggling the cover with the \'right arrow\' key on the keyboard. The cover is activated by default every time the chat state changes (stop, search, found, play), if \'auto apply blur/cover\' is activated in the settings.<br>' +
+            '<br>' +
+            '<b>- Section \'IP\'.</b><br>' +
+            '— If the interlocutor has an incorrect time zone, it will still be shown.<br>' +
             '<br>' +
             '<b>- Section \'Settings\'.</b><br>' +
-            '— Improved cover logic: no more search noise flickering, use right arrow to cover/uncover.<br>' +
-            '— Use of cover is enabled by default.<br>' +
-            '— Added ability to apply cover on stop (cover applies if \'blur on start\' is enabled).<br>' +
-            '— Temporarily disabled broken nsfwjs integration and removed its settings.'
+            '— Improved the cover logic: search noise no longer flickers black.<br>' +
+            '— Now the cover closes everything, the \'cover over X\' setting is only responsible for activating the cover at a specific stage, if \'auto apply blur/cover\' is enabled.<br>' +
+            '— The use of a cover is enabled by default for new users who have enabled streamer mode.<br>' +
+            '— Disable banner/watermark display when streamer mode is enabled, as it conflicts with the cover.<br>' +
+            '— Added the ability to apply a cover when the chat is stopped.<br>' +
+            '— Temporarily disabled broken nsfwjs integration and removed its settings.' +
+            '<br>' +
+            '<b>- Miscellaneous.</b><br>' +
+            '— Removed poll when uninstalling an extension.<br>'
         ],
         "ru": [
             // v0.1 (2021-09-27)
@@ -747,14 +755,22 @@ const showSwalChangelog = async function (version) {
             '— Теперь если ваш браузер обновит расширение пока вы в рулетке, вы получите сообщение о том, что нужно перезагрузить страницу.<br>' +
             '— Больше нельзя выделять текст в верхней и нижней частях контрольной панели.',
 
-            // 1.5.1 (2022-ХХ-ХХ)
-            '<b>Несколько изменений для \'режима стримера\'.</b><br><br>Режим стримера позволяет закрыть собеседника заглушкой/размыть его картинку, наблюдая за ним через режим "картинка в картинке", чтобы убедиться, что у него нет NSFW.<br>' +
+            // 1.5.1 (2022-09-08)
+            '<b>Несколько изменений для \'режима стримера\'.<br><br>Проигнорируйте это обновление, если вы не пользовались \'режимом стримера\' ранее, эта информация бесполезна для вас.</b><br><br>Режим стримера позволяет закрыть собеседника своей заглушкой/размыть его картинку, наблюдая за ним через режим "картинка в картинке" (который в отдельном окне и не захватывается OBS), чтобы убедиться, что у него нет NSFW и снять заглушку. Раньше за оценку собеседника отвечала нейросеть, но этот функционал сломался и чтобы его починить по хорошему нужно переписать всё расширение с нуля (на что нужно 20+ часов работы и много энергии, у меня всего этого нет), так что оценивать придётся каждый раз вручную, переключая заглушку с помощью клавиши правой стрелки на клавиатуре. При этом заглушка по умолчанию активируется каждый раз при смене состояния чата (поиск, превьюшка, разговор), если активировано \'авто активация блюра\' в настройках.<br>' +
+            '<br>' +
+            '<b>- Раздел \'IP\'.</b><br>' +
+            '— Если у собеседника определилась некорректная временная зона, она всё равно будет показана.<br>' +
             '<br>' +
             '<b>- Раздел \'Настройки\'.</b><br>' +
             '— Улучшена логика заглушки: больше не мерцает чёрным поисковый шум.<br>' +
-            '— Использование заглушки включается по умолчанию у новых юзеров.<br>' +
-            '— Добавлена возможность применять заглушку при остановке чата (заглушка применяется, если включено «размытие при старте»).<br>' +
-            '— Временно отключена сломанная интеграция nsfwjs и удалены ее настройки.'
+            '— Теперь заглушка закрывает всё, настройка \'закрывать X\' отвечает лишь за активацию заглушки на конкретном этапе, если включена \'авто активация блюра\'.<br>' +
+            '— Использование заглушки включается по умолчанию у новых юзеров, включившим режим стримера.<br>' +
+            '— Отключение отображения баннера/ватермарки при включенном режиме стримера, так как конфликтует с заглушкой.<br>' +
+            '— Добавлена возможность применять заглушку при остановке чата.<br>' +
+            '— Временно отключена сломанная интеграция nsfwjs и удалены ее настройки.<br>' +
+            '<br>' +
+            '<b>- Разное.</b><br>' +
+            '— Удален опрос при удалении расширения.<br>'
         ],
     }
 
