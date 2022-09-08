@@ -303,7 +303,7 @@
     "message": "Allows you to open the interlocutor's camera in Picture-in-Picture mode. It can be used to monitor the interlocutor's camera while it is blurred. PiP is a separate window that does not affect the captured browser window (OBS)."
   },
   "blurOnStart": {
-    "message": "blur on start: "
+    "message": "auto apply blur/cover: "
   },
   "tooltipBlurOnStart": {
     "message": "every new conversation will start blurred"
