@@ -7,6 +7,7 @@ let settings = {},
     curInfo = {},
     curIps = [],
     needToClear = false,
+    needToCheckTarget = false,
     play = 0,
     map,
     countBeforeSaveStats = 0,
@@ -315,16 +316,21 @@ function processData(json, ip) {
         })).appendTo(newIpDiv)
     }
 
-    if (settings.enableTargetCity || settings.enableTargetRegion) {
+    if ((settings.enableTargetCity || settings.enableTargetRegion) && needToCheckTarget) {
         if (settings.skipMobileTarget && json.mobile) {
-            stopAndStart()
+            if (curIps.indexOf(ip) + 1 === curIps.length) {
+                stopAndStart()
+            }
             return
         } else {
             if (settings.enableTargetCity) {
                 if (!settings.targetCity.includes(json.city)) {
-                    stopAndStart()
+                    if (curIps.indexOf(ip) + 1 === curIps.length) {
+                        stopAndStart()
+                    }
                     return
                 } else {
+                    needToCheckTarget = false
                     if (settings.targetSound) {
                         targetSound.play()
                         console.dir(`FOUND TARGET CITY: ${settings.targetCity}`)
@@ -333,9 +339,12 @@ function processData(json, ip) {
             }
             if (settings.enableTargetRegion) {
                 if (!settings.targetRegion.includes(json.regionName)) {
-                    stopAndStart()
+                    if (curIps.indexOf(ip) + 1 === curIps.length) {
+                        stopAndStart()
+                    }
                     return
                 } else {
+                    needToCheckTarget = false
                     if (settings.targetSound) {
                         targetSound.play()
                         console.dir(`FOUND TARGET REGION: ${settings.targetRegion}`)
@@ -400,6 +409,7 @@ const onChangeStage = function (mutations) {
                 stage = 1
                 curIps = []
                 needToClear = true
+                needToCheckTarget = true
                 // console.dir("СТАДИЯ ПОИСКА")
                 // offline.play()
 
@@ -417,6 +427,7 @@ const onChangeStage = function (mutations) {
                 // remoteFace.innerHTML = ''
                 stage = 2
                 localStage.innerText = 2
+                needToCheckTarget = true
 
                 found = Date.now()
                 if (requestToSkip)
