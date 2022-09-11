@@ -423,7 +423,8 @@ const showSwalChangelog = async function (version) {
             '— Target city/region search now works as expected if the interlocutor has multiple networks.<br>' +
             '<br>' +
             '<b>- Miscellaneous.</b><br>' +
-            '— Replaced the boosty link with a window with information on how not to get banned by accident. Instructions for bypassing the ban are no longer available to the general public, even for money.<br>'
+            '— Replaced the boosty link with a window with information on how not to get banned by accident. Instructions for bypassing the ban are no longer available to the general public, even for money.<br>' +
+            '— Improved the notification that is shown when the browser has updated the extension while you are at Chatruletka: it is now less intrusive.<br>'
         ],
         "ru": [
             // v0.1 (2021-09-27)
@@ -790,7 +791,8 @@ const showSwalChangelog = async function (version) {
             '— Поиск целевого города/региона теперь работает корректно, если у собеседника несколько сетей.<br>' +
             '<br>' +
             '<b>- Разное.</b><br>' +
-            ' — Ссылка на boosty заменена на окно с информацией о том, как не получить бан по ошибке. Инструкции по обходу бана больше не доступны широкой публике, даже за деньги.<br>'
+            '— Ссылка на boosty заменена на окно с информацией о том, как не получить бан по ошибке. Инструкции по обходу бана больше не доступны широкой публике, даже за деньги.<br>' +
+            '— Улучшено уведомление, которое показывается когда браузер обновил расширение пока вы в рулетке: оно стало менее навязчивым.<br>'
         ],
     }
 
