@@ -27,7 +27,8 @@ const showSwalChangelog = async function (version) {
         '1.4.1',
         '1.4.2',
         '1.5.0',
-        '1.5.1'
+        '1.5.1',
+        '1.5.2'
     ]
 
     const getGitHub = (tag, date) => {
@@ -59,6 +60,7 @@ const showSwalChangelog = async function (version) {
         getGitHub('v1.4.2', '(2022-09-02)'),
         getGitHub('v1.5.0', '(2022-09-05)'),
         getGitHub('v1.5.1', '(2022-09-08)'),
+        getGitHub('v1.5.2', '(2022-09-11)'),
     ]
 
     const values = {
@@ -412,7 +414,16 @@ const showSwalChangelog = async function (version) {
             '— Temporarily disabled broken nsfwjs integration and removed its settings.<br>' +
             '<br>' +
             '<b>- Miscellaneous.</b><br>' +
-            '— Removed poll when uninstalling an extension.<br>'
+            '— Removed poll when uninstalling an extension.<br>',
+
+            // 1.5.2 (2022-09-11)
+            '<b>Removed link to instructions for bypassing the ban.</b><br>' +
+            '<br>' +
+            '<b>- Section \'Settings\'.</b><br>' +
+            '— Target city/region search now works as expected if the interlocutor has multiple networks.<br>' +
+            '<br>' +
+            '<b>- Miscellaneous.</b><br>' +
+            '— Replaced the boosty link with a window with information on how not to get banned by accident. Instructions for bypassing the ban are no longer available to the general public, even for money.<br>'
         ],
         "ru": [
             // v0.1 (2021-09-27)
@@ -770,7 +781,16 @@ const showSwalChangelog = async function (version) {
             '— Временно отключена сломанная интеграция nsfwjs и удалены ее настройки.<br>' +
             '<br>' +
             '<b>- Разное.</b><br>' +
-            '— Удален опрос при удалении расширения.<br>'
+            '— Удален опрос при удалении расширения.<br>',
+
+            // 1.5.2 (2022-09-11)
+            '<b>Удалена ссылка на инструкцию по обходу бана.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'Настройки\'.</b><br>' +
+            '— Поиск целевого города/региона теперь работает корректно, если у собеседника несколько сетей.<br>' +
+            '<br>' +
+            '<b>- Разное.</b><br>' +
+            ' — Ссылка на boosty заменена на окно с информацией о том, как не получить бан по ошибке. Инструкции по обходу бана больше не доступны широкой публике, даже за деньги.<br>'
         ],
     }
 
