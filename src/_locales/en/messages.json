@@ -696,6 +696,6 @@
     "message": "Chatruletka (ome.tv) Extension"
   },
   "updateNeedReloadText": {
-    "message": "Your browser has reloaded the extension, most likely it has downloaded a new version of it! Please reload the page to restore the work."
+    "message": "Your browser has reloaded the extension, most likely it has downloaded a new version of it!<br>Please reload the page to restore the work."
   }
 }

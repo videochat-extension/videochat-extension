@@ -8,10 +8,12 @@ let updateNeedReloadInterval = setInterval(() => {
         if (e.message === "Extension context invalidated.") {
             clearInterval(updateNeedReloadInterval)
             Swal.fire({
-                heightAuto: false,
                 icon: 'info',
+                toast: true,
+                width: 600,
+                position: 'bottom-start',
                 title: updateNeedReloadTitle,
-                text: updateNeedReloadText
+                html: updateNeedReloadText
             })
         }
     }
