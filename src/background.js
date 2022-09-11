@@ -78,7 +78,7 @@ var defaults = {
     hideHeader: true,
     sentry: true,
     swalInfoCompleted: false,
-    torrentsEnable: true,
+    torrentsEnable: false,
     torrentsInfo: true,
     showISP: false,
     askForMode: false,
