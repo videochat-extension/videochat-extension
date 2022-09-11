@@ -98,8 +98,14 @@
   "hotkeys": {
     "message": "<dd>left arrow - skip</dd><dd>shift+left arrow - skip+ban</dd><dd>up arrow - stop</dd><dd>down arrow - report</dd><dd style='margin-inline-start: 40px!important;'>left arrow - cancel report</dd><dd style='margin-inline-start: 40px!important;'>right arrow - send report</dd><br><dd>custom: 'chrome://extensions/shortcuts'</dd>"
   },
-  "avoidBan": {
-    "message": "<b>Chatruletka (ome.tv) Extension: <a target ='_blank' style = 'text-decoration: none!important;' href = 'https://boosty.to/chatruletka.extension/posts/7c4866d1-eb96-4b63-946b-62910fa4cd59'>I was banned. What should I do now?</a></b>"
+  "avoidBanLinkText": {
+    "message": "I was banned. What should I do now?"
+  },
+  "avoidBanSwalTitle": {
+    "message": "How to avoid ban?"
+  },
+  "avoidBanSwalInnerHTML": {
+    "message": "There was an instruction for bypassing the ban, but due to the fact that the number of users grew very quickly, it was hidden behind the paywall, and now it has been completely removed.<br><br>Now here is just a list of what not to do if you don't want to get banned:<br>1. Don't show the middle finger to Chatruletka interlocutors, especially if they express that they want you to show it.<br>2. Do not write anything in the chat, especially insults or links.<br>3. Make sure that your face is visible and the picture is clear, otherwise you may get banned for an incorrect image.<br>4. Don't show your genitals to the camera.<br><br>That's all. Now that you have received a ban, you will have to deal with it yourself: either pay, or wait, or find a way around it yourself."
   },
   "settingsInterface": {
     "message": "<b>Interface</b>"
