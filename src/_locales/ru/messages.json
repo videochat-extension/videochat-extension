@@ -482,6 +482,15 @@
   "apiCT": {
     "message": "<b title='Сотовая вышка (не точно)'>CT: </b>"
   },
+  "apiMobile": {
+    "message": "НИЗКАЯ ТОЧНОСТЬ"
+  },
+  "apiProxy": {
+    "message": "ВОЗМОЖНО ВПН"
+  },
+  "apiHosting": {
+    "message": "ВОЗМОЖНО ВПН"
+  },
   "apiCity": {
     "message": "<b>Город: </b>"
   },

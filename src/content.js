@@ -259,11 +259,11 @@ function processData(json, ip) {
     let newIpDiv = createElement('div')
     if (settings.showMoreEnabledByDefault && (json.mobile || json.proxy || json.hosting)) {
         if (json.mobile)
-            strings.push("<small>MOBILE</small>")
+            strings.push(`<small>MOBILE [${chrome.i18n.getMessage('apiMobile')}]</small>`)
         if (json.proxy)
-            strings.push("<small>PROXY</small>")
+            strings.push(`<small>PROXY [${chrome.i18n.getMessage('apiProxy')}]</small>`)
         if (json.hosting)
-            strings.push("<small>HOSTING</small>")
+            strings.push(`<small>HOSTING [${chrome.i18n.getMessage('apiHosting')}]</small>`)
     }
 
     if (settings.hideMobileLocation && json.mobile) {

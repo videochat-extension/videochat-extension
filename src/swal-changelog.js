@@ -29,7 +29,8 @@ const showSwalChangelog = async function (version) {
         '1.5.0',
         '1.5.1',
         '1.5.2',
-        '1.5.3'
+        '1.5.3',
+        '1.5.4'
     ]
 
     const getGitHub = (tag, date) => {
@@ -63,6 +64,7 @@ const showSwalChangelog = async function (version) {
         getGitHub('v1.5.1', '(2022-09-08)'),
         getGitHub('v1.5.2', '(2022-09-11)'),
         getGitHub('v1.5.3', '(2022-10-06)'),
+        getGitHub('v1.5.4', '(2022-10-19)')
     ]
 
     const values = {
@@ -432,7 +434,13 @@ const showSwalChangelog = async function (version) {
             '<b>Change the default location display.</b><br>' +
             '<br>' +
             '<b>- Section \'IP\'.</b><br>' +
-            '— Instead of hiding the location of the cell ISP, it is now displayed as a cell tower.<br>— These locations of users of mobile/cellural operators <b>may not be accurate</b>.<br>— This was done because, according to my observations, most people are not familiar with the concept of a time zone and get confused.'
+            '— Instead of hiding the location of the cell ISP, it is now displayed as a cell tower.<br>— These locations of users of mobile/cellural operators <b>may not be accurate</b>.<br>— This was done because, according to my observations, most people are not familiar with the concept of a time zone and get confused.',
+
+            // 1.5.4 (2022-10-19)
+            '<b>Minor update.</b><br>' +
+            '<br>' +
+            '<b>- Section \'IP\'.</b><br>' +
+            '— Added a little explanation of what MOBILE/PROXY/HOSTING means.'
         ],
         "ru": [
             // v0.1 (2021-09-27)
@@ -806,7 +814,13 @@ const showSwalChangelog = async function (version) {
             '<b>Изменения в отображении геолокации.</b><br>' +
             '<br>' +
             '<b>- Раздел \'IP\'.</b><br>' +
-            '— Вместо того, чтобы скрывать местоположение сотового интернет-провайдера, теперь оно отображается в виде вышки сотовой связи.<br>— Эти позиции пользователей мобильных операторов <b>могут быть неточными</b>.<br>— Большинство людей не знакомы с понятием часового пояса и путаются, поэтому вот такое изменение.'
+            '— Вместо того, чтобы скрывать местоположение сотового интернет-провайдера, теперь оно отображается в виде вышки сотовой связи.<br>— Эти позиции пользователей мобильных операторов <b>могут быть неточными</b>.<br>— Большинство людей не знакомы с понятием часового пояса и путаются, поэтому вот такое изменение.',
+
+            // 1.5.4 (2022-10-19)
+            '<b>Незначительное обновление.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'IP\'.</b><br>' +
+            '— Добавлено небольшое пояснение того, что означает MOBILE/PROXY/HOSTING.'
         ],
     }
 

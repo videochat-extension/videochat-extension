@@ -482,6 +482,15 @@
   "apiCT": {
     "message": "<b title='Cell Tower (not accurate)'>CT: </b>"
   },
+  "apiMobile": {
+    "message": "LOW ACCURACY"
+  },
+  "apiProxy": {
+    "message": "POSSIBLE VPN"
+  },
+  "apiHosting": {
+    "message": "POSSIBLE VPN"
+  },
   "apiCity": {
     "message": "<b>City: </b>"
   },
