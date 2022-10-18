@@ -479,6 +479,9 @@
   "apiCountry": {
     "message": "<b>Country: </b>"
   },
+  "apiCT": {
+    "message": "<b title='Cell Tower (not accurate)'>CT: </b>"
+  },
   "apiCity": {
     "message": "<b>City: </b>"
   },

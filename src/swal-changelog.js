@@ -28,7 +28,8 @@ const showSwalChangelog = async function (version) {
         '1.4.2',
         '1.5.0',
         '1.5.1',
-        '1.5.2'
+        '1.5.2',
+        '1.5.3'
     ]
 
     const getGitHub = (tag, date) => {
@@ -61,6 +62,7 @@ const showSwalChangelog = async function (version) {
         getGitHub('v1.5.0', '(2022-09-05)'),
         getGitHub('v1.5.1', '(2022-09-08)'),
         getGitHub('v1.5.2', '(2022-09-11)'),
+        getGitHub('v1.5.3', '(2022-10-06)'),
     ]
 
     const values = {
@@ -424,7 +426,13 @@ const showSwalChangelog = async function (version) {
             '<br>' +
             '<b>- Miscellaneous.</b><br>' +
             '— Replaced the boosty link with a window with information on how not to get banned by accident. Instructions for bypassing the ban are no longer available to the general public, even for money.<br>' +
-            '— Improved the notification that is shown when the browser has updated the extension while you are at Chatruletka: it is now less intrusive.<br>'
+            '— Improved the notification that is shown when the browser has updated the extension while you are at Chatruletka: it is now less intrusive.<br>',
+
+            // 1.5.3 (2022-10-06)
+            '<b>Change the default location display.</b><br>' +
+            '<br>' +
+            '<b>- Section \'IP\'.</b><br>' +
+            '— Instead of hiding the location of the cell ISP, it is now displayed as a cell tower.<br>— These locations of users of mobile/cellural operators <b>may not be accurate</b>.<br>— This was done because, according to my observations, most people are not familiar with the concept of a time zone and get confused.'
         ],
         "ru": [
             // v0.1 (2021-09-27)
@@ -792,7 +800,13 @@ const showSwalChangelog = async function (version) {
             '<br>' +
             '<b>- Разное.</b><br>' +
             '— Ссылка на boosty заменена на окно с информацией о том, как не получить бан по ошибке. Инструкции по обходу бана больше не доступны широкой публике, даже за деньги.<br>' +
-            '— Улучшено уведомление, которое показывается когда браузер обновил расширение пока вы в рулетке: оно стало менее навязчивым.<br>'
+            '— Улучшено уведомление, которое показывается когда браузер обновил расширение пока вы в рулетке: оно стало менее навязчивым.<br>',
+
+            // 1.5.3 (2022-10-06)
+            '<b>Изменения в отображении геолокации.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'IP\'.</b><br>' +
+            '— Вместо того, чтобы скрывать местоположение сотового интернет-провайдера, теперь оно отображается в виде вышки сотовой связи.<br>— Эти позиции пользователей мобильных операторов <b>могут быть неточными</b>.<br>— Большинство людей не знакомы с понятием часового пояса и путаются, поэтому вот такое изменение.'
         ],
     }
 

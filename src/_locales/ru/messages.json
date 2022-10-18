@@ -479,6 +479,9 @@
   "apiCountry": {
     "message": "<b>Страна: </b>"
   },
+  "apiCT": {
+    "message": "<b title='Сотовая вышка (не точно)'>CT: </b>"
+  },
   "apiCity": {
     "message": "<b>Город: </b>"
   },
