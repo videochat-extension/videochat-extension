@@ -30,7 +30,8 @@ const showSwalChangelog = async function (version) {
         '1.5.1',
         '1.5.2',
         '1.5.3',
-        '1.5.4'
+        '1.5.4',
+        '1.5.5'
     ]
 
     const getGitHub = (tag, date) => {
@@ -64,7 +65,8 @@ const showSwalChangelog = async function (version) {
         getGitHub('v1.5.1', '(2022-09-08)'),
         getGitHub('v1.5.2', '(2022-09-11)'),
         getGitHub('v1.5.3', '(2022-10-06)'),
-        getGitHub('v1.5.4', '(2022-10-19)')
+        getGitHub('v1.5.4', '(2022-10-19)'),
+        getGitHub('v1.5.5', '(2022-10-19)')
     ]
 
     const values = {
@@ -440,7 +442,13 @@ const showSwalChangelog = async function (version) {
             '<b>Minor update.</b><br>' +
             '<br>' +
             '<b>- Section \'IP\'.</b><br>' +
-            '— Added a little explanation of what MOBILE/PROXY/HOSTING means.'
+            '— Added a little explanation of what MOBILE/PROXY/HOSTING means.',
+
+            // 1.5.5 (2022-10-19)
+            '<b>Minor update.</b><br>' +
+            '<br>' +
+            '<b>- Section \'IP\'.</b><br>' +
+            '— PROXY and HOSTING merged into one to save some space.'
         ],
         "ru": [
             // v0.1 (2021-09-27)
@@ -820,7 +828,13 @@ const showSwalChangelog = async function (version) {
             '<b>Незначительное обновление.</b><br>' +
             '<br>' +
             '<b>- Раздел \'IP\'.</b><br>' +
-            '— Добавлено небольшое пояснение того, что означает MOBILE/PROXY/HOSTING.'
+            '— Добавлено небольшое пояснение того, что означает MOBILE/PROXY/HOSTING.',
+
+            // 1.5.5 (2022-10-19)
+            '<b>Незначительное обновление.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'IP\'.</b><br>' +
+            '— PROXY и HOSTING объеденены в одно, чтобы сократить место.'
         ],
     }
 

@@ -260,10 +260,14 @@ function processData(json, ip) {
     if (settings.showMoreEnabledByDefault && (json.mobile || json.proxy || json.hosting)) {
         if (json.mobile)
             strings.push(`<small>MOBILE [${chrome.i18n.getMessage('apiMobile')}]</small>`)
-        if (json.proxy)
-            strings.push(`<small>PROXY [${chrome.i18n.getMessage('apiProxy')}]</small>`)
-        if (json.hosting)
-            strings.push(`<small>HOSTING [${chrome.i18n.getMessage('apiHosting')}]</small>`)
+        if (json.proxy && json.hosting) {
+            strings.push(`<small>PROXY+HOSTING [${chrome.i18n.getMessage('apiProxy')}]</small>`)
+        } else {
+            if (json.proxy)
+                strings.push(`<small>PROXY [${chrome.i18n.getMessage('apiProxy')}]</small>`)
+            if (json.hosting)
+                strings.push(`<small>HOSTING [${chrome.i18n.getMessage('apiHosting')}]</small>`)
+        }
     }
 
     if (settings.hideMobileLocation && json.mobile) {
