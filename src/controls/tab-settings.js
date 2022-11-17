@@ -49,7 +49,15 @@ function createTabSettings() {
                         createElement('br'),
 
                         createSettingsRisky(),
-                        createElement('br'),
+                        createElement('br', {
+                            style: function f() {
+                                if (isDevMode()) {
+                                    return ""
+                                } else {
+                                    return "display:none"
+                                }
+                            }(),
+                        }),
 
                         createSettingsStreamer(),
                         createElement('br'),

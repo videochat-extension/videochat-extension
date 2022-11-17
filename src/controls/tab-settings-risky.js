@@ -1,5 +1,13 @@
 function createSettingsRisky() {
-    return createElement('div', {}, [
+    return createElement('div', {
+        style: function f() {
+            if (isDevMode()) {
+                return ""
+            } else {
+                return "display:none"
+            }
+        }(),
+    }, [
         createElement('dt', {
             innerHTML: chrome.i18n.getMessage("risky"),
             style: "display: inline-block",
@@ -43,7 +51,7 @@ function createSettingsRisky() {
         createElement('dd', {
             id: "riskyList",
             style: function f() {
-                if (settings.risky) {
+                if (settings.risky && isDevMode()) {
                     return ""
                 } else {
                     return "display:none"
