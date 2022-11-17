@@ -180,7 +180,9 @@ function doLookupRequest1(ip) {
         .fail(function (jqxhr) {
             console.dir(`ip-api.com request failed: ${jqxhr.status}`)
             console.dir(jqxhr)
-            remoteInfo.innerHTML = DOMPurify.sanitize("<b>HTTP ERROR " + jqxhr.status + "</b>")
+            if (!settings.minimalism) {
+                remoteInfo.innerHTML = DOMPurify.sanitize("<b>HTTP ERROR " + jqxhr.status + "</b>")
+            }
             if (settings.enableTargetCity || settings.enableTargetRegion) {
                 if (jqxhr.status === 429) {
                     stopAndStart(5000)
