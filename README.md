@@ -36,13 +36,10 @@
 * Determine the gender of the interlocutor and skip it automatically if the gender does not meet your expectations.
 * Block the ip of the interlocutor in order not to meet with him again.
 * Count various stats.
-* Play sound when your interlocutor breaks the connection with you.
 * Enable Picture-in-Picture mode.
-* Enable mirror mode. It's useful [if you don't have a physical camera but still want to chat](https://github.com/qrlk/videochatru-extension/wiki/No-Physical-Cam).
 * Show a map of the interlocutor's city.
 * Take a full screenshot of the interlocutor's camera or your own.
 * Hide the video chat watermark / banner.
-* Auto-skip the interlocutor if he/she is not from the country you are looking for.
 * Auto-skip people who take too long to connect to.
 * Automatically close the window "are you there?".
 * Сancel local camera reflection.
