@@ -687,14 +687,25 @@ chrome.storage.sync.get(null, function (result) {
                     characterData: true
                 });
 
+                if ($("[data-tr=\"rules\"]").length === 1) {
+                    $("<br><br>").appendTo($(".message-bubble")[0])
+                    $(switchModeButton).appendTo($(".message-bubble")[0])
+                    checkApi()
+                }
 
                 $(document).arrive("[data-tr=\"rules\"]", function (el) {
                     $("<br><br>").appendTo($(".message-bubble")[0])
                     $(switchModeButton).appendTo($(".message-bubble")[0])
                     checkApi()
-                });
+                })
+
                 return true
             }
+        }
+
+        if ($("[data-tr=\"rules\"]").length === 1) {
+            $("<br><br>").appendTo($(".message-bubble")[0])
+            $(switchModeButton).appendTo($(".message-bubble")[0])
         }
 
         $(document).arrive("[data-tr=\"rules\"]", function (el) {
