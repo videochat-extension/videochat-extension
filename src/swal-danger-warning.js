@@ -21,7 +21,7 @@ async function showDangerWarning() {
                 location.reload()
             })
         } else if (result.isDismissed) {
-            chrome.storage.sync.set({showDangerWarning: false})
+            chrome.storage.sync.set({lastShowedDangerWarning: +new Date()})
         }
     })
 }

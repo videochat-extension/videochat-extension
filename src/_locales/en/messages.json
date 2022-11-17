@@ -693,7 +693,7 @@
     "message": "close warning"
   },
   "dangerWarningCancelButtonText": {
-    "message": "don't show again"
+    "message": "hide for 24h"
   },
   "dangerWarningDenyButtonText": {
     "message": "disable danger zone"

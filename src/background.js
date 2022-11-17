@@ -85,6 +85,7 @@ var defaults = {
     minimalism: false,
     lastInstanceOpened: "https://videochatru.com/embed/",
     showDangerWarning: true,
+    lastShowedDangerWarning: 0,
     lastVersion: ""
 };
 

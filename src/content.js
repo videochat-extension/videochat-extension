@@ -947,7 +947,7 @@ chrome.storage.sync.get(null, function (result) {
             if (settings.lastVersion !== chrome.runtime.getManifest().version) {
                 showSwalChangelog(settings.lastVersion)
             } else {
-                if (settings.showDangerWarning && settings.risky) {
+                if ((+new Date() - settings.lastShowedDangerWarning) > 24*3600*1000 && settings.risky) {
                     showDangerWarning()
                 }
             }

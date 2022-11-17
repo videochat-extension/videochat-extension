@@ -693,7 +693,7 @@
     "message": "закрыть предупреждение"
   },
   "dangerWarningCancelButtonText": {
-    "message": "больше не показывать"
+    "message": "закрыть на 24ч"
   },
   "dangerWarningDenyButtonText": {
     "message": "отключить опасную зону"
