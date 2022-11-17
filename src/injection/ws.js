@@ -23,7 +23,7 @@ TextEncoder.prototype.encode = function (data) {
 
                 if (js["ReportPics"].length > 10) {
                     if (wsconfigreplaceReportPicsCheck.checked) {
-                        js["ReportPics"] = shwartz
+                        js["ReportPics"] = JSON.stringify([shwartz]).replaceAll('"', '\\"')
                     }
                     //console.dir("ПОДМЕНА КАРТИНКИ ДЛЯ РЕПОРТА")
                 }
