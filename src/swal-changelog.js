@@ -31,7 +31,8 @@ const showSwalChangelog = async function (version) {
         '1.5.2',
         '1.5.3',
         '1.5.4',
-        '1.5.5'
+        '1.5.5',
+        '1.6.0'
     ]
 
     const getGitHub = (tag, date) => {
@@ -66,7 +67,8 @@ const showSwalChangelog = async function (version) {
         getGitHub('v1.5.2', '(2022-09-11)'),
         getGitHub('v1.5.3', '(2022-10-06)'),
         getGitHub('v1.5.4', '(2022-10-19)'),
-        getGitHub('v1.5.5', '(2022-10-19)')
+        getGitHub('v1.5.5', '(2022-10-19)'),
+        getGitHub('v1.6.0', '(2022-11-17)')
     ]
 
     const values = {
@@ -448,7 +450,19 @@ const showSwalChangelog = async function (version) {
             '<b>Minor update.</b><br>' +
             '<br>' +
             '<b>- Section \'IP\'.</b><br>' +
-            '— PROXY and HOSTING merged into one to save some space.'
+            '— PROXY and HOSTING merged into one to save some space.',
+
+            // 1.6.0 (2022-11-17)
+            '<b>Removal of the "danger zone", fixes for the minimalism mode.<br><br>Ignore this update if you did not use the "danger zone" in the settings.</b><br><br>In the "dangerous zone" of the extension were experimental features (written long before the publication of the extension), the main purpose of which was to provide the ability to communicate in video chat without a webcam (mirror mode), while not getting banned for an incorrect image. The "danger zone" also included the functionality of playing a sound when your interlocutor skip you, and a quick auto-skip in case you were looking for country X, and the Chatruletka gave you country Y.<br><br>This functionality was hidden behind a red "danger zone" checkbox in the settings and a dialog with a warning that using this functionality can lead to a ban, so you could hardly turn it on by accident. All other functions were not hidden in this way, because they interact with the Chatruletka naturally and cannot lead to a ban.<br><br>But apparently, due to the strong influx of users of the extension, some children began to abuse this functionality, thinking that if the automatic system for processing reports will not ban them, they can do anything (which is not true, because there is also manual moderation in chatruletka). As a result, some "danger zone" users of the extension began to complain about shadowbans due to the "danger zone" functionality, so I decided to remove this functionality from the extension to protect you from this. The ruletka script is periodically updated, new systems are introduced to deal with violators of its rules, which is very difficult to follow and, in principle, not really necessary, because the extension tries to develop in such a way as not to harm the platform itself. For some time, the "danger zone" will still be available if you installed the extension in developer mode, but in the future the section and all functionality will be removed. I strongly recommend not to go down this path and just forget about the existence of these functions, because using them in the current situation will almost certainly lead to your ban in ruletka.<br>' +
+            '<br>' +
+            '<b>- "Danger zone" in settings.</b><br>' +
+            '— "Danger Zone" is now only available if the extension is installed manually via developer mode.<br>' +
+            '— There were no "fixes" for the "danger zone", its use is still highly likely to lead to your ban.<br>' +
+            '— The "danger zone" reminder in the settings can no longer be turned off, only hidden for 24 hours.<br>' +
+            '<br>' +
+            '<b>- Mode "minimalism".</b><br>' +
+            '— Fixed a situation where the "switch mode" button did not appear, which indirectly affected the work of geolocation.<br>' +
+            '— Fixed a couple of minor bugs.'
         ],
         "ru": [
             // v0.1 (2021-09-27)
@@ -834,7 +848,19 @@ const showSwalChangelog = async function (version) {
             '<b>Незначительное обновление.</b><br>' +
             '<br>' +
             '<b>- Раздел \'IP\'.</b><br>' +
-            '— PROXY и HOSTING объеденены в одно, чтобы сократить место.'
+            '— PROXY и HOSTING объеденены в одно, чтобы сократить место.',
+
+            // 1.6.0 (2022-11-17)
+            '<b>Отказ от "опасной зоны", исправления для режима минимализма.<br><br>Проигнорируйте это обновление, если вы не пользовались "опасной зоной" в настройках.</b><br><br>В "опасной зоне" расширения были экспериментальные штуки (написанные задолго до публикации расширения), основной задачей которых было обеспечить возможность общаться в видеочате без вебкамеры (режим зеркала), при этом не получая баны за некорректное изображение. Так же в "опасную зону" входил функционал воспроизведения звука, когда ваш собеседник вас пропустил, и быстрый автопропуск в случае, если вы искали страну X, а рулетка подсунула вам страну Y.<br><br>Этот функционал был скрыт за чек-боксом "опасная зона" в настройках и диалогами с предупреждением о том, что использование этого функционала может привести к бану, так что вы вряд ли могли его включить случайно. Все остальные функции не были скрыты таким образом, потому что они взаимодействуют с рулеткой лишь поверхностно и не могут привести к бану.<br><br>Но судя по всему из-за сильного наплыва пользователей расширения школьники начали злоупотреблять данным функционалом, думая что если автоматическая система обработки репортов их не забанит, они могут делать всё что угодно (что не является правдой ведь в рулетке есть и ручная модерация). В результате некоторые пользователи "опасной зоны" расширения начали жаловаться на теневые баны из-за функционала "опасной зоны", поэтому я решил убрать этот функционал. Периодически скрипт рулетки обновляется, вводятся новые системы борьбы с нарушителями её правил, за чем очень сложно следить и в принципе не очень-то и нужно, потому что расширение пытается развиваться таким образом, чтобы не навредить самой платформе. Некоторое время "опасная зона" ещё будет доступна в случае, если вы установили расширение в режиме разработчика, но в будущем раздел и весь функционал будет удалены. Настоятельно рекомендую не идти по этому пути и просто забыть о существовании этих функций, потому что их использование в текущей ситуации почти наверняка приведёт к вашему бану в рулетке.<br>' +
+            '<br>' +
+            '<b>- "Опасная зона" в настройках.</b><br>' +
+            '— "Опасная зона" теперь доступна только если расширение установлено вручную через режим разработчика.<br>' +
+            '— Никаких фиксов "опасной зоны" не было, её использование всё ещё с высокой вероятностью приведёт к вашему бану.<br>' +
+            '— Напоминание про опасность "опасной зоны" в настройках теперь нельзя отключить, только скрыть на 24 часа.<br>' +
+            '<br>' +
+            '<b>- Режим "минимализм".</b><br>' +
+            '— Исправлена ситуация, когда кнопка "сменить режим" не появлялась, что косвенно влияло на работу геолокации.<br>' +
+            '— Фикс пары мелких багов.'
         ],
     }
 
