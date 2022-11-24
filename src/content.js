@@ -81,38 +81,40 @@ try {
     console.dir(e)
 }
 
-$(document).arrive(".ban-popup__unban_msg.tr", function (el) {
-    try {
-        Arrive.unbindAllArrive();
-        let new_el = $(el).clone()
-        new_el.css('height', '30px');
-        new_el.css('line-height', '26px');
-        new_el[0].innerHTML = ''
 
-        let newAvoidBan = createElement("b", {
-            innerText: `${chrome.i18n.getMessage("extension_name")}: `,
-        }, [
-            createElement("a", {
-                innerText: "I was banned. What should I do now?",
-                style: "text-decoration: none!important; cursor: pointer;",
-                onclick: () => {
-                    Swal.fire({
-                        heightAuto: false,
-                        icon: 'info',
-                        title: chrome.i18n.getMessage('avoidBanSwalTitle'),
-                        html: chrome.i18n.getMessage('avoidBanSwalInnerHTML')
-                    })
-                }
-            })
-        ])
-        $(newAvoidBan).appendTo(new_el)
-
-        new_el.insertAfter(el)
-    } catch (e) {
-        console.dir('ban injection failed')
-        console.dir(e)
-    }
-});
+// remove later
+// $(document).arrive(".ban-popup__unban_msg.tr", function (el) {
+//     try {
+//         Arrive.unbindAllArrive();
+//         let new_el = $(el).clone()
+//         new_el.css('height', '30px');
+//         new_el.css('line-height', '26px');
+//         new_el[0].innerHTML = ''
+//
+//         let newAvoidBan = createElement("b", {
+//             innerText: `${chrome.i18n.getMessage("extension_name")}: `,
+//         }, [
+//             createElement("a", {
+//                 innerText: "I was banned. What should I do now?",
+//                 style: "text-decoration: none!important; cursor: pointer;",
+//                 onclick: () => {
+//                     Swal.fire({
+//                         heightAuto: false,
+//                         icon: 'info',
+//                         title: chrome.i18n.getMessage('avoidBanSwalTitle'),
+//                         html: chrome.i18n.getMessage('avoidBanSwalInnerHTML')
+//                     })
+//                 }
+//             })
+//         ])
+//         $(newAvoidBan).appendTo(new_el)
+//
+//         new_el.insertAfter(el)
+//     } catch (e) {
+//         console.dir('ban injection failed')
+//         console.dir(e)
+//     }
+// });
 
 function stopAndStart(delay) {
     requestToSkip = false
