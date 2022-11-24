@@ -235,10 +235,13 @@ function processData(json, ip) {
         setTimeout(() => {
             if ($('span[data-tr="connection"]').length === 1) {
                 if (json.status === "success") {
-                    let ipApiString = `<b>${json.city} (${json.regionName}), ${json.country}.</b>`
+                    let ipApiString = ``
 
                     if (json.mobile) {
+                        ipApiString += `<b>${json.country}.</b>`
                         ipApiString += `<br>${chrome.i18n.getMessage("minimalismExplainMobile")}`
+                    } else {
+                        ipApiString += `<b>${json.city} (${json.regionName}), ${json.country}.</b>`
                     }
                     if (json.proxy) {
                         ipApiString += `<br>${chrome.i18n.getMessage("minimalismExplainProxy")}`

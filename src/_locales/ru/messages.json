@@ -660,7 +660,7 @@
     "message": "проверить torrent"
   },
   "minimalismExplainMobile" : {
-    "message": "— IP адрес принадлежит мобильному оператору (город может быть неточным)."
+    "message": "— IP адрес принадлежит мобильному оператору (точность очень низкая, город и регион скрыты)."
   },
   "minimalismExplainProxy" : {
     "message": "— IP адрес в списке Proxy/VPN/Tor."
