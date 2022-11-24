@@ -45,7 +45,6 @@
 * Сancel local camera reflection.
 * Hide your camera to make the conversation more natural.
 * Open the clean site version by clicking on the extension icon.
-* Help you with advice if you accidentally got banned.
 * Convenient keyboard shortcuts for the most popular buttons.
 * Hotkey to switch between the active tab and the chat tab.
 * Countless minor improvements.
