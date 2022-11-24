@@ -41,6 +41,7 @@
 * Take a full screenshot of the interlocutor's camera or your own.
 * Hide the video chat watermark / banner.
 * Auto-skip people who take too long to connect to.
+* Auto-skip people from countries you are not looking for.
 * Automatically close the window "are you there?".
 * Сancel local camera reflection.
 * Hide your camera to make the conversation more natural.
