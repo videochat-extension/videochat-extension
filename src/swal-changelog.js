@@ -32,7 +32,8 @@ const showSwalChangelog = async function (version) {
         '1.5.3',
         '1.5.4',
         '1.5.5',
-        '1.6.0'
+        '1.6.0',
+        '1.6.1'
     ]
 
     const getGitHub = (tag, date) => {
@@ -68,7 +69,8 @@ const showSwalChangelog = async function (version) {
         getGitHub('v1.5.3', '(2022-10-06)'),
         getGitHub('v1.5.4', '(2022-10-19)'),
         getGitHub('v1.5.5', '(2022-10-19)'),
-        getGitHub('v1.6.0', '(2022-11-17)')
+        getGitHub('v1.6.0', '(2022-11-17)'),
+        getGitHub('v1.6.1', '(2022-11-25)')
     ]
 
     const values = {
@@ -462,7 +464,19 @@ const showSwalChangelog = async function (version) {
             '<br>' +
             '<b>- Mode "minimalism".</b><br>' +
             '— Fixed a situation where the "switch mode" button did not appear, which indirectly affected the work of geolocation.<br>' +
-            '— Fixed a couple of minor bugs.'
+            '— Fixed a couple of minor bugs.',
+
+            // 1.6.1 (2022-11-25)
+            '<b>New automation setting: \'autoskip wrong country\', hide cellural (mobile) internet geolocation data by default.</b><br><br>\'Auto-skip wrong country\' auto-skips the interlocutor if is not from the country you need. Video chat connects you with interlocutors from other countries if it cannot find the one you need in a short time. By enabling this feature in the settings, \'wrong\' countries will be skipped (ip geolocation data is not used).<br><br><b>Now for interlocutors with mobile Internet, geolocation (CT) and time zone (TZ) are hidden by default.</b> <br><br>A significant part of video chat users use mobile Internet, but the IP geolocation accuracy of such networks is very low (10-20%).<br><br>Previously, only the time zone (TZ) was displayed for such networks, but this confused users.<br><br>A month and a half ago, the extension began to show by default the previously hidden data of the location of the mobile Internet in a separate section "CT" with a warning that the accuracy of such data is very low. In practice, it turned out that \'CT\' confuses new users even more, so the difficult decision was made to hide both CT and TZ.<br><br>In the geolocation settings, you can return everything as it was, but now it seems to me that only the most accurate data should be shown. There are a couple of ideas on how to compensate for the lack of geolocation accuracy in the future, so stay tuned.<br>' +
+            '<br>' +
+            '<b>- Section \'IP\'.</b><br>' +
+            '— Hide mobile internet location data by default.<br><br>' +
+            '<b>- Section \'Settings\'.</b><br>' +
+            '— Ability to show "CT" for mobile internet as it was before.<br>' +
+            '— New automation setting to auto-skip the wrong country.<br>' +
+            '<br>' +
+            '<b>- Miscellaneous.</b><br>' +
+            '— Removed dialogue from the ban popup.'
         ],
         "ru": [
             // v0.1 (2021-09-27)
@@ -860,7 +874,19 @@ const showSwalChangelog = async function (version) {
             '<br>' +
             '<b>- Режим "минимализм".</b><br>' +
             '— Исправлена ситуация, когда кнопка "сменить режим" не появлялась, что косвенно влияло на работу геолокации.<br>' +
-            '— Фикс пары мелких багов.'
+            '— Фикс пары мелких багов.',
+
+            // 1.6.1 (2022-11-25)
+            '<b>Новая настройка автоматизации: \'aвтопропуск неверной страны\', скрытие данных геолокации мобильного интернета по умолчанию.</b><br><br>\'Автопропуск неверной страны\' автопропускает собеседника, если он не из нужной вам страны. Видеочат соединяет вас с собеседниками из других стран, если не может найти нужную вам за короткое время. Включив этот пункт в настройках, неверные страны будут пропускаться (данные геолокации не используются).<br><br><b>Теперь для собеседников с мобильным интернетом геолокация (CT) и временная зона (TZ) скрыты по умолчанию.</b><br><br>Значительная часть пользователей видеочата использует видеочат с мобильного интернета, но точность геолокации IP таких сетей очень низкая, в районе 10-20%.<br><br>Раньше для таких сетей отображалась только временная зона (TZ), но это запутывало пользователей.<br><br>Полтора месяца назад расширение стало по умолчанию показывать ранее скрытые данные локации мобильного интернета в отдельном разделе "CT" с предупреждением, что точность таких данных очень низкая. На практике оказалось, что CT ещё больше запутывает новых пользователей, поэтому было принято непростое решение скрывать и CT, и TZ.<br><br>В настройках геолокации можно вернуть всё как было, но сейчас мне кажется что показывать только наиболее точные данные - наилучший путь. Есть пара идей как можно компенсировать недостаток точности геолокации в будущем, ждите новостей.<br>' +
+            '<br>' +
+            '<b>- Раздел \'IP\'.</b><br>' +
+            '— Скрытие данных геолокации мобильного интернета по умолчанию.<br><br>' +
+            '<b>- Раздел \'Настройки\'.</b><br>' +
+            '— Возможность показывать локацию "CT" для мобильного интернета как это было раньше.<br>' +
+            '— Новая настройка автоматизации для автопропуска неверной страны.<br>' +
+            '<br>' +
+            '<b>- Разное.</b><br>' +
+            '— Убран диалог из окна бана.'
         ],
     }
 
