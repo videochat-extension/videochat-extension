@@ -46,5 +46,25 @@ function createSettingsAutomation() {
                 })
             ]),
         ]),
+
+        createElement('dd', {}, [
+            createElement('span', {}, [
+
+                createElement("p", {
+                    innerText: chrome.i18n.getMessage("autoskipwrongcountry"),
+                    className: "tooltip",
+                    title: chrome.i18n.getMessage("tooltipAutoskipWrongCountry")
+                }),
+                createElement('input', {
+                    type: "checkbox",
+                    checked: settings.skipwrongcountry,
+                    style: "margin",
+                    id: "skipWrongCountryCheck",
+                    onclick: () => {
+                        chrome.storage.sync.set({"skipwrongcountry": skipWrongCountryCheck.checked});
+                    }
+                })
+            ]),
+        ]),
     ])
 }

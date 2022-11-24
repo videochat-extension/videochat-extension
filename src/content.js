@@ -949,6 +949,26 @@ chrome.storage.sync.get(null, function (result) {
         if (settings.darkMode)
             (document.body || document.documentElement).appendChild(dark);
 
+        $(document).arrive(".tr-country", function (el) {
+            if (settings.skipwrongcountry) {
+                try {
+                    if (el.parentElement.className === "message-bubble") {
+                        let expectedCountry = document.getElementById('country-selected').classList[1].substr(6, 2)
+                        let receivedCountry = el.dataset.tr
+                        if (expectedCountry !== "ZZ" && expectedCountry !== receivedCountry) {
+                            stopAndStart()
+                            console.dir(el)
+                            console.dir(`SKIPPED WRONG COUNTRY. EXPECTED: ${expectedCountry}, RECEIVED: ${receivedCountry}.`)
+                        }
+                    }
+                } catch (e) {
+                    console.dir("SKIP WRONG COUNTRY EXCEPTION BEGIN")
+                    console.dir(e)
+                    console.dir("SKIP WRONG COUNTRY EXCEPTION END")
+                }
+            }
+        })
+
         new ResizeObserver(outputsize).observe(document.getElementById("overlay"))
 
         const observer = new MutationObserver(onUpdateIP)

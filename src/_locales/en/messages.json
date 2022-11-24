@@ -125,6 +125,12 @@
   "tooltipFour": {
     "message": "automatically skip interlocutors that are taking more than 4 seconds to connect to"
   },
+  "autoskipwrongcountry": {
+    "message": "autoskip wrong country:"
+  },
+  "tooltipAutoskipWrongCountry": {
+    "message": "automatically skip if you are looking for someone from X country but chatruletka found you someone from Y country"
+  },
   "autoresume": {
     "message": "autoresume:"
   },

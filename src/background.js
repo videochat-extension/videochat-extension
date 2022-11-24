@@ -86,7 +86,8 @@ var defaults = {
     lastInstanceOpened: "https://videochatru.com/embed/",
     showDangerWarning: true,
     lastShowedDangerWarning: 0,
-    lastVersion: ""
+    lastVersion: "",
+    skipwrongcountry: false,
 };
 
 chrome.storage.sync.get(defaults, function (result) {
