@@ -491,6 +491,9 @@
   "apiMobile": {
     "message": "LOW ACCURACY"
   },
+  "apiMobileHidden": {
+    "message": "LOCATION HIDDEN"
+  },
   "apiProxy": {
     "message": "POSSIBLE VPN"
   },
@@ -517,6 +520,12 @@
   },
   "tooltipHideMobile": {
     "message": "Turn this on so that the city and region will be hidden if the interlocutor has mobile internet. Almost always these data are not correct."
+  },
+  "showCT": {
+    "message": "show mobile location in CT: "
+  },
+  "tooltipShowCT": {
+    "message": "Turn this on so that the city and region will be displayed in the 'CT' section if the interlocutor has mobile internet."
   },
   "showMoreInfo": {
     "message": "show more info: "

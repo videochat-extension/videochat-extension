@@ -66,6 +66,7 @@ var defaults = {
     coverSrc: "https://i.imgur.com/Ud2uLYQ.gif",
     ipApiLocalisation: true,
     hideMobileLocation: true,
+    showCT: false,
     showMoreEnabledByDefault: true,
     skipMobileTarget: true,
     enableTargetCity: false,

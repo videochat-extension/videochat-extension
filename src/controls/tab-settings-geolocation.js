@@ -32,6 +32,8 @@ function createSettingsGeolocation() {
             ]),
         ]),
 
+        createElement('br'),
+
         createElement('dd', {}, [
             createElement('span', {}, [
                 createElement("p", {
@@ -51,6 +53,28 @@ function createSettingsGeolocation() {
                 })
             ]),
         ]),
+
+        createElement('dd', {}, [
+            createElement('span', {}, [
+                createElement("p", {
+                    innerText: chrome.i18n.getMessage("showCT"),
+                    className: "tooltip",
+                    title: chrome.i18n.getMessage("tooltipShowCT")
+                }),
+                createElement('input', {
+                    type: "checkbox",
+                    checked: settings.showCT,
+                    id: "tooltipShowCTCheck",
+                    onclick: () => {
+                        chrome.storage.sync.set({"showCT": tooltipShowCTCheck.checked}, function () {
+
+                        });
+                    }
+                })
+            ]),
+        ]),
+
+        createElement('br'),
 
         createElement('dd', {}, [
             createElement('span', {}, [

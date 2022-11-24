@@ -265,8 +265,17 @@ function processData(json, ip) {
     let newInnerHTML = ''
     let newIpDiv = createElement('div')
     if (settings.showMoreEnabledByDefault && (json.mobile || json.proxy || json.hosting)) {
-        if (json.mobile)
-            strings.push(`<small>MOBILE [${chrome.i18n.getMessage('apiMobile')}]</small>`)
+        if (json.mobile) {
+            if (settings.hideMobileLocation || settings.showCT) {
+                if (!settings.showCT) {
+                    strings.push(`<small>MOBILE [${chrome.i18n.getMessage('apiMobileHidden')}]</small>`)
+                } else {
+                    strings.push(`<small>MOBILE [${chrome.i18n.getMessage('apiMobile')}]</small>`)
+                }
+            } else {
+                strings.push(`<small>MOBILE [${chrome.i18n.getMessage('apiMobile')}]</small>`)
+            }
+        }
         if (json.proxy && json.hosting) {
             strings.push(`<small>PROXY+HOSTING [${chrome.i18n.getMessage('apiProxy')}]</small>`)
         } else {
@@ -277,14 +286,18 @@ function processData(json, ip) {
         }
     }
 
-    if (settings.hideMobileLocation && json.mobile) {
+    if ((settings.hideMobileLocation || settings.showCT) && json.mobile) {
         newInnerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br></br>"
 
-        newInnerHTML += chrome.i18n.getMessage("apiCT") + `${json.city}/${json.regionName}</br>`
-        try {
-            newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>"
-        } catch {
-            newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + "???" + "</sup>) </br>"
+        if (settings.showCT) {
+            newInnerHTML += chrome.i18n.getMessage("apiCT") + `${json.city}/${json.regionName}</br>`
+            try {
+                newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>"
+            } catch {
+                newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + "???" + "</sup>) </br>"
+            }
+        } else {
+            newInnerHTML += "<br><br><br>"
         }
         newInnerHTML += "<b>TM: </b><sup class='remoteTM'>" + secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
 
