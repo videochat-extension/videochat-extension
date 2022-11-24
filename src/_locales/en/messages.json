@@ -120,7 +120,7 @@
     "message": "<b>Automation</b>"
   },
   "autoskipfour": {
-    "message": "autoskip:"
+    "message": "autoskip long loading:"
   },
   "tooltipFour": {
     "message": "automatically skip interlocutors that are taking more than 4 seconds to connect to"
