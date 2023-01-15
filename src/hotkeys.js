@@ -19,7 +19,8 @@ function hotkeys(e) {
             break;
 
         case "ArrowDown":
-            document.getElementsByClassName("message-report-link tr")[0].click()
+            if (document.getElementsByClassName("message-report-link tr").length !== 0) 
+                document.getElementsByClassName("message-report-link tr")[0].click()
             break;
 
         case "ArrowRight":
