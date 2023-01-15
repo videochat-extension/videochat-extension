@@ -33,7 +33,8 @@ const showSwalChangelog = async function (version) {
         '1.5.4',
         '1.5.5',
         '1.6.0',
-        '1.6.1'
+        '1.6.1',
+        '1.6.2'
     ]
 
     const getGitHub = (tag, date) => {
@@ -70,7 +71,8 @@ const showSwalChangelog = async function (version) {
         getGitHub('v1.5.4', '(2022-10-19)'),
         getGitHub('v1.5.5', '(2022-10-19)'),
         getGitHub('v1.6.0', '(2022-11-17)'),
-        getGitHub('v1.6.1', '(2022-11-25)')
+        getGitHub('v1.6.1', '(2022-11-25)'),
+        getGitHub('v1.6.2', '(2023-01-15)')
     ]
 
     const values = {
@@ -476,7 +478,15 @@ const showSwalChangelog = async function (version) {
             '— New automation setting to auto-skip the wrong country.<br>' +
             '<br>' +
             '<b>- Miscellaneous.</b><br>' +
-            '— Removed dialogue from the ban popup.'
+            '— Removed dialogue from the ban popup.',
+
+            // 1.6.2 (2023-01-15)
+            '<b>Minor release with 2 small fixes.</b><br>' +
+            '<br>' +
+            '<b>- Section \'Map\'.</b><br>' +
+            '— Hotkeys are no longer activated if a map is selected, so that you can move around the map with arrows.<br><br>' +
+            '<b>- Section \'Settings\'.</b><br>' +
+            '— Fixed \'autoskip wrong country\' function.'
         ],
         "ru": [
             // v0.1 (2021-09-27)
@@ -886,7 +896,15 @@ const showSwalChangelog = async function (version) {
             '— Новая настройка автоматизации для автопропуска неверной страны.<br>' +
             '<br>' +
             '<b>- Разное.</b><br>' +
-            '— Убран диалог из окна бана.'
+            '— Убран диалог из окна бана.',
+
+            // 1.6.2 (2023-01-15)
+            '<b>Небольшой релиз с 2 исправлениями.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'Карта\'.</b><br>' +
+            '— Горячие клавиши больше не активируются, если выбрана карта, так что вы можете перемещаться по карте стрелками.<br><br>' +
+            '<b>- Раздел \'Настройки\'.</b><br>' +
+            '— Исправлена работа функции «автопропуск неверной страны».'
         ],
     }
 
