@@ -968,8 +968,12 @@ chrome.storage.sync.get(null, function (result) {
             if (settings.skipwrongcountry) {
                 try {
                     if (el.parentElement.className === "message-bubble") {
-						// TO-DO: FIX SELECTOR FOR COUNTRY
-                        let expectedCountry = document.getElementById('country-selected').classList[1].substr(6, 2)
+                        let expectedCountry = "ZZ"
+
+                        if ($(".country-filter-popup__country").filter(".all").filter(".selected").length == 0) {
+                            expectedCountry = $(".country-filter-popup__country").filter(".selected").children('span[data-tr]')[0].getAttribute('data-tr')
+                        }
+                        
                         let receivedCountry = el.dataset.tr
                         if (expectedCountry !== "ZZ" && expectedCountry !== receivedCountry) {
                             stopAndStart()
