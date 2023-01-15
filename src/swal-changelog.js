@@ -34,7 +34,8 @@ const showSwalChangelog = async function (version) {
         '1.5.5',
         '1.6.0',
         '1.6.1',
-        '1.6.2'
+        '1.6.2',
+        '1.6.3'
     ]
 
     const getGitHub = (tag, date) => {
@@ -72,7 +73,8 @@ const showSwalChangelog = async function (version) {
         getGitHub('v1.5.5', '(2022-10-19)'),
         getGitHub('v1.6.0', '(2022-11-17)'),
         getGitHub('v1.6.1', '(2022-11-25)'),
-        getGitHub('v1.6.2', '(2023-01-15)')
+        getGitHub('v1.6.2', '(2023-01-15)'),
+        getGitHub('v1.6.3', '(2023-01-15)')
     ]
 
     const values = {
@@ -486,7 +488,13 @@ const showSwalChangelog = async function (version) {
             '<b>- Section \'Map\'.</b><br>' +
             '— Hotkeys are no longer activated if a map is selected, so that you can move around the map with arrows.<br><br>' +
             '<b>- Section \'Settings\'.</b><br>' +
-            '— Fixed \'autoskip wrong country\' function.'
+            '— Fixed \'autoskip wrong country\' function.',
+
+            // 1.6.3 (2023-01-15)
+            '<b>Fix \'check torrents\' function.</b><br>' +
+            '<br>' +
+            '<b>- Section \'IP\'.</b><br>' +
+            "— Fixed an incorrect locale detection that caused torrent checking to work incorrectly for some users."
         ],
         "ru": [
             // v0.1 (2021-09-27)
@@ -904,7 +912,13 @@ const showSwalChangelog = async function (version) {
             '<b>- Раздел \'Карта\'.</b><br>' +
             '— Горячие клавиши больше не активируются, если выбрана карта, так что вы можете перемещаться по карте стрелками.<br><br>' +
             '<b>- Раздел \'Настройки\'.</b><br>' +
-            '— Исправлена работа функции «автопропуск неверной страны».'
+            '— Исправлена работа функции «автопропуск неверной страны».',
+
+            // 1.6.3 (2023-01-15)
+            '<b>Фикс ошибки проверки торрентов.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'IP\'.</b><br>' +
+            '— Исправлено неправильное определении локали, из-за которой у некоторых пользователей неправильно работала проверка торрентов.'
         ],
     }
 
