@@ -491,7 +491,7 @@ const showSwalChangelog = async function (version) {
             '— Fixed \'autoskip wrong country\' function.',
 
             // 1.6.3 (2023-01-15)
-            '<b>Fix \'check torrents\' function.</b><br>' +
+            '<b>Fixed \'check torrents\' function.</b><br>' +
             '<br>' +
             '<b>- Section \'IP\'.</b><br>' +
             "— Fixed an incorrect locale detection that caused torrent checking to work incorrectly for some users."
