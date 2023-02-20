@@ -1,6 +1,6 @@
 {
-  "name": "chatruletka-extension",
-  "version": "1.0.0",
+  "name": "videochat-extension",
+  "version": "1.7.0",
   "description": "",
   "scripts": {
     "watch": "webpack --config webpack/webpack.dev.js --watch",
