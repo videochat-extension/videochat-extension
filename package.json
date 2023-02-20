@@ -1,0 +1,42 @@
+{
+  "name": "chatruletka-extension",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "watch": "webpack --config webpack/webpack.dev.js --watch",
+    "build": "webpack --config webpack/webpack.prod.js",
+    "clean": "rimraf dist"
+  },
+  "author": "qrlk",
+  "license": "BSD-4",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qrlk/videochatru-extension"
+  },
+  "devDependencies": {
+    "@sentry/types": "^7.38.0",
+    "@types/chrome": "^0.0.158",
+    "@types/dompurify": "^2.4.0",
+    "@types/jquery": "^3.5.16",
+    "copy-webpack-plugin": "^9.1.0",
+    "rimraf": "^3.0.2",
+    "ts-loader": "^8.4.0",
+    "typescript": "^4.9.4",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-merge": "^5.8.0"
+  },
+  "dependencies": {
+    "@sentry/browser": "^7.38.0",
+    "@tensorflow/tfjs-core": "^1.2.9",
+    "@types/arrive": "^2.4.1",
+    "@types/leaflet": "^1.9.0",
+    "@types/tooltipster": "^0.0.31",
+    "arrive": "^2.4.1",
+    "dompurify": "^3.0.0",
+    "face-api.js": "^0.20.0",
+    "leaflet": "^1.9.3",
+    "sweetalert2": "^11.4.8",
+    "tooltipster": "^4.2.8"
+  }
+}

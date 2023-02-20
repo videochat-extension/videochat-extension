@@ -1,7 +1,7 @@
 {
   "name": "__MSG_extension_name__",
   "version": "1.6.3",
-  "description": "__MSG_extension_description__",
+  "description": "  __MSG_extension_description__",
   "default_locale": "en",
   "manifest_version": 3,
   "content_scripts": [
@@ -11,41 +11,8 @@
         "https://ome.tv/*"
       ],
       "js": [
-        "libs/js/sentry-browser.min.js",
-        "sentry.js",
-        "libs/js/jquery.min.js",
-        "libs/js/leaflet/leaflet.js",
-        "libs/js/face-api.min.js",
-        "libs/js/arrive.min.js",
-        "libs/js/tooltipster.bundle.min.js",
-        "libs/js/sweetalert2@11.4.8.min.js",
-        "libs/js/purify.min.js",
-        "controls.js",
-        "controls/header.js",
-        "controls/tab-about.js",
-        "controls/tab-api.js",
-        "controls/tab-bans.js",
-        "controls/tab-map.js",
-        "controls/tab-settings.js",
-        "controls/tab-settings-automation.js",
-        "controls/tab-settings-blacklist.js",
-        "controls/tab-settings-faceapi.js",
-        "controls/tab-settings-geolocation.js",
-        "controls/tab-settings-hotkeys.js",
-        "controls/tab-settings-interface.js",
-        "controls/tab-settings-misc.js",
-        "controls/tab-settings-risky.js",
-        "controls/tab-settings-stats.js",
-        "controls/tab-settings-streamer.js",
-        "controls/tab-stats.js",
-        "content.js",
-        "swal-info.js",
-        "swal-changelog.js",
-        "swal-context-invalidated.js",
-        "swal-danger-warning.js",
-        "hotkeys.js",
-        "utils.js",
-        "background-listener.js"
+        "vendor.js",
+        "content_script.js"
       ],
       "run_at": "document_idle"
     }
@@ -96,6 +63,7 @@
   "background": {
     "service_worker": "background.js"
   },
+
   "commands": {
     "skip": {
       "suggested_key": {

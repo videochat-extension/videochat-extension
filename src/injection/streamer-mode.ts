@@ -1,42 +1,44 @@
-const BLUR_FILTER = "blur(" + blurFilter.value + "px)"
-const BLUR_FILTER_PREVIEW = "blur(" + blurPreviewFilter.value + "px)"
+const BLUR_FILTER = "blur(" + (document.getElementById("blurFilter") as HTMLInputElement).value + "px)"
+const BLUR_FILTER_PREVIEW = "blur(" + (document.getElementById("blurPreviewFilter") as HTMLInputElement).value + "px)"
 
-const PREDICATIONS_ARRAY_SIZE = +sPredicationsArraySize.value
-const PANIC_PROPABILITY = +sPanicPropability.value
-const WEIGHT_PORN = +sWeightPorn.value
-const WEIGHT_SEXY = +sWeightSexy.value
-const BLUR_DURATION = +sBlurDuration.value
-const BLUR_PANIC = +sBlurPanic.value
-const TIMEOUT = +sTimeout.value
+const PREDICATIONS_ARRAY_SIZE = +(document.getElementById("sPredicationsArraySize") as HTMLInputElement).value
+const PANIC_PROPABILITY = +(document.getElementById("sPanicPropability") as HTMLInputElement).value
+const WEIGHT_PORN = +(document.getElementById("sWeightPorn") as HTMLInputElement).value
+const WEIGHT_SEXY = +(document.getElementById("sWeightSexy") as HTMLInputElement).value
+const BLUR_DURATION = +(document.getElementById("sBlurDuration") as HTMLInputElement).value
+const BLUR_PANIC = +(document.getElementById("sBlurPanic") as HTMLInputElement).value
+const TIMEOUT = +(document.getElementById("sTimeout") as HTMLInputElement).value
 
-const vid = document.getElementById("local-video")
-const rmt = document.getElementById("remote-video")
+const vid: HTMLVideoElement = document.getElementById("local-video") as HTMLVideoElement
+const rmt: HTMLVideoElement = document.getElementById("remote-video") as HTMLVideoElement
 
 let manualBlur = false
 let tempOff = false
 let currentStage = 0
 let preds = []
 
+let echoV: HTMLVideoElement
+
 let lastBlurred = 0
 
-if (streamerKeysCheck.checked) {
+if ((document.getElementById("streamerKeysCheck") as HTMLInputElement).checked) {
     document.addEventListener('keyup', (e) => {
-        if (e.srcElement.className === "emojionearea-editor" || document.getElementsByClassName("swal2-popup").length > 0)
+        if (e.target instanceof HTMLElement && e.target.className === "emojionearea-editor" || document.getElementsByClassName("swal2-popup").length > 0)
             return
         switch (e.key) {
             case "ArrowRight":
-                if (!(document.getElementById("report-popup").style.display === "block")) {
+                if (!(document.getElementById("report-popup")!.style.display === "block")) {
                     if (e.shiftKey) {
                         tempOff = !tempOff
                         if (!tempOff) {
                             if (!manualBlur) {
                                 unblurRemote()
-                                if (streamerMirrorCheck.checked) {
+                                if ((document.getElementById("streamerMirrorCheck") as HTMLInputElement).checked) {
                                     unblurLocal()
                                 }
                             }
                         } else
-                            nsfwInfo.style.display = "none"
+                            document.getElementById("nsfwInfo")!.style.display = "none"
                     } else {
                         if (rmt.style.filter === "") {
                             blurRemote()
@@ -46,7 +48,7 @@ if (streamerKeysCheck.checked) {
                             manualBlur = false
                         }
 
-                        if (streamerMirrorCheck.checked) {
+                        if ((document.getElementById("streamerMirrorCheck") as HTMLInputElement).checked) {
                             if (vid.style.filter === "")
                                 blurLocal()
                             else
@@ -66,36 +68,36 @@ if (streamerKeysCheck.checked) {
 }
 
 function blurRemote() {
-    if (coverCheck.checked || coverNoiseCheck.checked || coverPreviewCheck.checked || coverStopCheck.checked) {
+    if ((document.getElementById("coverCheck") as HTMLInputElement).checked || (document.getElementById("coverNoiseCheck") as HTMLInputElement).checked || (document.getElementById("coverPreviewCheck") as HTMLInputElement).checked || (document.getElementById("coverStopCheck") as HTMLInputElement).checked) {
         rmt.style.filter = "opacity(0%)"
-        cover.style.display = ""
+        document.getElementById('cover')!.style.display = ""
     } else {
         rmt.style.filter = BLUR_FILTER
     }
 }
 
 function unblurRemote() {
-    if (coverCheck.checked || coverNoiseCheck.checked || coverPreviewCheck.checked || coverStopCheck.checked) {
+    if ((document.getElementById("coverCheck") as HTMLInputElement).checked || (document.getElementById("coverNoiseCheck") as HTMLInputElement).checked || (document.getElementById("coverPreviewCheck") as HTMLInputElement).checked || (document.getElementById("coverStopCheck") as HTMLInputElement).checked) {
         rmt.style.filter = ""
-        cover.style.display = "none"
+        document.getElementById('cover')!.style.display = "none"
     } else {
         rmt.style.filter = ""
     }
 }
 
 function blurLocal() {
-    if (coverCheck.checked || coverNoiseCheck.checked || coverPreviewCheck.checked || coverStopCheck.checked) {
+    if ((document.getElementById("coverCheck") as HTMLInputElement).checked || (document.getElementById("coverNoiseCheck") as HTMLInputElement).checked || (document.getElementById("coverPreviewCheck") as HTMLInputElement).checked || (document.getElementById("coverStopCheck") as HTMLInputElement).checked) {
         vid.style.filter = "opacity(0%)"
-        cover2.style.display = ""
+        document.getElementById('cover2')!.style.display = ""
     } else {
         vid.style.filter = BLUR_FILTER
     }
 }
 
 function unblurLocal() {
-    if (coverCheck.checked || coverNoiseCheck.checked || coverPreviewCheck.checked || coverStopCheck.checked) {
+    if ((document.getElementById("coverCheck") as HTMLInputElement).checked || (document.getElementById("coverNoiseCheck") as HTMLInputElement).checked || (document.getElementById("coverPreviewCheck") as HTMLInputElement).checked || (document.getElementById("coverStopCheck") as HTMLInputElement).checked) {
         vid.style.filter = ""
-        cover2.style.display = "none"
+        document.getElementById('cover2')!.style.display = "none"
     } else {
         vid.style.filter = ""
     }
@@ -196,17 +198,17 @@ function updStatus() {
             if ((BLUR_DURATION - (+new Date() - lastBlurred) / 1000) > BLUR_DURATION - 1) {
                 strings.push(`NSFW DETECTED!`)
             } else {
-                if (!manualBlur && letUnblurCheck.checked)
-                    strings.push(`unblur in ${parseInt(BLUR_DURATION + 1 - (+new Date() - lastBlurred) / 1000)}s`)
+                if (!manualBlur && (document.getElementById("letUnblurCheck") as HTMLInputElement).checked)
+                    strings.push(`unblur in ${Math.ceil(BLUR_DURATION + 1 - (+new Date() - lastBlurred) / 1000)}s`)
             }
         }
     }
-    streamerStatus.innerText = strings.join(' || ')
+    document.getElementById('streamerStatus')!.innerText = strings.join(' || ')
 }
 
 setInterval(updStatus, 500)
 
-if (streamerPipCheck.checked) {
+if ((document.getElementById("streamerPipCheck") as HTMLInputElement).checked) {
     echoV = document.createElement('video');
 
     echoV.id = "echo-video"
@@ -215,28 +217,28 @@ if (streamerPipCheck.checked) {
     echoV.playsInline = true
     echoV.width = 0
 
-    app.appendChild(echoV);
+    document.getElementById('app')!.appendChild(echoV);
 
     function echoStart() {
-        echoV.srcObject = document.getElementById("local-video").srcObject
-        document.getElementById('local-video').removeEventListener("play", echoStart)
+        echoV.srcObject = (document.getElementById("local-video") as HTMLVideoElement).srcObject
+        document.getElementById('local-video')!.removeEventListener("play", echoStart)
     }
 
-    document.getElementById('local-video').addEventListener("play", echoStart)
+    document.getElementById('local-video')!.addEventListener("play", echoStart)
 }
 
 function onConversationEnd() {
-    if (nsfwjsUnblurCheck.checked)
+    if ((document.getElementById("nsfwjsUnblurCheck") as HTMLInputElement).checked)
         lastBlurred = 0
     else
         lastBlurred = -1
     preds = []
-    if (streamerMirrorCheck.checked)
+    if ((document.getElementById("streamerMirrorCheck") as HTMLInputElement).checked)
         vid.style.filter = ""
     rmt.style.filter = ""
-    if (coverCheck.checked)
+    if ((document.getElementById("coverCheck") as HTMLInputElement).checked)
         // cover.style.display = "none"
-        nsfwInfo.style.display = "none"
+        document.getElementById('nsfwInfo')!.style.display = "none"
     manualBlur = false
     tempOff = false
     updStatus()
@@ -251,28 +253,28 @@ var observer3 = new MutationObserver(function (mutations) {
             if (attributeValue.includes("s-search")) {
                 currentStage = 1
                 onConversationEnd()
-                if (blurOnStartCheck.checked && coverNoiseCheck.checked) {
+                if ((document.getElementById("blurOnStartCheck") as HTMLInputElement).checked && (document.getElementById("coverNoiseCheck") as HTMLInputElement).checked) {
                     blurRemote()
                 }
             } else if (attributeValue.includes("s-found")) {
                 currentStage = 2
-                if (blurPreviewCheck.checked) {
-                    document.getElementsByClassName("remote-video__preview")[0].children[0].style.filter = BLUR_FILTER_PREVIEW
-                    document.getElementsByClassName("remote-video__preview")[0].children[1].style.filter = BLUR_FILTER_PREVIEW
+                if ((document.getElementById("blurPreviewCheck") as HTMLInputElement).checked) {
+                    (document.getElementsByClassName("remote-video__preview")[0].children[0] as HTMLElement).style.filter = BLUR_FILTER_PREVIEW;
+                    (document.getElementsByClassName("remote-video__preview")[0].children[1] as HTMLElement).style.filter = BLUR_FILTER_PREVIEW
                 }
-                if (blurOnStartCheck.checked && coverPreviewCheck.checked) {
+                if ((document.getElementById("blurOnStartCheck") as HTMLInputElement).checked && (document.getElementById("coverPreviewCheck") as HTMLInputElement).checked) {
                     blurRemote()
                 }
             } else if (attributeValue.includes("s-play")) {
                 manualBlur = false
                 currentStage = 3
 
-                if (streamerPipCheck.checked) {
-                    echoV.srcObject = document.getElementById("remote-video").srcObject;
+                if ((document.getElementById("streamerPipCheck") as HTMLInputElement).checked) {
+                    echoV.srcObject = (document.getElementById("remote-video") as HTMLVideoElement).srcObject;
                 }
 
-                if (blurOnStartCheck.checked) {
-                    if (streamerMirrorCheck.checked)
+                if ((document.getElementById("blurOnStartCheck") as HTMLInputElement).checked) {
+                    if ((document.getElementById("streamerMirrorCheck") as HTMLInputElement).checked)
                         blurLocal()
 
                     blurRemote()
@@ -281,13 +283,14 @@ var observer3 = new MutationObserver(function (mutations) {
                 currentStage = 0
                 onConversationEnd()
 
-                if (blurOnStartCheck.checked && coverStopCheck.checked) {
+                if ((document.getElementById("blurOnStartCheck") as HTMLInputElement).checked && (document.getElementById("coverStopCheck") as HTMLInputElement).checked) {
                     blurRemote()
                 }
             }
         }
     });
 });
+
 observer3.observe($div[0], {
     attributes: true
 });

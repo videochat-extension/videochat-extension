@@ -11,10 +11,9 @@ if (nativeMethod) {
         if (args[0].type === "srflx") {
             console.dir("IP: " + args[0].address)
             if (rmdaddr !== args[0].address) {
-                rmdaddr = args[0].address
-                remoteIP.innerText = args[0].address
+                rmdaddr = args[0].address;
+                (document.getElementById("remoteIP") as HTMLElement).innerText = args[0].address
                 console.dir("IP CHANGED")
-                startDate = +new Date() / 1000
             }
         }
         return new Promise(function (resolve, reject) {
