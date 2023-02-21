@@ -1,25 +1,14 @@
 const BLUR_FILTER = "blur(" + (document.getElementById("blurFilter") as HTMLInputElement).value + "px)"
 const BLUR_FILTER_PREVIEW = "blur(" + (document.getElementById("blurPreviewFilter") as HTMLInputElement).value + "px)"
 
-const PREDICATIONS_ARRAY_SIZE = +(document.getElementById("sPredicationsArraySize") as HTMLInputElement).value
-const PANIC_PROPABILITY = +(document.getElementById("sPanicPropability") as HTMLInputElement).value
-const WEIGHT_PORN = +(document.getElementById("sWeightPorn") as HTMLInputElement).value
-const WEIGHT_SEXY = +(document.getElementById("sWeightSexy") as HTMLInputElement).value
-const BLUR_DURATION = +(document.getElementById("sBlurDuration") as HTMLInputElement).value
-const BLUR_PANIC = +(document.getElementById("sBlurPanic") as HTMLInputElement).value
-const TIMEOUT = +(document.getElementById("sTimeout") as HTMLInputElement).value
-
 const vid: HTMLVideoElement = document.getElementById("local-video") as HTMLVideoElement
 const rmt: HTMLVideoElement = document.getElementById("remote-video") as HTMLVideoElement
 
 let manualBlur = false
-let tempOff = false
 let currentStage = 0
 let preds = []
 
 let echoV: HTMLVideoElement
-
-let lastBlurred = 0
 
 if ((document.getElementById("streamerKeysCheck") as HTMLInputElement).checked) {
     document.addEventListener('keyup', (e) => {
@@ -28,18 +17,7 @@ if ((document.getElementById("streamerKeysCheck") as HTMLInputElement).checked) 
         switch (e.key) {
             case "ArrowRight":
                 if (!(document.getElementById("report-popup")!.style.display === "block")) {
-                    if (e.shiftKey) {
-                        tempOff = !tempOff
-                        if (!tempOff) {
-                            if (!manualBlur) {
-                                unblurRemote()
-                                if ((document.getElementById("streamerMirrorCheck") as HTMLInputElement).checked) {
-                                    unblurLocal()
-                                }
-                            }
-                        } else
-                            document.getElementById("nsfwInfo")!.style.display = "none"
-                    } else {
+                    {
                         if (rmt.style.filter === "") {
                             blurRemote()
                             manualBlur = true
@@ -103,106 +81,13 @@ function unblurLocal() {
     }
 }
 
-// if (nsfwCheck.checked) {
-//     nsfwjs.load().then(function (model) {
-//         nsfwInfo.style.display = ""
-//
-//         let nsfwTimeout = setTimeout(async function tick() {
-//             if (currentStage === 3 && !tempOff) {
-//                 try {
-//                     const predictions = await model.classify(rmt)
-//                     if (preds.length >= PREDICATIONS_ARRAY_SIZE)
-//                         preds.shift()
-//
-//                     preds.push(predictions)
-//
-//                     let blur = 0
-//
-//                     preds.forEach(itemPred => {
-//                         itemPred.forEach(item => {
-//                             if (item.className === "Porn" || item.className === "Sexy") {
-//                                 if (item.probability > PANIC_PROPABILITY) {
-//                                     switch (item.className) {
-//                                         case "Porn":
-//                                             blur += WEIGHT_PORN
-//                                             break;
-//
-//                                         case "Sexy":
-//                                             blur += WEIGHT_SEXY
-//                                             break;
-//                                     }
-//                                 }
-//                             }
-//                         })
-//                     })
-//                     let text = `<b>SCORE: ${blur}</b> || `
-//                     predictions.forEach(item => {
-//                         text += `<b>${item.className.charAt(0)}</b>: ${(item.probability * 100).toFixed(0) + '% '}`
-//                     })
-//
-//                     if (blur >= BLUR_PANIC) {
-//                         if (streamerMirrorCheck.checked) {
-//                             blurLocal()
-//                         }
-//                         blurRemote()
-//
-//                         lastBlurred = +new Date()
-//                     } else {
-//                         if (preds.length < PREDICATIONS_ARRAY_SIZE) {
-//                             // vid.style.filter = BLUR_FILTER
-//                         } else if (lastBlurred === 0) {
-//                             if (!manualBlur) {
-//                                 if (streamerMirrorCheck.checked)
-//                                     vid.style.filter = ""
-//                                 rmt.style.filter = ""
-//                                 if (coverCheck.checked)
-//                                     // cover.style.display = "none"
-//                                     console.dir('РАЗБЛЮР ПЕРВЫЙ')
-//                                 lastBlurred = -1
-//                             }
-//                         } else if (lastBlurred !== 0 && lastBlurred !== -1 && +new Date() - lastBlurred > BLUR_DURATION * 1000) {
-//                             if (!manualBlur && letUnblurCheck.checked) {
-//                                 if (streamerMirrorCheck.checked)
-//                                     vid.style.filter = ""
-//                                 rmt.style.filter = ""
-//                                 if (coverCheck.checked)
-//                                     // cover.style.display = "none"
-//                                     console.dir('РАЗБЛЮР')
-//                             }
-//                         }
-//                     }
-//                     if (currentStage === 3) {
-//                         nsfwInfo.style.display = ""
-//                         nsfwInfo.innerHTML = text
-//                     }
-//                 } catch (err) {
-//                     console.dir(err)
-//                 }
-//             }
-//
-//             nsfwTimeout = setTimeout(tick, TIMEOUT); // (*)
-//         }, 400);
-//     })
-// }
-
 function updStatus() {
     let strings = []
     if (rmt.muted)
         strings.push("muted")
     if (manualBlur)
         strings.push("manual blur")
-    if (tempOff)
-        strings.push("NSFWJS OFF")
-    else {
-        if (lastBlurred !== -1 && lastBlurred !== 0 && (BLUR_DURATION - (+new Date() - lastBlurred) / 1000) > 0) {
-            if ((BLUR_DURATION - (+new Date() - lastBlurred) / 1000) > BLUR_DURATION - 1) {
-                strings.push(`NSFW DETECTED!`)
-            } else {
-                if (!manualBlur && (document.getElementById("letUnblurCheck") as HTMLInputElement).checked)
-                    strings.push(`unblur in ${Math.ceil(BLUR_DURATION + 1 - (+new Date() - lastBlurred) / 1000)}s`)
-            }
-        }
-    }
+
     document.getElementById('streamerStatus')!.innerText = strings.join(' || ')
 }
 
@@ -228,19 +113,14 @@ if ((document.getElementById("streamerPipCheck") as HTMLInputElement).checked) {
 }
 
 function onConversationEnd() {
-    if ((document.getElementById("nsfwjsUnblurCheck") as HTMLInputElement).checked)
-        lastBlurred = 0
-    else
-        lastBlurred = -1
     preds = []
     if ((document.getElementById("streamerMirrorCheck") as HTMLInputElement).checked)
         vid.style.filter = ""
     rmt.style.filter = ""
-    if ((document.getElementById("coverCheck") as HTMLInputElement).checked)
+    if ((document.getElementById("coverCheck") as HTMLInputElement).checked) {
         // cover.style.display = "none"
-        document.getElementById('nsfwInfo')!.style.display = "none"
+    }
     manualBlur = false
-    tempOff = false
     updStatus()
     console.dir("Сброс из-за конца разговора")
 }

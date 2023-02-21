@@ -585,10 +585,6 @@ function createTabApi() {
             // style: "display: none;"
         }),
         createElement('div', {
-            id: "nsfwInfo",
-            style: "display: none;"
-        }),
-        createElement('div', {
             id: "apiStatus",
             style: "margin-top: 3px"
         }),
@@ -1903,7 +1899,6 @@ function createSettingsStreamer() {
                 ]),
             ]),
 
-
             createElement('dd', {}, [
                 createElement('button', {
                     style: "margin-top: 2px",
@@ -1921,296 +1916,6 @@ function createSettingsStreamer() {
                     })
                 ]),
             ]),
-
-            createElement('div', {
-                style: function f() {
-                    if (isDevMode()) {
-                        return ""
-                    } else {
-                        return "display:none"
-                    }
-                }(),
-            }, [
-                createElement('br'),
-                createElement('dd', {}, [
-                    createElement('span', {}, [
-                        createElement("b", {
-                            innerText: chrome.i18n.getMessage("nsfwjsAlfa"),
-                            className: "tooltip",
-                            title: chrome.i18n.getMessage("tooltipNsfwjsAlfa")
-                        }),
-                        createElement('input', {
-                            type: "checkbox",
-                            checked: settings.nsfw,
-                            id: "nsfwCheck",
-                            onclick: () => {
-                                chrome.storage.sync.set({"nsfw": (document.getElementById("nsfwCheck") as HTMLInputElement).checked}, function () {
-                                    confirmAndReload()
-                                });
-                            }
-                        })
-                    ]),
-                ]),
-
-                createElement('dd', {}, [
-                    createElement('span', {}, [
-                        createElement("p", {
-                            innerText: chrome.i18n.getMessage("letUnblurInitial"),
-                            className: "tooltip",
-                            title: chrome.i18n.getMessage("tooltipLetUnblurInitial")
-                        }),
-                        createElement('input', {
-                            type: "checkbox",
-                            checked: settings.nsfwjsUnblur,
-                            id: "nsfwjsUnblurCheck",
-                            onclick: () => {
-                                chrome.storage.sync.set({"nsfwjsUnblur": (document.getElementById("nsfwjsUnblurCheck") as HTMLInputElement).checked}, function () {
-                                    confirmAndReload()
-                                });
-                            }
-                        })
-                    ]),
-                ]),
-
-                createElement('dd', {}, [
-                    createElement('span', {}, [
-                        createElement("p", {
-                            innerText: chrome.i18n.getMessage("letUnblurAuto"),
-                            className: "tooltip",
-                            title: chrome.i18n.getMessage("tooltipLetUnblurAuto")
-                        }),
-                        createElement('input', {
-                            type: "checkbox",
-                            checked: settings.letUnblur,
-                            id: "letUnblurCheck",
-                            onclick: () => {
-                                chrome.storage.sync.set({"letUnblur": (document.getElementById("letUnblurCheck") as HTMLInputElement).checked}, function () {
-                                    confirmAndReload()
-                                });
-                            }
-                        })
-                    ]),
-                ]),
-
-
-                createElement('br'),
-                createElement('dd', {}, [
-                    createElement('details', {}, [
-                        createElement("summary", {
-                            innerText: chrome.i18n.getMessage("nsfwjsConfig")
-                        }),
-                        createElement('dd', {}, [
-                            createElement('span', {}, [
-                                createElement("p", {
-                                    innerText: chrome.i18n.getMessage("blurDuration"),
-                                    className: "tooltip",
-                                    title: chrome.i18n.getMessage("tooltipBlurDuration")
-                                }),
-
-                                createElement('input', {
-                                    type: "number",
-                                    value: settings.nsfwjs.BLUR_DURATION,
-                                    min: 1,
-                                    max: 20,
-                                    step: 1,
-                                    id: "sBlurDuration",
-                                    onkeydown: (e: KeyboardEvent) => {
-                                        e.preventDefault()
-                                    }
-                                }),
-                            ]),
-                        ]),
-
-                        createElement('dd', {}, [
-                            createElement('span', {}, [
-                                createElement("p", {
-                                    innerText: chrome.i18n.getMessage("delay"),
-                                    className: "tooltip",
-                                    title: chrome.i18n.getMessage("tooltipDelay")
-                                }),
-
-                                createElement('input', {
-                                    type: "number",
-                                    value: settings.nsfwjs.TIMEOUT,
-                                    min: 50,
-                                    max: 10000,
-                                    step: 10,
-                                    id: "sTimeout",
-                                    onkeydown: (e: KeyboardEvent) => {
-                                        e.preventDefault()
-                                    }
-                                }),
-                            ]),
-                        ]),
-                        createElement('dd', {}, [
-                            createElement('span', {}, [
-                                createElement("p", {
-                                    innerText: chrome.i18n.getMessage("predicationsArraySize"),
-                                    className: "tooltip",
-                                    title: chrome.i18n.getMessage("tooltipPredicationsArraySize")
-                                }),
-
-                                createElement('input', {
-                                    type: "number",
-                                    value: settings.nsfwjs.PREDICATIONS_ARRAY_SIZE,
-                                    min: 1,
-                                    max: 10,
-                                    step: 1,
-                                    id: "sPredicationsArraySize",
-                                    onkeydown: (e: KeyboardEvent) => {
-                                        e.preventDefault()
-                                    }
-                                }),
-                            ]),
-                        ]),
-
-
-                        createElement('dd', {}, [
-                            createElement('span', {}, [
-                                createElement("p", {
-                                    innerText: chrome.i18n.getMessage("scoreToBlur"),
-                                    className: "tooltip",
-                                    title: chrome.i18n.getMessage("tooltipScoreToBlur")
-                                }),
-
-                                createElement('input', {
-                                    type: "number",
-                                    value: settings.nsfwjs.BLUR_PANIC,
-                                    min: 1,
-                                    max: 100,
-                                    step: 1,
-                                    id: "sBlurPanic",
-                                    onkeydown: (e: KeyboardEvent) => {
-                                        e.preventDefault()
-                                    }
-                                }),
-                            ]),
-                        ]),
-
-                        createElement('dd', {}, [
-                            createElement('span', {}, [
-                                createElement("p", {
-                                    innerText: chrome.i18n.getMessage("propabilityToCount"),
-                                    className: "tooltip",
-                                    title: chrome.i18n.getMessage("tooltipPropabilityToCount")
-                                }),
-
-                                createElement('input', {
-                                    type: "number",
-                                    value: settings.nsfwjs.PANIC_PROPABILITY,
-                                    min: 0.1,
-                                    max: 1.0,
-                                    step: 0.05,
-                                    id: "sPanicPropability",
-                                    onkeydown: (e: KeyboardEvent) => {
-                                        e.preventDefault()
-                                    }
-                                }),
-                            ]),
-                        ]),
-
-                        createElement('dd', {}, [
-                            createElement('span', {}, [
-                                createElement("p", {
-                                    innerText: chrome.i18n.getMessage("pornWeight"),
-                                    className: "tooltip",
-                                    title: chrome.i18n.getMessage("tooltipPornWeight")
-                                }),
-
-                                createElement('input', {
-                                    type: "number",
-                                    value: settings.nsfwjs.WEIGHT_PORN,
-                                    min: 0,
-                                    max: 10,
-                                    step: 1,
-                                    id: "sWeightPorn",
-                                    onkeydown: (e: KeyboardEvent) => {
-                                        e.preventDefault()
-                                    }
-                                }),
-                            ]),
-                        ]),
-
-                        createElement('dd', {}, [
-                            createElement('span', {}, [
-                                createElement("p", {
-                                    innerText: chrome.i18n.getMessage("sexyWeight"),
-                                    className: "tooltip",
-                                    title: chrome.i18n.getMessage("tooltipSexyWeight")
-                                }),
-
-                                createElement('input', {
-                                    type: "number",
-                                    value: settings.nsfwjs.WEIGHT_SEXY,
-                                    min: 0,
-                                    max: 10,
-                                    step: 1,
-                                    id: "sWeightSexy",
-                                    onkeydown: (e: KeyboardEvent) => {
-                                        e.preventDefault()
-                                    }
-                                }),
-                            ]),
-                        ]),
-                        createElement('br'),
-                        createElement('dd', {}, [
-                            createElement('button', {
-                                onclick: () => {
-                                    const result = confirm(chrome.i18n.getMessage("saveConfirm"))
-                                    if (result) {
-                                        let nsfwjs = {
-                                            nsfwjs: {
-                                                PREDICATIONS_ARRAY_SIZE: (document.getElementById("sPredicationsArraySize") as HTMLInputElement).value,
-                                                PANIC_PROPABILITY: (document.getElementById("sPanicPropability") as HTMLInputElement).value,
-                                                WEIGHT_PORN: (document.getElementById("sWeightPorn") as HTMLInputElement).value,
-                                                WEIGHT_SEXY: (document.getElementById("sWeightSexy") as HTMLInputElement).value,
-                                                BLUR_DURATION: (document.getElementById("sBlurDuration") as HTMLInputElement).value,
-                                                BLUR_PANIC: (document.getElementById("sBlurPanic") as HTMLInputElement).value,
-                                                TIMEOUT: (document.getElementById("sTimeout") as HTMLInputElement).value
-                                            }
-                                        }
-                                        settings.nsfwjs = nsfwjs.nsfwjs
-                                        chrome.storage.sync.set(settings, function () {
-                                            confirmAndReload()
-                                        });
-                                    }
-                                },
-                            }, [
-                                createElement('b', {
-                                    innerText: chrome.i18n.getMessage("save")
-                                })
-                            ]),
-
-                            createElement('button', {
-                                onclick: () => {
-                                    const result = confirm(chrome.i18n.getMessage("resetConfirm"))
-                                    if (result) {
-                                        let nsfwjs = {
-                                            nsfwjs: {
-                                                PREDICATIONS_ARRAY_SIZE: 4,
-                                                PANIC_PROPABILITY: 0.8,
-                                                WEIGHT_PORN: 2,
-                                                WEIGHT_SEXY: 1,
-                                                BLUR_DURATION: 5,
-                                                BLUR_PANIC: 6,
-                                                TIMEOUT: 100
-                                            }
-                                        }
-                                        settings.nsfwjs = nsfwjs.nsfwjs
-                                        chrome.storage.sync.set(settings, function () {
-                                            confirmAndReload()
-                                        });
-                                    }
-                                },
-                            }, [
-                                createElement('b', {
-                                    innerText: chrome.i18n.getMessage("reset")
-                                })
-                            ]),
-                        ]),
-                    ]),
-                ]),
-            ])
         ])
     ])
 }
@@ -2763,8 +2468,6 @@ const onChangeStage = function (mutations: any[]) {
                 needToClear = true;
                 (document.getElementById("remoteFace") as HTMLElement).innerHTML = '';
 
-                (document.getElementById("nsfwInfo") as HTMLElement).style.display = "none"
-
                 stage = 0;
                 (document.getElementById("localStage") as HTMLElement).innerText = '0'
 
@@ -3177,23 +2880,10 @@ chrome.storage.sync.get(null, function (result) {
                 $(".remote-video__noise").insertBefore("#cover")
             }
 
-            if (settings.nsfw && isDevMode()) {
-                const nsfwjs = document.createElement('script');
-                nsfwjs.src = chrome.runtime.getURL('libs/js/nsfwjs.min.js');
-                nsfwjs.onload = () => {
-                    nsfwjs.remove()
-                    const nsfw = document.createElement('script');
-                    nsfw.src = chrome.runtime.getURL('injection/streamer-mode.js');
-                    nsfw.onload = () => nsfw.remove();
-                    (document.head || document.documentElement).appendChild(nsfw);
-                };
-                (document.head || document.documentElement).appendChild(nsfwjs);
-            } else {
-                const nsfw = document.createElement('script');
-                nsfw.src = chrome.runtime.getURL('injection/streamer-mode.js');
-                nsfw.onload = () => nsfw.remove();
-                (document.head || document.documentElement).appendChild(nsfw);
-            }
+            const streamerModeScript = document.createElement('script');
+            streamerModeScript.src = chrome.runtime.getURL('injection/streamer-mode.js');
+            streamerModeScript.onload = () => streamerModeScript.remove();
+            (document.head || document.documentElement).appendChild(streamerModeScript);
         }
 
         if (settings.darkMode)
@@ -4376,7 +4066,7 @@ const showSwalChangelog = async function (version: string) {
             currentProgressStep: currentStep,
 
             willOpen: (e) => {
-                (e.querySelector('.swal2-cancel') as HTMLElement).onclick= (e) => {
+                (e.querySelector('.swal2-cancel') as HTMLElement).onclick = (e) => {
                     if (currentStep - 1 >= 0) {
                         currentStep = currentStep - 1
                         selectStep(currentStep)
