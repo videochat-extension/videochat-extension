@@ -19,6 +19,3 @@ let updateNeedReloadInterval = setInterval(() => {
         }
     }
 }, 10000)
-
-// import "./vars.js"
-// console.dir(variable)
