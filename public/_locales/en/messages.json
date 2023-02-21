@@ -74,9 +74,6 @@
   "ban_sound": {
     "message": "ban sound:"
   },
-  "mirror": {
-    "message": "mirror:"
-  },
   "watermark": {
     "message": "hide the watermark:"
   },
@@ -149,24 +146,6 @@
   "tooltipSkipFemales": {
     "message": "tries to determine the gender of the interlocutor and skips if faceapi is 90 percent sure that the gender of the interlocutor is female"
   },
-  "settingsCameraHijack": {
-    "message": "<b style='color:red'>Camera hijack</b>"
-  },
-  "tooltipMirror1": {
-    "message": "replaces your camera with a canvas that duplicates the image from the interlocutor's camera"
-  },
-  "mirror2": {
-    "message": "mirror 2:"
-  },
-  "tooltipMirror2": {
-    "message": "replaces your camera with a canvas that duplicates the image from the interlocutor's camera"
-  },
-  "prikol": {
-    "message": "prikol:"
-  },
-  "tooltipPrikol": {
-    "message": "Replaces your camera with 'resources/prikol.mp4'. Useful only when using the extension in developer mode"
-  },
   "settingsBlacklist": {
     "message": "<b>Blacklist</b>"
   },
@@ -190,51 +169,6 @@
   },
   "tooltipEnableHotkeys": {
     "message": "Enable cool arrows hotkeys. This does not affect the extension hotkeys that are configured in the browser settings."
-  },
-  "settingsWS": {
-    "message": "<b style='color:red'>WS</b>"
-  },
-  "warningWS": {
-    "message": "Use this only if you understand what you are doing."
-  },
-  "warningCameraHijack": {
-    "message": "You can get banned in the chat for abusing these functions."
-  },
-  "enableWS": {
-    "message": "enable websocket hacks:"
-  },
-  "tooltipEnableWS": {
-    "message": "Interferes with the protocol of communication with the Chatruletka server, which allows you to use the functions described below. Bans are possible due to possible countermeasures/backend changes."
-  },
-  "skipSoundWS": {
-    "message": "skip sound:"
-  },
-  "tooltipSkipSoundWS": {
-    "message": "plays sound when your interlocutor clicks 'Next'"
-  },
-  "skipWrongCountry": {
-    "message": "skip wrong country:"
-  },
-  "tooltipSkipWrongCountry": {
-    "message": "instant skip if you are looking for someone from X country but service found you someone from Y country"
-  },
-  "replacePreview": {
-    "message": "replace preview:"
-  },
-  "tooltipReplacePreview": {
-    "message": "replaces the preview that the interlocutor sees while the connection is being established"
-  },
-  "deletePreview": {
-    "message": "delete preview (use replace):"
-  },
-  "tooltipDeletePreview": {
-    "message": "deletes the preview that the interlocutor sees while the connection is being established"
-  },
-  "replaceReportPic": {
-    "message": "replace report pic:"
-  },
-  "tooltipReplaceReportPic": {
-    "message": "Replaces the image that the service uses to check you for violations. Avoiding accidental bans only. If lot of reports are sent to you, you will be banned anyway."
   },
   "settingsExperiments": {
     "message": "<b>Streamers</b>"
@@ -473,15 +407,6 @@
   "tooltipHideCamera": {
     "message": "enable it to hide your camera to make the conversation more natural"
   },
-  "risky": {
-    "message": "<b style='color:red'>Danger zone</b>"
-  },
-  "enableRisky": {
-    "message": "enable: "
-  },
-  "tooltipEnableRisky": {
-    "message": "gives access to dangerous functions whose careless use can lead to a ban"
-  },
   "apiCountry": {
     "message": "<b>Country: </b>"
   },
@@ -700,21 +625,6 @@
   },
   "switchModeButtonText": {
     "message": "switch mode"
-  },
-  "dangerWarningTitle": {
-    "message": "'Danger Zone' actived"
-  },
-  "dangerWarningConfirmButtonText": {
-    "message": "close warning"
-  },
-  "dangerWarningCancelButtonText": {
-    "message": "hide for 24h"
-  },
-  "dangerWarningDenyButtonText": {
-    "message": "disable danger zone"
-  },
-  "dangerWarningHtmlContent": {
-    "message": "You have 'Danger Zone' enabled in your settings.<br><br>These are special features that can replace your camera with the interlocutors's camera or interfere with your connection to the Chatruletka server.<br><br>You can get banned from the chat for abusing certain features.<br><br>If you don't understand what they are doing or you think something is broken, turn off the 'danger zone', I warned you."
   },
   "changelogButtonText": {
     "message": "Open changelog"

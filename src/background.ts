@@ -1,9 +1,6 @@
 // dict with default settings that should be applied when installing/updating the extension
 // there is no uniform style of variable names because of the long life of the codebase
 var defaults = {
-    mirror: false,
-    mirrorAlt: false,
-    prikol: false,
     expand: true,
     hideWatermark: false,
     hideBanner: false,
@@ -12,20 +9,12 @@ var defaults = {
     skipMale: false,
     skipFemale: false,
     possibleReview: false,
-    ws: false,
     nsfw: false,
     skipSound: false,
     enableFaceApi: false,
     skipFourSec: false,
     autoResume: false,
     hotkeys: true,
-    wsconfig: {
-        theyskipsound: true,
-        skipwrongcountry: true,
-        replacePic: false,
-        deletePic: false,
-        replaceReportPics: false,
-    },
     stats: {
         countAll: 0,
         countNew: 0,
@@ -42,7 +31,6 @@ var defaults = {
     doNotReflect: false,
     doNotCover: false,
     hideCamera: false,
-    risky: false,
     streamerMirror: false,
     blurOnStart: true,
     streamerPip: true,
@@ -87,8 +75,6 @@ var defaults = {
     askForMode: false,
     minimalism: false,
     lastInstanceOpened: "https://videochatru.com/embed/",
-    showDangerWarning: true,
-    lastShowedDangerWarning: 0,
     lastVersion: "",
     skipwrongcountry: false,
 };
