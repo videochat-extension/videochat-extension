@@ -74,3 +74,15 @@ globalThis.language = window.navigator.language.slice(0, 2)
 globalThis.requestToStartTiming = 0
 globalThis.requestToSkip = false
 globalThis.torrenstsConfirmed = false
+
+// blacklist
+globalThis.male = new Audio(chrome.runtime.getURL('resources/audio/male.mp3'))
+globalThis.ban = new Audio(chrome.runtime.getURL('resources/audio/ban.mp3'))
+// target geolocation
+globalThis.targetSound = new Audio(chrome.runtime.getURL('resources/audio/found.mp3'))
+
+// blacklist
+globalThis.male.volume = 0.3
+globalThis.ban.volume = 0.45
+// target geolocation
+globalThis.targetSound.volume = 0.5

@@ -138,13 +138,4 @@ export function injectInterface() {
     // $('.tooltip').tooltipster({maxWidth: 300, distance: -1})
 
     globalThis.mapModule = mapModule.getInstance()
-
-
-    globalThis.male = new Audio(chrome.runtime.getURL('resources/audio/male.mp3'))
-    globalThis.ban = new Audio(chrome.runtime.getURL('resources/audio/ban.mp3'))
-    globalThis.targetSound = new Audio(chrome.runtime.getURL('resources/audio/found.mp3'))
-
-    globalThis.male.volume = 0.3
-    globalThis.ban.volume = 0.45
-    globalThis.targetSound.volume = 0.5
 }
