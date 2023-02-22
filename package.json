@@ -27,6 +27,7 @@
     "webpack-cli": "^4.10.0",
     "webpack-merge": "^5.8.0"
   },
+  "//": "one should be careful when upgrading sweetalert2 / leaflet",
   "dependencies": {
     "@sentry/browser": "^7.38.0",
     "@tensorflow/tfjs-core": "^1.2.9",
