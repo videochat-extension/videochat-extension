@@ -4,6 +4,7 @@
   "description": "",
   "scripts": {
     "watch": "webpack --config webpack/webpack.dev.js --watch",
+    "dev": "webpack --config webpack/webpack.dev.js",
     "build": "webpack --config webpack/webpack.prod.js",
     "clean": "rimraf dist"
   },
