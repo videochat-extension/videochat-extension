@@ -1,3 +1,5 @@
+// ugly way to notify user that extension was updated and page needs to be reloaded
+
 import Swal from "sweetalert2";
 
 let updateNeedReloadTitle = chrome.i18n.getMessage('updateNeedReloadTitle')
