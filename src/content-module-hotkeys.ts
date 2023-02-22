@@ -1,5 +1,5 @@
 import $ from "jquery";
-import {syncBlackList} from "./content";
+import {syncBlackList} from "./content-module-blacklist";
 
 export function hotkeys(e: KeyboardEvent) {
     if ((e.target instanceof HTMLElement && e.target.className === "emojionearea-editor") || (e.target instanceof HTMLElement && e.target.id === "mapid") || $(".swal2-popup").length > 0)

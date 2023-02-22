@@ -8,8 +8,6 @@ import {createTabStats} from "./content-controls-tab-stats";
 import {createTabSettings} from "./content-controls-tab-settings";
 import {createTabAbout} from "./content-controls-tab-about";
 import {mapModule} from "./content-module-map";
-import {ContentSwalInfo} from "./content-swal-info";
-import {ContentSwalChangelog} from "./content-swal-changelog";
 
 function createStyle() {
     return utils.createElement('style', {

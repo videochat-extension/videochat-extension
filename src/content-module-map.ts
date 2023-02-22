@@ -4,6 +4,7 @@ import * as L from "leaflet";
 
 export class mapModule {
     private static instanceRef: mapModule;
+
     public videoContainerHeight = 0
     public chatContainerHeight = 0
 
