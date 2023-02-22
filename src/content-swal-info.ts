@@ -123,7 +123,7 @@ export class SwalWithSteps {
     }
 }
 
-export class SwalInfo extends SwalWithSteps {
+export class ContentSwalInfo extends SwalWithSteps {
     constructor() {
         super();
         this.swalQueueStep = this.swalQueueStep.mixin({

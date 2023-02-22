@@ -1,7 +1,8 @@
 import * as utils from "./utils";
 import $ from "jquery";
 import * as DOMPurify from "dompurify";
-import {resizemap, stopAndStart, processData, syncBlackList} from "./content"
+import {stopAndStart, processData, syncBlackList} from "./content"
+import {resizemap} from "./content-controls"
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         if (request.command) {

@@ -1,6 +1,6 @@
-import {SwalWithSteps} from "./swal-info";
+import {SwalWithSteps} from "./content-swal-info";
 
-export class SwalChangelog extends SwalWithSteps {
+export class ContentSwalChangelog extends SwalWithSteps {
     constructor() {
         super();
         this.swalQueueStep = this.swalQueueStep.mixin({
