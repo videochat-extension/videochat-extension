@@ -1,12 +1,17 @@
-import Swal from "sweetalert2";
-import $ from "jquery";
+import {SwalWithSteps} from "./swal-info";
 
-export const showSwalChangelog = async function (version: string) {
-    if (version === "") {
-        version = chrome.runtime.getManifest().version
+export class SwalChangelog extends SwalWithSteps {
+    constructor() {
+        super();
+        this.swalQueueStep = this.swalQueueStep.mixin({
+            showCancelButton: true,
+            allowEscapeKey: true,
+            progressSteps: this.steps,
+            progressStepsDistance: "4%"
+        })
     }
 
-    const steps = [
+    protected steps: string[] = [
         '0.1',
         '0.2',
         '0.3',
@@ -41,46 +46,50 @@ export const showSwalChangelog = async function (version: string) {
         '1.6.3'
     ]
 
-    const getGitHub = (tag: string, date: string) => {
+    private getGitHub = (tag: string, date: string) => {
         return `<a href="https://github.com/qrlk/videochatru-extension/releases/tag/${tag}" style=\"text-decoration: none!important;\" target=\"_blank\">${tag} ${date}</a>`
     }
 
-    const titles = [
-        getGitHub('v0.1', '(2021-09-27)'),
-        getGitHub('v0.2', '(2021-10-01)'),
-        getGitHub('v0.3', '(2021-10-13)'),
-        getGitHub('v0.4', '(2021-11-01)'),
-        getGitHub('v0.5', '(2021-12-27)'),
-        getGitHub('v0.6', '(2021-12-31)'),
-        getGitHub('v0.7', '(2022-01-03)'),
-        getGitHub('v0.7.1', '(2022-01-07)'),
-        getGitHub('v1.0', '(2022-05-24)'),
-        getGitHub('v1.1', '(2022-05-27)'),
-        getGitHub('v1.1.1', '(2022-08-04)'),
-        getGitHub('v1.1.2', '(2022-08-04)'),
-        getGitHub('v1.1.3', '(2022-08-04)'),
-        getGitHub('v1.1.4', '(2022-08-05)'),
-        getGitHub('v1.2.0', '(2022-08-05)'),
-        getGitHub('v1.3.0', '(2022-08-07)'),
-        getGitHub('v1.3.1', '(2022-08-07)'),
-        getGitHub('v1.3.2', '(2022-08-09)'),
-        getGitHub('v1.3.3', '(2022-08-12)'),
-        getGitHub('v1.4.0', '(2022-09-01)'),
-        getGitHub('v1.4.1', '(2022-09-02)'),
-        getGitHub('v1.4.2', '(2022-09-02)'),
-        getGitHub('v1.5.0', '(2022-09-05)'),
-        getGitHub('v1.5.1', '(2022-09-08)'),
-        getGitHub('v1.5.2', '(2022-09-11)'),
-        getGitHub('v1.5.3', '(2022-10-06)'),
-        getGitHub('v1.5.4', '(2022-10-19)'),
-        getGitHub('v1.5.5', '(2022-10-19)'),
-        getGitHub('v1.6.0', '(2022-11-17)'),
-        getGitHub('v1.6.1', '(2022-11-25)'),
-        getGitHub('v1.6.2', '(2023-01-15)'),
-        getGitHub('v1.6.3', '(2023-01-15)')
+    protected getHTML = () => {
+        return `<div style="text-align: left; min-height: 300px; max-height: 300px">${this.getValue()}</div>`
+    }
+
+    protected titles = [
+        this.getGitHub('v0.1', '(2021-09-27)'),
+        this.getGitHub('v0.2', '(2021-10-01)'),
+        this.getGitHub('v0.3', '(2021-10-13)'),
+        this.getGitHub('v0.4', '(2021-11-01)'),
+        this.getGitHub('v0.5', '(2021-12-27)'),
+        this.getGitHub('v0.6', '(2021-12-31)'),
+        this.getGitHub('v0.7', '(2022-01-03)'),
+        this.getGitHub('v0.7.1', '(2022-01-07)'),
+        this.getGitHub('v1.0', '(2022-05-24)'),
+        this.getGitHub('v1.1', '(2022-05-27)'),
+        this.getGitHub('v1.1.1', '(2022-08-04)'),
+        this.getGitHub('v1.1.2', '(2022-08-04)'),
+        this.getGitHub('v1.1.3', '(2022-08-04)'),
+        this.getGitHub('v1.1.4', '(2022-08-05)'),
+        this.getGitHub('v1.2.0', '(2022-08-05)'),
+        this.getGitHub('v1.3.0', '(2022-08-07)'),
+        this.getGitHub('v1.3.1', '(2022-08-07)'),
+        this.getGitHub('v1.3.2', '(2022-08-09)'),
+        this.getGitHub('v1.3.3', '(2022-08-12)'),
+        this.getGitHub('v1.4.0', '(2022-09-01)'),
+        this.getGitHub('v1.4.1', '(2022-09-02)'),
+        this.getGitHub('v1.4.2', '(2022-09-02)'),
+        this.getGitHub('v1.5.0', '(2022-09-05)'),
+        this.getGitHub('v1.5.1', '(2022-09-08)'),
+        this.getGitHub('v1.5.2', '(2022-09-11)'),
+        this.getGitHub('v1.5.3', '(2022-10-06)'),
+        this.getGitHub('v1.5.4', '(2022-10-19)'),
+        this.getGitHub('v1.5.5', '(2022-10-19)'),
+        this.getGitHub('v1.6.0', '(2022-11-17)'),
+        this.getGitHub('v1.6.1', '(2022-11-25)'),
+        this.getGitHub('v1.6.2', '(2023-01-15)'),
+        this.getGitHub('v1.6.3', '(2023-01-15)')
     ]
 
-    const values: { [key: string]: any } = {
+    protected values: { en: string[], ru: string[] } = {
         "en": [
             // v0.1 (2021-09-27)
             '<b>The first known version for a mass audience.</b><br>' +
@@ -925,101 +934,26 @@ export const showSwalChangelog = async function (version: string) {
         ],
     }
 
-    let index = steps.indexOf(version)
-    if (steps.indexOf(version) + 1 < steps.length) {
-        index++
-    }
-
-    let currentStep = index
-
-    const swalQueueStep = Swal.mixin({
-        // disable animation
-        showClass: {popup: 'swal2-noanimation', backdrop: 'swal2-noanimation'},
-        hideClass: {backdrop: 'swal2-noanimation'},
-        allowOutsideClick: false,
-        allowEscapeKey: true,
-        allowEnterKey: true,
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: chrome.i18n.getMessage('confirmButtonText'),
-        denyButtonText: chrome.i18n.getMessage('denyButtonText'),
-        cancelButtonText: chrome.i18n.getMessage('cancelButtonText'),
-        heightAuto: false,
-        reverseButtons: true,
-        progressSteps: steps,
-        progressStepsDistance: "4%",
-    })
-
-    const selectStep = function (step: number) {
-        swalQueueStep.update({
-            title: titles[currentStep],
-            html: `<div style="text-align: left; min-height: 300px; max-height: 300px">${values[chrome.i18n.getMessage('lang')][currentStep]}</div>`,
-            currentProgressStep: currentStep
-        })
-    }
-
-    const arrowHotkeys = function (e: KeyboardEvent) {
-        switch (e.key) {
-            case "ArrowLeft":
-                Swal.getCancelButton()!.click()
-                break;
-
-            case "ArrowUp":
-                Swal.getDenyButton()!.click()
-                break;
-
-            case "ArrowRight":
-                Swal.getConfirmButton()!.click()
-                break;
+    protected getValue: () => string = () => {
+        let lang = chrome.i18n.getMessage('lang')
+        if (lang == "en" || lang === "ru") {
+            return this.values[lang][this.currentStep]
+        } else {
+            return this.values["en"][this.currentStep]
         }
-        e.preventDefault()
     }
 
-    const result = await swalQueueStep.fire(
-        {
-            title: titles[currentStep],
-            html: `<div style="text-align: left; min-height: 300px; max-height: 300px">${values[chrome.i18n.getMessage('lang')][currentStep]}</div>`,
-            currentProgressStep: currentStep,
-
-            willOpen: (e) => {
-                (e.querySelector('.swal2-cancel') as HTMLElement).onclick = (e) => {
-                    if (currentStep - 1 >= 0) {
-                        currentStep = currentStep - 1
-                        selectStep(currentStep)
-                    } else {
-                        // Swal.close()
-                    }
-                }
-                (e.querySelector('.swal2-confirm') as HTMLElement).onclick = (e) => {
-                    if (currentStep + 1 < steps.length) {
-                        currentStep = currentStep + 1
-                        selectStep(currentStep)
-                    } else {
-                        Swal.close()
-                    }
-                }
-            },
-
-            didOpen: () => {
-                document.removeEventListener('keyup', arrowHotkeys)
-                document.addEventListener('keyup', arrowHotkeys)
-            },
-
-            didRender: () => {
-                let progressSteps = $(".swal2-progress-step")
-                progressSteps.css({
-                    "user-select": "none",
-                    'cursor': 'pointer'
-                })
-                progressSteps.click(function (el) {
-                    currentStep = steps.indexOf(el.target.innerText)
-                    selectStep(currentStep)
-                })
-            },
-
-            willClose: () => {
-                document.removeEventListener('keyup', arrowHotkeys)
-            }
+    public showFromVersion = async (version: string) => {
+        if (version === "") {
+            version = chrome.runtime.getManifest().version
         }
-    )
+        let index = this.steps.indexOf(version)
+        if (this.steps.indexOf(version) + 1 < this.steps.length) {
+            index++
+        }
+
+        this.currentStep = index
+
+        return await this.show()
+    }
 }

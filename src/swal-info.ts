@@ -1,10 +1,145 @@
 import Swal from "sweetalert2";
 import $ from "jquery";
 
-export const showSwalInfo = async function () {
-    const steps = ['1', '2', '3', '4', '5', '6', '7']
+export class SwalWithSteps {
+    protected steps: string[] = []
 
-    const titles = [
+    protected currentStep: number = 0
+
+    protected titles: string[] = []
+
+    protected values: any = []
+
+    protected getValue: () => string = () => {
+        return this.values[this.currentStep]
+    }
+
+    protected swalQueueStep = Swal.mixin({
+        // disable animation
+        showClass: {popup: 'swal2-noanimation', backdrop: 'swal2-noanimation'},
+        hideClass: {backdrop: 'swal2-noanimation'},
+        allowOutsideClick: false,
+        allowEnterKey: true,
+        showDenyButton: true,
+        confirmButtonText: chrome.i18n.getMessage('confirmButtonText'),
+        denyButtonText: chrome.i18n.getMessage('denyButtonText'),
+        cancelButtonText: chrome.i18n.getMessage('cancelButtonText'),
+        heightAuto: false,
+        reverseButtons: true,
+        progressSteps: this.steps,
+    });
+
+    protected selectStep = (step: number) => {
+        this.swalQueueStep.update({
+            title: this.titles[this.currentStep],
+            showCancelButton: this.currentStep > 0,
+            html: this.getHTML(),
+            currentProgressStep: this.currentStep
+        })
+    }
+
+    protected getHTML = () => {
+        return `<div style="min-height: 300px;align-items: center;display: flex;justify-content: center;"><div>${this.getValue()}</div></div>`
+    }
+
+    protected arrowHotkeys = (e: KeyboardEvent) => {
+        switch (e.key) {
+            case "ArrowLeft":
+                if (this.currentStep !== 0) {
+                    Swal.getCancelButton()!.click()
+                    Swal.getCancelButton()!.focus()
+                } else {
+                    Swal.getConfirmButton()!.focus()
+                }
+                break;
+
+            case "ArrowUp":
+                Swal.getDenyButton()!.click()
+                break;
+
+            case "ArrowRight":
+                Swal.getConfirmButton()!.click()
+                Swal.getConfirmButton()!.focus()
+                break;
+        }
+        e.preventDefault()
+    }
+
+    protected willOpen = (e: HTMLElement) => {
+        (e.querySelector('.swal2-cancel') as HTMLElement).onclick = (e) => {
+            if (this.currentStep - 1 >= 0) {
+                this.currentStep = this.currentStep - 1
+                this.selectStep(this.currentStep)
+            } else {
+                // Swal.close()
+            }
+        }
+        (e.querySelector('.swal2-confirm') as HTMLElement).onclick = (e) => {
+            if (this.currentStep + 1 < this.steps.length) {
+                this.currentStep = this.currentStep + 1
+                this.selectStep(this.currentStep)
+            } else {
+                Swal.close()
+            }
+        }
+    }
+
+    protected didOpen = () => {
+        document.removeEventListener('keyup', this.arrowHotkeys)
+        document.addEventListener('keyup', this.arrowHotkeys)
+    }
+
+    protected didRender = () => {
+        let progressSteps = $(".swal2-progress-step")
+        progressSteps.css({
+            "user-select": "none",
+            'cursor': 'pointer'
+        })
+        let self = this
+        progressSteps.click(function (el) {
+            self.currentStep = self.steps.indexOf(el.target.innerText)
+            self.selectStep(self.currentStep)
+        })
+    }
+
+    protected willClose = () => {
+        document.removeEventListener('keyup', this.arrowHotkeys)
+    }
+
+    public async show() {
+        return await this.swalQueueStep.fire(
+            {
+                title: this.titles[this.currentStep],
+                html: this.getHTML(),
+                currentProgressStep: this.currentStep,
+                showCancelButton: this.currentStep > 0,
+
+                willOpen: this.willOpen,
+                didOpen: this.didOpen,
+                didRender: this.didRender,
+                willClose: this.willClose
+            }
+        )
+    }
+}
+
+export class SwalInfo extends SwalWithSteps {
+    constructor() {
+        super();
+        this.swalQueueStep = this.swalQueueStep.mixin({
+            progressSteps: this.steps,
+            preDeny: () => {
+                chrome.storage.sync.set({"swalInfoCompleted": true})
+            },
+            didDestroy() {
+                chrome.storage.sync.set({"swalInfoCompleted": true})
+            }
+        })
+    }
+
+    protected steps = ['1', '2', '3', '4', '5', '6', '7']
+
+    protected titles = [
         chrome.i18n.getMessage("swalInfoTitle1"),
         chrome.i18n.getMessage("swalInfoTitle2"),
         chrome.i18n.getMessage("swalInfoTitle3"),
@@ -14,7 +149,7 @@ export const showSwalInfo = async function () {
         "License"
     ]
 
-    const values = [
+    protected values = [
         chrome.i18n.getMessage("swalInfoText1"),
         chrome.i18n.getMessage("swalInfoText2"),
         chrome.i18n.getMessage("swalInfoText3"),
@@ -44,104 +179,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.</div>`
     ]
 
-    let currentStep = 0
-
-    const swalQueueStep = Swal.mixin({
-        // disable animation
-        showClass: {popup: 'swal2-noanimation', backdrop: 'swal2-noanimation'},
-        hideClass: {backdrop: 'swal2-noanimation'},
-        allowOutsideClick: false,
-        allowEnterKey: true,
-        showDenyButton: true,
-        preDeny: () => {
-            chrome.storage.sync.set({"swalInfoCompleted": true})
-        },
-        confirmButtonText: chrome.i18n.getMessage('confirmButtonText'),
-        denyButtonText: chrome.i18n.getMessage('denyButtonText'),
-        cancelButtonText: chrome.i18n.getMessage('cancelButtonText'),
-        heightAuto: false,
-        reverseButtons: true,
-        progressSteps: steps,
-    })
-
-    const selectStep = function (step: number) {
-        swalQueueStep.update({
-            title: titles[currentStep],
-            html: `<div style="min-height: 300px;align-items: center;display: flex;justify-content: center;"><div>${values[currentStep]}</div></div>`,
-            showCancelButton: currentStep > 0,
-            currentProgressStep: currentStep,
-        })
+    public showFromStart = async () => {
+        this.currentStep = 0
+        return this.show()
     }
-
-    const arrowHotkeys = function (e: KeyboardEvent) {
-        switch (e.key) {
-            case "ArrowLeft":
-                if (currentStep !== 0) {
-                    Swal.getCancelButton()!.click()
-                    Swal.getCancelButton()!.focus()
-                } else {
-                    Swal.getConfirmButton()!.focus()
-                }
-                break;
-
-            case "ArrowUp":
-                Swal.getDenyButton()!.click()
-                break;
-
-            case "ArrowRight":
-                Swal.getConfirmButton()!.click()
-                Swal.getConfirmButton()!.focus()
-                break;
-        }
-        e.preventDefault()
-    }
-
-    const result = await swalQueueStep.fire(
-        {
-            title: titles[currentStep],
-            html: `<div style="min-height: 300px;align-items: center;display: flex;justify-content: center;"><div>${values[currentStep]}</div></div>`,
-            showCancelButton: currentStep > 0,
-            currentProgressStep: currentStep,
-
-            willOpen: (e) => {
-                (e.querySelector('.swal2-cancel') as HTMLElement).onclick = (e: any) => {
-                    if (currentStep - 1 >= 0) {
-                        currentStep = currentStep - 1
-                        selectStep(currentStep)
-                        Swal.getCancelButton()!.focus()
-                    } else {
-                        Swal.close()
-                    }
-                };
-                (e.querySelector('.swal2-confirm') as HTMLElement).onclick = (e: any) => {
-                    if (currentStep + 1 < steps.length) {
-                        currentStep = currentStep + 1
-                        selectStep(currentStep)
-                        Swal.getConfirmButton()!.focus()
-                    } else {
-                        Swal.close()
-                        chrome.storage.sync.set({"swalInfoCompleted": true})
-                    }
-                }
-            },
-            didOpen: () => {
-                document.removeEventListener('keyup', arrowHotkeys)
-                document.addEventListener('keyup', arrowHotkeys)
-            },
-            didRender: () => {
-                let progressSteps = $(".swal2-progress-step")
-                progressSteps.css({
-                    "user-select": "none",
-                    'cursor': 'pointer'
-                })
-                progressSteps.click(function (el) {
-                    currentStep = steps.indexOf(el.target.innerText)
-                    selectStep(currentStep)
-                })
-            },
-            willClose: () => {
-                document.removeEventListener('keyup', arrowHotkeys)
-            }
-        }
-    )
 }
