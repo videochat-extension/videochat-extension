@@ -15,7 +15,7 @@ import "./content-sentry"
 import "./background-listener"
 import "./content-swal-context-invalidated"
 import {updStats} from "./content-controls-tab-stats";
-import {injectInterface, outputsize, resizemap} from "./content-controls";
+import {injectInterface} from "./content-controls";
 import {switchMode} from "./content-swal-switchmode";
 
 require('arrive')
@@ -130,7 +130,7 @@ const onUpdateIP = function () {
         globalThis.settings.stats.countDup++
         console.dir("old ip")
         if (globalThis.settings.skipSound)
-            (document.getElementById('ban') as HTMLAudioElement).play();
+            globalThis.ban.play();
         stopAndStart()
     } else {
         globalThis.curIps.push(newIp)
@@ -340,7 +340,7 @@ export function processData(json: any, ip: string) { // TODO: fix type
                 } else {
                     globalThis.needToCheckTarget = false
                     if (globalThis.settings.targetSound) {
-                        (document.getElementById('targetSound') as HTMLAudioElement).play();
+                        globalThis.targetSound.play();
                         console.dir(`FOUND TARGET CITY: ${globalThis.settings.targetCity}`)
                     }
                 }
@@ -354,7 +354,7 @@ export function processData(json: any, ip: string) { // TODO: fix type
                 } else {
                     globalThis.needToCheckTarget = false
                     if (globalThis.settings.targetSound) {
-                        (document.getElementById('targetSound') as HTMLAudioElement).play();
+                        (globalThis.targetSound).play();
                         console.dir(`FOUND TARGET REGION: ${globalThis.settings.targetRegion}`)
                     }
                 }
@@ -362,44 +362,9 @@ export function processData(json: any, ip: string) { // TODO: fix type
         }
     }
 
-    updateMap(globalThis.curInfo)
+    globalThis.mapModule.updateMap(globalThis.curInfo)
 
     return true
-}
-
-export function updateMap(json: any) {
-    if (!$(document.getElementById("mapTabButton") as HTMLElement).hasClass("active") || Object.keys(globalThis.curInfo).length === 0) {
-        return
-    }
-
-    if (typeof globalThis.marker !== 'undefined')
-        globalThis.map.removeLayer(globalThis.marker)
-
-    if (typeof globalThis.circle !== 'undefined')
-        globalThis.map.removeLayer(globalThis.circle)
-
-    if (globalThis.settings.hideMobileLocation && json.mobile) {
-        globalThis.circle = L.circle([json.lat, json.lon], 300000, {
-            color: 'red',
-            fillColor: '#f03',
-            fillOpacity: 0.2
-        })
-
-        globalThis.map.setView(new L.LatLng(json.lat, json.lon), 5);
-        globalThis.marker = new L.Marker([json.lat, json.lon]);
-    } else {
-        globalThis.circle = L.circle([json.lat, json.lon], 30000, {
-            color: 'blue',
-            fillColor: '#808080',
-            fillOpacity: 0.1
-        })
-
-        globalThis.map.setView(new L.LatLng(json.lat, json.lon), 13);
-        globalThis.marker = new L.Marker([json.lat, json.lon]);
-    }
-
-    globalThis.map.addLayer(globalThis.circle)
-    globalThis.map.addLayer(globalThis.marker)
 }
 
 const onChangeStage = function (mutations: any[]) {
@@ -491,14 +456,14 @@ export function syncBlackList() {
             chrome.storage.local.set({"ips": globalThis.local.ips});
 
             if (globalThis.settings.skipSound)
-                (document.getElementById('male') as HTMLAudioElement).play();
+                globalThis.male.play();
         }
     } else {
         globalThis.local.ips.push((document.getElementById("remoteIP") as HTMLElement).innerText)
         chrome.storage.local.set({"ips": globalThis.local.ips});
 
         if (globalThis.settings.skipSound)
-            (document.getElementById('male') as HTMLAudioElement).play();
+            globalThis.male.play();
     }
 }
 
@@ -580,7 +545,7 @@ function checkApi() {
             (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
             (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus1") + "</br></br>" + chrome.i18n.getMessage("main")
             if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                resizemap(false)
+                globalThis.mapModule.resizemap(false)
             }
         }
     }).fail(function (jqxhr, textStatus, error) {
@@ -872,7 +837,7 @@ chrome.storage.sync.get(null, function (result) {
             }
         })
 
-        new ResizeObserver(outputsize).observe(document.getElementById("overlay") as HTMLElement)
+        new ResizeObserver(globalThis.mapModule.outputsize).observe(document.getElementById("overlay") as HTMLElement)
 
         const observer = new MutationObserver(onUpdateIP)
         observer.observe(document.getElementById('remoteIP') as HTMLElement, {

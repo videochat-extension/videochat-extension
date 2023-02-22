@@ -2,7 +2,7 @@ import * as utils from "./utils";
 import $ from "jquery";
 import * as DOMPurify from "dompurify";
 import {stopAndStart, processData, syncBlackList} from "./content"
-import {resizemap} from "./content-controls"
+
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         if (request.command) {
@@ -74,7 +74,7 @@ chrome.runtime.onMessage.addListener(
                     (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage("main")
 
                     if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                        resizemap(false)
+                        globalThis.mapModule.resizemap(false)
                     }
                 }
                 console.dir(`ip-api.com test passed: ${request.apiTestCode}`)
@@ -90,7 +90,7 @@ chrome.runtime.onMessage.addListener(
                     (document.getElementById("apiStatus") as HTMLElement).innerHTML = DOMPurify.sanitize('<b>ERROR: ' + request.apiTestResult + ' || </b>' + chrome.i18n.getMessage("apiStatus0"));
                     (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("main")
                     if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                        resizemap(false)
+                        globalThis.mapModule.resizemap(false)
                     }
                 }
             }

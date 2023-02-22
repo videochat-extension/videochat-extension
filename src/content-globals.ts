@@ -1,6 +1,7 @@
 import $ from "jquery";
 import {ContentSwalChangelog} from "./content-swal-changelog"
 import {ContentSwalInfo} from "./content-swal-info"
+import {mapModule} from "./content-module-map";
 
 export {}
 
@@ -32,9 +33,15 @@ declare global {
     var requestToStartTiming: number;
     var requestToSkip: boolean;
     var torrenstsConfirmed: boolean;
-    var changelog: ContentSwalChangelog;
     var info: ContentSwalInfo;
     var dark: HTMLLinkElement;
+    var changelog: ContentSwalChangelog;
+    var mapModule: mapModule;
+    //blacklist
+    var male: HTMLAudioElement;
+    var ban: HTMLAudioElement;
+    // geolocation
+    var targetSound: HTMLAudioElement;
 }
 
 globalThis.api = 1

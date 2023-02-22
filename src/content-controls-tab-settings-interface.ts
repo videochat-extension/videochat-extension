@@ -1,7 +1,6 @@
 import * as utils from "./utils";
 import $ from "jquery";
 import {confirmAndReload} from "./content-controls-tab-settings";
-import {resizemap} from "./content-controls";
 
 export function createSettingsInterface() {
     return utils.createElement('div', {}, [
@@ -230,10 +229,10 @@ export function createSettingsInterface() {
                         chrome.storage.sync.set({"expand": (document.getElementById("expandCheck") as HTMLInputElement).checked}, function () {
                             if ((document.getElementById("expandCheck") as HTMLInputElement).checked) {
                                 setTimeout(() => {
-                                    resizemap(true)
+                                    globalThis.mapModule.resizemap(true)
                                 }, 100)
                             } else {
-                                resizemap(false)
+                                globalThis.mapModule.resizemap(false)
                             }
                         });
                     }
