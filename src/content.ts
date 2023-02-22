@@ -1,18 +1,28 @@
-// "sentry.js",
+import "./content-globals"
+
 import * as Sentry from "@sentry/browser";
 import {ErrorEvent} from "@sentry/types";
 
-require('arrive')
-require('tooltipster')
+import $ from "jquery";
+
 import * as faceapi from 'face-api.js';
 import * as L from 'leaflet'
 import * as DOMPurify from 'dompurify';
 import Swal from 'sweetalert2'
-import $ from "jquery";
 
-import {showSwalChangelog} from "./swal-changelog"
-import {showSwalInfo} from "./swal-info"
+require('arrive')
+require('tooltipster')
+
+import {SwalChangelog} from "./swal-changelog"
+let changelog = new SwalChangelog()
+
+import {SwalInfo} from "./swal-info"
+let info = new SwalInfo()
+
 import * as utils from "./utils"
+
+import {hotkeys} from "./content-hotkeys";
+import "./background-listener"
 import "./swal-context-invalidated"
 
 utils.addStyle(` .leaflet-pane, .leaflet-tile, .leaflet-marker-icon, .leaflet-marker-shadow, .leaflet-tile-container, .leaflet-pane > svg, .leaflet-pane > canvas, .leaflet-zoom-box, .leaflet-image-layer, .leaflet-layer {position: absolute;left: 0;top: 0;}.leaflet-container {overflow: hidden;}.leaflet-tile, .leaflet-marker-icon, .leaflet-marker-shadow {-webkit-user-select: none;-moz-user-select: none;user-select: none;-webkit-user-drag: none;}.leaflet-tile::selection {background: transparent;}.leaflet-safari .leaflet-tile {image-rendering: -webkit-optimize-contrast;}.leaflet-safari .leaflet-tile-container {width: 1600px;height: 1600px;-webkit-transform-origin: 0 0;}.leaflet-marker-icon, .leaflet-marker-shadow {display: block;}.leaflet-container .leaflet-overlay-pane svg {max-width: none !important;max-height: none !important;}.leaflet-container .leaflet-marker-pane img, .leaflet-container .leaflet-shadow-pane img, .leaflet-container .leaflet-tile-pane img, .leaflet-container img.leaflet-image-layer, .leaflet-container .leaflet-tile {max-width: none !important;max-height: none !important;width: auto;padding: 0;}.leaflet-container.leaflet-touch-zoom {-ms-touch-action: pan-x pan-y;touch-action: pan-x pan-y;}.leaflet-container.leaflet-touch-drag {-ms-touch-action: pinch-zoom;touch-action: none;touch-action: pinch-zoom;}.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {-ms-touch-action: none;touch-action: none;}.leaflet-container {-webkit-tap-highlight-color: transparent;}.leaflet-container a {-webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);}.leaflet-tile {filter: inherit;visibility: hidden;}.leaflet-tile-loaded {visibility: inherit;}.leaflet-zoom-box {width: 0;height: 0;-moz-box-sizing: border-box;box-sizing: border-box;z-index: 800;}.leaflet-overlay-pane svg {-moz-user-select: none;}.leaflet-pane {z-index: 400;}.leaflet-tile-pane {z-index: 200;}.leaflet-overlay-pane {z-index: 400;}.leaflet-shadow-pane {z-index: 500;}.leaflet-marker-pane {z-index: 600;}.leaflet-tooltip-pane {z-index: 650;}.leaflet-popup-pane {z-index: 700;}.leaflet-map-pane canvas {z-index: 100;}.leaflet-map-pane svg {z-index: 200;}.leaflet-vml-shape {width: 1px;height: 1px;}.lvml {behavior: url(#default#VML);display: inline-block;position: absolute;}.leaflet-control {position: relative;z-index: 800;pointer-events: visiblePainted;pointer-events: auto;}.leaflet-top, .leaflet-bottom {position: absolute;z-index: 1000;pointer-events: none;}.leaflet-top {top: 0;}.leaflet-right {right: 0;}.leaflet-bottom {bottom: 0;}.leaflet-left {left: 0;}.leaflet-control {float: left;clear: both;}.leaflet-right .leaflet-control {float: right;}.leaflet-top .leaflet-control {margin-top: 10px;}.leaflet-bottom .leaflet-control {margin-bottom: 10px;}.leaflet-left .leaflet-control {margin-left: 10px;}.leaflet-right .leaflet-control {margin-right: 10px;}.leaflet-fade-anim .leaflet-popup {opacity: 0;-webkit-transition: opacity 0.2s linear;-moz-transition: opacity 0.2s linear;transition: opacity 0.2s linear;}.leaflet-fade-anim .leaflet-map-pane .leaflet-popup {opacity: 1;}.leaflet-zoom-animated {-webkit-transform-origin: 0 0;-ms-transform-origin: 0 0;transform-origin: 0 0;}svg.leaflet-zoom-animated {will-change: transform;}.leaflet-zoom-anim .leaflet-zoom-animated {-webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);-moz-transition: -moz-transform 0.25s cubic-bezier(0,0,0.25,1);transition: transform 0.25s cubic-bezier(0,0,0.25,1);}.leaflet-zoom-anim .leaflet-tile, .leaflet-pan-anim .leaflet-tile {-webkit-transition: none;-moz-transition: none;transition: none;}.leaflet-zoom-anim .leaflet-zoom-hide {visibility: hidden;}.leaflet-interactive {cursor: pointer;}.leaflet-grab {cursor: -webkit-grab;cursor: -moz-grab;cursor: grab;}.leaflet-crosshair, .leaflet-crosshair .leaflet-interactive {cursor: crosshair;}.leaflet-popup-pane, .leaflet-control {cursor: auto;}.leaflet-dragging .leaflet-grab, .leaflet-dragging .leaflet-grab .leaflet-interactive, .leaflet-dragging .leaflet-marker-draggable {cursor: move;cursor: -webkit-grabbing;cursor: -moz-grabbing;cursor: grabbing;}.leaflet-marker-icon, .leaflet-marker-shadow, .leaflet-image-layer, .leaflet-pane > svg path, .leaflet-tile-container {pointer-events: none;}.leaflet-marker-icon.leaflet-interactive, .leaflet-image-layer.leaflet-interactive, .leaflet-pane > svg path.leaflet-interactive, svg.leaflet-image-layer.leaflet-interactive path {pointer-events: visiblePainted;pointer-events: auto;}.leaflet-container {background: #ddd;outline-offset: 1px;}.leaflet-container a {color: #0078A8;}.leaflet-zoom-box {border: 2px dotted #38f;background: rgba(255,255,255,0.5);}.leaflet-container {font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;font-size: 12px;font-size: 0.75rem;line-height: 1.5;}.leaflet-bar {box-shadow: 0 1px 5px rgba(0,0,0,0.65);border-radius: 4px;}.leaflet-bar a {background-color: #fff;border-bottom: 1px solid #ccc;width: 26px;height: 26px;line-height: 26px;display: block;text-align: center;text-decoration: none;color: black;}.leaflet-bar a, .leaflet-control-layers-toggle {background-position: 50% 50%;background-repeat: no-repeat;display: block;}.leaflet-bar a:hover, .leaflet-bar a:focus {background-color: #f4f4f4;}.leaflet-bar a:first-child {border-top-left-radius: 4px;border-top-right-radius: 4px;}.leaflet-bar a:last-child {border-bottom-left-radius: 4px;border-bottom-right-radius: 4px;border-bottom: none;}.leaflet-bar a.leaflet-disabled {cursor: default;background-color: #f4f4f4;color: #bbb;}.leaflet-touch .leaflet-bar a {width: 30px;height: 30px;line-height: 30px;}.leaflet-touch .leaflet-bar a:first-child {border-top-left-radius: 2px;border-top-right-radius: 2px;}.leaflet-touch .leaflet-bar a:last-child {border-bottom-left-radius: 2px;border-bottom-right-radius: 2px;}.leaflet-control-zoom-in, .leaflet-control-zoom-out {font: bold 18px 'Lucida Console', Monaco, monospace;text-indent: 1px;}.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out {font-size: 22px;}.leaflet-control-layers {box-shadow: 0 1px 5px rgba(0,0,0,0.4);background: #fff;border-radius: 5px;}.leaflet-control-layers-toggle {background-image: url(images/layers.png);width: 36px;height: 36px;}.leaflet-retina .leaflet-control-layers-toggle {background-image: url(images/layers-2x.png);background-size: 26px 26px;}.leaflet-touch .leaflet-control-layers-toggle {width: 44px;height: 44px;}.leaflet-control-layers .leaflet-control-layers-list, .leaflet-control-layers-expanded .leaflet-control-layers-toggle {display: none;}.leaflet-control-layers-expanded .leaflet-control-layers-list {display: block;position: relative;}.leaflet-control-layers-expanded {padding: 6px 10px 6px 6px;color: #333;background: #fff;}.leaflet-control-layers-scrollbar {overflow-y: scroll;overflow-x: hidden;padding-right: 5px;}.leaflet-control-layers-selector {margin-top: 2px;position: relative;top: 1px;}.leaflet-control-layers label {display: block;font-size: 13px;font-size: 1.08333em;}.leaflet-control-layers-separator {height: 0;border-top: 1px solid #ddd;margin: 5px -10px 5px -6px;}.leaflet-default-icon-path {background-image: url(images/marker-icon.png);}.leaflet-container .leaflet-control-attribution {background: #fff;background: rgba(255, 255, 255, 0.8);margin: 0;}.leaflet-control-attribution, .leaflet-control-scale-line {padding: 0 5px;color: #333;line-height: 1.4;}.leaflet-control-attribution a {text-decoration: none;}.leaflet-control-attribution a:hover, .leaflet-control-attribution a:focus {text-decoration: underline;}.leaflet-attribution-flag {display: inline !important;vertical-align: baseline !important;width: 1em;height: 0.6669em;}.leaflet-left .leaflet-control-scale {margin-left: 5px;}.leaflet-bottom .leaflet-control-scale {margin-bottom: 5px;}.leaflet-control-scale-line {border: 2px solid #777;border-top: none;line-height: 1.1;padding: 2px 5px 1px;white-space: nowrap;-moz-box-sizing: border-box;box-sizing: border-box;background: rgba(255, 255, 255, 0.8);text-shadow: 1px 1px #fff;}.leaflet-control-scale-line:not(:first-child) {border-top: 2px solid #777;border-bottom: none;margin-top: -2px;}.leaflet-control-scale-line:not(:first-child):not(:last-child) {border-bottom: 2px solid #777;}.leaflet-touch .leaflet-control-attribution, .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {box-shadow: none;}.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {border: 2px solid rgba(0,0,0,0.2);background-clip: padding-box;}.leaflet-popup {position: absolute;text-align: center;margin-bottom: 20px;}.leaflet-popup-content-wrapper {padding: 1px;text-align: left;border-radius: 12px;}.leaflet-popup-content {margin: 13px 24px 13px 20px;line-height: 1.3;font-size: 13px;font-size: 1.08333em;min-height: 1px;}.leaflet-popup-content p {margin: 17px 0;margin: 1.3em 0;}.leaflet-popup-tip-container {width: 40px;height: 20px;position: absolute;left: 50%;margin-top: -1px;margin-left: -20px;overflow: hidden;pointer-events: none;}.leaflet-popup-tip {width: 17px;height: 17px;padding: 1px;margin: -10px auto 0;pointer-events: auto;-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-ms-transform: rotate(45deg);transform: rotate(45deg);}.leaflet-popup-content-wrapper, .leaflet-popup-tip {background: white;color: #333;box-shadow: 0 3px 14px rgba(0,0,0,0.4);}.leaflet-container a.leaflet-popup-close-button {position: absolute;top: 0;right: 0;border: none;text-align: center;width: 24px;height: 24px;font: 16px/24px Tahoma, Verdana, sans-serif;color: #757575;text-decoration: none;background: transparent;}.leaflet-container a.leaflet-popup-close-button:hover, .leaflet-container a.leaflet-popup-close-button:focus {color: #585858;}.leaflet-popup-scrolled {overflow: auto;}.leaflet-oldie .leaflet-popup-content-wrapper {-ms-zoom: 1;}.leaflet-oldie .leaflet-popup-tip {width: 24px;margin: 0 auto;-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)";filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678);}.leaflet-oldie .leaflet-control-zoom, .leaflet-oldie .leaflet-control-layers, .leaflet-oldie .leaflet-popup-content-wrapper, .leaflet-oldie .leaflet-popup-tip {border: 1px solid #999;}.leaflet-div-icon {background: #fff;border: 1px solid #666;}.leaflet-tooltip {position: absolute;padding: 6px;background-color: #fff;border: 1px solid #fff;border-radius: 3px;color: #222;white-space: nowrap;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;pointer-events: none;box-shadow: 0 1px 3px rgba(0,0,0,0.4);}.leaflet-tooltip.leaflet-interactive {cursor: pointer;pointer-events: auto;}.leaflet-tooltip-top:before, .leaflet-tooltip-bottom:before, .leaflet-tooltip-left:before, .leaflet-tooltip-right:before {position: absolute;pointer-events: none;border: 6px solid transparent;background: transparent;content: "";}.leaflet-tooltip-bottom {margin-top: 6px;}.leaflet-tooltip-top {margin-top: -6px;}.leaflet-tooltip-bottom:before, .leaflet-tooltip-top:before {left: 50%;margin-left: -6px;}.leaflet-tooltip-top:before {bottom: 0;margin-bottom: -12px;border-top-color: #fff;}.leaflet-tooltip-bottom:before {top: 0;margin-top: -12px;margin-left: -6px;border-bottom-color: #fff;}.leaflet-tooltip-left {margin-left: -6px;}.leaflet-tooltip-right {margin-left: 6px;}.leaflet-tooltip-left:before, .leaflet-tooltip-right:before {top: 50%;margin-top: -6px;}.leaflet-tooltip-left:before {right: 0;margin-right: -12px;border-left-color: #fff;}.leaflet-tooltip-right:before {left: 0;margin-left: -12px;border-right-color: #fff;}@media print {.leaflet-control {-webkit-print-color-adjust: exact;print-color-adjust: exact;}}`)
@@ -183,8 +193,8 @@ function injectInterface() {
 let videoContainerHeight = 0, chatContainerHeight = 0
 
 // TODO: FIX IT ON OME.TV: GO SETTINGS -> resize window -> GO OTHER TAB -> size wont change
-function resizemap(extend: boolean) {
-    if (extend && settings.expand) {
+export function resizemap(extend: boolean) {
+    if (extend && globalThis.settings.expand) {
         let newVideoContainerHeight = parseFloat((document.getElementById("video-container") as HTMLElement).style.height)
         let newChatContainerHeight = parseFloat((document.getElementsByClassName("chat-container")[0] as HTMLElement).style.height)
 
@@ -301,7 +311,7 @@ function createHeader() {
             ]),
             utils.createElement('button', {
                 style: function f() {
-                    if (settings.streamer && settings.streamerPip) {
+                    if (globalThis.settings.streamer && globalThis.settings.streamerPip) {
                         return "height:15px"
                     } else {
                         return "display:none"
@@ -323,7 +333,7 @@ function createHeader() {
         utils.createElement('a', {
             target: "_blank",
             style: (() => {
-                if (settings.darkMode)
+                if (globalThis.settings.darkMode)
                     return "text-decoration: none!important; color: #E8E6E3;"
                 else
                     return "text-decoration: none!important; color: #000000;"
@@ -547,7 +557,7 @@ function createTabAbout() {
                 utils.createElement('br'),
                 utils.createElement('button', {
                     onclick: () => {
-                        showSwalChangelog(settings.lastVersion)
+                        changelog.showFromVersion(globalThis.settings.lastVersion)
                     },
                 }, [
                     utils.createElement('b', {
@@ -557,7 +567,7 @@ function createTabAbout() {
                 utils.createElement('br'),
                 utils.createElement('button', {
                     onclick: () => {
-                        showSwalInfo()
+                        info.showFromStart()
                     },
                 }, [
                     utils.createElement('b', {
@@ -728,7 +738,7 @@ function createSettingsAutomation() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.skipFourSec,
+                    checked: globalThis.settings.skipFourSec,
                     style: "margin",
                     id: "skipFourSecCheck",
                     onclick: () => {
@@ -748,7 +758,7 @@ function createSettingsAutomation() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.autoResume,
+                    checked: globalThis.settings.autoResume,
                     id: "autoResumeCheck",
                     onclick: () => {
                         chrome.storage.sync.set({
@@ -771,7 +781,7 @@ function createSettingsAutomation() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.skipwrongcountry,
+                    checked: globalThis.settings.skipwrongcountry,
                     style: "margin",
                     id: "skipWrongCountryCheck",
                     onclick: () => {
@@ -798,7 +808,7 @@ function createSettingsBlacklist() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.autoBan,
+                    checked: globalThis.settings.autoBan,
                     id: "autoBanCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"autoBan": (document.getElementById("autoBanCheck") as HTMLInputElement).checked}, function () {
@@ -817,7 +827,7 @@ function createSettingsBlacklist() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.dontBanMobile,
+                    checked: globalThis.settings.dontBanMobile,
                     id: "dontBanMobileCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"dontBanMobile": (document.getElementById("dontBanMobileCheck") as HTMLInputElement).checked}, function () {
@@ -837,7 +847,7 @@ function createSettingsBlacklist() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.skipSound,
+                    checked: globalThis.settings.skipSound,
                     id: "skipSoundCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"skipSound": (document.getElementById("skipSoundCheck") as HTMLInputElement).checked}, function () {
@@ -853,7 +863,7 @@ function createSettingsBlacklist() {
                 onclick: () => {
                     const result = confirm("Clear?");
                     if (result) {
-                        local.ips = []
+                        globalThis.local.ips = []
                         chrome.storage.local.set({"ips": []}, function () {
                             updStats(true)
                         });
@@ -883,7 +893,7 @@ function createSettingsFaceapi() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.enableFaceApi,
+                    checked: globalThis.settings.enableFaceApi,
                     id: "enableFaceApiCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"enableFaceApi": (document.getElementById("enableFaceApiCheck") as HTMLInputElement).checked}, function () {
@@ -904,7 +914,7 @@ function createSettingsFaceapi() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.skipMale,
+                    checked: globalThis.settings.skipMale,
                     id: "skipMaleCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"skipMale": (document.getElementById("skipMaleCheck") as HTMLInputElement).checked}, function () {
@@ -924,7 +934,7 @@ function createSettingsFaceapi() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.skipFemale,
+                    checked: globalThis.settings.skipFemale,
                     id: "skipFemaleCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"skipFemale": (document.getElementById("skipFemaleCheck") as HTMLInputElement).checked}, function () {
@@ -953,7 +963,7 @@ function createSettingsGeolocation() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.ipApiLocalisation,
+                    checked: globalThis.settings.ipApiLocalisation,
                     id: "ipApiLocalisationCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"ipApiLocalisation": (document.getElementById("ipApiLocalisationCheck") as HTMLInputElement).checked}, function () {
@@ -984,7 +994,7 @@ function createSettingsGeolocation() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.hideMobileLocation,
+                    checked: globalThis.settings.hideMobileLocation,
                     id: "hideMobileLocationCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"hideMobileLocation": (document.getElementById("hideMobileLocationCheck") as HTMLInputElement).checked}, function () {
@@ -1004,7 +1014,7 @@ function createSettingsGeolocation() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.showCT,
+                    checked: globalThis.settings.showCT,
                     id: "tooltipShowCTCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"showCT": (document.getElementById("tooltipShowCTCheck") as HTMLInputElement).checked}, function () {
@@ -1026,7 +1036,7 @@ function createSettingsGeolocation() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.showMoreEnabledByDefault,
+                    checked: globalThis.settings.showMoreEnabledByDefault,
                     id: "showMoreCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"showMoreEnabledByDefault": (document.getElementById("showMoreCheck") as HTMLInputElement).checked}, function () {
@@ -1046,7 +1056,7 @@ function createSettingsGeolocation() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.showISP,
+                    checked: globalThis.settings.showISP,
                     id: "showISPCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"showISP": (document.getElementById("showISPCheck") as HTMLInputElement).checked}, function () {
@@ -1066,7 +1076,7 @@ function createSettingsGeolocation() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.enableTargetCity,
+                    checked: globalThis.settings.enableTargetCity,
                     id: "targetCityCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"enableTargetCity": (document.getElementById("targetCityCheck") as HTMLInputElement).checked}, function () {
@@ -1082,7 +1092,7 @@ function createSettingsGeolocation() {
         utils.createElement('div', {
             id: "targetCityDiv",
             style: function f() {
-                if (settings.enableTargetCity) {
+                if (globalThis.settings.enableTargetCity) {
                     return ""
                 } else {
                     return "display:none"
@@ -1094,7 +1104,7 @@ function createSettingsGeolocation() {
                         id: "targetCityButton",
                         style: "margin-top: 2px",
                         onclick: () => {
-                            const result = prompt(chrome.i18n.getMessage("promptTargetCity"), settings.targetCity)
+                            const result = prompt(chrome.i18n.getMessage("promptTargetCity"), globalThis.settings.targetCity)
                             if (result) {
                                 chrome.storage.sync.set({"targetCity": result}, function () {
                                     ((document.getElementById("targetCityButton") as HTMLElement).children[0] as HTMLElement).innerText = chrome.i18n.getMessage("prefixTargetCity") + result
@@ -1104,7 +1114,7 @@ function createSettingsGeolocation() {
                     },
                     [
                         utils.createElement('b', {
-                            innerText: chrome.i18n.getMessage("prefixTargetCity") + settings.targetCity
+                            innerText: chrome.i18n.getMessage("prefixTargetCity") + globalThis.settings.targetCity
                         })
                     ]),
             ]),
@@ -1119,7 +1129,7 @@ function createSettingsGeolocation() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.enableTargetRegion,
+                    checked: globalThis.settings.enableTargetRegion,
                     id: "targetRegionCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"enableTargetRegion": (document.getElementById("targetRegionCheck") as HTMLInputElement).checked}, function () {
@@ -1135,7 +1145,7 @@ function createSettingsGeolocation() {
         utils.createElement('div', {
             id: "targetRegionDiv",
             style: function f() {
-                if (settings.enableTargetRegion) {
+                if (globalThis.settings.enableTargetRegion) {
                     return ""
                 } else {
                     return "display:none"
@@ -1147,7 +1157,7 @@ function createSettingsGeolocation() {
                         id: "targetRegionButton",
                         style: "margin-top: 2px",
                         onclick: () => {
-                            const result = prompt(chrome.i18n.getMessage("promptTargetRegion"), settings.targetRegion)
+                            const result = prompt(chrome.i18n.getMessage("promptTargetRegion"), globalThis.settings.targetRegion)
                             if (result) {
                                 chrome.storage.sync.set({"targetRegion": result}, function () {
                                     ((document.getElementById("targetRegionButton") as HTMLElement).children[0] as HTMLElement).innerText = chrome.i18n.getMessage("prefixTargetRegion") + result
@@ -1157,7 +1167,7 @@ function createSettingsGeolocation() {
                     },
                     [
                         utils.createElement('b', {
-                            innerText: chrome.i18n.getMessage("prefixTargetRegion") + settings.targetRegion
+                            innerText: chrome.i18n.getMessage("prefixTargetRegion") + globalThis.settings.targetRegion
                         })
                     ]),
             ]),
@@ -1172,7 +1182,7 @@ function createSettingsGeolocation() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.skipMobileTarget,
+                    checked: globalThis.settings.skipMobileTarget,
                     id: "skipMobileTargetCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"skipMobileTarget": (document.getElementById("skipMobileTargetCheck") as HTMLInputElement).checked}, function () {
@@ -1191,7 +1201,7 @@ function createSettingsGeolocation() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.targetSound,
+                    checked: globalThis.settings.targetSound,
                     id: "targetSoundCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"targetSound": (document.getElementById("targetSoundCheck") as HTMLInputElement).checked}, function () {
@@ -1212,7 +1222,7 @@ function createSettingsGeolocation() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.torrentsEnable,
+                    checked: globalThis.settings.torrentsEnable,
                     id: "torrentsEnableCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"torrentsEnable": (document.getElementById("torrentsEnableCheck") as HTMLInputElement).checked}, function () {
@@ -1231,7 +1241,7 @@ function createSettingsGeolocation() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.torrentsInfo,
+                    checked: globalThis.settings.torrentsInfo,
                     id: "torrentsInfoCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"torrentsInfo": (document.getElementById("torrentsInfoCheck") as HTMLInputElement).checked}, function () {
@@ -1260,7 +1270,7 @@ function createSettingsHotkeys() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.hotkeys,
+                    checked: globalThis.settings.hotkeys,
                     id: "hotkeysCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"hotkeys": (document.getElementById("hotkeysCheck") as HTMLInputElement).checked}, function () {
@@ -1298,7 +1308,7 @@ function createSettingsInterface() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.hideLogo,
+                    checked: globalThis.settings.hideLogo,
                     id: "hideLogoCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"hideLogo": (document.getElementById("hideLogoCheck") as HTMLInputElement).checked}, function () {
@@ -1321,7 +1331,7 @@ function createSettingsInterface() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.hideHeader,
+                    checked: globalThis.settings.hideHeader,
                     id: "hideHeaderCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"hideHeader": (document.getElementById("hideHeaderCheck") as HTMLInputElement).checked}, function () {
@@ -1340,7 +1350,7 @@ function createSettingsInterface() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.hideWatermark,
+                    checked: globalThis.settings.hideWatermark,
                     id: "hideWatermarkCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"hideWatermark": (document.getElementById("hideWatermarkCheck") as HTMLInputElement).checked}, function () {
@@ -1371,7 +1381,7 @@ function createSettingsInterface() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.hideBanner,
+                    checked: globalThis.settings.hideBanner,
                     id: "hideBannerCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"hideBanner": (document.getElementById("hideBannerCheck") as HTMLInputElement).checked}, function () {
@@ -1403,7 +1413,7 @@ function createSettingsInterface() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.doNotReflect,
+                    checked: globalThis.settings.doNotReflect,
                     id: "doNotReflectCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"doNotReflect": (document.getElementById("doNotReflectCheck") as HTMLInputElement).checked}, function () {
@@ -1427,7 +1437,7 @@ function createSettingsInterface() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.doNotCover,
+                    checked: globalThis.settings.doNotCover,
                     id: "doNotCoverCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"doNotCover": (document.getElementById("doNotCoverCheck") as HTMLInputElement).checked}, function () {
@@ -1454,7 +1464,7 @@ function createSettingsInterface() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.hideCamera,
+                    checked: globalThis.settings.hideCamera,
                     id: "hideCameraCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"hideCamera": (document.getElementById("hideCameraCheck") as HTMLInputElement).checked}, function () {
@@ -1478,7 +1488,7 @@ function createSettingsInterface() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.darkMode,
+                    checked: globalThis.settings.darkMode,
                     id: "darkModeCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"darkMode": (document.getElementById("darkModeCheck") as HTMLInputElement).checked}, function () {
@@ -1505,7 +1515,7 @@ function createSettingsInterface() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.expand,
+                    checked: globalThis.settings.expand,
                     id: "expandCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"expand": (document.getElementById("expandCheck") as HTMLInputElement).checked}, function () {
@@ -1541,7 +1551,7 @@ function createSettingsMisc() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.sentry,
+                    checked: globalThis.settings.sentry,
                     style: "margin",
                     id: "sentryCheck",
                     onclick: () => {
@@ -1591,8 +1601,8 @@ function createSettingsStats() {
                                 time: 0
                             }
                         }
-                        settings.stats = stats.stats
-                        chrome.storage.sync.set(settings, function () {
+                        globalThis.settings.stats = stats.stats
+                        chrome.storage.sync.set(globalThis.settings, function () {
                             updStats(true)
                         });
                     }
@@ -1622,7 +1632,7 @@ function createSettingsStreamer() {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: settings.streamer,
+                    checked: globalThis.settings.streamer,
                     id: "streamerCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"streamer": (document.getElementById("streamerCheck") as HTMLInputElement).checked}, function () {
@@ -1640,7 +1650,7 @@ function createSettingsStreamer() {
         utils.createElement('div', {
             id: "streamerList",
             style: function f() {
-                if (settings.streamer) {
+                if (globalThis.settings.streamer) {
                     return ""
                 } else {
                     return "display:none"
@@ -1657,7 +1667,7 @@ function createSettingsStreamer() {
                     }),
                     utils.createElement('input', {
                         type: "checkbox",
-                        checked: settings.streamerKeys,
+                        checked: globalThis.settings.streamerKeys,
                         id: "streamerKeysCheck",
                         onclick: () => {
                             chrome.storage.sync.set({"streamerKeys": (document.getElementById("streamerKeysCheck") as HTMLInputElement).checked}, function () {
@@ -1680,7 +1690,7 @@ function createSettingsStreamer() {
                     }),
                     utils.createElement('input', {
                         type: "checkbox",
-                        checked: settings.streamerPip,
+                        checked: globalThis.settings.streamerPip,
                         id: "streamerPipCheck",
                         onclick: () => {
                             chrome.storage.sync.set({"streamerPip": (document.getElementById("streamerPipCheck") as HTMLInputElement).checked}, function () {
@@ -1700,7 +1710,7 @@ function createSettingsStreamer() {
                     }),
                     utils.createElement('input', {
                         type: "checkbox",
-                        checked: settings.blurOnStart,
+                        checked: globalThis.settings.blurOnStart,
                         id: "blurOnStartCheck",
                         onclick: () => {
                             chrome.storage.sync.set({"blurOnStart": (document.getElementById("blurOnStartCheck") as HTMLInputElement).checked}, function () {
@@ -1718,7 +1728,7 @@ function createSettingsStreamer() {
                     }),
                     utils.createElement('input', {
                         type: "checkbox",
-                        checked: settings.blurReport,
+                        checked: globalThis.settings.blurReport,
                         id: "blurReportCheck",
                         onclick: () => {
                             chrome.storage.sync.set({"blurReport": (document.getElementById("blurReportCheck") as HTMLInputElement).checked}, function () {
@@ -1746,7 +1756,7 @@ function createSettingsStreamer() {
                         style: "vertical-align: middle!important;",
                         min: 0,
                         max: 200,
-                        value: settings.blurFilter,
+                        value: globalThis.settings.blurFilter,
                         onchange: () => {
                             chrome.storage.sync.set({"blurFilter": (document.getElementById("blurFilter") as HTMLInputElement).value}, function () {
                                 confirmAndReload()
@@ -1764,7 +1774,7 @@ function createSettingsStreamer() {
                     }),
                     utils.createElement('input', {
                         type: "checkbox",
-                        checked: settings.blurPreview,
+                        checked: globalThis.settings.blurPreview,
                         id: "blurPreviewCheck",
                         onclick: () => {
                             chrome.storage.sync.set({"blurPreview": (document.getElementById("blurPreviewCheck") as HTMLInputElement).checked}, function () {
@@ -1786,7 +1796,7 @@ function createSettingsStreamer() {
                         style: "vertical-align: middle!important;",
                         min: 0,
                         max: 200,
-                        value: settings.blurPreviewFilter,
+                        value: globalThis.settings.blurPreviewFilter,
                         onchange: () => {
                             chrome.storage.sync.set({"blurPreviewFilter": (document.getElementById("blurPreviewFilter") as HTMLInputElement).value}, function () {
                                 confirmAndReload()
@@ -1807,7 +1817,7 @@ function createSettingsStreamer() {
                     }),
                     utils.createElement('input', {
                         type: "checkbox",
-                        checked: settings.streamerMirror,
+                        checked: globalThis.settings.streamerMirror,
                         id: "streamerMirrorCheck",
                         onclick: () => {
                             chrome.storage.sync.set({"streamerMirror": (document.getElementById("streamerMirrorCheck") as HTMLInputElement).checked}, function () {
@@ -1828,7 +1838,7 @@ function createSettingsStreamer() {
                     }),
                     utils.createElement('input', {
                         type: "checkbox",
-                        checked: settings.cover,
+                        checked: globalThis.settings.cover,
                         id: "coverCheck",
                         onclick: () => {
                             chrome.storage.sync.set({"cover": (document.getElementById("coverCheck") as HTMLInputElement).checked}, function () {
@@ -1847,7 +1857,7 @@ function createSettingsStreamer() {
                     }),
                     utils.createElement('input', {
                         type: "checkbox",
-                        checked: settings.coverPreview,
+                        checked: globalThis.settings.coverPreview,
                         id: "coverPreviewCheck",
                         onclick: () => {
                             chrome.storage.sync.set({"coverPreview": (document.getElementById("coverPreviewCheck") as HTMLInputElement).checked}, function () {
@@ -1867,7 +1877,7 @@ function createSettingsStreamer() {
                     }),
                     utils.createElement('input', {
                         type: "checkbox",
-                        checked: settings.coverNoise,
+                        checked: globalThis.settings.coverNoise,
                         id: "coverNoiseCheck",
                         onclick: () => {
                             chrome.storage.sync.set({"coverNoise": (document.getElementById("coverNoiseCheck") as HTMLInputElement).checked}, function () {
@@ -1887,7 +1897,7 @@ function createSettingsStreamer() {
                     }),
                     utils.createElement('input', {
                         type: "checkbox",
-                        checked: settings.coverStop,
+                        checked: globalThis.settings.coverStop,
                         id: "coverStopCheck",
                         onclick: () => {
                             chrome.storage.sync.set({"coverStop": (document.getElementById("coverStopCheck") as HTMLInputElement).checked}, function () {
@@ -1902,7 +1912,7 @@ function createSettingsStreamer() {
                 utils.createElement('button', {
                     style: "margin-top: 2px",
                     onclick: () => {
-                        const result = prompt(chrome.i18n.getMessage("promptCoverSrc"), settings.coverSrc)
+                        const result = prompt(chrome.i18n.getMessage("promptCoverSrc"), globalThis.settings.coverSrc)
                         if (result) {
                             chrome.storage.sync.set({"coverSrc": result}, function () {
                                 (document.getElementById('cover') as HTMLImageElement).src = result
@@ -1987,21 +1997,21 @@ function createTabStats() {
 }
 
 function updStats(force: boolean) {
-    (document.getElementById("stWhole") as HTMLElement).innerText = settings.stats.countAll;
-    (document.getElementById("stMlSk") as HTMLElement).innerText = settings.stats.countMaleSkip;
-    (document.getElementById("stFmlSk") as HTMLElement).innerText = settings.stats.countFemaleSkip;
-    (document.getElementById("stMlCnt") as HTMLElement).innerText = settings.stats.countMales;
-    (document.getElementById("stFmlCnt") as HTMLElement).innerText = settings.stats.countFemales;
-    (document.getElementById("stMnSk") as HTMLElement).innerText = settings.stats.countManSkip;
-    (document.getElementById("stBnCt") as HTMLElement).innerText = local.ips.length;
-    (document.getElementById("stNwIp") as HTMLElement).innerText = settings.stats.countNew;
-    (document.getElementById("stBnIp") as HTMLElement).innerText = settings.stats.countDup;
+    (document.getElementById("stWhole") as HTMLElement).innerText = globalThis.settings.stats.countAll;
+    (document.getElementById("stMlSk") as HTMLElement).innerText = globalThis.settings.stats.countMaleSkip;
+    (document.getElementById("stFmlSk") as HTMLElement).innerText = globalThis.settings.stats.countFemaleSkip;
+    (document.getElementById("stMlCnt") as HTMLElement).innerText = globalThis.settings.stats.countMales;
+    (document.getElementById("stFmlCnt") as HTMLElement).innerText = globalThis.settings.stats.countFemales;
+    (document.getElementById("stMnSk") as HTMLElement).innerText = globalThis.settings.stats.countManSkip;
+    (document.getElementById("stBnCt") as HTMLElement).innerText = globalThis.local.ips.length;
+    (document.getElementById("stNwIp") as HTMLElement).innerText = globalThis.settings.stats.countNew;
+    (document.getElementById("stBnIp") as HTMLElement).innerText = globalThis.settings.stats.countDup;
 
-    (document.getElementById("stTime") as HTMLElement).innerText = utils.secondsToHms(settings.stats.time)
+    (document.getElementById("stTime") as HTMLElement).innerText = utils.secondsToHms(globalThis.settings.stats.time)
     countBeforeSaveStats += 1
     if (force || countBeforeSaveStats >= 10) {
         countBeforeSaveStats = 0
-        chrome.storage.sync.set({"stats": settings.stats});
+        chrome.storage.sync.set({"stats": globalThis.settings.stats});
     }
 
 }
@@ -2009,7 +2019,6 @@ function updStats(force: boolean) {
 // "content.js",
 
 let settings: any = {}, // TODO: fix type
-    api = 1,
     local: any = {ips: ["-"]}, // TODO: deal with the 'never[]' issue | fix type
     stage = 0,
     search = 0,
@@ -2070,13 +2079,13 @@ const css = document.createElement('style')
 css.textContent = "small {font-size: xx-small!important;}";
 
 chrome.storage.local.get(null, function (result) {
-    local = result;
+    globalThis.local = result;
 })
 
 chrome.storage.onChanged.addListener(function (changes, namespace) {
     if (namespace === "sync")
         chrome.storage.sync.get(null, function (result) {
-            settings = result;
+            globalThis.settings = result;
         });
 });
 
@@ -2095,7 +2104,7 @@ try {
     console.dir(e)
 }
 
-function stopAndStart(delay?: number | undefined) {
+export function stopAndStart(delay?: number | undefined) {
     requestToSkip = false
 
     if (typeof delay !== "undefined") {
@@ -2117,24 +2126,24 @@ const onUpdateIP = function () {
 
     let newIp = (document.getElementById("remoteIP") as HTMLElement).innerText.replace("[", "").replace("]", "")
 
-    if (curIps.includes(newIp)) {
+    if (globalThis.curIps.includes(newIp)) {
         return
     }
 
     console.dir("IP CHANGE DETECTED")
     requestToSkip = false
-    if (local.ips.includes((document.getElementById("remoteIP") as HTMLElement).innerText)) {
-        settings.stats.countDup++
+    if (globalThis.local.ips.includes((document.getElementById("remoteIP") as HTMLElement).innerText)) {
+        globalThis.settings.stats.countDup++
         console.dir("old ip")
-        if (settings.skipSound)
+        if (globalThis.settings.skipSound)
             (document.getElementById('ban') as HTMLAudioElement).play();
         stopAndStart()
     } else {
-        curIps.push(newIp)
-        console.dir(curIps)
-        settings.stats.countNew++
+        globalThis.curIps.push(newIp)
+        console.dir(globalThis.curIps)
+        globalThis.settings.stats.countNew++
         console.dir("new ip")
-        switch (api) {
+        switch (globalThis.api) {
             case 2:
                 doLookupRequest2(newIp)
                 break;
@@ -2161,10 +2170,10 @@ function doLookupRequest1(ip: string) {
         .fail(function (jqxhr) {
             console.dir(`ip-api.com request failed: ${jqxhr.status}`)
             console.dir(jqxhr)
-            if (!settings.minimalism) {
+            if (!globalThis.settings.minimalism) {
                 (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize("<b>HTTP ERROR " + jqxhr.status + "</b>")
             }
-            if (settings.enableTargetCity || settings.enableTargetRegion) {
+            if (globalThis.settings.enableTargetCity || globalThis.settings.enableTargetRegion) {
                 if (jqxhr.status === 429) {
                     stopAndStart(5000)
                 }
@@ -2179,8 +2188,8 @@ function doLookupRequest2(ip: string) {
 }
 
 function checkTorrents(ip: string) {
-    if (settings.torrentsEnable) {
-        if (torrenstsConfirmed || !settings.torrentsInfo) {
+    if (globalThis.settings.torrentsEnable) {
+        if (torrenstsConfirmed || !globalThis.settings.torrentsInfo) {
             let url = `https://iknowwhatyoudownload.com/${chrome.i18n.getMessage("iknowwhatyoudownload_lang")}/peer/?ip=${ip}`
             chrome.runtime.sendMessage({checkTorrents: true, url: url}, function (response) {
                 console.dir(`request to open iknowwhatyoudownload in the new tab/window: ${response}`)
@@ -2207,12 +2216,12 @@ function checkTorrents(ip: string) {
     }
 }
 
-function processData(json: any, ip: string) { // TODO: fix type
-    if (!curIps.includes(ip)) {
+export function processData(json: any, ip: string) { // TODO: fix type
+    if (!globalThis.curIps.includes(ip)) {
         return
     }
 
-    if (settings.minimalism) {
+    if (globalThis.settings.minimalism) {
         setTimeout(() => {
             if ($('span[data-tr="connection"]').length === 1) {
                 if (json.status === "success") {
@@ -2243,10 +2252,10 @@ function processData(json: any, ip: string) { // TODO: fix type
     let strings = []
     let newInnerHTML = ''
     let newIpDiv = utils.createElement('div')
-    if (settings.showMoreEnabledByDefault && (json.mobile || json.proxy || json.hosting)) {
+    if (globalThis.settings.showMoreEnabledByDefault && (json.mobile || json.proxy || json.hosting)) {
         if (json.mobile) {
-            if (settings.hideMobileLocation || settings.showCT) {
-                if (!settings.showCT) {
+            if (globalThis.settings.hideMobileLocation || globalThis.settings.showCT) {
+                if (!globalThis.settings.showCT) {
                     strings.push(`<small>MOBILE [${chrome.i18n.getMessage('apiMobileHidden')}]</small>`)
                 } else {
                     strings.push(`<small>MOBILE [${chrome.i18n.getMessage('apiMobile')}]</small>`)
@@ -2265,10 +2274,10 @@ function processData(json: any, ip: string) { // TODO: fix type
         }
     }
 
-    if ((settings.hideMobileLocation || settings.showCT) && json.mobile) {
+    if ((globalThis.settings.hideMobileLocation || globalThis.settings.showCT) && json.mobile) {
         newInnerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br></br>"
 
-        if (settings.showCT) {
+        if (globalThis.settings.showCT) {
             newInnerHTML += chrome.i18n.getMessage("apiCT") + `${json.city}/${json.regionName}</br>`
             try {
                 newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>"
@@ -2294,7 +2303,7 @@ function processData(json: any, ip: string) { // TODO: fix type
         newInnerHTML += "<b>TM: </b><sup class='remoteTM'>" + utils.secondsToHms(+new Date() / 1000 - startDate) + "</sup>"
     }
 
-    if (settings.showISP) {
+    if (globalThis.settings.showISP) {
         newInnerHTML += `<br><small style="font-size: x-small!important;"><b>${json.isp}</b></small>`
     }
 
@@ -2311,7 +2320,7 @@ function processData(json: any, ip: string) { // TODO: fix type
     $(newIpDiv).appendTo(document.getElementById("ipApiContainer") as HTMLElement)
     console.dir("RENDER ++")
 
-    if (settings.torrentsEnable && !json.mobile && !json.proxy && !json.hosting) {
+    if (globalThis.settings.torrentsEnable && !json.mobile && !json.proxy && !json.hosting) {
         newIpDiv.innerHTML += `<br><br>`
         $(utils.createElement('button', {
             innerHTML: "<b>" + chrome.i18n.getMessage("YKWYDButtonText") + "</b>",
@@ -2321,38 +2330,38 @@ function processData(json: any, ip: string) { // TODO: fix type
         })).appendTo(newIpDiv)
     }
 
-    if ((settings.enableTargetCity || settings.enableTargetRegion) && needToCheckTarget) {
-        if (settings.skipMobileTarget && json.mobile) {
-            if (curIps.indexOf(ip) + 1 === curIps.length) {
+    if ((globalThis.settings.enableTargetCity || globalThis.settings.enableTargetRegion) && needToCheckTarget) {
+        if (globalThis.settings.skipMobileTarget && json.mobile) {
+            if (globalThis.curIps.indexOf(ip) + 1 === globalThis.curIps.length) {
                 stopAndStart()
             }
             return
         } else {
-            if (settings.enableTargetCity) {
-                if (!settings.targetCity.includes(json.city)) {
-                    if (curIps.indexOf(ip) + 1 === curIps.length) {
+            if (globalThis.settings.enableTargetCity) {
+                if (!globalThis.settings.targetCity.includes(json.city)) {
+                    if (globalThis.curIps.indexOf(ip) + 1 === globalThis.curIps.length) {
                         stopAndStart()
                     }
                     return
                 } else {
                     needToCheckTarget = false
-                    if (settings.targetSound) {
+                    if (globalThis.settings.targetSound) {
                         (document.getElementById('targetSound') as HTMLAudioElement).play();
-                        console.dir(`FOUND TARGET CITY: ${settings.targetCity}`)
+                        console.dir(`FOUND TARGET CITY: ${globalThis.settings.targetCity}`)
                     }
                 }
             }
-            if (settings.enableTargetRegion) {
-                if (!settings.targetRegion.includes(json.regionName)) {
-                    if (curIps.indexOf(ip) + 1 === curIps.length) {
+            if (globalThis.settings.enableTargetRegion) {
+                if (!globalThis.settings.targetRegion.includes(json.regionName)) {
+                    if (globalThis.curIps.indexOf(ip) + 1 === globalThis.curIps.length) {
                         stopAndStart()
                     }
                     return
                 } else {
                     needToCheckTarget = false
-                    if (settings.targetSound) {
+                    if (globalThis.settings.targetSound) {
                         (document.getElementById('targetSound') as HTMLAudioElement).play();
-                        console.dir(`FOUND TARGET REGION: ${settings.targetRegion}`)
+                        console.dir(`FOUND TARGET REGION: ${globalThis.settings.targetRegion}`)
                     }
                 }
             }
@@ -2375,7 +2384,7 @@ function updateMap(json: any) {
     if (typeof circle !== 'undefined')
         map.removeLayer(circle)
 
-    if (settings.hideMobileLocation && json.mobile) {
+    if (globalThis.settings.hideMobileLocation && json.mobile) {
         circle = L.circle([json.lat, json.lon], 300000, {
             color: 'red',
             fillColor: '#f03',
@@ -2404,7 +2413,7 @@ const onChangeStage = function (mutations: any[]) {
         if (mutation.attributeName === "class") {
 
             if (stage === 3) {
-                settings.stats.time += Math.ceil((Date.now() - play) / 1000)
+                globalThis.settings.stats.time += Math.ceil((Date.now() - play) / 1000)
             }
 
             const attributeValue = String($(mutation.target).prop(mutation.attributeName));
@@ -2412,7 +2421,7 @@ const onChangeStage = function (mutations: any[]) {
                 if ((document.getElementById("remoteIP") as HTMLElement).innerText !== "")
                     (document.getElementById("remoteIP") as HTMLElement).innerText = "-"
                 stage = 1
-                curIps = []
+                globalThis.curIps = []
                 needToClear = true
                 needToCheckTarget = true
                 // console.dir("СТАДИЯ ПОИСКА")
@@ -2455,14 +2464,14 @@ const onChangeStage = function (mutations: any[]) {
                     requestToStartTiming = +new Date();
                     (document.getElementsByClassName('buttons__button stop-button')[0] as HTMLElement).click()
                 } else
-                    settings.stats.countAll++
+                    globalThis.settings.stats.countAll++
             } else if (attributeValue.includes("s-stop")) {
                 // offline.play()
                 clearInterval(tim)
                 // console.dir("СТАДИЯ СТОП")
                 if ((document.getElementById("remoteIP") as HTMLElement).innerText !== "")
                     (document.getElementById("remoteIP") as HTMLElement).innerText = "-"
-                curIps = []
+                globalThis.curIps = []
                 // (document.getElementById("remoteInfo") as HTMLElement).innerHTML = ''
                 needToClear = true;
                 (document.getElementById("remoteFace") as HTMLElement).innerHTML = '';
@@ -2481,27 +2490,27 @@ const onChangeStage = function (mutations: any[]) {
     });
 }
 
-function syncBlackList() {
-    if (settings.dontBanMobile) {
+export function syncBlackList() {
+    if (globalThis.settings.dontBanMobile) {
         if (!curInfo.mobile) {
-            local.ips.push((document.getElementById("remoteIP") as HTMLElement).innerText)
-            chrome.storage.local.set({"ips": local.ips});
+            globalThis.local.ips.push((document.getElementById("remoteIP") as HTMLElement).innerText)
+            chrome.storage.local.set({"ips": globalThis.local.ips});
 
-            if (settings.skipSound)
+            if (globalThis.settings.skipSound)
                 (document.getElementById('male') as HTMLAudioElement).play();
         }
     } else {
-        local.ips.push((document.getElementById("remoteIP") as HTMLElement).innerText)
-        chrome.storage.local.set({"ips": local.ips});
+        globalThis.local.ips.push((document.getElementById("remoteIP") as HTMLElement).innerText)
+        chrome.storage.local.set({"ips": globalThis.local.ips});
 
-        if (settings.skipSound)
+        if (globalThis.settings.skipSound)
             (document.getElementById('male') as HTMLAudioElement).play();
     }
 }
 
 
 async function detectGender() {
-    if (!settings.skipMale && !settings.skipFemale && !settings.enableFaceApi)
+    if (!globalThis.settings.skipMale && !globalThis.settings.skipFemale && !globalThis.settings.enableFaceApi)
         return
     let stop = false
     let skip_m = false
@@ -2519,35 +2528,35 @@ async function detectGender() {
             if (array[i].gender === "male" && Math.ceil(array[i].genderProbability * 100) > 90) {
                 skip_m = true
                 stop = true
-                settings.stats.countMales++
+                globalThis.settings.stats.countMales++
             }
             if (array[i].gender === "female" && Math.ceil(array[i].genderProbability * 100) > 90) {
                 skip_f = true
                 stop = true
-                settings.stats.countFemales++
+                globalThis.settings.stats.countFemales++
             }
         }
 
-        if (skip_m && settings.skipMale) {
+        if (skip_m && globalThis.settings.skipMale) {
             text += `<b>male skipping...</b></br>`;
             (document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement).click()
             console.log("MALE SKIPPED")
-            settings.stats.countMaleSkip++
-            settings.stats.countManSkip--
+            globalThis.settings.stats.countMaleSkip++
+            globalThis.settings.stats.countManSkip--
 
-            if (settings.autoBan) {
+            if (globalThis.settings.autoBan) {
                 syncBlackList()
             }
         }
 
-        if (skip_f && settings.skipFemale) {
+        if (skip_f && globalThis.settings.skipFemale) {
             text += `<b>female skipping...</b></br>`;
             (document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement).click()
             console.log("FEMALE SKIPPED")
-            settings.stats.countFemaleSkip++
-            settings.stats.countManSkip--
+            globalThis.settings.stats.countFemaleSkip++
+            globalThis.settings.stats.countManSkip--
 
-            if (settings.autoBan) {
+            if (globalThis.settings.autoBan) {
                 syncBlackList()
             }
         }
@@ -2568,8 +2577,8 @@ function checkApi() {
     }).done(function (json) {
         console.dir('direct ip-api.com connection test passed! proceeding with best possible speed')
         // best case
-        api = 1
-        if (settings.minimalism) {
+        globalThis.api = 1
+        if (globalThis.settings.minimalism) {
             if ($('span[data-tr="rules"]').length === 1) {
                 $("<span> </span>" + chrome.i18n.getMessage("apiStatus1")).appendTo($(".message-bubble")[0])
             }
@@ -2589,7 +2598,7 @@ function checkApi() {
 }
 
 function switchMode() {
-    let preselect = settings.minimalism
+    let preselect = globalThis.settings.minimalism
     Swal.fire({
         title: chrome.i18n.getMessage("switchModeTitle"),
         allowOutsideClick: false,
@@ -2606,9 +2615,9 @@ function switchMode() {
             if (typeof newMode === "undefined") {
                 return false
             } else {
-                if (!settings.askForMode && newMode === "minimalism" && preselect) {
+                if (!globalThis.settings.askForMode && newMode === "minimalism" && preselect) {
                     return true
-                } else if (!settings.askForMode && newMode === "full" && !preselect) {
+                } else if (!globalThis.settings.askForMode && newMode === "full" && !preselect) {
                     return true
                 } else {
                     if (newMode === "minimalism") {
@@ -2624,7 +2633,7 @@ function switchMode() {
             }
         },
         didRender: () => {
-            if (settings.minimalism) {
+            if (globalThis.settings.minimalism) {
                 (document.getElementById('minimalism') as HTMLInputElement).checked = true  // TODO: check if it works, was 'checked' before, but ts didnt like
             } else {
                 (document.getElementById('full') as HTMLInputElement).checked = true // TODO: check if it works, was 'checked' before, but ts didnt like
@@ -2635,7 +2644,7 @@ function switchMode() {
 
 chrome.storage.sync.get(null, function (result) {
     Sentry.wrap(function () {
-        settings = result;
+        globalThis.settings = result;
 
         let switchModeButton = utils.createElement('button', {
             onclick: () => {
@@ -2647,11 +2656,11 @@ chrome.storage.sync.get(null, function (result) {
             })
         ])
 
-        if (settings.askForMode) {
+        if (globalThis.settings.askForMode) {
             switchMode()
             return
         } else {
-            if (settings.minimalism) {
+            if (globalThis.settings.minimalism) {
                 $(utils.createElement('p', {
                     id: "remoteIP", style: "display: none;"
                 })).appendTo($("body"))
@@ -2663,11 +2672,11 @@ chrome.storage.sync.get(null, function (result) {
                             if (attributeValue.includes("s-search")) {
                                 if ((document.getElementById("remoteIP") as HTMLElement).innerText !== "")
                                     (document.getElementById("remoteIP") as HTMLElement).innerText = "-"
-                                curIps = []
+                                globalThis.curIps = []
                             } else if (attributeValue.includes("s-stop")) {
                                 if ((document.getElementById("remoteIP") as HTMLElement).innerText !== "")
                                     (document.getElementById("remoteIP") as HTMLElement).innerText = "-"
-                                curIps = []
+                                globalThis.curIps = []
                             }
                         }
                     });
@@ -2716,7 +2725,7 @@ chrome.storage.sync.get(null, function (result) {
 
         document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e) => {
             if (stage === 3)
-                settings.stats.countManSkip++
+                globalThis.settings.stats.countManSkip++
 
             clearTimeout(timeout)
         })
@@ -2752,7 +2761,7 @@ chrome.storage.sync.get(null, function (result) {
 
         checkApi()
 
-        if (settings.hideLogo) {
+        if (globalThis.settings.hideLogo) {
             try {
                 document.getElementById("logo-link")!.style.display = "none"
             } catch (e) {
@@ -2760,13 +2769,13 @@ chrome.storage.sync.get(null, function (result) {
             }
         }
 
-        if (settings.hideHeader) {
+        if (globalThis.settings.hideHeader) {
             $("#header").hide();
             document.getElementById("app")!.style.height = "100%"
             window.dispatchEvent(new Event('resize'));
         }
 
-        if (settings.hideWatermark || settings.streamer) {
+        if (globalThis.settings.hideWatermark || globalThis.settings.streamer) {
             try {
                 (document.getElementsByClassName("remote-video__watermark")[0] as HTMLElement).style.display = "none"
             } catch (e) {
@@ -2774,7 +2783,7 @@ chrome.storage.sync.get(null, function (result) {
             }
         }
 
-        if (settings.hideBanner || settings.streamer) {
+        if (globalThis.settings.hideBanner || globalThis.settings.streamer) {
             try {
                 (document.getElementsByClassName("caption remote-video__info")[0] as HTMLElement).style.display = "none"
             } catch (e) {
@@ -2782,21 +2791,21 @@ chrome.storage.sync.get(null, function (result) {
             }
         }
 
-        if (settings.doNotReflect) {
+        if (globalThis.settings.doNotReflect) {
             $("#local-video").removeClass("video-container-local-video")
         }
 
-        if (settings.doNotCover) {
+        if (globalThis.settings.doNotCover) {
             $("#remote-video").css({"object-fit": "contain"})
             // $(".preview").css({"background-size": "contain"})
         }
 
-        if (settings.hideCamera) {
+        if (globalThis.settings.hideCamera) {
             $("#local-video-wrapper")[0].style.display = "none"
         }
 
         setInterval(() => {
-            if (settings.skipFourSec) {
+            if (globalThis.settings.skipFourSec) {
                 try {
                     if ((stage === 2) && (found + 4000 < Date.now())) {
                         console.dir("Skipping due to loading time limit");
@@ -2809,7 +2818,7 @@ chrome.storage.sync.get(null, function (result) {
             }
         }, 1000)
 
-        if (settings.autoResume) {
+        if (globalThis.settings.autoResume) {
             (document.getElementById('overlay') as HTMLElement).style.background = "none";
             // document.getElementById('overlay').style.position = "unset"
 
@@ -2828,15 +2837,15 @@ chrome.storage.sync.get(null, function (result) {
             }).observe($(".ok")[0], {attributes: true});
         }
 
-        if (!settings.ipApiLocalisation)
+        if (!globalThis.settings.ipApiLocalisation)
             language = "en"
 
-        if (settings.hotkeys) {
+        if (globalThis.settings.hotkeys) {
             document.removeEventListener('keyup', hotkeys)
             document.addEventListener('keyup', hotkeys)
         }
 
-        if (settings.skipMale || settings.skipFemale || settings.enableFaceApi) {
+        if (globalThis.settings.skipMale || globalThis.settings.skipFemale || globalThis.settings.enableFaceApi) {
             setTimeout(async () => {
                 console.time("faceapi: loading models")
                 await faceapi.nets.tinyFaceDetector.loadFromUri(chrome.runtime.getURL('resources/models'))
@@ -2857,19 +2866,19 @@ chrome.storage.sync.get(null, function (result) {
             }, 0)
         }
 
-        if (settings.streamer) {
-            if (settings.blurReport)
+        if (globalThis.settings.streamer) {
+            if (globalThis.settings.blurReport)
                 (document.getElementById("report-screen") as HTMLElement).style.filter = "blur(10px)"
 
-            if (settings.cover || settings.coverPreview || settings.coverNoise || settings.coverStop) {
+            if (globalThis.settings.cover || globalThis.settings.coverPreview || globalThis.settings.coverNoise || globalThis.settings.coverStop) {
                 $(utils.createElement('img', {
-                    src: settings.coverSrc,
+                    src: globalThis.settings.coverSrc,
                     id: "cover",
                     style: "height:100%; position: absolute; display:none"
                 })).insertBefore("#remote-video")
 
                 $(utils.createElement('img', {
-                    src: settings.coverSrc,
+                    src: globalThis.settings.coverSrc,
                     id: "cover2",
                     style: "height:100%; position: absolute; transform: scaleX(-1)"
                 })).insertBefore("#local-video")
@@ -2885,13 +2894,13 @@ chrome.storage.sync.get(null, function (result) {
             (document.head || document.documentElement).appendChild(streamerModeScript);
         }
 
-        if (settings.darkMode)
+        if (globalThis.settings.darkMode)
             (document.body || document.documentElement).appendChild(dark);
         document.arrive(".test-elem", function () {
             // 'this' refers to the newly created element
         });
         document.arrive(".tr-country", function (el: any) { // TODO: FIX TYPE
-            if (settings.skipwrongcountry) {
+            if (globalThis.settings.skipwrongcountry) {
                 try {
                     if (el.parentElement?.className === "message-bubble") {
                         let expectedCountry = "ZZ"
@@ -2925,183 +2934,14 @@ chrome.storage.sync.get(null, function (result) {
 
         var observer2 = new MutationObserver(onChangeStage)
         observer2.observe(document.getElementById('remote-video-wrapper') as HTMLElement, {attributes: true});
-        if (!settings.swalInfoCompleted) {
-            showSwalInfo()
+        if (!globalThis.settings.swalInfoCompleted) {
+            info.showFromStart()
         } else {
-            if (settings.lastVersion !== chrome.runtime.getManifest().version) {
-                showSwalChangelog(settings.lastVersion)
+            if (globalThis.settings.lastVersion !== chrome.runtime.getManifest().version) {
+                changelog.showFromVersion(globalThis.settings.lastVersion)
             }
         }
 
         chrome.storage.sync.set({lastVersion: chrome.runtime.getManifest().version})
     })
 });
-// "swal-info.js",
-
-
-// "swal-changelog.js",
-
-
-
-// showSwalChangelog('0.0')
-// "swal-context-invalidated.js",
-// ugly way to notify user that extension was updated and page needs to be reloaded
-// "swal-danger-warning.js",
-
-// "hotkeys.js",
-
-function hotkeys(e: KeyboardEvent) {
-    if ((e.target instanceof HTMLElement && e.target.className === "emojionearea-editor") || (e.target instanceof HTMLElement && e.target.id === "mapid") || $(".swal2-popup").length > 0)
-        return
-
-    switch (e.key) {
-        case "ArrowLeft":
-            if (document.getElementById("report-popup")?.style.display === "block") {
-                let cancelReportButton: HTMLElement = document.getElementsByClassName('btn')[0] as HTMLElement;
-                cancelReportButton.click()
-            } else {
-                if (e.shiftKey && !local.ips.includes(document.getElementById("remoteIP")?.innerText!)) // TODO: remove remoteIP bs
-                    syncBlackList()
-
-                let startButton: HTMLElement = document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement;
-                startButton.click()
-            }
-            break;
-
-        case "ArrowUp":
-            let stopButton: HTMLElement = document.getElementsByClassName('buttons__button stop-button')[0] as HTMLElement;
-            stopButton.click()
-            break;
-
-        case "ArrowDown":
-            if (document.getElementsByClassName("message-report-link tr").length !== 0) {
-                let openReportButton: HTMLElement = document.getElementsByClassName("message-report-link tr")[0] as HTMLElement;
-                openReportButton.click()
-            }
-            break;
-
-        case "ArrowRight":
-            if (document.getElementById("report-popup")?.style.display === "block") {
-                let submitReportButton: HTMLElement = document.getElementsByClassName("btn btn-main send-report")[1] as HTMLElement;
-                submitReportButton.click()
-            }
-            break;
-    }
-}
-
-
-document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e: any) => { // TODO: any should be KeyboardEvent but TS doesn't like it
-    if (e.shiftKey && !local.ips.includes(document.getElementById("remoteIP")?.innerText!)) // TODO: remove remoteIP bs
-        syncBlackList()
-})
-
-// "background-listener.js"
-chrome.runtime.onMessage.addListener(
-    function (request, sender, sendResponse) {
-        if (request.command) {
-            switch (request.command) {
-                case "skip": {
-                    let startButton: HTMLElement = document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement;
-                    startButton.click()
-                    sendResponse(200)
-                    break;
-                }
-
-                case "skip_ban": {
-                    if (!local.ips.includes(document.getElementById("remoteIP")?.innerText!)) // TODO: remove remoteIP bs
-                        syncBlackList()
-
-                    let startButton: HTMLElement = document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement;
-                    startButton.click()
-                    sendResponse(200)
-                    break;
-                }
-
-
-                case "stop": {
-                    let stopButton: HTMLElement = document.getElementsByClassName('buttons__button stop-button')[0] as HTMLElement;
-                    stopButton.click()
-                    sendResponse(200)
-                    break;
-                }
-
-                case "screen_remote": {
-                    let dwncanvas = document.createElement('canvas');
-                    dwncanvas.width = (document.getElementById('remote-video') as HTMLVideoElement)?.videoWidth
-                    dwncanvas.height = (document.getElementById('remote-video') as HTMLVideoElement)?.videoHeight
-
-                    let ctx = dwncanvas.getContext('2d');
-                    if (ctx instanceof CanvasRenderingContext2D) {
-                        ctx.drawImage((document.getElementById('remote-video') as HTMLVideoElement), 0, 0, dwncanvas.width, dwncanvas.height);
-                        utils.downloadImage(dwncanvas.toDataURL('image/jpg'))
-                        sendResponse(200)
-                    }
-                    break;
-                }
-
-                case "screen_local": {
-                    let dwncanvas = document.createElement('canvas');
-                    dwncanvas.width = (document.getElementById('local-video') as HTMLVideoElement)?.videoWidth
-                    dwncanvas.height = (document.getElementById('local-video') as HTMLVideoElement)?.videoHeight
-
-                    let ctx = dwncanvas.getContext('2d');
-                    if (ctx instanceof CanvasRenderingContext2D) {
-                        ctx.drawImage((document.getElementById('local-video') as HTMLVideoElement), 0, 0, dwncanvas.width, dwncanvas.height);
-                        utils.downloadImage(dwncanvas.toDataURL('image/jpg'))
-                        sendResponse(200)
-                    }
-                    break;
-                }
-            }
-        }
-        if (request.apiTestCode) {
-            if (request.apiTestCode === 200) {
-                api = 2
-
-                if (settings.minimalism) {
-                    if ($('span[data-tr="rules"]').length === 1) {
-                        $("<span> </span>" + chrome.i18n.getMessage("apiStatus2")).appendTo($(".message-bubble")[0])
-                    }
-                } else {
-                    (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
-                    (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage("main")
-
-                    if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                        resizemap(false)
-                    }
-                }
-                console.dir(`ip-api.com test passed: ${request.apiTestCode}`)
-            } else {
-                api = 0
-                console.dir(`ip-api.com test failed: ${request.apiTestResult} ${request.apiTestCode}`)
-                console.dir(chrome.i18n.getMessage("apiStatus0") + ' ERROR: ' + request.apiTestResult)
-                if (settings.minimalism) {
-                    if ($('span[data-tr="rules"]').length === 1) {
-                        $("<span> </span>" + DOMPurify.sanitize('<b>ERROR: ' + request.apiTestResult + ' || </b>' + chrome.i18n.getMessage("apiStatus0"))).appendTo($(".message-bubble")[0])
-                    }
-                } else {
-                    (document.getElementById("apiStatus") as HTMLElement).innerHTML = DOMPurify.sanitize('<b>ERROR: ' + request.apiTestResult + ' || </b>' + chrome.i18n.getMessage("apiStatus0"));
-                    (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("main")
-                    if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                        resizemap(false)
-                    }
-                }
-            }
-        }
-        if (request.ipData) {
-            console.dir(`ip-api.com returned ${request.apiCode} for ${request.apiQuery}.`)
-            if (curIps.includes(request.apiQuery)) {
-                if (request.apiCode === 200) {
-                    processData(request.ipData, request.apiQuery)
-                } else {
-                    (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize("<b>HTTP ERROR " + request.apiCode + "</b>")
-                    if (settings.enableTargetCity || settings.enableTargetRegion) {
-                        if (request.status === 429) {
-                            stopAndStart(5000)
-                        }
-                    }
-                }
-            }
-        }
-    }
-);
