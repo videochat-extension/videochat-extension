@@ -1,6 +1,6 @@
+import $ from "jquery";
 import {ContentSwalChangelog} from "./content-swal-changelog"
 import {ContentSwalInfo} from "./content-swal-info"
-import $ from "jquery";
 
 export {}
 
