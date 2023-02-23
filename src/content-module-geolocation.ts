@@ -4,7 +4,42 @@ import Swal from "sweetalert2";
 import * as utils from "./utils";
 import {stopAndStart} from "./content";
 
+const s = document.createElement('script');
+s.src = chrome.runtime.getURL('injection/ip-api.js');
+s.onload = () => s.remove();
+(document.head || document.documentElement).appendChild(s);
 
+if (globalThis.language === "pt")
+    globalThis.language = "pt-BR"
+else if (globalThis.language === "zh")
+    globalThis.language = "zh-CN"
+
+export function checkApi() {
+    console.dir(`attemping to connect to http://ip-api.com directly (will fail unless user allow unsecure content)`)
+    $.getJSON("http://ip-api.com/json/", {
+        fields: "status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query"
+    }).done(function (json) {
+        console.dir('direct ip-api.com connection test passed! proceeding with best possible speed')
+        // best case
+        globalThis.api = 1
+        if (globalThis.settings.minimalism) {
+            if ($('span[data-tr="rules"]').length === 1) {
+                $("<span> </span>" + chrome.i18n.getMessage("apiStatus1")).appendTo($(".message-bubble")[0])
+            }
+        } else {
+            (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
+            (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus1") + "</br></br>" + chrome.i18n.getMessage("main")
+            if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
+                globalThis.mapModule.resizemap(false)
+            }
+        }
+    }).fail(function (jqxhr, textStatus, error) {
+        console.dir('direct ip-api.com connection test failed! trying to connect via extension\'s service worker')
+        chrome.runtime.sendMessage({testApi: true}, function (response) {
+            console.dir(`request to send test ip-api request sent to service worker: ${response}`)
+        });
+    });
+}
 
 export const onUpdateIP = function () {
 

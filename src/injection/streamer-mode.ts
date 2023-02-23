@@ -126,7 +126,7 @@ function onConversationEnd() {
 }
 
 const $div = $("#remote-video-wrapper");
-var observer3 = new MutationObserver(function (mutations) {
+let observerForStage = new MutationObserver(function (mutations) {
     mutations.forEach(function (mutation) {
         if (mutation.attributeName === "class") {
             const attributeValue = $(mutation.target).prop(mutation.attributeName);
@@ -171,6 +171,6 @@ var observer3 = new MutationObserver(function (mutations) {
     });
 });
 
-observer3.observe($div[0], {
+observerForStage.observe($div[0], {
     attributes: true
 });

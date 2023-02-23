@@ -1,5 +1,5 @@
 import * as utils from "./utils";
-import {hotkeys} from "./content-hotkeys";
+import {hotkeys} from "./content-module-hotkeys";
 
 export function createSettingsHotkeys() {
     return utils.createElement('div', {}, [

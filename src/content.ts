@@ -5,9 +5,6 @@ import * as Sentry from "@sentry/browser";
 import $ from "jquery";
 
 import * as faceapi from 'face-api.js';
-import * as L from 'leaflet'
-import * as DOMPurify from 'dompurify';
-import Swal from 'sweetalert2'
 import * as utils from "./utils"
 
 import {hotkeys} from "./content-module-hotkeys";
@@ -16,9 +13,13 @@ import "./background-listener"
 import "./content-swal-context-invalidated"
 import {updStats} from "./content-controls-tab-stats";
 import {injectInterface} from "./content-controls";
-import {switchMode} from "./content-swal-switchmode";
+import {injectSwitchModeButton, switchMode} from "./content-swal-switchmode";
 import {detectGender} from "./content-module-faceapi";
-import {onUpdateIP} from "./content-module-geolocation";
+import {checkApi, onUpdateIP} from "./content-module-geolocation";
+import "./content-module-interface"
+import "./content-module-geolocation"
+import {startMinimalism} from "./content-module-simplemode";
+import {injectDarkMode, tweakLoginWindow} from "./content-module-interface";
 
 require('arrive')
 require('tooltipster')
@@ -42,38 +43,6 @@ require('tooltipster')
 // "content.js",
 
 
-if (globalThis.language === "pt")
-    globalThis.language = "pt-BR"
-else if (globalThis.language === "zh")
-    globalThis.language = "zh-CN"
-
-const s = document.createElement('script');
-s.src = chrome.runtime.getURL('injection/ip-api.js');
-s.onload = () => s.remove();
-(document.head || document.documentElement).appendChild(s);
-
-const c = document.createElement('link');
-c.rel = "stylesheet";
-c.href = chrome.runtime.getURL('libs/css/css-tooltip.min.css');
-
-const cs = document.createElement('link');
-cs.rel = "stylesheet";
-cs.href = chrome.runtime.getURL("libs/css/tooltipster.bundle.min.css");
-
-globalThis.dark = document.createElement('link');
-globalThis.dark.rel = "stylesheet";
-globalThis.dark.id = "darkMode"
-if (location.href.includes('videochatru')) {
-    chrome.storage.sync.set({lastInstanceOpened: "https://videochatru.com/embed/"})
-    globalThis.dark.href = chrome.runtime.getURL("resources/dark-mode.css");
-} else if (location.href.includes('ome.tv')) {
-    chrome.storage.sync.set({lastInstanceOpened: "https://ome.tv/embed/"})
-    globalThis.dark.href = chrome.runtime.getURL("resources/dark-mode-ometv.css");
-}
-
-const css = document.createElement('style')
-css.textContent = "small {font-size: xx-small!important;}";
-
 chrome.storage.local.get(null, function (result) {
     globalThis.local = result;
 })
@@ -85,20 +54,6 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
         });
 });
 
-
-try {
-    let new_el = $(document.createElement("div"))
-
-    new_el[0].innerHTML = chrome.i18n.getMessage("loginWindow")
-
-    new_el[0].style.marginTop = "15px"
-    new_el[0].style.marginBottom = "15px"
-
-    new_el.insertAfter(document.querySelector('[data-tr="sign_in_to"]') as HTMLElement)
-    $(".login-popup__item.right")[0].style.overflowY = "auto"
-} catch (e) {
-    console.dir(e)
-}
 
 export function stopAndStart(delay?: number | undefined) {
     globalThis.requestToSkip = false
@@ -197,113 +152,31 @@ const onChangeStage = function (mutations: any[]) {
     });
 }
 
-function checkApi() {
-    console.dir(`attemping to connect to http://ip-api.com directly (will fail unless user allow unsecure content)`)
-    $.getJSON("http://ip-api.com/json/", {
-        fields: "status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query"
-    }).done(function (json) {
-        console.dir('direct ip-api.com connection test passed! proceeding with best possible speed')
-        // best case
-        globalThis.api = 1
-        if (globalThis.settings.minimalism) {
-            if ($('span[data-tr="rules"]').length === 1) {
-                $("<span> </span>" + chrome.i18n.getMessage("apiStatus1")).appendTo($(".message-bubble")[0])
-            }
-        } else {
-            (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
-            (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus1") + "</br></br>" + chrome.i18n.getMessage("main")
-            if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                globalThis.mapModule.resizemap(false)
-            }
-        }
-    }).fail(function (jqxhr, textStatus, error) {
-        console.dir('direct ip-api.com connection test failed! trying to connect via extension\'s service worker')
-        chrome.runtime.sendMessage({testApi: true}, function (response) {
-            console.dir(`request to send test ip-api request sent to service worker: ${response}`)
-        });
-    });
-}
-
 chrome.storage.sync.get(null, function (result) {
     Sentry.wrap(function () {
         globalThis.settings = result;
 
-        let switchModeButton = utils.createElement('button', {
-            onclick: () => {
-                switchMode()
-            },
-        }, [
-            utils.createElement('b', {
-                innerText: chrome.i18n.getMessage("switchModeButtonText")
-            })
-        ])
+        if (location.href.includes('videochatru')) {
+            chrome.storage.sync.set({lastInstanceOpened: "https://videochatru.com/embed/"})
+        } else if (location.href.includes('ome.tv')) {
+            chrome.storage.sync.set({lastInstanceOpened: "https://ome.tv/embed/"})
+        }
+
+        tweakLoginWindow()
 
         if (globalThis.settings.askForMode) {
             switchMode()
             return
         } else {
             if (globalThis.settings.minimalism) {
-                $(utils.createElement('p', {
-                    id: "remoteIP", style: "display: none;"
-                })).appendTo($("body"))
 
-                const onChangeStageMinimalism = function (mutations: MutationRecord[]) {
-                    mutations.forEach(function (mutation: MutationRecord) {
-                        if (mutation.attributeName === "class") {
-                            const attributeValue = String($(mutation.target).prop(mutation.attributeName));
-                            if (attributeValue.includes("s-search")) {
-                                if ((document.getElementById("remoteIP") as HTMLElement).innerText !== "")
-                                    (document.getElementById("remoteIP") as HTMLElement).innerText = "-"
-                                globalThis.curIps = []
-                            } else if (attributeValue.includes("s-stop")) {
-                                if ((document.getElementById("remoteIP") as HTMLElement).innerText !== "")
-                                    (document.getElementById("remoteIP") as HTMLElement).innerText = "-"
-                                globalThis.curIps = []
-                            }
-                        }
-                    });
-                }
-
-                var observer3 = new MutationObserver(onChangeStageMinimalism)
-                observer3.observe(document.getElementById('remote-video-wrapper') as HTMLElement, {attributes: true});
-
-                const observer = new MutationObserver(onUpdateIP)
-                observer.observe(document.getElementById('remoteIP') as HTMLElement, {
-                    attributes: true,
-                    childList: true,
-                    characterData: true
-                });
-
-                if ($("[data-tr=\"rules\"]").length === 1) {
-                    $("<br><br>").appendTo($(".message-bubble")[0])
-                    $(switchModeButton).appendTo($(".message-bubble")[0])
-                    checkApi()
-                }
-
-                document.arrive("[data-tr=\"rules\"]", function (el) {
-                    $("<br><br>").appendTo($(".message-bubble")[0])
-                    $(switchModeButton).appendTo($(".message-bubble")[0])
-                    checkApi()
-                })
+                startMinimalism()
 
                 return true
             }
         }
 
-        if ($("[data-tr=\"rules\"]").length === 1) {
-            $("<br><br>").appendTo($(".message-bubble")[0])
-            $(switchModeButton).appendTo($(".message-bubble")[0])
-        }
-
-        document.arrive("[data-tr=\"rules\"]", function (el) {
-            $("<br><br>").appendTo($(".message-bubble")[0])
-            $(switchModeButton).appendTo($(".message-bubble")[0])
-            document.unbindArrive("[data-tr=\"rules\"]");
-        });
-
-        (document.head || document.documentElement).appendChild(c);
-        (document.head || document.documentElement).appendChild(cs);
-        (document.head || document.documentElement).appendChild(css);
+        injectSwitchModeButton(true)
 
         document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e) => {
             if (globalThis.stage === 3)
@@ -476,8 +349,8 @@ chrome.storage.sync.get(null, function (result) {
             (document.head || document.documentElement).appendChild(streamerModeScript);
         }
 
-        if (globalThis.settings.darkMode)
-            (document.body || document.documentElement).appendChild(dark);
+        injectDarkMode()
+
         document.arrive(".test-elem", function () {
             // 'this' refers to the newly created element
         });
@@ -516,6 +389,8 @@ chrome.storage.sync.get(null, function (result) {
 
         var observer2 = new MutationObserver(onChangeStage)
         observer2.observe(document.getElementById('remote-video-wrapper') as HTMLElement, {attributes: true});
+
+
         if (!globalThis.settings.swalInfoCompleted) {
             globalThis.info.showFromStart()
         } else {

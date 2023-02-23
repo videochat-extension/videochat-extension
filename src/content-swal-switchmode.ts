@@ -1,5 +1,42 @@
 import Swal from "sweetalert2";
 import $ from "jquery";
+import * as utils from "./utils";
+import {checkApi} from "./content-module-geolocation";
+
+function createSwitchModeButton() {
+    return utils.createElement('button', {
+        onclick: () => {
+            switchMode()
+        },
+    }, [
+        utils.createElement('b', {
+            innerText: chrome.i18n.getMessage("switchModeButtonText")
+        })
+    ])
+}
+
+export function injectSwitchModeButton(once: boolean) {
+    let switchModeButton = createSwitchModeButton()
+
+    let rules = $("[data-tr=\"rules\"]")
+    if (rules.length === 1) {
+        let switchModeButtonEnjoyer: HTMLElement = rules[0].parentElement!
+        $("<br><br>").appendTo(switchModeButtonEnjoyer)
+        $(switchModeButton).appendTo(switchModeButtonEnjoyer)
+        checkApi()
+    }
+
+    document.arrive("[data-tr=\"rules\"]", function (el) {
+        let switchModeButtonEnjoyer: HTMLElement = el.parentElement!
+        $("<br><br>").appendTo(switchModeButtonEnjoyer)
+        $(switchModeButton).appendTo(switchModeButtonEnjoyer)
+        checkApi()
+        if (once) {
+            document.unbindArrive("[data-tr=\"rules\"]")
+        }
+    })
+}
+
 
 export function switchMode() {
     let preselect = globalThis.settings.minimalism
@@ -38,9 +75,9 @@ export function switchMode() {
         },
         didRender: () => {
             if (globalThis.settings.minimalism) {
-                (document.getElementById('minimalism') as HTMLInputElement).checked = true  // TODO: check if it works, was 'checked' before, but ts didnt like
+                (document.getElementById('minimalism') as HTMLInputElement).checked = true
             } else {
-                (document.getElementById('full') as HTMLInputElement).checked = true // TODO: check if it works, was 'checked' before, but ts didnt like
+                (document.getElementById('full') as HTMLInputElement).checked = true
             }
         }
     })

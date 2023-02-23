@@ -75,6 +75,8 @@ function createStyle() {
               p {
                 display: inline-block;
               }
+              
+              small {font-size: xx-small!important;}
               `
     })
 }
@@ -115,6 +117,18 @@ function createControls() {
 
 export function injectInterface() {
     globalThis.controls = createControls();
+
+    const c = document.createElement('link');
+    c.rel = "stylesheet";
+    c.href = chrome.runtime.getURL('libs/css/css-tooltip.min.css');
+
+    const cs = document.createElement('link');
+    cs.rel = "stylesheet";
+    cs.href = chrome.runtime.getURL("libs/css/tooltipster.bundle.min.css");
+
+    (document.head || document.documentElement).appendChild(c);
+    (document.head || document.documentElement).appendChild(cs);
+
     ($(".gender-selector")[0] as HTMLElement).parentElement!.remove()
 
     $(globalThis.controls).insertBefore(".chat");
@@ -133,7 +147,7 @@ export function injectInterface() {
         }
     });
 
-    // $('.tooltip').tooltipster({maxWidth: 300, distance: -1})
+    $('.tooltip').tooltipster({maxWidth: 300, distance: -1})
 
     globalThis.mapModule = mapModule.getInstance()
 }
