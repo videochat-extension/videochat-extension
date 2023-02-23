@@ -1,6 +1,27 @@
 import * as faceapi from "face-api.js";
 import {syncBlackList} from "./content-module-blacklist";
 
+export function injectFaceApi() {
+    setTimeout(async () => {
+        console.time("faceapi: loading models")
+        await faceapi.nets.tinyFaceDetector.loadFromUri(chrome.runtime.getURL('resources/models'))
+        await faceapi.nets.ageGenderNet.loadFromUri(chrome.runtime.getURL('resources/models'))
+        console.timeEnd("faceapi: loading models")
+
+        console.time("faceapi: initial facedetect");
+        (document.getElementById("remoteFace") as HTMLElement).innerHTML = chrome.i18n.getMessage("initialFaceDetect")
+        let tempImage = document.createElement('img')
+        tempImage.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAMSURBVBhXY/j//z8ABf4C/qc1gYQAAAAASUVORK5CYII="
+        await faceapi.detectAllFaces(tempImage, new faceapi.TinyFaceDetectorOptions()).withAgeAndGender()
+        console.timeEnd("faceapi: initial facedetect");
+        (document.getElementById("remoteFace") as HTMLElement).innerHTML = ""
+
+        globalThis.faceApiLoaded = true
+
+        globalThis.tim = setTimeout(detectGender, 200)
+    }, 0)
+}
+
 export async function detectGender() {
     if (!globalThis.settings.skipMale && !globalThis.settings.skipFemale && !globalThis.settings.enableFaceApi)
         return

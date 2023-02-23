@@ -7,19 +7,25 @@ import $ from "jquery";
 import * as faceapi from 'face-api.js';
 import * as utils from "./utils"
 
-import {hotkeys} from "./content-module-hotkeys";
+import {hotkeys, registerHotkeys, unregisterHotkeys} from "./content-module-hotkeys";
 import "./content-sentry"
 import "./background-listener"
 import "./content-swal-context-invalidated"
 import {updStats} from "./content-controls-tab-stats";
 import {injectInterface} from "./content-controls";
 import {injectSwitchModeButton, switchMode} from "./content-swal-switchmode";
-import {detectGender} from "./content-module-faceapi";
+import {detectGender, injectFaceApi} from "./content-module-faceapi";
 import {checkApi, onUpdateIP} from "./content-module-geolocation";
 import "./content-module-interface"
 import "./content-module-geolocation"
 import {startMinimalism} from "./content-module-simplemode";
-import {injectDarkMode, tweakLoginWindow} from "./content-module-interface";
+import {injectDarkMode, interfaceModuleTweaks, tweakLoginWindow} from "./content-module-interface";
+import {injectStreamerMode} from "./content-module-streamermode";
+import {
+    injectAutomationAutoResume,
+    injectAutomationSkipFourSec,
+    injectAutomationSkipWrongCountry
+} from "./content-module-automation";
 
 require('arrive')
 require('tooltipster')
@@ -216,167 +222,33 @@ chrome.storage.sync.get(null, function (result) {
 
         checkApi()
 
-        if (globalThis.settings.hideLogo) {
-            try {
-                document.getElementById("logo-link")!.style.display = "none"
-            } catch (e) {
-                console.dir(e)
-            }
-        }
+        interfaceModuleTweaks()
 
-        if (globalThis.settings.hideHeader) {
-            $("#header").hide();
-            document.getElementById("app")!.style.height = "100%"
-            window.dispatchEvent(new Event('resize'));
-        }
-
-        if (globalThis.settings.hideWatermark || globalThis.settings.streamer) {
-            try {
-                (document.getElementsByClassName("remote-video__watermark")[0] as HTMLElement).style.display = "none"
-            } catch (e) {
-                console.dir(e)
-            }
-        }
-
-        if (globalThis.settings.hideBanner || globalThis.settings.streamer) {
-            try {
-                (document.getElementsByClassName("caption remote-video__info")[0] as HTMLElement).style.display = "none"
-            } catch (e) {
-                console.dir(e)
-            }
-        }
-
-        if (globalThis.settings.doNotReflect) {
-            $("#local-video").removeClass("video-container-local-video")
-        }
-
-        if (globalThis.settings.doNotCover) {
-            $("#remote-video").css({"object-fit": "contain"})
-            // $(".preview").css({"background-size": "contain"})
-        }
-
-        if (globalThis.settings.hideCamera) {
-            $("#local-video-wrapper")[0].style.display = "none"
-        }
-
-        setInterval(() => {
-            if (globalThis.settings.skipFourSec) {
-                try {
-                    if ((globalThis.stage === 2) && (globalThis.found + 4000 < Date.now())) {
-                        console.dir("Skipping due to loading time limit");
-                        (document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement).click()
-                        //settings.stats.countManSkip--
-                    }
-                } catch (e) {
-                    //console.dir(e)
-                }
-            }
-        }, 1000)
+        injectAutomationSkipFourSec()
 
         if (globalThis.settings.autoResume) {
-            (document.getElementById('overlay') as HTMLElement).style.background = "none";
-            // document.getElementById('overlay').style.position = "unset"
-
-            (document.getElementById('local-video-warning-popup') as HTMLElement).style.filter = "opacity(0)"
-            new MutationObserver(function (mutations) {
-                mutations.forEach(function (mutation) {
-                        if (mutation.attributeName === "class") {
-                            if ((mutation.target as HTMLElement).className.includes("disabled")) {
-                                $(".ok").removeClass("disabled");
-                                let disabledButton: HTMLElement = (document.getElementsByClassName("video-warning__btn")[0]).firstElementChild as HTMLElement
-                                disabledButton.click()
-                            }
-                        }
-                    }
-                )
-            }).observe($(".ok")[0], {attributes: true});
+            injectAutomationAutoResume()
         }
 
         if (!globalThis.settings.ipApiLocalisation)
             globalThis.language = "en"
 
         if (globalThis.settings.hotkeys) {
-            document.removeEventListener('keyup', hotkeys)
-            document.addEventListener('keyup', hotkeys)
+            unregisterHotkeys()
+            registerHotkeys()
         }
 
         if (globalThis.settings.skipMale || globalThis.settings.skipFemale || globalThis.settings.enableFaceApi) {
-            setTimeout(async () => {
-                console.time("faceapi: loading models")
-                await faceapi.nets.tinyFaceDetector.loadFromUri(chrome.runtime.getURL('resources/models'))
-                await faceapi.nets.ageGenderNet.loadFromUri(chrome.runtime.getURL('resources/models'))
-                console.timeEnd("faceapi: loading models")
-
-                console.time("faceapi: initial facedetect");
-                (document.getElementById("remoteFace") as HTMLElement).innerHTML = chrome.i18n.getMessage("initialFaceDetect")
-                let tempImage = document.createElement('img')
-                tempImage.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAMSURBVBhXY/j//z8ABf4C/qc1gYQAAAAASUVORK5CYII="
-                await faceapi.detectAllFaces(tempImage, new faceapi.TinyFaceDetectorOptions()).withAgeAndGender()
-                console.timeEnd("faceapi: initial facedetect");
-                (document.getElementById("remoteFace") as HTMLElement).innerHTML = ""
-
-                globalThis.faceApiLoaded = true
-
-                globalThis.tim = setTimeout(detectGender, 200)
-            }, 0)
+            injectFaceApi()
         }
 
         if (globalThis.settings.streamer) {
-            if (globalThis.settings.blurReport)
-                (document.getElementById("report-screen") as HTMLElement).style.filter = "blur(10px)"
-
-            if (globalThis.settings.cover || globalThis.settings.coverPreview || globalThis.settings.coverNoise || globalThis.settings.coverStop) {
-                $(utils.createElement('img', {
-                    src: globalThis.settings.coverSrc,
-                    id: "cover",
-                    style: "height:100%; position: absolute; display:none"
-                })).insertBefore("#remote-video")
-
-                $(utils.createElement('img', {
-                    src: globalThis.settings.coverSrc,
-                    id: "cover2",
-                    style: "height:100%; position: absolute; transform: scaleX(-1)"
-                })).insertBefore("#local-video")
-
-                $(".remote-video__preview").insertBefore("#cover")
-
-                $(".remote-video__noise").insertBefore("#cover")
-            }
-
-            const streamerModeScript = document.createElement('script');
-            streamerModeScript.src = chrome.runtime.getURL('injection/streamer-mode.js');
-            streamerModeScript.onload = () => streamerModeScript.remove();
-            (document.head || document.documentElement).appendChild(streamerModeScript);
+            injectStreamerMode()
         }
 
         injectDarkMode()
 
-        document.arrive(".test-elem", function () {
-            // 'this' refers to the newly created element
-        });
-        document.arrive(".tr-country", function (el: any) { // TODO: FIX TYPE
-            if (globalThis.settings.skipwrongcountry) {
-                try {
-                    if (el.parentElement?.className === "message-bubble") {
-                        let expectedCountry = "ZZ"
-
-                        if ($(".country-filter-popup__country").filter(".all").filter(".selected").length == 0) {
-                            expectedCountry = $(".country-filter-popup__country").filter(".selected").children('span[data-tr]')[0].getAttribute('data-tr')!
-                        }
-                        let receivedCountry = el.dataset.tr
-                        if (expectedCountry !== "ZZ" && expectedCountry !== receivedCountry) {
-                            stopAndStart()
-                            console.dir(el)
-                            console.dir(`SKIPPED WRONG COUNTRY. EXPECTED: ${expectedCountry}, RECEIVED: ${receivedCountry}.`)
-                        }
-                    }
-                } catch (e) {
-                    console.dir("SKIP WRONG COUNTRY EXCEPTION BEGIN")
-                    console.dir(e)
-                    console.dir("SKIP WRONG COUNTRY EXCEPTION END")
-                }
-            }
-        })
+        injectAutomationSkipWrongCountry()
 
         new ResizeObserver(globalThis.mapModule.outputsize).observe(document.getElementById("overlay") as HTMLElement)
 
@@ -389,7 +261,6 @@ chrome.storage.sync.get(null, function (result) {
 
         var observer2 = new MutationObserver(onChangeStage)
         observer2.observe(document.getElementById('remote-video-wrapper') as HTMLElement, {attributes: true});
-
 
         if (!globalThis.settings.swalInfoCompleted) {
             globalThis.info.showFromStart()

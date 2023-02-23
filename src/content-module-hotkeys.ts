@@ -40,6 +40,14 @@ export function hotkeys(e: KeyboardEvent) {
     }
 }
 
+export function unregisterHotkeys() {
+    document.removeEventListener('keyup', hotkeys)
+}
+
+export function registerHotkeys() {
+
+    document.addEventListener('keyup', hotkeys)
+}
 
 document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e: any) => { // TODO: any should be KeyboardEvent but TS doesn't like it
     if (e.shiftKey && !globalThis.local.ips.includes(document.getElementById("remoteIP")?.innerText!)) // TODO: remove remoteIP bs

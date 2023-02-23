@@ -36,5 +36,4 @@ export function startMinimalism() {
     });
 
     injectSwitchModeButton(false)
-
 }
