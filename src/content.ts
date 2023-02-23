@@ -12,7 +12,7 @@ import {updStats} from "./content-controls-tab-stats";
 import {injectInterface} from "./content-controls";
 import {injectSwitchModeButton, switchMode} from "./content-swal-switchmode";
 import {detectGender, injectFaceApi} from "./content-module-faceapi";
-import {checkApi, onUpdateIP} from "./content-module-geolocation";
+import {checkApi, injectIpEventListener} from "./content-module-geolocation";
 import "./content-module-interface"
 import "./content-module-geolocation"
 import {startMinimalism} from "./content-module-simplemode";
@@ -77,22 +77,33 @@ export function stopAndStart(delay?: number | undefined) {
 const onChangeStage = function (mutations: any[]) {
     mutations.forEach(function (mutation) {
         if (mutation.attributeName === "class") {
-
-            if (globalThis.stage === 3) {
+            if (globalThis.stage === 4) {
                 globalThis.settings.stats.time += Math.ceil((Date.now() - globalThis.play) / 1000)
             }
 
             const attributeValue = String($(mutation.target).prop(mutation.attributeName));
+            if (attributeValue.includes("s-stop")) {
+                globalThis.stage = 0;
+
+                clearInterval(globalThis.tim)
+                globalThis.curIps = []
+                // (document.getElementById("remoteInfo") as HTMLElement).innerHTML = ''
+                globalThis.needToClear = true;
+                (document.getElementById("remoteFace") as HTMLElement).innerHTML = '';
+
+                if (globalThis.requestToStartTiming !== 0 && +new Date() - globalThis.requestToStartTiming < 1000) {
+                    globalThis.requestToStartTiming = 0;
+                    (document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement).click()
+                }
+            }
             if (attributeValue.includes("s-search")) {
-                if ((document.getElementById("remoteIP") as HTMLElement).innerText !== "")
-                    (document.getElementById("remoteIP") as HTMLElement).innerText = "-"
                 globalThis.stage = 1
+
                 globalThis.curIps = []
                 globalThis.needToClear = true
                 globalThis.needToCheckTarget = true
 
                 clearInterval(globalThis.tim);
-                (document.getElementById("localStage") as HTMLElement).innerText = '1'
                 // (document.getElementById("remoteFace") as HTMLElement).innerHTML = ''
                 if (globalThis.play < globalThis.search) {
                     // console.log("Dialog ended before even started")
@@ -101,15 +112,16 @@ const onChangeStage = function (mutations: any[]) {
                 globalThis.search = Date.now()
             } else if (attributeValue.includes("s-found")) {
                 globalThis.stage = 2;
-                (document.getElementById("localStage") as HTMLElement).innerText = '2'
+
                 globalThis.needToCheckTarget = true
 
                 globalThis.found = Date.now()
                 if (globalThis.requestToSkip)
                     stopAndStart()
-            } else if (attributeValue.includes("s-play")) {
+            } else if (attributeValue.includes("s-connected")) {
                 globalThis.stage = 3;
-                (document.getElementById("localStage") as HTMLElement).innerText = '3'
+            } else if (attributeValue.includes("s-play")) {
+                globalThis.stage = 4;
 
                 clearInterval(globalThis.tim)
                 globalThis.tim = setTimeout(detectGender, 0)
@@ -117,27 +129,11 @@ const onChangeStage = function (mutations: any[]) {
                 globalThis.play = Date.now()
                 console.log("Loading took: ", ((globalThis.play - globalThis.found) / 1000).toFixed(2), "sec")
 
-                if (globalThis.requestToSkip || (document.getElementById("remoteIP") as HTMLElement).innerText === "-") {
+                if (globalThis.requestToSkip/* || (document.getElementById("remoteIP") as HTMLElement).innerText === "-"*/) {
                     globalThis.requestToStartTiming = +new Date();
                     (document.getElementsByClassName('buttons__button stop-button')[0] as HTMLElement).click()
                 } else
                     globalThis.settings.stats.countAll++
-            } else if (attributeValue.includes("s-stop")) {
-                clearInterval(globalThis.tim)
-                if ((document.getElementById("remoteIP") as HTMLElement).innerText !== "")
-                    (document.getElementById("remoteIP") as HTMLElement).innerText = "-"
-                globalThis.curIps = []
-                // (document.getElementById("remoteInfo") as HTMLElement).innerHTML = ''
-                globalThis.needToClear = true;
-                (document.getElementById("remoteFace") as HTMLElement).innerHTML = '';
-
-                globalThis.stage = 0;
-                (document.getElementById("localStage") as HTMLElement).innerText = '0'
-
-                if (globalThis.requestToStartTiming !== 0 && +new Date() - globalThis.requestToStartTiming < 1000) {
-                    globalThis.requestToStartTiming = 0;
-                    (document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement).click()
-                }
             }
 
             updStats(false)
@@ -156,6 +152,7 @@ chrome.storage.sync.get(null, function (result) {
         }
 
         tweakLoginWindow()
+        injectIpEventListener()
 
         if (globalThis.settings.askForMode) {
             switchMode()
@@ -170,7 +167,7 @@ chrome.storage.sync.get(null, function (result) {
         injectSwitchModeButton(true)
 
         document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e) => {
-            if (globalThis.stage === 3)
+            if (globalThis.stage === 4)
                 globalThis.settings.stats.countManSkip++
 
             clearTimeout(globalThis.timeout)
@@ -219,13 +216,6 @@ chrome.storage.sync.get(null, function (result) {
         injectAutomationSkipWrongCountry()
 
         new ResizeObserver(globalThis.mapModule.outputsize).observe(document.getElementById("overlay") as HTMLElement)
-
-        const observer = new MutationObserver(onUpdateIP)
-        observer.observe(document.getElementById('remoteIP') as HTMLElement, {
-            attributes: true,
-            childList: true,
-            characterData: true
-        });
 
         var observer2 = new MutationObserver(onChangeStage)
         observer2.observe(document.getElementById('remote-video-wrapper') as HTMLElement, {attributes: true});

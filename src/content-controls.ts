@@ -105,12 +105,8 @@ function createControls() {
         className: 'chat', id: 'controls', style: "width:390px; margin-right: calc(100vh / 768 * 10);"
     }, [utils.createElement('div', {
         className: "tabs chat"
-    }, [createStyle(), utils.createElement('p', {
-        id: "remoteIP", style: "display: none;"
-    }), utils.createElement('div', {
+    }, [createStyle(), utils.createElement('div', {
         id: "remoteIPInfo", style: "display: none;"
-    }), utils.createElement('div', {
-        id: "localStage", style: "display: none"
     }), createHeader(), createTabs(),
         createTabApi(), createTabMap(), createTabBans(), createTabStats(), createTabSettings(), createTabAbout(),])])
 }

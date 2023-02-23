@@ -17,8 +17,9 @@ chrome.runtime.onMessage.addListener(
                 }
 
                 case "skip_ban": {
-                    if (!globalThis.local.ips.includes(document.getElementById("remoteIP")?.innerText!)) // TODO: remove remoteIP bs
-                        syncBlackList()
+                    // TODO: Blacklist MUST use curIps
+                    // if (!globalThis.local.ips.includes(document.getElementById("remoteIP")?.innerText!)) // TODO: remove remoteIP bs
+                    //     syncBlackList()
 
                     let startButton: HTMLElement = document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement;
                     startButton.click()

@@ -29,7 +29,7 @@ export async function detectGender() {
     let skip_m = false
     let skip_f = false
     let text = ''
-    if (globalThis.stage === 3) {
+    if (globalThis.stage === 4) {
         console.time("faceapi: detectAllFaces()")
 
         clearInterval(globalThis.tim)

@@ -11,8 +11,9 @@ export function hotkeys(e: KeyboardEvent) {
                 let cancelReportButton: HTMLElement = document.getElementsByClassName('btn')[0] as HTMLElement;
                 cancelReportButton.click()
             } else {
-                if (e.shiftKey && !globalThis.local.ips.includes(document.getElementById("remoteIP")?.innerText!)) // TODO: remove remoteIP bs
-                    syncBlackList()
+                // TODO (!!!): blacklist must use globalThis.curIps, not last ip
+                // if (e.shiftKey && !globalThis.local.ips.includes(document.getElementById("remoteIP")?.innerText!)) // TODO: remove remoteIP bs
+                //     syncBlackList()
 
                 let startButton: HTMLElement = document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement;
                 startButton.click()
@@ -50,6 +51,7 @@ export function registerHotkeys() {
 }
 
 document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e: any) => { // TODO: any should be KeyboardEvent but TS doesn't like it
-    if (e.shiftKey && !globalThis.local.ips.includes(document.getElementById("remoteIP")?.innerText!)) // TODO: remove remoteIP bs
-        syncBlackList()
+    // TODO (!!!): blacklist must use globalThis.curIps, not last ip
+    // if (e.shiftKey && !globalThis.local.ips.includes(document.getElementById("remoteIP")?.innerText!)) // TODO: remove remoteIP bs
+    //     syncBlackList()
 })

@@ -14,6 +14,23 @@ if (globalThis.language === "pt")
 else if (globalThis.language === "zh")
     globalThis.language = "zh-CN"
 
+let rmdaddr = "0.0.0.0"
+
+export function injectIpEventListener() {
+    window.addEventListener("[object Object]", function (evt) {
+        let candidate = new RTCIceCandidate((<CustomEvent>evt).detail.args[0])
+        if (candidate.type === "srflx" && candidate.address) {
+            console.dir("IP: " + candidate.address)
+            if (rmdaddr !== candidate.address) {
+                rmdaddr = candidate.address;
+                console.dir("IP CHANGED")
+                onNewIP(rmdaddr)
+            }
+        }
+    }, false);
+}
+
+
 export function checkApi() {
     console.dir(`attemping to connect to http://ip-api.com directly (will fail unless user allow unsecure content)`)
     $.getJSON("http://ip-api.com/json/", {
@@ -41,12 +58,9 @@ export function checkApi() {
     });
 }
 
-export const onUpdateIP = function () {
-
-    if ((document.getElementById("remoteIP") as HTMLElement).innerText === "-" || (document.getElementById("remoteIP") as HTMLElement).innerText === "")
-        return
-
-    let newIp = (document.getElementById("remoteIP") as HTMLElement).innerText.replace("[", "").replace("]", "")
+export const onNewIP = function (newIp: string) {
+    // TODO: validate ip address
+    newIp = newIp.replace("[", "").replace("]", "")
 
     if (globalThis.curIps.includes(newIp)) {
         return
@@ -54,7 +68,7 @@ export const onUpdateIP = function () {
 
     console.dir("IP CHANGE DETECTED")
     globalThis.requestToSkip = false
-    if (globalThis.local.ips.includes((document.getElementById("remoteIP") as HTMLElement).innerText)) {
+    if (globalThis.local.ips.includes(newIp)) {
         globalThis.settings.stats.countDup++
         console.dir("old ip")
         if (globalThis.settings.skipSound)
@@ -75,7 +89,6 @@ export const onUpdateIP = function () {
             default:
                 break;
         }
-
     }
 }
 

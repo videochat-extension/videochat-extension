@@ -28,7 +28,7 @@ export function createTabApi() {
 export function injectCounter() {
     setInterval(() => {
         if (document.getElementsByClassName("remoteTM").length > 0) {
-            if ((document.getElementById("localStage") as HTMLElement).innerText === "3") {
+            if (globalThis.stage === 4) {
                 for (let el of document.getElementsByClassName("remoteTM") as HTMLCollectionOf<HTMLElement>) {
                     el.innerText = utils.secondsToHms(+new Date() / 1000 - globalThis.startDate)
                 }

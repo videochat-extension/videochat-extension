@@ -1,21 +1,18 @@
 // based on magic from https://github.com/fippo/rtcstats (MIT)
 
-var id = 0;
-var rmdaddr = "0.0.0.0"
-
-var nativeMethod = window.RTCPeerConnection.prototype.addIceCandidate
+let nativeMethod = window.RTCPeerConnection.prototype.addIceCandidate
 if (nativeMethod) {
     window.RTCPeerConnection.prototype.addIceCandidate = function () {
         let pc = this;
         let args = arguments;
-        if (args[0].type === "srflx") {
-            console.dir("IP: " + args[0].address)
-            if (rmdaddr !== args[0].address) {
-                rmdaddr = args[0].address;
-                (document.getElementById("remoteIP") as HTMLElement).innerText = args[0].address
-                console.dir("IP CHANGED")
-            }
+
+        try {
+            window.dispatchEvent(new CustomEvent("[object Object]", {detail: {args: JSON.parse(JSON.stringify(args))}}))
+        } catch (e) {
+            console.dir("ERROR: Failed to pass addIceCandidate data")
+            console.dir(e)
         }
+
         return new Promise(function (resolve, reject) {
             nativeMethod.apply(pc, [args[0],
                 function () {
