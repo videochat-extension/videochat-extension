@@ -125,7 +125,6 @@ const onChangeStage = function (mutations: any[]) {
                 globalThis.play = Date.now()
                 console.log("Loading took: ", ((globalThis.play - globalThis.found) / 1000).toFixed(2), "sec")
 
-
                 globalThis.settings.stats.countAll++
             }
 
@@ -157,7 +156,7 @@ chrome.storage.sync.get(null, function (result) {
             }
         }
 
-        injectSwitchModeButton(true)
+        injectSwitchModeButton(false)
 
         document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e) => {
             if (globalThis.stage === 4)

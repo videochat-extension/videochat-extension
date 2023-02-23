@@ -20,5 +20,5 @@ export function startMinimalism() {
 
     // make
 
-    injectSwitchModeButton(false)
+    injectSwitchModeButton(true)
 }
