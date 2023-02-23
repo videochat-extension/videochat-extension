@@ -3,6 +3,8 @@ import {ContentSwalChangelog} from "./content-swal-changelog"
 import {ContentSwalInfo} from "./content-swal-info"
 import {mapModule} from "./content-module-map";
 
+import {ChatruletkaDriver} from "./content-driver-chatruletka";
+
 export {}
 
 declare global {
@@ -10,7 +12,6 @@ declare global {
     var settings: any;
     var local: any;
     var curIps: any[];
-    var stage: number;
     var search: number;
     var found: number;
     var startDate: number;
@@ -36,6 +37,7 @@ declare global {
     var dark: HTMLLinkElement;
     var changelog: ContentSwalChangelog;
     var mapModule: mapModule;
+    var driver: ChatruletkaDriver;
     //blacklist
     var male: HTMLAudioElement;
     var ban: HTMLAudioElement;
@@ -50,7 +52,6 @@ globalThis.curIps = []
 globalThis.changelog = new ContentSwalChangelog()
 globalThis.info = new ContentSwalInfo()
 
-globalThis.stage = 0
 globalThis.search = 0
 globalThis.found = 0
 // globalThis.startDate

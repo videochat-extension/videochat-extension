@@ -1,11 +1,11 @@
 import $ from "jquery";
-import {stopAndStart} from "./content";
+require('arrive')
 
 export function injectAutomationSkipFourSec() {
     setInterval(() => {
         if (globalThis.settings.skipFourSec) {
             try {
-                if ((globalThis.stage === 2) && (globalThis.found + 4000 < Date.now())) {
+                if ((globalThis.driver.stage === 2) && (globalThis.found + 4000 < Date.now())) {
                     console.dir("Skipping due to loading time limit");
                     (document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement).click()
                     //settings.stats.countManSkip--
@@ -48,7 +48,7 @@ export function injectAutomationSkipWrongCountry() {
                     }
                     let receivedCountry = el.dataset.tr
                     if (expectedCountry !== "ZZ" && expectedCountry !== receivedCountry) {
-                        stopAndStart()
+                        globalThis.driver.stopAndStart()
                         console.dir(el)
                         console.dir(`SKIPPED WRONG COUNTRY. EXPECTED: ${expectedCountry}, RECEIVED: ${receivedCountry}.`)
                     }

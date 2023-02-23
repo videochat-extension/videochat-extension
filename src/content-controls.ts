@@ -9,6 +9,8 @@ import {createTabSettings} from "./content-controls-tab-settings";
 import {createTabAbout} from "./content-controls-tab-about";
 import {mapModule} from "./content-module-map";
 
+require('tooltipster')
+
 function createStyle() {
     return utils.createElement('style', {
         textContent: `.tabs__content {
@@ -111,7 +113,7 @@ function createControls() {
         createTabApi(), createTabMap(), createTabBans(), createTabStats(), createTabSettings(), createTabAbout(),])])
 }
 
-export function injectInterface() {
+export function injectControls() {
     globalThis.controls = createControls();
 
     const c = document.createElement('link');

@@ -18,7 +18,5 @@ export function startMinimalism() {
     let observerForStage = new MutationObserver(onChangeStageMinimalism)
     observerForStage.observe(document.getElementById('remote-video-wrapper') as HTMLElement, {attributes: true});
 
-    // make
-
     injectSwitchModeButton(true)
 }

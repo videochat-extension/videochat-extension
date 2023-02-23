@@ -2,7 +2,6 @@ import $ from "jquery";
 import * as DOMPurify from "dompurify";
 import Swal from "sweetalert2";
 import * as utils from "./utils";
-import {stopAndStart} from "./content";
 
 const s = document.createElement('script');
 s.src = chrome.runtime.getURL('injection/ip-api.js');
@@ -72,7 +71,7 @@ export const onNewIP = function (newIp: string) {
         console.dir("old ip")
         if (globalThis.settings.skipSound)
             globalThis.ban.play();
-        stopAndStart()
+        globalThis.driver.stopAndStart()
     } else {
         globalThis.curIps.push(newIp)
         console.dir(globalThis.curIps)
@@ -109,7 +108,7 @@ export function doLookupRequest1(ip: string) {
             }
             if (globalThis.settings.enableTargetCity || globalThis.settings.enableTargetRegion) {
                 if (jqxhr.status === 429) {
-                    stopAndStart(5000)
+                    globalThis.driver.stopAndStart(5000)
                 }
             }
         });
@@ -267,14 +266,14 @@ export function processData(json: any, ip: string) { // TODO: fix type
     if ((globalThis.settings.enableTargetCity || globalThis.settings.enableTargetRegion) && globalThis.needToCheckTarget) {
         if (globalThis.settings.skipMobileTarget && json.mobile) {
             if (globalThis.curIps.indexOf(ip) + 1 === globalThis.curIps.length) {
-                stopAndStart()
+                globalThis.driver.stopAndStart()
             }
             return
         } else {
             if (globalThis.settings.enableTargetCity) {
                 if (!globalThis.settings.targetCity.includes(json.city)) {
                     if (globalThis.curIps.indexOf(ip) + 1 === globalThis.curIps.length) {
-                        stopAndStart()
+                        globalThis.driver.stopAndStart()
                     }
                     return
                 } else {
@@ -288,7 +287,7 @@ export function processData(json: any, ip: string) { // TODO: fix type
             if (globalThis.settings.enableTargetRegion) {
                 if (!globalThis.settings.targetRegion.includes(json.regionName)) {
                     if (globalThis.curIps.indexOf(ip) + 1 === globalThis.curIps.length) {
-                        stopAndStart()
+                        globalThis.driver.stopAndStart()
                     }
                     return
                 } else {

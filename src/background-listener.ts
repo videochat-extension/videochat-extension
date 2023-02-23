@@ -1,7 +1,6 @@
 import * as utils from "./utils";
 import $ from "jquery";
 import * as DOMPurify from "dompurify";
-import {stopAndStart} from "./content"
 import {syncBlackList} from "./content-module-blacklist"
 import {processData} from "./content-module-geolocation";
 
@@ -107,7 +106,7 @@ chrome.runtime.onMessage.addListener(
                     (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize("<b>HTTP ERROR " + request.apiCode + "</b>")
                     if (globalThis.settings.enableTargetCity || globalThis.settings.enableTargetRegion) {
                         if (request.status === 429) {
-                            stopAndStart(5000)
+                            globalThis.driver.stopAndStart(5000)
                         }
                     }
                 }
