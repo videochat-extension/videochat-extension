@@ -7,7 +7,7 @@ import $ from "jquery";
 import * as faceapi from 'face-api.js';
 import * as utils from "./utils"
 
-import {hotkeys, registerHotkeys, unregisterHotkeys} from "./content-module-hotkeys";
+import {registerHotkeys, unregisterHotkeys} from "./content-module-hotkeys";
 import "./content-sentry"
 import "./background-listener"
 import "./content-swal-context-invalidated"
@@ -26,6 +26,7 @@ import {
     injectAutomationSkipFourSec,
     injectAutomationSkipWrongCountry
 } from "./content-module-automation";
+import {injectCounter} from "./content-controls-tab-api";
 
 require('arrive')
 require('tooltipster')
@@ -92,8 +93,6 @@ const onChangeStage = function (mutations: any[]) {
                 globalThis.curIps = []
                 globalThis.needToClear = true
                 globalThis.needToCheckTarget = true
-                // console.dir("СТАДИЯ ПОИСКА")
-                // offline.play()
 
                 clearInterval(globalThis.tim);
                 (document.getElementById("localStage") as HTMLElement).innerText = '1'
@@ -104,9 +103,6 @@ const onChangeStage = function (mutations: any[]) {
 
                 globalThis.search = Date.now()
             } else if (attributeValue.includes("s-found")) {
-                // console.dir("СТАДИЯ НАШЕЛ")
-
-                // (document.getElementById("remoteFace") as HTMLElement).innerHTML = ''
                 globalThis.stage = 2;
                 (document.getElementById("localStage") as HTMLElement).innerText = '2'
                 globalThis.needToCheckTarget = true
@@ -115,9 +111,6 @@ const onChangeStage = function (mutations: any[]) {
                 if (globalThis.requestToSkip)
                     stopAndStart()
             } else if (attributeValue.includes("s-play")) {
-                // online.play()
-                // console.dir("СТАДИЯ ВОСПРОИЗВЕДЕНИЯ")
-
                 globalThis.stage = 3;
                 (document.getElementById("localStage") as HTMLElement).innerText = '3'
 
@@ -127,16 +120,13 @@ const onChangeStage = function (mutations: any[]) {
                 globalThis.play = Date.now()
                 console.log("Loading took: ", ((globalThis.play - globalThis.found) / 1000).toFixed(2), "sec")
 
-
                 if (globalThis.requestToSkip || (document.getElementById("remoteIP") as HTMLElement).innerText === "-") {
                     globalThis.requestToStartTiming = +new Date();
                     (document.getElementsByClassName('buttons__button stop-button')[0] as HTMLElement).click()
                 } else
                     globalThis.settings.stats.countAll++
             } else if (attributeValue.includes("s-stop")) {
-                // offline.play()
                 clearInterval(globalThis.tim)
-                // console.dir("СТАДИЯ СТОП")
                 if ((document.getElementById("remoteIP") as HTMLElement).innerText !== "")
                     (document.getElementById("remoteIP") as HTMLElement).innerText = "-"
                 globalThis.curIps = []
@@ -175,9 +165,7 @@ chrome.storage.sync.get(null, function (result) {
             return
         } else {
             if (globalThis.settings.minimalism) {
-
                 startMinimalism()
-
                 return true
             }
         }
@@ -201,24 +189,7 @@ chrome.storage.sync.get(null, function (result) {
 
         injectInterface()
 
-        setInterval(() => {
-            if (document.getElementsByClassName("remoteTM").length > 0) {
-                if ((document.getElementById("localStage") as HTMLElement).innerText === "3") {
-                    for (let el of document.getElementsByClassName("remoteTM") as HTMLCollectionOf<HTMLElement>) {
-                        el.innerText = utils.secondsToHms(+new Date() / 1000 - globalThis.startDate)
-                    }
-                }
-            }
-            if (document.getElementsByClassName("remoteTZ").length > 0 && document.getElementsByClassName("remoteTime").length > 0) {
-                for (let el of document.getElementsByClassName("remoteTime") as HTMLCollectionOf<HTMLElement>) {
-                    try {
-                        el.innerText = new Date().toLocaleTimeString("ru", {timeZone: $(el).parent().find('.remoteTZ')[0].innerText}).slice(0, -3)
-                    } catch {
-                        el.innerText = "???"
-                    }
-                }
-            }
-        }, 1000)
+        injectCounter()
 
         checkApi()
 
