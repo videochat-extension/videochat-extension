@@ -60,8 +60,6 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
 
 
 export function stopAndStart(delay?: number | undefined) {
-    globalThis.requestToSkip = false
-
     if (typeof delay !== "undefined") {
         (document.getElementsByClassName('buttons__button stop-button')[0] as HTMLElement).click()
         clearTimeout(globalThis.timeout)
@@ -116,8 +114,6 @@ const onChangeStage = function (mutations: any[]) {
                 globalThis.needToCheckTarget = true
 
                 globalThis.found = Date.now()
-                if (globalThis.requestToSkip)
-                    stopAndStart()
             } else if (attributeValue.includes("s-connected")) {
                 globalThis.stage = 3;
             } else if (attributeValue.includes("s-play")) {
@@ -129,11 +125,8 @@ const onChangeStage = function (mutations: any[]) {
                 globalThis.play = Date.now()
                 console.log("Loading took: ", ((globalThis.play - globalThis.found) / 1000).toFixed(2), "sec")
 
-                if (globalThis.requestToSkip/* || (document.getElementById("remoteIP") as HTMLElement).innerText === "-"*/) {
-                    globalThis.requestToStartTiming = +new Date();
-                    (document.getElementsByClassName('buttons__button stop-button')[0] as HTMLElement).click()
-                } else
-                    globalThis.settings.stats.countAll++
+
+                globalThis.settings.stats.countAll++
             }
 
             updStats(false)

@@ -31,7 +31,6 @@ declare global {
     var language: string;
     var timeout: NodeJS.Timeout;
     var requestToStartTiming: number;
-    var requestToSkip: boolean;
     var torrenstsConfirmed: boolean;
     var info: ContentSwalInfo;
     var dark: HTMLLinkElement;
@@ -72,7 +71,6 @@ globalThis.chat = $(".chat")[0]
 globalThis.language = window.navigator.language.slice(0, 2)
 // globalThis.timeout
 globalThis.requestToStartTiming = 0
-globalThis.requestToSkip = false
 globalThis.torrenstsConfirmed = false
 
 // blacklist

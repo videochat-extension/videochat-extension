@@ -67,7 +67,6 @@ export const onNewIP = function (newIp: string) {
     }
 
     console.dir("IP CHANGE DETECTED")
-    globalThis.requestToSkip = false
     if (globalThis.local.ips.includes(newIp)) {
         globalThis.settings.stats.countDup++
         console.dir("old ip")
