@@ -9,11 +9,6 @@ export class SwalWithSteps {
     protected titles: string[] = []
 
     protected values: any = []
-
-    protected getValue: () => string = () => {
-        return this.values[this.currentStep]
-    }
-
     protected swalQueueStep = Swal.mixin({
         // disable animation
         showClass: {popup: 'swal2-noanimation', backdrop: 'swal2-noanimation'},
@@ -28,6 +23,26 @@ export class SwalWithSteps {
         reverseButtons: true,
         progressSteps: this.steps,
     });
+
+    public async show() {
+        return await this.swalQueueStep.fire(
+            {
+                title: this.titles[this.currentStep],
+                html: this.getHTML(),
+                currentProgressStep: this.currentStep,
+                showCancelButton: this.currentStep > 0,
+
+                willOpen: this.willOpen,
+                didOpen: this.didOpen,
+                didRender: this.didRender,
+                willClose: this.willClose
+            }
+        )
+    }
+
+    protected getValue: () => string = () => {
+        return this.values[this.currentStep]
+    }
 
     protected selectStep = (step: number) => {
         this.swalQueueStep.update({
@@ -105,40 +120,10 @@ export class SwalWithSteps {
     protected willClose = () => {
         document.removeEventListener('keyup', this.arrowHotkeys)
     }
-
-    public async show() {
-        return await this.swalQueueStep.fire(
-            {
-                title: this.titles[this.currentStep],
-                html: this.getHTML(),
-                currentProgressStep: this.currentStep,
-                showCancelButton: this.currentStep > 0,
-
-                willOpen: this.willOpen,
-                didOpen: this.didOpen,
-                didRender: this.didRender,
-                willClose: this.willClose
-            }
-        )
-    }
 }
 
 export class ContentSwalInfo extends SwalWithSteps {
-    constructor() {
-        super();
-        this.swalQueueStep = this.swalQueueStep.mixin({
-            progressSteps: this.steps,
-            preDeny: () => {
-                chrome.storage.sync.set({"swalInfoCompleted": true})
-            },
-            didDestroy() {
-                chrome.storage.sync.set({"swalInfoCompleted": true})
-            }
-        })
-    }
-
     protected steps = ['1', '2', '3', '4', '5', '6', '7']
-
     protected titles = [
         chrome.i18n.getMessage("swalInfoTitle1"),
         chrome.i18n.getMessage("swalInfoTitle2"),
@@ -148,7 +133,6 @@ export class ContentSwalInfo extends SwalWithSteps {
         chrome.i18n.getMessage("swalInfoTitle6"),
         "License"
     ]
-
     protected values = [
         chrome.i18n.getMessage("swalInfoText1"),
         chrome.i18n.getMessage("swalInfoText2"),
@@ -178,6 +162,19 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.</div>`
     ]
+
+    constructor() {
+        super();
+        this.swalQueueStep = this.swalQueueStep.mixin({
+            progressSteps: this.steps,
+            preDeny: () => {
+                chrome.storage.sync.set({"swalInfoCompleted": true})
+            },
+            didDestroy() {
+                chrome.storage.sync.set({"swalInfoCompleted": true})
+            }
+        })
+    }
 
     public showFromStart = async () => {
         this.currentStep = 0

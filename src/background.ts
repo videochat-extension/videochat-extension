@@ -83,7 +83,7 @@ var torrentWindowId = -1;
 
 // since MV3 replaced the background page with service workers, the above values must be stored somewhere
 // local storage is also used to store a list of blocked ips (it can get very long)
-chrome.storage.local.get({ ips: [], tabId: -1, chatId: -1, curId: -1, torrentWindowId: -1 }, function (result) {
+chrome.storage.local.get({ips: [], tabId: -1, chatId: -1, curId: -1, torrentWindowId: -1}, function (result) {
     chrome.storage.local.set(result)
     tabId = result.tabId
     chatId = result.chatId
@@ -101,18 +101,18 @@ chrome.commands.onCommand.addListener(function (command) {
                 return
             if (curId === chatId) {
                 // selects the non-videochat tab because the videochat tab is active
-                chrome.tabs.update(tabId, { selected: true });
+                chrome.tabs.update(tabId, {selected: true});
                 curId = tabId;
             } else {
                 // selects the videochat tab because the non-videochat tab is active
-                chrome.tabs.update(chatId, { selected: true });
+                chrome.tabs.update(chatId, {selected: true});
                 curId = chatId;
             }
             break;
 
         default:
             // redirect the command to the active videochat's content script
-            chrome.tabs.sendMessage(chatId, { command: command })
+            chrome.tabs.sendMessage(chatId, {command: command})
             break;
     }
 });
@@ -127,20 +127,20 @@ chrome.tabs.onActivated.addListener(function (chTab) {
                 // if the chat is open in torrentWindowId then torrentWindowId can no longer be used for iknowwhatyoudownload tabs
                 if (tab.windowId === torrentWindowId) {
                     torrentWindowId = -1;
-                    chrome.storage.local.set({ torrentWindowId: -1 })
+                    chrome.storage.local.set({torrentWindowId: -1})
                 }
 
                 // store active videochat tab id
                 chatId = tab["id"];
-                chrome.storage.local.set({ chatId: chatId })
+                chrome.storage.local.set({chatId: chatId})
             } else {
                 // if the active tab is not a videochat, then store tab id in the 'tabId' variable
                 tabId = tab["id"];
-                chrome.storage.local.set({ tabId: tabId })
+                chrome.storage.local.set({tabId: tabId})
             }
             // store active tab id in the 'curId' variable
             curId = tab["id"];
-            chrome.storage.local.set({ curId: curId })
+            chrome.storage.local.set({curId: curId})
         }
     });
 });
@@ -172,13 +172,13 @@ chrome.runtime.onMessage.addListener(
                         }
                     }
                 }).catch(error => {
-                    if (sender.tab && sender.tab.id) {
-                        chrome.tabs.sendMessage(sender.tab.id, {
-                            apiTestResult: error,
-                            apiTestCode: 0
-                        })
-                    }
-                });
+                if (sender.tab && sender.tab.id) {
+                    chrome.tabs.sendMessage(sender.tab.id, {
+                        apiTestResult: error,
+                        apiTestCode: 0
+                    })
+                }
+            });
             sendResponse('fetch should be in progress');
         }
 
@@ -225,9 +225,9 @@ chrome.runtime.onMessage.addListener(
                             active: true
                         })
                         found = true
-                        
+
                         // gets all unactive iknowwhatyoudownload tabs in the torrentWindowId window and closes them
-                        chrome.windows.get(torrentWindowId, { populate: true }).then(res => {
+                        chrome.windows.get(torrentWindowId, {populate: true}).then(res => {
                             let list_to_close: (number)[] = []
 
                             res.tabs?.forEach((tab) => {
@@ -249,11 +249,11 @@ chrome.runtime.onMessage.addListener(
                     chrome.windows.create({
                         url: request.url
                     }).then(res => {
-                        if (res.id) {
-                            torrentWindowId = res.id;
-                            chrome.storage.local.set({ torrentWindowId: res.id })
+                            if (res.id) {
+                                torrentWindowId = res.id;
+                                chrome.storage.local.set({torrentWindowId: res.id})
+                            }
                         }
-                    }
                     );
                 }
 
@@ -272,7 +272,7 @@ chrome.runtime.onMessage.addListener(
 chrome.action.onClicked.addListener(function (tab) {
     // the idea is to open last videochat
     chrome.storage.sync.get(["lastInstanceOpened"], function (result) {
-        chrome.tabs.create({ url: result.lastInstanceOpened });
+        chrome.tabs.create({url: result.lastInstanceOpened});
     });
 });
 
@@ -282,18 +282,18 @@ chrome.runtime.onInstalled.addListener((details) => {
     // but it should change to the videochat platform selector
     if (details.reason === "install") {
         setTimeout(() => {
-            chrome.storage.sync.set({ askForMode: true }, () => {
+            chrome.storage.sync.set({askForMode: true}, () => {
                 if (chrome.i18n.getMessage("map_lang") === "ru") {
-                    chrome.tabs.create({ url: "https://videochatru.com/embed/" });
+                    chrome.tabs.create({url: "https://videochatru.com/embed/"});
                 } else {
-                    chrome.tabs.create({ url: "https://ome.tv/embed/" });
+                    chrome.tabs.create({url: "https://ome.tv/embed/"});
                 }
             });
         }, 1000)
     } else {
         // store the previous version to show a changelog if necessary
         if (details.reason === "update") {
-            chrome.storage.sync.set({ lastVersion: details.previousVersion })
+            chrome.storage.sync.set({lastVersion: details.previousVersion})
         }
     }
 });

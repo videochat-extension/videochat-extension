@@ -14,9 +14,15 @@ export class mapModule {
         this.injectStyles()
 
         if (globalThis.language === "ru") {
-            globalThis.map = L.map('mapid', {attributionControl: false, zoomControl: false}).setView([54.39554, 39.266102], 17);
+            globalThis.map = L.map('mapid', {
+                attributionControl: false,
+                zoomControl: false
+            }).setView([54.39554, 39.266102], 17);
         } else {
-            globalThis.map = L.map('mapid', {attributionControl: false, zoomControl: false}).setView([47.75409, 12.832031], 3);
+            globalThis.map = L.map('mapid', {
+                attributionControl: false,
+                zoomControl: false
+            }).setView([47.75409, 12.832031], 3);
         }
 
         globalThis.map.locate({setView: true});

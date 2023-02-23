@@ -4,9 +4,6 @@ import * as Sentry from "@sentry/browser";
 
 import $ from "jquery";
 
-import * as faceapi from 'face-api.js';
-import * as utils from "./utils"
-
 import {registerHotkeys, unregisterHotkeys} from "./content-module-hotkeys";
 import "./content-sentry"
 import "./background-listener"

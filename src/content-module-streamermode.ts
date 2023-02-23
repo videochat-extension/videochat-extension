@@ -1,7 +1,7 @@
 import $ from "jquery";
 import * as utils from "./utils";
 
-export function injectStreamerMode(){
+export function injectStreamerMode() {
     try {
         (document.getElementsByClassName("remote-video__watermark")[0] as HTMLElement).style.display = "none"
     } catch (e) {

@@ -85,5 +85,4 @@ export function updStats(force: boolean) {
         countBeforeSaveStats = 0
         chrome.storage.sync.set({"stats": globalThis.settings.stats});
     }
-
 }

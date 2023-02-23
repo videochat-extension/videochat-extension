@@ -17,7 +17,7 @@ export function injectAutomationSkipFourSec() {
     }, 1000)
 }
 
-export function injectAutomationAutoResume(){
+export function injectAutomationAutoResume() {
     (document.getElementById('overlay') as HTMLElement).style.background = "none";
     // document.getElementById('overlay').style.position = "unset"
 
