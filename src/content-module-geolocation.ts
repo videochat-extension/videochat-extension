@@ -154,32 +154,6 @@ export function processData(json: any, ip: string) { // TODO: fix type
         return
     }
 
-    if (globalThis.settings.minimalism) {
-        setTimeout(() => {
-            if ($('span[data-tr="connection"]').length === 1) {
-                if (json.status === "success") {
-                    let ipApiString = ``
-
-                    if (json.mobile) {
-                        ipApiString += `<b>${json.country}.</b>`
-                        ipApiString += `<br>${chrome.i18n.getMessage("minimalismExplainMobile")}`
-                    } else {
-                        ipApiString += `<b>${json.city} (${json.regionName}), ${json.country}.</b>`
-                    }
-                    if (json.proxy) {
-                        ipApiString += `<br>${chrome.i18n.getMessage("minimalismExplainProxy")}`
-                    }
-                    if (json.hosting) {
-                        ipApiString += `<br>${chrome.i18n.getMessage("minimalismExplainHosting")}`
-                    }
-
-                    $('<br><span>' + DOMPurify.sanitize(ipApiString) + '</span>').appendTo($(".message-bubble")[0])
-                }
-            }
-        }, 250)
-        return
-    }
-
     globalThis.curInfo = json
     globalThis.startDate = +new Date() / 1000
     let strings = []

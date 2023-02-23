@@ -4,6 +4,7 @@ import {ContentSwalInfo} from "./content-swal-info"
 import {mapModule} from "./content-module-map";
 
 import {ChatruletkaDriver} from "./content-driver-chatruletka";
+import {ChatruletkaSimpleDriver} from "./content-module-simplemode";
 
 export {}
 
@@ -37,7 +38,8 @@ declare global {
     var dark: HTMLLinkElement;
     var changelog: ContentSwalChangelog;
     var mapModule: mapModule;
-    var driver: ChatruletkaDriver;
+    // var driver: ChatruletkaDriver | ChatruletkaSimpleDriver;
+    var driver: any;
     //blacklist
     var male: HTMLAudioElement;
     var ban: HTMLAudioElement;

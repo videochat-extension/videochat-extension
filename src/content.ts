@@ -12,7 +12,7 @@ import {ChatruletkaDriver} from "./content-driver-chatruletka";
 import {tweakLoginWindow} from "./content-module-interface";
 import {injectIpEventListener} from "./content-module-geolocation";
 import {switchMode} from "./content-swal-switchmode";
-import {startMinimalism} from "./content-module-simplemode";
+import {ChatruletkaSimpleDriver} from "./content-module-simplemode";
 
 chrome.storage.local.get(null, function (result) {
     globalThis.local = result;
@@ -49,7 +49,8 @@ chrome.storage.sync.get(null, function (result) {
                     switchMode()
                     return false
                 } else if (globalThis.settings.minimalism) {
-                    startMinimalism()
+                    globalThis.driver = ChatruletkaSimpleDriver.getInstance()
+                    globalThis.driver.start(document.getElementById('remote-video-wrapper') as HTMLElement)
                     return false
                 } else {
                     globalThis.driver = ChatruletkaDriver.getInstance()

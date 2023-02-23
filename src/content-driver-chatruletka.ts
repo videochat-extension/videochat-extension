@@ -4,7 +4,6 @@ import {updStats} from "./content-controls-tab-stats";
 import {injectDarkMode, interfaceModuleTweaks, tweakLoginWindow} from "./content-module-interface";
 import {checkApi, injectIpEventListener} from "./content-module-geolocation";
 import {injectSwitchModeButton, switchMode} from "./content-swal-switchmode";
-import {startMinimalism} from "./content-module-simplemode";
 import {injectControls} from "./content-controls";
 import {injectCounter} from "./content-controls-tab-api";
 import {
