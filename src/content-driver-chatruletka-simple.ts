@@ -1,7 +1,6 @@
 import $ from "jquery";
 import {injectSwitchModeButton} from "./content-swal-switchmode";
 import * as DOMPurify from "dompurify";
-import {doLookupRequest1, doLookupRequest2, onNewIP} from "./content-module-geolocation";
 
 export class ChatruletkaSimpleDriver {
     private static instanceRef: ChatruletkaSimpleDriver;
@@ -49,10 +48,18 @@ export class ChatruletkaSimpleDriver {
 
         if (this.curIps.includes(newIp)) {
             return
+        } else {
+            this.curIps.push(newIp)
         }
 
-        chrome.runtime.sendMessage({remoteIP: newIp, language: "en"}, function (response) {
-            console.dir(`request to send ip-api request sent to service worker: ${response}`)
+        chrome.runtime.sendMessage({aremoteIP: newIp, language: "en"}, (response) => {
+            console.dir(response)
+            if (!this.curIps.includes(newIp)) {
+                return
+            }
+            if (response.status === 200) {
+                this.processData(response.body, newIp)
+            }
         });
     }
 
@@ -60,6 +67,10 @@ export class ChatruletkaSimpleDriver {
         setTimeout(() => {
             if ($('span[data-tr="connection"]').length === 1) {
                 if (json.status === "success") {
+                    if (!this.curIps.includes(ip)) {
+                        return
+                    }
+
                     let ipApiString = ``
 
                     if (json.mobile) {

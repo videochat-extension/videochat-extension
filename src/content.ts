@@ -10,9 +10,8 @@ import "./content-module-geolocation"
 
 import {ChatruletkaDriver} from "./content-driver-chatruletka";
 import {tweakLoginWindow} from "./content-module-interface";
-import {injectIpEventListener} from "./content-module-geolocation";
 import {switchMode} from "./content-swal-switchmode";
-import {ChatruletkaSimpleDriver} from "./content-module-simplemode";
+import {ChatruletkaSimpleDriver} from "./content-driver-chatruletka-simple";
 
 chrome.storage.local.get(null, function (result) {
     globalThis.local = result;
@@ -43,7 +42,6 @@ chrome.storage.sync.get(null, function (result) {
         switch (platform) {
             case "COM": {
                 tweakLoginWindow()
-                injectIpEventListener()
 
                 if (globalThis.settings.askForMode) {
                     switchMode()

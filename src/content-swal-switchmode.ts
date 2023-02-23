@@ -16,14 +16,23 @@ function createSwitchModeButton() {
     ])
 }
 
+function createSwitchModeButtonContainer () {
+    return utils.createElement('div', {
+        id: "switchModeButtonContainer"
+    }, [
+        utils.createElement('br'),
+        utils.createElement('br'),
+        createSwitchModeButton()
+    ])
+}
+
 export function injectSwitchModeButton(simple: boolean) {
-    let switchModeButton = createSwitchModeButton()
+    let switchModeButtonContainer = createSwitchModeButtonContainer()
 
     let rules = $("[data-tr=\"rules\"]")
     if (rules.length === 1) {
         let switchModeButtonEnjoyer: HTMLElement = rules[0].parentElement!
-        $("<br><br>").appendTo(switchModeButtonEnjoyer)
-        $(switchModeButton).appendTo(switchModeButtonEnjoyer)
+        $(switchModeButtonContainer).appendTo(switchModeButtonEnjoyer)
         if (simple) {
             checkApi()
         }
@@ -31,8 +40,7 @@ export function injectSwitchModeButton(simple: boolean) {
 
     document.arrive("[data-tr=\"rules\"]", function (el) {
         let switchModeButtonEnjoyer: HTMLElement = el.parentElement!
-        $("<br><br>").appendTo(switchModeButtonEnjoyer)
-        $(switchModeButton).appendTo(switchModeButtonEnjoyer)
+        $(switchModeButtonContainer).appendTo(switchModeButtonEnjoyer)
 
         if (simple) {
             checkApi()

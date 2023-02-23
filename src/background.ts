@@ -212,6 +212,19 @@ chrome.runtime.onMessage.addListener(
             sendResponse('fetch should be in progress');
         }
 
+        if (request.aremoteIP) {
+            fetch(`http://ip-api.com/json/${request.aremoteIP}?fields=status%2Cmessage%2Ccountry%2CcountryCode%2Cregion%2CregionName%2Ccity%2Cdistrict%2Czip%2Clat%2Clon%2Ctimezone%2Cisp%2Corg%2Cas%2Cmobile%2Cproxy%2Chosting%2Cquery&lang=${request.language}`)
+                .then((response) => {
+                    if (response.ok) {
+                        response.json().then(data => (sendResponse({status: response.status, body: data})))
+                    } else {
+                        sendResponse({status: response.status, body: {}})
+                    }
+                }).catch((error)=>(sendResponse({status: 0, body: error})))
+
+            return true;
+        }
+
         // this opens new iknowwhatyoudownload tab in the torrentWindowId window
         // if torrentWindowId window does not exists, proceeds with creating one
         if (request.checkTorrents) {

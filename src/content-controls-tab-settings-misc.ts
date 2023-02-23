@@ -26,6 +26,7 @@ export function createSettingsMisc() {
                 })
             ]),
         ]),
+        // TODO: DRY
         utils.createElement('dd', {}, [
             utils.createElement('button', {
                 onclick: () => {

@@ -46,6 +46,8 @@ export class ChatruletkaDriver {
     }
 
     public start(element: HTMLElement): boolean {
+        injectIpEventListener()
+
         injectSwitchModeButton(false)
 
         document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e) => {
