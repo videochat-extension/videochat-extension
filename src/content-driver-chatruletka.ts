@@ -47,20 +47,6 @@ export class ChatruletkaDriver {
     }
 
     public start(element: HTMLElement): boolean {
-
-        tweakLoginWindow()
-        injectIpEventListener()
-
-        if (globalThis.settings.askForMode) {
-            switchMode()
-            return false
-        } else {
-            if (globalThis.settings.minimalism) {
-                startMinimalism()
-                return false
-            }
-        }
-
         injectSwitchModeButton(false)
 
         document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e) => {

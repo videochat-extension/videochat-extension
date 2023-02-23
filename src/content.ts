@@ -9,7 +9,10 @@ import "./content-module-interface"
 import "./content-module-geolocation"
 
 import {ChatruletkaDriver} from "./content-driver-chatruletka";
-
+import {tweakLoginWindow} from "./content-module-interface";
+import {injectIpEventListener} from "./content-module-geolocation";
+import {switchMode} from "./content-swal-switchmode";
+import {startMinimalism} from "./content-module-simplemode";
 
 chrome.storage.local.get(null, function (result) {
     globalThis.local = result;
@@ -27,19 +30,36 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
 chrome.storage.sync.get(null, function (result) {
     Sentry.wrap(function () {
         globalThis.settings = result;
+        let platform = "";
 
         if (location.href.includes('videochatru')) {
+            platform = "COM"
             chrome.storage.sync.set({lastInstanceOpened: "https://videochatru.com/embed/"})
         } else if (location.href.includes('ome.tv')) {
+            platform = "COM"
             chrome.storage.sync.set({lastInstanceOpened: "https://ome.tv/embed/"})
         }
 
-        let platform = "COM";
-
         switch (platform) {
             case "COM": {
-                globalThis.driver = ChatruletkaDriver.getInstance()
-                globalThis.driver.start(document.getElementById('remote-video-wrapper') as HTMLElement)
+                tweakLoginWindow()
+                injectIpEventListener()
+
+                if (globalThis.settings.askForMode) {
+                    switchMode()
+                    return false
+                } else if (globalThis.settings.minimalism) {
+                    startMinimalism()
+                    return false
+                } else {
+                    globalThis.driver = ChatruletkaDriver.getInstance()
+                    globalThis.driver.start(document.getElementById('remote-video-wrapper') as HTMLElement)
+                }
+                break;
+            }
+            default: {
+                alert("VIDEOCHAT EXTENSION: unknown videochat platform, no idea what to do, sorry :(.\n\nYou can report the bug to: https://github.com/qrlk/videochat-extension, https://discord.gg/YZKnbKGWen or qrluke@proton.me.")
+                return
             }
         }
 
