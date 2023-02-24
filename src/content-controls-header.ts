@@ -63,12 +63,7 @@ export function createHeader() {
         ]),
         utils.createElement('a', {
             target: "_blank",
-            style: (() => {
-                if (globalThis.settings.darkMode)
-                    return "text-decoration: none!important; color: #E8E6E3;"
-                else
-                    return "text-decoration: none!important; color: #000000;"
-            })(),
+            style: "text-decoration: none!important; color: #000000;",
             href: "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi"
         }, [
             utils.createElement('b', {

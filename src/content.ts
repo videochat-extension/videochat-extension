@@ -3,9 +3,7 @@ import "./content-globals"
 import * as Sentry from "@sentry/browser";
 
 import "./content-sentry"
-import "./background-listener"
 import "./content-swal-context-invalidated"
-import "./content-module-interface"
 import "./content-module-geolocation"
 
 import {ChatruletkaDriver} from "./content-driver-chatruletka";
@@ -22,7 +20,6 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
             globalThis.settings = result;
         });
 });
-
 
 // TODO: make sure DOM has loaded
 chrome.storage.sync.get(null, function (result) {

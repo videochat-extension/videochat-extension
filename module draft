@@ -1,13 +1,16 @@
-export class HotkeysModule {
-    private static instanceRef: HotkeysModule;
+export class InterfaceModule {
+    private static instanceRef: InterfaceModule;
+    private driver: ChatruletkaDriver;
 
-    private constructor() {}
+    private constructor(driver: ChatruletkaDriver) {
+        this.driver = driver
+    }
 
-    static getInstance(): HotkeysModule {
-        if (HotkeysModule.instanceRef === undefined) {
-            HotkeysModule.instanceRef = new HotkeysModule();
+    static initInstance(driver: ChatruletkaDriver): InterfaceModule {
+        if (InterfaceModule.instanceRef === undefined) {
+            InterfaceModule.instanceRef = new InterfaceModule(driver);
         }
 
-        return HotkeysModule.instanceRef;
+        return InterfaceModule.instanceRef;
     }
 }

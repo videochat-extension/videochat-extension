@@ -11,7 +11,7 @@ export class HotkeysModule {
         this.remoteHotkeysListener()
     }
 
-    static startInstance(driver: ChatruletkaDriver): HotkeysModule {
+    static initInstance(driver: ChatruletkaDriver): HotkeysModule {
         if (HotkeysModule.instanceRef === undefined) {
             HotkeysModule.instanceRef = new HotkeysModule(driver);
         }

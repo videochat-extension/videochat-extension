@@ -1,26 +1,22 @@
 import $ from "jquery";
 import {detectGender, injectFaceApi} from "./content-module-faceapi";
 import {updStats} from "./content-controls-tab-stats";
-import {injectDarkMode, interfaceModuleTweaks, tweakLoginWindow} from "./content-module-interface";
 import {checkApi, injectIpEventListener} from "./content-module-geolocation";
-import {injectSwitchModeButton, switchMode} from "./content-swal-switchmode";
+import {injectSwitchModeButton} from "./content-swal-switchmode";
 import {injectControls} from "./content-controls";
 import {injectCounter} from "./content-controls-tab-api";
-import {
-    injectAutomationAutoResume,
-    injectAutomationSkipFourSec,
-    injectAutomationSkipWrongCountry
-} from "./content-module-automation";
+
 import {injectStreamerMode} from "./content-module-streamermode";
 import {HotkeysModule} from "./content-module-hotkeys";
+import {AutomationModule} from "./content-module-automation";
+import {InterfaceModule} from "./content-module-interface";
 
 export class ChatruletkaDriver {
     private static instanceRef: ChatruletkaDriver;
     // Stages: stop = 0 | search = 1 | found = 2 | connected = 3 | play = 4
     public stage: 0 | 1 | 2 | 3 | 4 = 0
-    private stageObserver: MutationObserver;
-
     public modules: any = {}
+    private stageObserver: MutationObserver;
 
     private constructor() {
         this.stageObserver = new MutationObserver(this.onChangeStage)
@@ -33,7 +29,7 @@ export class ChatruletkaDriver {
 
         return ChatruletkaDriver.instanceRef;
     }
-    
+
     public stopAndStart(delay?: number | undefined): void {
         if (typeof delay !== "undefined") {
             (document.getElementsByClassName('buttons__button stop-button')[0] as HTMLElement).click()
@@ -48,9 +44,11 @@ export class ChatruletkaDriver {
     }
 
     public start(element: HTMLElement): boolean {
-        this.modules.hotkeys = HotkeysModule.startInstance(this)
+        this.initModules()
+        injectControls()
 
-        tweakLoginWindow()
+        this.modules.interface.tweakLoginWindow()
+        this.modules.interface.interfaceModuleTweaks()
 
         injectIpEventListener()
 
@@ -71,18 +69,16 @@ export class ChatruletkaDriver {
             clearTimeout(globalThis.timeout)
         })
 
-        injectControls()
 
         injectCounter()
 
         checkApi()
 
-        interfaceModuleTweaks()
 
-        injectAutomationSkipFourSec()
-
+        this.modules.automation.injectAutomationSkipFourSec()
+        this.modules.automation.injectAutomationSkipWrongCountry()
         if (globalThis.settings.autoResume) {
-            injectAutomationAutoResume()
+            this.modules.automation.injectAutomationAutoResume()
         }
 
         if (!globalThis.settings.ipApiLocalisation)
@@ -101,15 +97,18 @@ export class ChatruletkaDriver {
             injectStreamerMode()
         }
 
-        injectDarkMode()
-
-        injectAutomationSkipWrongCountry()
 
         new ResizeObserver(globalThis.mapModule.outputsize).observe(document.getElementById("overlay") as HTMLElement)
 
         this.stageObserver.observe(element, {attributes: true});
 
         return true
+    }
+
+    private initModules() {
+        this.modules.hotkeys = HotkeysModule.initInstance(this)
+        this.modules.automation = AutomationModule.initInstance(this)
+        this.modules.interface = InterfaceModule.initInstance(this)
     }
 
     private onChangeStage = (mutations: any[]) => {

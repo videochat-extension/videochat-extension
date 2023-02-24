@@ -201,12 +201,9 @@ export function createSettingsInterface() {
                     onclick: () => {
                         chrome.storage.sync.set({"darkMode": (document.getElementById("darkModeCheck") as HTMLInputElement).checked}, function () {
                             if ((document.getElementById("darkModeCheck") as HTMLInputElement).checked) {
-                                (document.getElementById("connectionStatus") as HTMLElement).style.color = "#E8E6E3";
-                                (document.body || document.documentElement).appendChild(globalThis.dark);
+                                globalThis.driver.modules.interface.darkMode.enable()
                             } else {
-                                (document.getElementById("connectionStatus") as HTMLElement).style.color = "#000000"
-                                if (typeof (document.getElementById("darkMode") as HTMLElement) != "undefined")
-                                    (document.getElementById("darkMode") as HTMLElement).remove()
+                                globalThis.driver.modules.interface.darkMode.disable()
                             }
                         });
                     }
