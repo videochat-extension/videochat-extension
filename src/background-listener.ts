@@ -1,7 +1,6 @@
 import * as utils from "./utils";
 import $ from "jquery";
 import * as DOMPurify from "dompurify";
-import {syncBlackList} from "./content-module-blacklist"
 import {processData} from "./content-module-geolocation";
 
 chrome.runtime.onMessage.addListener(
@@ -65,37 +64,24 @@ chrome.runtime.onMessage.addListener(
         }
         if (request.apiTestCode) {
             if (request.apiTestCode === 200) {
-                globalThis.api = 2
+                globalThis.api = 2;
 
-                if (globalThis.settings.minimalism) {
-                    let apiStatusContainer = $('#apiStatusContainer')
-                    if ($('span[data-tr="rules"]').length === 1 && apiStatusContainer.length == 1) {
-                        apiStatusContainer[0].innerHTML = chrome.i18n.getMessage("apiStatus2")
-                    }
-                } else {
-                    (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
-                    (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage("main")
+                (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
+                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage("main")
 
-                    if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                        globalThis.mapModule.resizemap(false)
-                    }
+                if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
+                    globalThis.mapModule.resizemap(false)
                 }
                 console.dir(`ip-api.com test passed: ${request.apiTestCode}`)
             } else {
-                api = 0
+                globalThis.api = 0
                 console.dir(`ip-api.com test failed: ${request.apiTestResult} ${request.apiTestCode}`)
-                console.dir(chrome.i18n.getMessage("apiStatus0") + ' ERROR: ' + request.apiTestResult)
-                if (globalThis.settings.minimalism) {
-                    let apiStatusContainer = $('#apiStatusContainer')
-                    if ($('span[data-tr="rules"]').length === 1 && apiStatusContainer.length == 1) {
-                        apiStatusContainer[0].innerHTML = DOMPurify.sanitize('<b>ERROR: ' + request.apiTestResult + ' || </b>' + chrome.i18n.getMessage("apiStatus0"))
-                    }
-                } else {
-                    (document.getElementById("apiStatus") as HTMLElement).innerHTML = DOMPurify.sanitize('<b>ERROR: ' + request.apiTestResult + ' || </b>' + chrome.i18n.getMessage("apiStatus0"));
-                    (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("main")
-                    if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                        globalThis.mapModule.resizemap(false)
-                    }
+                console.dir(chrome.i18n.getMessage("apiStatus0") + ' ERROR: ' + request.apiTestResult);
+
+                (document.getElementById("apiStatus") as HTMLElement).innerHTML = DOMPurify.sanitize('<b>ERROR: ' + request.apiTestResult + ' || </b>' + chrome.i18n.getMessage("apiStatus0"));
+                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("main")
+                if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
+                    globalThis.mapModule.resizemap(false)
                 }
             }
         }

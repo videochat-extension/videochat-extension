@@ -3,11 +3,6 @@ import {createSwitchModeButton} from "./content-swal-switchmode";
 import * as DOMPurify from "dompurify";
 import * as utils from "./utils";
 
-chrome.runtime.onMessage.addListener(
-    function (request, sender, sendResponse) {
-        console.dir(arguments)
-    })
-
 export class ChatruletkaSimpleDriver {
     private static instanceRef: ChatruletkaSimpleDriver;
     // Stages: stop = 0 | search = 1 | found = 2 | connected = 3 | play = 4
@@ -56,8 +51,19 @@ export class ChatruletkaSimpleDriver {
 
     // TODO: ADD BACKGROUND LISTENER
     private checkApi() {
-        chrome.runtime.sendMessage({testApi: true}, function (response) {
-            console.dir(`request to send test ip-api request sent to service worker: ${response}`)
+        chrome.runtime.sendMessage({aremoteIP: "1.1.1.1", language: "en"}, (response) => {
+            console.dir(`ip-api.com test: ${response.status}`)
+            if (response.status === 200) {
+                let apiStatusContainer = $('#apiStatusContainer')
+                if ($('span[data-tr="rules"]').length === 1 && apiStatusContainer.length == 1) {
+                    apiStatusContainer[0].innerHTML = chrome.i18n.getMessage("apiStatus2")
+                }
+            } else {
+                let apiStatusContainer = $('#apiStatusContainer')
+                if ($('span[data-tr="rules"]').length === 1 && apiStatusContainer.length == 1) {
+                    apiStatusContainer[0].innerHTML = DOMPurify.sanitize('<b>ERROR: ' + response.status + ' || </b>' + chrome.i18n.getMessage("apiStatus0"))
+                }
+            }
         })
     }
 
@@ -166,18 +172,20 @@ export class ChatruletkaSimpleDriver {
                 const attributeValue = String($(mutation.target).prop(mutation.attributeName));
 
                 if (attributeValue.includes("s-stop")) {
-                    console.dir("stop")
+                    // console.dir("stop")
+
                     this.curIps = []
                 }
                 if (attributeValue.includes("s-search")) {
-                    console.dir("search")
+                    // console.dir("search")
+
                     this.curIps = []
                 } else if (attributeValue.includes("s-found")) {
-                    console.dir("found")
+                    // console.dir("found")
                 } else if (attributeValue.includes("s-connected")) {
-                    console.dir("connected")
+                    // console.dir("connected")
                 } else if (attributeValue.includes("s-play")) {
-                    console.dir("play")
+                    // console.dir("play")
                 }
             }
         });
