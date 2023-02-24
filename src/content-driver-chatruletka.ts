@@ -11,14 +11,16 @@ import {
     injectAutomationSkipFourSec,
     injectAutomationSkipWrongCountry
 } from "./content-module-automation";
-import {registerHotkeys, unregisterHotkeys} from "./content-module-hotkeys";
 import {injectStreamerMode} from "./content-module-streamermode";
+import {HotkeysModule} from "./content-module-hotkeys";
 
 export class ChatruletkaDriver {
     private static instanceRef: ChatruletkaDriver;
     // Stages: stop = 0 | search = 1 | found = 2 | connected = 3 | play = 4
     public stage: 0 | 1 | 2 | 3 | 4 = 0
     private stageObserver: MutationObserver;
+
+    public modules: any = {}
 
     private constructor() {
         this.stageObserver = new MutationObserver(this.onChangeStage)
@@ -46,6 +48,8 @@ export class ChatruletkaDriver {
     }
 
     public start(element: HTMLElement): boolean {
+        this.modules.hotkeys = HotkeysModule.startInstance(this)
+
         tweakLoginWindow()
 
         injectIpEventListener()
@@ -85,8 +89,8 @@ export class ChatruletkaDriver {
             globalThis.language = "en"
 
         if (globalThis.settings.hotkeys) {
-            unregisterHotkeys()
-            registerHotkeys()
+            this.modules.hotkeys.unregister()
+            this.modules.hotkeys.register()
         }
 
         if (globalThis.settings.skipMale || globalThis.settings.skipFemale || globalThis.settings.enableFaceApi) {

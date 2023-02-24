@@ -1,0 +1,13 @@
+export class HotkeysModule {
+    private static instanceRef: HotkeysModule;
+
+    private constructor() {}
+
+    static getInstance(): HotkeysModule {
+        if (HotkeysModule.instanceRef === undefined) {
+            HotkeysModule.instanceRef = new HotkeysModule();
+        }
+
+        return HotkeysModule.instanceRef;
+    }
+}

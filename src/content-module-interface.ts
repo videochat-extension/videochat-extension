@@ -59,6 +59,8 @@ export function interfaceModuleTweaks() {
     if (globalThis.settings.hideCamera) {
         $("#local-video-wrapper")[0].style.display = "none"
     }
+
+    createDarkMode()
 }
 
 export function createDarkMode() {

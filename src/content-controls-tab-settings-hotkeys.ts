@@ -1,5 +1,4 @@
 import * as utils from "./utils";
-import {hotkeys} from "./content-module-hotkeys";
 
 export function createSettingsHotkeys() {
     return utils.createElement('div', {}, [
@@ -20,10 +19,10 @@ export function createSettingsHotkeys() {
                     onclick: () => {
                         chrome.storage.sync.set({"hotkeys": (document.getElementById("hotkeysCheck") as HTMLInputElement).checked}, function () {
                             if ((document.getElementById("hotkeysCheck") as HTMLInputElement).checked) {
-                                document.removeEventListener('keyup', hotkeys)
-                                document.addEventListener('keyup', hotkeys)
+                                globalThis.driver.modules.hotkeys.unregister()
+                                globalThis.driver.modules.hotkeys.register()
                             } else {
-                                document.removeEventListener('keyup', hotkeys)
+                                globalThis.driver.modules.hotkeys.unregister()
                             }
                         });
                     }
