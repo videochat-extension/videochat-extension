@@ -85,42 +85,26 @@ export const onNewIP = function (newIp: string) {
             case 2:
                 doLookupRequest2(newIp)
                 break;
-            case 1:
-                doLookupRequest1(newIp)
-                break;
             default:
                 break;
         }
     }
 }
 
-export function doLookupRequest1(ip: string) {
-    console.dir('sending request to ip-api.com...')
-    $.getJSON("http://ip-api.com/json/" + ip, {
-        lang: globalThis.language,
-        fields: "status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query"
-    })
-        .done(function (json) {
-            console.dir('ip-api.com responded: 200')
-            processData(json, ip)
-        })
-        .fail(function (jqxhr) {
-            console.dir(`ip-api.com request failed: ${jqxhr.status}`)
-            console.dir(jqxhr)
-            if (!globalThis.settings.minimalism) {
-                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize("<b>HTTP ERROR " + jqxhr.status + "</b>")
-            }
+export function doLookupRequest2(ip: string) {
+    chrome.runtime.sendMessage({aremoteIP: ip, language: globalThis.language}, (response) => {
+        console.dir(`ip-api.com returned ${response.status} (${response.body.status}) for '${ip}'`)
+
+        if (response.status === 200) {
+            processData(response.body, ip)
+        } else {
+            (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize("<b>HTTP ERROR " + response.status + "</b>")
             if (globalThis.settings.enableTargetCity || globalThis.settings.enableTargetRegion) {
-                if (jqxhr.status === 429) {
+                if (response.status === 429) {
                     globalThis.driver.stopAndStart(5000)
                 }
             }
-        });
-}
-
-export function doLookupRequest2(ip: string) {
-    chrome.runtime.sendMessage({remoteIP: ip, language: globalThis.language}, function (response) {
-        console.dir(`request to send ip-api request sent to service worker: ${response}`)
+        }
     });
 }
 

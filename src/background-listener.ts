@@ -62,20 +62,5 @@ chrome.runtime.onMessage.addListener(
                 }
             }
         }
-        if (request.ipData) {
-            console.dir(`ip-api.com returned ${request.apiCode} for ${request.apiQuery}.`)
-            if (globalThis.curIps.includes(request.apiQuery)) {
-                if (request.apiCode === 200) {
-                    processData(request.ipData, request.apiQuery)
-                } else {
-                    (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize("<b>HTTP ERROR " + request.apiCode + "</b>")
-                    if (globalThis.settings.enableTargetCity || globalThis.settings.enableTargetRegion) {
-                        if (request.status === 429) {
-                            globalThis.driver.stopAndStart(5000)
-                        }
-                    }
-                }
-            }
-        }
     }
 );
