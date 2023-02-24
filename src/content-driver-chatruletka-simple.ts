@@ -59,7 +59,6 @@ export class ChatruletkaSimpleDriver {
         }
 
         chrome.runtime.sendMessage({aremoteIP: newIp, language: "en"}, (response) => {
-            console.dir(response)
             if (!this.curIps.includes(newIp)) {
                 return
             }
@@ -92,7 +91,7 @@ export class ChatruletkaSimpleDriver {
                         ipApiString += `<br>${chrome.i18n.getMessage("minimalismExplainHosting")}`
                     }
 
-                    $('<br><span>' + DOMPurify.sanitize(ipApiString) + '</span>').appendTo($(".message-bubble")[0])
+                    $(`<br><span>${DOMPurify.sanitize(ipApiString)}</span>`).appendTo($(".message-bubble")[0])
                 }
             }
         }, 250)

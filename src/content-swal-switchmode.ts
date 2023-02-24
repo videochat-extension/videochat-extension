@@ -2,6 +2,7 @@ import Swal from "sweetalert2";
 import $ from "jquery";
 import * as utils from "./utils";
 import {checkApi} from "./content-module-geolocation";
+
 require('arrive')
 
 function createSwitchModeButton() {
@@ -16,13 +17,18 @@ function createSwitchModeButton() {
     ])
 }
 
-function createSwitchModeButtonContainer () {
+function createSwitchModeButtonContainer() {
     return utils.createElement('div', {
         id: "switchModeButtonContainer"
     }, [
         utils.createElement('br'),
-        utils.createElement('br'),
-        createSwitchModeButton()
+        createSwitchModeButton(),
+        utils.createElement('span', {
+            innerText: " "
+        }),
+        utils.createElement('span', {
+            id: "apiStatusContainer"
+        })
     ])
 }
 
@@ -41,6 +47,24 @@ export function injectSwitchModeButton(simple: boolean) {
     document.arrive("[data-tr=\"rules\"]", function (el) {
         let switchModeButtonEnjoyer: HTMLElement = el.parentElement!
         $(switchModeButtonContainer).appendTo(switchModeButtonEnjoyer)
+        let switchModeSelector = $('#switchModeButtonContainer')
+        switchModeSelector.show()
+
+        const obs = new MutationObserver((mutationList, observer) => {
+            let switchModeSelector = $('#switchModeButtonContainer')
+            console.dir(arguments[0].dataset.tr)
+            if (arguments[0].dataset.tr === "searching") {
+                if (switchModeSelector.length == 1) {
+                    switchModeSelector.hide()
+                }
+            }
+            if (arguments[0].dataset.tr === "rules") {
+                if (switchModeSelector.length == 1) {
+                    switchModeSelector.show()
+                }
+            }
+        })
+        obs.observe(el, {attributes: true})
 
         if (simple) {
             checkApi()

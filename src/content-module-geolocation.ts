@@ -45,9 +45,9 @@ export function checkApi() {
         // best case
         globalThis.api = 1
         if (globalThis.settings.minimalism) {
-            let switchModeSelector = $('#switchModeButtonContainer')
-            if ($('span[data-tr="rules"]').length === 1 && switchModeSelector.length == 1) {
-                $("<span> </span>" + chrome.i18n.getMessage("apiStatus1")).appendTo(switchModeSelector[0])
+            let apiStatusContainer = $('#apiStatusContainer')
+            if ($('span[data-tr="rules"]').length === 1 && apiStatusContainer.length == 1) {
+                apiStatusContainer[0].innerHTML = chrome.i18n.getMessage("apiStatus1")
             }
         } else {
             (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
