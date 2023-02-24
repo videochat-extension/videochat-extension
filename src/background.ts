@@ -148,40 +148,6 @@ chrome.tabs.onActivated.addListener(function (chTab) {
 // this thing handles all messages coming from content scripts
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
-        // checks if the geolocation api works
-        if (request.testApi) {
-            fetch(`http://ip-api.com/json/1.1.1.1`)
-                .then((response) => {
-                    if (response.ok) {
-                        response.json().then(
-                            function (data) {
-                                if (sender.tab && sender.tab.id) {
-                                    chrome.tabs.sendMessage(sender.tab.id, {
-                                        apiTestResult: data,
-                                        apiTestCode: response.status,
-                                    })
-                                }
-                            }
-                        )
-                    } else {
-                        if (sender.tab && sender.tab.id) {
-                            chrome.tabs.sendMessage(sender.tab.id, {
-                                apiTestResult: response.status,
-                                apiTestCode: response.status,
-                            })
-                        }
-                    }
-                }).catch(error => {
-                if (sender.tab && sender.tab.id) {
-                    chrome.tabs.sendMessage(sender.tab.id, {
-                        apiTestResult: error,
-                        apiTestCode: 0
-                    })
-                }
-            });
-            sendResponse('fetch should be in progress');
-        }
-
         // makes a request to the geolocation service with the requested IP address and language
         // making a request via service worker helps avoid http restrictions
         if (request.remoteIP) {

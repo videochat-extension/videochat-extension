@@ -62,29 +62,6 @@ chrome.runtime.onMessage.addListener(
                 }
             }
         }
-        if (request.apiTestCode) {
-            if (request.apiTestCode === 200) {
-                globalThis.api = 2;
-
-                (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
-                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage("main")
-
-                if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                    globalThis.mapModule.resizemap(false)
-                }
-                console.dir(`ip-api.com test passed: ${request.apiTestCode}`)
-            } else {
-                globalThis.api = 0
-                console.dir(`ip-api.com test failed: ${request.apiTestResult} ${request.apiTestCode}`)
-                console.dir(chrome.i18n.getMessage("apiStatus0") + ' ERROR: ' + request.apiTestResult);
-
-                (document.getElementById("apiStatus") as HTMLElement).innerHTML = DOMPurify.sanitize('<b>ERROR: ' + request.apiTestResult + ' || </b>' + chrome.i18n.getMessage("apiStatus0"));
-                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("main")
-                if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                    globalThis.mapModule.resizemap(false)
-                }
-            }
-        }
         if (request.ipData) {
             console.dir(`ip-api.com returned ${request.apiCode} for ${request.apiQuery}.`)
             if (globalThis.curIps.includes(request.apiQuery)) {

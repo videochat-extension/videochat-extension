@@ -37,31 +37,28 @@ export function injectIpEventListener() {
 
 
 export function checkApi() {
-    console.dir(`attemping to connect to http://ip-api.com directly (will fail unless user allow unsecure content)`)
-    $.getJSON("http://ip-api.com/json/", {
-        fields: "status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,mobile,proxy,hosting,query"
-    }).done(function (json) {
-        console.dir('direct ip-api.com connection test passed! proceeding with best possible speed')
-        // best case
-        globalThis.api = 1
-        if (globalThis.settings.minimalism) {
-            let apiStatusContainer = $('#apiStatusContainer')
-            if ($('span[data-tr="rules"]').length === 1 && apiStatusContainer.length == 1) {
-                apiStatusContainer[0].innerHTML = chrome.i18n.getMessage("apiStatus1")
-            }
-        } else {
+    chrome.runtime.sendMessage({aremoteIP: "1.1.1.1", language: "en"}, (response) => {
+        if (response.status === 200) {
+            globalThis.api = 2;
             (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
-            (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus1") + "</br></br>" + chrome.i18n.getMessage("main")
+            (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage("main")
+
+            if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
+                globalThis.mapModule.resizemap(false)
+            }
+            console.dir(`ip-api.com test passed: ${response.status}`)
+        } else {
+            globalThis.api = 0
+            console.dir(`ip-api.com test failed: ${response.status} ${response.body}`)
+            console.dir(chrome.i18n.getMessage("apiStatus0") + ' ERROR: ' + response.status);
+
+            (document.getElementById("apiStatus") as HTMLElement).innerHTML = DOMPurify.sanitize('<b>ERROR: ' + response.status + ' || </b>' + chrome.i18n.getMessage("apiStatus0"));
+            (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("main")
             if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
                 globalThis.mapModule.resizemap(false)
             }
         }
-    }).fail(function (jqxhr, textStatus, error) {
-        console.dir('direct ip-api.com connection test failed! trying to connect via extension\'s service worker')
-        chrome.runtime.sendMessage({testApi: true}, function (response) {
-            console.dir(`request to send test ip-api request sent to service worker: ${response}`)
-        });
-    });
+    })
 }
 
 export const onNewIP = function (newIp: string) {
