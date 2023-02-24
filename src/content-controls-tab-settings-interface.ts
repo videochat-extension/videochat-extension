@@ -21,9 +21,9 @@ export function createSettingsInterface() {
                     onclick: () => {
                         chrome.storage.sync.set({"hideLogo": (document.getElementById("hideLogoCheck") as HTMLInputElement).checked}, function () {
                             if ((document.getElementById("hideLogoCheck") as HTMLInputElement).checked) {
-                                (document.getElementById("logo-link") as HTMLElement).style.display = "none"
+                                globalThis.driver.modules.interface.tweaks.hideLogo.enable()
                             } else {
-                                (document.getElementById("logo-link") as HTMLElement).style.display = ""
+                                globalThis.driver.modules.interface.tweaks.hideLogo.disable()
                             }
                         });
                     }
@@ -43,7 +43,11 @@ export function createSettingsInterface() {
                     id: "hideHeaderCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"hideHeader": (document.getElementById("hideHeaderCheck") as HTMLInputElement).checked}, function () {
-                            confirmAndReload()
+                            if ((document.getElementById("hideHeaderCheck") as HTMLInputElement).checked) {
+                                globalThis.driver.modules.interface.tweaks.hideHeader.enable()
+                            } else {
+                                globalThis.driver.modules.interface.tweaks.hideHeader.disable()
+                            }
                         });
                     }
                 })

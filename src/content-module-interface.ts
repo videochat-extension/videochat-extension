@@ -7,9 +7,44 @@ export class InterfaceModule {
     private dark: HTMLLinkElement;
 
     public tweaks = {
+        hideLogo: {
+            enable: () => {
+                try {
+                    document.getElementById("logo-link")!.style.display = "none"
+                } catch (e) {
+                    console.dir(e)
+                }
+            },
+            disable: () => {
+                try {
+                    document.getElementById("logo-link")!.style.display = ""
+                } catch (e) {
+                    console.dir(e)
+                }
+            }
+        },
+        hideHeader: {
+            enable: () => {
+                try {
+                    $("#header").hide();
+                    document.getElementById("app")!.style.height = "100%"
+                    window.dispatchEvent(new Event('resize'));
+                } catch (e) {
+                    console.dir(e)
+                }
+            },
+            disable: () => {
+                try {
+                    $("#header").show();
+                    document.getElementById("app")!.style.height = ""
+                    window.dispatchEvent(new Event('resize'));
+                } catch (e) {
+                    console.dir(e)
+                }
+            }
+        },
         darkMode: {
             enable: () => {
-                console.dir("ENABLE");
                 (document.getElementById("connectionStatus") as HTMLElement).style.color = "#E8E6E3";
                 if (!document.getElementById("darkMode")) {
                     (document.body || document.documentElement).appendChild(this.dark);
@@ -54,17 +89,11 @@ export class InterfaceModule {
 
     public interfaceModuleTweaks() {
         if (globalThis.settings.hideLogo) {
-            try {
-                document.getElementById("logo-link")!.style.display = "none"
-            } catch (e) {
-                console.dir(e)
-            }
+            this.tweaks.hideLogo.enable()
         }
 
         if (globalThis.settings.hideHeader) {
-            $("#header").hide();
-            document.getElementById("app")!.style.height = "100%"
-            window.dispatchEvent(new Event('resize'));
+            this.tweaks.hideHeader.enable()
         }
 
         if (globalThis.settings.hideWatermark) {
