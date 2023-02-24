@@ -6,18 +6,20 @@ export class InterfaceModule {
     private driver: ChatruletkaDriver;
     private dark: HTMLLinkElement;
 
-    public darkMode = {
-        enable: () => {
-            console.dir("ENABLE");
-            (document.getElementById("connectionStatus") as HTMLElement).style.color = "#E8E6E3";
-            if (!document.getElementById("darkMode")) {
-                (document.body || document.documentElement).appendChild(this.dark);
+    public tweaks = {
+        darkMode: {
+            enable: () => {
+                console.dir("ENABLE");
+                (document.getElementById("connectionStatus") as HTMLElement).style.color = "#E8E6E3";
+                if (!document.getElementById("darkMode")) {
+                    (document.body || document.documentElement).appendChild(this.dark);
+                }
+            },
+            disable: () => {
+                (document.getElementById("connectionStatus") as HTMLElement).style.color = "#000000";
+                if (document.getElementById("darkMode") as HTMLElement)
+                    (document.getElementById("darkMode") as HTMLElement).remove();
             }
-        },
-        disable: () => {
-            (document.getElementById("connectionStatus") as HTMLElement).style.color = "#000000";
-            if (document.getElementById("darkMode") as HTMLElement)
-                (document.getElementById("darkMode") as HTMLElement).remove();
         }
     }
 
@@ -95,7 +97,7 @@ export class InterfaceModule {
         }
 
         if (globalThis.settings.darkMode) {
-            this.darkMode.enable()
+            this.tweaks.darkMode.enable()
         }
     }
 

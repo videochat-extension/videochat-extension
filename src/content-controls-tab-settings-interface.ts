@@ -201,9 +201,9 @@ export function createSettingsInterface() {
                     onclick: () => {
                         chrome.storage.sync.set({"darkMode": (document.getElementById("darkModeCheck") as HTMLInputElement).checked}, function () {
                             if ((document.getElementById("darkModeCheck") as HTMLInputElement).checked) {
-                                globalThis.driver.modules.interface.darkMode.enable()
+                                globalThis.driver.modules.interface.tweaks.darkMode.enable()
                             } else {
-                                globalThis.driver.modules.interface.darkMode.disable()
+                                globalThis.driver.modules.interface.tweaks.darkMode.disable()
                             }
                         });
                     }
