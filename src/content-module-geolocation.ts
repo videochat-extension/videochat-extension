@@ -17,7 +17,13 @@ let rmdaddr = "0.0.0.0"
 
 export function injectIpEventListener() {
     window.addEventListener("[object Object]", function (evt) {
-        let candidate = new RTCIceCandidate((<CustomEvent>evt).detail.args[0])
+        let candidate: any = (<CustomEvent>evt).detail.candidate
+
+        // chrome returns only one property
+        if (Object.keys(candidate).length === 1) {
+            candidate = new RTCIceCandidate((<CustomEvent>evt).detail.candidate.json)
+        }
+
         if (candidate.type === "srflx" && candidate.address) {
             console.dir("IP: " + candidate.address)
             if (rmdaddr !== candidate.address) {
