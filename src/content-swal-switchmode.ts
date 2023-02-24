@@ -1,7 +1,6 @@
 import Swal from "sweetalert2";
 import $ from "jquery";
 import * as utils from "./utils";
-import {checkApi} from "./content-module-geolocation";
 
 require('arrive')
 

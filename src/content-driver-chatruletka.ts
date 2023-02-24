@@ -46,6 +46,8 @@ export class ChatruletkaDriver {
     }
 
     public start(element: HTMLElement): boolean {
+        tweakLoginWindow()
+
         injectIpEventListener()
 
         injectSwitchModeButton()

@@ -41,8 +41,6 @@ chrome.storage.sync.get(null, function (result) {
 
         switch (platform) {
             case "COM": {
-                tweakLoginWindow()
-
                 if (globalThis.settings.askForMode) {
                     switchMode()
                     return false

@@ -49,7 +49,6 @@ export class ChatruletkaSimpleDriver {
         }, false);
     }
 
-    // TODO: ADD BACKGROUND LISTENER
     private checkApi() {
         chrome.runtime.sendMessage({aremoteIP: "1.1.1.1", language: "en"}, (response) => {
             console.dir(`ip-api.com test: ${response.status}`)
@@ -172,20 +171,10 @@ export class ChatruletkaSimpleDriver {
                 const attributeValue = String($(mutation.target).prop(mutation.attributeName));
 
                 if (attributeValue.includes("s-stop")) {
-                    // console.dir("stop")
-
                     this.curIps = []
                 }
-                if (attributeValue.includes("s-search")) {
-                    // console.dir("search")
-
+                else if (attributeValue.includes("s-search")) {
                     this.curIps = []
-                } else if (attributeValue.includes("s-found")) {
-                    // console.dir("found")
-                } else if (attributeValue.includes("s-connected")) {
-                    // console.dir("connected")
-                } else if (attributeValue.includes("s-play")) {
-                    // console.dir("play")
                 }
             }
         });
