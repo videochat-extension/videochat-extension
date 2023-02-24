@@ -1,7 +1,4 @@
 import * as utils from "./utils";
-import $ from "jquery";
-import * as DOMPurify from "dompurify";
-import {processData} from "./content-module-geolocation";
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {

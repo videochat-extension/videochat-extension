@@ -9,9 +9,8 @@ import "./content-module-interface"
 import "./content-module-geolocation"
 
 import {ChatruletkaDriver} from "./content-driver-chatruletka";
-import {tweakLoginWindow} from "./content-module-interface";
-import {switchMode} from "./content-swal-switchmode";
 import {ChatruletkaSimpleDriver} from "./content-driver-chatruletka-simple";
+import {switchMode} from "./content-swal-switchmode";
 
 chrome.storage.local.get(null, function (result) {
     globalThis.local = result;
