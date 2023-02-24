@@ -1,6 +1,12 @@
 import $ from "jquery";
-import {injectSwitchModeButton} from "./content-swal-switchmode";
+import {createSwitchModeButton} from "./content-swal-switchmode";
 import * as DOMPurify from "dompurify";
+import * as utils from "./utils";
+
+chrome.runtime.onMessage.addListener(
+    function (request, sender, sendResponse) {
+        console.dir(arguments)
+    })
 
 export class ChatruletkaSimpleDriver {
     private static instanceRef: ChatruletkaSimpleDriver;
@@ -24,7 +30,7 @@ export class ChatruletkaSimpleDriver {
     public start(element: HTMLElement): boolean {
         this.stageObserver.observe(element, {attributes: true});
         this.injectIpEventListener()
-        injectSwitchModeButton(true)
+        this.injectSwitchModeButton()
         return true
     }
 
@@ -46,6 +52,63 @@ export class ChatruletkaSimpleDriver {
                 }
             }
         }, false);
+    }
+
+    // TODO: ADD BACKGROUND LISTENER
+    private checkApi() {
+        chrome.runtime.sendMessage({testApi: true}, function (response) {
+            console.dir(`request to send test ip-api request sent to service worker: ${response}`)
+        })
+    }
+
+    private injectSwitchModeButton() {
+        let self = this
+        let switchModeButtonContainer = utils.createElement('div', {
+            id: "switchModeButtonContainer"
+        }, [
+            utils.createElement('br'),
+            createSwitchModeButton(),
+            utils.createElement('span', {
+                innerText: " "
+            }),
+            utils.createElement('span', {
+                id: "apiStatusContainer"
+            })
+        ])
+
+        function addButtonTo(el: HTMLElement) {
+            let switchModeButtonEnjoyer: HTMLElement = el.parentElement!
+            $(switchModeButtonContainer).appendTo(switchModeButtonEnjoyer)
+            let switchModeSelector = $('#switchModeButtonContainer')
+            switchModeSelector.show()
+
+            const obs = new MutationObserver((mutationList, observer) => {
+                let switchModeSelector = $('#switchModeButtonContainer')
+                console.dir(arguments[0].dataset.tr)
+                if (arguments[0].dataset.tr === "searching") {
+                    if (switchModeSelector.length == 1) {
+                        switchModeSelector.hide()
+                    }
+                }
+                if (arguments[0].dataset.tr === "rules") {
+                    if (switchModeSelector.length == 1) {
+                        switchModeSelector.show()
+                    }
+                }
+            })
+            obs.observe(el, {attributes: true})
+
+            self.checkApi()
+        }
+
+        let rules = $("[data-tr=\"rules\"]")
+        if (rules.length === 1) {
+            addButtonTo(rules[0])
+        }
+
+        document.arrive("[data-tr=\"rules\"]", function (el) {
+            addButtonTo(<HTMLElement>el)
+        })
     }
 
     private onNewIP = (newIp: string) => {
@@ -101,10 +164,20 @@ export class ChatruletkaSimpleDriver {
         mutations.forEach((mutation: MutationRecord) => {
             if (mutation.attributeName === "class") {
                 const attributeValue = String($(mutation.target).prop(mutation.attributeName));
+
+                if (attributeValue.includes("s-stop")) {
+                    console.dir("stop")
+                    this.curIps = []
+                }
                 if (attributeValue.includes("s-search")) {
+                    console.dir("search")
                     this.curIps = []
-                } else if (attributeValue.includes("s-stop")) {
-                    this.curIps = []
+                } else if (attributeValue.includes("s-found")) {
+                    console.dir("found")
+                } else if (attributeValue.includes("s-connected")) {
+                    console.dir("connected")
+                } else if (attributeValue.includes("s-play")) {
+                    console.dir("play")
                 }
             }
         });

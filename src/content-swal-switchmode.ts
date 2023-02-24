@@ -5,7 +5,7 @@ import {checkApi} from "./content-module-geolocation";
 
 require('arrive')
 
-function createSwitchModeButton() {
+export function createSwitchModeButton() {
     return utils.createElement('button', {
         onclick: () => {
             switchMode()
@@ -17,7 +17,7 @@ function createSwitchModeButton() {
     ])
 }
 
-function createSwitchModeButtonContainer() {
+export function createSwitchModeButtonContainer() {
     return utils.createElement('div', {
         id: "switchModeButtonContainer"
     }, [
@@ -32,16 +32,13 @@ function createSwitchModeButtonContainer() {
     ])
 }
 
-export function injectSwitchModeButton(simple: boolean) {
+export function injectSwitchModeButton() {
     let switchModeButtonContainer = createSwitchModeButtonContainer()
 
     let rules = $("[data-tr=\"rules\"]")
     if (rules.length === 1) {
         let switchModeButtonEnjoyer: HTMLElement = rules[0].parentElement!
         $(switchModeButtonContainer).appendTo(switchModeButtonEnjoyer)
-        if (simple) {
-            checkApi()
-        }
     }
 
     document.arrive("[data-tr=\"rules\"]", function (el) {
@@ -65,12 +62,7 @@ export function injectSwitchModeButton(simple: boolean) {
             }
         })
         obs.observe(el, {attributes: true})
-
-        if (simple) {
-            checkApi()
-        } else {
-            document.unbindArrive("[data-tr=\"rules\"]")
-        }
+        document.unbindArrive("[data-tr=\"rules\"]")
     })
 }
 
