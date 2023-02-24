@@ -68,8 +68,9 @@ chrome.runtime.onMessage.addListener(
                 globalThis.api = 2
 
                 if (globalThis.settings.minimalism) {
-                    if ($('span[data-tr="rules"]').length === 1) {
-                        $("<span> </span>" + chrome.i18n.getMessage("apiStatus2")).appendTo($(".message-bubble")[0])
+                    let switchModeSelector = $('#switchModeButtonContainer')
+                    if ($('span[data-tr="rules"]').length === 1 && switchModeSelector.length == 1) {
+                        $("<span> </span>" + chrome.i18n.getMessage("apiStatus2")).appendTo(switchModeSelector[0])
                     }
                 } else {
                     (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
@@ -85,8 +86,9 @@ chrome.runtime.onMessage.addListener(
                 console.dir(`ip-api.com test failed: ${request.apiTestResult} ${request.apiTestCode}`)
                 console.dir(chrome.i18n.getMessage("apiStatus0") + ' ERROR: ' + request.apiTestResult)
                 if (globalThis.settings.minimalism) {
-                    if ($('span[data-tr="rules"]').length === 1) {
-                        $("<span> </span>" + DOMPurify.sanitize('<b>ERROR: ' + request.apiTestResult + ' || </b>' + chrome.i18n.getMessage("apiStatus0"))).appendTo($(".message-bubble")[0])
+                    let switchModeSelector = $('#switchModeButtonContainer')
+                    if ($('span[data-tr="rules"]').length === 1 && switchModeSelector.length == 1) {
+                        $("<span> </span>" + DOMPurify.sanitize('<b>ERROR: ' + request.apiTestResult + ' || </b>' + chrome.i18n.getMessage("apiStatus0"))).appendTo(switchModeSelector[0])
                     }
                 } else {
                     (document.getElementById("apiStatus") as HTMLElement).innerHTML = DOMPurify.sanitize('<b>ERROR: ' + request.apiTestResult + ' || </b>' + chrome.i18n.getMessage("apiStatus0"));
