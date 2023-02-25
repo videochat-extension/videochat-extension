@@ -21,6 +21,7 @@ export class ChatruletkaDriver {
     public buttons = $(".buttons")[0]
     public chat = $(".chat")[0]
     private stageObserver: MutationObserver;
+    private requestToStartTiming: number = 0;
 
     private constructor() {
         this.stageObserver = new MutationObserver(this.onChangeStage)
@@ -42,7 +43,7 @@ export class ChatruletkaDriver {
                 (document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement).click()
             }, delay)
         } else {
-            globalThis.requestToStartTiming = +new Date();
+            this.requestToStartTiming = +new Date();
             (document.getElementsByClassName('buttons__button stop-button')[0] as HTMLElement).click()
         }
     }
@@ -129,8 +130,8 @@ export class ChatruletkaDriver {
                     globalThis.needToClear = true;
                     (document.getElementById("remoteFace") as HTMLElement).innerHTML = '';
 
-                    if (globalThis.requestToStartTiming !== 0 && +new Date() - globalThis.requestToStartTiming < 1000) {
-                        globalThis.requestToStartTiming = 0;
+                    if (this.requestToStartTiming !== 0 && +new Date() - this.requestToStartTiming < 1000) {
+                        this.requestToStartTiming = 0;
                         (document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement).click()
                     }
                 }

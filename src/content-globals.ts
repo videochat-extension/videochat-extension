@@ -21,7 +21,6 @@ declare global {
     var controls: HTMLElement;
     var resize: NodeJS.Timeout;
     var timeout: NodeJS.Timeout;
-    var requestToStartTiming: number;
     var info: ContentSwalInfo;
     var changelog: ContentSwalChangelog;
     var mapModule: mapModule;
@@ -49,7 +48,6 @@ globalThis.faceApiLoaded = false
 // globalThis.controls
 // globalThis.resize
 // globalThis.timeout
-globalThis.requestToStartTiming = 0
 
 // blacklist
 globalThis.male = new Audio(chrome.runtime.getURL('resources/audio/male.mp3'))
