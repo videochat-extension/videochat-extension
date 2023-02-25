@@ -22,10 +22,12 @@ export class GeolocationModule {
     private started: number = 0;
 
     private targetSound = new Audio(chrome.runtime.getURL('resources/audio/found.mp3'))
+    private ban = new Audio(chrome.runtime.getURL('resources/audio/ban.mp3'))
 
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver
         this.targetSound.volume = 0.5
+        this.ban.volume = 0.45
     }
 
     static initInstance(driver: ChatruletkaDriver): GeolocationModule {
@@ -94,7 +96,7 @@ export class GeolocationModule {
             globalThis.settings.stats.countDup++
             console.dir("old ip")
             if (globalThis.settings.skipSound)
-                globalThis.ban.play();
+                this.ban.play();
             globalThis.driver.stopAndStart()
         } else {
             globalThis.curIps.push(newIp)

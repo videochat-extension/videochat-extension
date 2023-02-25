@@ -18,7 +18,7 @@ export function injectFaceApi() {
 
         globalThis.faceApiLoaded = true
 
-        globalThis.tim = setTimeout(detectGender, 200)
+        globalThis.driver.tim = setTimeout(detectGender, 200)
     }, 0)
 }
 
@@ -32,7 +32,7 @@ export async function detectGender() {
     if (globalThis.driver.stage === 4) {
         console.time("faceapi: detectAllFaces()")
 
-        clearInterval(globalThis.tim)
+        clearInterval(globalThis.driver.tim)
 
         let array = await faceapi.detectAllFaces(document.getElementById('remote-video') as HTMLVideoElement, new faceapi.TinyFaceDetectorOptions()).withAgeAndGender()
 
@@ -80,5 +80,5 @@ export async function detectGender() {
         console.timeEnd("faceapi: detectAllFaces()")
     }
     if (!stop)
-        globalThis.tim = setTimeout(detectGender, 500)
+        globalThis.driver.tim = setTimeout(detectGender, 500)
 }

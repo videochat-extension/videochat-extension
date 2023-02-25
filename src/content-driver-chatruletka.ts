@@ -24,6 +24,7 @@ export class ChatruletkaDriver {
     private requestToStartTiming: number = 0;
     public needToCheckTarget: boolean = false;
     public needToClear: boolean = false;
+    public tim: NodeJS.Timeout | undefined;
 
     private constructor() {
         this.stageObserver = new MutationObserver(this.onChangeStage)
@@ -126,7 +127,7 @@ export class ChatruletkaDriver {
                 if (attributeValue.includes("s-stop")) {
                     this.stage = 0;
 
-                    clearInterval(globalThis.tim)
+                    clearInterval(this.tim)
                     globalThis.curIps = []
                     // (document.getElementById("remoteInfo") as HTMLElement).innerHTML = ''
                     this.needToClear = true;
@@ -144,7 +145,7 @@ export class ChatruletkaDriver {
                     this.needToClear = true
                     this.needToCheckTarget = true
 
-                    clearInterval(globalThis.tim);
+                    clearInterval(this.tim);
                     // (document.getElementById("remoteFace") as HTMLElement).innerHTML = ''
                     if (this.play < this.search) {
                         // console.log("Dialog ended before even started")
@@ -162,8 +163,8 @@ export class ChatruletkaDriver {
                 } else if (attributeValue.includes("s-play")) {
                     this.stage = 4;
 
-                    clearInterval(globalThis.tim)
-                    globalThis.tim = setTimeout(detectGender, 0)
+                    clearInterval(this.tim)
+                    this.tim = setTimeout(detectGender, 0)
 
                     this.play = Date.now()
                     console.dir("SET PLAY")

@@ -14,7 +14,6 @@ declare global {
     var curIps: any[];
     var curInfo: any;
     var map: any;
-    var tim: NodeJS.Timeout;
     var faceApiLoaded: boolean;
     var controls: HTMLElement;
     var resize: NodeJS.Timeout;
@@ -26,7 +25,6 @@ declare global {
     var driver: any;
     //blacklist
     var male: HTMLAudioElement;
-    var ban: HTMLAudioElement;
     // geolocation
 }
 
@@ -46,11 +44,10 @@ globalThis.faceApiLoaded = false
 
 // blacklist
 globalThis.male = new Audio(chrome.runtime.getURL('resources/audio/male.mp3'))
-globalThis.ban = new Audio(chrome.runtime.getURL('resources/audio/ban.mp3'))
+
 // target geolocation
 
 
 // blacklist
 globalThis.male.volume = 0.3
-globalThis.ban.volume = 0.45
 // target geolocation
