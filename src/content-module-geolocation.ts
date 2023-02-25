@@ -23,13 +23,11 @@ export class GeolocationModule {
     private started: number = 0;
 
     private targetSound = new Audio(chrome.runtime.getURL('resources/audio/found.mp3'))
-    private ban = new Audio(chrome.runtime.getURL('resources/audio/ban.mp3'))
-    private curInfo = {};
+    private curInfo: { [key: string]: { } } = {};
 
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver
         this.targetSound.volume = 0.5
-        this.ban.volume = 0.45
     }
 
     static initInstance(driver: ChatruletkaDriver): GeolocationModule {
@@ -94,11 +92,10 @@ export class GeolocationModule {
         }
 
         console.dir("IP CHANGE DETECTED")
-        if (globalThis.local.ips.includes(newIp)) {
+        if (this.driver.modules.blacklist.isIpInBlacklist(newIp)) {
             globalThis.settings.stats.countDup++
             console.dir("old ip")
-            if (globalThis.settings.skipSound)
-                this.ban.play();
+            this.driver.modules.blacklist.playBanSound()
             globalThis.driver.stopAndStart()
         } else {
             this.curIps.push(newIp)
@@ -166,7 +163,7 @@ export class GeolocationModule {
             return
         }
 
-        this.curInfo = json
+        this.curInfo[ip] = json
         this.started = Date.now()
         console.dir("SET PLAY")
         let strings = []

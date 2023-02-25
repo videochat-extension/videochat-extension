@@ -23,10 +23,12 @@ export class mapModule {
         }).addTo(this.map);
     }
 
-    public updateMap = (json: any) => {
+    public updateMap = (info: any) => {
         if (!$(document.getElementById("mapTabButton") as HTMLElement).hasClass("active") || Object.keys(globalThis.driver.modules.geolocation.curInfo).length === 0) {
             return
         }
+
+        let json = info[Object.keys(info)[0]]
 
         if (typeof this.marker !== 'undefined')
             this.map.removeLayer(this.marker)

@@ -212,6 +212,7 @@ export class ChatruletkaDriver {
                 }
                 //TODO: FIX updStats
                 // updStats(false)
+                this.modules.blacklist.updBlacklistStats()
             }
         });
     }

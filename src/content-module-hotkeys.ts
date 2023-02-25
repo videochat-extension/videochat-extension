@@ -37,9 +37,9 @@ export class HotkeysModule {
                     let cancelReportButton: HTMLElement = document.getElementsByClassName('btn')[0] as HTMLElement;
                     cancelReportButton.click()
                 } else {
-                    // TODO (!!!): blacklist must use globalThis.curIps, not last ip
-                    // if (e.shiftKey && !globalThis.local.ips.includes(document.getElementById("remoteIP")?.innerText!)) // TODO: remove remoteIP bs
-                    //     syncBlackList()
+                    if (e.shiftKey) {
+                        this.driver.modules.blacklist.addIpsToList(this.driver.modules.geolocation.curIps)
+                    }
 
                     let startButton: HTMLElement = document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement;
                     startButton.click()
@@ -69,7 +69,7 @@ export class HotkeysModule {
 
     private remoteHotkeysListener() {
         chrome.runtime.onMessage.addListener(
-            function (request, sender, sendResponse) {
+            (request, sender, sendResponse) => {
                 if (request.command) {
                     switch (request.command) {
                         case "skip": {
@@ -80,9 +80,7 @@ export class HotkeysModule {
                         }
 
                         case "skip_ban": {
-                            // TODO: Blacklist MUST use curIps
-                            // if (!globalThis.local.ips.includes(document.getElementById("remoteIP")?.innerText!)) // TODO: remove remoteIP bs
-                            //     syncBlackList()
+                            this.driver.modules.blacklist.addIpsToList(this.driver.modules.geolocation.curIps)
 
                             let startButton: HTMLElement = document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement;
                             startButton.click();

@@ -26,9 +26,6 @@ export class ControlsTabStats {
         (document.getElementById("stMlCnt") as HTMLElement).innerText = globalThis.settings.stats.countMales;
         (document.getElementById("stFmlCnt") as HTMLElement).innerText = globalThis.settings.stats.countFemales;
         (document.getElementById("stMnSk") as HTMLElement).innerText = globalThis.settings.stats.countManSkip;
-        (document.getElementById("stBnCt") as HTMLElement).innerText = globalThis.local.ips.length;
-        (document.getElementById("stNwIp") as HTMLElement).innerText = globalThis.settings.stats.countNew;
-        (document.getElementById("stBnIp") as HTMLElement).innerText = globalThis.settings.stats.countDup;
 
         (document.getElementById("stTime") as HTMLElement).innerText = utils.secondsToHms(globalThis.settings.stats.time)
         this.countBeforeSaveStats += 1

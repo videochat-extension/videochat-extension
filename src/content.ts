@@ -12,9 +12,6 @@ import {injectIpGrabber} from "./content-module-geolocation";
 
 injectIpGrabber()
 
-chrome.storage.local.get(null, function (result) {
-    globalThis.local = result;
-})
 
 chrome.storage.onChanged.addListener(function (changes, namespace) {
     if (namespace === "sync")

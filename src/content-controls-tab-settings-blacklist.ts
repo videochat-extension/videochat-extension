@@ -69,11 +69,7 @@ export function createSettingsBlacklist() {
                 onclick: () => {
                     const result = confirm("Clear?");
                     if (result) {
-                        globalThis.local.ips = []
-                        chrome.storage.local.set({"ips": []}, function () {
-                            // TODO: FIX updStats
-                            // updStats(true)
-                        });
+
                     }
                 },
             }, [

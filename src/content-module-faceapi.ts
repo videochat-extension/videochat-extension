@@ -75,7 +75,7 @@ export class FaceapiModule {
                 globalThis.settings.stats.countManSkip--
 
                 if (globalThis.settings.autoBan) {
-                    this.driver.modules.blacklist.syncBlackList()
+                    this.driver.modules.blacklist.processAutoBan(this.driver.modules.geolocation.curIps)
                 }
             }
 
@@ -87,7 +87,7 @@ export class FaceapiModule {
                 globalThis.settings.stats.countManSkip--
 
                 if (globalThis.settings.autoBan) {
-                    this.driver.modules.blacklist.syncBlackList()
+                    this.driver.modules.blacklist.processAutoBan(this.driver.modules.geolocation.curIps)
                 }
             }
 
