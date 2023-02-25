@@ -128,7 +128,7 @@ export class ChatruletkaDriver {
                     this.stage = 0;
 
                     clearInterval(this.tim)
-                    globalThis.curIps = []
+                    this.modules.geolocation.curIps = []
                     // (document.getElementById("remoteInfo") as HTMLElement).innerHTML = ''
                     this.needToClear = true;
                     (document.getElementById("remoteFace") as HTMLElement).innerHTML = '';
@@ -141,7 +141,7 @@ export class ChatruletkaDriver {
                 if (attributeValue.includes("s-search")) {
                     this.stage = 1
 
-                    globalThis.curIps = []
+                    this.modules.geolocation.curIps = []
                     this.needToClear = true
                     this.needToCheckTarget = true
 

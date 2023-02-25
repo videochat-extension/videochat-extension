@@ -130,12 +130,13 @@ export class ControlsModule {
     }
 
     protected addTabClickHandler() {
+        let self = this
         $('ul.tabs__caption').on('click', 'li:not(.active)', function () {
             $(this)
                 .addClass('active').siblings().removeClass('active')
                 .closest('div.tabs').find('div.tabs__content').removeClass('active').eq($(this).index()).addClass('active');
 
-            globalThis.mapModule.updateMap(globalThis.curInfo)
+            globalThis.mapModule.updateMap(self.driver.modules.geolocation.curInfo)
 
             if (this.innerText === chrome.i18n.getMessage("tab3")) {
                 globalThis.mapModule.resizemap(true)

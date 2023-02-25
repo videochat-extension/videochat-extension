@@ -39,7 +39,7 @@ export class mapModule {
     }
 
     public updateMap = (json: any) => {
-        if (!$(document.getElementById("mapTabButton") as HTMLElement).hasClass("active") || Object.keys(globalThis.curInfo).length === 0) {
+        if (!$(document.getElementById("mapTabButton") as HTMLElement).hasClass("active") || Object.keys(globalThis.driver.modules.geolocation.curInfo).length === 0) {
             return
         }
 

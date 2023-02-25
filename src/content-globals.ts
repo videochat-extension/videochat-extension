@@ -11,8 +11,6 @@ export {}
 declare global {
     var settings: any;
     var local: any;
-    var curIps: any[];
-    var curInfo: any;
     var map: any;
     var faceApiLoaded: boolean;
     var controls: HTMLElement;
@@ -25,16 +23,13 @@ declare global {
     var driver: any;
     //blacklist
     var male: HTMLAudioElement;
-    // geolocation
 }
 
 globalThis.settings = {}
 globalThis.local = {ips: ["-"]}
-globalThis.curIps = []
 globalThis.changelog = new ContentSwalChangelog()
 globalThis.info = new ContentSwalInfo()
 
-globalThis.curInfo = {}
 // globalThis.map
 // globalThis.tim
 globalThis.faceApiLoaded = false

@@ -17,12 +17,14 @@ export class GeolocationModule {
     private static instanceRef: GeolocationModule;
     private driver: ChatruletkaDriver;
     private rmdaddr = "0.0.0.0"
+    public curIps: string[]= []
     private api: number = 0;
     private torrenstsConfirmed = false;
     private started: number = 0;
 
     private targetSound = new Audio(chrome.runtime.getURL('resources/audio/found.mp3'))
     private ban = new Audio(chrome.runtime.getURL('resources/audio/ban.mp3'))
+    private curInfo = {};
 
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver
@@ -87,7 +89,7 @@ export class GeolocationModule {
         // TODO: validate ip address
         newIp = newIp.replace("[", "").replace("]", "")
 
-        if (globalThis.curIps.includes(newIp)) {
+        if (this.curIps.includes(newIp)) {
             return
         }
 
@@ -99,8 +101,8 @@ export class GeolocationModule {
                 this.ban.play();
             globalThis.driver.stopAndStart()
         } else {
-            globalThis.curIps.push(newIp)
-            console.dir(globalThis.curIps)
+            this.curIps.push(newIp)
+            console.dir(this.curIps)
             globalThis.settings.stats.countNew++
             console.dir("new ip")
             switch (this.api) {
@@ -160,11 +162,11 @@ export class GeolocationModule {
     }
 
     public processData(json: any, ip: string) { // TODO: fix type
-        if (!globalThis.curIps.includes(ip)) {
+        if (!this.curIps.includes(ip)) {
             return
         }
 
-        globalThis.curInfo = json
+        this.curInfo = json
         this.started = Date.now()
         console.dir("SET PLAY")
         let strings = []
@@ -250,14 +252,14 @@ export class GeolocationModule {
 
         if ((globalThis.settings.enableTargetCity || globalThis.settings.enableTargetRegion) && this.driver.needToCheckTarget) {
             if (globalThis.settings.skipMobileTarget && json.mobile) {
-                if (globalThis.curIps.indexOf(ip) + 1 === globalThis.curIps.length) {
+                if (this.curIps.indexOf(ip) + 1 === this.curIps.length) {
                     globalThis.driver.stopAndStart()
                 }
                 return
             } else {
                 if (globalThis.settings.enableTargetCity) {
                     if (!globalThis.settings.targetCity.includes(json.city)) {
-                        if (globalThis.curIps.indexOf(ip) + 1 === globalThis.curIps.length) {
+                        if (this.curIps.indexOf(ip) + 1 === this.curIps.length) {
                             globalThis.driver.stopAndStart()
                         }
                         return
@@ -271,7 +273,7 @@ export class GeolocationModule {
                 }
                 if (globalThis.settings.enableTargetRegion) {
                     if (!globalThis.settings.targetRegion.includes(json.regionName)) {
-                        if (globalThis.curIps.indexOf(ip) + 1 === globalThis.curIps.length) {
+                        if (this.curIps.indexOf(ip) + 1 === this.curIps.length) {
                             globalThis.driver.stopAndStart()
                         }
                         return
@@ -286,7 +288,7 @@ export class GeolocationModule {
             }
         }
 
-        globalThis.mapModule.updateMap(globalThis.curInfo)
+        globalThis.mapModule.updateMap(this.curInfo)
 
         return true
     }
