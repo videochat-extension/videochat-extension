@@ -1,5 +1,6 @@
 import $ from "jquery";
 import {ChatruletkaDriver} from "./content-driver-chatruletka";
+import * as utils from "./utils";
 
 export class InterfaceModule {
     private static instanceRef: InterfaceModule;
@@ -9,133 +10,108 @@ export class InterfaceModule {
     public tweaks = {
         hideLogo: {
             enable: () => {
-                try {
+                utils.tryCatch(() => {
                     document.getElementById("logo-link")!.style.display = "none"
-                } catch (e) {
-                    console.dir(e)
-                }
+                })
             },
             disable: () => {
-                try {
+                utils.tryCatch(() => {
                     document.getElementById("logo-link")!.style.display = ""
-                } catch (e) {
-                    console.dir(e)
-                }
+                })
             }
         },
         hideHeader: {
             enable: () => {
-                try {
+                utils.tryCatch(() => {
                     $("#header").hide();
                     document.getElementById("app")!.style.height = "100%"
                     window.dispatchEvent(new Event('resize'));
-                } catch (e) {
-                    console.dir(e)
-                }
+                })
             },
             disable: () => {
-                try {
+                utils.tryCatch(() => {
                     $("#header").show();
                     document.getElementById("app")!.style.height = ""
                     window.dispatchEvent(new Event('resize'));
-                } catch (e) {
-                    console.dir(e)
-                }
+                })
             }
         },
         hideWatermark: {
             enable: () => {
-                try {
+                utils.tryCatch(() => {
                     (document.getElementsByClassName("remote-video__watermark")[0] as HTMLElement).style.display = "none"
-                } catch (e) {
-                    console.dir(e)
-                }
+                })
             },
             disable: () => {
-                try {
+                utils.tryCatch(() => {
                     (document.getElementsByClassName("remote-video__watermark")[0] as HTMLElement).style.display = ""
-                } catch (e) {
-                    console.dir(e)
-                }
+                })
             }
         },
         hideBanner: {
             enable: () => {
-                try {
+                utils.tryCatch(() => {
                     (document.getElementsByClassName("caption remote-video__info")[0] as HTMLElement).style.display = "none"
-                } catch (e) {
-                    console.dir(e)
-                }
+                })
             },
             disable: () => {
-                try {
+                utils.tryCatch(() => {
                     (document.getElementsByClassName("caption remote-video__info")[0] as HTMLElement).style.display = ""
-                } catch (e) {
-                    console.dir(e)
-                }
+                })
             }
         },
         doNotReflect: {
             enable: () => {
-                try {
+                utils.tryCatch(() => {
                     $("#local-video").removeClass("video-container-local-video")
-                } catch (e) {
-                    console.dir(e)
-                }
+                })
             },
             disable: () => {
-                try {
+                utils.tryCatch(() => {
                     $("#local-video").addClass("video-container-local-video")
-                } catch (e) {
-                    console.dir(e)
-                }
+                })
             }
         },
         doNotCover: {
             enable: () => {
-                try {
+                utils.tryCatch(() => {
                     $("#remote-video").css({"object-fit": "contain"})
-                    // $(".preview").css({"background-size": "contain"})
-                } catch (e) {
-                    console.dir(e)
-                }
+                })
             },
             disable: () => {
-                try {
+                utils.tryCatch(() => {
                     $("#remote-video").css({"object-fit": ""})
                     // $(".preview").css({"background-size": ""})}
-                } catch (e) {
-                    console.dir(e)
-                }
+                })
             },
         },
         hideCamera: {
             enable: () => {
-                try {
+                utils.tryCatch(() => {
                     $("#local-video-wrapper")[0].style.display = "none"
-                } catch (e) {
-                    console.dir(e)
-                }
+                })
             },
             disable: () => {
-                try {
+                utils.tryCatch(() => {
                     $("#local-video-wrapper")[0].style.display = ""
-                } catch (e) {
-                    console.dir(e)
-                }
+                })
             }
         },
         darkMode: {
             enable: () => {
-                (document.getElementById("connectionStatus") as HTMLElement).style.color = "#E8E6E3";
-                if (!document.getElementById("darkMode")) {
-                    (document.body || document.documentElement).appendChild(this.dark);
-                }
+                utils.tryCatch(() => {
+                    (document.getElementById("connectionStatus") as HTMLElement).style.color = "#E8E6E3";
+                    if (!document.getElementById("darkMode")) {
+                        (document.body || document.documentElement).appendChild(this.dark);
+                    }
+                })
             },
             disable: () => {
-                (document.getElementById("connectionStatus") as HTMLElement).style.color = "#000000";
-                if (document.getElementById("darkMode") as HTMLElement)
-                    (document.getElementById("darkMode") as HTMLElement).remove();
+                utils.tryCatch(() => {
+                    (document.getElementById("connectionStatus") as HTMLElement).style.color = "#000000";
+                    if (document.getElementById("darkMode") as HTMLElement)
+                        (document.getElementById("darkMode") as HTMLElement).remove();
+                })
             }
         }
     }
@@ -154,7 +130,7 @@ export class InterfaceModule {
     }
 
     public tweakLoginWindow() {
-        try {
+        utils.tryCatch(() => {
             let new_el = $(document.createElement("div"))
 
             new_el[0].innerHTML = chrome.i18n.getMessage("loginWindow")
@@ -164,9 +140,7 @@ export class InterfaceModule {
 
             new_el.insertAfter(document.querySelector('[data-tr="sign_in_to"]') as HTMLElement)
             $(".login-popup__item.right")[0].style.overflowY = "auto"
-        } catch (e) {
-            console.dir(e)
-        }
+        })
     }
 
     public applyTweaks() {

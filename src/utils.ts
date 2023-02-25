@@ -4,6 +4,14 @@ export function addStyle(styleString: string) {
     document.head.append(style);
 }
 
+export function tryCatch(func: any, ...args: any) {
+    try {
+        return func(...args)
+    } catch (e) {
+        console.dir(e)
+    }
+}
+
 export function toObject(from: any, to: any) {
     for (let key in from) {
         let value = from[key]
