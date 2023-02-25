@@ -225,8 +225,8 @@ export class GeolocationModule {
 
 
         newIpDiv.innerHTML += DOMPurify.sanitize(newInnerHTML)
-        if (globalThis.needToClear) {
-            globalThis.needToClear = false
+        if (this.driver.needToClear) {
+            this.driver.needToClear = false
             $(document.getElementById("ipApiContainer") as HTMLElement).parent().children(':not(#ipApiContainer)').remove()
             $(document.getElementById("ipApiContainer") as HTMLElement).children().remove();
         }

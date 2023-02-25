@@ -13,7 +13,6 @@ declare global {
     var local: any;
     var curIps: any[];
     var curInfo: any;
-    var needToClear: boolean;
     var map: any;
     var tim: NodeJS.Timeout;
     var faceApiLoaded: boolean;
@@ -39,7 +38,6 @@ globalThis.changelog = new ContentSwalChangelog()
 globalThis.info = new ContentSwalInfo()
 
 globalThis.curInfo = {}
-globalThis.needToClear = false
 // globalThis.map
 // globalThis.tim
 globalThis.faceApiLoaded = false

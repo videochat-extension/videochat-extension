@@ -23,6 +23,7 @@ export class ChatruletkaDriver {
     private stageObserver: MutationObserver;
     private requestToStartTiming: number = 0;
     public needToCheckTarget: boolean = false;
+    public needToClear: boolean = false;
 
     private constructor() {
         this.stageObserver = new MutationObserver(this.onChangeStage)
@@ -128,7 +129,7 @@ export class ChatruletkaDriver {
                     clearInterval(globalThis.tim)
                     globalThis.curIps = []
                     // (document.getElementById("remoteInfo") as HTMLElement).innerHTML = ''
-                    globalThis.needToClear = true;
+                    this.needToClear = true;
                     (document.getElementById("remoteFace") as HTMLElement).innerHTML = '';
 
                     if (this.requestToStartTiming !== 0 && +new Date() - this.requestToStartTiming < 1000) {
@@ -140,7 +141,7 @@ export class ChatruletkaDriver {
                     this.stage = 1
 
                     globalThis.curIps = []
-                    globalThis.needToClear = true
+                    this.needToClear = true
                     this.needToCheckTarget = true
 
                     clearInterval(globalThis.tim);
