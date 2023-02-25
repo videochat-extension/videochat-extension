@@ -4,11 +4,13 @@ import * as Sentry from "@sentry/browser";
 
 import "./content-sentry"
 import "./content-swal-context-invalidated"
-import "./content-module-geolocation"
 
 import {ChatruletkaDriver} from "./content-driver-chatruletka";
 import {ChatruletkaSimpleDriver} from "./content-driver-chatruletka-simple";
 import {switchMode} from "./content-swal-switchmode";
+import {injectIpGrabber} from "./content-module-geolocation";
+
+injectIpGrabber()
 
 chrome.storage.local.get(null, function (result) {
     globalThis.local = result;

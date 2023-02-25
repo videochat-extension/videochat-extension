@@ -1,6 +1,4 @@
 import * as utils from "./utils";
-import $ from "jquery";
-import {confirmAndReload} from "./content-controls-tab-settings";
 
 export function createSettingsInterface() {
     return utils.createElement('div', {}, [

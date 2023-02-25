@@ -2,268 +2,288 @@ import $ from "jquery";
 import * as DOMPurify from "dompurify";
 import Swal from "sweetalert2";
 import * as utils from "./utils";
-
-const s = document.createElement('script');
-s.src = chrome.runtime.getURL('injection/ip-api.js');
-s.onload = () => s.remove();
-(document.head || document.documentElement).appendChild(s);
+import {ChatruletkaDriver} from "./content-driver-chatruletka";
 
 if (globalThis.language === "pt")
     globalThis.language = "pt-BR"
 else if (globalThis.language === "zh")
     globalThis.language = "zh-CN"
 
-let rmdaddr = "0.0.0.0"
-
-export function injectIpEventListener() {
-    window.addEventListener("[object Object]", function (evt) {
-        let candidate: any = (<CustomEvent>evt).detail.candidate
-
-        // chrome returns only one property
-        if (Object.keys(candidate).length === 1) {
-            candidate = new RTCIceCandidate((<CustomEvent>evt).detail.candidate.json)
-        }
-
-        if (candidate.type === "srflx" && candidate.address) {
-            console.dir("IP: " + candidate.address)
-            if (rmdaddr !== candidate.address) {
-                rmdaddr = candidate.address;
-                console.dir("IP CHANGED")
-                onNewIP(rmdaddr)
-            }
-        }
-    }, false);
+export function injectIpGrabber() {
+    const s = document.createElement('script');
+    s.src = chrome.runtime.getURL('injection/ip-api.js');
+    s.onload = () => s.remove();
+    (document.head || document.documentElement).appendChild(s);
 }
 
+export class GeolocationModule {
+    private static instanceRef: GeolocationModule;
+    private driver: ChatruletkaDriver;
 
-export function checkApi() {
-    chrome.runtime.sendMessage({aremoteIP: "1.1.1.1", language: "en"}, (response) => {
-        if (response.status === 200) {
-            globalThis.api = 2;
-            (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
-            (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage("main")
+    private rmdaddr = "0.0.0.0"
 
-            if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                globalThis.mapModule.resizemap(false)
+    public injectIpEventListener() {
+        window.addEventListener("[object Object]", (evt) => {
+            let candidate: any = (<CustomEvent>evt).detail.candidate
+
+            // chrome returns only one property
+            if (Object.keys(candidate).length === 1) {
+                candidate = new RTCIceCandidate((<CustomEvent>evt).detail.candidate.json)
             }
-            console.dir(`ip-api.com test passed: ${response.status}`)
-        } else {
-            globalThis.api = 0
-            console.dir(`ip-api.com test failed: ${response.status} ${response.body}`)
-            console.dir(chrome.i18n.getMessage("apiStatus0") + ' ERROR: ' + response.status);
 
-            (document.getElementById("apiStatus") as HTMLElement).innerHTML = DOMPurify.sanitize('<b>ERROR: ' + response.status + ' || </b>' + chrome.i18n.getMessage("apiStatus0"));
-            (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("main")
-            if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                globalThis.mapModule.resizemap(false)
-            }
-        }
-    })
-}
-
-export const onNewIP = function (newIp: string) {
-    // TODO: validate ip address
-    newIp = newIp.replace("[", "").replace("]", "")
-
-    if (globalThis.curIps.includes(newIp)) {
-        return
-    }
-
-    console.dir("IP CHANGE DETECTED")
-    if (globalThis.local.ips.includes(newIp)) {
-        globalThis.settings.stats.countDup++
-        console.dir("old ip")
-        if (globalThis.settings.skipSound)
-            globalThis.ban.play();
-        globalThis.driver.stopAndStart()
-    } else {
-        globalThis.curIps.push(newIp)
-        console.dir(globalThis.curIps)
-        globalThis.settings.stats.countNew++
-        console.dir("new ip")
-        switch (globalThis.api) {
-            case 2:
-                doLookupRequest2(newIp)
-                break;
-            default:
-                break;
-        }
-    }
-}
-
-export function doLookupRequest2(ip: string) {
-    chrome.runtime.sendMessage({aremoteIP: ip, language: globalThis.language}, (response) => {
-        console.dir(`ip-api.com returned ${response.status} (${response.body.status}) for '${ip}'`)
-
-        if (response.status === 200) {
-            processData(response.body, ip)
-        } else {
-            (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize("<b>HTTP ERROR " + response.status + "</b>")
-            if (globalThis.settings.enableTargetCity || globalThis.settings.enableTargetRegion) {
-                if (response.status === 429) {
-                    globalThis.driver.stopAndStart(5000)
+            if (candidate.type === "srflx" && candidate.address) {
+                console.dir("IP: " + candidate.address)
+                if (this.rmdaddr !== candidate.address) {
+                    this.rmdaddr = candidate.address;
+                    console.dir("IP CHANGED")
+                    this.onNewIP(this.rmdaddr)
                 }
             }
-        }
-    });
-}
+        }, false);
+    }
 
-export function checkTorrents(ip: string) {
-    if (globalThis.settings.torrentsEnable) {
-        if (globalThis.torrenstsConfirmed || !globalThis.settings.torrentsInfo) {
-            let url = `https://iknowwhatyoudownload.com/${chrome.i18n.getMessage("iknowwhatyoudownload_lang")}/peer/?ip=${ip}`
-            chrome.runtime.sendMessage({checkTorrents: true, url: url}, function (response) {
-                console.dir(`request to open iknowwhatyoudownload in the new tab/window: ${response}`)
-            });
-        } else {
-            Swal.fire({
-                title: 'iknowwhatyoudownload',
-                heightAuto: false,
-                showCancelButton: true,
-                confirmButtonText: chrome.i18n.getMessage("YKWYDConfirmButtonText"),
-                cancelButtonText: chrome.i18n.getMessage("YKWYDCancelButtonText"),
-                html: chrome.i18n.getMessage("YKWYDHtml"),
-                reverseButtons: true,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    globalThis.torrenstsConfirmed = true;
-                    let url = `https://iknowwhatyoudownload.com/${chrome.i18n.getMessage("iknowwhatyoudownload_lang")}/peer/?ip=${ip}`
-                    chrome.runtime.sendMessage({checkTorrents: true, url: url}, function (response) {
-                        console.dir(`request to open iknowwhatyoudownload in the new tab/window: ${response}`)
-                    });
+
+    public checkApi() {
+        chrome.runtime.sendMessage({aremoteIP: "1.1.1.1", language: "en"}, (response) => {
+            if (response.status === 200) {
+                globalThis.api = 2;
+                (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
+                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage("main")
+
+                if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
+                    globalThis.mapModule.resizemap(false)
                 }
-            })
+                console.dir(`ip-api.com test passed: ${response.status}`)
+            } else {
+                globalThis.api = 0
+                console.dir(`ip-api.com test failed: ${response.status} ${response.body}`)
+                console.dir(chrome.i18n.getMessage("apiStatus0") + ' ERROR: ' + response.status);
+
+                (document.getElementById("apiStatus") as HTMLElement).innerHTML = DOMPurify.sanitize('<b>ERROR: ' + response.status + ' || </b>' + chrome.i18n.getMessage("apiStatus0"));
+                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("main")
+                if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
+                    globalThis.mapModule.resizemap(false)
+                }
+            }
+        })
+    }
+
+    public onNewIP = (newIp: string) => {
+        // TODO: validate ip address
+        newIp = newIp.replace("[", "").replace("]", "")
+
+        if (globalThis.curIps.includes(newIp)) {
+            return
+        }
+
+        console.dir("IP CHANGE DETECTED")
+        if (globalThis.local.ips.includes(newIp)) {
+            globalThis.settings.stats.countDup++
+            console.dir("old ip")
+            if (globalThis.settings.skipSound)
+                globalThis.ban.play();
+            globalThis.driver.stopAndStart()
+        } else {
+            globalThis.curIps.push(newIp)
+            console.dir(globalThis.curIps)
+            globalThis.settings.stats.countNew++
+            console.dir("new ip")
+            switch (globalThis.api) {
+                case 2:
+                    this.doLookupRequest2(newIp)
+                    break;
+                default:
+                    break;
+            }
         }
     }
-}
 
-export function processData(json: any, ip: string) { // TODO: fix type
-    if (!globalThis.curIps.includes(ip)) {
-        return
+    public doLookupRequest2(ip: string) {
+        chrome.runtime.sendMessage({aremoteIP: ip, language: globalThis.language}, (response) => {
+            console.dir(`ip-api.com returned ${response.status} (${response.body.status}) for '${ip}'`)
+
+            if (response.status === 200) {
+                this.processData(response.body, ip)
+            } else {
+                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize("<b>HTTP ERROR " + response.status + "</b>")
+                if (globalThis.settings.enableTargetCity || globalThis.settings.enableTargetRegion) {
+                    if (response.status === 429) {
+                        globalThis.driver.stopAndStart(5000)
+                    }
+                }
+            }
+        });
     }
 
-    globalThis.curInfo = json
-    globalThis.startDate = +new Date() / 1000
-    let strings = []
-    let newInnerHTML = ''
-    let newIpDiv = utils.createElement('div')
-    if (globalThis.settings.showMoreEnabledByDefault && (json.mobile || json.proxy || json.hosting)) {
-        if (json.mobile) {
-            if (globalThis.settings.hideMobileLocation || globalThis.settings.showCT) {
-                if (!globalThis.settings.showCT) {
-                    strings.push(`<small>MOBILE [${chrome.i18n.getMessage('apiMobileHidden')}]</small>`)
+    public checkTorrents(ip: string) {
+        if (globalThis.settings.torrentsEnable) {
+            if (globalThis.torrenstsConfirmed || !globalThis.settings.torrentsInfo) {
+                let url = `https://iknowwhatyoudownload.com/${chrome.i18n.getMessage("iknowwhatyoudownload_lang")}/peer/?ip=${ip}`
+                chrome.runtime.sendMessage({checkTorrents: true, url: url}, function (response) {
+                    console.dir(`request to open iknowwhatyoudownload in the new tab/window: ${response}`)
+                });
+            } else {
+                Swal.fire({
+                    title: 'iknowwhatyoudownload',
+                    heightAuto: false,
+                    showCancelButton: true,
+                    confirmButtonText: chrome.i18n.getMessage("YKWYDConfirmButtonText"),
+                    cancelButtonText: chrome.i18n.getMessage("YKWYDCancelButtonText"),
+                    html: chrome.i18n.getMessage("YKWYDHtml"),
+                    reverseButtons: true,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        globalThis.torrenstsConfirmed = true;
+                        let url = `https://iknowwhatyoudownload.com/${chrome.i18n.getMessage("iknowwhatyoudownload_lang")}/peer/?ip=${ip}`
+                        chrome.runtime.sendMessage({checkTorrents: true, url: url}, function (response) {
+                            console.dir(`request to open iknowwhatyoudownload in the new tab/window: ${response}`)
+                        });
+                    }
+                })
+            }
+        }
+    }
+
+    public processData(json: any, ip: string) { // TODO: fix type
+        if (!globalThis.curIps.includes(ip)) {
+            return
+        }
+
+        globalThis.curInfo = json
+        globalThis.startDate = +new Date() / 1000
+        let strings = []
+        let newInnerHTML = ''
+        let newIpDiv = utils.createElement('div')
+        if (globalThis.settings.showMoreEnabledByDefault && (json.mobile || json.proxy || json.hosting)) {
+            if (json.mobile) {
+                if (globalThis.settings.hideMobileLocation || globalThis.settings.showCT) {
+                    if (!globalThis.settings.showCT) {
+                        strings.push(`<small>MOBILE [${chrome.i18n.getMessage('apiMobileHidden')}]</small>`)
+                    } else {
+                        strings.push(`<small>MOBILE [${chrome.i18n.getMessage('apiMobile')}]</small>`)
+                    }
                 } else {
                     strings.push(`<small>MOBILE [${chrome.i18n.getMessage('apiMobile')}]</small>`)
                 }
+            }
+            if (json.proxy && json.hosting) {
+                strings.push(`<small>PROXY+HOSTING [${chrome.i18n.getMessage('apiProxy')}]</small>`)
             } else {
-                strings.push(`<small>MOBILE [${chrome.i18n.getMessage('apiMobile')}]</small>`)
+                if (json.proxy)
+                    strings.push(`<small>PROXY [${chrome.i18n.getMessage('apiProxy')}]</small>`)
+                if (json.hosting)
+                    strings.push(`<small>HOSTING [${chrome.i18n.getMessage('apiHosting')}]</small>`)
             }
         }
-        if (json.proxy && json.hosting) {
-            strings.push(`<small>PROXY+HOSTING [${chrome.i18n.getMessage('apiProxy')}]</small>`)
+
+        if ((globalThis.settings.hideMobileLocation || globalThis.settings.showCT) && json.mobile) {
+            newInnerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br></br>"
+
+            if (globalThis.settings.showCT) {
+                newInnerHTML += chrome.i18n.getMessage("apiCT") + `${json.city}/${json.regionName}</br>`
+                try {
+                    newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>"
+                } catch {
+                    newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + "???" + "</sup>) </br>"
+                }
+            } else {
+                newInnerHTML += "<br><br><br>"
+            }
+            newInnerHTML += "<b>TM: </b><sup class='remoteTM'>" + utils.secondsToHms(+new Date() / 1000 - globalThis.startDate) + "</sup>"
+
         } else {
-            if (json.proxy)
-                strings.push(`<small>PROXY [${chrome.i18n.getMessage('apiProxy')}]</small>`)
-            if (json.hosting)
-                strings.push(`<small>HOSTING [${chrome.i18n.getMessage('apiHosting')}]</small>`)
-        }
-    }
+            newInnerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br>"
 
-    if ((globalThis.settings.hideMobileLocation || globalThis.settings.showCT) && json.mobile) {
-        newInnerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br></br>"
-
-        if (globalThis.settings.showCT) {
-            newInnerHTML += chrome.i18n.getMessage("apiCT") + `${json.city}/${json.regionName}</br>`
+            newInnerHTML += "</br>" +
+                chrome.i18n.getMessage("apiCity") + json.city + " (" + json.region + ") </br>" +
+                chrome.i18n.getMessage("apiRegion") + json.regionName + "</br>"
             try {
                 newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>"
             } catch {
                 newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + "???" + "</sup>) </br>"
             }
-        } else {
-            newInnerHTML += "<br><br><br>"
+            newInnerHTML += "<b>TM: </b><sup class='remoteTM'>" + utils.secondsToHms(+new Date() / 1000 - globalThis.startDate) + "</sup>"
         }
-        newInnerHTML += "<b>TM: </b><sup class='remoteTM'>" + utils.secondsToHms(+new Date() / 1000 - globalThis.startDate) + "</sup>"
 
-    } else {
-        newInnerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br>"
-
-        newInnerHTML += "</br>" +
-            chrome.i18n.getMessage("apiCity") + json.city + " (" + json.region + ") </br>" +
-            chrome.i18n.getMessage("apiRegion") + json.regionName + "</br>"
-        try {
-            newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>"
-        } catch {
-            newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + "???" + "</sup>) </br>"
+        if (globalThis.settings.showISP) {
+            newInnerHTML += `<br><small style="font-size: x-small!important;"><b>${json.isp}</b></small>`
         }
-        newInnerHTML += "<b>TM: </b><sup class='remoteTM'>" + utils.secondsToHms(+new Date() / 1000 - globalThis.startDate) + "</sup>"
-    }
 
-    if (globalThis.settings.showISP) {
-        newInnerHTML += `<br><small style="font-size: x-small!important;"><b>${json.isp}</b></small>`
-    }
-
-    if (strings.length > 0)
-        newInnerHTML += "</br>" + strings.join('<small> || </small>')
+        if (strings.length > 0)
+            newInnerHTML += "</br>" + strings.join('<small> || </small>')
 
 
-    newIpDiv.innerHTML += DOMPurify.sanitize(newInnerHTML)
-    if (globalThis.needToClear) {
-        globalThis.needToClear = false
-        $(document.getElementById("ipApiContainer") as HTMLElement).parent().children(':not(#ipApiContainer)').remove()
-        $(document.getElementById("ipApiContainer") as HTMLElement).children().remove();
-    }
-    $(newIpDiv).appendTo(document.getElementById("ipApiContainer") as HTMLElement)
-    console.dir("RENDER ++")
+        newIpDiv.innerHTML += DOMPurify.sanitize(newInnerHTML)
+        if (globalThis.needToClear) {
+            globalThis.needToClear = false
+            $(document.getElementById("ipApiContainer") as HTMLElement).parent().children(':not(#ipApiContainer)').remove()
+            $(document.getElementById("ipApiContainer") as HTMLElement).children().remove();
+        }
+        $(newIpDiv).appendTo(document.getElementById("ipApiContainer") as HTMLElement)
+        console.dir("RENDER ++")
 
-    if (globalThis.settings.torrentsEnable && !json.mobile && !json.proxy && !json.hosting) {
-        newIpDiv.innerHTML += `<br><br>`
-        $(utils.createElement('button', {
-            innerHTML: "<b>" + chrome.i18n.getMessage("YKWYDButtonText") + "</b>",
-            onclick: () => {
-                checkTorrents(DOMPurify.sanitize(json.query))
-            }
-        })).appendTo(newIpDiv)
-    }
+        if (globalThis.settings.torrentsEnable && !json.mobile && !json.proxy && !json.hosting) {
+            newIpDiv.innerHTML += `<br><br>`
+            $(utils.createElement('button', {
+                innerHTML: "<b>" + chrome.i18n.getMessage("YKWYDButtonText") + "</b>",
+                onclick: () => {
+                    this.checkTorrents(DOMPurify.sanitize(json.query))
+                }
+            })).appendTo(newIpDiv)
+        }
 
-    if ((globalThis.settings.enableTargetCity || globalThis.settings.enableTargetRegion) && globalThis.needToCheckTarget) {
-        if (globalThis.settings.skipMobileTarget && json.mobile) {
-            if (globalThis.curIps.indexOf(ip) + 1 === globalThis.curIps.length) {
-                globalThis.driver.stopAndStart()
-            }
-            return
-        } else {
-            if (globalThis.settings.enableTargetCity) {
-                if (!globalThis.settings.targetCity.includes(json.city)) {
-                    if (globalThis.curIps.indexOf(ip) + 1 === globalThis.curIps.length) {
-                        globalThis.driver.stopAndStart()
-                    }
-                    return
-                } else {
-                    globalThis.needToCheckTarget = false
-                    if (globalThis.settings.targetSound) {
-                        globalThis.targetSound.play();
-                        console.dir(`FOUND TARGET CITY: ${globalThis.settings.targetCity}`)
+        if ((globalThis.settings.enableTargetCity || globalThis.settings.enableTargetRegion) && globalThis.needToCheckTarget) {
+            if (globalThis.settings.skipMobileTarget && json.mobile) {
+                if (globalThis.curIps.indexOf(ip) + 1 === globalThis.curIps.length) {
+                    globalThis.driver.stopAndStart()
+                }
+                return
+            } else {
+                if (globalThis.settings.enableTargetCity) {
+                    if (!globalThis.settings.targetCity.includes(json.city)) {
+                        if (globalThis.curIps.indexOf(ip) + 1 === globalThis.curIps.length) {
+                            globalThis.driver.stopAndStart()
+                        }
+                        return
+                    } else {
+                        globalThis.needToCheckTarget = false
+                        if (globalThis.settings.targetSound) {
+                            globalThis.targetSound.play();
+                            console.dir(`FOUND TARGET CITY: ${globalThis.settings.targetCity}`)
+                        }
                     }
                 }
-            }
-            if (globalThis.settings.enableTargetRegion) {
-                if (!globalThis.settings.targetRegion.includes(json.regionName)) {
-                    if (globalThis.curIps.indexOf(ip) + 1 === globalThis.curIps.length) {
-                        globalThis.driver.stopAndStart()
-                    }
-                    return
-                } else {
-                    globalThis.needToCheckTarget = false
-                    if (globalThis.settings.targetSound) {
-                        (globalThis.targetSound).play();
-                        console.dir(`FOUND TARGET REGION: ${globalThis.settings.targetRegion}`)
+                if (globalThis.settings.enableTargetRegion) {
+                    if (!globalThis.settings.targetRegion.includes(json.regionName)) {
+                        if (globalThis.curIps.indexOf(ip) + 1 === globalThis.curIps.length) {
+                            globalThis.driver.stopAndStart()
+                        }
+                        return
+                    } else {
+                        globalThis.needToCheckTarget = false
+                        if (globalThis.settings.targetSound) {
+                            (globalThis.targetSound).play();
+                            console.dir(`FOUND TARGET REGION: ${globalThis.settings.targetRegion}`)
+                        }
                     }
                 }
             }
         }
+
+        globalThis.mapModule.updateMap(globalThis.curInfo)
+
+        return true
     }
 
-    globalThis.mapModule.updateMap(globalThis.curInfo)
+    private constructor(driver: ChatruletkaDriver) {
+        this.driver = driver
+    }
 
-    return true
+    static initInstance(driver: ChatruletkaDriver): GeolocationModule {
+        if (GeolocationModule.instanceRef === undefined) {
+            GeolocationModule.instanceRef = new GeolocationModule(driver);
+        }
+
+        return GeolocationModule.instanceRef;
+    }
 }

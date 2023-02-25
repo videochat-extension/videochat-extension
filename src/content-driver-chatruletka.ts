@@ -1,6 +1,6 @@
 import $ from "jquery";
 import {detectGender, injectFaceApi} from "./content-module-faceapi";
-import {checkApi, injectIpEventListener} from "./content-module-geolocation";
+import {GeolocationModule} from "./content-module-geolocation";
 import {injectSwitchModeButton} from "./content-swal-switchmode";
 // import {injectCounter} from "./content-controls-tab-api";
 
@@ -50,7 +50,7 @@ export class ChatruletkaDriver {
         this.modules.interface.tweakLoginWindow()
         this.modules.interface.applyTweaks()
 
-        injectIpEventListener()
+        this.modules.geolocation.injectIpEventListener()
 
         injectSwitchModeButton()
 
@@ -64,7 +64,7 @@ export class ChatruletkaDriver {
         document.getElementsByClassName('buttons__button stop-button')[0].addEventListener("click", (e: any) => { // TODO: fix type
             if (e.pointerType !== "") {
                 (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("main")
-                checkApi()
+                this.modules.geolocation.checkApi()
             }
             clearTimeout(globalThis.timeout)
         })
@@ -72,7 +72,7 @@ export class ChatruletkaDriver {
 
         // injectCounter()
 
-        checkApi()
+        this.modules.geolocation.checkApi()
 
 
         this.modules.automation.injectAutomationSkipFourSec()
@@ -110,6 +110,7 @@ export class ChatruletkaDriver {
         this.modules.hotkeys = HotkeysModule.initInstance(this)
         this.modules.automation = AutomationModule.initInstance(this)
         this.modules.interface = InterfaceModule.initInstance(this)
+        this.modules.geolocation = GeolocationModule.initInstance(this)
     }
 
     private onChangeStage = (mutations: any[]) => {
