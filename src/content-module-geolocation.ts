@@ -17,6 +17,7 @@ export class GeolocationModule {
     private static instanceRef: GeolocationModule;
     private driver: ChatruletkaDriver;
     private rmdaddr = "0.0.0.0"
+    private api: number = 0;
 
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver
@@ -53,7 +54,7 @@ export class GeolocationModule {
     public checkApi() {
         chrome.runtime.sendMessage({aremoteIP: "1.1.1.1", language: "en"}, (response) => {
             if (response.status === 200) {
-                globalThis.api = 2;
+                this.api = 2;
                 (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
                 (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage("main")
 
@@ -62,7 +63,7 @@ export class GeolocationModule {
                 }
                 console.dir(`ip-api.com test passed: ${response.status}`)
             } else {
-                globalThis.api = 0
+                this.api = 0
                 console.dir(`ip-api.com test failed: ${response.status} ${response.body}`)
                 console.dir(chrome.i18n.getMessage("apiStatus0") + ' ERROR: ' + response.status);
 
@@ -95,7 +96,7 @@ export class GeolocationModule {
             console.dir(globalThis.curIps)
             globalThis.settings.stats.countNew++
             console.dir("new ip")
-            switch (globalThis.api) {
+            switch (this.api) {
                 case 2:
                     this.doLookupRequest2(newIp)
                     break;
