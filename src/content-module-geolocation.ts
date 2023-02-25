@@ -19,6 +19,7 @@ export class GeolocationModule {
     private rmdaddr = "0.0.0.0"
     private api: number = 0;
     private torrenstsConfirmed = false;
+    private started: number = 0;
 
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver
@@ -159,7 +160,8 @@ export class GeolocationModule {
         }
 
         globalThis.curInfo = json
-        globalThis.startDate = +new Date() / 1000
+        this.started = Date.now()
+        console.dir("SET PLAY")
         let strings = []
         let newInnerHTML = ''
         let newIpDiv = utils.createElement('div')
@@ -198,7 +200,7 @@ export class GeolocationModule {
             } else {
                 newInnerHTML += "<br><br><br>"
             }
-            newInnerHTML += "<b>TM: </b><sup class='remoteTM'>" + utils.secondsToHms(+new Date() / 1000 - globalThis.startDate) + "</sup>"
+            newInnerHTML += "<b>TM: </b><sup class='remoteTM'>" + utils.secondsToHms((+new Date() - this.started) / 1000) + "</sup>"
 
         } else {
             newInnerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br>"
@@ -211,7 +213,7 @@ export class GeolocationModule {
             } catch {
                 newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + "???" + "</sup>) </br>"
             }
-            newInnerHTML += "<b>TM: </b><sup class='remoteTM'>" + utils.secondsToHms(+new Date() / 1000 - globalThis.startDate) + "</sup>"
+            newInnerHTML += "<b>TM: </b><sup class='remoteTM'>" + utils.secondsToHms((+new Date() - this.started) / 1000) + "</sup>"
         }
 
         if (globalThis.settings.showISP) {
@@ -282,6 +284,27 @@ export class GeolocationModule {
         globalThis.mapModule.updateMap(globalThis.curInfo)
 
         return true
+    }
+
+    public startTimer() {
+        setInterval(() => {
+            if (document.getElementsByClassName("remoteTM").length > 0) {
+                if (globalThis.driver.stage === 4) {
+                    for (let el of document.getElementsByClassName("remoteTM") as HTMLCollectionOf<HTMLElement>) {
+                        el.innerText = utils.secondsToHms((+new Date() - this.started) / 1000)
+                    }
+                }
+            }
+            if (document.getElementsByClassName("remoteTZ").length > 0 && document.getElementsByClassName("remoteTime").length > 0) {
+                for (let el of document.getElementsByClassName("remoteTime") as HTMLCollectionOf<HTMLElement>) {
+                    try {
+                        el.innerText = new Date().toLocaleTimeString("ru", {timeZone: $(el).parent().find('.remoteTZ')[0].innerText}).slice(0, -3)
+                    } catch {
+                        el.innerText = "???"
+                    }
+                }
+            }
+        }, 1000)
     }
 
     // https://ip-api.com/docs/api:json#:~:text=DEMO-,Localization,-Localized%20city%2C

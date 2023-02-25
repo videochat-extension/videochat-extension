@@ -20,12 +20,11 @@ export class AutomationModule {
         return AutomationModule.instanceRef;
     }
 
-
     public injectAutomationSkipFourSec() {
         setInterval(() => {
             if (globalThis.settings.skipFourSec) {
                 try {
-                    if ((globalThis.driver.stage === 2) && (globalThis.found + 4000 < Date.now())) {
+                    if ((globalThis.driver.stage === 2) && (this.driver.found + 4000 < Date.now())) {
                         console.dir("Skipping due to loading time limit");
                         (document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement).click()
                         //settings.stats.countManSkip--

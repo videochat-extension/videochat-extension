@@ -3,7 +3,6 @@ import {detectGender, injectFaceApi} from "./content-module-faceapi";
 import {GeolocationModule} from "./content-module-geolocation";
 import {injectSwitchModeButton} from "./content-swal-switchmode";
 // import {injectCounter} from "./content-controls-tab-api";
-
 import {injectStreamerMode} from "./content-module-streamermode";
 import {HotkeysModule} from "./content-module-hotkeys";
 import {AutomationModule} from "./content-module-automation";
@@ -14,7 +13,13 @@ export class ChatruletkaDriver {
     private static instanceRef: ChatruletkaDriver;
     // Stages: stop = 0 | search = 1 | found = 2 | connected = 3 | play = 4
     public stage: 0 | 1 | 2 | 3 | 4 = 0
+    // TODO: figure out types for modules
     public modules: any = {}
+    public play: number = 0;
+    public search: number = 0;
+    public found: number = 0;
+    public buttons = $(".buttons")[0]
+    public chat = $(".chat")[0]
     private stageObserver: MutationObserver;
 
     private constructor() {
@@ -69,10 +74,8 @@ export class ChatruletkaDriver {
             clearTimeout(globalThis.timeout)
         })
 
-
-        // injectCounter()
-
         this.modules.geolocation.checkApi()
+        this.modules.geolocation.startTimer()
 
         this.modules.automation.injectAutomationSkipFourSec()
         this.modules.automation.injectAutomationSkipWrongCountry()
@@ -113,7 +116,7 @@ export class ChatruletkaDriver {
         mutations.forEach((mutation) => {
             if (mutation.attributeName === "class") {
                 if (this.stage === 4) {
-                    globalThis.settings.stats.time += Math.ceil((Date.now() - globalThis.play) / 1000)
+                    globalThis.settings.stats.time += Math.ceil((Date.now() - this.play) / 1000)
                 }
 
                 const attributeValue = String($(mutation.target).prop(mutation.attributeName));
@@ -140,17 +143,17 @@ export class ChatruletkaDriver {
 
                     clearInterval(globalThis.tim);
                     // (document.getElementById("remoteFace") as HTMLElement).innerHTML = ''
-                    if (globalThis.play < globalThis.search) {
+                    if (this.play < this.search) {
                         // console.log("Dialog ended before even started")
                     }
 
-                    globalThis.search = Date.now()
+                    this.search = Date.now()
                 } else if (attributeValue.includes("s-found")) {
                     this.stage = 2;
 
                     globalThis.needToCheckTarget = true
 
-                    globalThis.found = Date.now()
+                    this.found = Date.now()
                 } else if (attributeValue.includes("s-connected")) {
                     this.stage = 3;
                 } else if (attributeValue.includes("s-play")) {
@@ -159,8 +162,10 @@ export class ChatruletkaDriver {
                     clearInterval(globalThis.tim)
                     globalThis.tim = setTimeout(detectGender, 0)
 
-                    globalThis.play = Date.now()
-                    console.log("Loading took: ", ((globalThis.play - globalThis.found) / 1000).toFixed(2), "sec")
+                    this.play = Date.now()
+                    console.dir("SET PLAY")
+
+                    console.log("Loading took: ", ((this.play - this.found) / 1000).toFixed(2), "sec")
 
                     globalThis.settings.stats.countAll++
                 }

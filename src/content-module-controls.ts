@@ -145,7 +145,7 @@ export class ControlsModule {
         });
     }
 
-    protected injectControls() {
+    injectControls() {
         globalThis.controls = this.createControls();
 
         // TODO: do I need both tooltipster and css-tooltip?

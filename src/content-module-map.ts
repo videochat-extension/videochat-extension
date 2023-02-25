@@ -9,10 +9,13 @@ export class mapModule {
     public chatContainerHeight = 0
     private marker: L.Marker | undefined;
     private circle: L.Circle | undefined;
+    private buttons: HTMLElement;
+    private chat: HTMLElement;
 
     private constructor() {
         L.Icon.Default.imagePath = chrome.runtime.getURL('libs/js/leaflet/');
-
+        this.buttons = $(".buttons")[0]
+        this.chat = $(".chat")[0]
         this.injectStyles()
 
         globalThis.map = L.map('mapid', {
@@ -135,8 +138,11 @@ export class mapModule {
             // let chat = (document.getElementById("chat") as HTMLElement)
 
             let mar = parseInt(window.getComputedStyle(globalThis.controls).marginRight)
-            $(".buttons")[0].style.width = (parseInt($(".buttons")[0].style.width) - (parseInt(globalThis.controls.style.width) + mar) / 2) + "px"
-            $(".chat")[0].style.width = (parseInt($(".chat")[0].style.width) - (parseInt(globalThis.controls.style.width) + mar) / 2) + "px"
+
+            // TODO: AVOID USING globalThis
+            globalThis.driver.buttons.style.width = (parseInt(globalThis.driver.buttons.style.width) - (parseInt(globalThis.controls.style.width) + mar) / 2) + "px"
+            globalThis.driver.chat.style.width = (parseInt(globalThis.driver.chat.style.width) - (parseInt(globalThis.controls.style.width) + mar) / 2) + "px"
+
             // resize = false // TODO: I COMMENTED IT OUT
             if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab3")) {
                 this.resizemap(true)

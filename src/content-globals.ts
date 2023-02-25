@@ -12,13 +12,9 @@ declare global {
     var settings: any;
     var local: any;
     var curIps: any[];
-    var search: number;
-    var found: number;
-    var startDate: number;
     var curInfo: any;
     var needToClear: boolean;
     var needToCheckTarget: boolean;
-    var play: number;
     var map: any;
     var tim: NodeJS.Timeout;
     var faceApiLoaded: boolean;
@@ -44,13 +40,9 @@ globalThis.curIps = []
 globalThis.changelog = new ContentSwalChangelog()
 globalThis.info = new ContentSwalInfo()
 
-globalThis.search = 0
-globalThis.found = 0
-// globalThis.startDate
 globalThis.curInfo = {}
 globalThis.needToClear = false
 globalThis.needToCheckTarget = false
-globalThis.play = 0
 // globalThis.map
 // globalThis.tim
 globalThis.faceApiLoaded = false
