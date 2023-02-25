@@ -29,19 +29,9 @@ globalThis.local = {ips: ["-"]}
 globalThis.changelog = new ContentSwalChangelog()
 globalThis.info = new ContentSwalInfo()
 
-// globalThis.map
-// globalThis.tim
 globalThis.faceApiLoaded = false
-// globalThis.controls
-// globalThis.resize
-// globalThis.timeout
 
 // blacklist
 globalThis.male = new Audio(chrome.runtime.getURL('resources/audio/male.mp3'))
-
-// target geolocation
-
-
-// blacklist
 globalThis.male.volume = 0.3
-// target geolocation
+

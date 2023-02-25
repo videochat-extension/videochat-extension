@@ -1,5 +1,4 @@
 import $ from "jquery";
-import {detectGender, injectFaceApi} from "./content-module-faceapi";
 import {GeolocationModule} from "./content-module-geolocation";
 import {injectSwitchModeButton} from "./content-swal-switchmode";
 // import {injectCounter} from "./content-controls-tab-api";
@@ -8,6 +7,8 @@ import {HotkeysModule} from "./content-module-hotkeys";
 import {AutomationModule} from "./content-module-automation";
 import {InterfaceModule} from "./content-module-interface";
 import {ControlsModule} from "./content-module-controls";
+import {BlacklistModule} from "./content-module-blacklist";
+import {FaceapiModule} from "./content-module-faceapi";
 
 export class ChatruletkaDriver {
     private static instanceRef: ChatruletkaDriver;
@@ -94,14 +95,12 @@ export class ChatruletkaDriver {
         }
 
         if (globalThis.settings.skipMale || globalThis.settings.skipFemale || globalThis.settings.enableFaceApi) {
-            injectFaceApi()
+            this.modules.faceapi.injectFaceApi()
         }
 
         if (globalThis.settings.streamer) {
             injectStreamerMode()
         }
-
-
 
         this.stageObserver.observe(element, {attributes: true});
 
@@ -114,6 +113,8 @@ export class ChatruletkaDriver {
         this.modules.automation = AutomationModule.initInstance(this)
         this.modules.interface = InterfaceModule.initInstance(this)
         this.modules.geolocation = GeolocationModule.initInstance(this)
+        this.modules.blacklist = BlacklistModule.initInstance(this)
+        this.modules.faceapi = FaceapiModule.initInstance(this)
     }
 
     private onChangeStage = (mutations: any[]) => {
@@ -164,7 +165,7 @@ export class ChatruletkaDriver {
                     this.stage = 4;
 
                     clearInterval(this.tim)
-                    this.tim = setTimeout(detectGender, 0)
+                    this.tim = setTimeout(this.modules.faceapi.detectGender, 0)
 
                     this.play = Date.now()
                     console.dir("SET PLAY")
