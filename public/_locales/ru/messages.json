@@ -107,6 +107,9 @@
   "settingsInterface": {
     "message": "<b>Интерфейс</b>"
   },
+  "settingsControls": {
+    "message": "<b>Панель управления</b>"
+  },
   "tooltipWatermark": {
     "message": "прячет ватермарку в верхнем левом углу камеры собеседника"
   },

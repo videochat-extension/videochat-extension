@@ -107,6 +107,9 @@
   "settingsInterface": {
     "message": "<b>Interface</b>"
   },
+  "settingsControls": {
+    "message": "<b>Control panel</b>"
+  },
   "tooltipWatermark": {
     "message": "hides the watermark in the upper left corner of the interlocutor's camera"
   },

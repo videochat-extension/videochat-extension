@@ -8,6 +8,7 @@ import {createSettingsHotkeys} from "./content-controls-tab-settings-hotkeys";
 import {createSettingsStreamer} from "./content-controls-tab-settings-streamer";
 import {createSettingsMisc} from "./content-controls-tab-settings-misc";
 import {createSettingsStats} from "./content-controls-tab-settings-stats";
+import {createSettingsControls} from "./content-controls-tab-settings-controls";
 
 let needReload = false
 
@@ -43,6 +44,9 @@ export function createTabSettings() {
                 utils.createElement('dl', {},
                     [
                         createSettingsInterface(),
+                        utils.createElement('br'),
+
+                        createSettingsControls(),
                         utils.createElement('br'),
 
                         createSettingsAutomation(),

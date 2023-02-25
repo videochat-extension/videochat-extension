@@ -195,32 +195,6 @@ export function createSettingsInterface() {
                     }
                 })
             ]),
-        ]),
-
-        utils.createElement('dd', {}, [
-            utils.createElement('span', {}, [
-                utils.createElement("p", {
-                    innerText: chrome.i18n.getMessage('expand'),
-                    className: "tooltip",
-                    title: chrome.i18n.getMessage('tooltipExpand')
-                }),
-                utils.createElement('input', {
-                    type: "checkbox",
-                    checked: globalThis.settings.expand,
-                    id: "expandCheck",
-                    onclick: () => {
-                        chrome.storage.sync.set({"expand": (document.getElementById("expandCheck") as HTMLInputElement).checked}, function () {
-                            if ((document.getElementById("expandCheck") as HTMLInputElement).checked) {
-                                setTimeout(() => {
-                                    globalThis.mapModule.resizemap(true)
-                                }, 100)
-                            } else {
-                                globalThis.mapModule.resizemap(false)
-                            }
-                        });
-                    }
-                })
-            ]),
-        ]),
+        ])
     ])
 }
