@@ -1,5 +1,4 @@
 import * as utils from "./utils";
-import {updStats} from "./content-controls-tab-stats";
 
 export function createSettingsBlacklist() {
     return utils.createElement('div', {}, [
@@ -72,7 +71,8 @@ export function createSettingsBlacklist() {
                     if (result) {
                         globalThis.local.ips = []
                         chrome.storage.local.set({"ips": []}, function () {
-                            updStats(true)
+                            // TODO: FIX updStats
+                            // updStats(true)
                         });
                     }
                 },

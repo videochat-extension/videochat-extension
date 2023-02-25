@@ -1,5 +1,4 @@
 import * as utils from "./utils";
-import {updStats} from "./content-controls-tab-stats";
 
 export function createSettingsStats() {
     return utils.createElement('div', {}, [
@@ -27,7 +26,8 @@ export function createSettingsStats() {
                         }
                         globalThis.settings.stats = stats.stats
                         chrome.storage.sync.set(globalThis.settings, function () {
-                            updStats(true)
+                            // TODO: FIX UPDSTATS
+                            // updStats(true)
                         });
                     }
                 },

@@ -1,9 +1,8 @@
 import $ from "jquery";
 import {detectGender, injectFaceApi} from "./content-module-faceapi";
-import {updStats} from "./content-controls-tab-stats";
 import {checkApi, injectIpEventListener} from "./content-module-geolocation";
 import {injectSwitchModeButton} from "./content-swal-switchmode";
-import {injectCounter} from "./content-controls-tab-api";
+// import {injectCounter} from "./content-controls-tab-api";
 
 import {injectStreamerMode} from "./content-module-streamermode";
 import {HotkeysModule} from "./content-module-hotkeys";
@@ -71,7 +70,7 @@ export class ChatruletkaDriver {
         })
 
 
-        injectCounter()
+        // injectCounter()
 
         checkApi()
 
@@ -168,8 +167,8 @@ export class ChatruletkaDriver {
 
                     globalThis.settings.stats.countAll++
                 }
-
-                updStats(false)
+                //TODO: FIX updStats
+                // updStats(false)
             }
         });
     }

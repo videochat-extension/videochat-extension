@@ -2,12 +2,12 @@ import {ChatruletkaDriver} from "./content-driver-chatruletka";
 import * as utils from "./utils";
 import $ from "jquery";
 import {createHeader} from "./content-controls-header";
-import {createTabMap} from "./content-controls-tab-map";
-import {createTabApi} from "./content-controls-tab-api";
-import {createTabBans} from "./content-controls-tab-bans";
-import {createTabStats} from "./content-controls-tab-stats";
-import {createTabSettings} from "./content-controls-tab-settings";
-import {createTabAbout} from "./content-controls-tab-about";
+import {ControlsTabMap} from "./content-controls-tab-map";
+import {ControlsTabApi} from "./content-controls-tab-api";
+import {ControlsTabBans} from "./content-controls-tab-bans";
+import {ControlsTabStats} from "./content-controls-tab-stats";
+import {ControlsTabSettings} from "./content-controls-tab-settings";
+import {ControlsTabAbout} from "./content-controls-tab-about";
 import {mapModule} from "./content-module-map";
 
 require('tooltipster')
@@ -16,8 +16,16 @@ export class ControlsModule {
     private static instanceRef: ControlsModule;
     private driver: ChatruletkaDriver;
 
-    private constructor(driver: ChatruletkaDriver) {
+    private tabs: any = []
+
+    protected constructor(driver: ChatruletkaDriver) {
         this.driver = driver
+        this.tabs.push(ControlsTabApi.initInstance(this))
+        this.tabs.push(ControlsTabMap.initInstance(this))
+        this.tabs.push(ControlsTabBans.initInstance(this))
+        this.tabs.push(ControlsTabStats.initInstance(this))
+        this.tabs.push(ControlsTabSettings.initInstance(this))
+        this.tabs.push(ControlsTabAbout.initInstance(this))
     }
 
     protected createStyle() {
@@ -93,33 +101,56 @@ export class ControlsModule {
     }
 
     protected createTabs() {
+        // let tabs = [utils.createElement('li', {
+        //     innerText: ,
+        // }), utils.createElement('li', {
+        //     innerText: chrome.i18n.getMessage("tab3")
+        // }), utils.createElement('li', {
+        //     innerText: chrome.i18n.getMessage("tab4")
+        // })]
+        let tabs: any = []
+        this.tabs.forEach((tab: ControlsTabApi) => {
+            tabs.push(tab.getTabHTML())
+        })
+        if (tabs.length > 0) {
+            tabs[0].className = "active"
+        }
         return utils.createElement('ul', {
             className: "tabs__caption"
-        }, [utils.createElement('li', {
-            className: "active", innerText: chrome.i18n.getMessage("tab1"),
-        }), utils.createElement('li', {
-            id: "mapTabButton",
-            innerText: chrome.i18n.getMessage("tab2")
-        }), utils.createElement('li', {
-            innerText: chrome.i18n.getMessage("tabBans")
-        }), utils.createElement('li', {
-            innerText: chrome.i18n.getMessage("tabStats")
-        }), utils.createElement('li', {
-            innerText: chrome.i18n.getMessage("tab3")
-        }), utils.createElement('li', {
-            innerText: chrome.i18n.getMessage("tab4")
-        })])
+        }, tabs)
     }
 
     protected  createControls() {
+        let content = [this.createStyle(), utils.createElement('div', {
+            id: "remoteIPInfo", style: "display: none;"
+        }), createHeader(), this.createTabs()]
+            // createTabApi(), createTabMap(), createTabBans(), createTabStats(), createTabSettings(), createTabAbout(),]
+
+        this.tabs.forEach((tab: ControlsTabApi) => {
+            content.push(tab.getContentHTML())
+        })
+
         return utils.createElement('div', {
             className: 'chat', id: 'controls', style: "width:390px; margin-right: calc(100vh / 768 * 10);"
         }, [utils.createElement('div', {
             className: "tabs chat"
-        }, [this.createStyle(), utils.createElement('div', {
-            id: "remoteIPInfo", style: "display: none;"
-        }), createHeader(), this.createTabs(),
-            createTabApi(), createTabMap(), createTabBans(), createTabStats(), createTabSettings(), createTabAbout(),])])
+        }, content)])
+    }
+
+    protected addTabClickHandler() {
+        $('ul.tabs__caption').on('click', 'li:not(.active)', function () {
+            $(this)
+                .addClass('active').siblings().removeClass('active')
+                .closest('div.tabs').find('div.tabs__content').removeClass('active').eq($(this).index()).addClass('active');
+
+            globalThis.mapModule.updateMap(globalThis.curInfo)
+
+            if (this.innerText === chrome.i18n.getMessage("tab3")) {
+                globalThis.mapModule.resizemap(true)
+            } else {
+                globalThis.mapModule.resizemap(false)
+            }
+        });
     }
 
     protected injectControls() {
@@ -141,19 +172,7 @@ export class ControlsModule {
 
         $(globalThis.controls).insertBefore(".chat");
 
-        $('ul.tabs__caption').on('click', 'li:not(.active)', function () {
-            $(this)
-                .addClass('active').siblings().removeClass('active')
-                .closest('div.tabs').find('div.tabs__content').removeClass('active').eq($(this).index()).addClass('active');
-
-            globalThis.mapModule.updateMap(globalThis.curInfo)
-
-            if (this.innerText === chrome.i18n.getMessage("tab3")) {
-                globalThis.mapModule.resizemap(true)
-            } else {
-                globalThis.mapModule.resizemap(false)
-            }
-        });
+        this.addTabClickHandler()
 
         $('.tooltip').tooltipster({maxWidth: 300, distance: -1})
 

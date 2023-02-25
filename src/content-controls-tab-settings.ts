@@ -9,6 +9,7 @@ import {createSettingsStreamer} from "./content-controls-tab-settings-streamer";
 import {createSettingsMisc} from "./content-controls-tab-settings-misc";
 import {createSettingsStats} from "./content-controls-tab-settings-stats";
 import {createSettingsControls} from "./content-controls-tab-settings-controls";
+import {ControlsModule} from "./content-module-controls";
 
 let needReload = false
 
@@ -30,49 +31,73 @@ export function confirmAndReload() {
     }
 }
 
-export function createTabSettings() {
-    return utils.createElement('div', {
-        className: "tabs__content",
-        id: "settingsPanel",
-        style: "height:100%;"
-    }, [
-        utils.createElement('div', {
-                id: "settingsInfo",
-                style: "overflow-y: auto; margin-top: 3px"
-            },
-            [
-                utils.createElement('dl', {},
-                    [
-                        createSettingsInterface(),
-                        utils.createElement('br'),
+export class ControlsTabSettings {
+    private static instanceRef: ControlsTabSettings;
+    public name = chrome.i18n.getMessage("tab3")
+    private controls: ControlsModule;
 
-                        createSettingsControls(),
-                        utils.createElement('br'),
+    private constructor(controls: ControlsModule) {
+        this.controls = controls
+    }
 
-                        createSettingsAutomation(),
-                        utils.createElement('br'),
+    static initInstance(controls: ControlsModule): ControlsTabSettings {
+        if (ControlsTabSettings.instanceRef === undefined) {
+            ControlsTabSettings.instanceRef = new ControlsTabSettings(controls);
+        }
 
-                        createSettingsGeolocation(),
-                        utils.createElement('br'),
+        return ControlsTabSettings.instanceRef;
+    }
 
-                        createSettingsFaceapi(),
-                        utils.createElement('br'),
+    public getTabHTML() {
+        return utils.createElement('li', {
+            innerText: this.name
+        })
+    }
 
-                        createSettingsBlacklist(),
-                        utils.createElement('br'),
+    public getContentHTML() {
+        return utils.createElement('div', {
+            className: "tabs__content",
+            id: "settingsPanel",
+            style: "height:100%;"
+        }, [
+            utils.createElement('div', {
+                    id: "settingsInfo",
+                    style: "overflow-y: auto; margin-top: 3px"
+                },
+                [
+                    utils.createElement('dl', {},
+                        [
+                            createSettingsInterface(),
+                            utils.createElement('br'),
 
-                        createSettingsHotkeys(),
-                        utils.createElement('br'),
+                            createSettingsControls(),
+                            utils.createElement('br'),
 
-                        createSettingsStreamer(),
-                        utils.createElement('br'),
+                            createSettingsAutomation(),
+                            utils.createElement('br'),
 
-                        createSettingsMisc(),
-                        utils.createElement('br'),
+                            createSettingsGeolocation(),
+                            utils.createElement('br'),
 
-                        createSettingsStats()
-                    ]
-                ),
-            ])
-    ])
+                            createSettingsFaceapi(),
+                            utils.createElement('br'),
+
+                            createSettingsBlacklist(),
+                            utils.createElement('br'),
+
+                            createSettingsHotkeys(),
+                            utils.createElement('br'),
+
+                            createSettingsStreamer(),
+                            utils.createElement('br'),
+
+                            createSettingsMisc(),
+                            utils.createElement('br'),
+
+                            createSettingsStats()
+                        ]
+                    ),
+                ])
+        ])
+    }
 }

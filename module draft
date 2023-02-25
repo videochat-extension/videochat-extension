@@ -14,3 +14,20 @@ export class InterfaceModule {
         return InterfaceModule.instanceRef;
     }
 }
+
+export class ControlsTabApi {
+    private static instanceRef: ControlsTabApi;
+    private controls: ControlsModule;
+
+    private constructor(controls: ControlsModule) {
+        this.controls = controls
+    }
+
+    static initInstance(controls: ControlsModule): ControlsTabApi {
+        if (ControlsTabApi.instanceRef === undefined) {
+            ControlsTabApi.instanceRef = new ControlsTabApi(controls);
+        }
+
+        return ControlsTabApi.instanceRef;
+    }
+}
