@@ -15,7 +15,6 @@ declare global {
     var faceApiLoaded: boolean;
     var controls: HTMLElement;
     var resize: NodeJS.Timeout;
-    var timeout: NodeJS.Timeout;
     var info: ContentSwalInfo;
     var changelog: ContentSwalChangelog;
     var mapModule: mapModule;

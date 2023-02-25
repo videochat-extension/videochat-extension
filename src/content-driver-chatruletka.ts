@@ -25,6 +25,7 @@ export class ChatruletkaDriver {
     public needToCheckTarget: boolean = false;
     public needToClear: boolean = false;
     public tim: NodeJS.Timeout | undefined;
+    public timeout: NodeJS.Timeout | undefined;
 
     private constructor() {
         this.stageObserver = new MutationObserver(this.onChangeStage)
@@ -41,8 +42,8 @@ export class ChatruletkaDriver {
     public stopAndStart(delay?: number | undefined): void {
         if (typeof delay !== "undefined") {
             (document.getElementsByClassName('buttons__button stop-button')[0] as HTMLElement).click()
-            clearTimeout(globalThis.timeout)
-            globalThis.timeout = setTimeout(() => {
+            clearTimeout(this.timeout)
+            this.timeout = setTimeout(() => {
                 (document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement).click()
             }, delay)
         } else {
@@ -67,7 +68,7 @@ export class ChatruletkaDriver {
             if (globalThis.driver.stage === 4)
                 globalThis.settings.stats.countManSkip++
 
-            clearTimeout(globalThis.timeout)
+            clearTimeout(this.timeout)
         })
 
         document.getElementsByClassName('buttons__button stop-button')[0].addEventListener("click", (e: any) => { // TODO: fix type
@@ -75,7 +76,7 @@ export class ChatruletkaDriver {
                 (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("main")
                 this.modules.geolocation.checkApi()
             }
-            clearTimeout(globalThis.timeout)
+            clearTimeout(this.timeout)
         })
 
         this.modules.geolocation.checkApi()
