@@ -11,11 +11,9 @@ export {}
 declare global {
     var settings: any;
     var local: any;
-    var map: any;
     var resize: NodeJS.Timeout;
     var info: ContentSwalInfo;
     var changelog: ContentSwalChangelog;
-    var mapModule: mapModule;
     // var driver: ChatruletkaDriver | ChatruletkaSimpleDriver;
     var driver: any;
     //blacklist

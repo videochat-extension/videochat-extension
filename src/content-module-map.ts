@@ -3,37 +3,24 @@ import * as utils from "./utils";
 import * as L from "leaflet";
 
 export class mapModule {
-    private static instanceRef: mapModule;
-
+    public map: L.Map
     private marker: L.Marker | undefined;
     private circle: L.Circle | undefined;
-    private buttons: HTMLElement;
-    private chat: HTMLElement;
 
-    private constructor() {
+    public constructor(mapContainer: string | HTMLElement) {
         L.Icon.Default.imagePath = chrome.runtime.getURL('libs/js/leaflet/');
-        this.buttons = $(".buttons")[0]
-        this.chat = $(".chat")[0]
         this.injectStyles()
 
-        globalThis.map = L.map('mapid', {
+        this.map = L.map(mapContainer, {
             attributionControl: false,
             zoomControl: false
         }).setView([47.75409, 12.832031], 3);
 
-        globalThis.map.locate({setView: true});
+        this.map.locate({setView: true});
 
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png', {
             minZoom: 3, maxZoom: 18
-        }).addTo(globalThis.map);
-    }
-
-    static getInstance(): mapModule {
-        if (mapModule.instanceRef === undefined) {
-            mapModule.instanceRef = new mapModule();
-        }
-
-        return mapModule.instanceRef;
+        }).addTo(this.map);
     }
 
     public updateMap = (json: any) => {
@@ -42,10 +29,10 @@ export class mapModule {
         }
 
         if (typeof this.marker !== 'undefined')
-            globalThis.map.removeLayer(this.marker)
+            this.map.removeLayer(this.marker)
 
         if (typeof this.circle !== 'undefined')
-            globalThis.map.removeLayer(this.circle)
+            this.map.removeLayer(this.circle)
 
         if (globalThis.settings.hideMobileLocation && json.mobile) {
             this.circle = L.circle([json.lat, json.lon], 300000, {
@@ -54,7 +41,7 @@ export class mapModule {
                 fillOpacity: 0.2
             })
 
-            globalThis.map.setView(new L.LatLng(json.lat, json.lon), 5);
+            this.map.setView(new L.LatLng(json.lat, json.lon), 5);
             this.marker = new L.Marker([json.lat, json.lon]);
         } else {
             this.circle = L.circle([json.lat, json.lon], 30000, {
@@ -63,14 +50,13 @@ export class mapModule {
                 fillOpacity: 0.1
             })
 
-            globalThis.map.setView(new L.LatLng(json.lat, json.lon), 13);
+            this.map.setView(new L.LatLng(json.lat, json.lon), 13);
             this.marker = new L.Marker([json.lat, json.lon]);
         }
 
-        globalThis.map.addLayer(this.circle)
-        globalThis.map.addLayer(this.marker)
+        this.map.addLayer(this.circle)
+        this.map.addLayer(this.marker)
     }
-
 
 
     private injectStyles(): void {

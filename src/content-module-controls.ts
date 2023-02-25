@@ -21,6 +21,7 @@ export class ControlsModule {
 
     private tabs: any = []
     private controls: HTMLElement;
+    private map: mapModule | undefined;
 
     protected constructor(driver: ChatruletkaDriver) {
         this.driver = driver
@@ -144,7 +145,8 @@ export class ControlsModule {
                 .addClass('active').siblings().removeClass('active')
                 .closest('div.tabs').find('div.tabs__content').removeClass('active').eq($(this).index()).addClass('active');
 
-            globalThis.mapModule.updateMap(self.driver.modules.geolocation.curInfo)
+            if (self.map)
+                self.map.updateMap(self.driver.modules.geolocation.curInfo)
 
             if (this.innerText === chrome.i18n.getMessage("tab3")) {
                 self.resizemap(true)
@@ -231,7 +233,8 @@ export class ControlsModule {
         statsInfo.style.height = $("#statsPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
         statsInfo.style.height = $("#statsPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
 
-        globalThis.map.invalidateSize()
+        if (this.map)
+            this.map.map.invalidateSize()
     }
 
     injectControls() {
@@ -255,7 +258,7 @@ export class ControlsModule {
 
         $('.tooltip').tooltipster({maxWidth: 300, distance: -1})
 
-        globalThis.mapModule = mapModule.getInstance()
+        this.map = new mapModule('mapid')
     }
 
 

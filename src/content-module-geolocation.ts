@@ -288,7 +288,7 @@ export class GeolocationModule {
             }
         }
 
-        globalThis.mapModule.updateMap(this.curInfo)
+        this.driver.modules.controls.map.updateMap(this.curInfo)
 
         return true
     }
