@@ -4,10 +4,6 @@ import Swal from "sweetalert2";
 import * as utils from "./utils";
 import {ChatruletkaDriver} from "./content-driver-chatruletka";
 
-if (globalThis.language === "pt")
-    globalThis.language = "pt-BR"
-else if (globalThis.language === "zh")
-    globalThis.language = "zh-CN"
 
 export function injectIpGrabber() {
     const s = document.createElement('script');
@@ -16,11 +12,23 @@ export function injectIpGrabber() {
     (document.head || document.documentElement).appendChild(s);
 }
 
+
 export class GeolocationModule {
     private static instanceRef: GeolocationModule;
     private driver: ChatruletkaDriver;
-
     private rmdaddr = "0.0.0.0"
+
+    private constructor(driver: ChatruletkaDriver) {
+        this.driver = driver
+    }
+
+    static initInstance(driver: ChatruletkaDriver): GeolocationModule {
+        if (GeolocationModule.instanceRef === undefined) {
+            GeolocationModule.instanceRef = new GeolocationModule(driver);
+        }
+
+        return GeolocationModule.instanceRef;
+    }
 
     public injectIpEventListener() {
         window.addEventListener("[object Object]", (evt) => {
@@ -41,7 +49,6 @@ export class GeolocationModule {
             }
         }, false);
     }
-
 
     public checkApi() {
         chrome.runtime.sendMessage({aremoteIP: "1.1.1.1", language: "en"}, (response) => {
@@ -99,7 +106,7 @@ export class GeolocationModule {
     }
 
     public doLookupRequest2(ip: string) {
-        chrome.runtime.sendMessage({aremoteIP: ip, language: globalThis.language}, (response) => {
+        chrome.runtime.sendMessage({aremoteIP: ip, language: this.getApiLanguage()}, (response) => {
             console.dir(`ip-api.com returned ${response.status} (${response.body.status}) for '${ip}'`)
 
             if (response.status === 200) {
@@ -275,15 +282,15 @@ export class GeolocationModule {
         return true
     }
 
-    private constructor(driver: ChatruletkaDriver) {
-        this.driver = driver
-    }
-
-    static initInstance(driver: ChatruletkaDriver): GeolocationModule {
-        if (GeolocationModule.instanceRef === undefined) {
-            GeolocationModule.instanceRef = new GeolocationModule(driver);
+    // https://ip-api.com/docs/api:json#:~:text=DEMO-,Localization,-Localized%20city%2C
+    private getApiLanguage() {
+        if (!globalThis.settings.ipApiLocalisation) return "en"
+        let lang = window.navigator.language.slice(0, 2)
+        if (lang === "pt") {
+            lang = "pt-BR"
+        } else if (lang == "zh") {
+            lang = "zh-CN"
         }
-
-        return GeolocationModule.instanceRef;
+        return lang
     }
 }

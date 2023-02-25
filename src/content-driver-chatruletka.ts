@@ -74,15 +74,11 @@ export class ChatruletkaDriver {
 
         this.modules.geolocation.checkApi()
 
-
         this.modules.automation.injectAutomationSkipFourSec()
         this.modules.automation.injectAutomationSkipWrongCountry()
         if (globalThis.settings.autoResume) {
             this.modules.automation.injectAutomationAutoResume()
         }
-
-        if (!globalThis.settings.ipApiLocalisation)
-            globalThis.language = "en"
 
         if (globalThis.settings.hotkeys) {
             this.modules.hotkeys.unregister()

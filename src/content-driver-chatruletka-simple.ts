@@ -7,6 +7,18 @@ export class ChatruletkaSimpleDriver {
     private static instanceRef: ChatruletkaSimpleDriver;
     // Stages: stop = 0 | search = 1 | found = 2 | connected = 3 | play = 4
     private stageObserver: MutationObserver;
+
+    // https://ip-api.com/docs/api:json#:~:text=DEMO-,Localization,-Localized%20city%2C
+    private apiLanguage = function(){
+        let lang = window.navigator.language.slice(0, 2)
+        if (lang === "pt") {
+            lang = "pt-BR"
+        }
+        else if (lang == "zh") {
+            lang = "zn-CN"
+        }
+        return lang
+    }();
     private rmdaddr = "0.0.0.0"
     private curIps: string[] = []
 
@@ -50,7 +62,7 @@ export class ChatruletkaSimpleDriver {
     }
 
     private checkApi() {
-        chrome.runtime.sendMessage({aremoteIP: "1.1.1.1", language: "en"}, (response) => {
+        chrome.runtime.sendMessage({aremoteIP: "1.1.1.1", language: this.apiLanguage}, (response) => {
             console.dir(`ip-api.com test: ${response.status}`)
             if (response.status === 200) {
                 let apiStatusContainer = $('#apiStatusContainer')

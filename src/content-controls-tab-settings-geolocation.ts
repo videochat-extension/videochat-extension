@@ -17,18 +17,7 @@ export function createSettingsGeolocation() {
                     checked: globalThis.settings.ipApiLocalisation,
                     id: "ipApiLocalisationCheck",
                     onclick: () => {
-                        chrome.storage.sync.set({"ipApiLocalisation": (document.getElementById("ipApiLocalisationCheck") as HTMLInputElement).checked}, function () {
-                            if ((document.getElementById("ipApiLocalisationCheck") as HTMLInputElement).checked) {
-                                globalThis.language = window.navigator.language.slice(0, 2)
-
-                                if (globalThis.language === "pt")
-                                    globalThis.language = "pt-BR"
-                                else if (globalThis.language === "zh")
-                                    globalThis.language = "zh-CN"
-                            } else {
-                                globalThis.language = "en"
-                            }
-                        });
+                        chrome.storage.sync.set({"ipApiLocalisation": (document.getElementById("ipApiLocalisationCheck") as HTMLInputElement).checked});
                     }
                 })
             ]),

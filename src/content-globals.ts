@@ -30,7 +30,6 @@ declare global {
     var chat: HTMLElement;
     var controls: HTMLElement;
     var resize: NodeJS.Timeout;
-    var language: string;
     var timeout: NodeJS.Timeout;
     var requestToStartTiming: number;
     var torrenstsConfirmed: boolean;
@@ -71,7 +70,6 @@ globalThis.buttons = $(".buttons")[0]
 globalThis.chat = $(".chat")[0]
 // globalThis.controls
 // globalThis.resize
-globalThis.language = window.navigator.language.slice(0, 2)
 // globalThis.timeout
 globalThis.requestToStartTiming = 0
 globalThis.torrenstsConfirmed = false
