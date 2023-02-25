@@ -101,13 +101,6 @@ export class ControlsModule {
     }
 
     protected createTabs() {
-        // let tabs = [utils.createElement('li', {
-        //     innerText: ,
-        // }), utils.createElement('li', {
-        //     innerText: chrome.i18n.getMessage("tab3")
-        // }), utils.createElement('li', {
-        //     innerText: chrome.i18n.getMessage("tab4")
-        // })]
         let tabs: any = []
         this.tabs.forEach((tab: ControlsTabApi) => {
             tabs.push(tab.getTabHTML())
@@ -124,7 +117,6 @@ export class ControlsModule {
         let content = [this.createStyle(), utils.createElement('div', {
             id: "remoteIPInfo", style: "display: none;"
         }), createHeader(), this.createTabs()]
-            // createTabApi(), createTabMap(), createTabBans(), createTabStats(), createTabSettings(), createTabAbout(),]
 
         this.tabs.forEach((tab: ControlsTabApi) => {
             content.push(tab.getContentHTML())
