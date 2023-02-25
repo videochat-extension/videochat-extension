@@ -20,8 +20,6 @@ declare global {
     var needToCheckTarget: boolean;
     var play: number;
     var map: any;
-    var marker: any;
-    var circle: any;
     var tim: NodeJS.Timeout;
     var faceApiLoaded: boolean;
     var buttons: HTMLElement;
@@ -56,8 +54,6 @@ globalThis.needToClear = false
 globalThis.needToCheckTarget = false
 globalThis.play = 0
 // globalThis.map
-// globalThis.marker
-// globalThis.circle
 // globalThis.tim
 globalThis.faceApiLoaded = false
 globalThis.buttons = $(".buttons")[0]

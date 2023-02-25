@@ -7,6 +7,8 @@ export class mapModule {
 
     public videoContainerHeight = 0
     public chatContainerHeight = 0
+    private marker: L.Marker | undefined;
+    private circle: L.Circle | undefined;
 
     private constructor() {
         L.Icon.Default.imagePath = chrome.runtime.getURL('libs/js/leaflet/');
@@ -38,34 +40,34 @@ export class mapModule {
             return
         }
 
-        if (typeof globalThis.marker !== 'undefined')
-            globalThis.map.removeLayer(globalThis.marker)
+        if (typeof this.marker !== 'undefined')
+            globalThis.map.removeLayer(this.marker)
 
-        if (typeof globalThis.circle !== 'undefined')
-            globalThis.map.removeLayer(globalThis.circle)
+        if (typeof this.circle !== 'undefined')
+            globalThis.map.removeLayer(this.circle)
 
         if (globalThis.settings.hideMobileLocation && json.mobile) {
-            globalThis.circle = L.circle([json.lat, json.lon], 300000, {
+            this.circle = L.circle([json.lat, json.lon], 300000, {
                 color: 'red',
                 fillColor: '#f03',
                 fillOpacity: 0.2
             })
 
             globalThis.map.setView(new L.LatLng(json.lat, json.lon), 5);
-            globalThis.marker = new L.Marker([json.lat, json.lon]);
+            this.marker = new L.Marker([json.lat, json.lon]);
         } else {
-            globalThis.circle = L.circle([json.lat, json.lon], 30000, {
+            this.circle = L.circle([json.lat, json.lon], 30000, {
                 color: 'blue',
                 fillColor: '#808080',
                 fillOpacity: 0.1
             })
 
             globalThis.map.setView(new L.LatLng(json.lat, json.lon), 13);
-            globalThis.marker = new L.Marker([json.lat, json.lon]);
+            this.marker = new L.Marker([json.lat, json.lon]);
         }
 
-        globalThis.map.addLayer(globalThis.circle)
-        globalThis.map.addLayer(globalThis.marker)
+        globalThis.map.addLayer(this.circle)
+        globalThis.map.addLayer(this.marker)
     }
 
     // TODO: FIX IT ON OME.TV: GO SETTINGS -> resize window -> GO OTHER TAB -> size wont change
