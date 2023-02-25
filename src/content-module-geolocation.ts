@@ -68,7 +68,7 @@ export class GeolocationModule {
                 (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage("main")
 
                 if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                    globalThis.mapModule.resizemap(false)
+                    this.driver.modules.controls.resizemap(false)
                 }
                 console.dir(`ip-api.com test passed: ${response.status}`)
             } else {
@@ -79,7 +79,7 @@ export class GeolocationModule {
                 (document.getElementById("apiStatus") as HTMLElement).innerHTML = DOMPurify.sanitize('<b>ERROR: ' + response.status + ' || </b>' + chrome.i18n.getMessage("apiStatus0"));
                 (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("main")
                 if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                    globalThis.mapModule.resizemap(false)
+                    this.driver.modules.controls.resizemap(false)
                 }
             }
         })

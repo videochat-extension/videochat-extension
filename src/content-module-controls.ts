@@ -16,6 +16,9 @@ export class ControlsModule {
     private static instanceRef: ControlsModule;
     private driver: ChatruletkaDriver;
 
+    public videoContainerHeight = 0
+    public chatContainerHeight = 0
+
     private tabs: any = []
 
     protected constructor(driver: ChatruletkaDriver) {
@@ -26,6 +29,8 @@ export class ControlsModule {
         this.tabs.push(ControlsTabStats.initInstance(this))
         this.tabs.push(ControlsTabSettings.initInstance(this))
         this.tabs.push(ControlsTabAbout.initInstance(this))
+
+        new ResizeObserver(this.resizeControls).observe(document.getElementById("overlay") as HTMLElement)
     }
 
     protected createStyle() {
@@ -139,11 +144,91 @@ export class ControlsModule {
             globalThis.mapModule.updateMap(self.driver.modules.geolocation.curInfo)
 
             if (this.innerText === chrome.i18n.getMessage("tab3")) {
-                globalThis.mapModule.resizemap(true)
+                self.resizemap(true)
             } else {
-                globalThis.mapModule.resizemap(false)
+                self.resizemap(false)
             }
         });
+    }
+
+    public resizeControls = () => {
+        this.videoContainerHeight = 0
+        this.chatContainerHeight = 0
+
+        if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab3")) {
+            this.resizemap(true)
+        } else {
+            this.resizemap(false)
+        }
+
+        clearTimeout(globalThis.resize)
+        globalThis.resize = setTimeout(() => {
+            // let controls = (document.getElementById("controls") as HTMLElement)
+            // let buttons = (document.getElementById("buttons") as HTMLElement)
+            // let chat = (document.getElementById("chat") as HTMLElement)
+
+            let mar = parseInt(window.getComputedStyle(globalThis.controls).marginRight)
+
+            // TODO: AVOID USING globalThis
+            globalThis.driver.buttons.style.width = (parseInt(globalThis.driver.buttons.style.width) - (parseInt(globalThis.controls.style.width) + mar) / 2) + "px"
+            globalThis.driver.chat.style.width = (parseInt(globalThis.driver.chat.style.width) - (parseInt(globalThis.controls.style.width) + mar) / 2) + "px"
+
+            // resize = false // TODO: I COMMENTED IT OUT
+            if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab3")) {
+                this.resizemap(true)
+            } else {
+                this.resizemap(false)
+            }
+        }, 500)
+    }
+
+    // TODO: FIX IT ON OME.TV: GO SETTINGS -> resize window -> GO OTHER TAB -> size wont change
+    public resizemap = (extend: boolean): void => {
+        if (extend && globalThis.settings.expand) {
+            let newVideoContainerHeight = parseFloat((document.getElementById("video-container") as HTMLElement).style.height)
+            let newChatContainerHeight = parseFloat((document.getElementsByClassName("chat-container")[0] as HTMLElement).style.height)
+
+            if (newVideoContainerHeight !== (newVideoContainerHeight + newChatContainerHeight) / 2) {
+                this.videoContainerHeight = parseFloat((document.getElementById("video-container") as HTMLElement).style.height);
+                this.chatContainerHeight = parseFloat((document.getElementsByClassName("chat-container")[0] as HTMLElement).style.height);
+
+                (document.getElementById("video-container") as HTMLElement).style.height = (this.videoContainerHeight + this.chatContainerHeight) / 2 + "px";
+                (document.getElementsByClassName("chat-container")[0] as HTMLElement).style.height = (this.videoContainerHeight + this.chatContainerHeight) / 2 + "px"
+            }
+        } else {
+            if (this.videoContainerHeight !== 0 && this.chatContainerHeight !== 0) {
+                (document.getElementById("video-container") as HTMLElement).style.height = this.videoContainerHeight + "px";
+                (document.getElementsByClassName("chat-container")[0] as HTMLElement).style.height = this.chatContainerHeight + "px"
+            }
+        }
+
+        let tabs = $(".tabs__caption")[0]
+
+        let mapid = (document.getElementById("mapid") as HTMLElement)
+        mapid.style.height = $("#faceapiContent")[0].offsetHeight - tabs.offsetHeight + "px"
+        mapid.style.height = $("#faceapiContent")[0].offsetHeight - tabs.offsetHeight + "px"
+
+        let remoteInfo = (document.getElementById("remoteInfo") as HTMLElement)
+        remoteInfo.style.height = $("#apiInfoContent")[0].offsetHeight - $("#apiStatus")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+        remoteInfo.style.height = $("#apiInfoContent")[0].offsetHeight - $("#apiStatus")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+
+        let aboutInfo = (document.getElementById("aboutInfo") as HTMLElement)
+        aboutInfo.style.height = $("#aboutPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+        aboutInfo.style.height = $("#aboutPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+
+        let settingsInfo = (document.getElementById("settingsInfo") as HTMLElement)
+        settingsInfo.style.height = $("#settingsPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+        settingsInfo.style.height = $("#settingsPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+
+        let bansInfo = (document.getElementById("bansInfo") as HTMLElement)
+        bansInfo.style.height = $("#bansPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+        bansInfo.style.height = $("#bansPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+
+        let statsInfo = (document.getElementById("statsInfo") as HTMLElement)
+        statsInfo.style.height = $("#statsPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+        statsInfo.style.height = $("#statsPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+
+        globalThis.map.invalidateSize()
     }
 
     injectControls() {

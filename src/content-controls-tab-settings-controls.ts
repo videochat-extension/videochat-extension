@@ -20,13 +20,13 @@ export function createSettingsControls() {
                     checked: globalThis.settings.expand,
                     id: "expandCheck",
                     onclick: () => {
-                        chrome.storage.sync.set({"expand": (document.getElementById("expandCheck") as HTMLInputElement).checked}, function () {
+                        chrome.storage.sync.set({"expand": (document.getElementById("expandCheck") as HTMLInputElement).checked}, () => {
                             if ((document.getElementById("expandCheck") as HTMLInputElement).checked) {
                                 setTimeout(() => {
-                                    globalThis.mapModule.resizemap(true)
+                                    globalThis.driver.modules.controls.resizemap(true)
                                 }, 100)
                             } else {
-                                globalThis.mapModule.resizemap(false)
+                                globalThis.driver.modules.controls.resizemap(false)
                             }
                         });
                     }

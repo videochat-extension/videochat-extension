@@ -102,7 +102,6 @@ export class ChatruletkaDriver {
         }
 
 
-        new ResizeObserver(globalThis.mapModule.outputsize).observe(document.getElementById("overlay") as HTMLElement)
 
         this.stageObserver.observe(element, {attributes: true});
 
