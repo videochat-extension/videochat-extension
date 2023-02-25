@@ -19,7 +19,7 @@ export function createSettingsFaceapi() {
                     id: "enableFaceApiCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"enableFaceApi": (document.getElementById("enableFaceApiCheck") as HTMLInputElement).checked}, function () {
-                            if (!globalThis.faceApiLoaded)
+                            if (!globalThis.driver.modules.faceapi.faceApiLoaded)
                                 confirmAndReload()
                         });
                     }
@@ -40,7 +40,7 @@ export function createSettingsFaceapi() {
                     id: "skipMaleCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"skipMale": (document.getElementById("skipMaleCheck") as HTMLInputElement).checked}, function () {
-                            if (!globalThis.faceApiLoaded)
+                            if (!globalThis.driver.modules.faceapi.faceApiLoaded)
                                 confirmAndReload()
                         });
                     }
@@ -60,7 +60,7 @@ export function createSettingsFaceapi() {
                     id: "skipFemaleCheck",
                     onclick: () => {
                         chrome.storage.sync.set({"skipFemale": (document.getElementById("skipFemaleCheck") as HTMLInputElement).checked}, function () {
-                            if (!globalThis.faceApiLoaded)
+                            if (!globalThis.driver.modules.faceapi.faceApiLoaded)
                                 confirmAndReload()
                         });
                     }

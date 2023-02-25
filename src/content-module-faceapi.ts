@@ -4,6 +4,7 @@ import {ChatruletkaDriver} from "./content-driver-chatruletka";
 export class FaceapiModule {
     private static instanceRef: FaceapiModule;
     private driver: ChatruletkaDriver;
+    private faceApiLoaded = false;
 
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver
@@ -32,7 +33,7 @@ export class FaceapiModule {
             console.timeEnd("faceapi: initial facedetect");
             (document.getElementById("remoteFace") as HTMLElement).innerHTML = ""
 
-            globalThis.faceApiLoaded = true
+            this.faceApiLoaded = true
 
             globalThis.driver.tim = setTimeout(this.detectGender, 200)
         }, 0)
