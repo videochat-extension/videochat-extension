@@ -67,17 +67,9 @@ export function createSettingsInterface() {
                     onclick: () => {
                         chrome.storage.sync.set({"hideWatermark": (document.getElementById("hideWatermarkCheck") as HTMLInputElement).checked}, function () {
                             if ((document.getElementById("hideWatermarkCheck") as HTMLInputElement).checked) {
-                                try {
-                                    (document.getElementsByClassName("remote-video__watermark")[0] as HTMLElement).style.display = "none"
-                                } catch (e) {
-                                    console.dir(e)
-                                }
+                                globalThis.driver.modules.interface.tweaks.hideWatermark.enable()
                             } else {
-                                try {
-                                    (document.getElementsByClassName("remote-video__watermark")[0] as HTMLElement).style.display = ""
-                                } catch (e) {
-                                    console.dir(e)
-                                }
+                                globalThis.driver.modules.interface.tweaks.hideWatermark.disable()
                             }
                         });
                     }
@@ -98,17 +90,9 @@ export function createSettingsInterface() {
                     onclick: () => {
                         chrome.storage.sync.set({"hideBanner": (document.getElementById("hideBannerCheck") as HTMLInputElement).checked}, function () {
                             if ((document.getElementById("hideBannerCheck") as HTMLInputElement).checked) {
-                                try {
-                                    (document.getElementsByClassName("caption remote-video__info")[0] as HTMLElement).style.display = "none"
-                                } catch (e) {
-                                    console.dir(e)
-                                }
+                                globalThis.driver.modules.interface.tweaks.hideBanner.enable()
                             } else {
-                                try {
-                                    (document.getElementsByClassName("caption remote-video__info")[0] as HTMLElement).style.display = ""
-                                } catch (e) {
-                                    console.dir(e)
-                                }
+                                globalThis.driver.modules.interface.tweaks.hideBanner.disable()
                             }
                         });
                     }
@@ -130,9 +114,9 @@ export function createSettingsInterface() {
                     onclick: () => {
                         chrome.storage.sync.set({"doNotReflect": (document.getElementById("doNotReflectCheck") as HTMLInputElement).checked}, function () {
                             if ((document.getElementById("doNotReflectCheck") as HTMLInputElement).checked) {
-                                $("#local-video").removeClass("video-container-local-video")
+                                globalThis.driver.modules.interface.tweaks.doNotReflect.enable()
                             } else {
-                                $("#local-video").addClass("video-container-local-video")
+                                globalThis.driver.modules.interface.tweaks.doNotReflect.disable()
                             }
                         });
                     }
@@ -154,11 +138,9 @@ export function createSettingsInterface() {
                     onclick: () => {
                         chrome.storage.sync.set({"doNotCover": (document.getElementById("doNotCoverCheck") as HTMLInputElement).checked}, function () {
                             if ((document.getElementById("doNotCoverCheck") as HTMLInputElement).checked) {
-                                $("#remote-video").css({"object-fit": "contain"})
-                                // $(".preview").css({"background-size": "contain"})
+                                globalThis.driver.modules.interface.tweaks.doNotCover.enable()
                             } else {
-                                $("#remote-video").css({"object-fit": ""})
-                                // $(".preview").css({"background-size": ""})
+                                globalThis.driver.modules.interface.tweaks.doNotCover.disable()
                             }
                         });
                     }
@@ -181,9 +163,9 @@ export function createSettingsInterface() {
                     onclick: () => {
                         chrome.storage.sync.set({"hideCamera": (document.getElementById("hideCameraCheck") as HTMLInputElement).checked}, function () {
                             if ((document.getElementById("hideCameraCheck") as HTMLInputElement).checked) {
-                                $("#local-video-wrapper")[0].style.display = "none"
+                                globalThis.driver.modules.interface.tweaks.hideCamera.enable()
                             } else {
-                                $("#local-video-wrapper")[0].style.display = ""
+                                globalThis.driver.modules.interface.tweaks.hideCamera.disable()
                             }
                         });
                     }

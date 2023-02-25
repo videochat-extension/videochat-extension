@@ -43,6 +43,88 @@ export class InterfaceModule {
                 }
             }
         },
+        hideWatermark: {
+            enable: () => {
+                try {
+                    (document.getElementsByClassName("remote-video__watermark")[0] as HTMLElement).style.display = "none"
+                } catch (e) {
+                    console.dir(e)
+                }
+            },
+            disable: () => {
+                try {
+                    (document.getElementsByClassName("remote-video__watermark")[0] as HTMLElement).style.display = ""
+                } catch (e) {
+                    console.dir(e)
+                }
+            }
+        },
+        hideBanner: {
+            enable: () => {
+                try {
+                    (document.getElementsByClassName("caption remote-video__info")[0] as HTMLElement).style.display = "none"
+                } catch (e) {
+                    console.dir(e)
+                }
+            },
+            disable: () => {
+                try {
+                    (document.getElementsByClassName("caption remote-video__info")[0] as HTMLElement).style.display = ""
+                } catch (e) {
+                    console.dir(e)
+                }
+            }
+        },
+        doNotReflect: {
+            enable: () => {
+                try {
+                    $("#local-video").removeClass("video-container-local-video")
+                } catch (e) {
+                    console.dir(e)
+                }
+            },
+            disable: () => {
+                try {
+                    $("#local-video").addClass("video-container-local-video")
+                } catch (e) {
+                    console.dir(e)
+                }
+            }
+        },
+        doNotCover: {
+            enable: () => {
+                try {
+                    $("#remote-video").css({"object-fit": "contain"})
+                    // $(".preview").css({"background-size": "contain"})
+                } catch (e) {
+                    console.dir(e)
+                }
+            },
+            disable: () => {
+                try {
+                    $("#remote-video").css({"object-fit": ""})
+                    // $(".preview").css({"background-size": ""})}
+                } catch (e) {
+                    console.dir(e)
+                }
+            },
+        },
+        hideCamera: {
+            enable: () => {
+                try {
+                    $("#local-video-wrapper")[0].style.display = "none"
+                } catch (e) {
+                    console.dir(e)
+                }
+            },
+            disable: () => {
+                try {
+                    $("#local-video-wrapper")[0].style.display = ""
+                } catch (e) {
+                    console.dir(e)
+                }
+            }
+        },
         darkMode: {
             enable: () => {
                 (document.getElementById("connectionStatus") as HTMLElement).style.color = "#E8E6E3";
@@ -97,32 +179,23 @@ export class InterfaceModule {
         }
 
         if (globalThis.settings.hideWatermark) {
-            try {
-                (document.getElementsByClassName("remote-video__watermark")[0] as HTMLElement).style.display = "none"
-            } catch (e) {
-                console.dir(e)
-            }
+            this.tweaks.hideWatermark.enable()
         }
 
         if (globalThis.settings.hideBanner) {
-            try {
-                (document.getElementsByClassName("caption remote-video__info")[0] as HTMLElement).style.display = "none"
-            } catch (e) {
-                console.dir(e)
-            }
+            this.tweaks.hideBanner.enable()
         }
 
         if (globalThis.settings.doNotReflect) {
-            $("#local-video").removeClass("video-container-local-video")
+            this.tweaks.doNotReflect.enable()
         }
 
         if (globalThis.settings.doNotCover) {
-            $("#remote-video").css({"object-fit": "contain"})
-            // $(".preview").css({"background-size": "contain"})
+            this.tweaks.doNotCover.enable()
         }
 
         if (globalThis.settings.hideCamera) {
-            $("#local-video-wrapper")[0].style.display = "none"
+            this.tweaks.hideCamera.enable()
         }
 
         if (globalThis.settings.darkMode) {
