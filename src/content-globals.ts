@@ -22,8 +22,6 @@ declare global {
     var map: any;
     var tim: NodeJS.Timeout;
     var faceApiLoaded: boolean;
-    var buttons: HTMLElement;
-    var chat: HTMLElement;
     var controls: HTMLElement;
     var resize: NodeJS.Timeout;
     var timeout: NodeJS.Timeout;
@@ -56,8 +54,6 @@ globalThis.play = 0
 // globalThis.map
 // globalThis.tim
 globalThis.faceApiLoaded = false
-globalThis.buttons = $(".buttons")[0]
-globalThis.chat = $(".chat")[0]
 // globalThis.controls
 // globalThis.resize
 // globalThis.timeout

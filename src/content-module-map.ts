@@ -135,8 +135,8 @@ export class mapModule {
             // let chat = (document.getElementById("chat") as HTMLElement)
 
             let mar = parseInt(window.getComputedStyle(globalThis.controls).marginRight)
-            globalThis.buttons.style.width = (parseInt(globalThis.buttons.style.width) - (parseInt(globalThis.controls.style.width) + mar) / 2) + "px"
-            globalThis.chat.style.width = (parseInt(globalThis.chat.style.width) - (parseInt(globalThis.controls.style.width) + mar) / 2) + "px"
+            $(".buttons")[0].style.width = (parseInt($(".buttons")[0].style.width) - (parseInt(globalThis.controls.style.width) + mar) / 2) + "px"
+            $(".chat")[0].style.width = (parseInt($(".chat")[0].style.width) - (parseInt(globalThis.controls.style.width) + mar) / 2) + "px"
             // resize = false // TODO: I COMMENTED IT OUT
             if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab3")) {
                 this.resizemap(true)
