@@ -206,6 +206,7 @@ export class InterfaceModule {
     }
 
     private createDarkMode() {
+        // TODO: remove background-color in .leaflet-container
         let dark = document.createElement('link');
         dark.rel = "stylesheet";
         dark.id = "darkMode"
