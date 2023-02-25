@@ -1,7 +1,5 @@
 import $ from "jquery";
 import {GeolocationModule} from "./content-module-geolocation";
-import {injectSwitchModeButton} from "./content-swal-switchmode";
-// import {injectCounter} from "./content-controls-tab-api";
 import {injectStreamerMode} from "./content-module-streamermode";
 import {HotkeysModule} from "./content-module-hotkeys";
 import {AutomationModule} from "./content-module-automation";
@@ -9,6 +7,7 @@ import {InterfaceModule} from "./content-module-interface";
 import {ControlsModule} from "./content-module-controls";
 import {BlacklistModule} from "./content-module-blacklist";
 import {FaceapiModule} from "./content-module-faceapi";
+import {createSwitchModeButtonContainer} from "./content-swal-switchmode";
 
 export class ChatruletkaDriver {
     private static instanceRef: ChatruletkaDriver;
@@ -21,12 +20,12 @@ export class ChatruletkaDriver {
     public found: number = 0;
     public buttons = $(".buttons")[0]
     public chat = $(".chat")[0]
-    private stageObserver: MutationObserver;
-    private requestToStartTiming: number = 0;
     public needToCheckTarget: boolean = false;
     public needToClear: boolean = false;
     public tim: NodeJS.Timeout | undefined;
     public timeout: NodeJS.Timeout | undefined;
+    private stageObserver: MutationObserver;
+    private requestToStartTiming: number = 0;
 
     private constructor() {
         this.stageObserver = new MutationObserver(this.onChangeStage)
@@ -53,6 +52,43 @@ export class ChatruletkaDriver {
         }
     }
 
+    public injectSwitchModeButton() {
+        let switchModeButtonContainer = createSwitchModeButtonContainer()
+
+        function addButtonTo(el: HTMLElement) {
+            let switchModeButtonEnjoyer: HTMLElement = el.parentElement!
+            $(switchModeButtonContainer).appendTo(switchModeButtonEnjoyer)
+            let switchModeSelector = $('#switchModeButtonContainer')
+            switchModeSelector.show()
+
+            const obs = new MutationObserver((mutationList, observer) => {
+                let switchModeSelector = $('#switchModeButtonContainer')
+
+                if (arguments[0].dataset.tr === "searching") {
+                    if (switchModeSelector.length == 1) {
+                        switchModeSelector.hide()
+                    }
+                }
+                if (arguments[0].dataset.tr === "rules") {
+                    if (switchModeSelector.length == 1) {
+                        switchModeSelector.show()
+                    }
+                }
+            })
+            obs.observe(el, {attributes: true})
+        }
+
+        let rules = $("[data-tr=\"rules\"]")
+        if (rules.length === 1) {
+            addButtonTo(rules[0])
+        } else {
+            document.arrive("[data-tr=\"rules\"]", function (el) {
+                addButtonTo(<HTMLElement>el)
+                document.unbindArrive("[data-tr=\"rules\"]")
+            })
+        }
+    }
+
     public start(element: HTMLElement): boolean {
         this.initModules()
 
@@ -63,7 +99,7 @@ export class ChatruletkaDriver {
 
         this.modules.geolocation.injectIpEventListener()
 
-        injectSwitchModeButton()
+        this.injectSwitchModeButton()
 
         document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e) => {
             if (globalThis.driver.stage === 4)

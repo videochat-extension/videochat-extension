@@ -100,7 +100,7 @@ export class ChatruletkaSimpleDriver {
 
             const obs = new MutationObserver((mutationList, observer) => {
                 let switchModeSelector = $('#switchModeButtonContainer')
-                console.dir(arguments[0].dataset.tr)
+
                 if (arguments[0].dataset.tr === "searching") {
                     if (switchModeSelector.length == 1) {
                         switchModeSelector.hide()
