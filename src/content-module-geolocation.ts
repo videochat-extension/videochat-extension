@@ -21,8 +21,11 @@ export class GeolocationModule {
     private torrenstsConfirmed = false;
     private started: number = 0;
 
+    private targetSound = new Audio(chrome.runtime.getURL('resources/audio/found.mp3'))
+
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver
+        this.targetSound.volume = 0.5
     }
 
     static initInstance(driver: ChatruletkaDriver): GeolocationModule {
@@ -259,7 +262,7 @@ export class GeolocationModule {
                     } else {
                         this.driver.needToCheckTarget = false
                         if (globalThis.settings.targetSound) {
-                            globalThis.targetSound.play();
+                            this.targetSound.play();
                             console.dir(`FOUND TARGET CITY: ${globalThis.settings.targetCity}`)
                         }
                     }
@@ -273,7 +276,7 @@ export class GeolocationModule {
                     } else {
                         this.driver.needToCheckTarget = false
                         if (globalThis.settings.targetSound) {
-                            (globalThis.targetSound).play();
+                            (this.targetSound).play();
                             console.dir(`FOUND TARGET REGION: ${globalThis.settings.targetRegion}`)
                         }
                     }
