@@ -18,6 +18,7 @@ export class GeolocationModule {
     private driver: ChatruletkaDriver;
     private rmdaddr = "0.0.0.0"
     private api: number = 0;
+    private torrenstsConfirmed = false;
 
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver
@@ -125,7 +126,7 @@ export class GeolocationModule {
 
     public checkTorrents(ip: string) {
         if (globalThis.settings.torrentsEnable) {
-            if (globalThis.torrenstsConfirmed || !globalThis.settings.torrentsInfo) {
+            if (this.torrenstsConfirmed || !globalThis.settings.torrentsInfo) {
                 let url = `https://iknowwhatyoudownload.com/${chrome.i18n.getMessage("iknowwhatyoudownload_lang")}/peer/?ip=${ip}`
                 chrome.runtime.sendMessage({checkTorrents: true, url: url}, function (response) {
                     console.dir(`request to open iknowwhatyoudownload in the new tab/window: ${response}`)
@@ -141,7 +142,7 @@ export class GeolocationModule {
                     reverseButtons: true,
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        globalThis.torrenstsConfirmed = true;
+                        this.torrenstsConfirmed = true;
                         let url = `https://iknowwhatyoudownload.com/${chrome.i18n.getMessage("iknowwhatyoudownload_lang")}/peer/?ip=${ip}`
                         chrome.runtime.sendMessage({checkTorrents: true, url: url}, function (response) {
                             console.dir(`request to open iknowwhatyoudownload in the new tab/window: ${response}`)

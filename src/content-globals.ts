@@ -31,9 +31,7 @@ declare global {
     var resize: NodeJS.Timeout;
     var timeout: NodeJS.Timeout;
     var requestToStartTiming: number;
-    var torrenstsConfirmed: boolean;
     var info: ContentSwalInfo;
-    var dark: HTMLLinkElement;
     var changelog: ContentSwalChangelog;
     var mapModule: mapModule;
     // var driver: ChatruletkaDriver | ChatruletkaSimpleDriver;
@@ -70,7 +68,6 @@ globalThis.chat = $(".chat")[0]
 // globalThis.resize
 // globalThis.timeout
 globalThis.requestToStartTiming = 0
-globalThis.torrenstsConfirmed = false
 
 // blacklist
 globalThis.male = new Audio(chrome.runtime.getURL('resources/audio/male.mp3'))
