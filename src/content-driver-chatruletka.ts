@@ -22,6 +22,7 @@ export class ChatruletkaDriver {
     public chat = $(".chat")[0]
     private stageObserver: MutationObserver;
     private requestToStartTiming: number = 0;
+    public needToCheckTarget: boolean = false;
 
     private constructor() {
         this.stageObserver = new MutationObserver(this.onChangeStage)
@@ -140,7 +141,7 @@ export class ChatruletkaDriver {
 
                     globalThis.curIps = []
                     globalThis.needToClear = true
-                    globalThis.needToCheckTarget = true
+                    this.needToCheckTarget = true
 
                     clearInterval(globalThis.tim);
                     // (document.getElementById("remoteFace") as HTMLElement).innerHTML = ''
@@ -152,7 +153,7 @@ export class ChatruletkaDriver {
                 } else if (attributeValue.includes("s-found")) {
                     this.stage = 2;
 
-                    globalThis.needToCheckTarget = true
+                    this.needToCheckTarget = true
 
                     this.found = Date.now()
                 } else if (attributeValue.includes("s-connected")) {

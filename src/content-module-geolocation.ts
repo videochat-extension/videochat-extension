@@ -243,7 +243,7 @@ export class GeolocationModule {
             })).appendTo(newIpDiv)
         }
 
-        if ((globalThis.settings.enableTargetCity || globalThis.settings.enableTargetRegion) && globalThis.needToCheckTarget) {
+        if ((globalThis.settings.enableTargetCity || globalThis.settings.enableTargetRegion) && this.driver.needToCheckTarget) {
             if (globalThis.settings.skipMobileTarget && json.mobile) {
                 if (globalThis.curIps.indexOf(ip) + 1 === globalThis.curIps.length) {
                     globalThis.driver.stopAndStart()
@@ -257,7 +257,7 @@ export class GeolocationModule {
                         }
                         return
                     } else {
-                        globalThis.needToCheckTarget = false
+                        this.driver.needToCheckTarget = false
                         if (globalThis.settings.targetSound) {
                             globalThis.targetSound.play();
                             console.dir(`FOUND TARGET CITY: ${globalThis.settings.targetCity}`)
@@ -271,7 +271,7 @@ export class GeolocationModule {
                         }
                         return
                     } else {
-                        globalThis.needToCheckTarget = false
+                        this.driver.needToCheckTarget = false
                         if (globalThis.settings.targetSound) {
                             (globalThis.targetSound).play();
                             console.dir(`FOUND TARGET REGION: ${globalThis.settings.targetRegion}`)
