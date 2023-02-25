@@ -23,7 +23,6 @@ declare global {
     var marker: any;
     var circle: any;
     var tim: NodeJS.Timeout;
-    var dc: any;
     var faceApiLoaded: boolean;
     var buttons: HTMLElement;
     var chat: HTMLElement;
@@ -60,7 +59,6 @@ globalThis.play = 0
 // globalThis.marker
 // globalThis.circle
 // globalThis.tim
-// globalThis.dc
 globalThis.faceApiLoaded = false
 globalThis.buttons = $(".buttons")[0]
 globalThis.chat = $(".chat")[0]
