@@ -12,7 +12,6 @@ declare global {
     var settings: any;
     var local: any;
     var map: any;
-    var controls: HTMLElement;
     var resize: NodeJS.Timeout;
     var info: ContentSwalInfo;
     var changelog: ContentSwalChangelog;

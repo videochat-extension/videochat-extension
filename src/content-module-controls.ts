@@ -20,6 +20,7 @@ export class ControlsModule {
     public chatContainerHeight = 0
 
     private tabs: any = []
+    private controls: HTMLElement;
 
     protected constructor(driver: ChatruletkaDriver) {
         this.driver = driver
@@ -29,6 +30,8 @@ export class ControlsModule {
         this.tabs.push(ControlsTabStats.initInstance(this))
         this.tabs.push(ControlsTabSettings.initInstance(this))
         this.tabs.push(ControlsTabAbout.initInstance(this))
+
+        this.controls = this.createControls();
 
         new ResizeObserver(this.resizeControls).observe(document.getElementById("overlay") as HTMLElement)
     }
@@ -167,11 +170,11 @@ export class ControlsModule {
             // let buttons = (document.getElementById("buttons") as HTMLElement)
             // let chat = (document.getElementById("chat") as HTMLElement)
 
-            let mar = parseInt(window.getComputedStyle(globalThis.controls).marginRight)
+            let mar = parseInt(window.getComputedStyle(this.controls).marginRight)
 
             // TODO: AVOID USING globalThis
-            globalThis.driver.buttons.style.width = (parseInt(globalThis.driver.buttons.style.width) - (parseInt(globalThis.controls.style.width) + mar) / 2) + "px"
-            globalThis.driver.chat.style.width = (parseInt(globalThis.driver.chat.style.width) - (parseInt(globalThis.controls.style.width) + mar) / 2) + "px"
+            globalThis.driver.buttons.style.width = (parseInt(globalThis.driver.buttons.style.width) - (parseInt(this.controls.style.width) + mar) / 2) + "px"
+            globalThis.driver.chat.style.width = (parseInt(globalThis.driver.chat.style.width) - (parseInt(this.controls.style.width) + mar) / 2) + "px"
 
             // resize = false // TODO: I COMMENTED IT OUT
             if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab3")) {
@@ -232,8 +235,6 @@ export class ControlsModule {
     }
 
     injectControls() {
-        globalThis.controls = this.createControls();
-
         // TODO: do I need both tooltipster and css-tooltip?
         const c = document.createElement('link');
         c.rel = "stylesheet";
@@ -248,7 +249,7 @@ export class ControlsModule {
 
         ($(".gender-selector")[0] as HTMLElement).parentElement!.remove()
 
-        $(globalThis.controls).insertBefore(".chat");
+        $(this.controls).insertBefore(".chat");
 
         this.addTabClickHandler()
 
