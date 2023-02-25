@@ -3,13 +3,13 @@ import {detectGender, injectFaceApi} from "./content-module-faceapi";
 import {updStats} from "./content-controls-tab-stats";
 import {checkApi, injectIpEventListener} from "./content-module-geolocation";
 import {injectSwitchModeButton} from "./content-swal-switchmode";
-import {injectControls} from "./content-controls";
 import {injectCounter} from "./content-controls-tab-api";
 
 import {injectStreamerMode} from "./content-module-streamermode";
 import {HotkeysModule} from "./content-module-hotkeys";
 import {AutomationModule} from "./content-module-automation";
 import {InterfaceModule} from "./content-module-interface";
+import {ControlsModule} from "./content-module-controls";
 
 export class ChatruletkaDriver {
     private static instanceRef: ChatruletkaDriver;
@@ -45,10 +45,11 @@ export class ChatruletkaDriver {
 
     public start(element: HTMLElement): boolean {
         this.initModules()
-        injectControls()
+
+        this.modules.controls.injectControls()
 
         this.modules.interface.tweakLoginWindow()
-        this.modules.interface.interfaceModuleTweaks()
+        this.modules.interface.applyTweaks()
 
         injectIpEventListener()
 
@@ -105,7 +106,8 @@ export class ChatruletkaDriver {
         return true
     }
 
-    private initModules() {
+    protected initModules() {
+        this.modules.controls = ControlsModule.initInstance(this)
         this.modules.hotkeys = HotkeysModule.initInstance(this)
         this.modules.automation = AutomationModule.initInstance(this)
         this.modules.interface = InterfaceModule.initInstance(this)

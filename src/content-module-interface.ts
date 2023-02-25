@@ -169,7 +169,9 @@ export class InterfaceModule {
         }
     }
 
-    public interfaceModuleTweaks() {
+    public applyTweaks() {
+        this.tweakLoginWindow()
+
         if (globalThis.settings.hideLogo) {
             this.tweaks.hideLogo.enable()
         }
