@@ -14,6 +14,14 @@ export class BlacklistModule {
         })
     }
 
+    static initInstance(driver: ChatruletkaDriver): BlacklistModule {
+        if (BlacklistModule.instanceRef === undefined) {
+            BlacklistModule.instanceRef = new BlacklistModule(driver);
+        }
+
+        return BlacklistModule.instanceRef;
+    }
+
     public syncBlackList() {
         if (globalThis.settings.dontBanMobile) {
             if (!globalThis.driver.curInfo.mobile) {
@@ -32,13 +40,5 @@ export class BlacklistModule {
             if (globalThis.settings.skipSound)
                 globalThis.male.play();
         }
-    }
-
-    static initInstance(driver: ChatruletkaDriver): BlacklistModule {
-        if (BlacklistModule.instanceRef === undefined) {
-            BlacklistModule.instanceRef = new BlacklistModule(driver);
-        }
-
-        return BlacklistModule.instanceRef;
     }
 }

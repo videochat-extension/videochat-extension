@@ -13,8 +13,7 @@ export class ChatruletkaSimpleDriver {
         let lang = window.navigator.language.slice(0, 2)
         if (lang === "pt") {
             lang = "pt-BR"
-        }
-        else if (lang == "zh") {
+        } else if (lang == "zh") {
             lang = "zn-CN"
         }
         return lang

@@ -12,7 +12,11 @@ if (nativeMethod) {
             let candidate: any = new RTCIceCandidate(args[0])
 
             let obj: any = {};
-            Object.getOwnPropertyNames(candidate).forEach(e=>{if (e != "toJSON") {obj[e] = candidate[e]}});
+            Object.getOwnPropertyNames(candidate).forEach(e => {
+                if (e != "toJSON") {
+                    obj[e] = candidate[e]
+                }
+            });
             // Object.getOwnPropertyNames does not work in Chrome, so need to pass full description also
             obj.json = candidate.toJSON();
 

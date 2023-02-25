@@ -15,9 +15,9 @@ export function injectIpGrabber() {
 
 export class GeolocationModule {
     private static instanceRef: GeolocationModule;
+    public curIps: string[] = []
     private driver: ChatruletkaDriver;
     private rmdaddr = "0.0.0.0"
-    public curIps: string[]= []
     private api: number = 0;
     private torrenstsConfirmed = false;
     private started: number = 0;

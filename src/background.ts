@@ -186,7 +186,7 @@ chrome.runtime.onMessage.addListener(
                     } else {
                         sendResponse({status: response.status, body: {}})
                     }
-                }).catch((error)=>(sendResponse({status: 0, body: error})))
+                }).catch((error) => (sendResponse({status: 0, body: error})))
 
             return true;
         }
