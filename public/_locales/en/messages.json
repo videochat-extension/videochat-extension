@@ -528,7 +528,10 @@
     "message": "check torrents"
   },
   "minimalismExplainMobile" : {
-    "message": "— IP address belongs to the mobile operator (accuracy is very low, city and region are hidden)."
+    "message": "mobile internet"
+  },
+  "lowAccuracy" : {
+    "message": "LOW ACCURACY !!!"
   },
   "minimalismExplainProxy" : {
     "message": "— IP address belongs to Proxy/VPN/Tor."

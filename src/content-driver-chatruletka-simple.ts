@@ -9,7 +9,7 @@ export class ChatruletkaSimpleDriver {
     private stageObserver: MutationObserver;
 
     // https://ip-api.com/docs/api:json#:~:text=DEMO-,Localization,-Localized%20city%2C
-    private apiLanguage = function(){
+    private apiLanguage = function () {
         let lang = window.navigator.language.slice(0, 2)
         if (lang === "pt") {
             lang = "pt-BR"
@@ -20,6 +20,8 @@ export class ChatruletkaSimpleDriver {
     }();
     private rmdaddr = "0.0.0.0"
     private curIps: string[] = []
+
+    private resultsContainer: HTMLElement = utils.createElement('span')
 
     private constructor() {
         this.stageObserver = new MutationObserver(this.onChangeStage)
@@ -37,7 +39,15 @@ export class ChatruletkaSimpleDriver {
         this.stageObserver.observe(element, {attributes: true});
         this.injectIpEventListener()
         this.injectSwitchModeButton()
+        this.injectResultsContainer()
         return true
+    }
+
+    public injectResultsContainer() {
+        let self = this
+        document.arrive("[data-tr=\"connection\"]", function (el) {
+            $(self.resultsContainer).appendTo(el.parentElement!)
+        })
     }
 
     public injectIpEventListener = () => {
@@ -63,13 +73,12 @@ export class ChatruletkaSimpleDriver {
     private checkApi() {
         chrome.runtime.sendMessage({aremoteIP: "1.1.1.1", language: this.apiLanguage}, (response) => {
             console.dir(`ip-api.com test: ${response.status}`)
+            let apiStatusContainer = $('#apiStatusContainer')
             if (response.status === 200) {
-                let apiStatusContainer = $('#apiStatusContainer')
                 if ($('span[data-tr="rules"]').length === 1 && apiStatusContainer.length == 1) {
                     apiStatusContainer[0].innerHTML = chrome.i18n.getMessage("apiStatus2")
                 }
             } else {
-                let apiStatusContainer = $('#apiStatusContainer')
                 if ($('span[data-tr="rules"]').length === 1 && apiStatusContainer.length == 1) {
                     apiStatusContainer[0].innerHTML = DOMPurify.sanitize('<b>ERROR: ' + response.status + ' || </b>' + chrome.i18n.getMessage("apiStatus0"))
                 }
@@ -148,32 +157,30 @@ export class ChatruletkaSimpleDriver {
     }
 
     private processData = (json: any, ip: string) => {
-        setTimeout(() => {
-            if ($('span[data-tr="connection"]').length === 1) {
-                if (json.status === "success") {
-                    if (!this.curIps.includes(ip)) {
-                        return
-                    }
-
-                    let ipApiString = ``
-
-                    if (json.mobile) {
-                        ipApiString += `<b>${json.country}.</b>`
-                        ipApiString += `<br>${chrome.i18n.getMessage("minimalismExplainMobile")}`
-                    } else {
-                        ipApiString += `<b>${json.city} (${json.regionName}), ${json.country}.</b>`
-                    }
-                    if (json.proxy) {
-                        ipApiString += `<br>${chrome.i18n.getMessage("minimalismExplainProxy")}`
-                    }
-                    if (json.hosting) {
-                        ipApiString += `<br>${chrome.i18n.getMessage("minimalismExplainHosting")}`
-                    }
-
-                    $(`<br><span>${DOMPurify.sanitize(ipApiString)}</span>`).appendTo($(".message-bubble")[0])
-                }
+        if (json.status === "success") {
+            if (!this.curIps.includes(ip)) {
+                return
             }
-        }, 250)
+
+            let ipApiString = ``
+            let title = ``
+
+            if (json.mobile) {
+                ipApiString += `<span><b>${json.country} (${chrome.i18n.getMessage("minimalismExplainMobile")}).</b></span>`
+                title = `IP: ${json.query} || ${chrome.i18n.getMessage("lowAccuracy")} || Country: ${json.country} || Region: ${json.regionName} || City: ${json.city} || Mobile: ${json.mobile} || Proxy: ${json.proxy} || Hosting: ${json.hosting}`
+            } else {
+                ipApiString += `<span><b>${json.city} (${json.regionName}), ${json.country}.</b></span>`
+                title = `IP: ${json.query} || Country: ${json.country} || Region: ${json.regionName} || City: ${json.city} || ISP: ${json.isp} || Mobile: ${json.mobile} || Proxy: ${json.proxy} || Hosting: ${json.hosting}`
+            }
+            if (json.proxy) {
+                ipApiString += `<br>${chrome.i18n.getMessage("minimalismExplainProxy")}`
+            }
+            if (json.hosting) {
+                ipApiString += `<br>${chrome.i18n.getMessage("minimalismExplainHosting")}`
+            }
+
+            $(`<br><span title="${DOMPurify.sanitize(title)}">${DOMPurify.sanitize(ipApiString)}</span>`).appendTo(this.resultsContainer)
+        }
     }
 
     private onChangeStage = (mutations: MutationRecord[]) => {
@@ -183,9 +190,10 @@ export class ChatruletkaSimpleDriver {
 
                 if (attributeValue.includes("s-stop")) {
                     this.curIps = []
-                }
-                else if (attributeValue.includes("s-search")) {
+                    this.resultsContainer.innerHTML = ""
+                } else if (attributeValue.includes("s-search")) {
                     this.curIps = []
+                    this.resultsContainer.innerHTML = ""
                 }
             }
         });

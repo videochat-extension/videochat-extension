@@ -528,7 +528,10 @@
     "message": "проверить torrent"
   },
   "minimalismExplainMobile" : {
-    "message": "— IP адрес принадлежит мобильному оператору (точность очень низкая, город и регион скрыты)."
+    "message": "мобильный интернет"
+  },
+  "lowAccuracy" : {
+    "message": "НИЗКАЯ ТОЧНОСТЬ !!!"
   },
   "minimalismExplainProxy" : {
     "message": "— IP адрес в списке Proxy/VPN/Tor."
