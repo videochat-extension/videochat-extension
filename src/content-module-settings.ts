@@ -1,7 +1,6 @@
 import * as utils from "./utils";
 import {createSettingsStreamer} from "./content-module-settings-streamer";
 import {createSettingsMisc} from "./content-module-settings-misc";
-import {createSettingsStats} from "./content-module-settings-stats";
 import {ControlsModule} from "./content-module-controls";
 import ChangeEvent = JQuery.ChangeEvent;
 
@@ -178,7 +177,7 @@ export class ControlsTabSettings {
                             createSettingsMisc(),
                             utils.createElement('br'),
 
-                            createSettingsStats()
+                            utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.stats.settings))
                         ]
                     ),
                 ])

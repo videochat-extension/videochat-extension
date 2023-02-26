@@ -5,6 +5,22 @@ import {ControlsModule} from "./content-module-controls";
 export class StatsModule {
     private static instanceRef: StatsModule;
     public countBeforeSaveStats = 0;
+    public settings = [
+        {
+            type: "header",
+            text: chrome.i18n.getMessage("settingsStats")
+        },
+        {
+            type: "button",
+            text: chrome.i18n.getMessage("clearStats"),
+            onclick: (e: MouseEvent) => {
+                const result = confirm("Clear?");
+                if (result) {
+                    this.clear()
+                }
+            }
+        },
+    ]
     private driver: ChatruletkaDriver;
     private stats = globalThis.settings.stats
 
@@ -137,14 +153,14 @@ export class StatsModule {
     public clear() {
         this.stats = {
             countAll: 0,
-                countNew: 0,
-                countDup: 0,
-                countMales: 0,
-                countFemales: 0,
-                countManSkip: 0,
-                countMaleSkip: 0,
-                countFemaleSkip: 0,
-                time: 0
+            countNew: 0,
+            countDup: 0,
+            countMales: 0,
+            countFemales: 0,
+            countManSkip: 0,
+            countMaleSkip: 0,
+            countFemaleSkip: 0,
+            time: 0
         }
         this.updStats(true)
     }
@@ -153,6 +169,7 @@ export class StatsModule {
         chrome.storage.sync.set({"stats": this.stats});
     }
 }
+
 export class ControlsTabStats {
     private static instanceRef: ControlsTabStats;
     public name = chrome.i18n.getMessage("tabStats")
