@@ -4,7 +4,7 @@ import {confirmAndReload, createSettingsCheckbox, createSettingsHeader} from "./
 export function createSettingsControls() {
     return utils.createElement('div', {}, [
         createSettingsHeader(chrome.i18n.getMessage("settingsControls")),
-        createSettingsCheckbox("expand", chrome.i18n.getMessage("expand"), chrome.i18n.getMessage("tooltipExpand"), ()=>{
+        createSettingsCheckbox("p", "expand", chrome.i18n.getMessage("expand"), chrome.i18n.getMessage("tooltipExpand"), ()=>{
             setTimeout(() => {
                 globalThis.driver.modules.controls.resizemap(true)
             }, 100)

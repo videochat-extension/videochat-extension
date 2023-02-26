@@ -5,9 +5,9 @@ export function createSettingsBlacklist() {
     return utils.createElement('div', {}, [
         createSettingsHeader(chrome.i18n.getMessage("settingsBlacklist")),
 
-        createSettingsCheckbox("autoBan", chrome.i18n.getMessage("autoskip"), chrome.i18n.getMessage("tooltipAutoskip")),
-        createSettingsCheckbox("dontBanMobile", chrome.i18n.getMessage("donotbanmobile"), chrome.i18n.getMessage("tooltipDonotbanmobile")),
-        createSettingsCheckbox("skipSound", chrome.i18n.getMessage("ban_sound"), chrome.i18n.getMessage("tooltipSkipSound")),
+        createSettingsCheckbox("p", "autoBan", chrome.i18n.getMessage("autoskip"), chrome.i18n.getMessage("tooltipAutoskip")),
+        createSettingsCheckbox("p", "dontBanMobile", chrome.i18n.getMessage("donotbanmobile"), chrome.i18n.getMessage("tooltipDonotbanmobile")),
+        createSettingsCheckbox("p", "skipSound", chrome.i18n.getMessage("ban_sound"), chrome.i18n.getMessage("tooltipSkipSound")),
 
         createSettingsButton(chrome.i18n.getMessage("clearblacklist"), () => {
             const result = confirm("Clear?");

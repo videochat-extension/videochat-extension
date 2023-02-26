@@ -5,7 +5,7 @@ export function createSettingsHotkeys() {
     return utils.createElement('div', {}, [
         createSettingsHeader(chrome.i18n.getMessage("settingsHotkeys")),
 
-        createSettingsCheckbox("hotkeys", chrome.i18n.getMessage("enablehotkeys"), chrome.i18n.getMessage("tooltipEnableHotkeys"),
+        createSettingsCheckbox("b", "hotkeys", chrome.i18n.getMessage("enablehotkeys"), chrome.i18n.getMessage("tooltipEnableHotkeys"),
             () => {
                 globalThis.driver.modules.hotkeys.unregister()
                 globalThis.driver.modules.hotkeys.register()
