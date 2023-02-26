@@ -4,7 +4,7 @@ import {ChatruletkaDriver} from "./content-driver-chatruletka";
 export class FaceapiModule {
     private static instanceRef: FaceapiModule;
     private driver: ChatruletkaDriver;
-    private faceApiLoaded = false;
+    faceApiLoaded = false;
 
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver

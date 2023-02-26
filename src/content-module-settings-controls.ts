@@ -1,10 +1,9 @@
 import * as utils from "./utils";
+import {createSettingsHeader} from "./content-module-settings";
 
 export function createSettingsControls() {
     return utils.createElement('div', {}, [
-        utils.createElement('dt', {
-            innerHTML: chrome.i18n.getMessage("settingsControls")
-        }),
+        createSettingsHeader(chrome.i18n.getMessage("settingsControls")),
 
         utils.createElement('dd', {}, [
             utils.createElement('span', {}, [

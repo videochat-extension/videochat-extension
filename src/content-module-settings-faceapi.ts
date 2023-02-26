@@ -1,11 +1,9 @@
 import * as utils from "./utils";
-import {confirmAndReload} from "./content-module-settings";
+import {confirmAndReload, createSettingsHeader} from "./content-module-settings";
 
 export function createSettingsFaceapi() {
     return utils.createElement('div', {}, [
-        utils.createElement('dt', {
-            innerHTML: chrome.i18n.getMessage("genderRecognition")
-        }),
+        createSettingsHeader(chrome.i18n.getMessage("genderRecognition")),
         utils.createElement('dd', {}, [
             utils.createElement('span', {}, [
                 utils.createElement("p", {

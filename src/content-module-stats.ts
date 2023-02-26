@@ -114,24 +114,39 @@ export class StatsModule {
     }
 
     public updStats(force: boolean) {
-        (document.getElementById("stWhole") as HTMLElement).innerText = globalThis.settings.stats.countAll;
-        (document.getElementById("stMlSk") as HTMLElement).innerText = globalThis.settings.stats.countMaleSkip;
-        (document.getElementById("stFmlSk") as HTMLElement).innerText = globalThis.settings.stats.countFemaleSkip;
-        (document.getElementById("stMlCnt") as HTMLElement).innerText = globalThis.settings.stats.countMales;
-        (document.getElementById("stFmlCnt") as HTMLElement).innerText = globalThis.settings.stats.countFemales;
-        (document.getElementById("stMnSk") as HTMLElement).innerText = globalThis.settings.stats.countManSkip;
+        (document.getElementById("stWhole") as HTMLElement).innerText = this.stats.countAll;
+        (document.getElementById("stMlSk") as HTMLElement).innerText = this.stats.countMaleSkip;
+        (document.getElementById("stFmlSk") as HTMLElement).innerText = this.stats.countFemaleSkip;
+        (document.getElementById("stMlCnt") as HTMLElement).innerText = this.stats.countMales;
+        (document.getElementById("stFmlCnt") as HTMLElement).innerText = this.stats.countFemales;
+        (document.getElementById("stMnSk") as HTMLElement).innerText = this.stats.countManSkip;
 
         if (this.driver.modules.blacklist) {
-            (document.getElementById("stNwIp") as HTMLElement).innerText = globalThis.settings.stats.countNew;
-            (document.getElementById("stBnIp") as HTMLElement).innerText = globalThis.settings.stats.countDup;
+            (document.getElementById("stNwIp") as HTMLElement).innerText = this.stats.countNew;
+            (document.getElementById("stBnIp") as HTMLElement).innerText = this.stats.countDup;
         }
 
-        (document.getElementById("stTime") as HTMLElement).innerText = utils.secondsToHms(globalThis.settings.stats.time)
+        (document.getElementById("stTime") as HTMLElement).innerText = utils.secondsToHms(this.stats.time)
         this.countBeforeSaveStats += 1
         if (force || this.countBeforeSaveStats >= 10) {
             this.countBeforeSaveStats = 0
             this.saveStats()
         }
+    }
+
+    public clear() {
+        this.stats = {
+            countAll: 0,
+                countNew: 0,
+                countDup: 0,
+                countMales: 0,
+                countFemales: 0,
+                countManSkip: 0,
+                countMaleSkip: 0,
+                countFemaleSkip: 0,
+                time: 0
+        }
+        this.updStats(true)
     }
 
     private saveStats() {

@@ -173,7 +173,7 @@
   "tooltipEnableHotkeys": {
     "message": "Enable cool arrows hotkeys. This does not affect the extension hotkeys that are configured in the browser settings."
   },
-  "settingsExperiments": {
+  "settingsStreamerMode": {
     "message": "<b>Streamers</b>"
   },
   "settingsMisc": {

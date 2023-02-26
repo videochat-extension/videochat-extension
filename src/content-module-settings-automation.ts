@@ -1,11 +1,9 @@
 import * as utils from "./utils";
-import {confirmAndReload} from "./content-module-settings";
+import {confirmAndReload, createSettingsHeader} from "./content-module-settings";
 
 export function createSettingsAutomation() {
     return utils.createElement('div', {}, [
-        utils.createElement('dt', {
-            innerHTML: chrome.i18n.getMessage('settingsAutomation')
-        }),
+        createSettingsHeader(chrome.i18n.getMessage("settingsAutomation")),
 
         utils.createElement('dd', {}, [
             utils.createElement('span', {}, [

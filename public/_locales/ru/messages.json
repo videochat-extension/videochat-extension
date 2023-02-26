@@ -173,7 +173,7 @@
   "tooltipEnableHotkeys": {
     "message": "Включает горячие клавиши со стрелками. Это не влияет на специальные хоткеи расширения, настроенные в настройках браузера."
   },
-  "settingsExperiments": {
+  "settingsStreamerMode": {
     "message": "<b>Стримерам</b>"
   },
   "settingsMisc": {

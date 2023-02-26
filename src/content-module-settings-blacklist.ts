@@ -1,10 +1,9 @@
 import * as utils from "./utils";
+import {createSettingsButton, createSettingsHeader} from "./content-module-settings";
 
 export function createSettingsBlacklist() {
     return utils.createElement('div', {}, [
-        utils.createElement('dt', {
-            innerHTML: chrome.i18n.getMessage("settingsBlacklist")
-        }),
+        createSettingsHeader(chrome.i18n.getMessage("settingsBlacklist")),
         utils.createElement('dd', {}, [
             utils.createElement('span', {}, [
                 utils.createElement("p", {
@@ -63,20 +62,11 @@ export function createSettingsBlacklist() {
             ]),
         ]),
 
-        utils.createElement('dd', {}, [
-            utils.createElement('button', {
-                style: "margin-top: 2px",
-                onclick: () => {
-                    const result = confirm("Clear?");
-                    if (result) {
-
-                    }
-                },
-            }, [
-                utils.createElement('b', {
-                    innerText: chrome.i18n.getMessage("clearblacklist")
-                })
-            ])
-        ])
+        createSettingsButton(chrome.i18n.getMessage("clearblacklist"), () => {
+            const result = confirm("Clear?");
+            if (result) {
+                globalThis.driver.modules.blacklist.clear()
+            }
+        })
     ])
 }

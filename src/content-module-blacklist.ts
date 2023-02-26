@@ -67,6 +67,7 @@ export class BlacklistModule {
     public clear() {
         this.list = []
         this.sync()
+        this.updBlacklistStats()
     }
 
     public updBlacklistStats() {

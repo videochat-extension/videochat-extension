@@ -1,10 +1,10 @@
 import * as utils from "./utils";
+import {createSettingsHeader} from "./content-module-settings";
 
 export function createSettingsHotkeys() {
     return utils.createElement('div', {}, [
-        utils.createElement('dt', {
-            innerHTML: chrome.i18n.getMessage("settingsHotkeys")
-        }),
+        createSettingsHeader(chrome.i18n.getMessage("settingsHotkeys")),
+
         utils.createElement('dd', {}, [
             utils.createElement('span', {}, [
                 utils.createElement("b", {

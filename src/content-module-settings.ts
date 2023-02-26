@@ -101,3 +101,22 @@ export class ControlsTabSettings {
         ])
     }
 }
+
+export function createSettingsHeader(innerHTML: string) {
+    return utils.createElement('dt', {
+        innerHTML: innerHTML
+    })
+}
+
+export function createSettingsButton(innerText: string, onclick: () => void) {
+    return utils.createElement('dd', {}, [
+        utils.createElement('button', {
+            style: "margin-top: 2px",
+            onclick: onclick,
+        }, [
+            utils.createElement('b', {
+                innerText: innerText
+            })
+        ])
+    ])
+}
