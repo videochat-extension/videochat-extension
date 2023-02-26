@@ -60,6 +60,7 @@ let settings = [
         key: "blurPreviewFilter",
         min: 0,
         max: 200,
+        onchange?: ()=>{}
     },
     {
         type: "checkbox",

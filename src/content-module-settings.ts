@@ -1,8 +1,7 @@
 import * as utils from "./utils";
-import {createSettingsStreamer} from "./content-module-settings-streamer";
 import {ControlsModule} from "./content-module-controls";
-import ChangeEvent = JQuery.ChangeEvent;
 import {switchMode} from "./content-swal-switchmode";
+import ChangeEvent = JQuery.ChangeEvent;
 
 let needReload = false
 
@@ -27,6 +26,26 @@ export function confirmAndReload() {
 export class ControlsTabSettings {
     private static instanceRef: ControlsTabSettings;
     public name = chrome.i18n.getMessage("tab3")
+    public miscSettings = [
+        {
+            type: "header",
+            text: chrome.i18n.getMessage("settingsMisc")
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "sentry",
+            text: chrome.i18n.getMessage("sentry"),
+            tooltip: chrome.i18n.getMessage("tooltipSentry")
+        },
+        {
+            type: "button",
+            text: chrome.i18n.getMessage("switchModeButtonText"),
+            onclick: (e: MouseEvent) => {
+                switchMode()
+            }
+        },
+    ]
     private controls: ControlsModule;
 
     private constructor(controls: ControlsModule) {
@@ -137,26 +156,6 @@ export class ControlsTabSettings {
         })
     }
 
-    public miscSettings = [
-        {
-            type: "header",
-            text: chrome.i18n.getMessage("settingsMisc")
-        },
-        {
-            type: "checkbox",
-            important: false,
-            key: "sentry",
-            text: chrome.i18n.getMessage("sentry"),
-            tooltip: chrome.i18n.getMessage("tooltipSentry")
-        },
-        {
-            type: "button",
-            text: chrome.i18n.getMessage("switchModeButtonText"),
-            onclick: (e: MouseEvent) => {
-                switchMode()
-            }
-        },
-    ]
     public getContentHTML() {
         return utils.createElement('div', {
             className: "tabs__content",
@@ -191,10 +190,7 @@ export class ControlsTabSettings {
                             utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.hotkeys.settings)),
                             utils.createElement('br'),
 
-                            createSettingsStreamer(),
-                            utils.createElement('br'),
-
-                            utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.hotkeys.settings)),
+                            utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.streamer.settings)),
                             utils.createElement('br'),
 
                             utils.createElement('div', {}, this.processSettings(this.miscSettings)),
@@ -206,6 +202,7 @@ export class ControlsTabSettings {
                 ])
         ])
     }
+
 
     private processSettings(array: { type: string, [key: string]: any }[]) {
         let settingsElements: HTMLElement[] = []
@@ -231,11 +228,7 @@ export class ControlsTabSettings {
 
                 case "range": {
                     let tagName = el.important ? "b" : "p"
-                    if (el.onchange) {
-                        newElement = ControlsTabSettings.createSettingsRange(tagName, el.key, el.min, el.max, el.settingText, el.settingTooltip, el.onchange)
-                    } else {
-                        newElement = ControlsTabSettings.createSettingsRange(tagName, el.key, el.min, el.max, el.text, el.tooltip)
-                    }
+                    newElement = ControlsTabSettings.createSettingsRange(tagName, el.key, el.min, el.max, el.text, el.tooltip, el.onchange)
                     break;
                 }
 
@@ -254,6 +247,7 @@ export class ControlsTabSettings {
                 }
 
                 case "HTMLElement" : {
+                    console.dir(arguments)
                     newElement = el.element
                     break;
                 }
@@ -267,6 +261,7 @@ export class ControlsTabSettings {
                 settingsElements.push(newElement)
             }
         })
+        console.dir(settingsElements)
         return settingsElements
     }
 }

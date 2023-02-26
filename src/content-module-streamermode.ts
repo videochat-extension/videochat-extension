@@ -1,6 +1,7 @@
 import $ from "jquery";
 import * as utils from "./utils";
 import {ChatruletkaDriver} from "./content-driver-chatruletka";
+import {confirmAndReload} from "./content-module-settings";
 
 export class StreamerModule {
     private static instanceRef: StreamerModule;
@@ -12,6 +13,200 @@ export class StreamerModule {
     public preds = []
     public echoV: HTMLVideoElement = document.createElement('video')
     private driver: ChatruletkaDriver;
+
+    public settings = [
+        {
+            type: "header",
+            text: chrome.i18n.getMessage("settingsStreamerMode")
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "streamer",
+            text: chrome.i18n.getMessage("streamerMode"),
+            tooltip: chrome.i18n.getMessage("tooltipStreamerMode"),
+            controlsSection: "streamerList",
+            enable: () => {
+                confirmAndReload()
+            },
+            disable: () => {
+                confirmAndReload()
+            }
+        },
+        {
+            type: "section",
+            hide: globalThis.settings.streamer,
+            sectionId: "streamerList",
+            children: [
+                {
+                    type: "br",
+                },
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "streamerKeys",
+                    text: chrome.i18n.getMessage("streamerHotkeys"),
+                    tooltip: chrome.i18n.getMessage("tooltipStreamerHotkeys"),
+                    enable: () => {
+                        (document.getElementById("report-screen") as HTMLElement).style.filter = "blur(10px)"
+                    },
+                    disable: () => {
+                        (document.getElementById("report-screen") as HTMLElement).style.filter = ""
+                    }
+                },
+                {
+                    type: "HTMLElement",
+                    element: utils.createElement('span', {
+                        innerHTML: chrome.i18n.getMessage("streamerHotkeysText")
+                    })
+                },
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "streamerPip",
+                    text: chrome.i18n.getMessage("streamerPip"),
+                    tooltip: chrome.i18n.getMessage("tooltipStreamerPip"),
+                    enable: () => {
+                        confirmAndReload()
+                    },
+                    disable: () => {
+                        confirmAndReload()
+                    }
+                },
+                {
+                    type: "br",
+                },
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "blurOnStart",
+                    text: chrome.i18n.getMessage("blurOnStart"),
+                    tooltip: chrome.i18n.getMessage("tooltipBlurOnStart")
+                },
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "blurReport",
+                    text: chrome.i18n.getMessage("blurReport"),
+                    tooltip: chrome.i18n.getMessage("tooltipBlurReport"),
+                    enable: () => {
+                        (document.getElementById("report-screen") as HTMLElement).style.filter = "blur(10px)"
+                    },
+                    disable: () => {
+                        (document.getElementById("report-screen") as HTMLElement).style.filter = ""
+                    }
+                },
+                {
+                    type: "range",
+                    important: false,
+                    text: chrome.i18n.getMessage("remoteBlurStrength"),
+                    tooltip: chrome.i18n.getMessage("tooltipRemoteBlurStrength"),
+                    key: "blurFilter",
+                    min: 0,
+                    max: 200,
+                    onchange: () => {
+                        confirmAndReload()
+                    }
+                },
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "blurPreview",
+                    text: chrome.i18n.getMessage("blurPreviews"),
+                    tooltip: chrome.i18n.getMessage("tooltipBlurPreviews")
+                },
+                {
+                    type: "range",
+                    important: false,
+                    text: chrome.i18n.getMessage("previewBlurStrength"),
+                    tooltip: chrome.i18n.getMessage("tooltipPreviewBlurStrength"),
+                    key: "blurPreviewFilter",
+                    min: 0,
+                    max: 200,
+                    onchange: () => {
+                        confirmAndReload()
+                    }
+                },
+                {
+                    type: "br",
+                },
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "streamerMirror",
+                    text: chrome.i18n.getMessage("blurCoverLocal"),
+                    tooltip: chrome.i18n.getMessage("tooltipBlurCoverLocal")
+                },
+                {
+                    type: "br",
+                },
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "cover",
+                    text: chrome.i18n.getMessage("coverOverBlur"),
+                    tooltip: chrome.i18n.getMessage("tooltipCoverOverBlur"),
+                    enable: () => {
+                        confirmAndReload()
+                    },
+                    disable: () => {
+                        confirmAndReload()
+                    }
+                },
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "coverPreview",
+                    text: chrome.i18n.getMessage("coverOverPreview"),
+                    tooltip: chrome.i18n.getMessage("tooltipCoverOverPreview"),
+                    enable: () => {
+                        confirmAndReload()
+                    },
+                    disable: () => {
+                        confirmAndReload()
+                    }
+                },
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "coverNoise",
+                    text: chrome.i18n.getMessage("coverOverNoise"),
+                    tooltip: chrome.i18n.getMessage("tooltipCoverOverNoise"),
+                    enable: () => {
+                        confirmAndReload()
+                    },
+                    disable: () => {
+                        confirmAndReload()
+                    }
+                },
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "coverStop",
+                    text: chrome.i18n.getMessage("coverOverStop"),
+                    tooltip: chrome.i18n.getMessage("tooltipCoverOverStop"),
+                    enable: () => {
+                        confirmAndReload()
+                    },
+                    disable: () => {
+                        confirmAndReload()
+                    }
+                },
+                {
+                    type: "button",
+                    text: chrome.i18n.getMessage("coverSrc"),
+                    onclick: (e: MouseEvent) => {
+                        const result = prompt(chrome.i18n.getMessage("promptCoverSrc"), globalThis.settings.coverSrc)
+                        if (result) {
+                            chrome.storage.sync.set({"coverSrc": result}, function () {
+                                (document.getElementById('cover') as HTMLImageElement).src = result
+                            });
+                        }
+                    }
+                }
+            ]
+        }
+    ]
 
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver
