@@ -4,8 +4,44 @@ import * as utils from "./utils";
 
 export class BlacklistModule {
     private static instanceRef: BlacklistModule;
+    public settings = [
+        {
+            type: "header",
+            text: chrome.i18n.getMessage("settingsBlacklist")
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "autoBan",
+            text: chrome.i18n.getMessage("autoskip"),
+            tooltip: chrome.i18n.getMessage("tooltipAutoskip")
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "dontBanMobile",
+            text: chrome.i18n.getMessage("donotbanmobile"),
+            tooltip: chrome.i18n.getMessage("tooltipDonotbanmobile")
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "skipSound",
+            text: chrome.i18n.getMessage("ban_sound"),
+            tooltip: chrome.i18n.getMessage("tooltipSkipSound")
+        },
+        {
+            type: "button",
+            text: chrome.i18n.getMessage("clearblacklist"),
+            onclick: (e: MouseEvent) => {
+                const result = confirm("Clear?");
+                if (result) {
+                    this.clear()
+                }
+            }
+        }
+    ]
     private driver: ChatruletkaDriver;
-
     private list = ["-"]
     private blacklistLoaded = false;
     private ban = new Audio(chrome.runtime.getURL('resources/audio/ban.mp3'))

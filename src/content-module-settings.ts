@@ -1,5 +1,4 @@
 import * as utils from "./utils";
-import {createSettingsBlacklist} from "./content-module-settings-blacklist";
 import {createSettingsHotkeys} from "./content-module-settings-hotkeys";
 import {createSettingsStreamer} from "./content-module-settings-streamer";
 import {createSettingsMisc} from "./content-module-settings-misc";
@@ -168,7 +167,7 @@ export class ControlsTabSettings {
                             utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.faceapi.settings)),
                             utils.createElement('br'),
 
-                            createSettingsBlacklist(),
+                            utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.blacklist.settings)),
                             utils.createElement('br'),
 
                             createSettingsHotkeys(),
