@@ -82,8 +82,7 @@ export class ControlsTabSettings {
     static createSettingsCheckbox(tagName: string, key: string, settingText: string, settingTooltip: string, enable?: () => void | undefined, disable?: () => void | undefined, controls?: string | undefined) {
         return utils.createElement('dd', {}, [
             utils.createElement('span', {}, [
-                utils.createElement("small", {
-                    // utils.createElement(tagName, {
+                utils.createElement(tagName, {
                     innerText: settingText,
                     className: "tooltip",
                     title: settingTooltip
@@ -123,8 +122,7 @@ export class ControlsTabSettings {
     static createSettingsRange(tagName: string, key: string, min: number, max: number, settingText: string, settingTooltip: string, onchange?: () => void) {
         return utils.createElement('dd', {}, [
             utils.createElement('span', {}, [
-                // utils.createElement(tagName, {
-                utils.createElement("small", {
+                utils.createElement(tagName, {
                     innerText: settingText,
                     className: "tooltip",
                     title: settingTooltip
