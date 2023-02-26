@@ -19,7 +19,7 @@ export class StreamerModule {
         },
         {
             type: "checkbox",
-            important: false,
+            important: true,
             key: "streamer",
             text: chrome.i18n.getMessage("streamerMode"),
             tooltip: chrome.i18n.getMessage("tooltipStreamerMode"),
