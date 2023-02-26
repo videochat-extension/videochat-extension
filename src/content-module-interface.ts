@@ -16,10 +16,10 @@ export class InterfaceModule {
             text: chrome.i18n.getMessage("hideLogo"),
             tooltip: chrome.i18n.getMessage("tooltipHideLogo"),
             enable: () => {
-                globalThis.driver.modules.interface.tweaks.hideLogo.enable()
+                this.tweaks.hideLogo.enable()
             },
             disable: () => {
-                globalThis.driver.modules.interface.tweaks.hideLogo.disable()
+                this.tweaks.hideLogo.disable()
             }
         },
         {
@@ -29,10 +29,10 @@ export class InterfaceModule {
             text: chrome.i18n.getMessage("hideHeader"),
             tooltip: chrome.i18n.getMessage("tooltipHideHeader"),
             enable: () => {
-                globalThis.driver.modules.interface.tweaks.hideHeader.enable()
+                this.tweaks.hideHeader.enable()
             },
             disable: () => {
-                globalThis.driver.modules.interface.tweaks.hideHeader.disable()
+                this.tweaks.hideHeader.disable()
             }
         },
         {
@@ -42,10 +42,10 @@ export class InterfaceModule {
             text: chrome.i18n.getMessage("watermark"),
             tooltip: chrome.i18n.getMessage("tooltipWatermark"),
             enable: () => {
-                globalThis.driver.modules.interface.tweaks.hideWatermark.enable()
+                this.tweaks.hideWatermark.enable()
             },
             disable: () => {
-                globalThis.driver.modules.interface.tweaks.hideWatermark.disable()
+                this.tweaks.hideWatermark.disable()
             }
         },
         {
@@ -55,10 +55,10 @@ export class InterfaceModule {
             text: chrome.i18n.getMessage("banner"),
             tooltip: chrome.i18n.getMessage("tooltipBanner"),
             enable: () => {
-                globalThis.driver.modules.interface.tweaks.hideBanner.enable()
+                this.tweaks.hideBanner.enable()
             },
             disable: () => {
-                globalThis.driver.modules.interface.tweaks.hideBanner.disable()
+                this.tweaks.hideBanner.disable()
             }
         },
         {
@@ -68,10 +68,10 @@ export class InterfaceModule {
             text: chrome.i18n.getMessage("doNotReflect"),
             tooltip: chrome.i18n.getMessage("tooltipDoNotReflect"),
             enable: () => {
-                globalThis.driver.modules.interface.tweaks.doNotReflect.enable()
+                this.tweaks.doNotReflect.enable()
             },
             disable: () => {
-                globalThis.driver.modules.interface.tweaks.doNotReflect.disable()
+                this.tweaks.doNotReflect.disable()
             }
         },
         {
@@ -81,10 +81,10 @@ export class InterfaceModule {
             text: chrome.i18n.getMessage("doNotCover"),
             tooltip: chrome.i18n.getMessage("tooltipDoNotCover"),
             enable: () => {
-                globalThis.driver.modules.interface.tweaks.doNotCover.enable()
+                this.tweaks.doNotCover.enable()
             },
             disable: () => {
-                globalThis.driver.modules.interface.tweaks.doNotCover.disable()
+                this.tweaks.doNotCover.disable()
             }
         },
         {
@@ -94,10 +94,10 @@ export class InterfaceModule {
             text: chrome.i18n.getMessage("hideCamera"),
             tooltip: chrome.i18n.getMessage("tooltiphideCamera"),
             enable: () => {
-                globalThis.driver.modules.interface.tweaks.hideCamera.enable()
+                this.tweaks.hideCamera.enable()
             },
             disable: () => {
-                globalThis.driver.modules.interface.tweaks.hideCamera.disable()
+                this.tweaks.hideCamera.disable()
             }
         },
         {
@@ -107,10 +107,10 @@ export class InterfaceModule {
             text: chrome.i18n.getMessage("darkMode"),
             tooltip: chrome.i18n.getMessage("tooltipDarkMode"),
             enable: () => {
-                globalThis.driver.modules.interface.tweaks.darkMode.enable()
+                this.tweaks.darkMode.enable()
             },
             disable: () => {
-                globalThis.driver.modules.interface.tweaks.darkMode.disable()
+                this.tweaks.darkMode.disable()
             }
         }
     ]

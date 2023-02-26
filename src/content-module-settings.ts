@@ -220,7 +220,7 @@ export class ControlsTabSettings {
                 [
                     utils.createElement('dl', {},
                         [
-                            utils.createElement('div', {}, this.processSettings(globalThis.driver.modules.interface.settings)),
+                            utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.interface.settings)),
                             utils.createElement('br'),
 
                             createSettingsControls(),
