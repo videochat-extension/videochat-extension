@@ -11,7 +11,7 @@ export class HotkeysModule {
         },
         {
             type: "checkbox",
-            important: false,
+            important: true,
             key: "hotkeys",
             text: chrome.i18n.getMessage("enablehotkeys"),
             tooltip: chrome.i18n.getMessage("tooltipEnableHotkeys"),
