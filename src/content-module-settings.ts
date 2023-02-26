@@ -7,7 +7,6 @@ import {createSettingsHotkeys} from "./content-module-settings-hotkeys";
 import {createSettingsStreamer} from "./content-module-settings-streamer";
 import {createSettingsMisc} from "./content-module-settings-misc";
 import {createSettingsStats} from "./content-module-settings-stats";
-import {createSettingsControls} from "./content-module-settings-controls";
 import {ControlsModule} from "./content-module-controls";
 import ChangeEvent = JQuery.ChangeEvent;
 
@@ -223,7 +222,7 @@ export class ControlsTabSettings {
                             utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.interface.settings)),
                             utils.createElement('br'),
 
-                            createSettingsControls(),
+                            utils.createElement('div', {}, this.processSettings(this.controls.settings)),
                             utils.createElement('br'),
 
                             createSettingsAutomation(),

@@ -120,6 +120,28 @@ export class ControlsModule {
             this.map.map.invalidateSize()
     }
 
+    public settings = [
+        {
+            type: "header",
+            text: chrome.i18n.getMessage("settingsControls")
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "expand",
+            text: chrome.i18n.getMessage("expand"),
+            tooltip: chrome.i18n.getMessage("tooltipExpand"),
+            enable: () => {
+                setTimeout(() => {
+                    this.resizemap(true)
+                }, 100)
+            },
+            disable: () => {
+                this.resizemap(false)
+            }
+        },
+    ]
+
     injectControls() {
         this.start()
         // TODO: do I need both tooltipster and css-tooltip?
