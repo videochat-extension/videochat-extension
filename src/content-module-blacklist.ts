@@ -69,8 +69,6 @@ export class BlacklistModule {
 
     public updBlacklistStats() {
         (document.getElementById("stBnCt") as HTMLElement).innerText = String(this.list.length);
-        (document.getElementById("stNwIp") as HTMLElement).innerText = globalThis.settings.stats.countNew;
-        (document.getElementById("stBnIp") as HTMLElement).innerText = globalThis.settings.stats.countDup;
     }
 
     public processAutoBan(ips: string[]) {

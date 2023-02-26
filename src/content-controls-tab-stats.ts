@@ -4,7 +4,6 @@ import {ControlsModule} from "./content-module-controls";
 export class ControlsTabStats {
     private static instanceRef: ControlsTabStats;
     public name = chrome.i18n.getMessage("tabStats")
-    public countBeforeSaveStats = 0;
     private controls: ControlsModule;
 
     private constructor(controls: ControlsModule) {
@@ -17,22 +16,6 @@ export class ControlsTabStats {
         }
 
         return ControlsTabStats.instanceRef;
-    }
-
-    public updStats(force: boolean) {
-        (document.getElementById("stWhole") as HTMLElement).innerText = globalThis.settings.stats.countAll;
-        (document.getElementById("stMlSk") as HTMLElement).innerText = globalThis.settings.stats.countMaleSkip;
-        (document.getElementById("stFmlSk") as HTMLElement).innerText = globalThis.settings.stats.countFemaleSkip;
-        (document.getElementById("stMlCnt") as HTMLElement).innerText = globalThis.settings.stats.countMales;
-        (document.getElementById("stFmlCnt") as HTMLElement).innerText = globalThis.settings.stats.countFemales;
-        (document.getElementById("stMnSk") as HTMLElement).innerText = globalThis.settings.stats.countManSkip;
-
-        (document.getElementById("stTime") as HTMLElement).innerText = utils.secondsToHms(globalThis.settings.stats.time)
-        this.countBeforeSaveStats += 1
-        if (force || this.countBeforeSaveStats >= 10) {
-            this.countBeforeSaveStats = 0
-            chrome.storage.sync.set({"stats": globalThis.settings.stats});
-        }
     }
 
     public getTabHTML() {

@@ -8,6 +8,7 @@ import {ControlsModule} from "./content-module-controls";
 import {BlacklistModule} from "./content-module-blacklist";
 import {FaceapiModule} from "./content-module-faceapi";
 import {createSwitchModeButtonContainer} from "./content-swal-switchmode";
+import {StatsModule} from "./content-module-stats";
 
 export class ChatruletkaDriver {
     private static instanceRef: ChatruletkaDriver;
@@ -21,7 +22,8 @@ export class ChatruletkaDriver {
         interface: InterfaceModule.initInstance(this),
         geolocation: GeolocationModule.initInstance(this),
         blacklist: BlacklistModule.initInstance(this),
-        faceapi: FaceapiModule.initInstance(this)
+        faceapi: FaceapiModule.initInstance(this),
+        stats: StatsModule.initInstance(this)
     }
     public play: number = 0;
     public search: number = 0;
@@ -107,8 +109,11 @@ export class ChatruletkaDriver {
         this.injectSwitchModeButton()
 
         document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e) => {
-            if (this.stage === 4)
-                globalThis.settings.stats.countManSkip++
+            if (this.stage === 4) {
+                if (this.modules.stats) {
+                    this.modules.stats.increaseManSkip()
+                }
+            }
 
             clearTimeout(this.timeout)
         })
@@ -204,7 +209,9 @@ export class ChatruletkaDriver {
                     this.play = Date.now()
                     console.log("Loading took: ", ((this.play - this.found) / 1000).toFixed(2), "sec")
 
-                    globalThis.settings.stats.countAll++
+                    if (this.modules.stats) {
+                        this.modules.stats.increaseCountAll()
+                    }
                 }
                 //TODO: FIX updStats
                 // updStats(false)

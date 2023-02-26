@@ -93,14 +93,18 @@ export class GeolocationModule {
 
         console.dir("IP CHANGE DETECTED")
         if (this.driver.modules.blacklist.isIpInBlacklist(newIp)) {
-            globalThis.settings.stats.countDup++
+            if (this.driver.modules.stats) {
+                this.driver.modules.stats.increaseCountDup()
+            }
             console.dir("old ip")
             this.driver.modules.blacklist.playBanSound()
             this.driver.stopAndStart()
         } else {
             this.curIps.push(newIp)
             console.dir(this.curIps)
-            globalThis.settings.stats.countNew++
+            if (this.driver.modules.stats) {
+                this.driver.modules.stats.increaseCountNew()
+            }
             console.dir("new ip")
             switch (this.api) {
                 case 2:

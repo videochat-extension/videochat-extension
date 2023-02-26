@@ -27,7 +27,6 @@ export class AutomationModule {
                     if ((this.driver.stage === 2) && (this.driver.found + 4000 < Date.now())) {
                         console.dir("Skipping due to loading time limit");
                         (document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement).click()
-                        //settings.stats.countManSkip--
                     }
                 } catch (e) {
                     //console.dir(e)

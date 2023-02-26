@@ -58,12 +58,16 @@ export class FaceapiModule {
                 if (array[i].gender === "male" && Math.ceil(array[i].genderProbability * 100) > 90) {
                     skip_m = true
                     stop = true
-                    globalThis.settings.stats.countMales++
+                    if (this.driver.modules.stats) {
+                        this.driver.modules.stats.increaseCountMales()
+                    }
                 }
                 if (array[i].gender === "female" && Math.ceil(array[i].genderProbability * 100) > 90) {
                     skip_f = true
                     stop = true
-                    globalThis.settings.stats.countFemales++
+                    if (this.driver.modules.stats) {
+                        this.driver.modules.stats.increaseCountFemales()
+                    }
                 }
             }
 
@@ -71,8 +75,11 @@ export class FaceapiModule {
                 text += `<b>male skipping...</b></br>`;
                 (document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement).click()
                 console.log("MALE SKIPPED")
-                globalThis.settings.stats.countMaleSkip++
-                globalThis.settings.stats.countManSkip--
+
+                if (this.driver.modules.stats) {
+                    this.driver.modules.stats.increaseMaleSkip()
+                    this.driver.modules.stats.decreaseManSkip()
+                }
 
                 if (globalThis.settings.autoBan) {
                     this.driver.modules.blacklist.processAutoBan(this.driver.modules.geolocation.curIps)
@@ -83,8 +90,10 @@ export class FaceapiModule {
                 text += `<b>female skipping...</b></br>`;
                 (document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement).click()
                 console.log("FEMALE SKIPPED")
-                globalThis.settings.stats.countFemaleSkip++
-                globalThis.settings.stats.countManSkip--
+                if (this.driver.modules.stats) {
+                    this.driver.modules.stats.increaseFemaleSkip()
+                    this.driver.modules.stats.decreaseManSkip()
+                }
 
                 if (globalThis.settings.autoBan) {
                     this.driver.modules.blacklist.processAutoBan(this.driver.modules.geolocation.curIps)
