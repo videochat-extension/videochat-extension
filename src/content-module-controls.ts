@@ -417,6 +417,7 @@ export class ControlsTabAbout {
         ])
     }
 }
+
 function createHeader() {
     return utils.createElement('center', {
         style: "user-select:none"

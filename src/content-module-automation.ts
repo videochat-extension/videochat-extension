@@ -6,9 +6,6 @@ require('arrive')
 
 export class AutomationModule {
     private static instanceRef: AutomationModule;
-
-    private driver: ChatruletkaDriver;
-
     public settings = [
         {
             type: "header",
@@ -42,6 +39,7 @@ export class AutomationModule {
             tooltip: chrome.i18n.getMessage("tooltipAutoskipWrongCountry")
         },
     ]
+    private driver: ChatruletkaDriver;
 
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver

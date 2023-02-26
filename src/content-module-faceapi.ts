@@ -4,9 +4,7 @@ import {confirmAndReload} from "./content-module-settings";
 
 export class FaceapiModule {
     private static instanceRef: FaceapiModule;
-    private driver: ChatruletkaDriver;
     faceApiLoaded = false;
-
     public settings = [
         {
             type: "header",
@@ -58,6 +56,7 @@ export class FaceapiModule {
             }
         },
     ]
+    private driver: ChatruletkaDriver;
 
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver

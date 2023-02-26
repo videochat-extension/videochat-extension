@@ -12,8 +12,6 @@ export class StreamerModule {
     public manualBlur = false
     public preds = []
     public echoV: HTMLVideoElement = document.createElement('video')
-    private driver: ChatruletkaDriver;
-
     public settings = [
         {
             type: "header",
@@ -207,6 +205,7 @@ export class StreamerModule {
             ]
         }
     ]
+    private driver: ChatruletkaDriver;
 
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver

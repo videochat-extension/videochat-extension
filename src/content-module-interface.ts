@@ -4,116 +4,6 @@ import * as utils from "./utils";
 
 export class InterfaceModule {
     private static instanceRef: InterfaceModule;
-    public settings = [
-        {
-            type: "header",
-            text: chrome.i18n.getMessage("settingsInterface")
-        },
-        {
-            type: "checkbox",
-            important: false,
-            key: "hideLogo",
-            text: chrome.i18n.getMessage("hideLogo"),
-            tooltip: chrome.i18n.getMessage("tooltipHideLogo"),
-            enable: () => {
-                this.tweaks.hideLogo.enable()
-            },
-            disable: () => {
-                this.tweaks.hideLogo.disable()
-            }
-        },
-        {
-            type: "checkbox",
-            important: false,
-            key: "hideHeader",
-            text: chrome.i18n.getMessage("hideHeader"),
-            tooltip: chrome.i18n.getMessage("tooltipHideHeader"),
-            enable: () => {
-                this.tweaks.hideHeader.enable()
-            },
-            disable: () => {
-                this.tweaks.hideHeader.disable()
-            }
-        },
-        {
-            type: "checkbox",
-            important: false,
-            key: "hideWatermark",
-            text: chrome.i18n.getMessage("watermark"),
-            tooltip: chrome.i18n.getMessage("tooltipWatermark"),
-            enable: () => {
-                this.tweaks.hideWatermark.enable()
-            },
-            disable: () => {
-                this.tweaks.hideWatermark.disable()
-            }
-        },
-        {
-            type: "checkbox",
-            important: false,
-            key: "hideBanner",
-            text: chrome.i18n.getMessage("banner"),
-            tooltip: chrome.i18n.getMessage("tooltipBanner"),
-            enable: () => {
-                this.tweaks.hideBanner.enable()
-            },
-            disable: () => {
-                this.tweaks.hideBanner.disable()
-            }
-        },
-        {
-            type: "checkbox",
-            important: false,
-            key: "doNotReflect",
-            text: chrome.i18n.getMessage("doNotReflect"),
-            tooltip: chrome.i18n.getMessage("tooltipDoNotReflect"),
-            enable: () => {
-                this.tweaks.doNotReflect.enable()
-            },
-            disable: () => {
-                this.tweaks.doNotReflect.disable()
-            }
-        },
-        {
-            type: "checkbox",
-            important: false,
-            key: "doNotCover",
-            text: chrome.i18n.getMessage("doNotCover"),
-            tooltip: chrome.i18n.getMessage("tooltipDoNotCover"),
-            enable: () => {
-                this.tweaks.doNotCover.enable()
-            },
-            disable: () => {
-                this.tweaks.doNotCover.disable()
-            }
-        },
-        {
-            type: "checkbox",
-            important: false,
-            key: "hideCamera",
-            text: chrome.i18n.getMessage("hideCamera"),
-            tooltip: chrome.i18n.getMessage("tooltiphideCamera"),
-            enable: () => {
-                this.tweaks.hideCamera.enable()
-            },
-            disable: () => {
-                this.tweaks.hideCamera.disable()
-            }
-        },
-        {
-            type: "checkbox",
-            important: false,
-            key: "darkMode",
-            text: chrome.i18n.getMessage("darkMode"),
-            tooltip: chrome.i18n.getMessage("tooltipDarkMode"),
-            enable: () => {
-                this.tweaks.darkMode.enable()
-            },
-            disable: () => {
-                this.tweaks.darkMode.disable()
-            }
-        }
-    ]
     private driver: ChatruletkaDriver;
     private dark: HTMLLinkElement;
     public tweaks = {
@@ -224,6 +114,116 @@ export class InterfaceModule {
             }
         }
     }
+    public settings = [
+        {
+            type: "header",
+            text: chrome.i18n.getMessage("settingsInterface")
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "hideLogo",
+            text: chrome.i18n.getMessage("hideLogo"),
+            tooltip: chrome.i18n.getMessage("tooltipHideLogo"),
+            enable: () => {
+                this.tweaks.hideLogo.enable()
+            },
+            disable: () => {
+                this.tweaks.hideLogo.disable()
+            }
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "hideHeader",
+            text: chrome.i18n.getMessage("hideHeader"),
+            tooltip: chrome.i18n.getMessage("tooltipHideHeader"),
+            enable: () => {
+                this.tweaks.hideHeader.enable()
+            },
+            disable: () => {
+                this.tweaks.hideHeader.disable()
+            }
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "hideWatermark",
+            text: chrome.i18n.getMessage("watermark"),
+            tooltip: chrome.i18n.getMessage("tooltipWatermark"),
+            enable: () => {
+                this.tweaks.hideWatermark.enable()
+            },
+            disable: () => {
+                this.tweaks.hideWatermark.disable()
+            }
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "hideBanner",
+            text: chrome.i18n.getMessage("banner"),
+            tooltip: chrome.i18n.getMessage("tooltipBanner"),
+            enable: () => {
+                this.tweaks.hideBanner.enable()
+            },
+            disable: () => {
+                this.tweaks.hideBanner.disable()
+            }
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "doNotReflect",
+            text: chrome.i18n.getMessage("doNotReflect"),
+            tooltip: chrome.i18n.getMessage("tooltipDoNotReflect"),
+            enable: () => {
+                this.tweaks.doNotReflect.enable()
+            },
+            disable: () => {
+                this.tweaks.doNotReflect.disable()
+            }
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "doNotCover",
+            text: chrome.i18n.getMessage("doNotCover"),
+            tooltip: chrome.i18n.getMessage("tooltipDoNotCover"),
+            enable: () => {
+                this.tweaks.doNotCover.enable()
+            },
+            disable: () => {
+                this.tweaks.doNotCover.disable()
+            }
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "hideCamera",
+            text: chrome.i18n.getMessage("hideCamera"),
+            tooltip: chrome.i18n.getMessage("tooltiphideCamera"),
+            enable: () => {
+                this.tweaks.hideCamera.enable()
+            },
+            disable: () => {
+                this.tweaks.hideCamera.disable()
+            }
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "darkMode",
+            text: chrome.i18n.getMessage("darkMode"),
+            tooltip: chrome.i18n.getMessage("tooltipDarkMode"),
+            enable: () => {
+                this.tweaks.darkMode.enable()
+            },
+            disable: () => {
+                this.tweaks.darkMode.disable()
+            }
+        }
+    ]
 
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver
