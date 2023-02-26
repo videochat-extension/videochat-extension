@@ -1,5 +1,4 @@
 import * as utils from "./utils";
-import {createSettingsInterface} from "./content-module-settings-interface";
 import {createSettingsAutomation} from "./content-module-settings-automation";
 import {createSettingsGeolocation} from "./content-module-settings-geolocation";
 import {createSettingsFaceapi} from "./content-module-settings-faceapi";
@@ -145,6 +144,69 @@ export class ControlsTabSettings {
         })
     }
 
+    private processSettings(array: { type: string, [key: string]: any }[]) {
+        let settingsElements: HTMLElement[] = []
+
+        array.forEach((el) => {
+            let newElement: HTMLElement | undefined
+            switch (el.type) {
+                case "header": {
+                    newElement = ControlsTabSettings.createSettingsHeader(el.text)
+                    break;
+                }
+
+                case "checkbox": {
+                    let tagName = el.important ? "b" : "p"
+                    newElement = ControlsTabSettings.createSettingsCheckbox(tagName, el.key, el.text, el.tooltip, el.enable, el.disable, el.controlsSection)
+                    break;
+                }
+
+                case "button": {
+                    newElement = ControlsTabSettings.createSettingsButton(el.text, el.onclick)
+                    break;
+                }
+
+                case "range": {
+                    let tagName = el.important ? "b" : "p"
+                    if (el.onchange) {
+                        newElement = ControlsTabSettings.createSettingsRange(tagName, el.key, el.min, el.max, el.settingText, el.settingTooltip, el.onchange)
+                    } else {
+                        newElement = ControlsTabSettings.createSettingsRange(tagName, el.key, el.min, el.max, el.text, el.tooltip)
+                    }
+                    break;
+                }
+
+                case "section": {
+                    newElement = utils.createElement('div', {
+                        id: el.sectionId,
+                        style: function f() {
+                            if (el.hide) {
+                                return ""
+                            } else {
+                                return "display:none"
+                            }
+                        }(),
+                    }, this.processSettings(el.children))
+                    break;
+                }
+
+                case "HTMLElement" : {
+                    newElement = el.element
+                    break;
+                }
+
+                case "br": {
+                    newElement = utils.createElement('br')
+                }
+            }
+
+            if (newElement) {
+                settingsElements.push(newElement)
+            }
+        })
+        return settingsElements
+    }
+
     public getContentHTML() {
         return utils.createElement('div', {
             className: "tabs__content",
@@ -158,7 +220,7 @@ export class ControlsTabSettings {
                 [
                     utils.createElement('dl', {},
                         [
-                            createSettingsInterface(),
+                            utils.createElement('div', {}, this.processSettings(globalThis.driver.modules.interface.settings)),
                             utils.createElement('br'),
 
                             createSettingsControls(),

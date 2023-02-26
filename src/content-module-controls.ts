@@ -16,23 +16,14 @@ export class ControlsModule {
     private static instanceRef: ControlsModule;
     public videoContainerHeight = 0
     public chatContainerHeight = 0
-    private driver: ChatruletkaDriver;
-    private tabs: any = []
-    private controls: HTMLElement;
+    public driver: ChatruletkaDriver;
     public map: mapModule | undefined;
+    private tabs: any = []
+    private controls: HTMLElement | undefined;
     private resize: NodeJS.Timeout | undefined;
 
     protected constructor(driver: ChatruletkaDriver) {
         this.driver = driver
-        this.tabs.push(ControlsTabApi.initInstance(this))
-        this.tabs.push(ControlsTabMap.initInstance(this))
-        this.tabs.push(ControlsTabBans.initInstance(this))
-        this.tabs.push(ControlsTabStats.initInstance(this))
-        this.tabs.push(ControlsTabSettings.initInstance(this))
-        this.tabs.push(ControlsTabAbout.initInstance(this))
-
-        this.controls = this.createControls();
-
         new ResizeObserver(this.resizeControls).observe(document.getElementById("overlay") as HTMLElement)
     }
 
@@ -42,6 +33,16 @@ export class ControlsModule {
         }
 
         return ControlsModule.instanceRef;
+    }
+
+    public start() {
+        this.tabs.push(ControlsTabApi.initInstance(this))
+        this.tabs.push(ControlsTabMap.initInstance(this))
+        this.tabs.push(ControlsTabBans.initInstance(this))
+        this.tabs.push(ControlsTabStats.initInstance(this))
+        this.tabs.push(ControlsTabSettings.initInstance(this))
+        this.tabs.push(ControlsTabAbout.initInstance(this))
+        this.controls = this.createControls();
     }
 
     public resizeControls = () => {
@@ -56,17 +57,19 @@ export class ControlsModule {
 
         clearTimeout(this.resize)
         this.resize = setTimeout(() => {
-            let mar = parseInt(window.getComputedStyle(this.controls).marginRight)
+            if (this.controls) {
+                let mar = parseInt(window.getComputedStyle(this.controls).marginRight)
 
-            // TODO: AVOID USING globalThis
-            this.driver.buttons.style.width = (parseInt(this.driver.buttons.style.width) - (parseInt(this.controls.style.width) + mar) / 2) + "px"
-            this.driver.chat.style.width = (parseInt(this.driver.chat.style.width) - (parseInt(this.controls.style.width) + mar) / 2) + "px"
+                // TODO: AVOID USING globalThis
+                this.driver.buttons.style.width = (parseInt(this.driver.buttons.style.width) - (parseInt(this.controls.style.width) + mar) / 2) + "px"
+                this.driver.chat.style.width = (parseInt(this.driver.chat.style.width) - (parseInt(this.controls.style.width) + mar) / 2) + "px"
 
-            // resize = false // TODO: I COMMENTED IT OUT
-            if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab3")) {
-                this.resizemap(true)
-            } else {
-                this.resizemap(false)
+                // resize = false // TODO: I COMMENTED IT OUT
+                if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab3")) {
+                    this.resizemap(true)
+                } else {
+                    this.resizemap(false)
+                }
             }
         }, 500)
     }
@@ -118,6 +121,7 @@ export class ControlsModule {
     }
 
     injectControls() {
+        this.start()
         // TODO: do I need both tooltipster and css-tooltip?
         const c = document.createElement('link');
         c.rel = "stylesheet";
@@ -132,7 +136,9 @@ export class ControlsModule {
 
         ($(".gender-selector")[0] as HTMLElement).parentElement!.remove()
 
-        $(this.controls).insertBefore(".chat");
+        if (this.controls) {
+            $(this.controls).insertBefore(".chat");
+        }
 
         this.addTabClickHandler()
 
@@ -260,6 +266,7 @@ export class ControlsModule {
         });
     }
 }
+
 export class ControlsTabAbout {
     private static instanceRef: ControlsTabAbout;
     public name = chrome.i18n.getMessage("tab4")
@@ -281,35 +288,6 @@ export class ControlsTabAbout {
         return utils.createElement('li', {
             innerText: this.name
         })
-    }
-
-    protected createBadgeLink(href: string, badgeSrc: string) {
-        return utils.createElement('a', {
-            target: "_blank",
-            style: "text-decoration: none!important; margin-right: 3px",
-            href: href
-        }, [
-            utils.createElement('img', {
-                src: badgeSrc,
-            }),
-        ])
-    }
-
-    protected createDTHeader(innerHTML: string) {
-        return utils.createElement('dt', {
-            innerHTML: innerHTML
-        })
-    }
-
-    protected createDDLink(innerText: string, href: string) {
-        return utils.createElement('dd', {}, [
-            utils.createElement('a', {
-                href: href,
-                innerText: innerText,
-                style: "text-decoration: none!important;",
-                target: "_blank"
-            })
-        ])
     }
 
     public getContentHTML() {
@@ -386,6 +364,35 @@ export class ControlsTabAbout {
                     ]),
                 ]
             )
+        ])
+    }
+
+    protected createBadgeLink(href: string, badgeSrc: string) {
+        return utils.createElement('a', {
+            target: "_blank",
+            style: "text-decoration: none!important; margin-right: 3px",
+            href: href
+        }, [
+            utils.createElement('img', {
+                src: badgeSrc,
+            }),
+        ])
+    }
+
+    protected createDTHeader(innerHTML: string) {
+        return utils.createElement('dt', {
+            innerHTML: innerHTML
+        })
+    }
+
+    protected createDDLink(innerText: string, href: string) {
+        return utils.createElement('dd', {}, [
+            utils.createElement('a', {
+                href: href,
+                innerText: innerText,
+                style: "text-decoration: none!important;",
+                target: "_blank"
+            })
         ])
     }
 }

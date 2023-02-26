@@ -16,7 +16,6 @@ export class ChatruletkaDriver {
     public stage: 0 | 1 | 2 | 3 | 4 = 0
     // TODO: figure out types for modules
     public modules = {
-        controls: ControlsModule.initInstance(this),
         hotkeys: HotkeysModule.initInstance(this),
         automation: AutomationModule.initInstance(this),
         interface: InterfaceModule.initInstance(this),
@@ -25,6 +24,7 @@ export class ChatruletkaDriver {
         faceapi: FaceapiModule.initInstance(this),
         stats: StatsModule.initInstance(this),
         streamer: StreamerModule.initInstance(this),
+        controls: ControlsModule.initInstance(this)
     }
     public play: number = 0;
     public search: number = 0;
