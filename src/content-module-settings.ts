@@ -10,6 +10,7 @@ import {createSettingsMisc} from "./content-module-settings-misc";
 import {createSettingsStats} from "./content-module-settings-stats";
 import {createSettingsControls} from "./content-module-settings-controls";
 import {ControlsModule} from "./content-module-controls";
+import ChangeEvent = JQuery.ChangeEvent;
 
 let needReload = false
 
@@ -118,5 +119,36 @@ export function createSettingsButton(innerText: string, onclick: () => void) {
                 innerText: innerText
             })
         ])
+    ])
+}
+
+export function createSettingsCheckbox(key: string, settingName: string, settingTooltip: string, enable?: () => void, disable?: () => void) {
+    return utils.createElement('dd', {}, [
+        utils.createElement('span', {}, [
+            utils.createElement("b", {
+                innerText: settingName,
+                className: "tooltip",
+                title: settingTooltip
+            }),
+            utils.createElement('input', {
+                type: "checkbox",
+                checked: globalThis.settings[key],
+                id: `${key}Check`,
+                onchange: (event: ChangeEvent) => {
+                    let checked = event.currentTarget.checked
+                    chrome.storage.sync.set({key: (document.getElementById(`${key}Check`) as HTMLInputElement).checked}, function () {
+                        if (checked) {
+                            if (enable) {
+                                enable()
+                            }
+                        } else {
+                            if (disable) {
+                                disable()
+                            }
+                        }
+                    });
+                },
+            })
+        ]),
     ])
 }
