@@ -109,7 +109,7 @@ export function createSettingsHeader(innerHTML: string) {
     })
 }
 
-export function createSettingsButton(innerText: string, onclick: () => void) {
+export function createSettingsButton(innerText: string, onclick: (e: MouseEvent) => void) {
     return utils.createElement('dd', {}, [
         utils.createElement('button', {
             style: "margin-top: 2px",
@@ -136,7 +136,10 @@ export function createSettingsCheckbox(key: string, settingText: string, setting
                 id: `${key}Check`,
                 onchange: (event: ChangeEvent) => {
                     let checked = event.currentTarget.checked
-                    chrome.storage.sync.set({key: (document.getElementById(`${key}Check`) as HTMLInputElement).checked}, function () {
+
+                    let syncDict: { [key: string]: any } = {}
+                    syncDict[key] = event.currentTarget.checked
+                    chrome.storage.sync.set(syncDict, function () {
                         if (checked) {
                             if (enable) {
                                 enable()
