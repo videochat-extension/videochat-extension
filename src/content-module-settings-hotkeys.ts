@@ -9,7 +9,6 @@ export function createSettingsHotkeys() {
             () => {
                 globalThis.driver.modules.hotkeys.unregister()
                 globalThis.driver.modules.hotkeys.register()
-
             }, () => {
                 globalThis.driver.modules.hotkeys.unregister()
             }
