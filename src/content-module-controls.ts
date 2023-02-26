@@ -63,8 +63,8 @@ export class ControlsModule {
             let mar = parseInt(window.getComputedStyle(this.controls).marginRight)
 
             // TODO: AVOID USING globalThis
-            globalThis.driver.buttons.style.width = (parseInt(globalThis.driver.buttons.style.width) - (parseInt(this.controls.style.width) + mar) / 2) + "px"
-            globalThis.driver.chat.style.width = (parseInt(globalThis.driver.chat.style.width) - (parseInt(this.controls.style.width) + mar) / 2) + "px"
+            this.driver.buttons.style.width = (parseInt(this.driver.buttons.style.width) - (parseInt(this.controls.style.width) + mar) / 2) + "px"
+            this.driver.chat.style.width = (parseInt(this.driver.chat.style.width) - (parseInt(this.controls.style.width) + mar) / 2) + "px"
 
             // resize = false // TODO: I COMMENTED IT OUT
             if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab3")) {

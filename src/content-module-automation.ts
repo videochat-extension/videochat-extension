@@ -24,7 +24,7 @@ export class AutomationModule {
         setInterval(() => {
             if (globalThis.settings.skipFourSec) {
                 try {
-                    if ((globalThis.driver.stage === 2) && (this.driver.found + 4000 < Date.now())) {
+                    if ((this.driver.stage === 2) && (this.driver.found + 4000 < Date.now())) {
                         console.dir("Skipping due to loading time limit");
                         (document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement).click()
                         //settings.stats.countManSkip--
@@ -56,6 +56,7 @@ export class AutomationModule {
     }
 
     public injectAutomationSkipWrongCountry() {
+        let self = this
         document.arrive(".tr-country", function (el: any) { // TODO: FIX TYPE
             if (globalThis.settings.skipwrongcountry) {
                 try {
@@ -67,7 +68,7 @@ export class AutomationModule {
                         }
                         let receivedCountry = el.dataset.tr
                         if (expectedCountry !== "ZZ" && expectedCountry !== receivedCountry) {
-                            globalThis.driver.stopAndStart()
+                            self.driver.stopAndStart()
                             console.dir(el)
                             console.dir(`SKIPPED WRONG COUNTRY. EXPECTED: ${expectedCountry}, RECEIVED: ${receivedCountry}.`)
                         }
@@ -80,5 +81,4 @@ export class AutomationModule {
             }
         })
     }
-
 }

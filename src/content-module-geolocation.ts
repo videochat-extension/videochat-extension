@@ -96,7 +96,7 @@ export class GeolocationModule {
             globalThis.settings.stats.countDup++
             console.dir("old ip")
             this.driver.modules.blacklist.playBanSound()
-            globalThis.driver.stopAndStart()
+            this.driver.stopAndStart()
         } else {
             this.curIps.push(newIp)
             console.dir(this.curIps)
@@ -122,7 +122,7 @@ export class GeolocationModule {
                 (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize("<b>HTTP ERROR " + response.status + "</b>")
                 if (globalThis.settings.enableTargetCity || globalThis.settings.enableTargetRegion) {
                     if (response.status === 429) {
-                        globalThis.driver.stopAndStart(5000)
+                        this.driver.stopAndStart(5000)
                     }
                 }
             }
@@ -250,14 +250,14 @@ export class GeolocationModule {
         if ((globalThis.settings.enableTargetCity || globalThis.settings.enableTargetRegion) && this.driver.needToCheckTarget) {
             if (globalThis.settings.skipMobileTarget && json.mobile) {
                 if (this.curIps.indexOf(ip) + 1 === this.curIps.length) {
-                    globalThis.driver.stopAndStart()
+                    this.driver.stopAndStart()
                 }
                 return
             } else {
                 if (globalThis.settings.enableTargetCity) {
                     if (!globalThis.settings.targetCity.includes(json.city)) {
                         if (this.curIps.indexOf(ip) + 1 === this.curIps.length) {
-                            globalThis.driver.stopAndStart()
+                            this.driver.stopAndStart()
                         }
                         return
                     } else {
@@ -271,7 +271,7 @@ export class GeolocationModule {
                 if (globalThis.settings.enableTargetRegion) {
                     if (!globalThis.settings.targetRegion.includes(json.regionName)) {
                         if (this.curIps.indexOf(ip) + 1 === this.curIps.length) {
-                            globalThis.driver.stopAndStart()
+                            this.driver.stopAndStart()
                         }
                         return
                     } else {
@@ -293,7 +293,7 @@ export class GeolocationModule {
     public startTimer() {
         setInterval(() => {
             if (document.getElementsByClassName("remoteTM").length > 0) {
-                if (globalThis.driver.stage === 4) {
+                if (this.driver.stage === 4) {
                     for (let el of document.getElementsByClassName("remoteTM") as HTMLCollectionOf<HTMLElement>) {
                         el.innerText = utils.secondsToHms((+new Date() - this.started) / 1000)
                     }

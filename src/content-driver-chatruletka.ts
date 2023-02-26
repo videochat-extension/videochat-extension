@@ -107,7 +107,7 @@ export class ChatruletkaDriver {
         this.injectSwitchModeButton()
 
         document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e) => {
-            if (globalThis.driver.stage === 4)
+            if (this.stage === 4)
                 globalThis.settings.stats.countManSkip++
 
             clearTimeout(this.timeout)

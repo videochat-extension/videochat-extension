@@ -35,7 +35,7 @@ export class FaceapiModule {
 
             this.faceApiLoaded = true
 
-            globalThis.driver.tim = setTimeout(this.detectGender, 200)
+            this.driver.tim = setTimeout(this.detectGender, 200)
         }, 0)
     }
 
@@ -46,10 +46,10 @@ export class FaceapiModule {
         let skip_m = false
         let skip_f = false
         let text = ''
-        if (globalThis.driver.stage === 4) {
+        if (this.driver.stage === 4) {
             console.time("faceapi: detectAllFaces()")
 
-            clearInterval(globalThis.driver.tim)
+            clearInterval(this.driver.tim)
 
             let array = await faceapi.detectAllFaces(document.getElementById('remote-video') as HTMLVideoElement, new faceapi.TinyFaceDetectorOptions()).withAgeAndGender()
 
@@ -97,6 +97,6 @@ export class FaceapiModule {
             console.timeEnd("faceapi: detectAllFaces()")
         }
         if (!stop)
-            globalThis.driver.tim = setTimeout(this.detectGender, 500)
+            this.driver.tim = setTimeout(this.detectGender, 500)
     }
 }
