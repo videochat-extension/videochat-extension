@@ -1,62 +1,148 @@
 import * as utils from "./utils";
 import {ControlsTabSettings} from "./content-module-settings";
 
-export function createSettingsInterface() {
-    return utils.createElement('div', {}, [
-        ControlsTabSettings.createSettingsHeader(chrome.i18n.getMessage("settingsInterface")),
-
-        ControlsTabSettings.createSettingsCheckbox("p", "hideLogo", chrome.i18n.getMessage("hideLogo"), chrome.i18n.getMessage("tooltipHideLogo"), ()=>{
+let settings = [
+    {
+        type: "header",
+        text: chrome.i18n.getMessage("settingsInterface")
+    },
+    {
+        type: "checkbox",
+        tagName: "p",
+        key: "hideLogo",
+        text: chrome.i18n.getMessage("hideLogo"),
+        tooltip: chrome.i18n.getMessage("tooltipHideLogo"),
+        enable: () => {
             globalThis.driver.modules.interface.tweaks.hideLogo.enable()
-        }, ()=>{
+        },
+        disable: () => {
             globalThis.driver.modules.interface.tweaks.hideLogo.disable()
-        }),
-
-        ControlsTabSettings.createSettingsCheckbox("p", "hideHeader", chrome.i18n.getMessage("hideHeader"), chrome.i18n.getMessage("tooltipHideHeader"), ()=>{
+        }
+    },
+    {
+        type: "checkbox",
+        tagName: "p",
+        key: "hideHeader",
+        text: chrome.i18n.getMessage("hideHeader"),
+        tooltip: chrome.i18n.getMessage("tooltipHideHeader"),
+        enable: () => {
             globalThis.driver.modules.interface.tweaks.hideHeader.enable()
-        }, ()=>{
+        },
+        disable: () => {
             globalThis.driver.modules.interface.tweaks.hideHeader.disable()
-        }),
-
-        ControlsTabSettings.createSettingsCheckbox("p", "hideWatermark", chrome.i18n.getMessage("watermark"), chrome.i18n.getMessage("tooltipWatermark"), ()=>{
+        }
+    },
+    {
+        type: "checkbox",
+        tagName: "p",
+        key: "hideWatermark",
+        text: chrome.i18n.getMessage("watermark"),
+        tooltip: chrome.i18n.getMessage("tooltipWatermark"),
+        enable: () => {
             globalThis.driver.modules.interface.tweaks.hideWatermark.enable()
-        }, ()=>{
+        },
+        disable: () => {
             globalThis.driver.modules.interface.tweaks.hideWatermark.disable()
-        }),
-
-        ControlsTabSettings.createSettingsCheckbox("p", "hideBanner", chrome.i18n.getMessage("banner"), chrome.i18n.getMessage("tooltipBanner"), ()=>{
+        }
+    },
+    {
+        type: "checkbox",
+        tagName: "p",
+        key: "hideBanner",
+        text: chrome.i18n.getMessage("banner"),
+        tooltip: chrome.i18n.getMessage("tooltipBanner"),
+        enable: () => {
             globalThis.driver.modules.interface.tweaks.hideBanner.enable()
-        }, ()=>{
+        },
+        disable: () => {
             globalThis.driver.modules.interface.tweaks.hideBanner.disable()
-        }),
-
-        ControlsTabSettings.createSettingsCheckbox("p", "hideBanner", chrome.i18n.getMessage("banner"), chrome.i18n.getMessage("tooltipBanner"), ()=>{
-            globalThis.driver.modules.interface.tweaks.hideBanner.enable()
-        }, ()=>{
-            globalThis.driver.modules.interface.tweaks.hideBanner.disable()
-        }),
-
-        ControlsTabSettings.createSettingsCheckbox("p", "doNotReflect", chrome.i18n.getMessage("doNotReflect"), chrome.i18n.getMessage("tooltipDoNotReflect"), ()=>{
+        }
+    },
+    {
+        type: "checkbox",
+        tagName: "p",
+        key: "doNotReflect",
+        text: chrome.i18n.getMessage("doNotReflect"),
+        tooltip: chrome.i18n.getMessage("tooltipDoNotReflect"),
+        enable: () => {
             globalThis.driver.modules.interface.tweaks.doNotReflect.enable()
-        }, ()=>{
+        },
+        disable: () => {
             globalThis.driver.modules.interface.tweaks.doNotReflect.disable()
-        }),
-
-        ControlsTabSettings.createSettingsCheckbox("p", "doNotCover", chrome.i18n.getMessage("doNotCover"), chrome.i18n.getMessage("tooltipDoNotCover"), ()=>{
+        }
+    },
+    {
+        type: "checkbox",
+        tagName: "p",
+        key: "doNotCover",
+        text: chrome.i18n.getMessage("doNotCover"),
+        tooltip: chrome.i18n.getMessage("tooltipDoNotCover"),
+        enable: () => {
             globalThis.driver.modules.interface.tweaks.doNotCover.enable()
-        }, ()=>{
+        },
+        disable: () => {
             globalThis.driver.modules.interface.tweaks.doNotCover.disable()
-        }),
-
-        ControlsTabSettings.createSettingsCheckbox("p", "hideCamera", chrome.i18n.getMessage("hideCamera"), chrome.i18n.getMessage("tooltiphideCamera"), ()=>{
+        }
+    },
+    {
+        type: "checkbox",
+        tagName: "p",
+        key: "hideCamera",
+        text: chrome.i18n.getMessage("hideCamera"),
+        tooltip: chrome.i18n.getMessage("tooltiphideCamera"),
+        enable: () => {
             globalThis.driver.modules.interface.tweaks.hideCamera.enable()
-        }, ()=>{
+        },
+        disable: () => {
             globalThis.driver.modules.interface.tweaks.hideCamera.disable()
-        }),
-
-        ControlsTabSettings.createSettingsCheckbox("p", "darkMode", chrome.i18n.getMessage("darkMode"), chrome.i18n.getMessage("tooltipDarkMode"), ()=>{
+        }
+    },
+    {
+        type: "checkbox",
+        tagName: "p",
+        key: "darkMode",
+        text: chrome.i18n.getMessage("darkMode"),
+        tooltip: chrome.i18n.getMessage("tooltipDarkMode"),
+        enable: () => {
             globalThis.driver.modules.interface.tweaks.darkMode.enable()
-        }, ()=>{
+        },
+        disable: () => {
             globalThis.driver.modules.interface.tweaks.darkMode.disable()
-        })
-    ])
+        }
+    }
+
+]
+
+function processSettings(array: { type: string, [key: string]: any }[]) {
+    let settingsElements: HTMLElement[] = []
+    array.forEach((el)=>{
+        let newElement: HTMLElement | undefined
+        switch(el.type) {
+            case "header": {
+                console.dir(ControlsTabSettings.createSettingsHeader)
+                console.dir(el.text)
+                newElement = ControlsTabSettings.createSettingsHeader(el.text)
+                break;
+            }
+            
+            case "checkbox": {
+                if (el.enable && el.disable) {
+                    newElement = ControlsTabSettings.createSettingsCheckbox(el.tagName, el.key, el.text, el.tooltip, el.enable, el.disable)
+                } else if (el.enable) {
+                    newElement = ControlsTabSettings.createSettingsCheckbox(el.tagName, el.key, el.text, el.tooltip, el.enable)
+                } else {
+                    newElement = ControlsTabSettings.createSettingsCheckbox(el.tagName, el.key, el.text, el.tooltip)
+                }
+                break;
+            }
+        }
+        if (newElement) {
+            settingsElements.push(newElement)
+        }
+    })
+    return settingsElements
+}
+
+export function createSettingsInterface() {
+    return utils.createElement('div', {}, processSettings(settings))
 }
