@@ -4,6 +4,35 @@ import * as utils from "./utils";
 
 export class HotkeysModule {
     private static instanceRef: HotkeysModule;
+    public settings = [
+        {
+            type: "header",
+            text: chrome.i18n.getMessage("settingsHotkeys")
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "hotkeys",
+            text: chrome.i18n.getMessage("enablehotkeys"),
+            tooltip: chrome.i18n.getMessage("tooltipEnableHotkeys"),
+            enable: () => {
+                this.unregister()
+                this.register()
+            },
+            disable: () => {
+                this.unregister()
+            }
+        },
+        {
+            type: "br"
+        },
+        {
+            type: "HTMLElement",
+            element: utils.createElement('span', {
+                innerHTML: chrome.i18n.getMessage("hotkeys")
+            })
+        },
+    ]
     private driver: ChatruletkaDriver;
 
     private constructor(driver: ChatruletkaDriver) {
