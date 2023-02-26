@@ -26,8 +26,7 @@ export function createSettingsStats() {
                         }
                         globalThis.settings.stats = stats.stats
                         chrome.storage.sync.set(globalThis.settings, function () {
-                            // TODO: FIX UPDSTATS
-                            // updStats(true)
+                            globalThis.driver.modules.stats.updStats(false)
                         });
                     }
                 },

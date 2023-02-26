@@ -213,8 +213,7 @@ export class ChatruletkaDriver {
                         this.modules.stats.increaseCountAll()
                     }
                 }
-                //TODO: FIX updStats
-                // updStats(false)
+                this.modules.stats.updStats(false)
                 this.modules.blacklist.updBlacklistStats()
             }
         });
