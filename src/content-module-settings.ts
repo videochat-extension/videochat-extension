@@ -68,7 +68,7 @@ export class ControlsTabSettings {
         ])
     }
 
-    static createSettingsCheckbox(tagName: string, key: string, settingText: string, settingTooltip: string, enable?: () => void, disable?: () => void) {
+    static createSettingsCheckbox(tagName: string, key: string, settingText: string, settingTooltip: string, enable?: () => void | undefined, disable?: () => void | undefined, controls?: string| undefined) {
         return utils.createElement('dd', {}, [
             utils.createElement('span', {}, [
                 utils.createElement("small", {
@@ -91,9 +91,15 @@ export class ControlsTabSettings {
                                 if (enable) {
                                     enable()
                                 }
+                                if (controls) {
+                                    document.getElementById(controls)!.style.display = ""
+                                }
                             } else {
                                 if (disable) {
                                     disable()
+                                }
+                                if (controls) {
+                                    document.getElementById(controls)!.style.display = "none"
                                 }
                             }
                         });
@@ -120,9 +126,6 @@ export class ControlsTabSettings {
                     max: max,
                     value: globalThis.settings[key],
                     onchange: (event: ChangeEvent) => {
-                        let value = event.currentTarget.value
-                        console.dir(value)
-
                         let syncDict: { [key: string]: any } = {}
                         syncDict[key] = event.currentTarget.value
                         chrome.storage.sync.set(syncDict, function () {

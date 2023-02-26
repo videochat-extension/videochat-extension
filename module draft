@@ -31,3 +31,62 @@ export class ControlsTabApi {
         return ControlsTabApi.instanceRef;
     }
 }
+
+let settings = [
+    {
+        type: "header",
+        text: chrome.i18n.getMessage("settingsInterface")
+    },
+    {
+        type: "br"
+    },
+    {
+        type: "HTMLElement",
+        element: utils.createElement('br')
+    },
+
+    {
+        type: "button",
+        text: "text",
+        onclick: (e: MouseEvent) => {
+            console.dir(e)
+        }
+    },
+    {
+        type: "range",
+        important: false,
+        text: "range",
+        tooltip: "TOOLTIP",
+        key: "blurPreviewFilter",
+        min: 0,
+        max: 200,
+    },
+    {
+        type: "checkbox",
+        important: false,
+        key: "darkMode",
+        text: chrome.i18n.getMessage("darkMode"),
+        tooltip: chrome.i18n.getMessage("tooltipDarkMode"),
+        controlsSection?: "targetCityDiv",
+        enable: () => {
+            globalThis.driver.modules.interface.tweaks.darkMode.enable()
+        },
+        disable: () => {
+            globalThis.driver.modules.interface.tweaks.darkMode.disable()
+        }
+    },
+    {
+        type: "section",
+        hide: globalThis.settings.enableTargetCity,
+        sectionId: "targetCityDiv",
+        children: [
+            {
+                type: "button",
+                text: "text",
+                onclick: (e: MouseEvent) => {
+                    console.dir(e)
+                }
+            }
+        ]
+    }
+]
