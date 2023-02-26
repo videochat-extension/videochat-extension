@@ -170,7 +170,6 @@ export class GeolocationModule {
 
         this.curInfo[ip] = json
         this.started = Date.now()
-        console.dir("SET PLAY")
         let strings = []
         let newInnerHTML = ''
         let newIpDiv = utils.createElement('div')

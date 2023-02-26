@@ -158,7 +158,7 @@ export class ChatruletkaDriver {
         mutations.forEach((mutation) => {
             if (mutation.attributeName === "class") {
                 if (this.stage === 4) {
-                    globalThis.settings.stats.time += Math.ceil((Date.now() - this.play) / 1000)
+                    this.modules.stats.increaseStatsTime((Date.now() - this.play) / 1000)
                 }
 
                 const attributeValue = String($(mutation.target).prop(mutation.attributeName));
