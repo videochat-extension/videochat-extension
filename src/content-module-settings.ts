@@ -1,5 +1,4 @@
 import * as utils from "./utils";
-import {createSettingsAutomation} from "./content-module-settings-automation";
 import {createSettingsGeolocation} from "./content-module-settings-geolocation";
 import {createSettingsFaceapi} from "./content-module-settings-faceapi";
 import {createSettingsBlacklist} from "./content-module-settings-blacklist";
@@ -225,7 +224,7 @@ export class ControlsTabSettings {
                             utils.createElement('div', {}, this.processSettings(this.controls.settings)),
                             utils.createElement('br'),
 
-                            createSettingsAutomation(),
+                            utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.automation.settings)),
                             utils.createElement('br'),
 
                             createSettingsGeolocation(),

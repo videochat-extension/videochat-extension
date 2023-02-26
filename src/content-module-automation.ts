@@ -1,5 +1,6 @@
 import $ from "jquery";
 import {ChatruletkaDriver} from "./content-driver-chatruletka";
+import {confirmAndReload} from "./content-module-settings";
 
 require('arrive')
 
@@ -7,6 +8,40 @@ export class AutomationModule {
     private static instanceRef: AutomationModule;
 
     private driver: ChatruletkaDriver;
+
+    public settings = [
+        {
+            type: "header",
+            text: chrome.i18n.getMessage("settingsAutomation")
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "skipFourSec",
+            text: chrome.i18n.getMessage("autoskipfour"),
+            tooltip: chrome.i18n.getMessage("tooltipFour")
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "autoResume",
+            text: chrome.i18n.getMessage("autoresume"),
+            tooltip: chrome.i18n.getMessage("tooltipAutoresume"),
+            enable: () => {
+                confirmAndReload()
+            },
+            disable: () => {
+                confirmAndReload()
+            }
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "skipwrongcountry",
+            text: chrome.i18n.getMessage("autoskipwrongcountry"),
+            tooltip: chrome.i18n.getMessage("tooltipAutoskipWrongCountry")
+        },
+    ]
 
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver
