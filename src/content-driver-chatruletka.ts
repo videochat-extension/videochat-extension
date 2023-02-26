@@ -14,7 +14,7 @@ export class ChatruletkaDriver {
     private static instanceRef: ChatruletkaDriver;
     // Stages: stop = 0 | search = 1 | found = 2 | connected = 3 | play = 4
     public stage: 0 | 1 | 2 | 3 | 4 = 0
-    // TODO: figure out types for modules
+
     public modules = {
         hotkeys: HotkeysModule.initInstance(this),
         automation: AutomationModule.initInstance(this),
