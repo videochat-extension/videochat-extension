@@ -1,6 +1,6 @@
 import $ from "jquery";
 import {GeolocationModule} from "./content-module-geolocation";
-import {injectStreamerMode} from "./content-module-streamermode";
+import {StreamerModule} from "./content-module-streamermode";
 import {HotkeysModule} from "./content-module-hotkeys";
 import {AutomationModule} from "./content-module-automation";
 import {InterfaceModule} from "./content-module-interface";
@@ -23,7 +23,8 @@ export class ChatruletkaDriver {
         geolocation: GeolocationModule.initInstance(this),
         blacklist: BlacklistModule.initInstance(this),
         faceapi: FaceapiModule.initInstance(this),
-        stats: StatsModule.initInstance(this)
+        stats: StatsModule.initInstance(this),
+        streamer: StreamerModule.initInstance(this),
     }
     public play: number = 0;
     public search: number = 0;
@@ -145,7 +146,7 @@ export class ChatruletkaDriver {
         }
 
         if (globalThis.settings.streamer) {
-            injectStreamerMode()
+            this.modules.streamer.start()
         }
 
         this.stageObserver.observe(element, {attributes: true});
@@ -176,6 +177,10 @@ export class ChatruletkaDriver {
                         this.requestToStartTiming = 0;
                         (document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement).click()
                     }
+
+                    if (globalThis.settings.streamer) {
+                        this.modules.streamer.onStageStop()
+                    }
                 }
                 if (attributeValue.includes("s-search")) {
                     this.stage = 1
@@ -192,12 +197,20 @@ export class ChatruletkaDriver {
                     }
 
                     this.search = Date.now()
+
+                    if (globalThis.settings.streamer) {
+                        this.modules.streamer.onStageSearch()
+                    }
                 } else if (attributeValue.includes("s-found")) {
                     this.stage = 2;
 
                     this.needToCheckTarget = true
 
                     this.found = Date.now()
+
+                    if (globalThis.settings.streamer) {
+                        this.modules.streamer.onStageFound()
+                    }
                 } else if (attributeValue.includes("s-connected")) {
                     this.stage = 3;
                 } else if (attributeValue.includes("s-play")) {
@@ -211,6 +224,10 @@ export class ChatruletkaDriver {
 
                     if (this.modules.stats) {
                         this.modules.stats.increaseCountAll()
+                    }
+
+                    if (globalThis.settings.streamer) {
+                        this.modules.streamer.onStagePlay()
                     }
                 }
                 this.modules.stats.updStats(false)

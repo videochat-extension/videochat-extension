@@ -6,7 +6,6 @@ const srcDir = path.join(__dirname, "..", "src");
 module.exports = {
     entry: {
         injection_ip: path.join(srcDir, 'injection/ip-api.ts'),
-        injection_streamer: path.join(srcDir, 'injection/streamer-mode.ts'),
         background: path.join(srcDir, 'background.ts'),
         content_script: path.join(srcDir, 'content.ts'),
     },
@@ -14,7 +13,6 @@ module.exports = {
         path: path.join(__dirname, "../dist"),
         filename: (chunkData) => {
             if(chunkData.chunk.name === 'injection_ip') return "injection/ip-api.js";
-            if(chunkData.chunk.name === 'injection_streamer') return "injection/streamer-mode.js";
             return "[name].js";
         },
     },
