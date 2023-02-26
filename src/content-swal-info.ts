@@ -123,6 +123,7 @@ export class SwalWithSteps {
 }
 
 export class ContentSwalInfo extends SwalWithSteps {
+    private static instanceRef: ContentSwalInfo;
     protected steps = ['1', '2', '3', '4', '5', '6', '7']
     protected titles = [
         chrome.i18n.getMessage("swalInfoTitle1"),
@@ -163,7 +164,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.</div>`
     ]
 
-    constructor() {
+    private constructor() {
         super();
         this.swalQueueStep = this.swalQueueStep.mixin({
             progressSteps: this.steps,
@@ -174,6 +175,14 @@ SOFTWARE.</div>`
                 chrome.storage.sync.set({"swalInfoCompleted": true})
             }
         })
+    }
+
+    static getInstance(): ContentSwalInfo {
+        if (ContentSwalInfo.instanceRef === undefined) {
+            ContentSwalInfo.instanceRef = new ContentSwalInfo();
+        }
+
+        return ContentSwalInfo.instanceRef;
     }
 
     public showFromStart = async () => {

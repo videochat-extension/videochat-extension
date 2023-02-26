@@ -1,6 +1,7 @@
 import {SwalWithSteps} from "./content-swal-info";
 
 export class ContentSwalChangelog extends SwalWithSteps {
+    private static instanceRef: ContentSwalChangelog;
     protected steps: string[] = [
         '0.1',
         '0.2',
@@ -880,7 +881,7 @@ export class ContentSwalChangelog extends SwalWithSteps {
         ],
     }
 
-    constructor() {
+    private constructor() {
         super();
         this.swalQueueStep = this.swalQueueStep.mixin({
             showCancelButton: true,
@@ -888,6 +889,14 @@ export class ContentSwalChangelog extends SwalWithSteps {
             progressSteps: this.steps,
             progressStepsDistance: "4%"
         })
+    }
+
+    static getInstance(): ContentSwalChangelog {
+        if (ContentSwalChangelog.instanceRef === undefined) {
+            ContentSwalChangelog.instanceRef = new ContentSwalChangelog();
+        }
+
+        return ContentSwalChangelog.instanceRef;
     }
 
     public showFromVersion = async (version: string) => {

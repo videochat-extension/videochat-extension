@@ -1,5 +1,7 @@
 import * as utils from "./utils";
 import {ControlsModule} from "./content-module-controls";
+import {ContentSwalInfo} from "./content-swal-info";
+import {ContentSwalChangelog} from "./content-swal-changelog";
 
 export class ControlsTabAbout {
     private static instanceRef: ControlsTabAbout;
@@ -195,7 +197,7 @@ export class ControlsTabAbout {
                     utils.createElement('br'),
                     utils.createElement('button', {
                         onclick: () => {
-                            globalThis.changelog.showFromVersion(globalThis.settings.lastVersion)
+                            ContentSwalChangelog.getInstance().showFromVersion(globalThis.settings.lastVersion)
                         },
                     }, [
                         utils.createElement('b', {
@@ -205,7 +207,7 @@ export class ControlsTabAbout {
                     utils.createElement('br'),
                     utils.createElement('button', {
                         onclick: () => {
-                            globalThis.info.showFromStart()
+                            ContentSwalInfo.getInstance().showFromStart()
                         },
                     }, [
                         utils.createElement('b', {

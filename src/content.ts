@@ -9,6 +9,8 @@ import {ChatruletkaDriver} from "./content-driver-chatruletka";
 import {ChatruletkaSimpleDriver} from "./content-driver-chatruletka-simple";
 import {switchMode} from "./content-swal-switchmode";
 import {injectIpGrabber} from "./content-module-geolocation";
+import {ContentSwalInfo} from "./content-swal-info";
+import {ContentSwalChangelog} from "./content-swal-changelog";
 
 injectIpGrabber()
 
@@ -56,10 +58,10 @@ chrome.storage.sync.get(null, function (result) {
         }
 
         if (!globalThis.settings.swalInfoCompleted) {
-            globalThis.info.showFromStart()
+            ContentSwalInfo.getInstance().showFromStart()
         } else {
             if (globalThis.settings.lastVersion !== chrome.runtime.getManifest().version) {
-                globalThis.changelog.showFromVersion(globalThis.settings.lastVersion)
+                ContentSwalChangelog.getInstance().showFromVersion(globalThis.settings.lastVersion)
             }
         }
 
