@@ -97,29 +97,25 @@ export class ControlsModule {
 
         let tabs = $(".tabs__caption")[0]
 
-        let mapid = (document.getElementById("mapid") as HTMLElement)
-        mapid.style.height = $("#faceapiContent")[0].offsetHeight - tabs.offsetHeight + "px"
-        mapid.style.height = $("#faceapiContent")[0].offsetHeight - tabs.offsetHeight + "px"
+        Array.from({length: 2}, () => {
+            let mapid = (document.getElementById("mapid") as HTMLElement)
+            mapid.style.height = $("#faceapiContent")[0].offsetHeight - tabs.offsetHeight + "px"
 
-        let remoteInfo = (document.getElementById("remoteInfo") as HTMLElement)
-        remoteInfo.style.height = $("#apiInfoContent")[0].offsetHeight - $("#apiStatus")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
-        remoteInfo.style.height = $("#apiInfoContent")[0].offsetHeight - $("#apiStatus")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+            let remoteInfo = (document.getElementById("remoteInfo") as HTMLElement)
+            remoteInfo.style.height = $("#apiInfoContent")[0].offsetHeight - $("#apiStatus")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
 
-        let aboutInfo = (document.getElementById("aboutInfo") as HTMLElement)
-        aboutInfo.style.height = $("#aboutPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
-        aboutInfo.style.height = $("#aboutPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+            let aboutInfo = (document.getElementById("aboutInfo") as HTMLElement)
+            aboutInfo.style.height = $("#aboutPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
 
-        let settingsInfo = (document.getElementById("settingsInfo") as HTMLElement)
-        settingsInfo.style.height = $("#settingsPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
-        settingsInfo.style.height = $("#settingsPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+            let settingsInfo = (document.getElementById("settingsInfo") as HTMLElement)
+            settingsInfo.style.height = $("#settingsPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
 
-        let bansInfo = (document.getElementById("bansInfo") as HTMLElement)
-        bansInfo.style.height = $("#bansPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
-        bansInfo.style.height = $("#bansPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+            let bansInfo = (document.getElementById("bansInfo") as HTMLElement)
+            bansInfo.style.height = $("#bansPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
 
-        let statsInfo = (document.getElementById("statsInfo") as HTMLElement)
-        statsInfo.style.height = $("#statsPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
-        statsInfo.style.height = $("#statsPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+            let statsInfo = (document.getElementById("statsInfo") as HTMLElement)
+            statsInfo.style.height = $("#statsPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+        });
 
         if (this.map)
             this.map.map.invalidateSize()
