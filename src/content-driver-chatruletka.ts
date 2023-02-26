@@ -14,7 +14,15 @@ export class ChatruletkaDriver {
     // Stages: stop = 0 | search = 1 | found = 2 | connected = 3 | play = 4
     public stage: 0 | 1 | 2 | 3 | 4 = 0
     // TODO: figure out types for modules
-    public modules: any = {}
+    public modules = {
+        controls: ControlsModule.initInstance(this),
+        hotkeys: HotkeysModule.initInstance(this),
+        automation: AutomationModule.initInstance(this),
+        interface: InterfaceModule.initInstance(this),
+        geolocation: GeolocationModule.initInstance(this),
+        blacklist: BlacklistModule.initInstance(this),
+        faceapi: FaceapiModule.initInstance(this)
+    }
     public play: number = 0;
     public search: number = 0;
     public found: number = 0;
@@ -90,8 +98,6 @@ export class ChatruletkaDriver {
     }
 
     public start(element: HTMLElement): boolean {
-        this.initModules()
-
         this.modules.controls.injectControls()
 
         this.modules.interface.applyTweaks()
@@ -142,15 +148,6 @@ export class ChatruletkaDriver {
         return true
     }
 
-    protected initModules() {
-        this.modules.controls = ControlsModule.initInstance(this)
-        this.modules.hotkeys = HotkeysModule.initInstance(this)
-        this.modules.automation = AutomationModule.initInstance(this)
-        this.modules.interface = InterfaceModule.initInstance(this)
-        this.modules.geolocation = GeolocationModule.initInstance(this)
-        this.modules.blacklist = BlacklistModule.initInstance(this)
-        this.modules.faceapi = FaceapiModule.initInstance(this)
-    }
 
     private onChangeStage = (mutations: any[]) => {
         mutations.forEach((mutation) => {

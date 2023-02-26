@@ -23,7 +23,7 @@ export class GeolocationModule {
     private started: number = 0;
 
     private targetSound = new Audio(chrome.runtime.getURL('resources/audio/found.mp3'))
-    private curInfo: { [key: string]: { } } = {};
+    public curInfo: { [key: string]: {[key: string]: string } } = {};
 
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver
@@ -284,8 +284,8 @@ export class GeolocationModule {
                 }
             }
         }
-
-        this.driver.modules.controls.map.updateMap(this.curInfo)
+        if (this.driver.modules.controls.map)
+            this.driver.modules.controls.map.updateMap(this.curInfo)
 
         return true
     }

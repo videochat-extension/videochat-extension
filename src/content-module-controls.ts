@@ -19,7 +19,7 @@ export class ControlsModule {
     private driver: ChatruletkaDriver;
     private tabs: any = []
     private controls: HTMLElement;
-    private map: mapModule | undefined;
+    public map: mapModule | undefined;
 
     protected constructor(driver: ChatruletkaDriver) {
         this.driver = driver
