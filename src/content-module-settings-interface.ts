@@ -8,7 +8,7 @@ let settings = [
     },
     {
         type: "checkbox",
-        tagName: "p",
+        important: false,
         key: "hideLogo",
         text: chrome.i18n.getMessage("hideLogo"),
         tooltip: chrome.i18n.getMessage("tooltipHideLogo"),
@@ -21,7 +21,7 @@ let settings = [
     },
     {
         type: "checkbox",
-        tagName: "p",
+        important: false,
         key: "hideHeader",
         text: chrome.i18n.getMessage("hideHeader"),
         tooltip: chrome.i18n.getMessage("tooltipHideHeader"),
@@ -34,7 +34,7 @@ let settings = [
     },
     {
         type: "checkbox",
-        tagName: "p",
+        important: false,
         key: "hideWatermark",
         text: chrome.i18n.getMessage("watermark"),
         tooltip: chrome.i18n.getMessage("tooltipWatermark"),
@@ -47,7 +47,7 @@ let settings = [
     },
     {
         type: "checkbox",
-        tagName: "p",
+        important: false,
         key: "hideBanner",
         text: chrome.i18n.getMessage("banner"),
         tooltip: chrome.i18n.getMessage("tooltipBanner"),
@@ -60,7 +60,7 @@ let settings = [
     },
     {
         type: "checkbox",
-        tagName: "p",
+        important: false,
         key: "doNotReflect",
         text: chrome.i18n.getMessage("doNotReflect"),
         tooltip: chrome.i18n.getMessage("tooltipDoNotReflect"),
@@ -73,7 +73,7 @@ let settings = [
     },
     {
         type: "checkbox",
-        tagName: "p",
+        important: false,
         key: "doNotCover",
         text: chrome.i18n.getMessage("doNotCover"),
         tooltip: chrome.i18n.getMessage("tooltipDoNotCover"),
@@ -86,7 +86,7 @@ let settings = [
     },
     {
         type: "checkbox",
-        tagName: "p",
+        important: false,
         key: "hideCamera",
         text: chrome.i18n.getMessage("hideCamera"),
         tooltip: chrome.i18n.getMessage("tooltiphideCamera"),
@@ -99,7 +99,7 @@ let settings = [
     },
     {
         type: "checkbox",
-        tagName: "p",
+        important: false,
         key: "darkMode",
         text: chrome.i18n.getMessage("darkMode"),
         tooltip: chrome.i18n.getMessage("tooltipDarkMode"),
@@ -115,23 +115,24 @@ let settings = [
 
 function processSettings(array: { type: string, [key: string]: any }[]) {
     let settingsElements: HTMLElement[] = []
-    array.forEach((el)=>{
+    array.forEach((el) => {
         let newElement: HTMLElement | undefined
-        switch(el.type) {
+        switch (el.type) {
             case "header": {
                 console.dir(ControlsTabSettings.createSettingsHeader)
                 console.dir(el.text)
                 newElement = ControlsTabSettings.createSettingsHeader(el.text)
                 break;
             }
-            
+
             case "checkbox": {
+                let tagName = el.important ? "b" : "p"
                 if (el.enable && el.disable) {
-                    newElement = ControlsTabSettings.createSettingsCheckbox(el.tagName, el.key, el.text, el.tooltip, el.enable, el.disable)
+                    newElement = ControlsTabSettings.createSettingsCheckbox(tagName, el.key, el.text, el.tooltip, el.enable, el.disable)
                 } else if (el.enable) {
-                    newElement = ControlsTabSettings.createSettingsCheckbox(el.tagName, el.key, el.text, el.tooltip, el.enable)
+                    newElement = ControlsTabSettings.createSettingsCheckbox(tagName, el.key, el.text, el.tooltip, el.enable)
                 } else {
-                    newElement = ControlsTabSettings.createSettingsCheckbox(el.tagName, el.key, el.text, el.tooltip)
+                    newElement = ControlsTabSettings.createSettingsCheckbox(tagName, el.key, el.text, el.tooltip)
                 }
                 break;
             }
