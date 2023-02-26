@@ -125,7 +125,8 @@ export function createSettingsButton(innerText: string, onclick: (e: MouseEvent)
 export function createSettingsCheckbox(tagName:string, key: string, settingText: string, settingTooltip: string, enable?: () => void, disable?: () => void) {
     return utils.createElement('dd', {}, [
         utils.createElement('span', {}, [
-            utils.createElement(tagName, {
+            utils.createElement("small", {
+            // utils.createElement(tagName, {
                 innerText: settingText,
                 className: "tooltip",
                 title: settingTooltip

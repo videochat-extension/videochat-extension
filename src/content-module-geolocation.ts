@@ -261,6 +261,7 @@ export class GeolocationModule {
                 if (globalThis.settings.enableTargetCity) {
                     if (!globalThis.settings.targetCity.includes(json.city)) {
                         if (this.curIps.indexOf(ip) + 1 === this.curIps.length) {
+                            console.dir("SKIPPING WRONG CITY")
                             this.driver.stopAndStart()
                         }
                         return

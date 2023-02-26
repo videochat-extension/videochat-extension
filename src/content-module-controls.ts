@@ -2,7 +2,7 @@ import {ChatruletkaDriver} from "./content-driver-chatruletka";
 import * as utils from "./utils";
 import $ from "jquery";
 import {createHeader} from "./content-controls-header";
-import {mapModule} from "./content-module-map";
+import {mapModule} from "./content-module-controls-map";
 import {ContentSwalChangelog} from "./content-swal-changelog";
 import {ContentSwalInfo} from "./content-swal-info";
 import {ControlsTabApi, ControlsTabMap} from "./content-module-geolocation";

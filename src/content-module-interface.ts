@@ -192,5 +192,3 @@ export class InterfaceModule {
         return dark
     }
 }
-
-
