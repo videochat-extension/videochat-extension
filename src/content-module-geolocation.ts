@@ -17,14 +17,151 @@ export function injectIpGrabber() {
 export class GeolocationModule {
     private static instanceRef: GeolocationModule;
     public curIps: string[] = []
+    public settings = [
+        {
+            type: "header",
+            text: chrome.i18n.getMessage("settingsGeolocation")
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "ipApiLocalisation",
+            text: chrome.i18n.getMessage("apiLocalisation"),
+            tooltip: chrome.i18n.getMessage("tooltipApiLocalisation")
+        },
+        {
+            type: "br"
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "hideMobileLocation",
+            text: chrome.i18n.getMessage("hideMobile"),
+            tooltip: chrome.i18n.getMessage("tooltipHideMobile")
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "showCT",
+            text: chrome.i18n.getMessage("showCT"),
+            tooltip: chrome.i18n.getMessage("tooltipShowCT")
+        },
+        {
+            type: "br"
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "showMoreEnabledByDefault",
+            text: chrome.i18n.getMessage("showMoreInfo"),
+            tooltip: chrome.i18n.getMessage("tooltipShowMoreInfo")
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "showISP",
+            text: chrome.i18n.getMessage("showISP"),
+            tooltip: chrome.i18n.getMessage("tooltipShowISP")
+        },
+        {
+            type: "br"
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "enableTargetCity",
+            text: chrome.i18n.getMessage("targetCity"),
+            tooltip: chrome.i18n.getMessage("tooltipTargetCity"),
+            controlsSection: "targetCityDiv",
+        },
+        {
+            type: "section",
+            hide: globalThis.settings.enableTargetCity,
+            sectionId: "targetCityDiv",
+            children: [
+                {
+                    type: "button",
+                    text: chrome.i18n.getMessage("prefixTargetCity") + globalThis.settings.targetCity,
+                    onclick: (e: MouseEvent) => {
+                        const result = prompt(chrome.i18n.getMessage("promptTargetCity"), globalThis.settings.targetCity)
+                        if (result) {
+                            chrome.storage.sync.set({"targetCity": result}, function () {
+                                (e.target! as HTMLElement).innerText = chrome.i18n.getMessage("prefixTargetCity") + result
+                            });
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "enableTargetRegion",
+            text: chrome.i18n.getMessage("targetRegion"),
+            tooltip: chrome.i18n.getMessage("tooltipTargetRegion"),
+            controlsSection: "targetRegionDiv",
+        },
+        {
+            type: "section",
+            hide: globalThis.settings.enableTargetRegion,
+            sectionId: "targetRegionDiv",
+            children: [
+                {
+                    type: "button",
+                    text: chrome.i18n.getMessage("prefixTargetRegion") + globalThis.settings.targetRegion,
+                    onclick: (e: MouseEvent) => {
+                        const result = prompt(chrome.i18n.getMessage("promptTargetRegion"), globalThis.settings.targetRegion)
+                        if (result) {
+                            chrome.storage.sync.set({"targetRegion": result}, function () {
+                                (e.target! as HTMLElement).innerText = chrome.i18n.getMessage("prefixTargetRegion") + result
+                            });
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            type: "br"
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "skipMobileTarget",
+            text: chrome.i18n.getMessage("targetSkipMobile"),
+            tooltip: chrome.i18n.getMessage("tooltipTargetSkipMobile")
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "targetSound",
+            text: chrome.i18n.getMessage("targetSound"),
+            tooltip: chrome.i18n.getMessage("tooltipTargetSound")
+        },
+        {
+            type: "br"
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "torrentsEnable",
+            text: chrome.i18n.getMessage("torrentsEnable"),
+            tooltip: chrome.i18n.getMessage("tooltipTorrentsEnable")
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "torrentsInfo",
+            text: chrome.i18n.getMessage("torrentsInfo"),
+            tooltip: chrome.i18n.getMessage("tooltipTorrentsInfo")
+        }
+    ]
+    public curInfo: { [key: string]: { [key: string]: string } } = {};
     private driver: ChatruletkaDriver;
     private rmdaddr = "0.0.0.0"
     private api: number = 0;
     private torrenstsConfirmed = false;
     private started: number = 0;
-
     private targetSound = new Audio(chrome.runtime.getURL('resources/audio/found.mp3'))
-    public curInfo: { [key: string]: {[key: string]: string } } = {};
 
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver

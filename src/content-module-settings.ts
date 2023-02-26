@@ -1,5 +1,4 @@
 import * as utils from "./utils";
-import {createSettingsGeolocation} from "./content-module-settings-geolocation";
 import {createSettingsFaceapi} from "./content-module-settings-faceapi";
 import {createSettingsBlacklist} from "./content-module-settings-blacklist";
 import {createSettingsHotkeys} from "./content-module-settings-hotkeys";
@@ -65,7 +64,7 @@ export class ControlsTabSettings {
         ])
     }
 
-    static createSettingsCheckbox(tagName: string, key: string, settingText: string, settingTooltip: string, enable?: () => void | undefined, disable?: () => void | undefined, controls?: string| undefined) {
+    static createSettingsCheckbox(tagName: string, key: string, settingText: string, settingTooltip: string, enable?: () => void | undefined, disable?: () => void | undefined, controls?: string | undefined) {
         return utils.createElement('dd', {}, [
             utils.createElement('span', {}, [
                 utils.createElement("small", {
@@ -142,6 +141,53 @@ export class ControlsTabSettings {
         })
     }
 
+    public getContentHTML() {
+        return utils.createElement('div', {
+            className: "tabs__content",
+            id: "settingsPanel",
+            style: "height:100%;"
+        }, [
+            utils.createElement('div', {
+                    id: "settingsInfo",
+                    style: "overflow-y: auto; margin-top: 3px"
+                },
+                [
+                    utils.createElement('dl', {},
+                        [
+                            utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.interface.settings)),
+                            utils.createElement('br'),
+
+                            utils.createElement('div', {}, this.processSettings(this.controls.settings)),
+                            utils.createElement('br'),
+
+                            utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.automation.settings)),
+                            utils.createElement('br'),
+
+                            utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.geolocation.settings)),
+                            utils.createElement('br'),
+
+                            createSettingsFaceapi(),
+                            utils.createElement('br'),
+
+                            createSettingsBlacklist(),
+                            utils.createElement('br'),
+
+                            createSettingsHotkeys(),
+                            utils.createElement('br'),
+
+                            createSettingsStreamer(),
+                            utils.createElement('br'),
+
+                            createSettingsMisc(),
+                            utils.createElement('br'),
+
+                            createSettingsStats()
+                        ]
+                    ),
+                ])
+        ])
+    }
+
     private processSettings(array: { type: string, [key: string]: any }[]) {
         let settingsElements: HTMLElement[] = []
 
@@ -203,52 +249,5 @@ export class ControlsTabSettings {
             }
         })
         return settingsElements
-    }
-
-    public getContentHTML() {
-        return utils.createElement('div', {
-            className: "tabs__content",
-            id: "settingsPanel",
-            style: "height:100%;"
-        }, [
-            utils.createElement('div', {
-                    id: "settingsInfo",
-                    style: "overflow-y: auto; margin-top: 3px"
-                },
-                [
-                    utils.createElement('dl', {},
-                        [
-                            utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.interface.settings)),
-                            utils.createElement('br'),
-
-                            utils.createElement('div', {}, this.processSettings(this.controls.settings)),
-                            utils.createElement('br'),
-
-                            utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.automation.settings)),
-                            utils.createElement('br'),
-
-                            createSettingsGeolocation(),
-                            utils.createElement('br'),
-
-                            createSettingsFaceapi(),
-                            utils.createElement('br'),
-
-                            createSettingsBlacklist(),
-                            utils.createElement('br'),
-
-                            createSettingsHotkeys(),
-                            utils.createElement('br'),
-
-                            createSettingsStreamer(),
-                            utils.createElement('br'),
-
-                            createSettingsMisc(),
-                            utils.createElement('br'),
-
-                            createSettingsStats()
-                        ]
-                    ),
-                ])
-        ])
     }
 }
