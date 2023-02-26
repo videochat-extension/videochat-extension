@@ -1,8 +1,8 @@
 import * as utils from "./utils";
 import {createSettingsStreamer} from "./content-module-settings-streamer";
-import {createSettingsMisc} from "./content-module-settings-misc";
 import {ControlsModule} from "./content-module-controls";
 import ChangeEvent = JQuery.ChangeEvent;
+import {switchMode} from "./content-swal-switchmode";
 
 let needReload = false
 
@@ -137,6 +137,26 @@ export class ControlsTabSettings {
         })
     }
 
+    public miscSettings = [
+        {
+            type: "header",
+            text: chrome.i18n.getMessage("settingsMisc")
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "sentry",
+            text: chrome.i18n.getMessage("sentry"),
+            tooltip: chrome.i18n.getMessage("tooltipSentry")
+        },
+        {
+            type: "button",
+            text: chrome.i18n.getMessage("switchModeButtonText"),
+            onclick: (e: MouseEvent) => {
+                switchMode()
+            }
+        },
+    ]
     public getContentHTML() {
         return utils.createElement('div', {
             className: "tabs__content",
@@ -174,7 +194,10 @@ export class ControlsTabSettings {
                             createSettingsStreamer(),
                             utils.createElement('br'),
 
-                            createSettingsMisc(),
+                            utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.hotkeys.settings)),
+                            utils.createElement('br'),
+
+                            utils.createElement('div', {}, this.processSettings(this.miscSettings)),
                             utils.createElement('br'),
 
                             utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.stats.settings))
