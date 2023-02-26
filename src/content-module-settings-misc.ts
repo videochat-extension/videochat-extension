@@ -1,10 +1,10 @@
 import * as utils from "./utils";
 import {switchMode} from "./content-swal-switchmode";
-import {createSettingsButton, createSettingsHeader} from "./content-module-settings";
+import {ControlsTabSettings} from "./content-module-settings";
 
 export function createSettingsMisc() {
     return utils.createElement('div', {}, [
-        createSettingsHeader(chrome.i18n.getMessage("settingsMisc")),
+        ControlsTabSettings.createSettingsHeader(chrome.i18n.getMessage("settingsMisc")),
 
         utils.createElement('dd', {}, [
             utils.createElement('span', {}, [
@@ -27,7 +27,7 @@ export function createSettingsMisc() {
         ]),
         // TODO: DRY
 
-        createSettingsButton(chrome.i18n.getMessage("switchModeButtonText"), () => {
+        ControlsTabSettings.createSettingsButton(chrome.i18n.getMessage("switchModeButtonText"), () => {
             switchMode()
         })
     ])

@@ -1,9 +1,9 @@
 import * as utils from "./utils";
-import {confirmAndReload, createSettingsHeader} from "./content-module-settings";
+import {confirmAndReload, ControlsTabSettings} from "./content-module-settings";
 
 export function createSettingsStreamer() {
     return utils.createElement('div', {}, [
-        createSettingsHeader(chrome.i18n.getMessage("settingsStreamerMode")),
+        ControlsTabSettings.createSettingsHeader(chrome.i18n.getMessage("settingsStreamerMode")),
         
         utils.createElement('dd', {}, [
             utils.createElement('span', {}, [

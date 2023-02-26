@@ -49,6 +49,61 @@ export class ControlsTabSettings {
         return ControlsTabSettings.instanceRef;
     }
 
+    static createSettingsHeader(innerHTML: string) {
+        return utils.createElement('dt', {
+            innerHTML: innerHTML
+        })
+    }
+
+    static createSettingsButton(innerText: string, onclick: (e: MouseEvent) => void) {
+        return utils.createElement('dd', {}, [
+            utils.createElement('button', {
+                style: "margin-top: 2px",
+                onclick: onclick,
+            }, [
+                utils.createElement('b', {
+                    innerText: innerText
+                })
+            ])
+        ])
+    }
+
+    static createSettingsCheckbox(tagName: string, key: string, settingText: string, settingTooltip: string, enable?: () => void, disable?: () => void) {
+        return utils.createElement('dd', {}, [
+            utils.createElement('span', {}, [
+                utils.createElement("small", {
+                    // utils.createElement(tagName, {
+                    innerText: settingText,
+                    className: "tooltip",
+                    title: settingTooltip
+                }),
+                utils.createElement('input', {
+                    type: "checkbox",
+                    checked: globalThis.settings[key],
+                    id: `${key}Check`,
+                    onchange: (event: ChangeEvent) => {
+                        let checked = event.currentTarget.checked
+
+                        let syncDict: { [key: string]: any } = {}
+                        syncDict[key] = event.currentTarget.checked
+                        chrome.storage.sync.set(syncDict, function () {
+                            if (checked) {
+                                if (enable) {
+                                    enable()
+                                }
+                            } else {
+                                if (disable) {
+                                    disable()
+                                }
+                            }
+                        });
+                    },
+                })
+            ]),
+        ])
+    }
+
+
     public getTabHTML() {
         return utils.createElement('li', {
             innerText: this.name
@@ -101,58 +156,4 @@ export class ControlsTabSettings {
                 ])
         ])
     }
-}
-
-export function createSettingsHeader(innerHTML: string) {
-    return utils.createElement('dt', {
-        innerHTML: innerHTML
-    })
-}
-
-export function createSettingsButton(innerText: string, onclick: (e: MouseEvent) => void) {
-    return utils.createElement('dd', {}, [
-        utils.createElement('button', {
-            style: "margin-top: 2px",
-            onclick: onclick,
-        }, [
-            utils.createElement('b', {
-                innerText: innerText
-            })
-        ])
-    ])
-}
-
-export function createSettingsCheckbox(tagName:string, key: string, settingText: string, settingTooltip: string, enable?: () => void, disable?: () => void) {
-    return utils.createElement('dd', {}, [
-        utils.createElement('span', {}, [
-            utils.createElement("small", {
-            // utils.createElement(tagName, {
-                innerText: settingText,
-                className: "tooltip",
-                title: settingTooltip
-            }),
-            utils.createElement('input', {
-                type: "checkbox",
-                checked: globalThis.settings[key],
-                id: `${key}Check`,
-                onchange: (event: ChangeEvent) => {
-                    let checked = event.currentTarget.checked
-
-                    let syncDict: { [key: string]: any } = {}
-                    syncDict[key] = event.currentTarget.checked
-                    chrome.storage.sync.set(syncDict, function () {
-                        if (checked) {
-                            if (enable) {
-                                enable()
-                            }
-                        } else {
-                            if (disable) {
-                                disable()
-                            }
-                        }
-                    });
-                },
-            })
-        ]),
-    ])
 }
