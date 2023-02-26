@@ -5,7 +5,6 @@ export {}
 
 declare global {
     var settings: any;
-    var resize: NodeJS.Timeout;
     var info: ContentSwalInfo;
     var changelog: ContentSwalChangelog;
     // var driver: ChatruletkaDriver | ChatruletkaSimpleDriver;

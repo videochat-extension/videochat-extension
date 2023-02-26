@@ -20,6 +20,7 @@ export class ControlsModule {
     private tabs: any = []
     private controls: HTMLElement;
     public map: mapModule | undefined;
+    private resize: NodeJS.Timeout | undefined;
 
     protected constructor(driver: ChatruletkaDriver) {
         this.driver = driver
@@ -53,8 +54,8 @@ export class ControlsModule {
             this.resizemap(false)
         }
 
-        clearTimeout(globalThis.resize)
-        globalThis.resize = setTimeout(() => {
+        clearTimeout(this.resize)
+        this.resize = setTimeout(() => {
             // let controls = (document.getElementById("controls") as HTMLElement)
             // let buttons = (document.getElementById("buttons") as HTMLElement)
             // let chat = (document.getElementById("chat") as HTMLElement)
