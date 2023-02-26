@@ -94,7 +94,6 @@ export class ChatruletkaDriver {
 
         this.modules.controls.injectControls()
 
-        this.modules.interface.tweakLoginWindow()
         this.modules.interface.applyTweaks()
 
         this.modules.geolocation.injectIpEventListener()
@@ -204,8 +203,6 @@ export class ChatruletkaDriver {
                     this.tim = setTimeout(this.modules.faceapi.detectGender, 0)
 
                     this.play = Date.now()
-                    console.dir("SET PLAY")
-
                     console.log("Loading took: ", ((this.play - this.found) / 1000).toFixed(2), "sec")
 
                     globalThis.settings.stats.countAll++
