@@ -257,7 +257,7 @@ export class ControlsModule {
                 .addClass('active').siblings().removeClass('active')
                 .closest('div.tabs').find('div.tabs__content').removeClass('active').eq($(this).index()).addClass('active');
 
-            if (self.map)
+            if (self.map && $(document.getElementById("mapTabButton") as HTMLElement).hasClass("active"))
                 self.map.updateMap(self.driver.modules.geolocation.curInfo)
 
             if (this.innerText === chrome.i18n.getMessage("tab3")) {

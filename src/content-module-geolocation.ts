@@ -284,7 +284,8 @@ export class GeolocationModule {
                 }
             }
         }
-        if (this.driver.modules.controls.map)
+
+        if (this.driver.modules.controls.map && $(document.getElementById("mapTabButton") as HTMLElement).hasClass("active"))
             this.driver.modules.controls.map.updateMap(this.curInfo)
 
         return true

@@ -1,4 +1,3 @@
-import $ from "jquery";
 import * as utils from "./utils";
 import * as L from "leaflet";
 
@@ -24,7 +23,7 @@ export class mapModule {
     }
 
     public updateMap = (info: any) => {
-        if (!$(document.getElementById("mapTabButton") as HTMLElement).hasClass("active") || Object.keys(globalThis.driver.modules.geolocation.curInfo).length === 0) {
+        if (Object.keys(info).length === 0) {
             return
         }
 
