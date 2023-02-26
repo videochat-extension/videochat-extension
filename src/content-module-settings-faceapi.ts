@@ -1,5 +1,5 @@
 import * as utils from "./utils";
-import {confirmAndReload} from "./content-controls-tab-settings";
+import {confirmAndReload} from "./content-module-settings";
 
 export function createSettingsFaceapi() {
     return utils.createElement('div', {}, [

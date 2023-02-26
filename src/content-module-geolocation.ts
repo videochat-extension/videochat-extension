@@ -3,6 +3,7 @@ import * as DOMPurify from "dompurify";
 import Swal from "sweetalert2";
 import * as utils from "./utils";
 import {ChatruletkaDriver} from "./content-driver-chatruletka";
+import {ControlsModule} from "./content-module-controls";
 
 
 export function injectIpGrabber() {
@@ -326,5 +327,91 @@ export class GeolocationModule {
             lang = "zh-CN"
         }
         return lang
+    }
+}
+
+export class ControlsTabApi {
+    private static instanceRef: ControlsTabApi;
+    public name = chrome.i18n.getMessage("tab1")
+    private controls: ControlsModule;
+
+    private constructor(controls: ControlsModule) {
+        this.controls = controls
+    }
+
+    static initInstance(controls: ControlsModule): ControlsTabApi {
+        if (ControlsTabApi.instanceRef === undefined) {
+            ControlsTabApi.instanceRef = new ControlsTabApi(controls);
+        }
+
+        return ControlsTabApi.instanceRef;
+    }
+
+    public getTabHTML() {
+        return utils.createElement('li', {
+            innerText: this.name
+        })
+    }
+
+    public getContentHTML() {
+        return utils.createElement('div', {
+            className: "tabs__content active row",
+            id: "apiInfoContent",
+            style: "height:100%;"
+        }, [
+            utils.createElement('div', {
+                id: "remoteFace",
+            }),
+            utils.createElement('div', {
+                id: "streamerStatus",
+                // style: "display: none;"
+            }),
+            utils.createElement('div', {
+                id: "apiStatus",
+                style: "margin-top: 3px"
+            }),
+            utils.createElement('div', {
+                id: "remoteInfo",
+                style: "overflow-y: auto;margin-top: 3px"
+            })
+        ])
+    }
+}
+
+export class ControlsTabMap {
+    private static instanceRef: ControlsTabMap;
+    public name = chrome.i18n.getMessage("tab2")
+    private controls: ControlsModule;
+
+    private constructor(controls: ControlsModule) {
+        this.controls = controls
+    }
+
+    static initInstance(controls: ControlsModule): ControlsTabMap {
+        if (ControlsTabMap.instanceRef === undefined) {
+            ControlsTabMap.instanceRef = new ControlsTabMap(controls);
+        }
+
+        return ControlsTabMap.instanceRef;
+    }
+
+    public getTabHTML() {
+        return utils.createElement('li', {
+            innerText: this.name,
+            id: "mapTabButton",
+        })
+    }
+
+    public getContentHTML() {
+        return utils.createElement('div', {
+            className: "tabs__content",
+            id: "faceapiContent",
+            style: "height:100%;"
+        }, [
+            utils.createElement('div', {
+                id: "mapid",
+                style: "width: 100%; margin-top: 1px;"
+            })
+        ])
     }
 }
