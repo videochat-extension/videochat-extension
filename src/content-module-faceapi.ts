@@ -1,10 +1,63 @@
 import * as faceapi from "face-api.js";
 import {ChatruletkaDriver} from "./content-driver-chatruletka";
+import {confirmAndReload} from "./content-module-settings";
 
 export class FaceapiModule {
     private static instanceRef: FaceapiModule;
     private driver: ChatruletkaDriver;
     faceApiLoaded = false;
+
+    public settings = [
+        {
+            type: "header",
+            text: chrome.i18n.getMessage("genderRecognition")
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "enableFaceApi",
+            text: chrome.i18n.getMessage("forcedApi"),
+            tooltip: chrome.i18n.getMessage("tooltipForcedRecognition"),
+            enable: () => {
+                if (!this.faceApiLoaded)
+                    confirmAndReload()
+            },
+            disable: () => {
+                if (!this.faceApiLoaded)
+                    confirmAndReload()
+            }
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "skipMale",
+            text: chrome.i18n.getMessage("skip_males"),
+            tooltip: chrome.i18n.getMessage("tooltipSkipMales"),
+            enable: () => {
+                if (!this.faceApiLoaded)
+                    confirmAndReload()
+            },
+            disable: () => {
+                if (!this.faceApiLoaded)
+                    confirmAndReload()
+            }
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "skipFemale",
+            text: chrome.i18n.getMessage("skip_females"),
+            tooltip: chrome.i18n.getMessage("tooltipSkipFemales"),
+            enable: () => {
+                if (!this.faceApiLoaded)
+                    confirmAndReload()
+            },
+            disable: () => {
+                if (!this.faceApiLoaded)
+                    confirmAndReload()
+            }
+        },
+    ]
 
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver
