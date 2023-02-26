@@ -103,6 +103,38 @@ export class ControlsTabSettings {
         ])
     }
 
+    static createSettingsRange(tagName: string, key: string, min: number, max: number, settingText: string, settingTooltip: string, onchange?: () => void) {
+        return utils.createElement('dd', {}, [
+            utils.createElement('span', {}, [
+                // utils.createElement(tagName, {
+                utils.createElement("small", {
+                    innerText: settingText,
+                    className: "tooltip",
+                    title: settingTooltip
+                }),
+                utils.createElement('input', {
+                    type: "range",
+                    id: `${key}Range`,
+                    style: "vertical-align: middle!important;",
+                    min: min,
+                    max: max,
+                    value: globalThis.settings[key],
+                    onchange: (event: ChangeEvent) => {
+                        let value = event.currentTarget.value
+                        console.dir(value)
+
+                        let syncDict: { [key: string]: any } = {}
+                        syncDict[key] = event.currentTarget.value
+                        chrome.storage.sync.set(syncDict, function () {
+                            if (onchange) {
+                                onchange()
+                            }
+                        });
+                    },
+                })
+            ]),
+        ])
+    }
 
     public getTabHTML() {
         return utils.createElement('li', {
