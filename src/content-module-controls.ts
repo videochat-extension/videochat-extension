@@ -56,10 +56,6 @@ export class ControlsModule {
 
         clearTimeout(this.resize)
         this.resize = setTimeout(() => {
-            // let controls = (document.getElementById("controls") as HTMLElement)
-            // let buttons = (document.getElementById("buttons") as HTMLElement)
-            // let chat = (document.getElementById("chat") as HTMLElement)
-
             let mar = parseInt(window.getComputedStyle(this.controls).marginRight)
 
             // TODO: AVOID USING globalThis
