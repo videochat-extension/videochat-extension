@@ -245,7 +245,6 @@ export class ControlsTabSettings {
                 }
 
                 case "HTMLElement" : {
-                    console.dir(arguments)
                     newElement = el.element
                     break;
                 }
@@ -259,7 +258,6 @@ export class ControlsTabSettings {
                 settingsElements.push(newElement)
             }
         })
-        console.dir(settingsElements)
         return settingsElements
     }
 }

@@ -70,10 +70,10 @@ let settings = [
         tooltip: chrome.i18n.getMessage("tooltipDarkMode"),
         controlsSection?: "targetCityDiv",
         enable: () => {
-            globalThis.driver.modules.interface.tweaks.darkMode.enable()
+            this.tweaks.darkMode.enable()
         },
         disable: () => {
-            globalThis.driver.modules.interface.tweaks.darkMode.disable()
+            this.tweaks.darkMode.disable()
         }
     },
     {
