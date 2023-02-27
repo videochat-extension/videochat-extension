@@ -241,9 +241,9 @@ export class ControlsModule {
     }
 
     protected createTabs() {
-        let tabs: any = []
-        this.tabs.forEach((tab: ControlsTabApi) => {
-            tabs.push(tab.getTabHTML())
+        let tabs: HTMLElement[] = []
+        this.tabs.forEach((tab: any) => {
+            tabs.push(tab.tab)
         })
         if (tabs.length > 0) {
             tabs[0].className = "active"
@@ -253,12 +253,16 @@ export class ControlsModule {
         }, tabs)
     }
 
-    protected createControls() {
-        let content = [this.createStyle(), createHeader(), this.createTabs()]
-
+    protected createContent() {
+        let content: HTMLElement[] = []
         this.tabs.forEach((tab: ControlsTabApi) => {
-            content.push(tab.getContentHTML())
+            content.push(tab.content)
         })
+        return content
+    }
+
+    protected createControls() {
+        let content = [this.createStyle(), createHeader(), this.createTabs(), ...this.createContent()]
 
         return utils.createElement('div', {
             className: 'chat', id: 'controls', style: "width:390px; margin-right: calc(100vh / 768 * 10);"
@@ -292,10 +296,14 @@ export class ControlsModule {
 export class ControlsTabAbout {
     private static instanceRef: ControlsTabAbout;
     public name = chrome.i18n.getMessage("tab4")
+    public content: HTMLElement
+    public tab: HTMLElement
     private controls: ControlsModule;
 
     private constructor(controls: ControlsModule) {
         this.controls = controls
+        this.tab = this.getTabHTML()
+        this.content = this.getContentHTML()
     }
 
     static initInstance(controls: ControlsModule): ControlsTabAbout {
@@ -306,13 +314,13 @@ export class ControlsTabAbout {
         return ControlsTabAbout.instanceRef;
     }
 
-    public getTabHTML() {
+    protected getTabHTML() {
         return utils.createElement('li', {
             innerText: this.name
         })
     }
 
-    public getContentHTML() {
+    protected getContentHTML() {
         return utils.createElement('div', {
             className: "tabs__content",
             id: "aboutPanel",

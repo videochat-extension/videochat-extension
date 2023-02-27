@@ -470,10 +470,14 @@ export class GeolocationModule {
 export class ControlsTabApi {
     private static instanceRef: ControlsTabApi;
     public name = chrome.i18n.getMessage("tab1")
+    public content: HTMLElement
+    public tab: HTMLElement
     private controls: ControlsModule;
 
     private constructor(controls: ControlsModule) {
         this.controls = controls
+        this.tab = this.getTabHTML()
+        this.content = this.getContentHTML()
     }
 
     static initInstance(controls: ControlsModule): ControlsTabApi {
@@ -484,13 +488,13 @@ export class ControlsTabApi {
         return ControlsTabApi.instanceRef;
     }
 
-    public getTabHTML() {
+    protected getTabHTML() {
         return utils.createElement('li', {
             innerText: this.name
         })
     }
 
-    public getContentHTML() {
+    protected getContentHTML() {
         return utils.createElement('div', {
             className: "tabs__content active row",
             id: "apiInfoContent",
@@ -518,10 +522,14 @@ export class ControlsTabApi {
 export class ControlsTabMap {
     private static instanceRef: ControlsTabMap;
     public name = chrome.i18n.getMessage("tab2")
+    public content: HTMLElement
+    public tab: HTMLElement
     private controls: ControlsModule;
 
     private constructor(controls: ControlsModule) {
         this.controls = controls
+        this.tab = this.getTabHTML()
+        this.content = this.getContentHTML()
     }
 
     static initInstance(controls: ControlsModule): ControlsTabMap {
@@ -532,14 +540,14 @@ export class ControlsTabMap {
         return ControlsTabMap.instanceRef;
     }
 
-    public getTabHTML() {
+    protected getTabHTML() {
         return utils.createElement('li', {
             innerText: this.name,
             id: "mapTabButton",
         })
     }
 
-    public getContentHTML() {
+    protected getContentHTML() {
         return utils.createElement('div', {
             className: "tabs__content",
             id: "faceapiContent",

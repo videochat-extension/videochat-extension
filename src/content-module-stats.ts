@@ -175,8 +175,13 @@ export class ControlsTabStats {
     public name = chrome.i18n.getMessage("tabStats")
     private controls: ControlsModule;
 
+    public content: HTMLElement
+    public tab: HTMLElement
+
     private constructor(controls: ControlsModule) {
         this.controls = controls
+        this.tab = this.getTabHTML()
+        this.content = this.getContentHTML()
     }
 
     static initInstance(controls: ControlsModule): ControlsTabStats {
@@ -187,13 +192,13 @@ export class ControlsTabStats {
         return ControlsTabStats.instanceRef;
     }
 
-    public getTabHTML() {
+    protected getTabHTML() {
         return utils.createElement('li', {
             innerText: this.name
         })
     }
 
-    public getContentHTML() {
+    protected getContentHTML() {
         return utils.createElement('div', {
             className: "tabs__content",
             id: "statsPanel",

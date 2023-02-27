@@ -46,10 +46,14 @@ export class ControlsTabSettings {
             }
         },
     ]
+    public content: HTMLElement
+    public tab: HTMLElement
     private controls: ControlsModule;
 
     private constructor(controls: ControlsModule) {
         this.controls = controls
+        this.tab = this.getTabHTML()
+        this.content = this.getContentHTML()
     }
 
     static initInstance(controls: ControlsModule): ControlsTabSettings {
@@ -148,13 +152,13 @@ export class ControlsTabSettings {
         ])
     }
 
-    public getTabHTML() {
+    protected getTabHTML() {
         return utils.createElement('li', {
             innerText: this.name
         })
     }
 
-    public getContentHTML() {
+    protected getContentHTML() {
         return utils.createElement('div', {
             className: "tabs__content",
             id: "settingsPanel",
