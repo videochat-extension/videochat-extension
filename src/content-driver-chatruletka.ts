@@ -4,11 +4,12 @@ import {StreamerModule} from "./content-module-streamermode";
 import {HotkeysModule} from "./content-module-hotkeys";
 import {AutomationModule} from "./content-module-automation";
 import {InterfaceModule} from "./content-module-interface";
-import {ControlsModule} from "./content-module-controls";
+import {ControlsModule, ControlsTabAbout} from "./content-module-controls";
 import {BlacklistModule} from "./content-module-blacklist";
 import {FaceapiModule} from "./content-module-faceapi";
 import {createSwitchModeButtonContainer} from "./content-swal-switchmode";
 import {StatsModule} from "./content-module-stats";
+import {ControlsTabSettings} from "./content-module-settings";
 
 export class ChatruletkaDriver {
     private static instanceRef: ChatruletkaDriver;
@@ -100,8 +101,31 @@ export class ChatruletkaDriver {
         }
     }
 
+    public getSettingsTab() {
+        return ControlsTabSettings.initInstance(this, null, [
+            this.modules.interface.settings,
+            this.modules.automation.settings,
+            this.modules.geolocation.settings,
+            this.modules.faceapi.settings,
+            this.modules.blacklist.settings,
+            this.modules.hotkeys.settings,
+            this.modules.streamer.settings,
+            this.modules.stats.settings
+        ])
+    }
+
+    public getTabs() {
+        return [
+            ...this.modules.geolocation.tabs,
+            ...this.modules.blacklist.tabs,
+            ...this.modules.stats.tabs,
+            this.getSettingsTab(),
+            ControlsTabAbout.initInstance(this)
+        ]
+    }
+
     public start(element: HTMLElement): boolean {
-        this.modules.controls.injectControls()
+        this.modules.controls.injectControls(this.getTabs())
 
         this.modules.interface.applyTweaks()
 

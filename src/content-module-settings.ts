@@ -1,6 +1,6 @@
 import * as utils from "./utils";
-import {ControlsModule} from "./content-module-controls";
 import {switchMode} from "./content-swal-switchmode";
+import {ChatruletkaDriver} from "./content-driver-chatruletka";
 import ChangeEvent = JQuery.ChangeEvent;
 
 let needReload = false
@@ -48,17 +48,22 @@ export class ControlsTabSettings {
     ]
     public content: HTMLElement
     public tab: HTMLElement
-    private controls: ControlsModule;
+    public readonly marginBottom = 5
+    public settings: any[] | undefined;
+    private driver: ChatruletkaDriver;
+    private module: any;
 
-    private constructor(controls: ControlsModule) {
-        this.controls = controls
+    private constructor(driver: ChatruletkaDriver, module?: any, settings?: any[]) {
+        this.driver = driver
+        this.module = module
+        this.settings = settings
         this.tab = this.getTabHTML()
         this.content = this.getContentHTML()
     }
 
-    static initInstance(controls: ControlsModule): ControlsTabSettings {
+    static initInstance(driver: ChatruletkaDriver, module?: any, settings?: any[]): ControlsTabSettings {
         if (ControlsTabSettings.instanceRef === undefined) {
-            ControlsTabSettings.instanceRef = new ControlsTabSettings(controls);
+            ControlsTabSettings.instanceRef = new ControlsTabSettings(driver, module, settings);
         }
 
         return ControlsTabSettings.instanceRef;
@@ -152,6 +157,25 @@ export class ControlsTabSettings {
         ])
     }
 
+    public handleResize() {
+
+    }
+
+    public handleTabClick() {
+
+    }
+
+    public getSettingsHTML(settings: any): HTMLElement[] {
+        let array: HTMLElement[] = []
+        settings.splice(-1, 0, this.miscSettings)
+        settings.forEach((setting: any) => {
+            array.push(utils.createElement('div', {}, this.processSettings(setting)))
+            array.push(utils.createElement('br'))
+        })
+        array.pop()
+        return array
+    }
+
     protected getTabHTML() {
         return utils.createElement('li', {
             innerText: this.name
@@ -169,38 +193,7 @@ export class ControlsTabSettings {
                     style: "overflow-y: auto; margin-top: 3px"
                 },
                 [
-                    utils.createElement('dl', {},
-                        [
-                            utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.interface.settings)),
-                            utils.createElement('br'),
-
-                            utils.createElement('div', {}, this.processSettings(this.controls.settings)),
-                            utils.createElement('br'),
-
-                            utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.automation.settings)),
-                            utils.createElement('br'),
-
-                            utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.geolocation.settings)),
-                            utils.createElement('br'),
-
-                            utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.faceapi.settings)),
-                            utils.createElement('br'),
-
-                            utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.blacklist.settings)),
-                            utils.createElement('br'),
-
-                            utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.hotkeys.settings)),
-                            utils.createElement('br'),
-
-                            utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.streamer.settings)),
-                            utils.createElement('br'),
-
-                            utils.createElement('div', {}, this.processSettings(this.miscSettings)),
-                            utils.createElement('br'),
-
-                            utils.createElement('div', {}, this.processSettings(this.controls.driver.modules.stats.settings))
-                        ]
-                    ),
+                    utils.createElement('dl', {}, this.getSettingsHTML(this.settings)),
                 ])
         ])
     }

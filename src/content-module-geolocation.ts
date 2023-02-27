@@ -3,7 +3,7 @@ import * as DOMPurify from "dompurify";
 import Swal from "sweetalert2";
 import * as utils from "./utils";
 import {ChatruletkaDriver} from "./content-driver-chatruletka";
-import {ControlsModule} from "./content-module-controls";
+import {mapModule} from "./content-module-controls-map";
 
 
 export function injectIpGrabber() {
@@ -156,6 +156,7 @@ export class GeolocationModule {
         }
     ]
     public curInfo: { [key: string]: { [key: string]: string } } = {};
+    public tabs: any = []
     private driver: ChatruletkaDriver;
     private rmdaddr = "0.0.0.0"
     private api: number = 0;
@@ -166,6 +167,7 @@ export class GeolocationModule {
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver
         this.targetSound.volume = 0.5
+        this.createTabs()
     }
 
     static initInstance(driver: ChatruletkaDriver): GeolocationModule {
@@ -427,8 +429,8 @@ export class GeolocationModule {
             }
         }
 
-        if (this.driver.modules.controls.map && $(document.getElementById("mapTabButton") as HTMLElement).hasClass("active"))
-            this.driver.modules.controls.map.updateMap(this.curInfo)
+        if (this.tabs[1].map && $(this.tabs[1].tab).hasClass("active"))
+            this.tabs[1].map.updateMap(this.curInfo)
 
         return true
     }
@@ -454,6 +456,11 @@ export class GeolocationModule {
         }, 1000)
     }
 
+    protected createTabs() {
+        this.tabs[0] = ControlsTabApi.initInstance(this.driver, this)
+        this.tabs[1] = ControlsTabMap.initInstance(this.driver, this)
+    }
+
     // https://ip-api.com/docs/api:json#:~:text=DEMO-,Localization,-Localized%20city%2C
     private getApiLanguage() {
         if (!globalThis.settings.ipApiLocalisation) return "en"
@@ -472,20 +479,31 @@ export class ControlsTabApi {
     public name = chrome.i18n.getMessage("tab1")
     public content: HTMLElement
     public tab: HTMLElement
-    private controls: ControlsModule;
+    public readonly marginBottom = 5
+    private driver: ChatruletkaDriver;
+    private module: any
 
-    private constructor(controls: ControlsModule) {
-        this.controls = controls
+    private constructor(driver: ChatruletkaDriver, module?: any) {
+        this.driver = driver
+        this.module = module
         this.tab = this.getTabHTML()
         this.content = this.getContentHTML()
     }
 
-    static initInstance(controls: ControlsModule): ControlsTabApi {
+    static initInstance(driver: ChatruletkaDriver, module?: any): ControlsTabApi {
         if (ControlsTabApi.instanceRef === undefined) {
-            ControlsTabApi.instanceRef = new ControlsTabApi(controls);
+            ControlsTabApi.instanceRef = new ControlsTabApi(driver, module);
         }
 
         return ControlsTabApi.instanceRef;
+    }
+
+    public handleResize() {
+
+    }
+
+    public handleTabClick() {
+
     }
 
     protected getTabHTML() {
@@ -524,20 +542,41 @@ export class ControlsTabMap {
     public name = chrome.i18n.getMessage("tab2")
     public content: HTMLElement
     public tab: HTMLElement
-    private controls: ControlsModule;
+    public readonly marginBottom = 0
+    public map: mapModule;
+    private driver: ChatruletkaDriver;
+    private module: any;
 
-    private constructor(controls: ControlsModule) {
-        this.controls = controls
+    private mapContainer: HTMLElement;
+
+    private constructor(driver: ChatruletkaDriver, module?: any) {
+        this.driver = driver
+        this.module = module
         this.tab = this.getTabHTML()
+
+        this.mapContainer = utils.createElement('div', {
+            id: "mapid",
+            style: "width: 100%; margin-top: 1px;"
+        })
+        this.map = new mapModule(this.mapContainer)
         this.content = this.getContentHTML()
     }
 
-    static initInstance(controls: ControlsModule): ControlsTabMap {
+    static initInstance(driver: ChatruletkaDriver, module?: any): ControlsTabMap {
         if (ControlsTabMap.instanceRef === undefined) {
-            ControlsTabMap.instanceRef = new ControlsTabMap(controls);
+            ControlsTabMap.instanceRef = new ControlsTabMap(driver, module);
         }
 
         return ControlsTabMap.instanceRef;
+    }
+
+    public handleResize() {
+        this.map.map.invalidateSize()
+    }
+
+    public handleTabClick() {
+        if (this.map && $(this.tab).hasClass("active"))
+            this.map.updateMap(this.module.curInfo)
     }
 
     protected getTabHTML() {
@@ -553,10 +592,7 @@ export class ControlsTabMap {
             id: "faceapiContent",
             style: "height:100%;"
         }, [
-            utils.createElement('div', {
-                id: "mapid",
-                style: "width: 100%; margin-top: 1px;"
-            })
+            this.mapContainer
         ])
     }
 }

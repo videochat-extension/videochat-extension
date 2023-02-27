@@ -1,5 +1,4 @@
 import {ChatruletkaDriver} from "./content-driver-chatruletka";
-import {ControlsModule} from "./content-module-controls";
 import * as utils from "./utils";
 
 export class BlacklistModule {
@@ -41,6 +40,8 @@ export class BlacklistModule {
             }
         }
     ]
+
+    public tabs: any = []
     private driver: ChatruletkaDriver;
     private list = ["-"]
     private blacklistLoaded = false;
@@ -62,6 +63,7 @@ export class BlacklistModule {
                 this.driver.modules.blacklist.addIpsToList(this.driver.modules.geolocation.curIps)
             }
         })
+        this.createTabs()
     }
 
     static initInstance(driver: ChatruletkaDriver): BlacklistModule {
@@ -129,6 +131,10 @@ export class BlacklistModule {
         }
     }
 
+    protected createTabs() {
+        this.tabs[0] = ControlsTabBans.initInstance(this.driver, this)
+    }
+
     private addIpToList(ip: string, needToSync: boolean) {
         if (!this.list.includes(ip)) {
             this.list.push(ip)
@@ -147,22 +153,33 @@ export class BlacklistModule {
 export class ControlsTabBans {
     private static instanceRef: ControlsTabBans;
     public name = chrome.i18n.getMessage("tabBans")
-    private controls: ControlsModule;
     public content: HTMLElement
     public tab: HTMLElement
+    public readonly marginBottom = 5
+    private driver: ChatruletkaDriver;
+    private module: any;
 
-    private constructor(controls: ControlsModule) {
-        this.controls = controls
+    private constructor(driver: ChatruletkaDriver, module?: any) {
+        this.driver = driver
+        this.module = module
         this.tab = this.getTabHTML()
         this.content = this.getContentHTML()
     }
 
-    static initInstance(controls: ControlsModule): ControlsTabBans {
+    static initInstance(driver: ChatruletkaDriver, module?: any): ControlsTabBans {
         if (ControlsTabBans.instanceRef === undefined) {
-            ControlsTabBans.instanceRef = new ControlsTabBans(controls);
+            ControlsTabBans.instanceRef = new ControlsTabBans(driver, module);
         }
 
         return ControlsTabBans.instanceRef;
+    }
+
+    public handleResize() {
+
+    }
+
+    public handleTabClick() {
+
     }
 
     protected getTabHTML() {

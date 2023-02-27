@@ -1,13 +1,9 @@
 import {ChatruletkaDriver} from "./content-driver-chatruletka";
 import * as utils from "./utils";
 import $ from "jquery";
-import {mapModule} from "./content-module-controls-map";
 import {ContentSwalChangelog} from "./content-swal-changelog";
 import {ContentSwalInfo} from "./content-swal-info";
-import {ControlsTabApi, ControlsTabMap} from "./content-module-geolocation";
-import {ControlsTabBans} from "./content-module-blacklist";
-import {ControlsTabSettings} from "./content-module-settings";
-import {ControlsTabStats} from "./content-module-stats";
+import {ControlsTabApi} from "./content-module-geolocation";
 
 require('tooltipster')
 
@@ -15,7 +11,6 @@ export class ControlsModule {
     private static instanceRef: ControlsModule;
     public videoContainerHeight = 0
     public chatContainerHeight = 0
-    public map: mapModule | undefined;
     public driver: ChatruletkaDriver;
     private tabs: any = []
     private controls: HTMLElement | undefined;
@@ -33,13 +28,10 @@ export class ControlsModule {
         return ControlsModule.instanceRef;
     }
 
-    public start() {
-        this.tabs.push(ControlsTabApi.initInstance(this))
-        this.tabs.push(ControlsTabMap.initInstance(this))
-        this.tabs.push(ControlsTabBans.initInstance(this))
-        this.tabs.push(ControlsTabStats.initInstance(this))
-        this.tabs.push(ControlsTabSettings.initInstance(this))
-        this.tabs.push(ControlsTabAbout.initInstance(this))
+    public start(tabs: any[]) {
+        tabs.forEach((tab) => {
+            this.tabs.push(tab)
+        })
         this.controls = this.createControls();
     }
 
@@ -61,7 +53,7 @@ export class ControlsModule {
                 this.driver.buttons.style.width = (parseInt(this.driver.buttons.style.width) - (parseInt(this.controls.style.width) + mar) / 2) + "px"
                 this.driver.chat.style.width = (parseInt(this.driver.chat.style.width) - (parseInt(this.controls.style.width) + mar) / 2) + "px"
 
-                // resize = false // TODO: I COMMENTED IT OUT
+                // resize = false // TODO: I COMMENTED IT OUT. WHY?
                 if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab3")) {
                     this.resizemap(true)
                 } else {
@@ -93,28 +85,28 @@ export class ControlsModule {
 
         let tabs = $(".tabs__caption")[0]
 
+        // I remade the old hardcoded resize function to support the custom set of tabs,
+        // but this must be redone normally in the future, without changing what the interface looks like
         Array.from({length: 2}, () => {
-            let mapid = (document.getElementById("mapid") as HTMLElement)
-            mapid.style.height = $("#faceapiContent")[0].offsetHeight - tabs.offsetHeight + "px"
-
-            let remoteInfo = (document.getElementById("remoteInfo") as HTMLElement)
-            remoteInfo.style.height = $("#apiInfoContent")[0].offsetHeight - $("#apiStatus")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
-
-            let aboutInfo = (document.getElementById("aboutInfo") as HTMLElement)
-            aboutInfo.style.height = $("#aboutPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
-
-            let settingsInfo = (document.getElementById("settingsInfo") as HTMLElement)
-            settingsInfo.style.height = $("#settingsPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
-
-            let bansInfo = (document.getElementById("bansInfo") as HTMLElement)
-            bansInfo.style.height = $("#bansPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
-
-            let statsInfo = (document.getElementById("statsInfo") as HTMLElement)
-            statsInfo.style.height = $("#statsPanel")[0].offsetHeight - tabs.offsetHeight - 5 + "px"
+            this.tabs.forEach((tab: any) => {
+                let el = <HTMLElement>tab.content.lastElementChild
+                if (el) {
+                    if (tab.content.childElementCount > 0) {
+                        let newHeight = tab.content.offsetHeight - tabs.offsetHeight - tab.marginBottom
+                        if (tab.content.childElementCount > 1) {
+                            [...Array(tab.content.childElementCount - 1).keys()].forEach((key) => {
+                                newHeight += -(tab.content.children[key] as HTMLElement).offsetHeight
+                            })
+                        }
+                        el.style.height = newHeight + "px"
+                    }
+                }
+            })
         });
 
-        if (this.map)
-            this.map.map.invalidateSize()
+        this.tabs.forEach((tab: any) => {
+            tab.handleResize()
+        })
     }
 
     public settings = [
@@ -139,8 +131,8 @@ export class ControlsModule {
         },
     ]
 
-    injectControls() {
-        this.start()
+    public injectControls(tabs: any[]) {
+        this.start(tabs)
 
         // TODO: do I really need both tooltipster and css-tooltip?
         const c = document.createElement('link');
@@ -164,7 +156,6 @@ export class ControlsModule {
 
         $('.tooltip').tooltipster({maxWidth: 300, distance: -1})
 
-        this.map = new mapModule('mapid')
         new ResizeObserver(this.resizeControls).observe(document.getElementById("overlay") as HTMLElement)
     }
 
@@ -272,8 +263,11 @@ export class ControlsModule {
     }
 
     protected doThisAfterTabClicked(tabElement: any) {
-        if (this.map && $(document.getElementById("mapTabButton") as HTMLElement).hasClass("active"))
-            this.map.updateMap(this.driver.modules.geolocation.curInfo)
+
+        this.tabs.forEach((tab: any) => {
+            tab.handleTabClick()
+        })
+
 
         if (tabElement.innerText === chrome.i18n.getMessage("tab3")) {
             this.resizemap(true)
@@ -298,20 +292,31 @@ export class ControlsTabAbout {
     public name = chrome.i18n.getMessage("tab4")
     public content: HTMLElement
     public tab: HTMLElement
-    private controls: ControlsModule;
+    public readonly marginBottom = 5
+    private driver: ChatruletkaDriver;
+    private module: any;
 
-    private constructor(controls: ControlsModule) {
-        this.controls = controls
+    private constructor(driver: ChatruletkaDriver, module?: any) {
+        this.driver = driver
+        this.module = module
         this.tab = this.getTabHTML()
         this.content = this.getContentHTML()
     }
 
-    static initInstance(controls: ControlsModule): ControlsTabAbout {
+    static initInstance(driver: ChatruletkaDriver, module?: any): ControlsTabAbout {
         if (ControlsTabAbout.instanceRef === undefined) {
-            ControlsTabAbout.instanceRef = new ControlsTabAbout(controls);
+            ControlsTabAbout.instanceRef = new ControlsTabAbout(driver, module);
         }
 
         return ControlsTabAbout.instanceRef;
+    }
+
+    public handleTabClick() {
+
+    }
+
+    public handleResize() {
+
     }
 
     protected getTabHTML() {

@@ -1,6 +1,5 @@
 import {ChatruletkaDriver} from "./content-driver-chatruletka";
 import * as utils from "./utils";
-import {ControlsModule} from "./content-module-controls";
 
 export class StatsModule {
     private static instanceRef: StatsModule;
@@ -21,11 +20,13 @@ export class StatsModule {
             }
         },
     ]
+    public tabs: any = []
     private driver: ChatruletkaDriver;
     private stats = globalThis.settings.stats
 
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver
+        this.createTabs()
     }
 
     static initInstance(driver: ChatruletkaDriver): StatsModule {
@@ -165,6 +166,10 @@ export class StatsModule {
         this.updStats(true)
     }
 
+    protected createTabs() {
+        this.tabs[0] = ControlsTabStats.initInstance(this.driver, this)
+    }
+
     private saveStats() {
         chrome.storage.sync.set({"stats": this.stats});
     }
@@ -173,23 +178,33 @@ export class StatsModule {
 export class ControlsTabStats {
     private static instanceRef: ControlsTabStats;
     public name = chrome.i18n.getMessage("tabStats")
-    private controls: ControlsModule;
-
     public content: HTMLElement
     public tab: HTMLElement
+    public readonly marginBottom = 5
+    private driver: ChatruletkaDriver;
+    private module: any;
 
-    private constructor(controls: ControlsModule) {
-        this.controls = controls
+    private constructor(driver: ChatruletkaDriver, module?: any) {
+        this.driver = driver
+        this.module = module
         this.tab = this.getTabHTML()
         this.content = this.getContentHTML()
     }
 
-    static initInstance(controls: ControlsModule): ControlsTabStats {
+    static initInstance(driver: ChatruletkaDriver, module?: any): ControlsTabStats {
         if (ControlsTabStats.instanceRef === undefined) {
-            ControlsTabStats.instanceRef = new ControlsTabStats(controls);
+            ControlsTabStats.instanceRef = new ControlsTabStats(driver, module);
         }
 
         return ControlsTabStats.instanceRef;
+    }
+
+    public handleResize() {
+
+    }
+
+    public handleTabClick() {
+
     }
 
     protected getTabHTML() {
