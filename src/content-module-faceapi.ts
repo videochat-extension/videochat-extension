@@ -4,7 +4,7 @@ import {confirmAndReload} from "./content-module-settings";
 
 export class FaceapiModule {
     private static instanceRef: FaceapiModule;
-    faceApiLoaded = false;
+    private faceApiLoaded = false;
     public settings = [
         {
             type: "header",
