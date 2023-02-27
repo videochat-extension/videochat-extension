@@ -15,15 +15,14 @@ export class ControlsModule {
     private static instanceRef: ControlsModule;
     public videoContainerHeight = 0
     public chatContainerHeight = 0
-    public driver: ChatruletkaDriver;
     public map: mapModule | undefined;
+    public driver: ChatruletkaDriver;
     private tabs: any = []
     private controls: HTMLElement | undefined;
     private resize: NodeJS.Timeout | undefined;
 
     protected constructor(driver: ChatruletkaDriver) {
         this.driver = driver
-        new ResizeObserver(this.resizeControls).observe(document.getElementById("overlay") as HTMLElement)
     }
 
     static initInstance(driver: ChatruletkaDriver): ControlsModule {
@@ -59,7 +58,6 @@ export class ControlsModule {
             if (this.controls) {
                 let mar = parseInt(window.getComputedStyle(this.controls).marginRight)
 
-                // TODO: AVOID USING globalThis
                 this.driver.buttons.style.width = (parseInt(this.driver.buttons.style.width) - (parseInt(this.controls.style.width) + mar) / 2) + "px"
                 this.driver.chat.style.width = (parseInt(this.driver.chat.style.width) - (parseInt(this.controls.style.width) + mar) / 2) + "px"
 
@@ -143,7 +141,8 @@ export class ControlsModule {
 
     injectControls() {
         this.start()
-        // TODO: do I need both tooltipster and css-tooltip?
+
+        // TODO: do I really need both tooltipster and css-tooltip?
         const c = document.createElement('link');
         c.rel = "stylesheet";
         c.href = chrome.runtime.getURL('libs/css/css-tooltip.min.css');
@@ -166,6 +165,7 @@ export class ControlsModule {
         $('.tooltip').tooltipster({maxWidth: 300, distance: -1})
 
         this.map = new mapModule('mapid')
+        new ResizeObserver(this.resizeControls).observe(document.getElementById("overlay") as HTMLElement)
     }
 
     protected createStyle() {
@@ -254,9 +254,7 @@ export class ControlsModule {
     }
 
     protected createControls() {
-        let content = [this.createStyle(), utils.createElement('div', {
-            id: "remoteIPInfo", style: "display: none;"
-        }), createHeader(), this.createTabs()]
+        let content = [this.createStyle(), createHeader(), this.createTabs()]
 
         this.tabs.forEach((tab: ControlsTabApi) => {
             content.push(tab.getContentHTML())
@@ -269,21 +267,24 @@ export class ControlsModule {
         }, content)])
     }
 
+    protected doThisAfterTabClicked(tabElement: any) {
+        if (this.map && $(document.getElementById("mapTabButton") as HTMLElement).hasClass("active"))
+            this.map.updateMap(this.driver.modules.geolocation.curInfo)
+
+        if (tabElement.innerText === chrome.i18n.getMessage("tab3")) {
+            this.resizemap(true)
+        } else {
+            this.resizemap(false)
+        }
+    }
+
     protected addTabClickHandler() {
         let self = this
         $('ul.tabs__caption').on('click', 'li:not(.active)', function () {
             $(this)
                 .addClass('active').siblings().removeClass('active')
                 .closest('div.tabs').find('div.tabs__content').removeClass('active').eq($(this).index()).addClass('active');
-
-            if (self.map && $(document.getElementById("mapTabButton") as HTMLElement).hasClass("active"))
-                self.map.updateMap(self.driver.modules.geolocation.curInfo)
-
-            if (this.innerText === chrome.i18n.getMessage("tab3")) {
-                self.resizemap(true)
-            } else {
-                self.resizemap(false)
-            }
+            self.doThisAfterTabClicked(this)
         });
     }
 }
