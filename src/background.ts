@@ -1,6 +1,37 @@
 // dict with default settings that should be applied when installing/updating the extension
-// there is no uniform style of variable names because of the long life of the codebase
-var defaults = {
+const defaults = {
+    // no way to prevent videochatru.com and ome.tv from loading content script,
+    // so I decided to add a way to prevent them from loading drivers if neccesary
+    "legacyPrevent": {
+        "7fef97eb-a5cc-4caa-8d19-75dab7407b6b": false,
+        "98ea82db-9d50-4951-935e-2405d9fe892e": false
+    },
+    // dict contains states if content scripts should be registered: UUID: boolean
+    "scripts": {},
+    // favorites sites list, videochatru.com and ome.tv are defaults for legacy UX reasons
+    // if other chats were found in open tabs on first install,
+    // then default favorites are replaced with found chats
+    "favorites": ["7fef97eb-a5cc-4caa-8d19-75dab7407b6b", "98ea82db-9d50-4951-935e-2405d9fe892e"],
+    // dict containing site uuid and last opened unix timestamp
+    "recentDict": {},
+    // if extension should add 'ext' badge text
+    "allowSetBadgeText": true,
+    // if extension should change its icon to a last chat
+    "allowSetLastIcon": true,
+    // lastIconName in format "favicon.png"
+    "lastIconName": "",
+    // sentry.io error tracking
+    'sentry': true,
+    // if firstInstall, should add chats from active tabs to favorites
+    'firstInstall': true,
+    // displays whether the migration of the old settings from v1.6.3 has occurred
+    'completedOldSettingsMigration': false,
+    // settings per platform, not website
+    "UUID": {},
+    "lastVersion": "",
+    /////////////////////////////////////////////
+    /////////////////////////////////////////////
+    /////////////////////////////////////////////
     expand: true,
     hideWatermark: false,
     hideBanner: false,
@@ -55,7 +86,6 @@ var defaults = {
     darkMode: false,
     hideLogo: false,
     hideHeader: true,
-    sentry: true,
     swalInfoCompleted: false,
     torrentsEnable: false,
     torrentsInfo: true,
@@ -63,222 +93,521 @@ var defaults = {
     askForMode: false,
     minimalism: false,
     lastInstanceOpened: "https://videochatru.com/embed/",
-    lastVersion: "",
     skipwrongcountry: false,
+    /////////////////////////////////////////////
+    /////////////////////////////////////////////
+    /////////////////////////////////////////////
 };
 
-// retrieves all current settings from the synched storage, applies new ones if necessary
-chrome.storage.sync.get(defaults, function (result) {
-    chrome.storage.sync.set(result);
-});
+// actual content script list, ensureContentScriptsAreRegistered() should reregister on change
+// const content = ["content.js"]
+const content = ["vendor.js", "content_script.js"]
 
-// these variables are required for the command "switch", which allows you to switch between the current tab and the chat tab and back
-var tabId = -1, // last active tab, can not be videochat
-    curId = -1, // current active tab, can be also videochat 
-    chatId = -1; // videochat tab id
+async function ensureSettingsAreUpToDate() {
+    let result = await chrome.storage.sync.get(defaults)
+    if (!result.completedOldSettingsMigration) {
+        let allSettings = await chrome.storage.sync.get()
 
-// this variable tracks window id where iknowwhatyoudownload.com tabs opens
-// these tabs open in separate window for convenience and to avoid IP address leaking
-var torrentWindowId = -1;
+        // need to filter UUIDs because they are not listed in defaults
+        let keysAllSettings = Object.keys(allSettings).filter(filterUUID)
 
-// since MV3 replaced the background page with service workers, the above values must be stored somewhere
-// local storage is also used to store a list of blocked ips (it can get very long)
-chrome.storage.local.get({ips: [], tabId: -1, chatId: -1, curId: -1, torrentWindowId: -1}, function (result) {
-    chrome.storage.local.set(result)
-    tabId = result.tabId
-    chatId = result.chatId
-    curId = result.curId
-    torrentWindowId = result.torrentWindowId
-})
+        let keysDefault = Object.keys(defaults)
+
+        let chatruletka = await getValue("98ea82db-9d50-4951-935e-2405d9fe892e", {})
+        let ometv = await getValue("7fef97eb-a5cc-4caa-8d19-75dab7407b6b", {})
+
+        let keysToRemove = []
+
+        for (const key of keysAllSettings) {
+            if (keysDefault.includes(key)) {
+                console.dir(`exists: ${key}`)
+            } else {
+                chatruletka[key] = allSettings[key]
+                ometv[key] = allSettings[key]
+                keysToRemove.push(key)
+                console.dir(`legacy: ${key}`)
+            }
+        }
+
+        if (keysToRemove.length > 0) {
+            // the stats of both sites were counted together, but they belong to different platforms,
+            // which would break the calculation of the overall statistics due to duplication
+            // so we believe that the user used mostly the last platform and reset the other one
+
+            if (allSettings.lastInstanceOpened) {
+                if (allSettings.lastInstanceOpened.includes("ome.tv")) {
+                    chatruletka.stats = JSON.parse(JSON.stringify(chatruletka.stats))
+                    if (chatruletka.stats) {
+                        Object.keys(chatruletka.stats).forEach(key => chatruletka.stats[key] = 0);
+                    }
+                } else if (allSettings.lastInstanceOpened.includes("videochatru.com")) {
+                    ometv.stats = JSON.parse(JSON.stringify(ometv.stats))
+                    if (ometv.stats) {
+                        Object.keys(ometv.stats).forEach(key => ometv.stats[key] = 0);
+                    }
+                }
+            }
+
+            await chrome.storage.sync.set({"98ea82db-9d50-4951-935e-2405d9fe892e": chatruletka})
+            await chrome.storage.sync.set({"7fef97eb-a5cc-4caa-8d19-75dab7407b6b": ometv})
+
+            await chrome.storage.sync.remove(keysToRemove)
+        }
+    }
+    result.completedOldSettingsMigration = true
+
+    await chrome.storage.sync.set(result);
+}
+
+async function syncBadgeIcon() {
+    let result = await chrome.storage.sync.get(["lastIconName", "allowSetBadgeText", "allowSetLastIcon"]);
+    if (result.allowSetBadgeText) {
+        showBadge()
+    } else {
+        hideBadge()
+    }
+    if (result.allowSetLastIcon && result.lastIconName !== "") {
+        console.dir(`popup/icons/${result.lastIconName}`)
+        await chrome.action.setIcon({path: `popup/icons/${result.lastIconName}`});
+    } else {
+        resetIcon()
+    }
+}
+
+async function onPermissionsAdded(permissions: chrome.permissions.Permissions) {
+    if (permissions.origins && permissions.origins.length > 0) {
+        await ensureSettingsAreUpToDate()
+
+        let sites: any[] = []
+        let platforms = await fetchPlatforms()
+        platforms.forEach((platform: { id: string, sites: any[]; }) => {
+            platform.sites.forEach((site) => {
+                if (permissions.origins!.includes(site.origin)) {
+                    sites.push(site)
+                }
+            })
+        })
+
+        for (const site of sites) {
+            await enableReg(site.id, site.origin, content)
+        }
+    }
+}
+
+async function onRuntimeInstalled(_reason: chrome.runtime.InstalledDetails) {
+    await ensureSettingsAreUpToDate()
+
+    if (_reason.reason === "install") {
+        let firstInstall = await getValue('firstInstall', true)
+        if (firstInstall) {
+            await chrome.windows.getAll({populate: true}, async function (windows) {
+                let platforms = await fetchPlatforms()
+                let toFind: any[] = []
+                for (const platform of platforms) {
+                    for (const site of platform.sites) {
+                        toFind.push(site)
+                    }
+                }
+                let found: any[] = []
+                await windows.forEach(function (window) {
+                    if (window.tabs) {
+                        window.tabs.forEach(function (tab) {
+                            toFind.forEach(site => {
+                                if (tab.url && tab.url.includes(site.text)) {
+                                    if (!found.includes(site)) {
+                                        found.push(site)
+                                    }
+                                }
+                            })
+                        });
+                    }
+                });
+                // If found any chat, then dont add videochatru.com and ome.tv
+                if (found.length > 0) {
+                    let favorites: string[] = []
+                    found.forEach(site => {
+                        if (!favorites.includes(site.id)) {
+                            favorites.push(site.id)
+                        }
+                    })
+                    setValue("favorites", favorites)
+                }
+            });
+        }
+
+        await chrome.tabs.create({
+            url: 'welcome/welcome.html'
+        });
+    }
+    // TODO: why did I even store it? If user opened extension changelog after a month all he saw is only the last update???
+    // else if (_reason.reason === "update") {
+    //     // store previousVersion to show changelog if nessecary
+    //     // chrome.storage.sync.set({lastVersion: _reason.previousVersion})
+    // }
+
+    await setValue('firstInstall', false)
+}
+
+async function ensureContentScriptsAreRegistered() {
+    if (chrome.scripting) {
+        await ensureSettingsAreUpToDate()
+
+        let platforms = await fetchPlatforms()
+        let scripts = (await chrome.storage.sync.get({scripts: {}})).scripts
+        let actualScripts = (await chrome.scripting.getRegisteredContentScripts())
+
+        let supposedScripts = []
+        for (const [key, value] of Object.entries(scripts)) {
+            if (value) {
+                supposedScripts.push(key)
+            }
+        }
+
+        for (const script of actualScripts) {
+            if (supposedScripts.includes(script.id)) {
+                if (script.js) {
+                    const a2 = script.js!.slice().sort();
+                    if (!(content.length === script.js!.length && content.slice().sort().every(function (value, index) {
+                        return value === a2[index];
+                    }))) {
+                        let site = getSiteById(script.id, platforms)
+                        if (site) {
+                            disableReg(script.id)
+                        }
+                    }
+                } else {
+                    let site = getSiteById(script.id, platforms)
+                    if (site) {
+                        disableReg(script.id)
+                    }
+                }
+            } else {
+                let site = getSiteById(script.id, platforms)
+                if (site) {
+                    disableReg(script.id)
+                }
+            }
+        }
+
+        let actualScriptsArray = (await chrome.scripting.getRegisteredContentScripts()).map(s => s.id)
+        for (const id of supposedScripts) {
+            if (!actualScriptsArray.includes(id)) {
+                let site = getSiteById(id, platforms)
+                if (site) {
+                    enableReg(id, site.site.origin, content)
+                }
+            }
+        }
+    }
+}
+
+async function onStorageChanged(changes: { [p: string]: chrome.storage.StorageChange }, namespace: chrome.storage.AreaName) {
+    if (namespace === "sync") {
+        if (changes.allowSetBadgeText) {
+            if (changes.allowSetBadgeText.newValue) {
+                showBadge()
+            } else {
+                hideBadge()
+            }
+        }
+
+        if (changes.allowSetLastIcon) {
+            if (changes.allowSetLastIcon.newValue) {
+                let nw = await getValue('lastIconName', '')
+                if (nw !== "") {
+                    console.dir(`popup/icons/${nw}`)
+                    await chrome.action.setIcon({path: `popup/icons/${nw}`});
+                } else {
+                    resetIcon()
+                }
+            } else {
+                resetIcon()
+            }
+        }
+
+        if (changes.lastIconName) {
+            let allowSetLastIcon = await getValue('allowSetLastIcon', '')
+            if (allowSetLastIcon && changes.lastIconName.newValue !== "") {
+                console.dir(`popup/icons/${changes.lastIconName.newValue}`)
+                await chrome.action.setIcon({path: `popup/icons/${changes.lastIconName.newValue}`})
+            }
+        }
+    }
+}
 
 // this handles commands AKA hotkeys
 // the 'switch' command is processed by a background service worker, the rest are transferred to the active chat tab
-chrome.commands.onCommand.addListener(function (command) {
+async function commandsOnCommand(command: string, tab: chrome.tabs.Tab) {
+    // tabId = last active tab, can not be videochat
+    // curId = current active tab, can be also videochat
+    // chatId = videochat tab id
+    let data = await chrome.storage.local.get({tabId: -1, chatId: -1, curId: -1})
     switch (command) {
-        case "switch":
+        case "switch": {
             // do nothing if any of tabs === -1
-            if (curId === -1 || chatId === -1 || tabId === -1)
+            if (data.curId === -1 || data.chatId === -1 || data.tabId === -1)
                 return
-            if (curId === chatId) {
+            if (data.curId === data.chatId) {
                 // selects the non-videochat tab because the videochat tab is active
-                chrome.tabs.update(tabId, {selected: true});
-                curId = tabId;
+                chrome.tabs.update(data.tabId, {selected: true});
+                data.curId = data.tabId;
             } else {
                 // selects the videochat tab because the non-videochat tab is active
-                chrome.tabs.update(chatId, {selected: true});
-                curId = chatId;
+                chrome.tabs.update(data.chatId, {selected: true});
+                data.curId = data.chatId;
             }
+            await chrome.storage.local.set(data)
             break;
+        }
 
         default:
             // redirect the command to the active videochat's content script
-            chrome.tabs.sendMessage(chatId, {command: command})
+            chrome.tabs.sendMessage(data.chatId, {command: command})
             break;
     }
-});
+}
 
 // triggered when the active tab changes
 // requires 'tab' permission
 // it is mainly used to track the active chat tab
-chrome.tabs.onActivated.addListener(function (chTab) {
-    chrome.tabs.get(chTab["tabId"], function (tab) {
+function tabsOnActivated(chTab: chrome.tabs.TabActiveInfo) {
+    chrome.tabs.get(chTab["tabId"], async function (tab) {
+        // torrentWindowId variable tracks window id where iknowwhatyoudownload.com tabs opens
+        let data = await chrome.storage.local.get({tabId: -1, chatId: -1, curId: -1, torrentWindowId: -1})
         if (tab["url"] !== undefined && tab["id"] !== undefined) {
             if (tab["url"].search(".*videochatru.com.*") !== -1 || tab['url'].search(".*ome.tv.*") !== -1) {
                 // if the chat is open in torrentWindowId then torrentWindowId can no longer be used for iknowwhatyoudownload tabs
-                if (tab.windowId === torrentWindowId) {
-                    torrentWindowId = -1;
-                    chrome.storage.local.set({torrentWindowId: -1})
+                if (tab.windowId === data.torrentWindowId) {
+                    data.torrentWindowId = -1;
                 }
 
                 // store active videochat tab id
-                chatId = tab["id"];
-                chrome.storage.local.set({chatId: chatId})
+                data.chatId = tab["id"];
             } else {
                 // if the active tab is not a videochat, then store tab id in the 'tabId' variable
-                tabId = tab["id"];
-                chrome.storage.local.set({tabId: tabId})
+                data.tabId = tab["id"];
             }
             // store active tab id in the 'curId' variable
-            curId = tab["id"];
-            chrome.storage.local.set({curId: curId})
+            data.curId = tab["id"];
+
+            chrome.storage.local.set(data)
         }
     });
-});
+}
 
-// this thing handles all messages coming from content scripts
-chrome.runtime.onMessage.addListener(
-    function (request, sender, sendResponse) {
-        // makes a request to the geolocation service with the requested IP address and language
-        // making a request via service worker helps avoid http restrictions
-        if (request.remoteIP) {
-            fetch(`http://ip-api.com/json/${request.remoteIP}?fields=status%2Cmessage%2Ccountry%2CcountryCode%2Cregion%2CregionName%2Ccity%2Cdistrict%2Czip%2Clat%2Clon%2Ctimezone%2Cisp%2Corg%2Cas%2Cmobile%2Cproxy%2Chosting%2Cquery&lang=${request.language}`)
-                .then((response) => {
-                    if (response.ok) {
-                        response.json().then(
-                            function (data) {
-                                if (sender.tab && sender.tab.id) {
-                                    chrome.tabs.sendMessage(sender.tab.id, {
-                                        ipData: data,
-                                        apiCode: response.status,
-                                        apiQuery: request.remoteIP
-                                    })
-                                }
-                            }
-                        )
-                    } else {
-                        if (sender.tab && sender.tab.id) {
-                            chrome.tabs.sendMessage(sender.tab.id, {
-                                ipData: {},
-                                apiCode: response.status,
-                                apiQuery: request.remoteIP
-                            })
-                        }
-                    }
-                })
-            sendResponse('fetch should be in progress');
-        }
-
-        if (request.aremoteIP) {
-            fetch(`http://ip-api.com/json/${request.aremoteIP}?fields=status%2Cmessage%2Ccountry%2CcountryCode%2Cregion%2CregionName%2Ccity%2Cdistrict%2Czip%2Clat%2Clon%2Ctimezone%2Cisp%2Corg%2Cas%2Cmobile%2Cproxy%2Chosting%2Cquery&lang=${request.language}`)
-                .then((response) => {
-                    if (response.ok) {
-                        response.json().then(data => (sendResponse({status: response.status, body: data})))
-                    } else {
-                        sendResponse({status: response.status, body: {}})
-                    }
-                }).catch((error) => (sendResponse({status: 0, body: error})))
-
-            return true;
-        }
-
-        // this opens new iknowwhatyoudownload tab in the torrentWindowId window
-        // if torrentWindowId window does not exists, proceeds with creating one
-        if (request.checkTorrents) {
-            chrome.windows.getAll().then(res => {
-                let found = false
-                for (var prop in res) {
-                    if (res[prop].id === torrentWindowId) {
-                        chrome.tabs.create({
-                            url: request.url,
-                            windowId: torrentWindowId,
-                            active: true
-                        })
-                        found = true
-
-                        // gets all unactive iknowwhatyoudownload tabs in the torrentWindowId window and closes them
-                        chrome.windows.get(torrentWindowId, {populate: true}).then(res => {
-                            let list_to_close: (number)[] = []
-
-                            res.tabs?.forEach((tab) => {
-                                if (tab.url && tab.id) {
-                                    if (!tab.active && tab.url.includes("iknowwhatyoudownload")) {
-                                        list_to_close.push(tab.id)
-                                    }
-                                }
-                            })
-
-                            chrome.tabs.remove(list_to_close)
-                        })
-
-                        break;
-                    }
-                }
-                // if torrentWindowId window was not found, creates a new one
-                if (!found) {
-                    chrome.windows.create({
-                        url: request.url
-                    }).then(res => {
-                            if (res.id) {
-                                torrentWindowId = res.id;
-                                chrome.storage.local.set({torrentWindowId: res.id})
+function runtimeOnMessage(request: any, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void) {
+    // makes a request to the geolocation service with the requested IP address and language
+    // making a request via service worker helps avoid http restrictions
+    if (request.remoteIP) {
+        fetch(`http://ip-api.com/json/${request.remoteIP}?fields=status%2Cmessage%2Ccountry%2CcountryCode%2Cregion%2CregionName%2Ccity%2Cdistrict%2Czip%2Clat%2Clon%2Ctimezone%2Cisp%2Corg%2Cas%2Cmobile%2Cproxy%2Chosting%2Cquery&lang=${request.language}`)
+            .then((response) => {
+                if (response.ok) {
+                    response.json().then(
+                        function (data) {
+                            if (sender.tab && sender.tab.id) {
+                                chrome.tabs.sendMessage(sender.tab.id, {
+                                    ipData: data,
+                                    apiCode: response.status,
+                                    apiQuery: request.remoteIP
+                                })
                             }
                         }
-                    );
-                }
-
-            })
-
-            sendResponse('k');
-        }
-    }
-);
-
-// very old post-install poll, a google script then uses webhook to forward the response to the text channel in the extension's discord server
-// very demotivating experience for a dev, should be replaced with less intrusive
-// chrome.runtime.setUninstallURL("https://docs.google.com/forms/d/1TIynfMSRGrFb7_Co9Rb0ZEhts3WROMRcrCNPV8XE0ls")
-
-// this thing controls what happens when you click on the extension icon
-chrome.action.onClicked.addListener(function (tab) {
-    // the idea is to open last videochat
-    chrome.storage.sync.get(["lastInstanceOpened"], function (result) {
-        chrome.tabs.create({url: result.lastInstanceOpened});
-    });
-});
-
-// triggered when installing/updating the extension
-chrome.runtime.onInstalled.addListener((details) => {
-    // the idea is to open a localised Chatruletka instance on install,
-    // but it should change to the videochat platform selector
-    if (details.reason === "install") {
-        setTimeout(() => {
-            chrome.storage.sync.set({askForMode: true}, () => {
-                if (chrome.i18n.getMessage("map_lang") === "ru") {
-                    chrome.tabs.create({url: "https://videochatru.com/embed/"});
+                    )
                 } else {
-                    chrome.tabs.create({url: "https://ome.tv/embed/"});
+                    if (sender.tab && sender.tab.id) {
+                        chrome.tabs.sendMessage(sender.tab.id, {
+                            ipData: {},
+                            apiCode: response.status,
+                            apiQuery: request.remoteIP
+                        })
+                    }
                 }
-            });
-        }, 1000)
-    } else {
-        // store the previous version to show a changelog if necessary
-        if (details.reason === "update") {
-            chrome.storage.sync.set({lastVersion: details.previousVersion})
+            })
+        sendResponse('fetch should be in progress');
+    }
+
+    if (request.aremoteIP) {
+        fetch(`http://ip-api.com/json/${request.aremoteIP}?fields=status%2Cmessage%2Ccountry%2CcountryCode%2Cregion%2CregionName%2Ccity%2Cdistrict%2Czip%2Clat%2Clon%2Ctimezone%2Cisp%2Corg%2Cas%2Cmobile%2Cproxy%2Chosting%2Cquery&lang=${request.language}`)
+            .then((response) => {
+                if (response.ok) {
+                    response.json().then(data => (sendResponse({status: response.status, body: data})))
+                } else {
+                    sendResponse({status: response.status, body: {}})
+                }
+            }).catch((error) => (sendResponse({status: 0, body: error})))
+
+        return true;
+    }
+
+    // this opens new iknowwhatyoudownload tab in the torrentWindowId window
+    // if torrentWindowId window does not exist, proceeds with creating one
+    if (request.checkTorrents) {
+        chrome.windows.getAll().then(async (res) => {
+            // this variable tracks window id where iknowwhatyoudownload.com tabs opens
+            // these tabs open in separate window for convenience and to avoid IP address leaking
+            let data = await chrome.storage.local.get({torrentWindowId: -1})
+            let found = false
+            for (var prop in res) {
+                if (res[prop].id === data.torrentWindowId) {
+                    chrome.tabs.create({
+                        url: request.url,
+                        windowId: data.torrentWindowId,
+                        active: true
+                    })
+                    found = true
+
+                    // gets all unactive iknowwhatyoudownload tabs in the torrentWindowId window and closes them
+                    chrome.windows.get(data.torrentWindowId, {populate: true}).then(res => {
+                        let list_to_close: (number)[] = []
+
+                        res.tabs?.forEach((tab) => {
+                            if (tab.url && tab.id) {
+                                if (!tab.active && tab.url.includes("iknowwhatyoudownload")) {
+                                    list_to_close.push(tab.id)
+                                }
+                            }
+                        })
+
+                        chrome.tabs.remove(list_to_close)
+                    })
+
+                    break;
+                }
+            }
+            // if torrentWindowId window was not found, creates a new one
+            if (!found) {
+                chrome.windows.create({
+                    url: request.url
+                }).then(res => {
+                        if (res.id) {
+                            data.torrentWindowId = res.id;
+                            chrome.storage.local.set(data)
+                        }
+                    }
+                );
+            }
+
+        })
+
+        sendResponse('k');
+    }
+}
+
+function init() {
+    chrome.storage.onChanged.addListener(onStorageChanged);
+    chrome.permissions.onAdded.addListener(onPermissionsAdded)
+
+    // Show the demo page once the extension is installed
+    chrome.runtime.onInstalled.addListener(onRuntimeInstalled);
+    chrome.runtime.onInstalled.addListener(ensureContentScriptsAreRegistered)
+
+    chrome.runtime.onStartup.addListener(syncBadgeIcon)
+    chrome.runtime.onStartup.addListener(ensureContentScriptsAreRegistered)
+
+    chrome.commands.onCommand.addListener(commandsOnCommand);
+
+    chrome.tabs.onActivated.addListener(tabsOnActivated);
+
+    // this thing handles all messages coming from content scripts
+    chrome.runtime.onMessage.addListener(runtimeOnMessage);
+
+    // very old post-install poll, a Google script then uses webhook to forward the response to the text channel in the extension's discord server
+    // very demotivating experience for a dev, should be replaced with less intrusive
+    // chrome.runtime.setUninstallURL("https://docs.google.com/forms/d/1TIynfMSRGrFb7_Co9Rb0ZEhts3WROMRcrCNPV8XE0ls")
+}
+
+init()
+
+// import export does not work in service workers ¯\_(ツ)_/¯
+function filterUUID(str: string) {
+    const regexExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
+    return !regexExp.test(str)
+}
+
+function showBadge() {
+    // TODO: do I need to change color?
+    chrome.action.setBadgeBackgroundColor({color: "#000000"})
+    chrome.action.setBadgeText({
+        text: "ext",
+    });
+}
+
+function hideBadge() {
+    chrome.action.setBadgeText({
+        text: "",
+    });
+}
+
+async function fetchPlatforms() {
+    return await (await fetch(chrome.runtime.getURL('platforms.json'))).json()
+}
+
+function getSiteById(id: string, platforms: any[]) {
+    for (const platform of platforms) {
+        for (const site of platform.sites) {
+            if (site.id == id) {
+                return {site: site, platform: platform.id}
+            }
         }
     }
-});
+}
 
-// drafts for the future
-// // this should set the Icon of the last used platform and apply badge with 'ext' text
-// chrome.action.setIcon({path: ""})
-// chrome.action.setBadgeBackgroundColor({ color: "#000000"})
-// chrome.action.setBadgeText({ text: "ext" });
+function resetIcon() {
+    console.dir("resources/img/icon.png")
+    chrome.action.setIcon({path: chrome.runtime.getURL("resources/img/icon.png")});
+}
+
+async function updScriptStatus(siteId: string, bool: boolean) {
+    let scripts = (await chrome.storage.sync.get({
+        "scripts": {}
+    })).scripts
+    scripts[siteId] = bool
+    setValue("scripts", scripts)
+}
+
+async function isRegistered(siteId: string) {
+    if (chrome.scripting) {
+        const scripts = await chrome.scripting.getRegisteredContentScripts();
+        const siteIds = scripts.map(script => script.id);
+        return (siteIds.includes(siteId))
+    } else {
+        return false
+    }
+}
+
+async function unreg(siteId: string) {
+    if (await isRegistered(siteId)) {
+        await chrome.scripting.unregisterContentScripts({ids: [siteId]})
+    }
+}
+
+async function reg(siteId: any, origin: string, content: string[]) {
+    await chrome.scripting.registerContentScripts([{
+        allFrames: false,
+        id: siteId,
+        js: content,
+        matches: [origin],
+        persistAcrossSessions: true,
+        runAt: "document_idle"
+    }])
+}
+
+async function enableReg(siteId: string, origin: string, content: string[]) {
+    await unreg(siteId)
+    await reg(siteId, origin, content)
+    await updScriptStatus(siteId, true)
+}
+
+async function disableReg(siteId: string) {
+    await unreg(siteId)
+    await updScriptStatus(siteId, false)
+}
+
+async function getValue(key: string, defValue: any) {
+    return (await chrome.storage.sync.get({[key]: defValue}))[key]
+}
+
+// quota: 120 writes/minute
+async function setValue(key: string, value: any) {
+    return (await chrome.storage.sync.set({[key]: value}))
+}

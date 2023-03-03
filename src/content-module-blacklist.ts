@@ -53,7 +53,7 @@ export class BlacklistModule {
         this.ban.volume = 0.45;
         this.male.volume = 0.3;
 
-        chrome.storage.local.get('ips', (result) => {
+        chrome.storage.local.get({'ips': []}, (result) => {
             this.list = result.ips;
             this.blacklistLoaded = true
         })

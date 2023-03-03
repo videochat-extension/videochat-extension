@@ -11,7 +11,7 @@ const addIceCandidateHandler = {
                     obj[e] = candidate[e]
                 }
             });
-            // Object.getOwnPropertyNames does not work in Chrome, so need to pass full description also
+            // Object.getOwnPropertyNames does not work in Chrome =D, so need to pass full description also
             obj.json = candidate.toJSON();
 
             window.dispatchEvent(new CustomEvent("[object Object]", {detail: {candidate: JSON.parse(JSON.stringify(obj))}}));

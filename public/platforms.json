@@ -1,0 +1,341 @@
+[
+    {
+        "name": "Chatruletka",
+        "id": "7390db38-a617-4f6e-8a8a-ee353b76cc25",
+        "sites": [
+            {
+                "text": "chatruletka.com",
+                "id": "76be5ce9-5af8-4267-aaf1-c68270091c6d",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.chatruletka.com/*",
+                "href": "https://chatruletka.com/embed"
+            },
+            {
+                "text": "chatruletka.ua",
+                "id": "9120fc38-cdf5-4467-902c-26eef276b1d2",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.chatruletka.ua/*",
+                "href": "https://chatruletka.ua/embed"
+            },
+            {
+                "text": "ruletka.chat",
+                "id": "7c4bfd1e-91e2-4297-ae13-f14e60bee20f",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.ruletka.chat/*",
+                "href": "https://ruletka.chat"
+            },
+            {
+                "text": "videochatar.com",
+                "id": "c04cdbd5-0ad7-4800-882f-69f814d1bc20",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.videochatar.com/*",
+                "href": "https://videochatar.com/embed"
+            },
+            {
+                "text": "videochatau.com",
+                "id": "561fcddc-7e6e-4a1c-a309-9fd0d2aae151",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.videochatau.com/*",
+                "href": "https://videochatau.com/embed"
+            },
+            {
+                "text": "videochatbr.com",
+                "id": "4e8f3bd0-4122-4841-876b-73b93d075b6a",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.videochatbr.com/*",
+                "href": "https://videochatbr.com/embed"
+            },
+            {
+                "text": "brvideochat.com",
+                "id": "7b294844-8215-42ef-889f-8976007c8bbb",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.brvideochat.com/*",
+                "href": "https://brvideochat.com/embed"
+            },
+            {
+                "text": "videochatca.com",
+                "id": "6304e90c-ee50-4367-b6a5-4904f351460a",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.videochatca.com/*",
+                "href": "https://videochatca.com/embed"
+            },
+            {
+                "text": "videochatde.com",
+                "id": "300bd02d-03b9-4a39-830a-899afaeee4df",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.videochatde.com/*",
+                "href": "https://videochatde.com/embed"
+            },
+            {
+                "text": "videochatfr.com",
+                "id": "4d923ecd-c811-4adf-bb22-85ea364b59c4",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.videochatfr.com/*",
+                "href": "https://videochatfr.com/embed"
+            },
+            {
+                "text": "frvideochat.com",
+                "id": "8a5768f5-fc69-4c1b-abaf-5f91630fe270",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.frvideochat.com/*",
+                "href": "https://frvideochat.com/embed"
+            },
+            {
+                "text": "roulettefrancais.com",
+                "id": "435c7acd-f14b-4dad-b5c0-e7fc12134034",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.roulettefrancais.com/*",
+                "href": "https://roulettefrancais.com/embed"
+            },
+            {
+                "text": "videochatit.com",
+                "id": "54e104c2-6400-48db-aecc-fb2a6667c4a2",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.videochatit.com/*",
+                "href": "https://videochatit.com/embed"
+            },
+            {
+                "text": "videochatjp.com",
+                "id": "82869d66-57d8-499f-a0d7-ef602985e2d5",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.videochatjp.com/*",
+                "href": "https://videochatjp.com/embed"
+            },
+            {
+                "text": "videochatmx.com",
+                "id": "d25e509e-3d46-43aa-8992-2b28803f3d61",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.videochatmx.com/*",
+                "href": "https://videochatmx.com/embed"
+            },
+            {
+                "text": "videochatnl.com",
+                "id": "f33fc358-981a-4f47-a3c5-e744ff1ca397",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.videochatnl.com/*",
+                "href": "https://videochatnl.com/embed"
+            },
+            {
+                "text": "videochatpl.com",
+                "id": "c5f729c5-5ab6-4a41-8bc5-4d3c53e82e3f",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.videochatpl.com/*",
+                "href": "https://videochatpl.com/embed"
+            },
+            {
+                "text": "videochatpt.com",
+                "id": "e8ff9008-8076-4298-8d18-70f3ac1ae292",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.videochatpt.com/*",
+                "href": "https://videochatpt.com/embed"
+            },
+            {
+                "text": "videochatru.com",
+                "id": "98ea82db-9d50-4951-935e-2405d9fe892e",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.videochatru.com/*",
+                "href": "https://videochatru.com/embed"
+            },
+            {
+                "text": "videochatuk.com",
+                "id": "7c0d647f-4428-4ac0-94c3-d19f8b7baac0",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.videochatuk.com/*",
+                "href": "https://videochatuk.com/embed"
+            },
+            {
+                "text": "videochatus.com",
+                "id": "88fb811c-2c46-4b8f-95f3-47031339a4b2",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.videochatus.com/*",
+                "href": "https://videochatus.com/embed"
+            },
+            {
+                "text": "roulette-espanol.com",
+                "id": "faea5de8-9289-4206-88bc-3f1c6da1d153",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.roulette-espanol.com/*",
+                "href": "https://roulette-espanol.com/embed"
+            },
+            {
+                "text": "ruletaespanol.com",
+                "id": "aadc258a-1edc-4b7a-8fdb-2956a76b71fe",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.ruletaespanol.com/*",
+                "href": "https://ruletaespanol.com"
+            },
+            {
+                "text": "ruletkavideochat.com",
+                "id": "d3b9e57b-83fd-4bc4-bee3-941d2f5e5070",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.ruletkavideochat.com/*",
+                "href": "https://ruletkavideochat.com/embed"
+            },
+            {
+                "text": "turkishvideochat.com",
+                "id": "471c5169-b762-456d-8ca2-9e79c4f634db",
+                "favicon": "chatruletka.png",
+                "origin": "https://*.turkishvideochat.com/*",
+                "href": "https://turkishvideochat.com/embed"
+            }
+        ]
+    },
+    {
+        "name": "Ome.tv",
+        "id": "8fa234f6-1767-4d81-897e-758df844ae31",
+        "sites": [
+            {
+                "text": "ome.tv",
+                "id": "7fef97eb-a5cc-4caa-8d19-75dab7407b6b",
+                "favicon": "ometv.png",
+                "origin": "https://*.ome.tv/*",
+                "href": "https://ome.tv/embed"
+            },
+            {
+                "text": "ome.chat",
+                "id": "a8b7e712-740d-4bca-b60c-a0784b78b65b",
+                "favicon": "ometv.png",
+                "origin": "https://*.ome.chat/*",
+                "href": "https://ome.chat"
+            },
+            {
+                "text": "camki.com",
+                "id": "8fbba2de-bb34-406f-adf2-13db02b26ec0",
+                "favicon": "camkicom.png",
+                "origin": "https://*.camki.com/*",
+                "href": "https://camki.com/embed"
+            },
+            {
+                "text": "chatalt.com",
+                "id": "f2ba210a-d708-481f-ad01-e461c7a8036e",
+                "favicon": "chatalternative.png",
+                "origin": "https://*.chatalt.com/*",
+                "href": "https://chatalt.com/embed"
+            },
+            {
+                "text": "chatalternative.com",
+                "id": "a403aaa9-7d0a-4ea0-b20e-2abfb2aa55e3",
+                "favicon": "chatalternative.png",
+                "origin": "https://*.chatalternative.com/*",
+                "href": "https://chatalternative.com/embed"
+            },
+            {
+                "text": "chatrooms.chat",   
+                "id": "2664dbb0-2658-4a1e-bc09-755b43fc27d9",
+                "favicon": "ometv.png",
+                "origin": "https://*.chatrooms.chat/*",
+                "href": "https://chatrooms.chat"
+            },
+            {
+                "text": "chat-brasil.com",
+                "id": "f3e2a048-5e38-4aa5-81de-e44da431c43c",
+                "favicon": "chatbrasil.png",
+                "origin": "https://*.chat-brasil.com/*",
+                "href": "https://chat-brasil.com/embed"
+            },
+            {
+                "text": "chat-de.com",
+                "id": "e89b035f-8fff-4366-bc7e-524bf073c82d",
+                "favicon": "chatde.png",
+                "origin": "https://*.chat-de.com/*",
+                "href": "https://chat-de.com/embed"
+            },
+            {
+                "text": "chat-fr.com",
+                "id": "22b5fbe5-a51e-4f14-b661-bbf798e26fe9",
+                "favicon": "chatfr.png",
+                "origin": "https://*.chat-fr.com/*",
+                "href": "https://chat-fr.com/embed"
+            },
+            {
+                "text": "chat-nl.com",
+                "id": "4de4a883-03cf-4f01-9c79-72ee911cb814",
+                "favicon": "chatnl.png",
+                "origin": "https://*.chat-nl.com/*",
+                "href": "https://chat-nl.com"
+            },
+            {
+                "text": "chat-pl.com",
+                "id": "b20a89fd-728a-43ba-8a3c-1b777daa2108",
+                "favicon": "chatpl.png",
+                "origin": "https://*.chat-pl.com/*",
+                "href": "https://chat-pl.com/embed"
+            },
+            {
+                "text": "chat-pt.com",
+                "id": "2b963038-1ebf-42be-8a49-911c4fb2d880",
+                "favicon": "chatpt.png",
+                "origin": "https://*.chat-pt.com/*",
+                "href": "https://chat-pt.com/embed"
+            },
+            {
+                "text": "prostochat.com",
+                "id": "df1cb40f-1a7f-4a74-a50e-db2b5701a3a7",
+                "favicon": "ometv.png",
+                "origin": "https://*.prostochat.com/*",
+                "href": "https://prostochat.com/embed"
+            },
+            {
+                "text": "stickam.chat",
+                "id": "96add9fc-d9bd-4a27-998a-362f989de713",
+                "favicon": "ometv.png",
+                "origin": "https://*.stickam.chat/*",
+                "href": "https://stickam.chat/embed"
+            },
+            {
+                "text": "ukr.chat",
+                "id": "ef3810b6-0f48-40ca-8471-45be083847f4",
+                "favicon": "ukrchat.png",
+                "origin": "https://*.ukr.chat/*",
+                "href": "https://ukr.chat/embed"
+            },
+            {
+                "text": "cafeclub.ua",
+                "id": "54d83a2c-646d-44bc-bdac-81955063f062",
+                "favicon": "cafeclubua.png",
+                "origin": "https://*.cafeclub.ua/*",
+                "href": "https://cafeclub.ua"
+            }
+        ]
+    },
+    {
+        "name": "Minichat",
+        "id": "b15b920c-6882-4023-af28-f31e296b80e3",
+        "sites": [
+            {
+                "text": "minichat.com",
+                "id": "4626defa-6c31-4d5c-9777-691022a59997",
+                "favicon": "minichat.png",
+                "origin": "https://*.minichat.com/*",
+                "href": "https://minichat.com/"
+            }
+        ]
+    },
+    {
+        "name": "ChatRulez",
+        "id": "b0073d25-a35d-4388-8dfb-6db6c81ad6ed",
+        "sites": [
+            {
+                "text": "chatrulez.ru",
+                "id": "419ec9bc-cc89-445b-8675-cdc5de462db6",
+                "origin": "https://*.chatrulez.ru/*",
+                "favicon": "chatrulez.png",
+                "href": "https://chatrulez.ru/"
+            },
+            {
+                "text": "videochatruletka.com",
+                "id": "87257afe-d02f-4b78-b9dc-cdce9c76e1da",
+                "favicon": "videochatruletkaru.png",
+                "origin": "https://*.videochatruletka.com/*",
+                "href": "https://videochatruletka.com"
+            },
+            {
+                "text": "videochatruletka.ru",
+                "id": "11752b1e-5db4-4ba8-9c6e-4c6a80cf1fbe",
+                "favicon": "videochatruletkaru.png",
+                "origin": "https://*.videochatruletka.ru/*",
+                "href": "https://videochatruletka.ru/embed"
+            }
+        ]
+    }
+]

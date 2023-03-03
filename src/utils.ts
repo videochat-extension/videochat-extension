@@ -76,3 +76,16 @@ export function secondsToHms(d: number): string {
 export function isDevMode(): boolean {
     return !('update_url' in chrome.runtime.getManifest());
 }
+
+export function getPlatformByHost(platforms: any[], host: string) {
+    for (const platform of platforms) {
+        for (const site of platform.sites) {
+            if (site.origin.includes(host)) {
+                return {site: site, platform: platform.id}
+            }
+        }
+    }
+}
+export function extractDomain(url: string) {
+    return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?([^.\/]+\.[^.\/]+).*$/, "$1");
+}
