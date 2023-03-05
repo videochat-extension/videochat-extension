@@ -108,6 +108,7 @@ export class ChatruletkaDriver {
     public getSettingsTab() {
         return ControlsTabSettings.initInstance(this, null, [
             this.modules.interface.settings,
+            this.modules.controls.settings,
             this.modules.automation.settings,
             this.modules.geolocation.settings,
             this.modules.faceapi.settings,
