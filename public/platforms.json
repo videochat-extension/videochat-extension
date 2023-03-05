@@ -193,6 +193,7 @@
             },
             {
                 "text": "ome.chat",
+                "vertical": true,
                 "id": "a8b7e712-740d-4bca-b60c-a0784b78b65b",
                 "favicon": "ometv.png",
                 "origin": "https://*.ome.chat/*",
@@ -200,6 +201,7 @@
             },
             {
                 "text": "camki.com",
+                "vertical": true,
                 "id": "8fbba2de-bb34-406f-adf2-13db02b26ec0",
                 "favicon": "camkicom.png",
                 "origin": "https://*.camki.com/*",
@@ -220,7 +222,8 @@
                 "href": "https://chatalternative.com/embed"
             },
             {
-                "text": "chatrooms.chat",   
+                "text": "chatrooms.chat",
+                "vertical": true,
                 "id": "2664dbb0-2658-4a1e-bc09-755b43fc27d9",
                 "favicon": "ometv.png",
                 "origin": "https://*.chatrooms.chat/*",
@@ -228,6 +231,7 @@
             },
             {
                 "text": "chat-brasil.com",
+                "vertical": true,
                 "id": "f3e2a048-5e38-4aa5-81de-e44da431c43c",
                 "favicon": "chatbrasil.png",
                 "origin": "https://*.chat-brasil.com/*",
@@ -235,6 +239,7 @@
             },
             {
                 "text": "chat-de.com",
+                "vertical": true,
                 "id": "e89b035f-8fff-4366-bc7e-524bf073c82d",
                 "favicon": "chatde.png",
                 "origin": "https://*.chat-de.com/*",
@@ -242,6 +247,7 @@
             },
             {
                 "text": "chat-fr.com",
+                "vertical": true,
                 "id": "22b5fbe5-a51e-4f14-b661-bbf798e26fe9",
                 "favicon": "chatfr.png",
                 "origin": "https://*.chat-fr.com/*",
@@ -249,6 +255,7 @@
             },
             {
                 "text": "chat-nl.com",
+                "vertical": true,
                 "id": "4de4a883-03cf-4f01-9c79-72ee911cb814",
                 "favicon": "chatnl.png",
                 "origin": "https://*.chat-nl.com/*",
@@ -256,6 +263,7 @@
             },
             {
                 "text": "chat-pl.com",
+                "vertical": true,
                 "id": "b20a89fd-728a-43ba-8a3c-1b777daa2108",
                 "favicon": "chatpl.png",
                 "origin": "https://*.chat-pl.com/*",
@@ -263,6 +271,7 @@
             },
             {
                 "text": "chat-pt.com",
+                "vertical": true,
                 "id": "2b963038-1ebf-42be-8a49-911c4fb2d880",
                 "favicon": "chatpt.png",
                 "origin": "https://*.chat-pt.com/*",
@@ -270,6 +279,7 @@
             },
             {
                 "text": "prostochat.com",
+                "vertical": true,
                 "id": "df1cb40f-1a7f-4a74-a50e-db2b5701a3a7",
                 "favicon": "ometv.png",
                 "origin": "https://*.prostochat.com/*",
@@ -277,6 +287,7 @@
             },
             {
                 "text": "stickam.chat",
+                "vertical": true,
                 "id": "96add9fc-d9bd-4a27-998a-362f989de713",
                 "favicon": "ometv.png",
                 "origin": "https://*.stickam.chat/*",
@@ -284,6 +295,7 @@
             },
             {
                 "text": "ukr.chat",
+                "vertical": true,
                 "id": "ef3810b6-0f48-40ca-8471-45be083847f4",
                 "favicon": "ukrchat.png",
                 "origin": "https://*.ukr.chat/*",
@@ -291,6 +303,7 @@
             },
             {
                 "text": "cafeclub.ua",
+                "vertical": true,
                 "id": "54d83a2c-646d-44bc-bdac-81955063f062",
                 "favicon": "cafeclubua.png",
                 "origin": "https://*.cafeclub.ua/*",

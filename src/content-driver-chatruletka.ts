@@ -15,18 +15,9 @@ export class ChatruletkaDriver {
     private static instanceRef: ChatruletkaDriver;
     // Stages: stop = 0 | search = 1 | found = 2 | connected = 3 | play = 4
     public stage: 0 | 1 | 2 | 3 | 4 = 0
-
-    public modules = {
-        hotkeys: HotkeysModule.initInstance(this),
-        automation: AutomationModule.initInstance(this),
-        interface: InterfaceModule.initInstance(this),
-        geolocation: GeolocationModule.initInstance(this),
-        blacklist: BlacklistModule.initInstance(this),
-        faceapi: FaceapiModule.initInstance(this),
-        stats: StatsModule.initInstance(this),
-        streamer: StreamerModule.initInstance(this),
-        controls: ControlsModule.initInstance(this)
-    }
+    public platform: string
+    public site: any
+    public modules
     public play: number = 0;
     public search: number = 0;
     public found: number = 0;
@@ -39,13 +30,26 @@ export class ChatruletkaDriver {
     private stageObserver: MutationObserver;
     private requestToStartTiming: number = 0;
 
-    private constructor() {
+    private constructor(cur: any) {
         this.stageObserver = new MutationObserver(this.onChangeStage)
+        this.platform = cur.platform
+        this.site = cur.site
+        this.modules = {
+            hotkeys: HotkeysModule.initInstance(this),
+            automation: AutomationModule.initInstance(this),
+            interface: InterfaceModule.initInstance(this),
+            geolocation: GeolocationModule.initInstance(this),
+            blacklist: BlacklistModule.initInstance(this),
+            faceapi: FaceapiModule.initInstance(this),
+            stats: StatsModule.initInstance(this),
+            streamer: StreamerModule.initInstance(this),
+            controls: ControlsModule.initInstance(this)
+        }
     }
 
-    static getInstance(): ChatruletkaDriver {
+    static getInstance(cur: any): ChatruletkaDriver {
         if (ChatruletkaDriver.instanceRef === undefined) {
-            ChatruletkaDriver.instanceRef = new ChatruletkaDriver();
+            ChatruletkaDriver.instanceRef = new ChatruletkaDriver(cur);
         }
 
         return ChatruletkaDriver.instanceRef;

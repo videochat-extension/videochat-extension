@@ -15,9 +15,13 @@ export class ControlsModule {
     private tabs: any = []
     private controls: HTMLElement | undefined;
     private resize: NodeJS.Timeout | undefined;
+    public vertical = false
 
     protected constructor(driver: ChatruletkaDriver) {
         this.driver = driver
+        if (driver.site.vertical) {
+            this.vertical = true
+        }
     }
 
     static initInstance(driver: ChatruletkaDriver): ControlsModule {
@@ -36,6 +40,9 @@ export class ControlsModule {
     }
 
     public resizeControls = () => {
+        if (this.vertical) {
+            return
+        }
         this.videoContainerHeight = 0
         this.chatContainerHeight = 0
 
@@ -98,6 +105,9 @@ export class ControlsModule {
                                 newHeight += -(tab.content.children[key] as HTMLElement).offsetHeight
                             })
                         }
+                        if (this.vertical) {
+                            newHeight += -18
+                        }
                         el.style.height = newHeight + "px"
                     }
                 }
@@ -147,9 +157,25 @@ export class ControlsModule {
         (document.head || document.documentElement).appendChild(cs);
 
         ($(".gender-selector")[0] as HTMLElement).parentElement!.remove()
+        if (this.vertical) {
+            let chat = $("[class='chat']")
+            let controls = utils.createElement('div', {
+                id: "videochat-extension-controls-container",
+                style: "height:290px; width:390px; border: 1px solid #d5d5d5;box-shadow: 0 0 5px 0 rgba(0,0,0,.15) inset;background: #fff;"
+            })
+            controls.style.height = "225px"
+            $(controls).appendTo(chat)
 
-        if (this.controls) {
-            $(this.controls).insertBefore(".chat");
+            let body = $("[class='chat__body']")
+            body[0].style.top = parseInt(controls.style.height) + 9 + "px"
+            if (this.controls) {
+                $(this.controls).appendTo("#videochat-extension-controls-container");
+            }
+
+        } else {
+            if (this.controls) {
+                $(this.controls).insertBefore(".chat");
+            }
         }
 
         this.addTabClickHandler()
@@ -173,6 +199,7 @@ export class ControlsModule {
               
               .tabs {
                 position: relative;
+                height: 100%;
                 word-break: break-word;
                 user-select: text;
               }
@@ -254,12 +281,19 @@ export class ControlsModule {
 
     protected createControls() {
         let content = [this.createStyle(), createHeader(), this.createTabs(), ...this.createContent()]
-
-        return utils.createElement('div', {
-            className: 'chatt', id: 'controls', style: "width:390px; margin-right: calc(100vh / 768 * 10); display:none"
-        }, [utils.createElement('div', {
-            className: "tabs chat"
-        }, content)])
+        if (this.vertical) {
+            return utils.createElement('div', {
+                className: 'chatt', id: 'controls', style: "width:100%; height: 100%;"
+            }, [utils.createElement('div', {
+                className: "tabs"
+            }, content)])
+        } else {
+            return utils.createElement('div', {
+                className: 'chat', id: 'controls', style: "width:390px; margin-right: calc(100vh / 768 * 10)"
+            }, [utils.createElement('div', {
+                className: "tabs chat"
+            }, content)])
+        }
     }
 
     protected doThisAfterTabClicked(tabElement: any) {
