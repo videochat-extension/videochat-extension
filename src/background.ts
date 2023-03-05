@@ -162,15 +162,15 @@ async function ensureSettingsAreUpToDate() {
 async function syncBadgeIcon() {
     let result = await chrome.storage.sync.get(["lastIconName", "allowSetBadgeText", "allowSetLastIcon"]);
     if (result.allowSetBadgeText) {
-        showBadge()
+        await showBadge()
     } else {
-        hideBadge()
+        await hideBadge()
     }
     if (result.allowSetLastIcon && result.lastIconName !== "") {
         console.dir(`popup/icons/${result.lastIconName}`)
         await chrome.action.setIcon({path: `popup/icons/${result.lastIconName}`});
     } else {
-        resetIcon()
+        await resetIcon()
     }
 }
 
@@ -305,9 +305,9 @@ async function onStorageChanged(changes: { [p: string]: chrome.storage.StorageCh
     if (namespace === "sync") {
         if (changes.allowSetBadgeText) {
             if (changes.allowSetBadgeText.newValue) {
-                showBadge()
+                await showBadge()
             } else {
-                hideBadge()
+                await hideBadge()
             }
         }
 
@@ -318,10 +318,10 @@ async function onStorageChanged(changes: { [p: string]: chrome.storage.StorageCh
                     console.dir(`popup/icons/${nw}`)
                     await chrome.action.setIcon({path: `popup/icons/${nw}`});
                 } else {
-                    resetIcon()
+                    await resetIcon()
                 }
             } else {
-                resetIcon()
+                await resetIcon()
             }
         }
 
@@ -524,16 +524,16 @@ function filterUUID(str: string) {
     return !regexExp.test(str)
 }
 
-function showBadge() {
+async function showBadge() {
     // TODO: do I need to change color?
-    chrome.action.setBadgeBackgroundColor({color: "#000000"})
-    chrome.action.setBadgeText({
+    await chrome.action.setBadgeBackgroundColor({color: "#000000"})
+    await chrome.action.setBadgeText({
         text: "ext",
     });
 }
 
-function hideBadge() {
-    chrome.action.setBadgeText({
+async function hideBadge() {
+    await chrome.action.setBadgeText({
         text: "",
     });
 }
@@ -552,9 +552,9 @@ function getSiteById(id: string, platforms: any[]) {
     }
 }
 
-function resetIcon() {
+async function resetIcon() {
     console.dir("resources/img/icon.png")
-    chrome.action.setIcon({path: chrome.runtime.getURL("resources/img/icon.png")});
+    await chrome.action.setIcon({path: "resources/img/icon.png"});
 }
 
 async function updScriptStatus(siteId: string, bool: boolean) {
