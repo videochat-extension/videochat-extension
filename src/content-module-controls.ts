@@ -106,7 +106,7 @@ export class ControlsModule {
                             })
                         }
                         if (this.vertical) {
-                            newHeight += -18
+                            newHeight += -15
                         }
                         el.style.height = newHeight + "px"
                     }
