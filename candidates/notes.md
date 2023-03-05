@@ -28,6 +28,11 @@
   * there is an option to use a university email to chat only with students
 * UI feels very old, do users want to alter it? is the platform ok with extensions messing with the well-known UI?
 * lots of chrome/firefox extensions on the market, expect heavy competition
+    * **Omegle Ip Locator (bjlelflfdakmhpenaoodokchfhehacmh)**
+        * **<= 2020-12-27 -> <=2023-02-10**
+        * Similar to chatruletka extension's minimalism mode: only ip geolocation to the chat
+        * Had ~276k by the time it was removed
+        * Removed on 2023-02-10 for unknown reasons.
   * **Chromegle (gcbbaikjfjmidabapdnebofcmconhdbn)**
     * **<= 2021-07-22**
     * biggest possible competitor, 0.5-1.5% of people online use Chromegle, is growing fast
