@@ -9,6 +9,8 @@ import {switchMode} from "./content-swal-switchmode";
 import {injectIpGrabber} from "./content-module-geolocation";
 import {ContentSwalChangelog} from "./content-swal-changelog";
 import {extractDomain, getPlatformByHost} from "./utils";
+import $ from "jquery"
+import * as utils from "./utils";
 
 injectIpGrabber()
 
@@ -71,6 +73,21 @@ async function content() {
             return false
         }
     }
+    let chat = $("[class='chat']")
+    let controls = utils.createElement('div', {
+        style: "height:210px; width:300px; background-color:red"
+    })
+    $(controls).appendTo(chat)
+
+    let body = $("[class='chat__body']")
+    body[0].style.top = "215px";
+
+    const obs = new MutationObserver((mutationList, observer) => {
+        console.dir(body[0].style.bottom)
+        console.dir(mutationList)
+        console.dir(observer)
+    })
+    obs.observe(body[0], {attributes: true})
 
     if (!globalThis.settings.swalInfoCompleted) {
         // TODO: maybe show people only 1-step info about what features are supported?

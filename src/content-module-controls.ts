@@ -256,7 +256,7 @@ export class ControlsModule {
         let content = [this.createStyle(), createHeader(), this.createTabs(), ...this.createContent()]
 
         return utils.createElement('div', {
-            className: 'chat', id: 'controls', style: "width:390px; margin-right: calc(100vh / 768 * 10);"
+            className: 'chatt', id: 'controls', style: "width:390px; margin-right: calc(100vh / 768 * 10); display:none"
         }, [utils.createElement('div', {
             className: "tabs chat"
         }, content)])
