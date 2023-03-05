@@ -99,7 +99,7 @@ export class FaceapiModule {
             // @ts-ignore
             await faceapi.tf.setBackend('wasm');
             // @ts-ignore
-            if (faceapi.tf?.env().flagRegistry.CANVAS2D_WILL_READ_FREQUENTLY) faceapi.tf.env().set('CANVAS2D_WILL_READ_FREQUENTLY', true);
+            if (faceapi.tf?.env().flagRegistry.CANVAS2D_WILL_READ_FREQUENTLY_FOR_GPU) faceapi.tf.env().set('CANVAS2D_WILL_READ_FREQUENTLY_FOR_GPU', true);
             // @ts-ignore
             if (faceapi.tf?.env().flagRegistry.WEBGL_EXP_CONV) faceapi.tf.env().set('WEBGL_EXP_CONV', true);
             // @ts-ignore
