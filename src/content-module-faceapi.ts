@@ -1,10 +1,11 @@
-import * as faceapi from "face-api.js";
+import * as faceapi from '@vladmandic/face-api/dist/face-api.esm.js';
 import {ChatruletkaDriver} from "./content-driver-chatruletka";
 import {confirmAndReload} from "./content-module-settings";
 
 export class FaceapiModule {
     private static instanceRef: FaceapiModule;
     private faceApiLoaded = false;
+    public timeout: NodeJS.Timeout | undefined;
     public settings = [
         {
             type: "header",
@@ -18,11 +19,12 @@ export class FaceapiModule {
             tooltip: chrome.i18n.getMessage("tooltipForcedRecognition"),
             enable: () => {
                 if (!this.faceApiLoaded)
-                    confirmAndReload()
+                    this.injectFaceApi()
             },
             disable: () => {
+                this.setText('')
                 if (!this.faceApiLoaded)
-                    confirmAndReload()
+                    this.injectFaceApi()
             }
         },
         {
@@ -33,11 +35,12 @@ export class FaceapiModule {
             tooltip: chrome.i18n.getMessage("tooltipSkipMales"),
             enable: () => {
                 if (!this.faceApiLoaded)
-                    confirmAndReload()
+                    this.injectFaceApi()
             },
             disable: () => {
+                this.setText('')
                 if (!this.faceApiLoaded)
-                    confirmAndReload()
+                    this.injectFaceApi()
             }
         },
         {
@@ -48,11 +51,12 @@ export class FaceapiModule {
             tooltip: chrome.i18n.getMessage("tooltipSkipFemales"),
             enable: () => {
                 if (!this.faceApiLoaded)
-                    confirmAndReload()
+                    this.injectFaceApi()
             },
             disable: () => {
+                this.setText('')
                 if (!this.faceApiLoaded)
-                    confirmAndReload()
+                    this.injectFaceApi()
             }
         },
     ]
@@ -70,28 +74,62 @@ export class FaceapiModule {
         return FaceapiModule.instanceRef;
     }
 
+    public start(delay: number) {
+        if (this.faceApiLoaded) {
+            clearTimeout(this.timeout)
+            this.timeout = setTimeout(this.detectGender.bind(this), delay)
+        }
+    }
+
+    public stop() {
+        if (this.faceApiLoaded) {
+            clearInterval(this.timeout)
+        }
+    }
+
+    public setText(text: string) {
+        (document.getElementById("remoteFace") as HTMLElement).innerHTML = text
+    }
+
     public injectFaceApi() {
         setTimeout(async () => {
             console.time("faceapi: loading models")
+            // @ts-ignore
+            await faceapi.tf?.setWasmPaths(chrome.runtime.getURL('resources/models') + "/")
+            // @ts-ignore
+            await faceapi.tf.setBackend('wasm');
+            // @ts-ignore
+            if (faceapi.tf?.env().flagRegistry.CANVAS2D_WILL_READ_FREQUENTLY) faceapi.tf.env().set('CANVAS2D_WILL_READ_FREQUENTLY', true);
+            // @ts-ignore
+            if (faceapi.tf?.env().flagRegistry.WEBGL_EXP_CONV) faceapi.tf.env().set('WEBGL_EXP_CONV', true);
+            // @ts-ignore
+            if (faceapi.tf?.env().flagRegistry.WEBGL_EXP_CONV) faceapi.tf.env().set('WEBGL_EXP_CONV', true);
+            // @ts-ignore
+            await faceapi.tf.enableProdMode();
+            // @ts-ignore
+            await faceapi.tf.ready();
             await faceapi.nets.tinyFaceDetector.loadFromUri(chrome.runtime.getURL('resources/models'))
             await faceapi.nets.ageGenderNet.loadFromUri(chrome.runtime.getURL('resources/models'))
             console.timeEnd("faceapi: loading models")
 
             console.time("faceapi: initial facedetect");
-            (document.getElementById("remoteFace") as HTMLElement).innerHTML = chrome.i18n.getMessage("initialFaceDetect")
+            this.setText(chrome.i18n.getMessage("initialFaceDetect"));
             let tempImage = document.createElement('img')
             tempImage.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAMSURBVBhXY/j//z8ABf4C/qc1gYQAAAAASUVORK5CYII="
             await faceapi.detectAllFaces(tempImage, new faceapi.TinyFaceDetectorOptions()).withAgeAndGender()
             console.timeEnd("faceapi: initial facedetect");
-            (document.getElementById("remoteFace") as HTMLElement).innerHTML = ""
+            this.setText("");
 
             this.faceApiLoaded = true
 
-            this.driver.tim = setTimeout(this.detectGender, 200)
+            this.start(200)
         }, 0)
     }
 
     public async detectGender() {
+        if (!this.faceApiLoaded) {
+            return
+        }
         if (!globalThis.settings.skipMale && !globalThis.settings.skipFemale && !globalThis.settings.enableFaceApi)
             return
         let stop = false
@@ -99,9 +137,8 @@ export class FaceapiModule {
         let skip_f = false
         let text = ''
         if (this.driver.stage === 4) {
+            this.stop()
             console.time("faceapi: detectAllFaces()")
-
-            clearInterval(this.driver.tim)
 
             let array = await faceapi.detectAllFaces(document.getElementById('remote-video') as HTMLVideoElement, new faceapi.TinyFaceDetectorOptions()).withAgeAndGender()
 
@@ -152,12 +189,17 @@ export class FaceapiModule {
                 }
             }
 
+            if (!globalThis.settings.skipMale && !globalThis.settings.skipFemale && !globalThis.settings.enableFaceApi)
+                return
+
             if (text !== '')
-                (document.getElementById("remoteFace") as HTMLElement).innerHTML = text
+                this.setText(text);
 
             console.timeEnd("faceapi: detectAllFaces()")
         }
-        if (!stop)
-            this.driver.tim = setTimeout(this.detectGender, 500)
+
+        if (!stop) {
+            this.start(500)
+        }
     }
 }

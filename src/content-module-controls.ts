@@ -396,7 +396,7 @@ export class ControlsTabAbout {
 
                             this.createDTHeader(chrome.i18n.getMessage("libs")),
                             this.createDDLink("jquery", "https://jquery.com/"),
-                            this.createDDLink("face-api.js", "https://github.com/justadudewhohacks/face-api.js"),
+                            this.createDDLink("FaceAPI", "https://github.com/vladmandic/face-api"),
                             this.createDDLink("arrive.js", "https://github.com/uzairfarooq/arrive"),
                             this.createDDLink("leaflet", "https://github.com/Leaflet/Leaflet"),
                             this.createDDLink("tooltipster", "https://github.com/calebjacob/tooltipster"),

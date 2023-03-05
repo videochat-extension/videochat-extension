@@ -25,7 +25,6 @@ export class ChatruletkaDriver {
     public chat = $(".chat")[0]
     public needToCheckTarget: boolean = false;
     public needToClear: boolean = false;
-    public tim: NodeJS.Timeout | undefined;
     public timeout: NodeJS.Timeout | undefined;
     private stageObserver: MutationObserver;
     private requestToStartTiming: number = 0;
@@ -195,7 +194,8 @@ export class ChatruletkaDriver {
                 if (attributeValue.includes("s-stop")) {
                     this.stage = 0;
 
-                    clearInterval(this.tim)
+                    this.modules.faceapi.stop()
+
                     this.modules.geolocation.curIps = []
                     this.modules.geolocation.curInfo = {}
                     // (document.getElementById("remoteInfo") as HTMLElement).innerHTML = ''
@@ -219,7 +219,7 @@ export class ChatruletkaDriver {
                     this.needToClear = true
                     this.needToCheckTarget = true
 
-                    clearInterval(this.tim);
+                    this.modules.faceapi.stop()
                     // (document.getElementById("remoteFace") as HTMLElement).innerHTML = ''
                     if (this.play < this.search) {
                         // console.log("Dialog ended before even started")
@@ -245,8 +245,7 @@ export class ChatruletkaDriver {
                 } else if (attributeValue.includes("s-play")) {
                     this.stage = 4;
 
-                    clearInterval(this.tim)
-                    this.tim = setTimeout(this.modules.faceapi.detectGender, 0)
+                    this.modules.faceapi.start(0)
 
                     this.play = Date.now()
                     console.log("Loading took: ", ((this.play - this.found) / 1000).toFixed(2), "sec")
