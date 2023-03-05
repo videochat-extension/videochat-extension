@@ -25,10 +25,10 @@ export class AutomationModule {
             text: chrome.i18n.getMessage("autoresume"),
             tooltip: chrome.i18n.getMessage("tooltipAutoresume"),
             enable: () => {
-                confirmAndReload()
+                this.autoResume.enable()
             },
             disable: () => {
-                confirmAndReload()
+                this.autoResume.disable()
             }
         },
         {
@@ -68,23 +68,38 @@ export class AutomationModule {
         }, 1000)
     }
 
-    public injectAutomationAutoResume() {
-        (document.getElementById('overlay') as HTMLElement).style.background = "none";
-        // document.getElementById('overlay').style.position = "unset"
+    public autoResumeObserver: MutationObserver | undefined
+    public autoResume = {
+        enable: () => {
+            (document.getElementById('overlay') as HTMLElement).style.background = "none";
+            // document.getElementById('overlay').style.position = "unset"
 
-        (document.getElementById('local-video-warning-popup') as HTMLElement).style.filter = "opacity(0)"
-        new MutationObserver(function (mutations) {
-            mutations.forEach(function (mutation) {
-                    if (mutation.attributeName === "class") {
-                        if ((mutation.target as HTMLElement).className.includes("disabled")) {
-                            $(".ok").removeClass("disabled");
-                            let disabledButton: HTMLElement = (document.getElementsByClassName("video-warning__btn")[0]).firstElementChild as HTMLElement
-                            disabledButton.click()
+            (document.getElementById('local-video-warning-popup') as HTMLElement).style.filter = "opacity(0)"
+            this.autoResumeObserver = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                        if (mutation.attributeName === "class") {
+                            if ((mutation.target as HTMLElement).className.includes("disabled")) {
+                                $(".ok").removeClass("disabled");
+                                let disabledButton: HTMLElement = (document.getElementsByClassName("video-warning__btn")[0]).firstElementChild as HTMLElement
+                                disabledButton.click()
+                            }
                         }
                     }
-                }
-            )
-        }).observe($(".ok")[0], {attributes: true});
+                )
+            });
+            this.autoResumeObserver.observe($(".ok")[0], {attributes: true})
+        },
+        disable: () => {
+            (document.getElementById('overlay') as HTMLElement).style.background = "";
+            // document.getElementById('overlay').style.position = "unset"
+
+            (document.getElementById('local-video-warning-popup') as HTMLElement).style.filter = ""
+
+            if (this.autoResumeObserver) {
+                this.autoResumeObserver.disconnect()
+                this.autoResumeObserver = undefined
+            }
+        }
     }
 
     public injectAutomationSkipWrongCountry() {

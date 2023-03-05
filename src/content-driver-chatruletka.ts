@@ -161,7 +161,7 @@ export class ChatruletkaDriver {
         this.modules.automation.injectAutomationSkipFourSec()
         this.modules.automation.injectAutomationSkipWrongCountry()
         if (globalThis.settings.autoResume) {
-            this.modules.automation.injectAutomationAutoResume()
+            this.modules.automation.autoResume.enable()
         }
 
         if (globalThis.settings.hotkeys) {
