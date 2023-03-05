@@ -95,7 +95,7 @@ $(async function () {
 
     async function reg(siteId, origin, content) {
         await chrome.scripting.registerContentScripts([{
-            allFrames: false,
+            allFrames: true,
             id: siteId,
             js: content,
             matches: [origin],

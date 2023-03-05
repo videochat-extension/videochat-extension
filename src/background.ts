@@ -583,7 +583,7 @@ async function unreg(siteId: string) {
 
 async function reg(siteId: any, origin: string, content: string[]) {
     await chrome.scripting.registerContentScripts([{
-        allFrames: false,
+        allFrames: true,
         id: siteId,
         js: content,
         matches: [origin],

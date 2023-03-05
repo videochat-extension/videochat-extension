@@ -2,6 +2,7 @@ import "./content-globals"
 
 import "./content-sentry"
 import "./content-swal-context-invalidated"
+require('arrive')
 
 import {ChatruletkaDriver} from "./content-driver-chatruletka";
 import {ChatruletkaSimpleDriver} from "./content-driver-chatruletka-simple";
@@ -61,12 +62,16 @@ async function content() {
                 switchMode()
                 return false
             } else if (globalThis.settings.minimalism) {
-                globalThis.driver = ChatruletkaSimpleDriver.getInstance()
-                globalThis.driver.start(document.getElementById('remote-video-wrapper') as HTMLElement)
+                document.arrive(".buttons__button.start-button", {onceOnly: true, existing: true}, () => {
+                    globalThis.driver = ChatruletkaSimpleDriver.getInstance()
+                    globalThis.driver.start(document.getElementById('remote-video-wrapper') as HTMLElement)
+                })
                 return false
             } else {
-                globalThis.driver = ChatruletkaDriver.getInstance()
-                globalThis.driver.start(document.getElementById('remote-video-wrapper') as HTMLElement)
+                document.arrive(".buttons__button.start-button", {onceOnly: true, existing: true}, () => {
+                    globalThis.driver = ChatruletkaDriver.getInstance()
+                    globalThis.driver.start(document.getElementById('remote-video-wrapper') as HTMLElement)
+                })
             }
             break;
         }
