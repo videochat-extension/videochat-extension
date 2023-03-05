@@ -24,8 +24,8 @@ def print_manifest_values(path):
     print("web_accessible_matches")
     print(json.dumps(web_accessible_matches))
 
-print("CANDIDATES\n\n\n")
-print(print_manifest_values('candidates/platforms.json'))
+#print("CANDIDATES\n\n\n")
+#print(print_manifest_values('candidates/platforms.json'))
 
 print("\n\n\nPRODUCTION")
 print(print_manifest_values('public/platforms.json'))
