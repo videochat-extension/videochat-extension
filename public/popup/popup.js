@@ -9,7 +9,8 @@
 // it is based on a heavily modified https://github.com/chniter/bstreeview
 // dev speed was a priority, in the future this should be rewritten / optimized
 
-let content = ["content.js"]
+let content = ["vendor.js", "content_script.js"]
+
 console.time("show tree")
 $(async function () {
     console.time("get platforms dict")
