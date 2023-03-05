@@ -167,7 +167,6 @@ async function syncBadgeIcon() {
         await hideBadge()
     }
     if (result.allowSetLastIcon && result.lastIconName !== "") {
-        console.dir(`popup/icons/${result.lastIconName}`)
         await chrome.action.setIcon({path: `popup/icons/${result.lastIconName}`});
     } else {
         await resetIcon()
@@ -315,7 +314,6 @@ async function onStorageChanged(changes: { [p: string]: chrome.storage.StorageCh
             if (changes.allowSetLastIcon.newValue) {
                 let nw = await getValue('lastIconName', '')
                 if (nw !== "") {
-                    console.dir(`popup/icons/${nw}`)
                     await chrome.action.setIcon({path: `popup/icons/${nw}`});
                 } else {
                     await resetIcon()
@@ -328,7 +326,6 @@ async function onStorageChanged(changes: { [p: string]: chrome.storage.StorageCh
         if (changes.lastIconName) {
             let allowSetLastIcon = await getValue('allowSetLastIcon', '')
             if (allowSetLastIcon && changes.lastIconName.newValue !== "") {
-                console.dir(`popup/icons/${changes.lastIconName.newValue}`)
                 await chrome.action.setIcon({path: `popup/icons/${changes.lastIconName.newValue}`})
             }
         }
@@ -499,6 +496,7 @@ function init() {
 
     // Show the demo page once the extension is installed
     chrome.runtime.onInstalled.addListener(onRuntimeInstalled);
+    chrome.runtime.onInstalled.addListener(syncBadgeIcon);
     chrome.runtime.onInstalled.addListener(ensureContentScriptsAreRegistered)
 
     chrome.runtime.onStartup.addListener(syncBadgeIcon)
@@ -553,7 +551,6 @@ function getSiteById(id: string, platforms: any[]) {
 }
 
 async function resetIcon() {
-    console.dir("resources/img/icon.png")
     await chrome.action.setIcon({path: "resources/img/icon.png"});
 }
 
