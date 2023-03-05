@@ -560,9 +560,11 @@ async function resetIcon() {
 async function updScriptStatus(siteId: string, bool: boolean) {
     let scripts = (await chrome.storage.sync.get({
         "scripts": {}
-    })).scripts
-    scripts[siteId] = bool
-    setValue("scripts", scripts)
+    })).scripts;
+    if (scripts[siteId] !== bool) {
+        scripts[siteId] = bool
+        setValue("scripts", scripts)
+    }
 }
 
 async function isRegistered(siteId: string) {

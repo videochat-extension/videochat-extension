@@ -205,9 +205,11 @@ $(async function () {
     async function updScriptStatus(siteId, bool) {
         let scripts = (await chrome.storage.sync.get({
             "scripts": {}
-        })).scripts
-        scripts[siteId] = bool
-        await chrome.storage.sync.set({ "scripts": scripts })
+        })).scripts;
+        if (scripts[siteId] !== bool) {
+            scripts[siteId] = bool
+            await chrome.storage.sync.set({ "scripts": scripts })
+        }
     }
 
     async function handleManifestPermission() {
