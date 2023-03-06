@@ -51,7 +51,7 @@ export class mapModule {
                 fillOpacity: 0.1
             })
 
-            this.map.setView(new L.LatLng(json.lat, json.lon), 13);
+            this.map.setView(new L.LatLng(json.lat, json.lon), 8);
             this.marker = new L.Marker([json.lat, json.lon]);
         }
 
