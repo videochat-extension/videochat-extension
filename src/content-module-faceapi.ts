@@ -94,6 +94,26 @@ export class FaceapiModule {
     public injectFaceApi() {
         setTimeout(async () => {
             console.time("faceapi: loading models")
+            // monkeyPatch fixes firefox compatibility, chrome works without it,
+            // I wasted 2 hours on this, but got a lot of new reasons to hate firefox
+            // faceapi performance on firefox is 5x slower than on chrome
+            // I don't even know what I hate more now: background service workers or firefox compatibility issues
+            faceapi.env.monkeyPatch({
+                readFile: async (filePath) => {
+                    filePath = filePath.replace(/^(moz-extension:\/)([\d\w])/g, 'moz-extension://$2')
+                    if (filePath.endsWith('bin')) {
+                        return new Uint8Array(await (await fetch(filePath)).arrayBuffer())
+                    } else {
+                        return await (await fetch(filePath)).text()
+                    }
+                },
+                Canvas: HTMLCanvasElement,
+                Image: HTMLImageElement,
+                ImageData: ImageData,
+                Video: HTMLVideoElement,
+                createCanvasElement: () => document.createElement('canvas'),
+                createImageElement: () => document.createElement('img')
+            });
             // @ts-ignore
             await faceapi.tf?.setWasmPaths(chrome.runtime.getURL('resources/models') + "/")
             // @ts-ignore
@@ -108,17 +128,22 @@ export class FaceapiModule {
             await faceapi.tf.enableProdMode();
             // @ts-ignore
             await faceapi.tf.ready();
-            await faceapi.nets.tinyFaceDetector.loadFromUri(chrome.runtime.getURL('resources/models'))
-            await faceapi.nets.ageGenderNet.loadFromUri(chrome.runtime.getURL('resources/models'))
+            await faceapi.nets.tinyFaceDetector.loadFromDisk(chrome.runtime.getURL('resources/models'))
+            await faceapi.nets.ageGenderNet.loadFromDisk(chrome.runtime.getURL('resources/models'))
             console.timeEnd("faceapi: loading models")
 
-            console.time("faceapi: initial facedetect");
-            this.setText(chrome.i18n.getMessage("initialFaceDetect"));
-            let tempImage = document.createElement('img')
-            tempImage.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAMSURBVBhXY/j//z8ABf4C/qc1gYQAAAAASUVORK5CYII="
-            await faceapi.detectAllFaces(tempImage, new faceapi.TinyFaceDetectorOptions()).withAgeAndGender()
-            console.timeEnd("faceapi: initial facedetect");
-            this.setText("");
+            // TODO: this does not work on firefox
+            // let opt = new faceapi.TinyFaceDetectorOptions()
+            // console.time("faceapi: initial facedetect");
+            // this.setText(chrome.i18n.getMessage("initialFaceDetect"));
+            // let tempImage = document.createElement('img')
+            // tempImage.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAMSURBVBhXY/j//z8ABf4C/qc1gYQAAAAASUVORK5CYII="
+            // // @ts-ignore
+            // document.getElementsByClassName("caption__logo")[0].firstChild
+            // // @ts-ignore
+            // console.dir(await faceapi.detectAllFaces(document.getElementsByClassName("caption__logo")[0].firstChild, opt).withAgeAndGender())
+            // console.timeEnd("faceapi: initial facedetect");
+            // this.setText("");
 
             this.faceApiLoaded = true
 
