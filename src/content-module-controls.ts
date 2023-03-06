@@ -492,6 +492,8 @@ function createHeader() {
                     innerText: "^"
                 })
             ]),
+            // TODO: requestPictureInPicture is not supported by firefox
+            // https://bugzilla.mozilla.org/show_bug.cgi?id=1463402
             utils.createElement('button', {
                 style: "color: green; height:15px",
                 title: "pip remote",
@@ -537,6 +539,9 @@ function createHeader() {
                 id: "connectionStatus",
             })
         ]),
+
+        // TODO: requestPictureInPicture is not supported by firefox
+        // https://bugzilla.mozilla.org/show_bug.cgi?id=1463402
         utils.createElement('div', {
             style: "position:absolute; right:0; top:0",
         }, [
