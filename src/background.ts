@@ -343,8 +343,9 @@ async function commandsOnCommand(command: string, tab: chrome.tabs.Tab) {
     // chatId = videochat tab id
     let data = await chrome.storage.local.get({tabId: -1, chatId: -1, curId: -1})
     switch (command) {
-        // TODO: this does not work good on Firefox because hotkeys work only if extension host permission
+        // this does not work good on Firefox because hotkeys work only if extension has host permission (?)
         // on FF it allows only to switch from chat tab to previous non-chat tab, but not from non-chat tab to the chat
+        // switch command is not listed in the firefox manifest
         case "switch": {
             // do nothing if any of tabs === -1
             if (data.curId === -1 || data.chatId === -1 || data.tabId === -1)

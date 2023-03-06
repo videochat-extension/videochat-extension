@@ -193,9 +193,6 @@
         "default": "Alt+Right"
       },
       "description": "Stop"
-    },
-    "switch": {
-      "description": "Switch from the current tab to the chat tab and back..."
     }
   }
 }
