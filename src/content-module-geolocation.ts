@@ -514,7 +514,7 @@ export class ControlsTabApi {
 
     protected getContentHTML() {
         return utils.createElement('div', {
-            className: "tabs__content active row",
+            className: "tabs__content active controls__row",
             id: "apiInfoContent",
             style: "height:100%;"
         }, [

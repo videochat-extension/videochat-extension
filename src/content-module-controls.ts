@@ -234,7 +234,7 @@ export class ControlsModule {
                 font-weight: bold;
               }
               
-              .row:after {
+              .controls__row:after {
                 content: "";
                 display: table;
                 box-sizing: border-box;
