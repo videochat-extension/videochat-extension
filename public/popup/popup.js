@@ -18,7 +18,7 @@ $(async function () {
     console.timeEnd("get platforms dict")
 
     console.time("get favorites")
-    let favorites = (await chrome.storage.sync.get({ 'favorites': [] }))["favorites"]
+    let favorites = (await chrome.storage.sync.get({'favorites': []}))["favorites"]
     console.timeEnd("get favorites")
 
     let forced_content = {
@@ -90,7 +90,7 @@ $(async function () {
 
     async function unreg(siteId) {
         if (await isRegistered(siteId)) {
-            await chrome.scripting.unregisterContentScripts({ ids: [siteId] })
+            await chrome.scripting.unregisterContentScripts({ids: [siteId]})
         }
     }
 
@@ -182,25 +182,25 @@ $(async function () {
 
     async function isLegacyPrevented(id) {
         let legacyPrevent = (await chrome.storage.sync.get({
-            "legacyPrevent": {
-                "7fef97eb-a5cc-4caa-8d19-75dab7407b6b": false,
-                "98ea82db-9d50-4951-935e-2405d9fe892e": false
+                "legacyPrevent": {
+                    "7fef97eb-a5cc-4caa-8d19-75dab7407b6b": false,
+                    "98ea82db-9d50-4951-935e-2405d9fe892e": false
+                }
             }
-        }
         )).legacyPrevent
         return legacyPrevent[id]
     }
 
     async function updPreventLegacy(id, bool) {
         let legacyPrevent = (await chrome.storage.sync.get({
-            "legacyPrevent": {
-                "7fef97eb-a5cc-4caa-8d19-75dab7407b6b": false,
-                "98ea82db-9d50-4951-935e-2405d9fe892e": false
+                "legacyPrevent": {
+                    "7fef97eb-a5cc-4caa-8d19-75dab7407b6b": false,
+                    "98ea82db-9d50-4951-935e-2405d9fe892e": false
+                }
             }
-        }
         )).legacyPrevent
         legacyPrevent[id] = bool
-        await chrome.storage.sync.set({ "legacyPrevent": legacyPrevent })
+        await chrome.storage.sync.set({"legacyPrevent": legacyPrevent})
     }
 
     async function updScriptStatus(siteId, bool) {
@@ -209,7 +209,7 @@ $(async function () {
         })).scripts;
         if (scripts[siteId] !== bool) {
             scripts[siteId] = bool
-            await chrome.storage.sync.set({ "scripts": scripts })
+            await chrome.storage.sync.set({"scripts": scripts})
         }
     }
 
@@ -286,7 +286,7 @@ $(async function () {
                 break;
             }
         }
-        chrome.storage.sync.set({ favorites: favorites })
+        chrome.storage.sync.set({favorites: favorites})
 
         $(`[type="star"][siteId="${siteId}"]`).children().attr('class', newIconClass)
         toggleFavoritesVisibility()
@@ -337,6 +337,7 @@ $(async function () {
             icon: site.icon
         }
     }
+
     function createFavorites() {
         let favsNodes = []
         let favs = []
@@ -361,7 +362,9 @@ $(async function () {
             return 0;
         });
         console.dir(favs)
-        favs.forEach(site => { favsNodes.push(createNode(site, true)) })
+        favs.forEach(site => {
+            favsNodes.push(createNode(site, true))
+        })
 
         return favsNodes
     }
@@ -398,14 +401,24 @@ $(async function () {
         return arrayToFix
     }
 
-    let recentDict = (await chrome.storage.sync.get({ "recentDict": {} })).recentDict
+    let recentDict = (await chrome.storage.sync.get({"recentDict": {}})).recentDict
 
 
     function getSiteById(id, platforms) {
         for (const platform of platforms) {
             for (const site of platform.sites) {
-                if (site.id == id) {
-                    return { site: site, platform: platform.id }
+                if (site.id === id) {
+                    return {site: site, platform: platform.id}
+                }
+            }
+        }
+    }
+
+    function getSiteByDomain(domain, platforms) {
+        for (const platform of platforms) {
+            for (const site of platform.sites) {
+                if (site.text === domain) {
+                    return {site: site, platform: platform.id}
                 }
             }
         }
@@ -416,9 +429,9 @@ $(async function () {
             switch: {
                 id: id,
                 text: text,
-                checked: (await chrome.storage.sync.get({ [id]: true }))[id],
+                checked: (await chrome.storage.sync.get({[id]: true}))[id],
                 onchange: async function () {
-                    chrome.storage.sync.set({ [id]: this.checked })
+                    chrome.storage.sync.set({[id]: this.checked})
                 }
             }
         }
@@ -428,7 +441,8 @@ $(async function () {
         return [
             await createSetting('allowSetLastIcon', "Менять иконку расширения на иконку последнего видеочата."),
             await createSetting('allowSetBadgeText', "Устанавливать текст 'ext' под иконкой расширения."),
-            await createSetting('sentry', "Разрешить расширению делиться с sentry.io обезличенной информацией о произошедших ошибках.")
+            await createSetting('sentry', "Разрешить расширению делиться с sentry.io обезличенной информацией о произошедших ошибках."),
+            await createSetting('missingPermissionCheck', "Разрешить расширению запрашивать у вас доступ к поддерживаемому видеочату, к которому вы ещё не предоставили доступ.")
         ]
     }
 
@@ -438,7 +452,7 @@ $(async function () {
         console.dir(recents)
         let recArray = []
         for (const [key, value] of Object.entries(recents)) {
-            recArray.push({ id: key, timestamp: value })
+            recArray.push({id: key, timestamp: value})
         }
         recArray.sort(function (x, y) {
             if (x.timestamp > y.timestamp) {
@@ -500,6 +514,21 @@ $(async function () {
         ]
     }
 
+    async function fixAll(e) {
+        let obj = getArrayToFix(platforms)
+        let res = await chrome.permissions.request({
+            permissions: ["scripting"],
+            origins: obj.map(site => site.origin)
+        }, async (res) => {
+            if (res) {
+                setTimeout(dumbUpdStatus, 300)
+                e.target.style.display = "none"
+            } else {
+                e.target.style.display = ""
+            }
+        })
+    }
+
     let json = [{
         text: "Favorites",
         expanded: true,
@@ -507,50 +536,37 @@ $(async function () {
         hide: favorites.length === 0,
         nodes: createFavorites()
     },
-    {
-        text: "Recent",
-        id: "recents",
-        expanded: favorites.length === 0,
-        hide: Object.keys(recentDict).length === 0,
-        nodes: createRecents(recentDict)
-    },
-    {
-        text: "Supported sites",
-        bigFixButton: {
-            text: "Fix Permissions",
-            display: function () {
-                let arrayToFix = getArrayToFix(platforms)
-                return arrayToFix.length > 0 ? "" : "none"
-            }(),
-            onclick: async function (e) {
-                let obj = getArrayToFix(platforms)
-                let res = await chrome.permissions.request({
-                    permissions: ["scripting"],
-                    origins: obj.map(site => site.origin)
-                }, async (res) => {
-                    if (res) {
-                        setTimeout(dumbUpdStatus, 300)
-                        e.target.style.display = "none"
-                    } else {
-                        e.target.style.display = ""
-                    }
-                })
-            }
+        {
+            text: "Recent",
+            id: "recents",
+            expanded: favorites.length === 0,
+            hide: Object.keys(recentDict).length === 0,
+            nodes: createRecents(recentDict)
         },
-        nodes: createNodesFromPlatformList()
-    },
+        {
+            text: "Supported sites",
+            bigFixButton: {
+                text: "Fix Permissions",
+                display: function () {
+                    let arrayToFix = getArrayToFix(platforms)
+                    return arrayToFix.length > 0 ? "" : "none"
+                }(),
+                onclick: fixAll
+            },
+            nodes: createNodesFromPlatformList()
+        },
 
-    {
-        text: "Settings",
-        id: "settings",
-        nodes: await createSettings()
-    },
+        {
+            text: "Settings",
+            id: "settings",
+            nodes: await createSettings()
+        },
 
-    {
-        text: "Links",
-        id: "about",
-        nodes: await createAbout()
-    },
+        {
+            text: "Links",
+            id: "about",
+            nodes: await createAbout()
+        },
     ];
 
     console.time("start tree")
@@ -567,5 +583,57 @@ $(async function () {
     // toggleFavoritesVisibility()
     console.timeEnd("show tree")
     // document.getElementById('container').style.display=""
+
+    let params = new URLSearchParams(window.location.search);
+    if (params.has('zoom')) {
+        document.body.style.zoom = params.get('zoom') + "%"
+    }
+    if (params.has('missingPermission')) {
+        let site = getSiteByDomain(params.get("missingPermission"), platforms)
+        let countAll = platforms.map(pl => pl.sites.length).reduce((partialSum, a) => partialSum + a, 0)
+        Swal.fire({
+            title: 'Missing permission detected',
+            html: `You tried to open <b>${site.site.text}</b>, which is supported by the <b>Videochat Extension</b>, but you have not yet granted your permission to operate on this site.<br><br><button id="optButton"><b>Give the extension access to ${site.site.text}</b></button><br><br>Extension supports ${countAll} chat websites already and this optional permission system is the only way that works without disabling the extension on every update.<br><br><button id="allButton"><b>Fix missing permissions for ${getArrayToFix(platforms).length} / ${countAll} sites</b></button><br><br>If you want to disable the extension in a specific video chat, you just need to click on the checkmark in the list to turn it off/on.`,
+            icon: 'warning',
+            showDenyButton: true,
+            showConfirmButton: false,
+            didRender: () => {
+                document.getElementById('optButton').onclick = async () => {
+                    await requestOrigin(site.site.origin)
+                    if (await hasPermision(site.site.origin)) {
+                        setTimeout(() => {
+                            chrome.tabs.update(parseInt(params.get('fromTabId')), {selected: true}, () => {
+                                chrome.tabs.reload(parseInt(params.get('fromTabId'), false, () => {
+                                    window.close()
+                                }))
+                            })
+                        }, 1000)
+                    }
+                }
+                document.getElementById('allButton').onclick = fixAll
+            },
+            denyButtonText: `Click to disable this check`,
+        }).then(async (result) => {
+            if (result.isDenied) {
+                await chrome.storage.sync.set({"missingPermissionCheck": false})
+                Swal.fire({
+                    title: 'Проверка отключена',
+                    text: 'Простите за неудобство',
+                    confirmButtonText: "Вернуться назад в видочат",
+                    icon: 'info'
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        if (params.has('fromTabId')) {
+                            chrome.tabs.update(parseInt(params.get('fromTabId')), {selected: true}, () => {
+                                window.close()
+                            })
+                        } else {
+                            window.close()
+                        }
+                    }
+                })
+            }
+        })
+    }
 });
 

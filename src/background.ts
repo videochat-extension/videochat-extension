@@ -1,4 +1,6 @@
 // dict with default settings that should be applied when installing/updating the extension
+import {extractDomain} from "./utils";
+
 const defaults = {
     // no way to prevent videochatru.com and ome.tv from loading content script,
     // so I decided to add a way to prevent them from loading drivers if neccesary
@@ -29,6 +31,7 @@ const defaults = {
     // settings per platform, not website
     "UUID": {},
     "lastVersion": "",
+    "missingPermissionCheck": true,
     /////////////////////////////////////////////
     /////////////////////////////////////////////
     /////////////////////////////////////////////
@@ -372,6 +375,7 @@ function tabsOnActivated(chTab: chrome.tabs.TabActiveInfo) {
         // torrentWindowId variable tracks window id where iknowwhatyoudownload.com tabs opens
         let data = await chrome.storage.local.get({tabId: -1, chatId: -1, curId: -1, torrentWindowId: -1})
         if (tab["url"] !== undefined && tab["id"] !== undefined) {
+            // TODO: !!!!!!!!
             if (tab["url"].search(".*videochatru.com.*") !== -1 || tab['url'].search(".*ome.tv.*") !== -1) {
                 // if the chat is open in torrentWindowId then torrentWindowId can no longer be used for iknowwhatyoudownload tabs
                 if (tab.windowId === data.torrentWindowId) {
@@ -388,6 +392,10 @@ function tabsOnActivated(chTab: chrome.tabs.TabActiveInfo) {
             data.curId = tab["id"];
 
             chrome.storage.local.set(data)
+
+            if (await getValue('missingPermissionCheck', true)) {
+                await checkIfMissingPermissions(tab["url"], chTab["tabId"])
+            }
         }
     });
 }
@@ -490,6 +498,48 @@ function runtimeOnMessage(request: any, sender: chrome.runtime.MessageSender, se
     }
 }
 
+async function checkIfMissingPermissions(url: string, fromTabId: number) {
+    let platforms = (await chrome.storage.local.get("domains")).domains
+    if (!platforms) {
+        let domains: string[] = [];
+        (await fetchPlatforms()).forEach((platform: any) => {
+            let ignore = ["7fef97eb-a5cc-4caa-8d19-75dab7407b6b", "98ea82db-9d50-4951-935e-2405d9fe892e"]
+            platform.sites.forEach((site: any) => {
+                if (!ignore.includes(site.id)) {
+                    domains.push(site.text)
+                }
+            })
+        })
+        await chrome.storage.local.set({"domains": domains})
+        platforms = (await chrome.storage.local.get("domains")).domains
+    }
+    let domain = extractDomain(url)
+    if (domain && platforms.includes(domain)) {
+        let arr = (await chrome.storage.local.get({"stop": []})).stop
+        if (!arr.includes(domain)) {
+            arr.push(domain)
+            // TODO: uncomment it
+            // await chrome.storage.local.set({"stop": arr})
+            let site = getSiteByDomain(domain, (await fetchPlatforms()))
+
+            if (site && site.site && site.site.origin) {
+                let permission = await chrome.permissions.contains({
+                    origins: [site.site.origin]
+                })
+                if (!permission) {
+                    console.dir("try")
+                    let text = site.site.text
+                    setTimeout(()=>{
+                        chrome.tabs.create({
+                            url: `popup/popup.html?missingPermission=${text}&fromTabId=${fromTabId}&zoom=120`
+                        });
+                    },500)
+                }
+            }
+        }
+    }
+}
+
 function init() {
     chrome.storage.onChanged.addListener(onStorageChanged);
     chrome.permissions.onAdded.addListener(onPermissionsAdded)
@@ -505,6 +555,14 @@ function init() {
     chrome.commands.onCommand.addListener(commandsOnCommand);
 
     chrome.tabs.onActivated.addListener(tabsOnActivated);
+
+    chrome.tabs.onUpdated.addListener(async (tabId: number, changeInfo: chrome.tabs.TabChangeInfo, tab: chrome.tabs.Tab) => {
+        if (tab && changeInfo.url) {
+            if (await getValue('missingPermissionCheck', true)) {
+                await checkIfMissingPermissions(changeInfo.url, tabId)
+            }
+        }
+    });
 
     // this thing handles all messages coming from content scripts
     chrome.runtime.onMessage.addListener(runtimeOnMessage);
@@ -544,6 +602,16 @@ function getSiteById(id: string, platforms: any[]) {
     for (const platform of platforms) {
         for (const site of platform.sites) {
             if (site.id == id) {
+                return {site: site, platform: platform.id}
+            }
+        }
+    }
+}
+
+function getSiteByDomain(domain: string, platforms: any[]) {
+    for (const platform of platforms) {
+        for (const site of platform.sites) {
+            if (site.text == domain) {
                 return {site: site, platform: platform.id}
             }
         }
