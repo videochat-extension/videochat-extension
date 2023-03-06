@@ -1,3 +1,4 @@
+let platforms
 const showSwalChangelog = async function () {
     const steps = [
         '1', '2', '3', '4', '5'
@@ -20,7 +21,7 @@ const showSwalChangelog = async function () {
         ]
     }
 
-    let platforms = await (await fetch(chrome.runtime.getURL('platforms.json'))).json()
+    platforms = await (await fetch(chrome.runtime.getURL('platforms.json'))).json()
     let countAllSites = platforms.map(pl => pl.sites.length).reduce((partialSum, a) => partialSum + a, 0)
 
     const values = {
@@ -329,7 +330,6 @@ const showSwalChangelog = async function () {
 }
 
 async function fixPermissions() {
-    let platforms = await (await fetch(chrome.runtime.getURL('platforms.json'))).json()
     let origins = []
     let block = ["7fef97eb-a5cc-4caa-8d19-75dab7407b6b", "98ea82db-9d50-4951-935e-2405d9fe892e"]
     for (const platform of platforms) {
