@@ -356,5 +356,5 @@ console.dir(showSwalChangelog().then(() => {
     // background service worker needs some time to register content scripts on new origins
     setTimeout(() => {
         location.href = chrome.runtime.getURL('popup/popup.html?zoom=120')
-    }, 1000)
+    }, 2000)
 }))
