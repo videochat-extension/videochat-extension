@@ -3,6 +3,9 @@ const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const srcDir = path.join(__dirname, "..", "src");
 
+const browser = process.env.BROWSER;
+const BUILD_DIR_NAME = process.env.DIR;
+
 module.exports = {
     entry: {
         injection_ip: path.join(srcDir, 'injection/ip-api.ts'),
@@ -10,7 +13,7 @@ module.exports = {
         content_script: path.join(srcDir, 'content.ts'),
     },
     output: {
-        path: path.join(__dirname, "../dist"),
+        path: path.join(__dirname, `../${BUILD_DIR_NAME}`),
         filename: (chunkData) => {
             if(chunkData.chunk.name === 'injection_ip') return "injection/ip-api.js";
             return "[name].js";
@@ -40,7 +43,10 @@ module.exports = {
     },
     plugins: [
         new CopyPlugin({
-            patterns: [{ from: ".", to: "", context: "public" }],
+            patterns: [
+                { from: ".", to: "", context: "public" },
+                { from: `${browser}.json`, to: `manifest.json`, context: 'manifest' },
+            ],
             options: {},
         }),
     ],
