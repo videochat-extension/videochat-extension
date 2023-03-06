@@ -37,8 +37,7 @@
         "libs/css/css-tooltip.min.css",
         "controls*.html",
         "libs/css/tooltipster.bundle.min.css",
-        "resources/dark-mode.css",
-        "resources/dark-mode-ometv.css",
+        "resources/dark/*.css",
         "platforms.json"
       ],
       "matches": [

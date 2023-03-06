@@ -293,11 +293,7 @@ export class InterfaceModule {
         let dark = document.createElement('link');
         dark.rel = "stylesheet";
         dark.id = "darkMode"
-        if (location.href.includes('videochatru')) {
-            dark.href = chrome.runtime.getURL("resources/dark-mode.css");
-        } else if (location.href.includes('ome.tv')) {
-            dark.href = chrome.runtime.getURL("resources/dark-mode-ometv.css");
-        }
+        dark.href = chrome.runtime.getURL(`resources/dark/${this.driver.site.id}.css`)
         return dark
     }
 }
