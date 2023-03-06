@@ -94,7 +94,11 @@ export class ControlsTabSettings {
                 utils.createElement(tagName, {
                     innerText: settingText,
                     className: "tooltip",
-                    title: settingTooltip
+                    style: "cursor: pointer",
+                    title: settingTooltip,
+                    onclick: () => {
+                        document.getElementById(`${key}Check`)!.click()
+                    }
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
