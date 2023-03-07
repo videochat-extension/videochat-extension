@@ -408,7 +408,7 @@ export class StreamerModule {
             this.echoV.playsInline = true
             this.echoV.width = 0
 
-            document.getElementById('app')!.appendChild(this.echoV);
+            document.getElementById('video-container')!.appendChild(this.echoV);
             let self = this
 
             function echoStart() {
