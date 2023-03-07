@@ -99,7 +99,7 @@ const defaults = {
     torrentsEnable: false,
     torrentsInfo: true,
     showISP: false,
-    askForMode: false,
+    askForMode: true,
     minimalism: false,
     lastInstanceOpened: "https://videochatru.com/embed/",
     skipwrongcountry: false,
