@@ -1,15 +1,15 @@
 import $ from "jquery";
-import {GeolocationModule} from "./content-module-geolocation";
-import {StreamerModule} from "./content-module-streamermode";
-import {HotkeysModule} from "./content-module-hotkeys";
-import {AutomationModule} from "./content-module-automation";
-import {InterfaceModule} from "./content-module-interface";
-import {ControlsModule, ControlsTabAbout} from "./content-module-controls";
-import {BlacklistModule} from "./content-module-blacklist";
-import {FaceapiModule} from "./content-module-faceapi";
-import {createSwitchModeButtonContainer} from "./content-swal-switchmode";
-import {StatsModule} from "./content-module-stats";
-import {ControlsTabSettings} from "./content-module-settings";
+import {GeolocationModule} from "./chatruletka/content-module-geolocation";
+import {StreamerModule} from "./chatruletka/content-module-streamermode";
+import {HotkeysModule} from "./chatruletka/content-module-hotkeys";
+import {AutomationModule} from "./chatruletka/content-module-automation";
+import {InterfaceModule} from "./chatruletka/content-module-interface";
+import {ControlsModule, ControlsTabAbout} from "./chatruletka/content-module-controls";
+import {BlacklistModule} from "./chatruletka/content-module-blacklist";
+import {FaceapiModule} from "./chatruletka/content-module-faceapi";
+import {createSwitchModeButtonContainer} from "./chatruletka/content-swal-switchmode";
+import {StatsModule} from "./chatruletka/content-module-stats";
+import {ControlsTabSettings} from "./chatruletka/content-module-settings";
 
 export class ChatruletkaDriver {
     private static instanceRef: ChatruletkaDriver;

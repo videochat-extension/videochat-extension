@@ -1,4 +1,4 @@
-import {SwalWithSteps} from "./content-swal-info";
+import {SwalWithSteps} from "../drivers/chatruletka/content-swal-info";
 
 export class ContentSwalChangelog extends SwalWithSteps {
     private static instanceRef: ContentSwalChangelog;

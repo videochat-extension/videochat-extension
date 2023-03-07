@@ -1,15 +1,15 @@
 import "./content-globals"
 
-import "./content-swal-context-invalidated"
+import "./swal/content-swal-context-invalidated"
 
 require('arrive')
 
-import {ChatruletkaDriver} from "./content-driver-chatruletka";
-import {ChatruletkaSimpleDriver} from "./content-driver-chatruletka-simple";
-import {switchMode} from "./content-swal-switchmode";
-import {injectIpGrabber} from "./content-module-geolocation";
-import {ContentSwalChangelog} from "./content-swal-changelog";
-import {extractDomain, getPlatformByHost} from "./utils";
+import {ChatruletkaDriver} from "./drivers/content-driver-chatruletka";
+import {ChatruletkaSimpleDriver} from "./drivers/content-driver-chatruletka-simple";
+import {switchMode} from "./drivers/chatruletka/content-swal-switchmode";
+import {injectIpGrabber} from "./drivers/chatruletka/content-module-geolocation";
+import {ContentSwalChangelog} from "./swal/content-swal-changelog";
+import {extractDomain, getPlatformByHost} from "./utils/utils";
 import * as Sentry from "@sentry/browser";
 import {PlatformSettings} from "./content-platform";
 

@@ -1,5 +1,5 @@
 // dict with default settings that should be applied when installing/updating the extension
-import {extractDomain} from "./utils";
+import {extractDomain} from "./utils/utils";
 
 const defaults = {
     // no way to prevent videochatru.com and ome.tv from loading content script,

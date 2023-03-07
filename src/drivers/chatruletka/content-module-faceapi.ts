@@ -1,5 +1,5 @@
 import * as faceapi from '@vladmandic/face-api/dist/face-api.esm.js';
-import {ChatruletkaDriver} from "./content-driver-chatruletka";
+import {ChatruletkaDriver} from "../content-driver-chatruletka";
 import {confirmAndReload} from "./content-module-settings";
 
 export class FaceapiModule {

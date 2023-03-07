@@ -1,8 +1,8 @@
 import $ from "jquery";
 import * as DOMPurify from "dompurify";
 import Swal from "sweetalert2";
-import * as utils from "./utils";
-import {ChatruletkaDriver} from "./content-driver-chatruletka";
+import * as utils from "../../utils/utils";
+import {ChatruletkaDriver} from "../content-driver-chatruletka";
 import {mapModule} from "./content-module-controls-map";
 
 

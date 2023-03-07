@@ -1,7 +1,7 @@
 import $ from "jquery";
-import {createSwitchModeButton} from "./content-swal-switchmode";
+import {createSwitchModeButton} from "./chatruletka/content-swal-switchmode";
 import * as DOMPurify from "dompurify";
-import * as utils from "./utils";
+import * as utils from "../utils/utils";
 
 export class ChatruletkaSimpleDriver {
     private static instanceRef: ChatruletkaSimpleDriver;

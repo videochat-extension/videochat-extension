@@ -1,5 +1,5 @@
-import {ChatruletkaDriver} from "./content-driver-chatruletka";
-import * as utils from "./utils";
+import {ChatruletkaDriver} from "../content-driver-chatruletka";
+import * as utils from "../../utils/utils";
 
 export class StatsModule {
     private static instanceRef: StatsModule;

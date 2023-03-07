@@ -1,7 +1,7 @@
-import {ChatruletkaDriver} from "./content-driver-chatruletka";
-import * as utils from "./utils";
+import {ChatruletkaDriver} from "../content-driver-chatruletka";
+import * as utils from "../../utils/utils";
 import $ from "jquery";
-import {ContentSwalChangelog} from "./content-swal-changelog";
+import {ContentSwalChangelog} from "../../swal/content-swal-changelog";
 import {ContentSwalInfo} from "./content-swal-info";
 import {ControlsTabApi} from "./content-module-geolocation";
 

@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 import $ from "jquery";
-import * as utils from "./utils";
+import * as utils from "../../utils/utils";
 
 require('arrive')
 

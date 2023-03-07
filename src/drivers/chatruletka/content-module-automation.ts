@@ -1,5 +1,5 @@
 import $ from "jquery";
-import {ChatruletkaDriver} from "./content-driver-chatruletka";
+import {ChatruletkaDriver} from "../content-driver-chatruletka";
 import {confirmAndReload} from "./content-module-settings";
 
 require('arrive')

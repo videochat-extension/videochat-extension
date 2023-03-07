@@ -1,6 +1,6 @@
 import $ from "jquery";
-import * as utils from "./utils";
-import {ChatruletkaDriver} from "./content-driver-chatruletka";
+import * as utils from "../../utils/utils";
+import {ChatruletkaDriver} from "../content-driver-chatruletka";
 import {confirmAndReload} from "./content-module-settings";
 import ChangeEvent = JQuery.ChangeEvent;
 

@@ -1,6 +1,6 @@
-import * as utils from "./utils";
+import * as utils from "../../utils/utils";
 import {switchMode} from "./content-swal-switchmode";
-import {ChatruletkaDriver} from "./content-driver-chatruletka";
+import {ChatruletkaDriver} from "../content-driver-chatruletka";
 import ChangeEvent = JQuery.ChangeEvent;
 
 let needReload = false

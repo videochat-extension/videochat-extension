@@ -1,6 +1,6 @@
 import $ from "jquery";
-import {ChatruletkaDriver} from "./content-driver-chatruletka";
-import * as utils from "./utils";
+import {ChatruletkaDriver} from "../content-driver-chatruletka";
+import * as utils from "../../utils/utils";
 
 export class HotkeysModule {
     private static instanceRef: HotkeysModule;
