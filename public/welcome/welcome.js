@@ -111,6 +111,7 @@ const showSwalChangelog = async function () {
             '<ul><li>ability to hide a stranger\'s camera image with a blur or custom picture/gif and look at it in picture-in-picture mode to check for nsfw</li></ul>' +
             '<ul><li>optional auto blurring/hiding when starting a new conversation</li></ul>' +
             '<ul><li>hotkey to mute/blur/cover a stranger</li></ul>' +
+            '<ul><li>does not work in firefox</li></ul>' +
             '<ul><li>this mode is in alfa version, if you have feedback please contact the developer in the project\'s discord</li></ul>' +
 
             '<li>other less important QoL-features</li><br>' +
@@ -266,6 +267,7 @@ const showSwalChangelog = async function () {
             '<ul><li>возможность скрыть изображение с камеры незнакомца с помощью размытия или пользовательской картинки/gif и просмотреть его в режиме "картинка в картинке" для проверки на наличие nsfw</li></ul>' +
             '<ul><li>опциональное автоматическое размытие/скрытие при начале нового разговора</li></ul>' +
             '<ul><li>горячая клавиша для отключения звука/размытия/прикрытия незнакомца</li></ul>' +
+            '<ul><li>не работает в firefox</li></ul>' +
             '<ul><li> этот режим находится в alfa версии, если у вас есть идеи о том как его улучшить, пожалуйста, свяжитесь с разработчиком в discord проекта</li></ul>' +
 
             '<li>другие менее значимые улучшения</li><br>' +
