@@ -521,7 +521,7 @@ function createHeader() {
                     if (globalThis.settings.streamer && globalThis.settings.streamerPip) {
                         return "height:15px"
                     } else {
-                        return "display:none"
+                        return "height:15px;display:none"
                     }
                 }(),
                 title: "pip remote clone (for streamers)",

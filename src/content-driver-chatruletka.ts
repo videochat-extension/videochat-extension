@@ -105,7 +105,7 @@ export class ChatruletkaDriver {
     }
 
     public getSettingsTab() {
-        return ControlsTabSettings.initInstance(this, null, [
+        let settings = [
             this.modules.interface.settings,
             this.modules.controls.settings,
             this.modules.automation.settings,
@@ -113,9 +113,13 @@ export class ChatruletkaDriver {
             this.modules.faceapi.settings,
             this.modules.blacklist.settings,
             this.modules.hotkeys.settings,
-            this.modules.streamer.settings,
             this.modules.stats.settings
-        ])
+        ]
+        // @ts-ignore
+        if (typeof browser === "undefined") {
+            settings.splice(-1, 0, this.modules.streamer.settings)
+        }
+        return ControlsTabSettings.initInstance(this, null, settings)
     }
 
     public getTabs() {
@@ -178,6 +182,8 @@ export class ChatruletkaDriver {
         }
 
         this.stageObserver.observe(element, {attributes: true});
+
+        this.modules.stats.updStats(false)
 
         return true
     }

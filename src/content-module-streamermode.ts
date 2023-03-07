@@ -8,6 +8,8 @@ export class StreamerModule {
     private static instanceRef: StreamerModule;
     public BLUR_FILTER = "blur(" + globalThis.settings.blurFilter + "px)"
     public BLUR_FILTER_PREVIEW = "blur(" + globalThis.settings.blurPreviewFilter + "px)"
+    private interval: NodeJS.Timer | undefined;
+    public started = false
 
     public getLocalVideo(): HTMLVideoElement {
         return <HTMLVideoElement>document.getElementById("local-video")
@@ -33,10 +35,14 @@ export class StreamerModule {
             tooltip: chrome.i18n.getMessage("tooltipStreamerMode"),
             controlsSection: "streamerList",
             enable: () => {
-                confirmAndReload()
+                if (!this.started) {
+                    this.start()
+                }
             },
             disable: () => {
-                confirmAndReload()
+                if (this.started) {
+                    this.stop()
+                }
             }
         },
         {
@@ -329,7 +335,44 @@ export class StreamerModule {
         }
     }
 
+    protected hotkeys = (e: KeyboardEvent) => {
+        if (e.target instanceof HTMLElement && e.target.className === "emojionearea-editor" || document.getElementsByClassName("swal2-popup").length > 0)
+            return
+        switch (e.key) {
+            case "ArrowRight":
+                if (!(document.getElementById("report-popup")!.style.display === "block")) {
+                    {
+                        if (this.getRemoteVideo()!.style.filter === "") {
+                            this.blurRemote()
+                            this.manualBlur = true
+                        } else {
+                            this.unblurRemote()
+                            this.manualBlur = false
+                        }
+
+                        if ((document.getElementById("streamerMirrorCheck") as HTMLInputElement).checked) {
+                            if (this.getLocalVideo()!.style.filter === "")
+                                this.blurLocal()
+                            else
+                                this.unblurLocal()
+                        }
+                    }
+                    this.updStatus()
+                }
+                break;
+
+            case "m":
+                this.getRemoteVideo()!.muted = !this.getRemoteVideo()!.muted
+                this.updStatus()
+                break;
+        }
+    }
+
     public start() {
+        if (globalThis.settings.streamerPip) {
+            document.getElementById("streamerPipButton")!.style.display = ""
+        }
+
         try {
             (document.getElementsByClassName("remote-video__watermark")[0] as HTMLElement).style.display = "none"
         } catch (e) {
@@ -346,77 +389,64 @@ export class StreamerModule {
             (document.getElementById("report-screen") as HTMLElement).style.filter = "blur(10px)"
 
         // if (globalThis.settings.cover || globalThis.settings.coverPreview || globalThis.settings.coverNoise || globalThis.settings.coverStop) {
-            $(utils.createElement('img', {
-                src: globalThis.settings.coverSrc,
-                id: "cover",
-                style: "height:100%; position: absolute; display:none"
-            })).insertBefore("#remote-video")
+        $(utils.createElement('img', {
+            src: globalThis.settings.coverSrc,
+            id: "cover",
+            style: "height:100%; position: absolute; display:none"
+        })).insertBefore("#remote-video")
 
-            $(utils.createElement('img', {
-                src: globalThis.settings.coverSrc,
-                id: "cover2",
-                style: "height:100%; position: absolute; transform: scaleX(-1)"
-            })).insertBefore("#local-video")
+        $(utils.createElement('img', {
+            src: globalThis.settings.coverSrc,
+            id: "cover2",
+            style: "height:100%; position: absolute; transform: scaleX(-1)"
+        })).insertBefore("#local-video")
 
-            $(".remote-video__preview").insertBefore("#cover")
+        $(".remote-video__preview").insertBefore("#cover")
 
-            $(".remote-video__noise").insertBefore("#cover")
+        $(".remote-video__noise").insertBefore("#cover")
         // }
 
 
         if ((document.getElementById("streamerKeysCheck") as HTMLInputElement).checked) {
-            document.addEventListener('keyup', (e) => {
-                if (e.target instanceof HTMLElement && e.target.className === "emojionearea-editor" || document.getElementsByClassName("swal2-popup").length > 0)
-                    return
-                switch (e.key) {
-                    case "ArrowRight":
-                        if (!(document.getElementById("report-popup")!.style.display === "block")) {
-                            {
-                                if (this.getRemoteVideo()!.style.filter === "") {
-                                    this.blurRemote()
-                                    this.manualBlur = true
-                                } else {
-                                    this.unblurRemote()
-                                    this.manualBlur = false
-                                }
-
-                                if ((document.getElementById("streamerMirrorCheck") as HTMLInputElement).checked) {
-                                    if (this.getLocalVideo()!.style.filter === "")
-                                        this.blurLocal()
-                                    else
-                                        this.unblurLocal()
-                                }
-                            }
-                            this.updStatus()
-                        }
-                        break;
-
-                    case "m":
-                        this.getRemoteVideo()!.muted = !this.getRemoteVideo()!.muted
-                        this.updStatus()
-                        break;
-                }
-            })
+            document.addEventListener('keyup', this.hotkeys)
         }
 
-        setInterval(this.updStatus.bind(this), 500)
+        this.interval = setInterval(this.updStatus.bind(this), 500)
 
-        if ((document.getElementById("streamerPipCheck") as HTMLInputElement).checked) {
-            this.echoV.id = "echo-video"
-            this.echoV.autoplay = true
-            this.echoV.muted = true
-            this.echoV.playsInline = true
-            this.echoV.width = 0
+        // if ((document.getElementById("streamerPipCheck") as HTMLInputElement).checked) {
+        this.echoV.id = "echo-video"
+        this.echoV.autoplay = true
+        this.echoV.muted = true
+        this.echoV.playsInline = true
+        this.echoV.width = 0
 
-            document.getElementById('video-container')!.appendChild(this.echoV);
-            let self = this
+        document.getElementById('video-container')!.appendChild(this.echoV);
+        let self = this
 
-            function echoStart() {
-                self.echoV.srcObject = (document.getElementById("local-video") as HTMLVideoElement).srcObject
-                document.getElementById('local-video')!.removeEventListener("play", echoStart)
-            }
-
-            document.getElementById('local-video')!.addEventListener("play", echoStart)
+        function echoStart() {
+            self.echoV.srcObject = (document.getElementById("local-video") as HTMLVideoElement).srcObject
+            document.getElementById('local-video')!.removeEventListener("play", echoStart)
         }
+
+        document.getElementById('local-video')!.addEventListener("play", echoStart)
+        // }
+        this.started = true
+    }
+
+    public stop() {
+        clearInterval(this.interval)
+        this.unblurLocal()
+        this.unblurRemote()
+        document.getElementById("streamerPipButton")!.style.display = "none";
+        (document.getElementById("report-screen") as HTMLElement).style.filter = "";
+        $("#cover").remove()
+        $("#cover2").remove()
+
+        if (document.pictureInPictureElement === document.getElementById("echo-video"))
+            document.exitPictureInPicture()
+
+        document.removeEventListener('keyup', this.hotkeys);
+
+        this.started = false
     }
 }
