@@ -293,7 +293,17 @@ export class InterfaceModule {
         let dark = document.createElement('link');
         dark.rel = "stylesheet";
         dark.id = "darkMode"
-        dark.href = chrome.runtime.getURL(`resources/dark/${this.driver.site.id}.css`)
+        switch (this.driver.platform) {
+            case "7390db38-a617-4f6e-8a8a-ee353b76cc25": {
+                dark.href = chrome.runtime.getURL(`resources/dark/98ea82db-9d50-4951-935e-2405d9fe892e.css`)
+                break;
+            }
+
+            case "8fa234f6-1767-4d81-897e-758df844ae31": {
+                dark.href = chrome.runtime.getURL(`resources/dark/7fef97eb-a5cc-4caa-8d19-75dab7407b6b.css`)
+                break;
+            }
+        }
         return dark
     }
 }
