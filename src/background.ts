@@ -161,10 +161,11 @@ async function ensureSettingsAreUpToDate() {
             await chrome.storage.sync.set({"7fef97eb-a5cc-4caa-8d19-75dab7407b6b": ometv})
 
             await chrome.storage.sync.remove(keysToRemove)
+
+            result.legacyIcon = true
         }
     }
     result.completedOldSettingsMigration = true
-    result.legacyIcon = true
 
     await chrome.storage.sync.set(result);
 }
