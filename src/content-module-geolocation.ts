@@ -17,6 +17,21 @@ export function injectIpGrabber() {
 export class GeolocationModule {
     private static instanceRef: GeolocationModule;
     public curIps: string[] = []
+    public static defaults = {
+        ipApiLocalisation: true,
+        hideMobileLocation: true,
+        showCT: false,
+        showMoreEnabledByDefault: true,
+        skipMobileTarget: true,
+        enableTargetCity: false,
+        enableTargetRegion: false,
+        targetCity: "Moscow",
+        targetRegion: "Moscow",
+        targetSound: false,
+        torrentsEnable: false,
+        torrentsInfo: true,
+        showISP: false
+    }
     public settings = [
         {
             type: "header",
@@ -76,18 +91,23 @@ export class GeolocationModule {
         },
         {
             type: "section",
-            hide: globalThis.settings.enableTargetCity,
+            hide: globalThis.platformSettings.get("enableTargetCity"),
             sectionId: "targetCityDiv",
             children: [
                 {
                     type: "button",
-                    text: chrome.i18n.getMessage("prefixTargetCity") + globalThis.settings.targetCity,
+                    text: chrome.i18n.getMessage("prefixTargetCity") + globalThis.platformSettings.get("targetCity"),
                     onclick: (e: MouseEvent) => {
-                        const result = prompt(chrome.i18n.getMessage("promptTargetCity"), globalThis.settings.targetCity)
+                        const result = prompt(chrome.i18n.getMessage("promptTargetCity"), globalThis.platformSettings.get("targetCity"))
                         if (result) {
-                            chrome.storage.sync.set({"targetCity": result}, function () {
+                            // TODO: test this
+                            globalThis.platformSettings.setBack({"targetCity": result}, function () {
                                 (e.target! as HTMLElement).innerText = chrome.i18n.getMessage("prefixTargetCity") + result
                             });
+
+                            // chrome.storage.sync.set({"targetCity": result}, function () {
+                            //     (e.target! as HTMLElement).innerText = chrome.i18n.getMessage("prefixTargetCity") + result
+                            // });
                         }
                     }
                 }
@@ -103,18 +123,23 @@ export class GeolocationModule {
         },
         {
             type: "section",
-            hide: globalThis.settings.enableTargetRegion,
+            hide: globalThis.platformSettings.get("enableTargetRegion"),
             sectionId: "targetRegionDiv",
             children: [
                 {
                     type: "button",
-                    text: chrome.i18n.getMessage("prefixTargetRegion") + globalThis.settings.targetRegion,
+                    text: chrome.i18n.getMessage("prefixTargetRegion") + globalThis.platformSettings.get("targetRegion"),
                     onclick: (e: MouseEvent) => {
-                        const result = prompt(chrome.i18n.getMessage("promptTargetRegion"), globalThis.settings.targetRegion)
+                        const result = prompt(chrome.i18n.getMessage("promptTargetRegion"), globalThis.platformSettings.get("targetRegion"))
                         if (result) {
-                            chrome.storage.sync.set({"targetRegion": result}, function () {
+                            // TODO: test this
+                            globalThis.platformSettings.setBack({"targetRegion": result}, function () {
                                 (e.target! as HTMLElement).innerText = chrome.i18n.getMessage("prefixTargetRegion") + result
-                            });
+                            })
+
+                            // chrome.storage.sync.set({"targetRegion": result}, function () {
+                            //     (e.target! as HTMLElement).innerText = chrome.i18n.getMessage("prefixTargetRegion") + result
+                            // });
                         }
                     }
                 }
@@ -269,7 +294,7 @@ export class GeolocationModule {
             if (response.status === 200) {
                 this.processData(response.body, ip)
             } else if (response.status === 429) {
-                if (globalThis.settings.enableTargetCity || globalThis.settings.enableTargetRegion) {
+                if (globalThis.platformSettings.get("enableTargetCity") || globalThis.platformSettings.get("enableTargetRegion")) {
                     this.driver.stopAndStart(5000)
                 } else {
                     (document.getElementById("remoteInfo") as HTMLElement).innerHTML = '<div id="ipApiContainer" style="display:flex; flex-direction:row"><div>' + chrome.i18n.getMessage("apiStatus429")
@@ -285,7 +310,7 @@ export class GeolocationModule {
                 }
             } else {
                 (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize("<b>HTTP ERROR " + response.status + "</b>")
-                if (globalThis.settings.enableTargetCity || globalThis.settings.enableTargetRegion) {
+                if (globalThis.platformSettings.get("enableTargetCity") || globalThis.platformSettings.get("enableTargetRegion")) {
                     if (response.status === 429) {
                         this.driver.stopAndStart(5000)
                     }
@@ -295,8 +320,8 @@ export class GeolocationModule {
     }
 
     public checkTorrents(ip: string) {
-        if (globalThis.settings.torrentsEnable) {
-            if (this.torrenstsConfirmed || !globalThis.settings.torrentsInfo) {
+        if (globalThis.platformSettings.get("torrentsEnable")) {
+            if (this.torrenstsConfirmed || !globalThis.platformSettings.get("torrentsInfo")) {
                 let url = `https://iknowwhatyoudownload.com/${chrome.i18n.getMessage("iknowwhatyoudownload_lang")}/peer/?ip=${ip}`
                 chrome.runtime.sendMessage({checkTorrents: true, url: url}, function (response) {
                     console.dir(`request to open iknowwhatyoudownload in the new tab/window: ${response}`)
@@ -333,10 +358,10 @@ export class GeolocationModule {
         let strings = []
         let newInnerHTML = ''
         let newIpDiv = utils.createElement('div')
-        if (globalThis.settings.showMoreEnabledByDefault && (json.mobile || json.proxy || json.hosting)) {
+        if (globalThis.platformSettings.get("showMoreEnabledByDefault") && (json.mobile || json.proxy || json.hosting)) {
             if (json.mobile) {
-                if (globalThis.settings.hideMobileLocation || globalThis.settings.showCT) {
-                    if (!globalThis.settings.showCT) {
+                if (globalThis.platformSettings.get("hideMobileLocation") || globalThis.platformSettings.get("showCT")) {
+                    if (!globalThis.platformSettings.get("showCT")) {
                         strings.push(`<small>MOBILE [${chrome.i18n.getMessage('apiMobileHidden')}]</small>`)
                     } else {
                         strings.push(`<small>MOBILE [${chrome.i18n.getMessage('apiMobile')}]</small>`)
@@ -355,10 +380,10 @@ export class GeolocationModule {
             }
         }
 
-        if ((globalThis.settings.hideMobileLocation || globalThis.settings.showCT) && json.mobile) {
+        if ((globalThis.platformSettings.get("hideMobileLocation") || globalThis.platformSettings.get("showCT")) && json.mobile) {
             newInnerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br></br>"
 
-            if (globalThis.settings.showCT) {
+            if (globalThis.platformSettings.get("showCT")) {
                 newInnerHTML += chrome.i18n.getMessage("apiCT") + `${json.city}/${json.regionName}</br>`
                 try {
                     newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>"
@@ -384,7 +409,7 @@ export class GeolocationModule {
             newInnerHTML += "<b>TM: </b><sup class='remoteTM'>" + utils.secondsToHms((+new Date() - this.started) / 1000) + "</sup>"
         }
 
-        if (globalThis.settings.showISP) {
+        if (globalThis.platformSettings.get("showISP")) {
             newInnerHTML += `<br><small style="font-size: x-small!important;"><b>${json.isp}</b></small>`
         }
 
@@ -401,7 +426,7 @@ export class GeolocationModule {
         $(newIpDiv).appendTo(document.getElementById("ipApiContainer") as HTMLElement)
         console.dir("RENDER ++")
 
-        if (globalThis.settings.torrentsEnable && !json.mobile && !json.proxy && !json.hosting) {
+        if (globalThis.platformSettings.get("torrentsEnable") && !json.mobile && !json.proxy && !json.hosting) {
             newIpDiv.innerHTML += `<br><br>`
             $(utils.createElement('button', {
                 innerHTML: "<b>" + chrome.i18n.getMessage("YKWYDButtonText") + "</b>",
@@ -411,15 +436,15 @@ export class GeolocationModule {
             })).appendTo(newIpDiv)
         }
 
-        if ((globalThis.settings.enableTargetCity || globalThis.settings.enableTargetRegion) && this.driver.needToCheckTarget) {
-            if (globalThis.settings.skipMobileTarget && json.mobile) {
+        if ((globalThis.platformSettings.get("enableTargetCity") || globalThis.platformSettings.get("enableTargetRegion")) && this.driver.needToCheckTarget) {
+            if (globalThis.platformSettings.get("skipMobileTarget") && json.mobile) {
                 if (this.curIps.indexOf(ip) + 1 === this.curIps.length) {
                     this.driver.stopAndStart()
                 }
                 return
             } else {
-                if (globalThis.settings.enableTargetCity) {
-                    if (!globalThis.settings.targetCity.includes(json.city)) {
+                if (globalThis.platformSettings.get("enableTargetCity")) {
+                    if (!globalThis.platformSettings.get("targetCity").includes(json.city)) {
                         if (this.curIps.indexOf(ip) + 1 === this.curIps.length) {
                             console.dir("SKIPPING WRONG CITY")
                             this.driver.stopAndStart()
@@ -427,23 +452,23 @@ export class GeolocationModule {
                         return
                     } else {
                         this.driver.needToCheckTarget = false
-                        if (globalThis.settings.targetSound) {
+                        if (globalThis.platformSettings.get("targetSound")) {
                             this.targetSound.play();
-                            console.dir(`FOUND TARGET CITY: ${globalThis.settings.targetCity}`)
+                            console.dir(`FOUND TARGET CITY: ${globalThis.platformSettings.get("targetCity")}`)
                         }
                     }
                 }
-                if (globalThis.settings.enableTargetRegion) {
-                    if (!globalThis.settings.targetRegion.includes(json.regionName)) {
+                if (globalThis.platformSettings.get("enableTargetRegion")) {
+                    if (!globalThis.platformSettings.get("targetRegion").includes(json.regionName)) {
                         if (this.curIps.indexOf(ip) + 1 === this.curIps.length) {
                             this.driver.stopAndStart()
                         }
                         return
                     } else {
                         this.driver.needToCheckTarget = false
-                        if (globalThis.settings.targetSound) {
+                        if (globalThis.platformSettings.get("targetSound")) {
                             (this.targetSound).play();
-                            console.dir(`FOUND TARGET REGION: ${globalThis.settings.targetRegion}`)
+                            console.dir(`FOUND TARGET REGION: ${globalThis.platformSettings.get("targetRegion")}`)
                         }
                     }
                 }
@@ -484,7 +509,7 @@ export class GeolocationModule {
 
     // https://ip-api.com/docs/api:json#:~:text=DEMO-,Localization,-Localized%20city%2C
     private getApiLanguage() {
-        if (!globalThis.settings.ipApiLocalisation) return "en"
+        if (!globalThis.platformSettings.get("ipApiLocalisation")) return "en"
         let lang = window.navigator.language.slice(0, 2)
         if (lang === "pt") {
             lang = "pt-BR"

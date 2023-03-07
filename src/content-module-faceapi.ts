@@ -6,6 +6,12 @@ export class FaceapiModule {
     private static instanceRef: FaceapiModule;
     private faceApiLoaded = false;
     public timeout: NodeJS.Timeout | undefined;
+    public static defaults = {
+        autoBan: false,
+        skipMale: false,
+        skipFemale: false,
+        enableFaceApi: false,
+    }
     public settings = [
         {
             type: "header",
@@ -58,6 +64,13 @@ export class FaceapiModule {
                 if (!this.faceApiLoaded)
                     this.injectFaceApi()
             }
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "autoBan",
+            text: chrome.i18n.getMessage("autoskip"),
+            tooltip: chrome.i18n.getMessage("tooltipAutoskip")
         },
     ]
     private driver: ChatruletkaDriver;
@@ -155,7 +168,7 @@ export class FaceapiModule {
         if (!this.faceApiLoaded) {
             return
         }
-        if (!globalThis.settings.skipMale && !globalThis.settings.skipFemale && !globalThis.settings.enableFaceApi)
+        if (!globalThis.platformSettings.get("skipMale") && !globalThis.platformSettings.get("skipFemale") && !globalThis.platformSettings.get("enableFaceApi"))
             return
         let stop = false
         let skip_m = false
@@ -185,7 +198,7 @@ export class FaceapiModule {
                 }
             }
 
-            if (skip_m && globalThis.settings.skipMale) {
+            if (skip_m && globalThis.platformSettings.get("skipMale")) {
                 text += `<b>male skipping...</b></br>`;
                 (document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement).click()
                 console.log("MALE SKIPPED")
@@ -195,12 +208,12 @@ export class FaceapiModule {
                     this.driver.modules.stats.decreaseManSkip()
                 }
 
-                if (globalThis.settings.autoBan) {
+                if (this.driver.modules.blacklist && globalThis.platformSettings.get("autoBan")) {
                     this.driver.modules.blacklist.processAutoBan(this.driver.modules.geolocation.curIps)
                 }
             }
 
-            if (skip_f && globalThis.settings.skipFemale) {
+            if (skip_f && globalThis.platformSettings.get("skipFemale")) {
                 text += `<b>female skipping...</b></br>`;
                 (document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement).click()
                 console.log("FEMALE SKIPPED")
@@ -209,12 +222,12 @@ export class FaceapiModule {
                     this.driver.modules.stats.decreaseManSkip()
                 }
 
-                if (globalThis.settings.autoBan) {
+                if (this.driver.modules.blacklist && globalThis.platformSettings.get("autoBan")) {
                     this.driver.modules.blacklist.processAutoBan(this.driver.modules.geolocation.curIps)
                 }
             }
 
-            if (!globalThis.settings.skipMale && !globalThis.settings.skipFemale && !globalThis.settings.enableFaceApi)
+            if (!globalThis.platformSettings.get("skipMale") && !globalThis.platformSettings.get("skipFemale") && !globalThis.platformSettings.get("enableFaceApi"))
                 return
 
             if (text !== '')

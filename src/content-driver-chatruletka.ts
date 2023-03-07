@@ -29,10 +29,23 @@ export class ChatruletkaDriver {
     private stageObserver: MutationObserver;
     private requestToStartTiming: number = 0;
 
+    public static defaults = {
+        ...HotkeysModule.defaults,
+        ...AutomationModule.defaults,
+        ...InterfaceModule.defaults,
+        ...GeolocationModule.defaults,
+        ...BlacklistModule.defaults,
+        ...FaceapiModule.defaults,
+        ...StatsModule.defaults,
+        ...StreamerModule.defaults,
+        ...ControlsModule.defaults
+    }
+
     private constructor(cur: any) {
         this.stageObserver = new MutationObserver(this.onChangeStage)
         this.platform = cur.platform
         this.site = cur.site
+
         this.modules = {
             hotkeys: HotkeysModule.initInstance(this),
             automation: AutomationModule.initInstance(this),
@@ -133,11 +146,17 @@ export class ChatruletkaDriver {
     }
 
     public start(element: HTMLElement): boolean {
-        this.modules.controls.injectControls(this.getTabs())
+        if (this.modules.controls) {
+            this.modules.controls.injectControls(this.getTabs())
+        }
 
-        this.modules.interface.applyTweaks()
+        if (this.modules.interface) {
+            this.modules.interface.applyTweaks()
+        }
 
-        this.modules.geolocation.injectIpEventListener()
+        if (this.modules.geolocation) {
+            this.modules.geolocation.injectIpEventListener()
+        }
 
         this.injectSwitchModeButton()
 
@@ -152,58 +171,73 @@ export class ChatruletkaDriver {
         })
 
         document.getElementsByClassName('buttons__button stop-button')[0].addEventListener("click", (e: any) => { // TODO: fix type
-            if (e.pointerType !== "") {
-                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("main")
-                this.modules.geolocation.checkApi()
+            if (this.modules.geolocation) {
+                if (e.pointerType !== "") {
+                    (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("main")
+                    this.modules.geolocation.checkApi()
+                }
             }
+
             clearTimeout(this.timeout)
         })
 
-        this.modules.geolocation.checkApi()
-        this.modules.geolocation.startTimer()
-
-        this.modules.automation.injectAutomationSkipFourSec()
-        this.modules.automation.injectAutomationSkipWrongCountry()
-        if (globalThis.settings.autoResume) {
-            this.modules.automation.autoResume.enable()
+        if (this.modules.geolocation) {
+            this.modules.geolocation.checkApi()
+            this.modules.geolocation.startTimer()
         }
 
-        if (globalThis.settings.hotkeys) {
+        if (this.modules.automation) {
+            this.modules.automation.injectAutomationSkipFourSec()
+            this.modules.automation.injectAutomationSkipWrongCountry()
+            if (globalThis.platformSettings.get("autoResume")) {
+                this.modules.automation.autoResume.enable()
+            }
+        }
+
+
+        if (this.modules.hotkeys && globalThis.platformSettings.get("hotkeys")) {
             this.modules.hotkeys.unregister()
             this.modules.hotkeys.register()
         }
 
-        if (globalThis.settings.skipMale || globalThis.settings.skipFemale || globalThis.settings.enableFaceApi) {
+        if (this.modules.faceapi && globalThis.platformSettings.get("skipMale") || globalThis.platformSettings.get("skipFemale") || globalThis.platformSettings.get("enableFaceApi")) {
             this.modules.faceapi.injectFaceApi()
         }
 
-        if (globalThis.settings.streamer) {
+        if (this.modules.streamer && globalThis.platformSettings.get("streamer")) {
             this.modules.streamer.start()
         }
 
         this.stageObserver.observe(element, {attributes: true});
 
-        this.modules.stats.updStats(false)
+        if (this.modules.stats) {
+            this.modules.stats.updStats(false)
+        }
 
         return true
     }
-
 
     private onChangeStage = (mutations: any[]) => {
         mutations.forEach((mutation) => {
             if (mutation.attributeName === "class") {
                 if (this.stage === 4) {
-                    this.modules.stats.increaseStatsTime((Date.now() - this.play) / 1000)
+                    if (this.modules.stats) {
+                        this.modules.stats.increaseStatsTime((Date.now() - this.play) / 1000)
+                    }
                 }
 
                 const attributeValue = String($(mutation.target).prop(mutation.attributeName));
                 if (attributeValue.includes("s-stop")) {
                     this.stage = 0;
 
-                    this.modules.faceapi.stop()
+                    if (this.modules.faceapi) {
+                        this.modules.faceapi.stop()
+                    }
 
-                    this.modules.geolocation.curIps = []
-                    this.modules.geolocation.curInfo = {}
+                    if (this.modules.geolocation) {
+                        this.modules.geolocation.curIps = []
+                        this.modules.geolocation.curInfo = {}
+                    }
                     // (document.getElementById("remoteInfo") as HTMLElement).innerHTML = ''
                     this.needToClear = true;
                     (document.getElementById("remoteFace") as HTMLElement).innerHTML = '';
@@ -213,19 +247,22 @@ export class ChatruletkaDriver {
                         (document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement).click()
                     }
 
-                    if (globalThis.settings.streamer) {
+                    if (this.modules.streamer && globalThis.platformSettings.get("streamer")) {
                         this.modules.streamer.onStageStop()
                     }
                 }
                 if (attributeValue.includes("s-search")) {
                     this.stage = 1
-
-                    this.modules.geolocation.curIps = []
-                    this.modules.geolocation.curInfo = {}
+                    if (this.modules.geolocation) {
+                        this.modules.geolocation.curIps = []
+                        this.modules.geolocation.curInfo = {}
+                    }
                     this.needToClear = true
                     this.needToCheckTarget = true
 
-                    this.modules.faceapi.stop()
+                    if (this.modules.faceapi) {
+                        this.modules.faceapi.stop()
+                    }
                     // (document.getElementById("remoteFace") as HTMLElement).innerHTML = ''
                     if (this.play < this.search) {
                         // console.log("Dialog ended before even started")
@@ -233,7 +270,7 @@ export class ChatruletkaDriver {
 
                     this.search = Date.now()
 
-                    if (globalThis.settings.streamer) {
+                    if (this.modules.streamer && globalThis.platformSettings.get("streamer")) {
                         this.modules.streamer.onStageSearch()
                     }
                 } else if (attributeValue.includes("s-found")) {
@@ -243,7 +280,7 @@ export class ChatruletkaDriver {
 
                     this.found = Date.now()
 
-                    if (globalThis.settings.streamer) {
+                    if (this.modules.streamer && globalThis.platformSettings.get("streamer")) {
                         this.modules.streamer.onStageFound()
                     }
                 } else if (attributeValue.includes("s-connected")) {
@@ -251,7 +288,9 @@ export class ChatruletkaDriver {
                 } else if (attributeValue.includes("s-play")) {
                     this.stage = 4;
 
-                    this.modules.faceapi.start(0)
+                    if (this.modules.faceapi) {
+                        this.modules.faceapi.start(0)
+                    }
 
                     this.play = Date.now()
                     console.log("Loading took: ", ((this.play - this.found) / 1000).toFixed(2), "sec")
@@ -260,12 +299,16 @@ export class ChatruletkaDriver {
                         this.modules.stats.increaseCountAll()
                     }
 
-                    if (globalThis.settings.streamer) {
+                    if (this.modules.streamer && globalThis.platformSettings.get("streamer")) {
                         this.modules.streamer.onStagePlay()
                     }
                 }
-                this.modules.stats.updStats(false)
-                this.modules.blacklist.updBlacklistStats()
+                if (this.modules.stats) {
+                    this.modules.stats.updStats(false)
+                }
+                if (this.modules.blacklist) {
+                    this.modules.blacklist.updBlacklistStats()
+                }
             }
         });
     }

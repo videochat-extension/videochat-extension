@@ -6,8 +6,8 @@ import ChangeEvent = JQuery.ChangeEvent;
 
 export class StreamerModule {
     private static instanceRef: StreamerModule;
-    public BLUR_FILTER = "blur(" + globalThis.settings.blurFilter + "px)"
-    public BLUR_FILTER_PREVIEW = "blur(" + globalThis.settings.blurPreviewFilter + "px)"
+    public BLUR_FILTER = "blur(" + globalThis.platformSettings.get("blurFilter") + "px)"
+    public BLUR_FILTER_PREVIEW = "blur(" + globalThis.platformSettings.get("blurPreviewFilter") + "px)"
     private interval: NodeJS.Timer | undefined;
     public started = false
 
@@ -22,6 +22,22 @@ export class StreamerModule {
     public manualBlur = false
     public preds = []
     public echoV: HTMLVideoElement = document.createElement('video')
+    public static defaults = {
+        streamer: false,
+        streamerKeys: true,
+        streamerMirror: false,
+        blurOnStart: true,
+        streamerPip: true,
+        blurPreview: false,
+        blurFilter: 55,
+        blurPreviewFilter: 20,
+        blurReport: true,
+        cover: true,
+        coverPreview: true,
+        coverNoise: true,
+        coverStop: true,
+        coverSrc: "https://i.imgur.com/Ud2uLYQ.gif",
+    }
     public settings = [
         {
             type: "header",
@@ -47,7 +63,7 @@ export class StreamerModule {
         },
         {
             type: "section",
-            hide: globalThis.settings.streamer,
+            hide: globalThis.platformSettings.get("streamer"),
             sectionId: "streamerList",
             children: [
                 {
@@ -211,11 +227,15 @@ export class StreamerModule {
                     type: "button",
                     text: chrome.i18n.getMessage("coverSrc"),
                     onclick: (e: MouseEvent) => {
-                        const result = prompt(chrome.i18n.getMessage("promptCoverSrc"), globalThis.settings.coverSrc)
+                        const result = prompt(chrome.i18n.getMessage("promptCoverSrc"), globalThis.platformSettings.get("coverSrc"))
                         if (result) {
-                            chrome.storage.sync.set({"coverSrc": result}, function () {
+                            // TODO: test this
+                            globalThis.platformSettings.setBack({"coverSrc": result}, function () {
                                 (document.getElementById('cover') as HTMLImageElement).src = result
                             });
+                            // chrome.storage.sync.set({"coverSrc": result}, function () {
+                            //     (document.getElementById('cover') as HTMLImageElement).src = result
+                            // });
                         }
                     }
                 }
@@ -369,7 +389,7 @@ export class StreamerModule {
     }
 
     public start() {
-        if (globalThis.settings.streamerPip) {
+        if (globalThis.platformSettings.get("streamerPip")) {
             document.getElementById("streamerPipButton")!.style.display = ""
         }
 
@@ -385,18 +405,17 @@ export class StreamerModule {
             console.dir(e)
         }
 
-        if (globalThis.settings.blurReport)
+        if (globalThis.platformSettings.get("blurReport"))
             (document.getElementById("report-screen") as HTMLElement).style.filter = "blur(10px)"
 
-        // if (globalThis.settings.cover || globalThis.settings.coverPreview || globalThis.settings.coverNoise || globalThis.settings.coverStop) {
         $(utils.createElement('img', {
-            src: globalThis.settings.coverSrc,
+            src: globalThis.platformSettings.get("coverSrc"),
             id: "cover",
             style: "height:100%; position: absolute; display:none"
         })).insertBefore("#remote-video")
 
         $(utils.createElement('img', {
-            src: globalThis.settings.coverSrc,
+            src: globalThis.platformSettings.get("coverSrc"),
             id: "cover2",
             style: "height:100%; position: absolute; transform: scaleX(-1)"
         })).insertBefore("#local-video")
@@ -404,7 +423,6 @@ export class StreamerModule {
         $(".remote-video__preview").insertBefore("#cover")
 
         $(".remote-video__noise").insertBefore("#cover")
-        // }
 
 
         if ((document.getElementById("streamerKeysCheck") as HTMLInputElement).checked) {

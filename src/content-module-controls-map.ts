@@ -35,7 +35,7 @@ export class mapModule {
         if (typeof this.circle !== 'undefined')
             this.map.removeLayer(this.circle)
 
-        if (globalThis.settings.hideMobileLocation && json.mobile) {
+        if (json.mobile) {
             this.circle = L.circle([json.lat, json.lon], 300000, {
                 color: 'red',
                 fillColor: '#f03',

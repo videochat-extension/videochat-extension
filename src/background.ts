@@ -34,78 +34,11 @@ const defaults = {
     'firstInstall': true,
     // displays whether the migration of the old settings from v1.6.3 has occurred
     'completedOldSettingsMigration': false,
-    // settings per platform, not website
-    "UUID": {},
     "lastVersion": "",
     "missingPermissionCheck": true,
-    /////////////////////////////////////////////
-    /////////////////////////////////////////////
-    /////////////////////////////////////////////
-    expand: true,
-    hideWatermark: false,
-    hideBanner: false,
-    autoBan: false,
-    dontBanMobile: false,
-    skipMale: false,
-    skipFemale: false,
-    possibleReview: false,
-    skipSound: false,
-    enableFaceApi: false,
-    skipFourSec: false,
-    autoResume: false,
-    hotkeys: true,
-    stats: {
-        countAll: 0,
-        countNew: 0,
-        countDup: 0,
-        countMales: 0,
-        countFemales: 0,
-        countManSkip: 0,
-        countMaleSkip: 0,
-        countFemaleSkip: 0,
-        time: 0
-    },
-    streamer: false,
-    streamerKeys: true,
-    doNotReflect: false,
-    doNotCover: false,
-    hideCamera: false,
-    streamerMirror: false,
-    blurOnStart: true,
-    streamerPip: true,
-    blurPreview: false,
-    blurFilter: 55,
-    blurPreviewFilter: 20,
-    blurReport: true,
-    cover: true,
-    coverPreview: true,
-    coverNoise: true,
-    coverStop: true,
-    coverSrc: "https://i.imgur.com/Ud2uLYQ.gif",
-    ipApiLocalisation: true,
-    hideMobileLocation: true,
-    showCT: false,
-    showMoreEnabledByDefault: true,
-    skipMobileTarget: true,
-    enableTargetCity: false,
-    enableTargetRegion: false,
-    targetCity: "Moscow",
-    targetRegion: "Moscow",
-    targetSound: false,
-    darkMode: false,
-    hideLogo: false,
-    hideHeader: true,
-    swalInfoCompleted: false,
-    torrentsEnable: false,
-    torrentsInfo: true,
-    showISP: false,
-    askForMode: true,
-    minimalism: false,
-    lastInstanceOpened: "https://videochatru.com/embed/",
-    skipwrongcountry: false,
-    /////////////////////////////////////////////
-    /////////////////////////////////////////////
-    /////////////////////////////////////////////
+
+    // settings managed by PlatformSettings
+    // "98ea82db-9d50-4951-935e-2405d9fe892e": {},
 };
 
 // actual content script list, ensureContentScriptsAreRegistered() should reregister on change

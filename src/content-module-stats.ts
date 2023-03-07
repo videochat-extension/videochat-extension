@@ -4,6 +4,19 @@ import * as utils from "./utils";
 export class StatsModule {
     private static instanceRef: StatsModule;
     public countBeforeSaveStats = 0;
+    public static defaults = {
+        stats: {
+            countAll: 0,
+            countNew: 0,
+            countDup: 0,
+            countMales: 0,
+            countFemales: 0,
+            countManSkip: 0,
+            countMaleSkip: 0,
+            countFemaleSkip: 0,
+            time: 0
+        }
+    }
     public settings = [
         {
             type: "header",
@@ -22,7 +35,7 @@ export class StatsModule {
     ]
     public tabs: any = []
     private driver: ChatruletkaDriver;
-    private stats = globalThis.settings.stats
+    private stats = globalThis.platformSettings.get("stats")
 
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver
@@ -171,7 +184,9 @@ export class StatsModule {
     }
 
     private saveStats() {
-        chrome.storage.sync.set({"stats": this.stats});
+        // TODO: test this
+        globalThis.platformSettings.set({"stats": this.stats});
+        // chrome.storage.sync.set({"stats": this.stats});
     }
 }
 

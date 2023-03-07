@@ -114,6 +114,16 @@ export class InterfaceModule {
             }
         }
     }
+    public static defaults = {
+        hideWatermark: false,
+        hideBanner: false,
+        doNotReflect: false,
+        doNotCover: false,
+        hideCamera: false,
+        darkMode: false,
+        hideLogo: false,
+        hideHeader: true,
+    }
     public settings = [
         {
             type: "header",
@@ -255,35 +265,35 @@ export class InterfaceModule {
     public applyTweaks() {
         this.tweakLoginWindow()
 
-        if (globalThis.settings.hideLogo) {
+        if (globalThis.platformSettings.get("hideLogo")) {
             this.tweaks.hideLogo.enable()
         }
 
-        if (globalThis.settings.hideHeader) {
+        if (globalThis.platformSettings.get("hideHeader")) {
             this.tweaks.hideHeader.enable()
         }
 
-        if (globalThis.settings.hideWatermark) {
+        if (globalThis.platformSettings.get("hideWatermark")) {
             this.tweaks.hideWatermark.enable()
         }
 
-        if (globalThis.settings.hideBanner) {
+        if (globalThis.platformSettings.get("hideBanner")) {
             this.tweaks.hideBanner.enable()
         }
 
-        if (globalThis.settings.doNotReflect) {
+        if (globalThis.platformSettings.get("doNotReflect")) {
             this.tweaks.doNotReflect.enable()
         }
 
-        if (globalThis.settings.doNotCover) {
+        if (globalThis.platformSettings.get("doNotCover")) {
             this.tweaks.doNotCover.enable()
         }
 
-        if (globalThis.settings.hideCamera) {
+        if (globalThis.platformSettings.get("hideCamera")) {
             this.tweaks.hideCamera.enable()
         }
 
-        if (globalThis.settings.darkMode) {
+        if (globalThis.platformSettings.get("darkMode")) {
             this.tweaks.darkMode.enable()
         }
     }

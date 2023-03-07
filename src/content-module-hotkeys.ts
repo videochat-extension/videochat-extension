@@ -4,6 +4,9 @@ import * as utils from "./utils";
 
 export class HotkeysModule {
     private static instanceRef: HotkeysModule;
+    public static defaults = {
+        hotkeys: true,
+    }
     public settings = [
         {
             type: "header",

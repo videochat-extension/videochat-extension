@@ -3,17 +3,14 @@ import * as utils from "./utils";
 
 export class BlacklistModule {
     private static instanceRef: BlacklistModule;
+    public static defaults = {
+        dontBanMobile: false,
+        skipSound: false,
+    }
     public settings = [
         {
             type: "header",
             text: chrome.i18n.getMessage("settingsBlacklist")
-        },
-        {
-            type: "checkbox",
-            important: false,
-            key: "autoBan",
-            text: chrome.i18n.getMessage("autoskip"),
-            tooltip: chrome.i18n.getMessage("tooltipAutoskip")
         },
         {
             type: "checkbox",
@@ -93,12 +90,12 @@ export class BlacklistModule {
     }
 
     public playBanSound() {
-        if (globalThis.settings.skipSound)
+        if (globalThis.platformSettings.get("skipSound"))
             this.ban.play();
     }
 
     public playMaleSound() {
-        if (globalThis.settings.skipSound)
+        if (globalThis.platformSettings.get("skipSound"))
             this.male.play();
     }
 
@@ -113,7 +110,7 @@ export class BlacklistModule {
     }
 
     public processAutoBan(ips: string[]) {
-        if (globalThis.settings.dontBanMobile) {
+        if (globalThis.platformSettings.get("dontBanMobile")) {
             ips.forEach((ip) => {
                 if (ip in this.driver.modules.geolocation.curInfo) {
                     if (!this.driver.modules.geolocation.curInfo[ip].mobile) {

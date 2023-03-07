@@ -72,7 +72,7 @@ export class ControlsModule {
 
     // TODO: FIX IT ON OME.TV: GO SETTINGS -> resize window -> GO OTHER TAB -> size wont change
     public resizemap = (extend: boolean): void => {
-        if (extend && globalThis.settings.expand) {
+        if (extend && globalThis.platformSettings.get("expand")) {
             let newVideoContainerHeight = parseFloat((document.getElementById("video-container") as HTMLElement).style.height)
             let newChatContainerHeight = parseFloat((document.getElementsByClassName("chat-container")[0] as HTMLElement).style.height)
 
@@ -119,6 +119,9 @@ export class ControlsModule {
         })
     }
 
+    public static defaults = {
+        expand: true
+    }
     public settings = [
         {
             type: "header",
@@ -414,8 +417,8 @@ export class ControlsTabAbout {
                         ]),
                     utils.createElement('br'),
                     utils.createElement('button', {
-                        onclick: () => {
-                            ContentSwalChangelog.getInstance().showFromVersion(globalThis.settings.lastVersion)
+                        onclick: async () => {
+                            ContentSwalChangelog.getInstance().showFromVersion((await chrome.storage.sync.get({'lastVersion': ''})).lastVersion)
                         },
                     }, [
                         utils.createElement('b', {
@@ -518,7 +521,7 @@ function createHeader() {
             utils.createElement('button', {
                 id: "streamerPipButton",
                 style: function f() {
-                    if (globalThis.settings.streamer && globalThis.settings.streamerPip) {
+                    if (globalThis.platformSettings.get("streamer") && globalThis.platformSettings.get("streamerPip")) {
                         return "height:15px"
                     } else {
                         return "height:15px;display:none"

@@ -32,7 +32,7 @@ export function createSwitchModeButtonContainer() {
 }
 
 export function switchMode() {
-    let preselect = globalThis.settings.minimalism
+    let preselect = globalThis.platformSettings.get("minimalism")
     Swal.fire({
         title: chrome.i18n.getMessage("switchModeTitle"),
         allowOutsideClick: false,
@@ -49,17 +49,17 @@ export function switchMode() {
             if (typeof newMode === "undefined") {
                 return false
             } else {
-                if (!globalThis.settings.askForMode && newMode === "minimalism" && preselect) {
+                if (!globalThis.platformSettings.get("askForMode") && newMode === "minimalism" && preselect) {
                     return true
-                } else if (!globalThis.settings.askForMode && newMode === "full" && !preselect) {
+                } else if (!globalThis.platformSettings.get("askForMode") && newMode === "full" && !preselect) {
                     return true
                 } else {
                     if (newMode === "minimalism") {
-                        chrome.storage.sync.set({askForMode: false, minimalism: true}, function () {
+                        globalThis.platformSettings.setBack({askForMode: false, minimalism: true}, function () {
                             location.reload()
                         });
                     } else {
-                        chrome.storage.sync.set({askForMode: false, minimalism: false}, function () {
+                        globalThis.platformSettings.setBack({askForMode: false, minimalism: false}, function () {
                             location.reload()
                         });
                     }
@@ -67,7 +67,7 @@ export function switchMode() {
             }
         },
         didRender: () => {
-            if (globalThis.settings.minimalism) {
+            if (globalThis.platformSettings.get("minimalism")) {
                 (document.getElementById('minimalism') as HTMLInputElement).checked = true
             } else {
                 (document.getElementById('full') as HTMLInputElement).checked = true

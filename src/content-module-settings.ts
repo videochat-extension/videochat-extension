@@ -102,14 +102,16 @@ export class ControlsTabSettings {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: globalThis.settings[key],
+                    checked: globalThis.platformSettings.get(key),
                     id: `${key}Check`,
                     onchange: (event: ChangeEvent) => {
                         let checked = event.currentTarget.checked
 
                         let syncDict: { [key: string]: any } = {}
                         syncDict[key] = event.currentTarget.checked
-                        chrome.storage.sync.set(syncDict, function () {
+
+                        // TODO: TEST THIS
+                        globalThis.platformSettings.setBack(syncDict, function () {
                             if (checked) {
                                 if (enable) {
                                     enable()
@@ -126,6 +128,23 @@ export class ControlsTabSettings {
                                 }
                             }
                         });
+                        // chrome.storage.sync.set(syncDict, function () {
+                        //     if (checked) {
+                        //         if (enable) {
+                        //             enable()
+                        //         }
+                        //         if (controls) {
+                        //             document.getElementById(controls)!.style.display = ""
+                        //         }
+                        //     } else {
+                        //         if (disable) {
+                        //             disable()
+                        //         }
+                        //         if (controls) {
+                        //             document.getElementById(controls)!.style.display = "none"
+                        //         }
+                        //     }
+                        // });
                     },
                 })
             ]),
@@ -146,16 +165,23 @@ export class ControlsTabSettings {
                     style: "vertical-align: middle!important;",
                     min: min,
                     max: max,
-                    value: globalThis.settings[key],
+                    value: globalThis.platformSettings.get(key),
                     onchange: (event: ChangeEvent) => {
                         let syncDict: { [key: string]: any } = {}
                         syncDict[key] = event.currentTarget.value
                         let ev = event
-                        chrome.storage.sync.set(syncDict, function () {
+                        // TODO: TEST THIS
+                        globalThis.platformSettings.setBack(syncDict, function () {
                             if (onchange) {
                                 onchange(ev)
                             }
                         });
+
+                        // chrome.storage.sync.set(syncDict, function () {
+                        //     if (onchange) {
+                        //         onchange(ev)
+                        //     }
+                        // });
                     },
                 })
             ]),

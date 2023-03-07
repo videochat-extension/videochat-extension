@@ -6,6 +6,11 @@ require('arrive')
 
 export class AutomationModule {
     private static instanceRef: AutomationModule;
+    public static defaults = {
+        skipFourSec: false,
+        autoResume: false,
+        skipwrongcountry: false,
+    }
     public settings = [
         {
             type: "header",
@@ -55,7 +60,7 @@ export class AutomationModule {
 
     public injectAutomationSkipFourSec() {
         setInterval(() => {
-            if (globalThis.settings.skipFourSec) {
+            if (globalThis.platformSettings.get("skipFourSec")) {
                 try {
                     if ((this.driver.stage === 2) && (this.driver.found + 4000 < Date.now())) {
                         console.dir("Skipping due to loading time limit");
@@ -105,7 +110,7 @@ export class AutomationModule {
     public injectAutomationSkipWrongCountry() {
         let self = this
         document.arrive(".tr-country", function (el: any) { // TODO: FIX TYPE
-            if (globalThis.settings.skipwrongcountry) {
+            if (globalThis.platformSettings.get("skipwrongcountry")) {
                 try {
                     if (el.parentElement?.className === "message-bubble") {
                         let expectedCountry = "ZZ" // http://xml.coverpages.org/country3166.html#:~:text=ZZ,or%20unspecified%20country
