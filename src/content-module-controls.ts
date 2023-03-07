@@ -164,6 +164,7 @@ export class ControlsModule {
                 style: "height:290px; width:390px; border: 1px solid #d5d5d5;box-shadow: 0 0 5px 0 rgba(0,0,0,.15) inset;background: #fff;"
             })
             controls.style.height = "225px"
+            // controls.style.width = parseFloat($(".buttons__button.start-button")[0].style.width) * 2 + 8 + "px"
             $(controls).appendTo(chat)
 
             let body = $("[class='chat__body']")
@@ -509,6 +510,7 @@ function createHeader() {
                 })
             ]),
             utils.createElement('button', {
+                id: "streamerPipButton",
                 style: function f() {
                     if (globalThis.settings.streamer && globalThis.settings.streamerPip) {
                         return "height:15px"

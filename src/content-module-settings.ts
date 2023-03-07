@@ -132,7 +132,7 @@ export class ControlsTabSettings {
         ])
     }
 
-    static createSettingsRange(tagName: string, key: string, min: number, max: number, settingText: string, settingTooltip: string, onchange?: () => void) {
+    static createSettingsRange(tagName: string, key: string, min: number, max: number, settingText: string, settingTooltip: string, onchange?: (event: ChangeEvent) => void) {
         return utils.createElement('dd', {}, [
             utils.createElement('span', {}, [
                 utils.createElement(tagName, {
@@ -150,9 +150,10 @@ export class ControlsTabSettings {
                     onchange: (event: ChangeEvent) => {
                         let syncDict: { [key: string]: any } = {}
                         syncDict[key] = event.currentTarget.value
+                        let ev = event
                         chrome.storage.sync.set(syncDict, function () {
                             if (onchange) {
-                                onchange()
+                                onchange(ev)
                             }
                         });
                     },

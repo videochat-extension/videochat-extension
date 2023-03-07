@@ -2,13 +2,21 @@ import $ from "jquery";
 import * as utils from "./utils";
 import {ChatruletkaDriver} from "./content-driver-chatruletka";
 import {confirmAndReload} from "./content-module-settings";
+import ChangeEvent = JQuery.ChangeEvent;
 
 export class StreamerModule {
     private static instanceRef: StreamerModule;
-    readonly BLUR_FILTER = "blur(" + globalThis.settings.blurFilter + "px)"
-    readonly BLUR_FILTER_PREVIEW = "blur(" + globalThis.settings.blurPreviewFilter + "px)"
-    readonly vid: HTMLVideoElement = document.getElementById("local-video") as HTMLVideoElement
-    readonly rmt: HTMLVideoElement = document.getElementById("remote-video") as HTMLVideoElement
+    public BLUR_FILTER = "blur(" + globalThis.settings.blurFilter + "px)"
+    public BLUR_FILTER_PREVIEW = "blur(" + globalThis.settings.blurPreviewFilter + "px)"
+
+    public getLocalVideo(): HTMLVideoElement {
+        return <HTMLVideoElement>document.getElementById("local-video")
+    }
+
+    public getRemoteVideo(): HTMLVideoElement {
+        return <HTMLVideoElement>document.getElementById("remote-video")
+    }
+
     public manualBlur = false
     public preds = []
     public echoV: HTMLVideoElement = document.createElement('video')
@@ -102,8 +110,11 @@ export class StreamerModule {
                     key: "blurFilter",
                     min: 0,
                     max: 200,
-                    onchange: () => {
-                        confirmAndReload()
+                    onchange: (event: ChangeEvent) => {
+                        this.BLUR_FILTER = "blur(" + event.target.value + "px)"
+                        if (this.getRemoteVideo()!.style.filter !== "") {
+                            this.getRemoteVideo()!.style.filter = this.BLUR_FILTER
+                        }
                     }
                 },
                 {
@@ -121,8 +132,8 @@ export class StreamerModule {
                     key: "blurPreviewFilter",
                     min: 0,
                     max: 200,
-                    onchange: () => {
-                        confirmAndReload()
+                    onchange: (event: ChangeEvent) => {
+                        this.BLUR_FILTER_PREVIEW = "blur(" + event.target.value + "px)"
                     }
                 },
                 {
@@ -221,43 +232,43 @@ export class StreamerModule {
 
     public blurRemote() {
         if ((document.getElementById("coverCheck") as HTMLInputElement).checked || (document.getElementById("coverNoiseCheck") as HTMLInputElement).checked || (document.getElementById("coverPreviewCheck") as HTMLInputElement).checked || (document.getElementById("coverStopCheck") as HTMLInputElement).checked) {
-            this.rmt.style.filter = "opacity(0%)"
+            this.getRemoteVideo()!!.style.filter = "opacity(0%)"
             document.getElementById('cover')!.style.display = ""
         } else {
-            this.rmt.style.filter = this.BLUR_FILTER
+            this.getRemoteVideo()!.style.filter = this.BLUR_FILTER
         }
     }
 
     public unblurRemote() {
         if ((document.getElementById("coverCheck") as HTMLInputElement).checked || (document.getElementById("coverNoiseCheck") as HTMLInputElement).checked || (document.getElementById("coverPreviewCheck") as HTMLInputElement).checked || (document.getElementById("coverStopCheck") as HTMLInputElement).checked) {
-            this.rmt.style.filter = ""
+            this.getRemoteVideo()!.style.filter = ""
             document.getElementById('cover')!.style.display = "none"
         } else {
-            this.rmt.style.filter = ""
+            this.getRemoteVideo()!.style.filter = ""
         }
     }
 
     public blurLocal() {
         if ((document.getElementById("coverCheck") as HTMLInputElement).checked || (document.getElementById("coverNoiseCheck") as HTMLInputElement).checked || (document.getElementById("coverPreviewCheck") as HTMLInputElement).checked || (document.getElementById("coverStopCheck") as HTMLInputElement).checked) {
-            this.vid.style.filter = "opacity(0%)"
+            this.getLocalVideo()!.style.filter = "opacity(0%)"
             document.getElementById('cover2')!.style.display = ""
         } else {
-            this.vid.style.filter = this.BLUR_FILTER
+            this.getLocalVideo()!.style.filter = this.BLUR_FILTER
         }
     }
 
     public unblurLocal() {
         if ((document.getElementById("coverCheck") as HTMLInputElement).checked || (document.getElementById("coverNoiseCheck") as HTMLInputElement).checked || (document.getElementById("coverPreviewCheck") as HTMLInputElement).checked || (document.getElementById("coverStopCheck") as HTMLInputElement).checked) {
-            this.vid.style.filter = ""
+            this.getLocalVideo()!.style.filter = ""
             document.getElementById('cover2')!.style.display = "none"
         } else {
-            this.vid.style.filter = ""
+            this.getLocalVideo()!.style.filter = ""
         }
     }
 
     public updStatus() {
         let strings = []
-        if (this.rmt.muted)
+        if (this.getRemoteVideo()!.muted)
             strings.push("muted")
         if (this.manualBlur)
             strings.push("manual blur")
@@ -268,8 +279,8 @@ export class StreamerModule {
     public onConversationEnd() {
         this.preds = []
         if ((document.getElementById("streamerMirrorCheck") as HTMLInputElement).checked)
-            this.vid.style.filter = ""
-        this.rmt.style.filter = ""
+            this.getLocalVideo()!.style.filter = ""
+        this.getRemoteVideo()!.style.filter = ""
         if ((document.getElementById("coverCheck") as HTMLInputElement).checked) {
             // cover.style.display = "none"
         }
@@ -361,7 +372,7 @@ export class StreamerModule {
                     case "ArrowRight":
                         if (!(document.getElementById("report-popup")!.style.display === "block")) {
                             {
-                                if (this.rmt.style.filter === "") {
+                                if (this.getRemoteVideo()!.style.filter === "") {
                                     this.blurRemote()
                                     this.manualBlur = true
                                 } else {
@@ -370,7 +381,7 @@ export class StreamerModule {
                                 }
 
                                 if ((document.getElementById("streamerMirrorCheck") as HTMLInputElement).checked) {
-                                    if (this.vid.style.filter === "")
+                                    if (this.getLocalVideo()!.style.filter === "")
                                         this.blurLocal()
                                     else
                                         this.unblurLocal()
@@ -381,14 +392,14 @@ export class StreamerModule {
                         break;
 
                     case "m":
-                        this.rmt.muted = !this.rmt.muted
+                        this.getRemoteVideo()!.muted = !this.getRemoteVideo()!.muted
                         this.updStatus()
                         break;
                 }
             })
         }
 
-        setInterval(this.updStatus, 500)
+        setInterval(this.updStatus.bind(this), 500)
 
         if ((document.getElementById("streamerPipCheck") as HTMLInputElement).checked) {
             this.echoV.id = "echo-video"

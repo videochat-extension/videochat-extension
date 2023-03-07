@@ -243,7 +243,7 @@
     "message": "enable a special set of hotkeys for streamers"
   },
   "streamerHotkeysText": {
-    "message": "<dd style='margin-inline-start: 40px!important;'>right arrow - blur</dd><dd style='margin-inline-start: 40px!important;'>m - mute remote video</dd><dd style='margin-inline-start: 40px!important;'>shift+right arrow - disable nsfwjs for session</dd>"
+    "message": "<dd style='margin-inline-start: 40px!important;'>right arrow - blur</dd><dd style='margin-inline-start: 40px!important;'>m - mute remote video</dd>"
   },
   "streamerPip": {
     "message": "streamer's pip: "

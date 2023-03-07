@@ -243,7 +243,7 @@
     "message": "активирует набор хоткеев для стримеров"
   },
   "streamerHotkeysText": {
-    "message": "<dd style='margin-inline-start: 40px!important;'>стрелка вправо - блюр</dd><dd style='margin-inline-start: 40px!important;'>m - замутить собеседника</dd><dd style='margin-inline-start: 40px!important;'>shift+стрелка вправо - временно выключить nsfwjs</dd>"
+    "message": "<dd style='margin-inline-start: 40px!important;'>стрелка вправо - блюр</dd><dd style='margin-inline-start: 40px!important;'>m - замутить собеседника</dd>"
   },
   "streamerPip": {
     "message": "стримерский PiP: "
