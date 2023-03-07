@@ -493,10 +493,16 @@ function createHeader() {
                     innerText: "^"
                 })
             ]),
-            // TODO: requestPictureInPicture is not supported by firefox
-            // https://bugzilla.mozilla.org/show_bug.cgi?id=1463402
             utils.createElement('button', {
-                style: "color: green; height:15px",
+                // requestPictureInPicture is not supported by firefox
+                style: function f() {
+                    // @ts-ignore
+                    if (typeof browser !== "undefined") {
+                        return "color: green; height:15px; display:none"
+                    } else {
+                        return "color: green; height:15px"
+                    }
+                }(),
                 title: "pip remote",
                 onclick: () => {
                     if (document.pictureInPictureElement === document.getElementById("remote-video"))
@@ -541,14 +547,19 @@ function createHeader() {
                 id: "connectionStatus",
             })
         ]),
-
-        // TODO: requestPictureInPicture is not supported by firefox
-        // https://bugzilla.mozilla.org/show_bug.cgi?id=1463402
         utils.createElement('div', {
             style: "position:absolute; right:0; top:0",
         }, [
             utils.createElement('button', {
-                style: "color: green; height:15px",
+                // requestPictureInPicture is not supported by firefox
+                style: function f() {
+                    // @ts-ignore
+                    if (typeof browser !== "undefined") {
+                        return "color: green; height:15px; display:none"
+                    } else {
+                        return "color: green; height:15px"
+                    }
+                }(),
                 title: "pip local",
                 onclick: () => {
                     if (document.pictureInPictureElement === document.getElementById("local-video"))
