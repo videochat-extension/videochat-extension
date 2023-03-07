@@ -209,6 +209,12 @@ export class GeolocationModule {
                     this.driver.modules.controls.resizemap(false)
                 }
                 console.dir(`ip-api.com test passed: ${response.status}`)
+            } else if (response.status === 429) {
+                (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
+                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus429") + "</br></br>" + chrome.i18n.getMessage("main")
+                this.api = 2;
+
+                console.dir(`ip-api.com test passed: ${response.status}`)
             } else {
                 this.api = 0
                 console.dir(`ip-api.com test failed: ${response.status} ${response.body}`)
@@ -262,6 +268,21 @@ export class GeolocationModule {
 
             if (response.status === 200) {
                 this.processData(response.body, ip)
+            } else if (response.status === 429) {
+                if (globalThis.settings.enableTargetCity || globalThis.settings.enableTargetRegion) {
+                    this.driver.stopAndStart(5000)
+                } else {
+                    (document.getElementById("remoteInfo") as HTMLElement).innerHTML = '<div id="ipApiContainer" style="display:flex; flex-direction:row"><div>' + chrome.i18n.getMessage("apiStatus429")
+                    let button = utils.createElement('button', {
+                        innerText: chrome.i18n.getMessage('apiTryAgainButton'),
+                        onclick: () => {
+                            this.curIps.forEach(ip => this.doLookupRequest2(ip))
+                        }
+                    })
+                    $("<br>").appendTo(document.getElementById("remoteInfo")!)
+                    $("<br>").appendTo(document.getElementById("remoteInfo")!)
+                    $(button).appendTo(document.getElementById("remoteInfo")!)
+                }
             } else {
                 (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize("<b>HTTP ERROR " + response.status + "</b>")
                 if (globalThis.settings.enableTargetCity || globalThis.settings.enableTargetRegion) {

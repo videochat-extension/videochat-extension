@@ -44,8 +44,11 @@
   "apiStatus0": {
     "message": "<b>Геолокация IP не работает.</b></br>"
   },
-  "apiStatus1": {
-    "message": "<b>API работает корректно.</b>"
+  "apiStatus429": {
+    "message": "<b>Слишком много запросов, попробуйте позже.</b>"
+  },
+  "apiTryAgainButton": {
+    "message": "попробовать"
   },
   "apiStatus2": {
     "message": "<b>API работает корректно.</b>"

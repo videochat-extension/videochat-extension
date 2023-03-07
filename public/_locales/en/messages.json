@@ -44,8 +44,11 @@
   "apiStatus0": {
     "message": "<b>IP geolocation API doesn't work at all.</b></br>"
   },
-  "apiStatus1": {
-    "message": "<b>API works correctly.</b>"
+  "apiStatus429": {
+    "message": "<b>Too many requests, please try again later.</b>"
+  },
+  "apiTryAgainButton": {
+    "message": "retry"
   },
   "apiStatus2": {
     "message": "<b>API works correctly.</b>"
