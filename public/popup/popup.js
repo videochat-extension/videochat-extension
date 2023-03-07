@@ -8,6 +8,7 @@
 // FAIR WARNING: this popup is a performance mess
 // it is based on a heavily modified https://github.com/chniter/bstreeview
 // dev speed was a priority, in the future this should be rewritten / optimized
+document.title = chrome.i18n.getMessage('popupTitle')
 
 let content = ["vendor.js", "content_script.js"]
 
@@ -127,13 +128,13 @@ $(async function () {
     function getTitleByIconClass(newIconClass) {
         switch (newIconClass) {
             case "bi-check-circle-fill":
-                return "Расширение активно для сайта. Нажмите, чтобы отключить."
+                return chrome.i18n.getMessage("popupSiteEnabled")
 
             case "bi-x-circle-fill":
-                return "Расширение отключено для сайта. Нажмите, чтобы включить."
+                return chrome.i18n.getMessage("popupSiteDisabled")
 
             case "bi-exclamation-triangle-fill":
-                return "Нажмите, чтобы предоставить расширению доступ к сайту."
+                return chrome.i18n.getMessage("popupSiteMissingPermission")
         }
     }
 
@@ -424,14 +425,18 @@ $(async function () {
         }
     }
 
-    async function createSetting(id, text) {
+    async function createSetting(id, text, disabled, onchange) {
         return {
             switch: {
                 id: id,
                 text: text,
+                disabled: disabled,
                 checked: (await chrome.storage.sync.get({[id]: true}))[id],
                 onchange: async function () {
                     chrome.storage.sync.set({[id]: this.checked})
+                    if (onchange) {
+                        onchange(this.checked)
+                    }
                 }
             }
         }
@@ -439,10 +444,15 @@ $(async function () {
 
     async function createSettings() {
         return [
-            await createSetting('allowSetLastIcon', "Менять иконку расширения на иконку последнего видеочата."),
-            await createSetting('allowSetBadgeText', "Устанавливать текст 'ext' под иконкой расширения."),
-            await createSetting('sentry', "Разрешить расширению делиться с sentry.io обезличенной информацией о произошедших ошибках."),
-            await createSetting('missingPermissionCheck', "Разрешить расширению запрашивать у вас доступ к поддерживаемому видеочату, к которому вы ещё не предоставили доступ.")
+            await createSetting('legacyIcon', chrome.i18n.getMessage("popupSettingLegacyIcon"), false, (bool) => {
+                document.getElementById('allowSetLastIcon').disabled = bool
+                document.getElementById('allowSetBadgeText').disabled = bool
+            }),
+            await createSetting('allowSetLastIcon', chrome.i18n.getMessage("popupSettingAllowSetLastIcon"), (await chrome.storage.sync.get({["legacyIcon"]: false}))["legacyIcon"]),
+            await createSetting('allowSetBadgeText', chrome.i18n.getMessage("popupSettingAllowSetBadgeText"), (await chrome.storage.sync.get({["legacyIcon"]: false}))["legacyIcon"]),
+            await createSetting('sentry', chrome.i18n.getMessage("popupSettingSentry"), false),
+            await createSetting('allowShowChangelog', chrome.i18n.getMessage("popupSettingAllowShowChangelog"), false),
+            await createSetting('missingPermissionCheck', chrome.i18n.getMessage("popupSettingMissingPermissionCheck"), false)
         ]
     }
 
@@ -501,7 +511,7 @@ $(async function () {
                 icon: "bi-discord"
             },
             {
-                text: "info",
+                text: chrome.i18n.getMessage("popupTreeLinksContentAbout"),
                 href: chrome.runtime.getURL("welcome/welcome.html"),
                 buttons: [{
                     type: "link",
@@ -530,23 +540,23 @@ $(async function () {
     }
 
     let json = [{
-        text: "Favorites",
+        text: chrome.i18n.getMessage("popupTreeFavoritesTitle"),
         expanded: true,
         id: "favorites",
         hide: favorites.length === 0,
         nodes: createFavorites()
     },
         {
-            text: "Recent",
+            text: chrome.i18n.getMessage("popupTreeRecentTitle"),
             id: "recents",
             expanded: favorites.length === 0,
             hide: Object.keys(recentDict).length === 0,
             nodes: createRecents(recentDict)
         },
         {
-            text: "Supported sites",
+            text: chrome.i18n.getMessage("popupTreeSupportedTitle"),
             bigFixButton: {
-                text: "Fix Permissions",
+                text: chrome.i18n.getMessage("popupTreeSupportedContentFixPermissionsButtonText"),
                 display: function () {
                     let arrayToFix = getArrayToFix(platforms)
                     return arrayToFix.length > 0 ? "" : "none"
@@ -557,13 +567,13 @@ $(async function () {
         },
 
         {
-            text: "Settings",
+            text: chrome.i18n.getMessage("popupTreeSettingsTitle"),
             id: "settings",
             nodes: await createSettings()
         },
 
         {
-            text: "Links",
+            text: chrome.i18n.getMessage("popupTreeLinksTitle"),
             id: "about",
             nodes: await createAbout()
         },
@@ -592,8 +602,8 @@ $(async function () {
         let site = getSiteByDomain(params.get("missingPermission"), platforms)
         let countAll = platforms.map(pl => pl.sites.length).reduce((partialSum, a) => partialSum + a, 0)
         Swal.fire({
-            title: 'Missing permission detected',
-            html: `You tried to open <b>${site.site.text}</b>, which is supported by the <b>Videochat Extension</b>, but you have not yet granted your permission to operate on this site.<br><br><button id="optButton"><b>Give the extension access to ${site.site.text}</b></button><br><br>Extension supports ${countAll} chat websites already and this optional permission system is the only way that works without disabling the extension on every update.<br><br><button id="allButton"><b>Fix missing permissions for ${getArrayToFix(platforms).length} / ${countAll} sites</b></button><br><br>If you want to disable the extension in a specific video chat, you just need to click on the checkmark in the list to turn it off/on.`,
+            title: chrome.i18n.getMessage("popupMissingPermissionSwalTitle"),
+            html: chrome.i18n.getMessage("popupMissingPermissionSwalText", [site.site.text, countAll, getArrayToFix(platforms).length, countAll]),
             icon: 'warning',
             showDenyButton: true,
             showConfirmButton: false,
@@ -612,14 +622,14 @@ $(async function () {
                 }
                 document.getElementById('allButton').onclick = fixAll
             },
-            denyButtonText: `Click to disable this check`,
+            denyButtonText: chrome.i18n.getMessage("popupMissingPermissionSwalDenyButtonText"),
         }).then(async (result) => {
             if (result.isDenied) {
                 await chrome.storage.sync.set({"missingPermissionCheck": false})
                 Swal.fire({
-                    title: 'Проверка отключена',
-                    text: 'Простите за неудобство',
-                    confirmButtonText: "Вернуться назад в видочат",
+                    title: chrome.i18n.getMessage("popupMissingPermissionCheckDisableSwalTitle"),
+                    text: chrome.i18n.getMessage("popupMissingPermissionCheckDisableSwalText"),
+                    confirmButtonText: chrome.i18n.getMessage("popupMissingPermissionCheckDisableSwalConfirmButtonText"),
                     icon: 'info'
                 }).then(async (result) => {
                     if (result.isConfirmed) {

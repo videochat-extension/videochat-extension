@@ -166,6 +166,7 @@
                 } else if (node.switch) {
                     let sw = $(templates.treeviewSettingsSwitch);
                     sw[0].firstChild.id = node.switch.id
+                    sw[0].firstChild.disabled = node.switch.disabled
                     sw[0].firstChild.checked = node.switch.checked
                     $(sw[0].lastChild).attr('for', node.switch.id)
                     sw[0].lastChild.innerText = node.switch.text

@@ -565,5 +565,96 @@
   },
   "updateNeedReloadText": {
     "message": "Ваш браузер перезагрузил расширение, скорее всего он загрузил его новую версию!<br>Пожалуйста, перезагрузите страницу, чтобы восстановить работу."
+  },
+  "welcomeTitle": {
+    "message": "Чат Рулетное Расширение - Добро Пожаловать!"
+  },
+  "welcomeDenyButtonText": {
+    "message": "хочу сразу в чат"
+  },
+  "welcomeHistoryScanNotFound": {
+    "message": "Мы не нашли поддерживаемых видеочатов в вашей истории / они уже в Favorites."
+  },
+  "welcomeHistoryScanAdded": {
+    "message": "Добавлено $1 видеочатов в избранное: $2"
+  },
+  "welcomeSwalTimerTitle": {
+    "message": "Всё готово"
+  },
+  "welcomeSwalTimerText": {
+    "message": "Меню откроется через <b></b> с."
+  },
+  "popupTitle": {
+    "message": "Чат Рулетное Расширение"
+  },
+
+  "popupSiteEnabled": {
+    "message": "Расширение активно для сайта. Нажмите, чтобы отключить."
+  },
+  "popupSiteDisabled": {
+    "message": "Расширение отключено для сайта. Нажмите, чтобы включить."
+  },
+  "popupSiteMissingPermission": {
+    "message": "Нажмите, чтобы предоставить расширению доступ к сайту."
+  },
+  "popupSettingAllowSetLastIcon": {
+    "message": "Менять иконку расширения на иконку последнего видеочата."
+  },
+  "popupSettingAllowSetBadgeText": {
+    "message": "Устанавливать текст 'ext' под иконкой расширения."
+  },
+  "popupSettingLegacyIcon": {
+    "message": "Использовать legacy иконку (отключает динамическую иконку и текст)"
+  },
+  "popupSettingSentry": {
+    "message": "Разрешить расширению делиться с sentry.io обезличенной информацией о произошедших ошибках."
+  },
+  "popupSettingAllowShowChangelog": {
+    "message": "Показывать журнал изменений в любом видеочате, если было обновление расширения (не показывает в минималистичном режиме)."
+  },
+  "popupSettingMissingPermissionCheck": {
+    "message": "Разрешить расширению запрашивать у вас доступ к поддерживаемому видеочату, к которому вы ещё не предоставили доступ."
+  },
+
+  "popupTreeFavoritesTitle": {
+    "message": "Избранное"
+  },
+  "popupTreeRecentTitle": {
+    "message": "Недавние"
+  },
+  "popupTreeSupportedTitle": {
+    "message": "Видеочаты"
+  },
+  "popupTreeSupportedContentFixPermissionsButtonText": {
+    "message": "Исправить доступ"
+  },
+  "popupTreeSettingsTitle": {
+    "message": "Настройки"
+  },
+  "popupTreeLinksTitle": {
+    "message": "Ссылки"
+  },
+  "popupTreeLinksContentAbout": {
+    "message": "о программе"
+  },
+
+  "popupMissingPermissionSwalTitle": {
+    "message": "Обнаружено отсутствующее разрешение"
+  },
+  "popupMissingPermissionSwalText": {
+    "message": "Вы попытались открыть <b>$1</b>, который уже поддерживает <b>Чат Рулетное Расширение</b>, но вы ещё не предоставили разрешение работать на этом сайте.<br><br><button id='optButton'><b>Предоставить расширению доступ к $1</b></button><br><br>Расширение поддерживает уже $2 сайтов и эта система опционального доступа единственный способ добавлять поддержку новых сайтов, не отключая расширение у большинства пользователей.<br><br><button id='allButton'><b>Предоставить доступ ко всем $3 / $4 сайтам</b></button><br><br>Если вы хотите отключить работу расширения в каком-то конкретном чате, достаточно кликнуть на галочку в меню (popup), чтобы включить/выключить, отключать доступ вовсе не обязательно."
+  },
+  "popupMissingPermissionSwalDenyButtonText": {
+    "message": "Отключить эту проверку (не рекомендуется)"
+  },
+
+  "popupMissingPermissionCheckDisableSwalTitle": {
+    "message": "Проверка отключена"
+  },
+  "popupMissingPermissionCheckDisableSwalText": {
+    "message": "Простите за неудобство"
+  },
+  "popupMissingPermissionCheckDisableSwalConfirmButtonText": {
+    "message": "Вернуться назад в видочат"
   }
 }

@@ -3,7 +3,7 @@ import {extractDomain} from "./utils";
 
 const defaults = {
     // no way to prevent videochatru.com and ome.tv from loading content script,
-    // so I decided to add a way to prevent them from loading drivers if neccesary
+    // so I decided to add a way to prevent them from loading drivers if necessary
     "legacyPrevent": {
         "7fef97eb-a5cc-4caa-8d19-75dab7407b6b": false,
         "98ea82db-9d50-4951-935e-2405d9fe892e": false
@@ -16,10 +16,16 @@ const defaults = {
     "favorites": ["7fef97eb-a5cc-4caa-8d19-75dab7407b6b", "98ea82db-9d50-4951-935e-2405d9fe892e"],
     // dict containing site uuid and last opened unix timestamp
     "recentDict": {},
+    // if extension should display legacy 'Chatruletka (ome.tv) Extension' icon
+    // if enabled, allowSetBadgeText and allowSetLastIcon dont work
+    "legacyIcon": false,
     // if extension should add 'ext' badge text
     "allowSetBadgeText": true,
     // if extension should change its icon to a last chat
     "allowSetLastIcon": true,
+    // allows open changelog on any supported website if there was an update
+    // minimalism mode should not contain changelog
+    "allowShowChangelog": true,
     // lastIconName in format "favicon.png"
     "lastIconName": "",
     // sentry.io error tracking
@@ -158,21 +164,27 @@ async function ensureSettingsAreUpToDate() {
         }
     }
     result.completedOldSettingsMigration = true
+    result.legacyIcon = true
 
     await chrome.storage.sync.set(result);
 }
 
 async function syncBadgeIcon() {
-    let result = await chrome.storage.sync.get(["lastIconName", "allowSetBadgeText", "allowSetLastIcon"]);
-    if (result.allowSetBadgeText) {
-        await showBadge()
-    } else {
+    let result = await chrome.storage.sync.get(["legacyIcon", "lastIconName", "allowSetBadgeText", "allowSetLastIcon"]);
+    if (result.legacyIcon) {
+        await chrome.action.setIcon({path: "resources/img/legacy_icon.png"});
         await hideBadge()
-    }
-    if (result.allowSetLastIcon && result.lastIconName !== "") {
-        await chrome.action.setIcon({path: `popup/icons/${result.lastIconName}`});
     } else {
-        await resetIcon()
+        if (result.allowSetBadgeText) {
+            await showBadge()
+        } else {
+            await hideBadge()
+        }
+        if (result.allowSetLastIcon && result.lastIconName !== "") {
+            await chrome.action.setIcon({path: `popup/icons/${result.lastIconName}`});
+        } else {
+            await resetIcon()
+        }
     }
 }
 
@@ -232,20 +244,17 @@ async function onRuntimeInstalled(_reason: chrome.runtime.InstalledDetails) {
                             favorites.push(site.id)
                         }
                     })
-                    setValue("favorites", favorites)
+                    await setValue("favorites", favorites)
                 }
             });
+
+            await setValue("lastVersion", chrome.runtime.getManifest().version)
         }
 
         await chrome.tabs.create({
             url: 'welcome/welcome.html'
         });
     }
-    // TODO: why did I even store it? If user opened extension changelog after a month all he saw is only the last update???
-    // else if (_reason.reason === "update") {
-    //     // store previousVersion to show changelog if nessecary
-    //     // chrome.storage.sync.set({lastVersion: _reason.previousVersion})
-    // }
 
     await setValue('firstInstall', false)
 }
@@ -305,32 +314,8 @@ async function ensureContentScriptsAreRegistered() {
 
 async function onStorageChanged(changes: { [p: string]: chrome.storage.StorageChange }, namespace: chrome.storage.AreaName) {
     if (namespace === "sync") {
-        if (changes.allowSetBadgeText) {
-            if (changes.allowSetBadgeText.newValue) {
-                await showBadge()
-            } else {
-                await hideBadge()
-            }
-        }
-
-        if (changes.allowSetLastIcon) {
-            if (changes.allowSetLastIcon.newValue) {
-                let nw = await getValue('lastIconName', '')
-                if (nw !== "") {
-                    await chrome.action.setIcon({path: `popup/icons/${nw}`});
-                } else {
-                    await resetIcon()
-                }
-            } else {
-                await resetIcon()
-            }
-        }
-
-        if (changes.lastIconName) {
-            let allowSetLastIcon = await getValue('allowSetLastIcon', '')
-            if (allowSetLastIcon && changes.lastIconName.newValue !== "") {
-                await chrome.action.setIcon({path: `popup/icons/${changes.lastIconName.newValue}`})
-            }
+        if (changes.allowSetBadgeText || changes.legacyIcon || changes.allowSetLastIcon || changes.lastIconName) {
+            await syncBadgeIcon()
         }
     }
 }

@@ -565,5 +565,92 @@
   },
   "updateNeedReloadText": {
     "message": "Your browser has reloaded the extension, most likely it has downloaded a new version of it!<br>Please reload the page to restore the work."
+  },
+  "welcomeTitle": {
+    "message": "Videochat Extension - Welcome!"
+  },
+  "welcomeDenyButtonText": {
+    "message": "I want to chat"
+  },
+  "welcomeHistoryScanNotFound": {
+    "message": "We did not find supported video chats in your history / they are already in Favorites."
+  },
+  "welcomeHistoryScanAdded": {
+    "message": "Added $1 video chats to favorites: $2."
+  },
+  "welcomeSwalTimerText": {
+    "message": "The menu will open in <b></b> sec."
+  },
+  "popupTitle": {
+    "message": "Videochat Extension"
+  },
+  "popupSiteEnabled": {
+    "message": "The extension is active for the site. Click to disable it."
+  },
+  "popupSiteDisabled": {
+    "message": "The extension is disabled for the site. Click to enable it."
+  },
+  "popupSiteMissingPermission": {
+    "message": "Click to give the extension access to the site."
+  },
+  "popupSettingAllowSetLastIcon": {
+    "message": "Change the extension icon to the icon of the last video chat."
+  },
+  "popupSettingAllowSetBadgeText": {
+    "message": "Set the text 'ext' below/above the extension icon."
+  },
+  "popupSettingLegacyIcon": {
+    "message": "Use legacy icon (disables the dynamic icon and badge)"
+  },
+  "popupSettingSentry": {
+    "message": "Allow extensions to share with sentry.io anonymized information about errors that have occurred."
+  },
+  "popupSettingAllowShowChangelog": {
+    "message": "Show changelog in any videochat if there was an update in the extension (does not show in minimalist mode)."
+  },
+  "popupSettingMissingPermissionCheck": {
+    "message": "Allow an extension to request access from you to a supported video chat that you have not yet granted access to."
+  },
+
+  "popupTreeFavoritesTitle": {
+    "message": "Favorites"
+  },
+  "popupTreeRecentTitle": {
+    "message": "Recent"
+  },
+  "popupTreeSupportedTitle": {
+    "message": "Supported sites"
+  },
+  "popupTreeSupportedContentFixPermissionsButtonText": {
+    "message": "Fix Permissions"
+  },
+  "popupTreeSettingsTitle": {
+    "message": "Settings"
+  },
+  "popupTreeLinksTitle": {
+    "message": "Links"
+  },
+  "popupTreeLinksContentAbout": {
+    "message": "info"
+  },
+
+  "popupMissingPermissionSwalTitle": {
+    "message": "Missing permission detected"
+  },
+  "popupMissingPermissionSwalText": {
+    "message": "You tried to open <b>$1</b>, which is supported by the <b>Videochat Extension</b>, but you have not yet granted your permission to operate on this site.<br><br><button id='optButton'><b>Give the extension access to $1</b></button><br><br>Extension supports $2 chat websites already and this optional permission system is the only way that works without disabling the extension on every update.<br><br><button id='allButton'><b>Fix missing permissions for $3 / $4 sites</b></button><br><br>If you want to disable the extension in a specific video chat, you just need to click on the checkmark in the list to turn it off/on."
+  },
+  "popupMissingPermissionSwalDenyButtonText": {
+    "message": "Click to disable this check (not recommended)"
+  },
+
+  "popupMissingPermissionCheckDisableSwalTitle": {
+    "message": "Permission check is disabled"
+  },
+  "popupMissingPermissionCheckDisableSwalText": {
+    "message": "Sorry for the inconvenience"
+  },
+  "popupMissingPermissionCheckDisableSwalConfirmButtonText": {
+    "message": "Back to videochat"
   }
 }

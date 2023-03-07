@@ -82,12 +82,13 @@ async function content() {
         // TODO: maybe show people only 1-step info about what features are supported?
         // ContentSwalInfo.getInstance().showFromStart()
     } else {
-        if (globalThis.settings.lastVersion !== chrome.runtime.getManifest().version) {
-            ContentSwalChangelog.getInstance().showFromVersion(globalThis.settings.lastVersion)
+        if (globalThis.settings.allowShowChangelog) {
+            if (globalThis.settings.lastVersion !== chrome.runtime.getManifest().version) {
+                ContentSwalChangelog.getInstance().showFromVersion(globalThis.settings.lastVersion)
+            }
+            chrome.storage.sync.set({lastVersion: chrome.runtime.getManifest().version})
         }
     }
-
-    chrome.storage.sync.set({lastVersion: chrome.runtime.getManifest().version})
 }
 
 content()

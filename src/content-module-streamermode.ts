@@ -156,10 +156,10 @@ export class StreamerModule {
                     text: chrome.i18n.getMessage("coverOverBlur"),
                     tooltip: chrome.i18n.getMessage("tooltipCoverOverBlur"),
                     enable: () => {
-                        confirmAndReload()
+                        // confirmAndReload()
                     },
                     disable: () => {
-                        confirmAndReload()
+                        // confirmAndReload()
                     }
                 },
                 {
@@ -169,10 +169,10 @@ export class StreamerModule {
                     text: chrome.i18n.getMessage("coverOverPreview"),
                     tooltip: chrome.i18n.getMessage("tooltipCoverOverPreview"),
                     enable: () => {
-                        confirmAndReload()
+                        // confirmAndReload()
                     },
                     disable: () => {
-                        confirmAndReload()
+                        // confirmAndReload()
                     }
                 },
                 {
@@ -182,10 +182,10 @@ export class StreamerModule {
                     text: chrome.i18n.getMessage("coverOverNoise"),
                     tooltip: chrome.i18n.getMessage("tooltipCoverOverNoise"),
                     enable: () => {
-                        confirmAndReload()
+                        // confirmAndReload()
                     },
                     disable: () => {
-                        confirmAndReload()
+                        // confirmAndReload()
                     }
                 },
                 {
@@ -195,10 +195,10 @@ export class StreamerModule {
                     text: chrome.i18n.getMessage("coverOverStop"),
                     tooltip: chrome.i18n.getMessage("tooltipCoverOverStop"),
                     enable: () => {
-                        confirmAndReload()
+                        // confirmAndReload()
                     },
                     disable: () => {
-                        confirmAndReload()
+                        // confirmAndReload()
                     }
                 },
                 {
@@ -345,7 +345,7 @@ export class StreamerModule {
         if (globalThis.settings.blurReport)
             (document.getElementById("report-screen") as HTMLElement).style.filter = "blur(10px)"
 
-        if (globalThis.settings.cover || globalThis.settings.coverPreview || globalThis.settings.coverNoise || globalThis.settings.coverStop) {
+        // if (globalThis.settings.cover || globalThis.settings.coverPreview || globalThis.settings.coverNoise || globalThis.settings.coverStop) {
             $(utils.createElement('img', {
                 src: globalThis.settings.coverSrc,
                 id: "cover",
@@ -361,7 +361,7 @@ export class StreamerModule {
             $(".remote-video__preview").insertBefore("#cover")
 
             $(".remote-video__noise").insertBefore("#cover")
-        }
+        // }
 
 
         if ((document.getElementById("streamerKeysCheck") as HTMLInputElement).checked) {
