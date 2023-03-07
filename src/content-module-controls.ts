@@ -425,7 +425,7 @@ export class ControlsTabAbout {
                     utils.createElement('br'),
                     utils.createElement('button', {
                         onclick: () => {
-                            ContentSwalInfo.getInstance().showFromStart()
+                            chrome.runtime.sendMessage({openWelcome: true})
                         },
                     }, [
                         utils.createElement('b', {
