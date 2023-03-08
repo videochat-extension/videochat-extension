@@ -44,19 +44,43 @@ export class PlatformSettings {
     }
 
     public async setup() {
+        console.dir("setup")
+        console.dir(this.minDefaults)
         let res = await chrome.storage.sync.get({
             [this.platform]: this.minDefaults
         })
+
+        // firefox support
+        let keys = Object.keys(this.minDefaults)
+        for (const key of keys) {
+            if (res[this.platform][key] === undefined) {
+                // @ts-ignore
+                res[this.platform][key] = this.minDefaults[key]
+                console.dir("UNDEFINED")
+            }
+        }
+
         this.settings = res[this.platform]
+        console.dir(this.settings)
         await chrome.storage.sync.set(res)
     }
 
     public async setDriverDefaults(settings: { [key: string]: any }) {
+        console.dir("setDriverDefaults")
         console.dir(settings)
         let res = await chrome.storage.sync.get({
             [this.platform]: settings
         })
+        // firefox support
+        let keys = Object.keys(settings)
+        for (const key of keys) {
+            if (res[this.platform][key] === undefined) {
+                // @ts-ignore
+                res[this.platform][key] = settings[key]
+            }
+        }
         this.settings = res[this.platform]
+        console.dir(this.settings)
         await chrome.storage.sync.set(res)
     }
 
