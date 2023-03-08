@@ -46,7 +46,11 @@ export class ControlsModule {
         this.chatContainerHeight = 0
 
         if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab3")) {
-            this.resizemap(true)
+            if (globalThis.platformSettings.get("expand")) {
+                setTimeout(()=>{this.resizemap(true)}, 300)
+            } else {
+                this.resizemap(false)
+            }
         } else {
             this.resizemap(false)
         }
@@ -187,7 +191,6 @@ export class ControlsModule {
                 }
             });
             observer.observe(this.driver.buttons, {attributes: true});
-            //TODO: fix extend
             new ResizeObserver(this.resizeControls).observe(document.getElementById("overlay") as HTMLElement)
         }
     }
