@@ -14,7 +14,6 @@ export class ControlsModule {
     public driver: ChatruletkaDriver;
     private tabs: any = []
     private controls: HTMLElement | undefined;
-    private resize: NodeJS.Timeout | undefined;
     public vertical = false
 
     protected constructor(driver: ChatruletkaDriver) {
@@ -51,23 +50,6 @@ export class ControlsModule {
         } else {
             this.resizemap(false)
         }
-
-        clearTimeout(this.resize)
-        this.resize = setTimeout(() => {
-            if (this.controls) {
-                let mar = parseInt(window.getComputedStyle(this.controls).marginRight)
-
-                this.driver.buttons.style.width = (parseInt(this.driver.buttons.style.width) - (parseInt(this.controls.style.width) + mar) / 2) + "px"
-                this.driver.chat.style.width = (parseInt(this.driver.chat.style.width) - (parseInt(this.controls.style.width) + mar) / 2) + "px"
-
-                // resize = false // TODO: I COMMENTED IT OUT. WHY?
-                if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab3")) {
-                    this.resizemap(true)
-                } else {
-                    this.resizemap(false)
-                }
-            }
-        }, 500)
     }
 
     // TODO: FIX IT ON OME.TV: GO SETTINGS -> resize window -> GO OTHER TAB -> size wont change
@@ -186,7 +168,28 @@ export class ControlsModule {
 
         $('.tooltip').tooltipster({maxWidth: 300, distance: -1})
 
-        new ResizeObserver(this.resizeControls).observe(document.getElementById("overlay") as HTMLElement)
+        if (!this.vertical) {
+            let oldWidth = 0
+            const observer = new MutationObserver((mutationList: any, observer: any) => {
+                if (this.controls) {
+                    for (const mutation of mutationList) {
+                        if (mutation.type === "attributes" && mutation.attributeName === "style") {
+                            if (oldWidth !== mutation.target.style.width) {
+                                console.dir("MUTATED")
+                                oldWidth = mutation.target.style.width
+                                let mar = parseInt(window.getComputedStyle(this.controls).marginRight)
+                                mutation.target.style.maxWidth = (parseInt(mutation.target.style.width) - (parseInt(this.controls.style.width) + mar) / 2) + "px"
+                                this.driver.chat.style.maxWidth = (parseInt(mutation.target.style.width) - (parseInt(this.controls.style.width) + mar) / 2) + "px"
+                                this.resizeControls()
+                            }
+                        }
+                    }
+                }
+            });
+            observer.observe(this.driver.buttons, {attributes: true});
+            //TODO: fix extend
+            new ResizeObserver(this.resizeControls).observe(document.getElementById("overlay") as HTMLElement)
+        }
     }
 
     protected createStyle() {
