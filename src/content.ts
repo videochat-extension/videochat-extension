@@ -17,7 +17,11 @@ injectIpGrabber()
 
 async function content() {
     let settings = await chrome.storage.sync.get()
-    if (settings.sentry) {
+
+    // TODO: firefox just crashes when sentry tries to initialise
+    // ¯\_(ツ)_/¯
+    // @ts-ignore
+    if (settings.sentry && typeof browser === "undefined") {
         Sentry.init({
             dsn: "https://09512316dbc3422f931ad37d4fb12ed2@o1272228.ingest.sentry.io/6533563",
             release: "videochat-extension@" + chrome.runtime.getManifest().version,
@@ -99,4 +103,8 @@ async function content() {
     }
 }
 
-content()
+// TODO: firefox for some reason injects the content script in about:blank ???
+// this happens only in dynamic scripts, possible allFrames issue ???
+if (location.href.includes('http')) {
+    content()
+}
