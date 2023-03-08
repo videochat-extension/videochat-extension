@@ -42,16 +42,18 @@ export class ControlsModule {
         if (this.vertical) {
             return
         }
-        this.videoContainerHeight = 0
-        this.chatContainerHeight = 0
-
+        // TODO: CHECK IF FIX FOR OME.TV WORKED
         if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab3")) {
             if (globalThis.platformSettings.get("expand")) {
-                setTimeout(()=>{this.resizemap(true)}, 300)
+                setTimeout(()=>{this.resizemap(true)}, 600)
             } else {
+                this.videoContainerHeight = 0
+                this.chatContainerHeight = 0
                 this.resizemap(false)
             }
         } else {
+            this.videoContainerHeight = 0
+            this.chatContainerHeight = 0
             this.resizemap(false)
         }
     }
@@ -65,11 +67,17 @@ export class ControlsModule {
             if (newVideoContainerHeight !== (newVideoContainerHeight + newChatContainerHeight) / 2) {
                 this.videoContainerHeight = parseFloat((document.getElementById("video-container") as HTMLElement).style.height);
                 this.chatContainerHeight = parseFloat((document.getElementsByClassName("chat-container")[0] as HTMLElement).style.height);
+                console.dir(this.videoContainerHeight);
+                console.dir(this.chatContainerHeight);
+                console.trace("1");
 
                 (document.getElementById("video-container") as HTMLElement).style.height = (this.videoContainerHeight + this.chatContainerHeight) / 2 + "px";
                 (document.getElementsByClassName("chat-container")[0] as HTMLElement).style.height = (this.videoContainerHeight + this.chatContainerHeight) / 2 + "px"
             }
         } else {
+            console.dir('resize false')
+            console.dir(this.videoContainerHeight)
+            console.dir(this.chatContainerHeight)
             if (this.videoContainerHeight !== 0 && this.chatContainerHeight !== 0) {
                 (document.getElementById("video-container") as HTMLElement).style.height = this.videoContainerHeight + "px";
                 (document.getElementsByClassName("chat-container")[0] as HTMLElement).style.height = this.chatContainerHeight + "px"
