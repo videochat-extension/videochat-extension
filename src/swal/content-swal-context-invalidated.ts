@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 
 let updateNeedReloadTitle = chrome.i18n.getMessage('updateNeedReloadTitle')
 let updateNeedReloadText = chrome.i18n.getMessage('updateNeedReloadText')
+let updateNeedReloadConfirmButtonText = chrome.i18n.getMessage("updateNeedReloadConfirmButtonText")
 let updateNeedReloadInterval = setInterval(() => {
     try {
         chrome.i18n.getMessage('lang')
@@ -16,7 +17,8 @@ let updateNeedReloadInterval = setInterval(() => {
                 width: 600,
                 position: 'bottom-start',
                 title: updateNeedReloadTitle,
-                html: updateNeedReloadText
+                html: updateNeedReloadText,
+                confirmButtonText: updateNeedReloadConfirmButtonText
             })
         }
     }
