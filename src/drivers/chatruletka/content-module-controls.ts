@@ -67,17 +67,17 @@ export class ControlsModule {
             if (newVideoContainerHeight !== (newVideoContainerHeight + newChatContainerHeight) / 2) {
                 this.videoContainerHeight = parseFloat((document.getElementById("video-container") as HTMLElement).style.height);
                 this.chatContainerHeight = parseFloat((document.getElementsByClassName("chat-container")[0] as HTMLElement).style.height);
-                console.dir(this.videoContainerHeight);
-                console.dir(this.chatContainerHeight);
-                console.trace("1");
+                // console.dir(this.videoContainerHeight);
+                // console.dir(this.chatContainerHeight);
+                // console.trace("1");
 
                 (document.getElementById("video-container") as HTMLElement).style.height = (this.videoContainerHeight + this.chatContainerHeight) / 2 + "px";
                 (document.getElementsByClassName("chat-container")[0] as HTMLElement).style.height = (this.videoContainerHeight + this.chatContainerHeight) / 2 + "px"
             }
         } else {
-            console.dir('resize false')
-            console.dir(this.videoContainerHeight)
-            console.dir(this.chatContainerHeight)
+            // console.dir('resize false')
+            // console.dir(this.videoContainerHeight)
+            // console.dir(this.chatContainerHeight)
             if (this.videoContainerHeight !== 0 && this.chatContainerHeight !== 0) {
                 (document.getElementById("video-container") as HTMLElement).style.height = this.videoContainerHeight + "px";
                 (document.getElementsByClassName("chat-container")[0] as HTMLElement).style.height = this.chatContainerHeight + "px"
@@ -187,7 +187,7 @@ export class ControlsModule {
                     for (const mutation of mutationList) {
                         if (mutation.type === "attributes" && mutation.attributeName === "style") {
                             if (oldWidth !== mutation.target.style.width) {
-                                console.dir("MUTATED")
+                                // console.dir("MUTATED")
                                 oldWidth = mutation.target.style.width
                                 let mar = parseInt(window.getComputedStyle(this.controls).marginRight)
                                 mutation.target.style.maxWidth = (parseInt(mutation.target.style.width) - (parseInt(this.controls.style.width) + mar) / 2) + "px"
