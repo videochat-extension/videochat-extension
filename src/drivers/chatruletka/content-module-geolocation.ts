@@ -228,7 +228,7 @@ export class GeolocationModule {
             if (response.status === 200) {
                 this.api = 2;
                 (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
-                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage("main")
+                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage("main", [this.driver.site.text])
 
                 if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
                     this.driver.modules.controls.resizemap(false)
@@ -236,7 +236,7 @@ export class GeolocationModule {
                 console.dir(`ip-api.com test passed: ${response.status}`)
             } else if (response.status === 429) {
                 (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
-                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus429") + "</br></br>" + chrome.i18n.getMessage("main")
+                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus429") + "</br></br>" + chrome.i18n.getMessage("main", [this.driver.site.text])
                 this.api = 2;
 
                 console.dir(`ip-api.com test passed: ${response.status}`)
@@ -246,7 +246,7 @@ export class GeolocationModule {
                 console.dir(chrome.i18n.getMessage("apiStatus0") + ' ERROR: ' + response.status);
 
                 (document.getElementById("apiStatus") as HTMLElement).innerHTML = DOMPurify.sanitize('<b>ERROR: ' + response.status + ' || </b>' + chrome.i18n.getMessage("apiStatus0"));
-                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("main")
+                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("main", [this.driver.site.text])
                 if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
                     this.driver.modules.controls.resizemap(false)
                 }
