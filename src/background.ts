@@ -448,11 +448,18 @@ async function checkIfMissingPermissions(windowId: number, url: string, fromTabI
         let domain = extractDomain(url)
         if (domain && platforms.includes(domain)) {
             let arr = (await chrome.storage.local.get({"stopPermissionCheck": []})).stopPermissionCheck
+            let site = getSiteByDomain(domain, (await fetchPlatforms()))
+
+            if (site && site.site && site.site.id) {
+                let recentDict = await getValue("recentDict", {})
+                recentDict[site.site.id] = Math.ceil(+new Date() / 1000)
+                await setValue("recentDict", recentDict)
+            }
+
             if (!arr.includes(domain)) {
                 arr.push(domain)
                 // I was supposed to use chrome.storage.session, but firefox doesn't support...
                 await chrome.storage.local.set({"stopPermissionCheck": arr})
-                let site = getSiteByDomain(domain, (await fetchPlatforms()))
 
                 if (site && site.site && site.site.origin) {
                     let recentDict = await getValue("recentDict", {})
@@ -470,13 +477,6 @@ async function checkIfMissingPermissions(windowId: number, url: string, fromTabI
                             });
                         }, 500)
                     }
-                }
-            } else {
-                let site = getSiteByDomain(domain, (await fetchPlatforms()))
-                if (site && site.site && site.site.id) {
-                    let recentDict = await getValue("recentDict", {})
-                    recentDict[site.site.id] = Math.ceil(+new Date() / 1000)
-                    await setValue("recentDict", recentDict)
                 }
             }
         }
