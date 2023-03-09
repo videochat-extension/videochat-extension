@@ -613,9 +613,9 @@ $(async function () {
                     if (await hasPermision(site.site.origin)) {
                         setTimeout(() => {
                             chrome.tabs.update(parseInt(params.get('fromTabId')), {active: true}, () => {
-                                chrome.tabs.reload(parseInt(params.get('fromTabId'), false, () => {
+                                chrome.tabs.reload(parseInt(params.get('fromTabId')), null, () => {
                                     window.close()
-                                }))
+                                })
                             })
                         }, 1000)
                     }
