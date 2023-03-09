@@ -549,7 +549,7 @@
     "message": "Videochat Extension"
   },
   "switchModeText": {
-    "message": "<b>Please choose the mod that suits you best.</b>"
+    "message": "<b>Please choose the mode that suits you best.</b>"
   },
   "switchModeLabelMod1": {
     "message": "minimalism (only geolocation, nothing else)"
