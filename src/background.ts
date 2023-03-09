@@ -318,7 +318,7 @@ function tabsOnActivated(chTab: chrome.tabs.TabActiveInfo) {
             chrome.storage.local.set(data)
 
             if (await getValue('missingPermissionCheck', true)) {
-                await checkIfMissingPermissions(tab["url"], chTab["tabId"])
+                await checkIfMissingPermissions(tab.windowId, tab["url"], chTab["tabId"])
             }
         }
     });
@@ -428,42 +428,44 @@ function runtimeOnMessage(request: any, sender: chrome.runtime.MessageSender, se
     }
 }
 
-async function checkIfMissingPermissions(url: string, fromTabId: number) {
-    let platforms = (await chrome.storage.local.get("domains")).domains
-    if (!platforms) {
-        let domains: string[] = [];
-        (await fetchPlatforms()).forEach((platform: any) => {
-            let ignore = ["7fef97eb-a5cc-4caa-8d19-75dab7407b6b", "98ea82db-9d50-4951-935e-2405d9fe892e"]
-            platform.sites.forEach((site: any) => {
-                if (!ignore.includes(site.id)) {
-                    domains.push(site.text)
-                }
-            })
-        })
-        await chrome.storage.local.set({"domains": domains})
-        platforms = (await chrome.storage.local.get("domains")).domains
-    }
-    let domain = extractDomain(url)
-    if (domain && platforms.includes(domain)) {
-        let arr = (await chrome.storage.local.get({"stop": []})).stop
-        if (!arr.includes(domain)) {
-            arr.push(domain)
-            // TODO: uncomment it
-            // await chrome.storage.local.set({"stop": arr})
-            let site = getSiteByDomain(domain, (await fetchPlatforms()))
-
-            if (site && site.site && site.site.origin) {
-                let permission = await chrome.permissions.contains({
-                    origins: [site.site.origin]
+async function checkIfMissingPermissions(windowId: number, url: string, fromTabId: number) {
+    let windowType = (await chrome.windows.get(windowId)).type
+    if (windowType == "normal") {
+        let platforms = (await chrome.storage.local.get("domains")).domains
+        if (!platforms) {
+            let domains: string[] = [];
+            (await fetchPlatforms()).forEach((platform: any) => {
+                let ignore = ["7fef97eb-a5cc-4caa-8d19-75dab7407b6b", "98ea82db-9d50-4951-935e-2405d9fe892e"]
+                platform.sites.forEach((site: any) => {
+                    if (!ignore.includes(site.id)) {
+                        domains.push(site.text)
+                    }
                 })
-                if (!permission) {
-                    console.dir("try")
-                    let text = site.site.text
-                    setTimeout(() => {
-                        chrome.tabs.create({
-                            url: `popup/popup.html?missingPermission=${text}&fromTabId=${fromTabId}&zoom=120`
-                        });
-                    }, 500)
+            })
+            await chrome.storage.local.set({"domains": domains})
+            platforms = (await chrome.storage.local.get("domains")).domains
+        }
+        let domain = extractDomain(url)
+        if (domain && platforms.includes(domain)) {
+            let arr = (await chrome.storage.local.get({"stop": []})).stop
+            if (!arr.includes(domain)) {
+                arr.push(domain)
+                // TODO: uncomment it
+                // await chrome.storage.local.set({"stop": arr})
+                let site = getSiteByDomain(domain, (await fetchPlatforms()))
+
+                if (site && site.site && site.site.origin) {
+                    let permission = await chrome.permissions.contains({
+                        origins: [site.site.origin]
+                    })
+                    if (!permission) {
+                        let text = site.site.text
+                        setTimeout(() => {
+                            chrome.tabs.create({
+                                url: `popup/popup.html?missingPermission=${text}&fromTabId=${fromTabId}&zoom=120`
+                            });
+                        }, 500)
+                    }
                 }
             }
         }
@@ -489,7 +491,7 @@ function init() {
     chrome.tabs.onUpdated.addListener(async (tabId: number, changeInfo: chrome.tabs.TabChangeInfo, tab: chrome.tabs.Tab) => {
         if (tab && changeInfo.url) {
             if (await getValue('missingPermissionCheck', true)) {
-                await checkIfMissingPermissions(changeInfo.url, tabId)
+                await checkIfMissingPermissions(tab.windowId, changeInfo.url, tabId)
             }
         }
     });
