@@ -306,7 +306,7 @@ export class InterfaceModule {
         dark.id = "darkMode"
         switch (this.driver.platform) {
             case "7390db38-a617-4f6e-8a8a-ee353b76cc25": {
-                dark.href = chrome.runtime.getURL(`resources/dark/98ea82db-9d50-4951-935e-2405d9fe892e.css`)
+                dark.href = chrome.runtime.getURL(`resources/dark/${this.driver.site.id}.css`)
                 break;
             }
 
@@ -314,6 +314,9 @@ export class InterfaceModule {
                 dark.href = chrome.runtime.getURL(`resources/dark/7fef97eb-a5cc-4caa-8d19-75dab7407b6b.css`)
                 break;
             }
+            default:
+                dark.href = chrome.runtime.getURL(`resources/dark/${this.driver.site.id}.css`)
+                break;
         }
         return dark
     }
