@@ -447,12 +447,12 @@ async function checkIfMissingPermissions(windowId: number, url: string, fromTabI
         }
         let domain = extractDomain(url)
         if (domain && platforms.includes(domain)) {
-            let arr = (await chrome.storage.local.get({"stop": []})).stop
+            let arr = (await chrome.storage.local.get({"stopPermissionCheck": []})).stopPermissionCheck
             if (!arr.includes(domain)) {
                 arr.push(domain)
                 // TODO: uncomment it
-                // I was supposed to use chrome.storage.session, but firefox doesn't support...
-                // await chrome.storage.local.set({"stop": arr})
+                // I was supposed to use chrome.storage.session, but firefox doesn't support... 
+                await chrome.storage.local.set({"stopPermissionCheck": arr})
                 let site = getSiteByDomain(domain, (await fetchPlatforms()))
 
                 if (site && site.site && site.site.origin) {
@@ -484,6 +484,10 @@ function init() {
 
     chrome.runtime.onStartup.addListener(syncBadgeIcon)
     chrome.runtime.onStartup.addListener(ensureContentScriptsAreRegistered)
+    // resetting certain values in chrome.storage.local because firefox doesn't support chrome.storage.session
+    chrome.runtime.onStartup.addListener(async () => {
+        await chrome.storage.local.set({"stopPermissionCheck": []})
+    })
 
     chrome.commands.onCommand.addListener(commandsOnCommand);
 
