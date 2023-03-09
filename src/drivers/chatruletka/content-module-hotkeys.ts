@@ -52,11 +52,38 @@ export class HotkeysModule {
     }
 
     public unregister() {
+        document.removeEventListener('keydown', this.localHotkeysKeyDownTiming)
         document.removeEventListener('keyup', this.localHotkeys)
     }
 
     public register() {
+        document.addEventListener('keydown', this.localHotkeysKeyDownTiming)
         document.addEventListener('keyup', this.localHotkeys)
+    }
+
+    private arrowLeft = 0
+    private arrowRight = 0
+    private arrowDown = 0
+    private arrowUp = 0
+
+    private localHotkeysKeyDownTiming(e: KeyboardEvent) {
+        switch (e.key) {
+            case "ArrowLeft":
+                this.arrowLeft = + new Date()
+                break;
+
+            case "ArrowUp":
+                this.arrowRight = + new Date()
+                break;
+
+            case "ArrowDown":
+                this.arrowDown = + new Date()
+                break;
+
+            case "ArrowRight":
+                this.arrowUp = + new Date()
+                break;
+        }
     }
 
     private localHotkeys(e: KeyboardEvent) {
@@ -65,35 +92,43 @@ export class HotkeysModule {
 
         switch (e.key) {
             case "ArrowLeft":
-                if (document.getElementById("report-popup")?.style.display === "block") {
-                    let cancelReportButton: HTMLElement = document.getElementsByClassName('btn')[0] as HTMLElement;
-                    cancelReportButton.click()
-                } else {
-                    if (e.shiftKey) {
-                        this.driver.modules.blacklist.addIpsToList(this.driver.modules.geolocation.curIps)
-                    }
+                if (+new Date() - this.arrowLeft < 5000) {
+                    if (document.getElementById("report-popup")?.style.display === "block") {
+                        let cancelReportButton: HTMLElement = document.getElementsByClassName('btn')[0] as HTMLElement;
+                        cancelReportButton.click()
+                    } else {
+                        if (e.shiftKey) {
+                            this.driver.modules.blacklist.addIpsToList(this.driver.modules.geolocation.curIps)
+                        }
 
-                    let startButton: HTMLElement = document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement;
-                    startButton.click()
+                        let startButton: HTMLElement = document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement;
+                        startButton.click()
+                    }
                 }
                 break;
 
             case "ArrowUp":
-                let stopButton: HTMLElement = document.getElementsByClassName('buttons__button stop-button')[0] as HTMLElement;
-                stopButton.click()
+                if (+new Date() - this.arrowUp < 5000) {
+                    let stopButton: HTMLElement = document.getElementsByClassName('buttons__button stop-button')[0] as HTMLElement;
+                    stopButton.click()
+                }
                 break;
 
             case "ArrowDown":
-                if (document.getElementsByClassName("message-report-link tr").length !== 0) {
-                    let openReportButton: HTMLElement = document.getElementsByClassName("message-report-link tr")[0] as HTMLElement;
-                    openReportButton.click()
+                if (+new Date() - this.arrowDown < 5000) {
+                    if (document.getElementsByClassName("message-report-link tr").length !== 0) {
+                        let openReportButton: HTMLElement = document.getElementsByClassName("message-report-link tr")[0] as HTMLElement;
+                        openReportButton.click()
+                    }
                 }
                 break;
 
             case "ArrowRight":
-                if (document.getElementById("report-popup")?.style.display === "block") {
-                    let submitReportButton: HTMLElement = document.getElementsByClassName("btn btn-main send-report")[1] as HTMLElement;
-                    submitReportButton.click()
+                if (+new Date() - this.arrowRight < 5000) {
+                    if (document.getElementById("report-popup")?.style.display === "block") {
+                        let submitReportButton: HTMLElement = document.getElementsByClassName("btn btn-main send-report")[1] as HTMLElement;
+                        submitReportButton.click()
+                    }
                 }
                 break;
         }
