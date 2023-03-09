@@ -451,6 +451,7 @@ async function checkIfMissingPermissions(windowId: number, url: string, fromTabI
             if (!arr.includes(domain)) {
                 arr.push(domain)
                 // TODO: uncomment it
+                // I was supposed to use chrome.storage.session, but firefox doesn't support...
                 // await chrome.storage.local.set({"stop": arr})
                 let site = getSiteByDomain(domain, (await fetchPlatforms()))
 
