@@ -612,7 +612,7 @@ $(async function () {
                     await requestOrigin(site.site.origin)
                     if (await hasPermision(site.site.origin)) {
                         setTimeout(() => {
-                            chrome.tabs.update(parseInt(params.get('fromTabId')), {highlighted: true}, () => {
+                            chrome.tabs.update(parseInt(params.get('fromTabId')), {active: true}, () => {
                                 chrome.tabs.reload(parseInt(params.get('fromTabId'), false, () => {
                                     window.close()
                                 }))
@@ -634,7 +634,7 @@ $(async function () {
                 }).then(async (result) => {
                     if (result.isConfirmed) {
                         if (params.has('fromTabId')) {
-                            chrome.tabs.update(parseInt(params.get('fromTabId')), {highlighted: true}, () => {
+                            chrome.tabs.update(parseInt(params.get('fromTabId')), {active: true}, () => {
                                 window.close()
                             })
                         } else {

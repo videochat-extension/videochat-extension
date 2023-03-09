@@ -28,6 +28,8 @@ const defaults = {
     "allowShowChangelog": true,
     // lastIconName in format "favicon.png"
     "lastIconName": "",
+    // lastDomain for switch command
+    "lastDomain": "",
     // sentry.io error tracking
     'sentry': true,
     // if firstInstall, should add chats from active tabs to favorites
@@ -271,11 +273,11 @@ async function commandsOnCommand(command: string, tab: chrome.tabs.Tab) {
                 return
             if (data.curId === data.chatId) {
                 // selects the non-videochat tab because the videochat tab is active
-                chrome.tabs.update(data.tabId, {highlighted: true});
+                await chrome.tabs.update(data.tabId, {active: true});
                 data.curId = data.tabId;
             } else {
                 // selects the videochat tab because the non-videochat tab is active
-                chrome.tabs.update(data.chatId, {highlighted: true});
+                await chrome.tabs.update(data.chatId, {active: true});
                 data.curId = data.chatId;
             }
             await chrome.storage.local.set(data)
@@ -297,8 +299,8 @@ function tabsOnActivated(chTab: chrome.tabs.TabActiveInfo) {
         // torrentWindowId variable tracks window id where iknowwhatyoudownload.com tabs opens
         let data = await chrome.storage.local.get({tabId: -1, chatId: -1, curId: -1, torrentWindowId: -1})
         if (tab["url"] !== undefined && tab["id"] !== undefined) {
-            // TODO: !!!!!!!!
-            if (tab["url"].search(".*videochatru.com.*") !== -1 || tab['url'].search(".*ome.tv.*") !== -1) {
+            let lastDomain = await getValue('lastDomain', "")
+            if (tab["url"].includes(lastDomain)) {
                 // if the chat is open in torrentWindowId then torrentWindowId can no longer be used for iknowwhatyoudownload tabs
                 if (tab.windowId === data.torrentWindowId) {
                     data.torrentWindowId = -1;
@@ -457,11 +459,11 @@ async function checkIfMissingPermissions(url: string, fromTabId: number) {
                 if (!permission) {
                     console.dir("try")
                     let text = site.site.text
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         chrome.tabs.create({
                             url: `popup/popup.html?missingPermission=${text}&fromTabId=${fromTabId}&zoom=120`
                         });
-                    },500)
+                    }, 500)
                 }
             }
         }
