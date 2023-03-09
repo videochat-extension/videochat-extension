@@ -208,13 +208,6 @@
                 "href": "https://camki.com/embed"
             },
             {
-                "text": "chatalt.com",
-                "id": "f2ba210a-d708-481f-ad01-e461c7a8036e",
-                "favicon": "chatalternative.png",
-                "origin": "https://*.chatalt.com/*",
-                "href": "https://chatalt.com/embed"
-            },
-            {
                 "text": "chatalternative.com",
                 "id": "a403aaa9-7d0a-4ea0-b20e-2abfb2aa55e3",
                 "favicon": "chatalternative.png",
