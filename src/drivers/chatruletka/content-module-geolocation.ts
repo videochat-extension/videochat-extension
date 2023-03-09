@@ -618,6 +618,7 @@ export class ControlsTabMap {
 
     public handleResize() {
         this.map.map.invalidateSize()
+        this.mapContainer.style.height = parseInt(this.mapContainer.style.height) - 2 + "px"
     }
 
     public handleTabClick() {
