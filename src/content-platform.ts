@@ -14,8 +14,8 @@ export class PlatformSettings {
         chrome.storage.onChanged.addListener((changes, namespace) => {
             if (namespace === "sync" && changes[this.platform]) {
                 this.settings = changes[this.platform].newValue
-                console.dir('changed')
-                console.dir(this.settings)
+                // console.dir('changed')
+                // console.dir(this.settings)
             }
         });
     }
@@ -44,8 +44,8 @@ export class PlatformSettings {
     }
 
     public async setup() {
-        console.dir("setup")
-        console.dir(this.minDefaults)
+        // console.dir("setup")
+        // console.dir(this.minDefaults)
         let res = await chrome.storage.sync.get({
             [this.platform]: this.minDefaults
         })
@@ -56,18 +56,18 @@ export class PlatformSettings {
             if (res[this.platform][key] === undefined) {
                 // @ts-ignore
                 res[this.platform][key] = this.minDefaults[key]
-                console.dir("UNDEFINED")
+                // console.dir("UNDEFINED")
             }
         }
 
         this.settings = res[this.platform]
-        console.dir(this.settings)
+        // console.dir(this.settings)
         await chrome.storage.sync.set(res)
     }
 
     public async setDriverDefaults(settings: { [key: string]: any }) {
-        console.dir("setDriverDefaults")
-        console.dir(settings)
+        // console.dir("setDriverDefaults")
+        // console.dir(settings)
         let res = await chrome.storage.sync.get({
             [this.platform]: settings
         })
@@ -80,7 +80,7 @@ export class PlatformSettings {
             }
         }
         this.settings = res[this.platform]
-        console.dir(this.settings)
+        // console.dir(this.settings)
         await chrome.storage.sync.set(res)
     }
 
