@@ -200,6 +200,8 @@ export class ControlsModule {
             });
             observer.observe(this.driver.buttons, {attributes: true});
             new ResizeObserver(this.resizeControls).observe(document.getElementById("overlay") as HTMLElement)
+
+            window.dispatchEvent(new Event('resize'));
         }
     }
 
