@@ -473,7 +473,7 @@ async function checkIfMissingPermissions(windowId: number, url: string, fromTabI
                         let text = site.site.text
                         setTimeout(() => {
                             chrome.tabs.create({
-                                url: `popup/popup.html?missingPermission=${text}&fromTabId=${fromTabId}&zoom=120`
+                                url: `popup/popup.html?missingPermission=${text}&fromTabId=${fromTabId}&recent&zoom=120`
                             });
                         }, 500)
                     }

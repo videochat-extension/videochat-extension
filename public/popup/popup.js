@@ -11,6 +11,7 @@
 document.title = chrome.i18n.getMessage('popupTitle')
 
 let content = ["vendor.js", "content_script.js"]
+let params = new URLSearchParams(window.location.search);
 
 console.time("show tree")
 $(async function () {
@@ -541,7 +542,7 @@ $(async function () {
 
     let json = [{
         text: chrome.i18n.getMessage("popupTreeFavoritesTitle"),
-        expanded: true,
+        expanded: !params.has('recent'),
         id: "favorites",
         hide: favorites.length === 0,
         nodes: createFavorites()
@@ -549,7 +550,7 @@ $(async function () {
         {
             text: chrome.i18n.getMessage("popupTreeRecentTitle"),
             id: "recents",
-            expanded: favorites.length === 0,
+            expanded: params.has('recent') || favorites.length === 0,
             hide: Object.keys(recentDict).length === 0,
             nodes: createRecents(recentDict)
         },
@@ -594,7 +595,6 @@ $(async function () {
     console.timeEnd("show tree")
     // document.getElementById('container').style.display=""
 
-    let params = new URLSearchParams(window.location.search);
     if (params.has('zoom')) {
         document.body.style.zoom = params.get('zoom') + "%"
     }
