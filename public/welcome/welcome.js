@@ -47,7 +47,6 @@ const showSwalChangelog = async function () {
             '<b>What features are available?</b><br>' +
             '<ul>' +
             '<li><b>IP Locator</b></li>' +
-            '<ul><li>identifies stranger\'s IP address</li></ul>' +
             '<ul><li>uses the ip geolocation service to determine the approximate location and whether the stranger\'s using a mobile/vpn/tor connection</li></ul>' +
 
             '<li><b>map</b></li>' +
@@ -203,7 +202,6 @@ const showSwalChangelog = async function () {
             '<b>Какие функции доступны?</b><br>' +
             '<ul>' +
             '<li><b>IP геолокация</b></li>' +
-            '<ul><li>определяет IP-адрес собеседника </li></ul>' +
             '<ul><li>использует сервис ip-геолокации для определения приблизительного местоположения и того, использует ли собеседник мобильное/vpn/тор соединение</li></ul>' +
 
             '<li><b>карта</b></li>' +
