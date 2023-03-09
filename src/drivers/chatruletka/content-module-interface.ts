@@ -103,6 +103,12 @@ export class InterfaceModule {
                     if (!document.getElementById("darkMode")) {
                         (document.body || document.documentElement).appendChild(this.dark);
                     }
+
+                    if (this.driver.modules.controls.vertical) {
+                        document.getElementById('videochat-extension-controls-container')!.style.background = "#181a1b"
+                        document.getElementById('videochat-extension-controls-container')!.style.boxShadow = "rgba(0, 0, 0, 0.15) 0px 0px 5px 0px inset"
+                        document.getElementById('videochat-extension-controls-container')!.style.border = "1px solid #3c4143"
+                    }
                 })
             },
             disable: () => {
@@ -110,6 +116,12 @@ export class InterfaceModule {
                     (document.getElementById("connectionStatus") as HTMLElement).style.color = "#000000";
                     if (document.getElementById("darkMode") as HTMLElement)
                         (document.getElementById("darkMode") as HTMLElement).remove();
+
+                    if (this.driver.modules.controls.vertical) {
+                        document.getElementById('videochat-extension-controls-container')!.style.background = "#fff"
+                        document.getElementById('videochat-extension-controls-container')!.style.boxShadow = ""
+                        document.getElementById('videochat-extension-controls-container')!.style.border = "1px solid rgb(213, 213, 213)"
+                    }
                 })
             }
         }
@@ -310,6 +322,7 @@ export class InterfaceModule {
                 dark.href = chrome.runtime.getURL(`resources/dark/${this.driver.site.id}.css`)
                 break;
         }
+        // dark.href = chrome.runtime.getURL(`resources/dark/DarkReader-camki-com.css`)
         return dark
     }
 }
