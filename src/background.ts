@@ -471,6 +471,13 @@ async function checkIfMissingPermissions(windowId: number, url: string, fromTabI
                         }, 500)
                     }
                 }
+            } else {
+                let site = getSiteByDomain(domain, (await fetchPlatforms()))
+                if (site && site.site && site.site.id) {
+                    let recentDict = await getValue("recentDict", {})
+                    recentDict[site.site.id] = Math.ceil(+new Date() / 1000)
+                    await setValue("recentDict", recentDict)
+                }
             }
         }
     }
