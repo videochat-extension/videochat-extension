@@ -458,136 +458,136 @@ export class ContentSwalChangelog extends SwalWithSteps {
             "— Fixed an incorrect locale detection that caused torrent checking to work incorrectly for some users.",
 
             // 1.7.0 (2023-03-10)
-            '<b>Поддержка 44 сайтов-видеочатов, Firefox, Edge и TypeScript.</b>' +
+            '<b>Support for 44 video chat sites, Firefox, Edge and TypeScript.</b>' +
             '<br>' +
             '<br>' +
-            'Это очень большое и важное обновление: в нём была затронута каждая внутренняя шестеренка. Если вам кажется, что что-то сломалось, пожалуйста, напишите в <a style="text-decoration:none;" target="_blank" href="https://discord.gg/YZKnbKGWen">Discord</a> или прямо на <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">почту разработчика</a>.' +
+            'This is a very big and important update: every inner gear has been touched. If you think something is broken, please report to <a style="text-decoration:none;" target="_blank" href="https://discord.gg/YZKnbKGWen">Discord</a> or directly write to the <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">developer\'s email</a>.' +
             '<br>' +
             '<br>' +
-            'Задачей этого обновления было <b>переписать расширение таким образом, чтобы вы этого не заметили</b>. Внешне почти ничего не изменилось, но внутри изменилось практически всё.' +
+            'The goal of this update was to <b>rewrite the extension in a way that you wouldn\'t notice any changes</b>. Outwardly, almost nothing has changed, but inside, almost everything has changed.' +
             '<br>' +
             '<br>' +
-            'Чат Рулетное Расширение очень сильно выросло за последний год, но его техническое состояние всегда было удручающим. Это расширение никогда не планировалось публиковать и обеспечивать его работу для такой широкой аудитории, которую ему посчастливилось заполучить. Из-за этого с каждым немотивированным обновлением копился технический долг: снежный ком поспешных неудачных решений, который рано или поздно привёл бы к катастрофе.' +
+            'Chatruletka Extension has grown tremendously over the past year, but its technical state has always been very bad. This extension was never intended to be published and to support such a wide audience. Because of this, with every unmotivated update, technical debt accumulated: a snowball of bad decisions that would sooner or later lead to disaster.' +
             '<br>' +
             '<br>' +
-            'В момент принятия этих решений они были оправданы: экономия времени (время - это самый ценный ресурс на планете), потеря интереса развивать связанные с рулеткой проекты, отсутствие мотивации углубляться в новые технологии в неинтересных мне сферах и всеобщая вселенская грусть - всё эти вещи казались мне серьёзными основаниями для того, чтобы забыть про серьёзное развитие и продвижение этого проекта.' +
+            'At the time these decisions were made, they were justified: saving time (time is the most valuable resource on the planet), loss of interest in developing videochats-related projects, lack of motivation to dive into new technologies in areas that were not interesting to me, and general universal sadness - all these things seemed like good reasons to forget about the serious development of this project.' +
             '<br>' +
             '<br>' +
-            'Но сейчас, когда этот проект рискует стать моим самым успешным и популярным, а его состояние на момент v1.6.3 не оправдывает оказанного ему доверия, мне просто стыдно оставлять его в таком виде.' +
+            'But now that this project is in danger of becoming my most successful and popular yet, and its state at v1.6.3 does not justify the trust placed in it by you, I\'m just ashamed to leave it like this.' +
             '<br>' +
             '<br>' +
-            'Из-за того, что дальнейшее развитие старой версии привело бы к ещё большей беде, пришлось потратить ~180 часов времени на переосмысление ключевых моментов перед тем, как двигаться дальше.' +
+            'Due to the fact that further development of the old version would lead to even more trouble, I had to spend ~180 hours of time rethinking key aspects before moving on.' +
             '<br>' +
             '<br>' +
-            'И хотя до конечной цели ещё очень далеко и есть ещё много моментов, которые я хотел бы переработать, это обновление является хорошим первым шагом на пути к возрождению активного работы над расширением.' +
+            'Although there is still a long way to go and there are still many things that I would like to rework, this update is a good first step towards reviving active work on the extension.' +
             '<br>' +
             '<br>' +
-            'На данный момент у меня есть мотивация для работы над проектом и новые идеи, среди которых есть: поддержка и развитие всего того, что уже работает, улучшение качества кода, новые функции, поддержка новых платформ видеочатов и некоторые запланированные эксперименты.' +
+            'At the moment I have motivation to work on the project and I also have new ideas, which include: maintaining and developing everything that is already working, improving the quality of the code, new features, support for new video chat platforms and some experiments.' +
             '<br>' +
             '<br>' +
-            ' Перед расширением открылось много интересных возможностей, вроде пути на рынок США (самое популярное расширение с геолокацией для американского Omegle с 270.000 пользователей было удалено из магазина Chrome).' +
+            'Many interesting opportunities opened up, such as the path to the US market (the most popular geolocation extension for US Omegle with 270,000 users was removed from the Chrome Web Store).' +
             '<br>' +
             '<br>' +
-            '<b>При этом стоит отметить несколько важных моментов:</b>' +
+            '<b>At the same time, it is worth noting a few important things:</b>' +
             '<br>' +
             '<br>' +
-            '1. Это расширение никогда не будет продано третьим лицам и никогда не будет монетизироваться вредоносными методами, предположительно из-за которых было удалено расширение Omegle IP Locator. ' +
+            '1. This extension will never be sold to third parties and will never be monetized by the malicious methods allegedly due to which the Omegle IP Locator extension was removed. ' +
             '<br>' +
             '<br>' +
-            '2. Это расширение никогда не будет вмешиваться в функционал, критичный для функционирования видеочатов: я не буду противодействовать системе модерации, системам идентификации и блокировки пользователей, а так же реализовывать функционал, аналогичный платным функциям платформ-видеочатов (например, если видеочат предлагает фильтр полов за деньги - я не реализовываю аналогичный в расширении и так далее, возможны исключения, такие как: геолокация, реклама, фильтр ботов и др.).' +
+            '2. This extension will never interfere with the functionality that is critical for the functioning of video chats: I will not oppose the moderation, user identification and ban systems, as well as implement functionality similar to the paid functions of video chat platforms (for example, if video chat offers a gender filter for money - I don\'t implement the same in the extension and so on, there may be exceptions, such as: geolocation, advertising, bot filter, etc.).' +
             '<br>' +
             '<br>' +
-            '3. Это расширение никогда не будет сотрудничать с видеочатами в целях их продвижения среди аудитории расширения.' +
+            '3. This extension will never partner with video chats to promote them to the extension\'s audience.' +
             '<br>' +
             '<br>' +
-            '4. Я не планирую создавать свой видеочат и использовать расширение для его продвижения: у меня есть свой основной проект, который отнимает большинство жизненной энергии и я не собираюсь ему изменять.' +
+            '4. I don\'t plan to create my own video chat and use my extension to promote it: I have my main project (unrelated to video chats), which takes most of my life energy and I\'m not going to cheat on it.' +
             '<br>' +
             '<br>' +
-            '5. Это расширение и все его программные компоненты всегда будут распространятся под свободными лицензиями.' +
+            '5. This extension and all its software components will always be distributed under free licenses.' +
             '<br>' +
             '<br>' +
-            'Если для развития и поддержки этого проекта мне понадобятся деньги, я создам Patreon/Boosty для его обеспечения за счёт заинтересованных пользователей. Предыдущие пять пунктов можно считать конституцией чат рулетного расширения со всеми вытекающими, это сильно ограничивает возможности для монетизации, но я считаю это единственно верным способом развивать расширение, избегая при этом конфликта интересов с поддерживаемыми видеочатами.' +
+            'If I need money to develop and support this project, I will create Patreon/Boosty to provide it at the expense of interested users. The previous five points can be considered the constitution of the extension with all the consequences, it severely limits the opportunities for monetization, but I believe this is the only way to develop the extension while avoiding conflicts of interest with supported video chats.' +
             '<br>' +
             '<br>' +
-            '<b>Я воспринимаю этот проект как имиджевый и буду развивать его как таковой.</b>' +
+            '<b>I perceive this project as a \'show-off\' project and will develop it as such.</b>' +
             '<br>' +
             '<br>' +
-            'На это обновление было потрачено больше времени, чем на все предыдущие вместе взятые, поэтому точный список изменений составить трудно, но вот приблизительный:' +
+            'This update took more time than all previous updates combined, so it\'s hard to come up with an exact list of changes, but here\'s some of them:' +
             '<br>' +
             '<br>' +
             '<b>TypeScript.</b><br>' +
-            "— Расширение переписано практически с нуля с использованием TypeScript.<br>" +
-            "— Исправлено бесчисленное количество багов, добавлены новые.<br>" +
-            "— Этот процесс ещё не закончен, но расширение уже функционирует с полным набором функций предыдущей версии.<br>" +
+            "— Extension rewritten almost from scratch using TypeScript.<br>" +
+            "— Countless bugs fixed, new ones added.<br>" +
+            "— This process is not yet complete, but the extension is already functioning with the full functionality of the previous version.<br>" +
             '<br>' +
-            '<b>Поддержка 44 сайтов-видеочатов.</b><br>' +
-            "— Расширение теперь поддерживает все известные зеркала сайтов платформ Chatruletka, ome.tv, minichat, chatrulez.<br>" +
-            "— Реализована поддержка альтернативного интерфейса чат рулетки, такого как, например, на <a href='https://ome.chat' target='_blank' style='text-decoration: none!important;'>ome.chat</a>.<br>" +
+            '<b>Support for 44 video chat sites.</b><br>' +
+            "— The extension now supports all known mirror sites of the platforms: Chatruletka, ome.tv, minichat, chatrulez.<br>" +
+            "— Implemented support for an alternative chatroulette interface, such as, for example, on <a href='https://ome.chat' target='_blank' style='text-decoration: none!important;'>ome.chat</a>.<br>" +
             '<br>' +
-            '<b>Поддержка Firefox.</b><br>' +
-            "— Проделана колоссальная работа по анализу всех проблем и обеспечению совместимости с Firefox последних версий.<br>" +
-            "— Расширение добавлено/будет добавлено в магазин расширений браузера Firefox</b>.<br>" +
-            "— Всё ещё есть некоторые проблемы: не работают система сбора ошибок, хоткей переключения между чатом и последней вкладкой, звуки-уведомления и режим стримера, но весь основной функионал работает и будущий будет реализовываться с поддержкой Firefox.<br>" +
+            '<b>Firefox support.</b><br>' +
+            "— A lot of work has been done to analyze all the issues and ensure compatibility with the latest versions of Firefox.<br>" +
+            "— The extension has/will be added to the Firefox browser add-ons store</b>.<br>" +
+            "— There are still some problems: the error collection system, the hotkey for switching between chat and the last tab, the notification sounds and the streamer mode do not work, but all the main functionality works and the future will be implemented with Firefox support.<br>" +
             '<br>' +
-            '<b>Поддержка Edge.</b><br>' +
-            "— Расширение добавлено/будет добавлено в магазин расширений браузера Edge</b>.<br>" +
+            '<b>Edge support.</b><br>' +
+            "— The extension has/will be added to the Edge browser extension store</b>.<br>" +
             '<br>' +
-            '<b>Изменено название.</b><br>' +
-            "— Англоязычная версия расширения переименована в <b>Videochat Extension</b>.<br>" +
-            "— Это случилось из-за того, что англоязычные пользователи (которых большинство) понятия не имеют о том, что такое Chatruletka, в то время как в русскоязычном сегменте интернета это уже нарицательное имя для любого случайного видеочата." +
-            '<br>' +
-            '<br>' +
-            '<b>Изменена лицензия.</b><br>' +
-            "— Лицензия изменена с MIT на BSD-4.<br>" +
-            "— Это произошло из-за того, что я начал более серьёзно относится к этому проекту и не хочу видеть переиспользование своей работы в работах возможных конкурентах без соблюдения условий лицензии BSD-4." +
+            '<b>Name changed.</b><br>' +
+            "— The English version of the extension has been renamed to <b>Videochat Extension</b>.<br>" +
+            "— This happened due to the fact that English-speaking users (which are the majority) have no idea what Chatruletka is, while in the Russian-speaking segment of the Internet it is already a word for any random video chat." +
             '<br>' +
             '<br>' +
-            '<b>Изменена иконка расширения.</b><br>' +
-            "— Была изменена иконка расширения и его описание.<br>" +
-            "— Для старых пользователей по умолчанию активирована старая иконка.<br>" +
-            "— Для новых пользователей по умолчанию иконка устанавливается на иконку последнего видеочата и на неё накладывается текст 'ext'." +
+            '<b>License changed.</b><br>' +
+            "— License changed from MIT to BSD-4.<br>" +
+            "— This is due to the fact that I started to take this project more seriously and don't want to see my work reused in the works of possible competitors without complying with the terms of the BSD-4 license." +
             '<br>' +
             '<br>' +
-            '<b>Система платформ и динамических разрешений.</b><br>' +
-            "— Реализована система динамических разрешений, позволяющая добавлять поддержку новых видеочатов без отключения расширения.<br>" +
-            "— Если вы откроете чат, к которому ещё не дали разрешение, расширение попросит у вас предоставить доступ к этому чату (можно отключить).<br>" +
-            "— Реализована система локальных настроек под каждую платформу (в одной платформе может быть несколько сайтов).<br>" +
-            "— При обновлении с v1.6.3 расширение постарается перенести ваши старые настройки.<br>" +
-            "— Ваша статистика использования видеочата будет перенесена в ту платформу (Chatruletka или ome.tv), которой вы пользовались последней.<br>" +
-            "— Чёрный список не переносится, он общий для всех платформ.<br>" +
+            '<b>Extension icon changed.</b><br>' +
+            "— The extension icon and description have been changed.<br>" +
+            "— The old icon is enabled by default for old users.<br>" +
+            "— For new users, by default, the icon is set to the icon of the last video chat and the text 'ext' is placed on it." +
             '<br>' +
-            '<b>Окно после установки.</b><br>' +
-            '— После установки расширения открывается страница с информацией о расширении, которое позволяет узнать больше о расширении, либо пойти сразу в чат.<br>' +
             '<br>' +
-            '<b>Окно при первом открытии платформы.</b><br>' +
-            '— Переработано приветственное окно, теперь там только три страницы: краткая информация о видеочате, поддерживаемые расширением функции и лицензия расширения.<br>' +
+            '<b>System of platforms and dynamic permissions.</b><br>' +
+            "— Implemented a dynamic permissions system that allows dev to add support for new video chats without disabling the extension for users because of missing permissions.<br>" +
+            "— If you open a chat to which you have not yet given permission, the extension will kindly ask you to grant access to this chat (can be disabled).<br>" +
+            "— A system of local settings for each platform has been implemented (one platform can have several sites).<br>" +
+            "— When updating from v1.6.3, the extension will try to migrate your old settings.<br>" +
+            "— Your video chat usage statistics will be transferred to the platform (Chatruletka or ome.tv) you last used.<br>" +
+            "— The black list is not portable, it is common to all platforms.<br>" +
+            '<br>' +
+            '<b>Window after installation.</b><br>' +
+            '— After installing the extension, a page with information about the extension opens, which allows you to learn more about the extension, or go directly to the chat.<br>' +
+            '<br>' +
+            '<b>Window when opening the platform for the first time.</b><br>' +
+            '— The welcome window has been redesigned, now there are only three pages: brief information about the video chat, features supported by the extension, and extension license.<br>' +
             '<br>' +
             '<b>Popup.</b><br>' +
-            "— По клику на расширение теперь открывается не последний видеочат, а специальное меню.<br>" +
-            "— В меню есть списки любимых, недавних и поддерживаемых видеочатов, глобальные настройки и ссылки.<br>" +
-            "— Меню позволяет исправить возможные проблемы с отсутствующими разрешениями.<br>" +
-            "— Меню позволяет включить/выключить работу расширения для конкретных видеочатов.<br>" +
-            "— Меню позволяет устанавливать звездочку любимым видеочатам, чтобы они были в самом вверху списка.<br>" +
-            "— При первой установке расширение проверяет открытые вкладки в браузере и если находит поддерживаемые видеочаты, то добавляет их в список любимых.<br>" +
-            "— Если расширение не нашло видеочатов, videochatru.com и ome.tv добавляются в избранное.<br>" +
-            "— Расширение предлагает просканировать историю и добавить в избранное видеочаты на странице, открываемой после установки.<br>" +
-            "— Платформы видеочатов в списке поддерживаемых указаны в порядке появления этой самой поддержки.<br>" +
+            "Clicking on the extension now opens not the last video chat, but a special menu.<br>" +
+            "— The menu has lists of favorite, recent and supported video chats, global settings and links.<br>" +
+            "— Menu allows you to fix possible problems with missing permissions.<br>" +
+            "— The menu allows you to enable / disable the extension for specific video chats.<br>" +
+            "— The menu allows you to set a star for your favorite video chats so that they are at the very top of the list.<br>" +
+            "— When first installed, the extension checks open tabs in the browser and if it finds supported video chats, it adds them to the list of favorites.<br>" +
+            "— If the extension does not find video chats, videochatru.com and ome.tv are added to favorites.<br>" +
+            "— The extension offers to scan the history and add video chats to favorites on the page that opens after installation.<br>" +
+            "— Video chat platforms in the list of supported ones are listed in the order of appearance of this very support.<br>" +
             '<br>' +
-            '<b>Простой режим</b><br>' +
-            'Изменена логика работы простого режима и формат отображения данных.' +
-            'Для России и Украины отображаются данные для мобильного интернета.' +
+            '<b>Minimalist mode</b><br>' +
+            '— Changed the logic of the minimalism mode and the geolocation data display format.<br>' +
+            '— Cellural location data is displayed for Russia and Ukraine with city and region.' +
             '<br>' +
             '<br>' +
-            '<b>Геолокация.</b><br>' +
-            "— Резервный способ запроса принят как основной, больше нет смысла разрешать небезопасный контент и тп.<br>" +
-            "— При ошибке 429 (слишком много запросов) больше не прекращается работа API.<br>" +
-            "— При ошибке 429 появляется кнопка, позволяющая запросить геолокацию ещё раз через какое-то время.<br>" +
+            '<b>Geolocation.</b><br>' +
+            "— The reserve request method has been adopted as the main one, it makes no sense to allow insecure content, etc.<br>" +
+            "— Error 429 (too many requests) no longer prevents the API from working.<br>" +
+            "— If error 429, a button appears that allows you to request geolocation again after a while.<br>" +
             '<br>' +
-            '<b>Локальные горячие клавиши.</b><br>' +
-            "— Если держать <- больше 5 секунд и отпустить, то собеседник не будет пропущен.<br>" +
+            '<b>Local hotkeys.</b><br>' +
+            "— If you hold <- for more than 5 seconds and release, the interlocutor will not be skipped.<br>" +
             '<br>' +
-            '<b>Важно:</b><br>' +
-            `Если вам кажется, что что-то сломалось, пожалуйста, напишите в <a style="text-decoration:none;" target="_blank" href="https://discord.gg/YZKnbKGWen">Discord</a> или прямо на <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">почту разработчика</a>`
+            '<b>Important:</b><br>' +
+            `If you think something is broken, please write in <a style="text-decoration:none;" target="_blank" href="https://discord.gg/YZKnbKGWen">Discord</a> or directly on <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">developer email</a>`,
         ],
         "ru": [
             // v0.1 (2021-09-27)
@@ -1014,10 +1014,136 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '— Исправлено неправильное определении локали, из-за которой у некоторых пользователей неправильно работала проверка торрентов.',
 
             // 1.7.0 (2023-01-15)
-            '<b>changlog.</b><br>' +
+            '<b>Поддержка 44 сайтов-видеочатов, Firefox, Edge и TypeScript.</b>' +
             '<br>' +
-            '<b>- Раздел \'IP\'.</b><br>' +
-            '— Исправлено неправильное определении локали, из-за которой у некоторых пользователей неправильно работала проверка торрентов.'
+            '<br>' +
+            'Это очень большое и важное обновление: в нём была затронута каждая внутренняя шестеренка. Если вам кажется, что что-то сломалось, пожалуйста, напишите в <a style="text-decoration:none;" target="_blank" href="https://discord.gg/YZKnbKGWen">Discord</a> или прямо на <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">почту разработчика</a>.' +
+            '<br>' +
+            '<br>' +
+            'Задачей этого обновления было <b>переписать расширение таким образом, чтобы вы этого не заметили</b>. Внешне почти ничего не изменилось, но внутри изменилось практически всё.' +
+            '<br>' +
+            '<br>' +
+            'Чат Рулетное Расширение очень сильно выросло за последний год, но его техническое состояние всегда было удручающим. Это расширение никогда не планировалось публиковать и обеспечивать его работу для такой широкой аудитории, которую ему посчастливилось заполучить. Из-за этого с каждым немотивированным обновлением копился технический долг: снежный ком поспешных неудачных решений, который рано или поздно привёл бы к катастрофе.' +
+            '<br>' +
+            '<br>' +
+            'В момент принятия этих решений они были оправданы: экономия времени (время - это самый ценный ресурс на планете), потеря интереса развивать связанные с рулеткой проекты, отсутствие мотивации углубляться в новые технологии в неинтересных мне сферах и всеобщая вселенская грусть - всё эти вещи казались мне серьёзными основаниями для того, чтобы забыть про серьёзное развитие и продвижение этого проекта.' +
+            '<br>' +
+            '<br>' +
+            'Но сейчас, когда этот проект рискует стать моим самым успешным и популярным, а его состояние на момент v1.6.3 не оправдывает оказанного ему доверия, мне просто стыдно оставлять его в таком виде.' +
+            '<br>' +
+            '<br>' +
+            'Из-за того, что дальнейшее развитие старой версии привело бы к ещё большей беде, пришлось потратить ~180 часов времени на переосмысление ключевых моментов перед тем, как двигаться дальше.' +
+            '<br>' +
+            '<br>' +
+            'И хотя до конечной цели ещё очень далеко и есть ещё много моментов, которые я хотел бы переработать, это обновление является хорошим первым шагом на пути к возрождению активного работы над расширением.' +
+            '<br>' +
+            '<br>' +
+            'На данный момент у меня есть мотивация для работы над проектом и новые идеи, среди которых есть: поддержка и развитие всего того, что уже работает, улучшение качества кода, новые функции, поддержка новых платформ видеочатов и некоторые запланированные эксперименты.' +
+            '<br>' +
+            '<br>' +
+            ' Перед расширением открылось много интересных возможностей, вроде пути на рынок США (самое популярное расширение с геолокацией для американского Omegle с 270.000 пользователей было удалено из магазина Chrome).' +
+            '<br>' +
+            '<br>' +
+            '<b>При этом стоит отметить несколько важных моментов:</b>' +
+            '<br>' +
+            '<br>' +
+            '1. Это расширение никогда не будет продано третьим лицам и никогда не будет монетизироваться вредоносными методами, предположительно из-за которых было удалено расширение Omegle IP Locator. ' +
+            '<br>' +
+            '<br>' +
+            '2. Это расширение никогда не будет вмешиваться в функционал, критичный для функционирования видеочатов: я не буду противодействовать системе модерации, системам идентификации и блокировки пользователей, а так же реализовывать функционал, аналогичный платным функциям платформ-видеочатов (например, если видеочат предлагает фильтр полов за деньги - я не реализовываю аналогичный в расширении и так далее, возможны исключения, такие как: геолокация, реклама, фильтр ботов и др.).' +
+            '<br>' +
+            '<br>' +
+            '3. Это расширение никогда не будет сотрудничать с видеочатами в целях их продвижения среди аудитории расширения.' +
+            '<br>' +
+            '<br>' +
+            '4. Я не планирую создавать свой видеочат и использовать расширение для его продвижения: у меня есть свой основной проект (не связанный с видеочатами), который отнимает большинство жизненной энергии и я не собираюсь ему изменять.' +
+            '<br>' +
+            '<br>' +
+            '5. Это расширение и все его программные компоненты всегда будут распространятся под свободными лицензиями.' +
+            '<br>' +
+            '<br>' +
+            'Если для развития и поддержки этого проекта мне понадобятся деньги, я создам Patreon/Boosty для его обеспечения за счёт заинтересованных пользователей. Предыдущие пять пунктов можно считать конституцией чат рулетного расширения со всеми вытекающими, это сильно ограничивает возможности для монетизации, но я считаю это единственно верным способом развивать расширение, избегая при этом конфликта интересов с поддерживаемыми видеочатами.' +
+            '<br>' +
+            '<br>' +
+            '<b>Я воспринимаю этот проект как имиджевый и буду развивать его как таковой.</b>' +
+            '<br>' +
+            '<br>' +
+            'На это обновление было потрачено больше времени, чем на все предыдущие вместе взятые, поэтому точный список изменений составить трудно, но вот приблизительный:' +
+            '<br>' +
+            '<br>' +
+            '<b>TypeScript.</b><br>' +
+            "— Расширение переписано практически с нуля с использованием TypeScript.<br>" +
+            "— Исправлено бесчисленное количество багов, добавлены новые.<br>" +
+            "— Этот процесс ещё не закончен, но расширение уже функционирует с полным набором функций предыдущей версии.<br>" +
+            '<br>' +
+            '<b>Поддержка 44 сайтов-видеочатов.</b><br>' +
+            "— Расширение теперь поддерживает все известные зеркала сайтов платформ Chatruletka, ome.tv, minichat, chatrulez.<br>" +
+            "— Реализована поддержка альтернативного интерфейса чат рулетки, такого как, например, на <a href='https://ome.chat' target='_blank' style='text-decoration: none!important;'>ome.chat</a>.<br>" +
+            '<br>' +
+            '<b>Поддержка Firefox.</b><br>' +
+            "— Проделана колоссальная работа по анализу всех проблем и обеспечению совместимости с Firefox последних версий.<br>" +
+            "— Расширение добавлено/будет добавлено в магазин расширений браузера Firefox</b>.<br>" +
+            "— Всё ещё есть некоторые проблемы: не работают система сбора ошибок, хоткей переключения между чатом и последней вкладкой, звуки-уведомления и режим стримера, но весь основной функионал работает и будущий будет реализовываться с поддержкой Firefox.<br>" +
+            '<br>' +
+            '<b>Поддержка Edge.</b><br>' +
+            "— Расширение добавлено/будет добавлено в магазин расширений браузера Edge</b>.<br>" +
+            '<br>' +
+            '<b>Изменено название.</b><br>' +
+            "— Англоязычная версия расширения переименована в <b>Videochat Extension</b>.<br>" +
+            "— Это случилось из-за того, что англоязычные пользователи (которых большинство) понятия не имеют о том, что такое Chatruletka, в то время как в русскоязычном сегменте интернета это уже нарицательное имя для любого случайного видеочата." +
+            '<br>' +
+            '<br>' +
+            '<b>Изменена лицензия.</b><br>' +
+            "— Лицензия изменена с MIT на BSD-4.<br>" +
+            "— Это произошло из-за того, что я начал более серьёзно относится к этому проекту и не хочу видеть переиспользование своей работы в работах возможных конкурентах без соблюдения условий лицензии BSD-4." +
+            '<br>' +
+            '<br>' +
+            '<b>Изменена иконка расширения.</b><br>' +
+            "— Была изменена иконка расширения и его описание.<br>" +
+            "— Для старых пользователей по умолчанию активирована старая иконка.<br>" +
+            "— Для новых пользователей по умолчанию иконка устанавливается на иконку последнего видеочата и на неё накладывается текст 'ext'." +
+            '<br>' +
+            '<br>' +
+            '<b>Система платформ и динамических разрешений.</b><br>' +
+            "— Реализована система динамических разрешений, позволяющая добавлять поддержку новых видеочатов без отключения расширения.<br>" +
+            "— Если вы откроете чат, к которому ещё не дали разрешение, расширение попросит у вас предоставить доступ к этому чату (можно отключить).<br>" +
+            "— Реализована система локальных настроек под каждую платформу (в одной платформе может быть несколько сайтов).<br>" +
+            "— При обновлении с v1.6.3 расширение постарается перенести ваши старые настройки.<br>" +
+            "— Ваша статистика использования видеочата будет перенесена в ту платформу (Chatruletka или ome.tv), которой вы пользовались последней.<br>" +
+            "— Чёрный список не переносится, он общий для всех платформ.<br>" +
+            '<br>' +
+            '<b>Окно после установки.</b><br>' +
+            '— После установки расширения открывается страница с информацией о расширении, которое позволяет узнать больше о расширении, либо пойти сразу в чат.<br>' +
+            '<br>' +
+            '<b>Окно при первом открытии платформы.</b><br>' +
+            '— Переработано приветственное окно, теперь там только три страницы: краткая информация о видеочате, поддерживаемые расширением функции и лицензия расширения.<br>' +
+            '<br>' +
+            '<b>Popup.</b><br>' +
+            "— По клику на расширение теперь открывается не последний видеочат, а специальное меню.<br>" +
+            "— В меню есть списки любимых, недавних и поддерживаемых видеочатов, глобальные настройки и ссылки.<br>" +
+            "— Меню позволяет исправить возможные проблемы с отсутствующими разрешениями.<br>" +
+            "— Меню позволяет включить/выключить работу расширения для конкретных видеочатов.<br>" +
+            "— Меню позволяет устанавливать звездочку любимым видеочатам, чтобы они были в самом вверху списка.<br>" +
+            "— При первой установке расширение проверяет открытые вкладки в браузере и если находит поддерживаемые видеочаты, то добавляет их в список любимых.<br>" +
+            "— Если расширение не нашло видеочатов, videochatru.com и ome.tv добавляются в избранное.<br>" +
+            "— Расширение предлагает просканировать историю и добавить в избранное видеочаты на странице, открываемой после установки.<br>" +
+            "— Платформы видеочатов в списке поддерживаемых указаны в порядке появления этой самой поддержки.<br>" +
+            '<br>' +
+            '<b>Простой режим</b><br>' +
+            '— Изменена логика работы простого режима и формат отображения данных.<br>' +
+            '— Для России и Украины отображаются данные для мобильного интернета.' +
+            '<br>' +
+            '<br>' +
+            '<b>Геолокация.</b><br>' +
+            "— Резервный способ запроса принят как основной, больше нет смысла разрешать небезопасный контент и тп.<br>" +
+            "— При ошибке 429 (слишком много запросов) больше не прекращается работа API.<br>" +
+            "— При ошибке 429 появляется кнопка, позволяющая запросить геолокацию ещё раз через какое-то время.<br>" +
+            '<br>' +
+            '<b>Локальные горячие клавиши.</b><br>' +
+            "— Если держать <- больше 5 секунд и отпустить, то собеседник не будет пропущен.<br>" +
+            '<br>' +
+            '<b>Важно:</b><br>' +
+            `Если вам кажется, что что-то сломалось, пожалуйста, напишите в <a style="text-decoration:none;" target="_blank" href="https://discord.gg/YZKnbKGWen">Discord</a> или прямо на <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">почту разработчика</a>`
         ],
     }
 
