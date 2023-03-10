@@ -88,7 +88,7 @@ export class ControlsTabSettings {
         ])
     }
 
-    static createSettingsCheckbox(tagName: string, key: string, settingText: string, settingTooltip: string, enable?: () => void | undefined, disable?: () => void | undefined, controls?: string | undefined) {
+    static createSettingsCheckbox(global: boolean, tagName: string, key: string, settingText: string, settingTooltip: string, enable?: () => void | undefined, disable?: () => void | undefined, controls?: string | undefined) {
         return utils.createElement('dd', {}, [
             utils.createElement('span', {}, [
                 utils.createElement(tagName, {
@@ -110,41 +110,44 @@ export class ControlsTabSettings {
                         let syncDict: { [key: string]: any } = {}
                         syncDict[key] = event.currentTarget.checked
 
-                        // TODO: TEST THIS
-                        globalThis.platformSettings.setBack(syncDict, function () {
-                            if (checked) {
-                                if (enable) {
-                                    enable()
+                        if (global) {
+                            // TODO: TEST THIS
+                            globalThis.platformSettings.setBack(syncDict, function () {
+                                if (checked) {
+                                    if (enable) {
+                                        enable()
+                                    }
+                                    if (controls) {
+                                        document.getElementById(controls)!.style.display = ""
+                                    }
+                                } else {
+                                    if (disable) {
+                                        disable()
+                                    }
+                                    if (controls) {
+                                        document.getElementById(controls)!.style.display = "none"
+                                    }
                                 }
-                                if (controls) {
-                                    document.getElementById(controls)!.style.display = ""
+                            });
+                        } else {
+                            chrome.storage.sync.set(syncDict, function () {
+                                if (checked) {
+                                    if (enable) {
+                                        enable()
+                                    }
+                                    if (controls) {
+                                        document.getElementById(controls)!.style.display = ""
+                                    }
+                                } else {
+                                    if (disable) {
+                                        disable()
+                                    }
+                                    if (controls) {
+                                        document.getElementById(controls)!.style.display = "none"
+                                    }
                                 }
-                            } else {
-                                if (disable) {
-                                    disable()
-                                }
-                                if (controls) {
-                                    document.getElementById(controls)!.style.display = "none"
-                                }
-                            }
-                        });
-                        // chrome.storage.sync.set(syncDict, function () {
-                        //     if (checked) {
-                        //         if (enable) {
-                        //             enable()
-                        //         }
-                        //         if (controls) {
-                        //             document.getElementById(controls)!.style.display = ""
-                        //         }
-                        //     } else {
-                        //         if (disable) {
-                        //             disable()
-                        //         }
-                        //         if (controls) {
-                        //             document.getElementById(controls)!.style.display = "none"
-                        //         }
-                        //     }
-                        // });
+                            });
+                        }
                     },
                 })
             ]),
@@ -243,7 +246,7 @@ export class ControlsTabSettings {
 
                 case "checkbox": {
                     let tagName = el.important ? "b" : "p"
-                    newElement = ControlsTabSettings.createSettingsCheckbox(tagName, el.key, el.text, el.tooltip, el.enable, el.disable, el.controlsSection)
+                    newElement = ControlsTabSettings.createSettingsCheckbox(false, tagName, el.key, el.text, el.tooltip, el.enable, el.disable, el.controlsSection)
                     break;
                 }
 

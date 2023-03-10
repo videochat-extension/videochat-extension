@@ -658,5 +658,11 @@
   },
   "popupMissingPermissionCheckDisableSwalConfirmButtonText": {
     "message": "Back to videochat"
+  },
+  "showChangelogToggle":{
+  "message": "show changelog on every update: "
+},
+  "tooltipShowChangelogToggle":{
+    "message": "If enabled, when you go to the video chat site and the extension has been updated, a window will open with the changes to let you know what has changed (not shown in minimalist/limited mode)."
   }
 }

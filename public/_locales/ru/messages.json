@@ -662,5 +662,11 @@
   },
   "popupMissingPermissionCheckDisableSwalConfirmButtonText": {
     "message": "Вернуться назад в видочат"
+  },
+  "showChangelogToggle":{
+    "message": "показывать changelog после обновления: "
+  },
+  "tooltipShowChangelogToggle":{
+    "message": "Если включено, то когда вы заходите на сайт видеочата и произошло обновление расширения, откроется окно с изменениями, чтобы вы узнали что изменилось (не показывается в минималистичном/ограниченных режимах)."
   }
 }

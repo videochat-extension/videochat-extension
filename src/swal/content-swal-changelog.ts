@@ -1,4 +1,5 @@
 import {SwalWithSteps} from "../drivers/chatruletka/content-swal-info";
+import {ControlsTabSettings} from "../drivers/chatruletka/content-module-settings";
 
 export class ContentSwalChangelog extends SwalWithSteps {
     private static instanceRef: ContentSwalChangelog;
@@ -887,7 +888,9 @@ export class ContentSwalChangelog extends SwalWithSteps {
             showCancelButton: true,
             allowEscapeKey: true,
             progressSteps: this.steps,
-            progressStepsDistance: "4%"
+            progressStepsDistance: "4%",
+            // TODO: this changes platform settings, but need to change global
+            footer: ControlsTabSettings.createSettingsCheckbox(true, 'span', 'allowShowChangelog', chrome.i18n.getMessage('showChangelogToggle'), chrome.i18n.getMessage("tooltipShowChangelogToggle"))
         })
     }
 
