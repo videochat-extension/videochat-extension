@@ -882,6 +882,14 @@ export class ContentSwalChangelog extends SwalWithSteps {
         ],
     }
 
+    // TODO: this is awful, please rework
+    protected didOpen ()  {
+        super.didOpen()
+        chrome.storage.sync.get({'allowShowChangelog': true}, (res) => {
+            (<HTMLInputElement>document.getElementById('allowShowChangelogCheck')).checked = res.allowShowChangelog
+        })
+    }
+
     private constructor() {
         super();
         this.swalQueueStep = this.swalQueueStep.mixin({

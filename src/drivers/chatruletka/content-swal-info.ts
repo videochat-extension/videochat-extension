@@ -99,7 +99,7 @@ export class SwalWithSteps {
         }
     }
 
-    protected didOpen = () => {
+    protected  didOpen() {
         document.removeEventListener('keyup', this.arrowHotkeys)
         document.addEventListener('keyup', this.arrowHotkeys)
     }
