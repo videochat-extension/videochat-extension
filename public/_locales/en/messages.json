@@ -474,37 +474,10 @@
     "message": "Congratulations!"
   },
   "swalInfoTitle2": {
-    "message": "This site is not what i expected..."
+    "message": "Extension Features"
   },
   "swalInfoTitle3": {
-    "message": "Important!"
-  },
-  "swalInfoTitle4": {
-    "message": "Geolocation"
-  },
-  "swalInfoTitle5": {
-    "message": "A little bit about the extension"
-  },
-  "swalInfoTitle6": {
-    "message": "Server in Discord"
-  },
-  "swalInfoText1": {
-    "message": "<p>You have just installed the 'Chatruletka (ome.tv) Extension'!<br><br>Now you have access to such functionality as the interlocutor's IP geolocation, Picture-in-Picture mode, filtering by city and gender, streamer mode, hot keys and 40+ more functions!<br><br>The purpose of the extension is to provide Chatruletka users with more features, while not harming the platform itself.</p>"
-  },
-  "swalInfoText2": {
-    "message": "If you are wondering this question, it is possible that you have used Chatruletka on another site with a slightly different interface.<br><br>This video chat network is known by many names: ome.tv, Chatruletka, minichat and others.<br><br>This extension only works on the website videochatru.com and ome.tv because it's easier than maintaining compatibility <a target=\"_blank\" style=\"text-decoration: none!important;\"href=\"https://github.com/qrlk/videochatru-extension#what-is-chat-roulette \">on all 40+ sites</a>.<br><br>Although the sites look different, they use the same script: which means there is no difference where you connect from!"
-  },
-  "swalInfoText3": {
-    "message": "This extension is a hobby project and is not affiliated with Chatruletka.\n<br>Use it at your own risk!<br><br>This is a free (MIT) open source extension that is available on <a target=\"_blank\" style=\"text-decoration: none!important;\"href=\"https://github.com/qrlk/videochatru-extension \">github</a>."
-  },
-  "swalInfoText4": {
-    "message": "For geolocation we use the service <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://ip-api.com \">ip-api.com </a><br><br>This service is able to determine whether the interlocutor uses the mobile Internet.<br>If the interlocutor has mobile Internet, most likely the city is defined incorrectly, so it is hidden by default, only the time zone is displayed (you can change it in the settings).<br><br>In general, the location is determined with accuracy to the city/agglomeration.<br>The 'Map' tab shows the approximate radius where the interlocutor can be."
-  },
-  "swalInfoText5": {
-    "message": "The extension has so many functions that no one would read their full description.<br><br>You should look into the 'Settings' section and see for yourself.<br>If you hover the cursor over the name of the setting, a detailed description of the function will be displayed!<br><br>The extension does not collect any of your data, but it uses the service <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://sentry.io \">sentry</a> to collect its runtime errors.<br>You can turn off error collection in the 'Settings' tab."
-  },
-  "swalInfoText6": {
-    "message": "The project has a <a target=\"_blank\" style=\"text-decoration: none!important;\"href=\"https://discord.gg/gYmQWWjwEb \">Discord server</a>, where the update notifications come and where you can discuss the extension with other users."
+    "message": "License"
   },
   "confirmButtonText": {
     "message": "Next"
