@@ -67,6 +67,23 @@ async function content() {
         platform = "COMC"
     }
 
+    function processSwals(website: { site?: any; platform: any; }) {
+        if (!globalThis.platformSettings.get("swalInfoCompleted")) {
+            // TODO: maybe show people only 1-step info about what features are supported?
+            new ContentSwalInfo(website.platform.name).showFromStart()
+        } else {
+            if (settings.allowShowChangelog) {
+                alert('check version')
+                alert(`${settings.lastVersion} -> ${chrome.runtime.getManifest().version}`)
+                if (settings.lastVersion !== chrome.runtime.getManifest().version) {
+                    ContentSwalChangelog.getInstance().showFromVersion(settings.lastVersion)
+                }
+                alert(`setting ${chrome.runtime.getManifest().version} as last`)
+                chrome.storage.sync.set({lastVersion: chrome.runtime.getManifest().version})
+            }
+        }
+    }
+
     switch (platform) {
         case "COMC": {
             if (globalThis.platformSettings.get("askForMode")) {
@@ -84,23 +101,12 @@ async function content() {
                     globalThis.driver = ChatruletkaDriver.getInstance(website)
                     globalThis.driver.start(document.getElementById('remote-video-wrapper') as HTMLElement)
                 })
+                processSwals(website)
             }
             break;
         }
         default: {
             return false
-        }
-    }
-
-    if (!globalThis.platformSettings.get("swalInfoCompleted")) {
-        // TODO: maybe show people only 1-step info about what features are supported?
-        new ContentSwalInfo(website.platform.name).showFromStart()
-    } else {
-        if (settings.allowShowChangelog) {
-            if (settings.lastVersion !== chrome.runtime.getManifest().version) {
-                ContentSwalChangelog.getInstance().showFromVersion(settings.lastVersion)
-            }
-            chrome.storage.sync.set({lastVersion: chrome.runtime.getManifest().version})
         }
     }
 }
