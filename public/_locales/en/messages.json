@@ -506,19 +506,19 @@
   "YKWYDButtonText": {
     "message": "check torrents"
   },
-  "minimalismExplainMobile" : {
+  "minimalismExplainMobile": {
     "message": "mobile internet"
   },
-  "lowAccuracy" : {
+  "lowAccuracy": {
     "message": "LOW ACCURACY !!!"
   },
-  "minimalismExplainProxy" : {
+  "minimalismExplainProxy": {
     "message": "— IP address belongs to Proxy/VPN/Tor."
   },
-  "minimalismExplainHosting" : {
+  "minimalismExplainHosting": {
     "message": "— IP address belongs to the data center."
   },
-  "minimalismImg":{
+  "minimalismImg": {
     "message": "minimalism-en.png"
   },
   "switchModeTitle": {
@@ -545,7 +545,7 @@
   "updateNeedReloadText": {
     "message": "Your browser has reloaded the extension, most likely it has downloaded a new version of it!<br>Please reload the page to restore the work."
   },
-  "updateNeedReloadConfirmButtonText" : {
+  "updateNeedReloadConfirmButtonText": {
     "message": "OK (close warning)"
   },
   "welcomeTitle": {
@@ -593,7 +593,6 @@
   "popupSettingMissingPermissionCheck": {
     "message": "Allow an extension to request access from you to a supported video chat that you have not yet granted access to."
   },
-
   "popupTreeFavoritesTitle": {
     "message": "Favorites"
   },
@@ -615,7 +614,6 @@
   "popupTreeLinksContentAbout": {
     "message": "info"
   },
-
   "popupMissingPermissionSwalTitle": {
     "message": "Missing permission detected"
   },
@@ -625,7 +623,6 @@
   "popupMissingPermissionSwalDenyButtonText": {
     "message": "Click to disable this check (not recommended)"
   },
-
   "popupMissingPermissionCheckDisableSwalTitle": {
     "message": "Permission check is disabled"
   },
@@ -635,10 +632,10 @@
   "popupMissingPermissionCheckDisableSwalConfirmButtonText": {
     "message": "Back to videochat"
   },
-  "showChangelogToggle":{
-  "message": "open changelog on every update: "
-},
-  "tooltipShowChangelogToggle":{
+  "showChangelogToggle": {
+    "message": "open changelog on every update: "
+  },
+  "tooltipShowChangelogToggle": {
     "message": "If enabled, when you go to the video chat site and the extension has been updated, a window will open with the changes to let you know what has changed (not shown in minimalist/limited mode)."
   }
 }

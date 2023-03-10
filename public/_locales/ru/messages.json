@@ -461,7 +461,7 @@
   "tooltipHideHeader": {
     "message": "скрыть заголовок (нужна перезагрузка страницы)"
   },
-  "discordBadge" : {
+  "discordBadge": {
     "message": "https://img.shields.io/discord/925632108150530108?label=%D0%BF%D1%80%D0%B8%D1%81%D0%BE%D0%B5%D0%B4%D0%B8%D0%BD%D1%8F%D0%B9%D1%82%D0%B5%D1%81%D1%8C&logo=discord"
   },
   "expand": {
@@ -506,27 +506,27 @@
   "YKWYDButtonText": {
     "message": "проверить torrent"
   },
-  "minimalismExplainMobile" : {
+  "minimalismExplainMobile": {
     "message": "мобильный интернет"
   },
-  "lowAccuracy" : {
+  "lowAccuracy": {
     "message": "НИЗКАЯ ТОЧНОСТЬ !!!"
   },
-  "minimalismExplainProxy" : {
+  "minimalismExplainProxy": {
     "message": "— IP адрес в списке Proxy/VPN/Tor."
   },
-  "minimalismExplainHosting" : {
+  "minimalismExplainHosting": {
     "message": "— IP адрес в списке хостингов и дата-центров."
   },
-  "minimalismImg":{
+  "minimalismImg": {
     "message": "minimalism-ru.png"
   },
   "switchModeTitle": {
     "message": "Чат Рулетное Расширение"
   },
   "switchModeText": {
-  "message": "<b>Пожалуйста, выберите подходящий вам режим работы.</b>"
-},
+    "message": "<b>Пожалуйста, выберите подходящий вам режим работы.</b>"
+  },
   "switchModeLabelMod1": {
     "message": "минимализм (только геолокация, ничего лишнего)"
   },
@@ -545,7 +545,7 @@
   "updateNeedReloadText": {
     "message": "Ваш браузер перезагрузил расширение, скорее всего он загрузил его новую версию!<br>Пожалуйста, перезагрузите страницу, чтобы восстановить работу."
   },
-  "updateNeedReloadConfirmButtonText" : {
+  "updateNeedReloadConfirmButtonText": {
     "message": "OK (закрыть предупреждение)"
   },
   "welcomeTitle": {
@@ -569,7 +569,6 @@
   "popupTitle": {
     "message": "Чат Рулетное Расширение"
   },
-
   "popupSiteEnabled": {
     "message": "Расширение активно для сайта. Нажмите, чтобы отключить."
   },
@@ -597,7 +596,6 @@
   "popupSettingMissingPermissionCheck": {
     "message": "Разрешить расширению запрашивать у вас доступ к поддерживаемому видеочату, к которому вы ещё не предоставили доступ."
   },
-
   "popupTreeFavoritesTitle": {
     "message": "Избранное"
   },
@@ -619,7 +617,6 @@
   "popupTreeLinksContentAbout": {
     "message": "о программе"
   },
-
   "popupMissingPermissionSwalTitle": {
     "message": "Обнаружено отсутствующее разрешение"
   },
@@ -629,7 +626,6 @@
   "popupMissingPermissionSwalDenyButtonText": {
     "message": "Отключить эту проверку (не рекомендуется)"
   },
-
   "popupMissingPermissionCheckDisableSwalTitle": {
     "message": "Проверка отключена"
   },
@@ -639,10 +635,10 @@
   "popupMissingPermissionCheckDisableSwalConfirmButtonText": {
     "message": "Вернуться назад в видочат"
   },
-  "showChangelogToggle":{
+  "showChangelogToggle": {
     "message": "показывать changelog после обновления: "
   },
-  "tooltipShowChangelogToggle":{
+  "tooltipShowChangelogToggle": {
     "message": "Если включено, то когда вы заходите на сайт видеочата и произошло обновление расширения, откроется окно с изменениями, чтобы вы узнали что изменилось (не показывается в минималистичном/ограниченных режимах)."
   }
 }
