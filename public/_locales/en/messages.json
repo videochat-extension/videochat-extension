@@ -588,7 +588,7 @@
     "message": "Allow extension to share with sentry.io anonymized information about errors that have occurred."
   },
   "popupSettingAllowShowChangelog": {
-    "message": "Open changelog in any videochat if there was an update in the extension (does not show in minimalist mode)."
+    "message": "Open changelog when you open an videochat and there was an update in the extension (does not show in minimalist mode)."
   },
   "popupSettingMissingPermissionCheck": {
     "message": "Allow an extension to request access from you to a supported video chat that you have not yet granted access to."
@@ -636,7 +636,7 @@
     "message": "Back to videochat"
   },
   "showChangelogToggle":{
-  "message": "show changelog on every update: "
+  "message": "open changelog on every update: "
 },
   "tooltipShowChangelogToggle":{
     "message": "If enabled, when you go to the video chat site and the extension has been updated, a window will open with the changes to let you know what has changed (not shown in minimalist/limited mode)."
