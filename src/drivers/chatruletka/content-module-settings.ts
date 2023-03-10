@@ -109,10 +109,8 @@ export class ControlsTabSettings {
 
                         let syncDict: { [key: string]: any } = {}
                         syncDict[key] = event.currentTarget.checked
-
                         if (global) {
-                            // TODO: TEST THIS
-                            globalThis.platformSettings.setBack(syncDict, function () {
+                            chrome.storage.sync.set(syncDict, function () {
                                 if (checked) {
                                     if (enable) {
                                         enable()
@@ -130,7 +128,7 @@ export class ControlsTabSettings {
                                 }
                             });
                         } else {
-                            chrome.storage.sync.set(syncDict, function () {
+                            globalThis.platformSettings.setBack(syncDict, function () {
                                 if (checked) {
                                     if (enable) {
                                         enable()
