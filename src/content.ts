@@ -73,12 +73,9 @@ async function content() {
             new ContentSwalInfo(website.platform.name).showFromStart()
         } else {
             if (settings.allowShowChangelog) {
-                alert('check version')
-                alert(`${settings.lastVersion} -> ${chrome.runtime.getManifest().version}`)
                 if (settings.lastVersion !== chrome.runtime.getManifest().version) {
                     ContentSwalChangelog.getInstance().showFromVersion(settings.lastVersion)
                 }
-                alert(`setting ${chrome.runtime.getManifest().version} as last`)
                 chrome.storage.sync.set({lastVersion: chrome.runtime.getManifest().version})
             }
         }
