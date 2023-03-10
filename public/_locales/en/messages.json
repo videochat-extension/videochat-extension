@@ -6,10 +6,13 @@
     "message": "<b>Chatruletka (ome.tv) Extension:</b><p style=\"font-size:75%\n;line-height: 23px\">Chatruletka is the same thing as ome.tv and Minichat.<br>It's the largest free video chat empire in the world.<br>The 'videochat platform' includes three large mobile apps and over 40 websites (<b><a href=\"https://github.com/qrlk/videochatru-extension#what-is-chat-roulette\" style=\"text-decoration: none!important;color:red\" target=\"_blank\">full list with proof</a></b>).<br>It doesn't matter which site/application you connect to the system from, the userbase is shared between all of them.<br><b>This extension works only on <a href=\"https://videochatru.com/embed\" style=\"text-decoration: none!important;color:red\" target=\"_blank\">videochatru.com</a> and <a href=\"https://ome.tv/embed\" style=\"text-decoration: none!important;color:red\" target=\"_blank\">ome.tv</a></b></p>"
   },
   "extension_name": {
+    "message": "Videochat Extension - IP Locator & More"
+  },
+  "extension_name_header": {
     "message": "Videochat Extension"
   },
   "extension_description": {
-    "message": "Extension for Chatruletka (aka ome.tv): interlocutor's IP location, autoskip of the specified gender, blacklist, hotkeys, PiP, etc."
+    "message": "IP Locator & more for your favorite video chats: Chatruletka, ome.tv, minichat."
   },
   "desc": {
     "message": "This is a browser extension that extends the functionality of Chatruletka (aka ome.tv)."
