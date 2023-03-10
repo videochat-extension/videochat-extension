@@ -57,7 +57,7 @@ export class SwalWithSteps {
         return `<div style="min-height: 300px;align-items: center;display: flex;justify-content: center;"><div>${this.getValue()}</div></div>`
     }
 
-    protected arrowHotkeys = (e: KeyboardEvent) => {
+    public arrowHotkeys = (e: KeyboardEvent) => {
         switch (e.key) {
             case "ArrowLeft":
                 if (this.currentStep !== 0) {
@@ -99,7 +99,7 @@ export class SwalWithSteps {
         }
     }
 
-    protected  didOpen() {
+    protected didOpen = () => {
         document.removeEventListener('keyup', this.arrowHotkeys)
         document.addEventListener('keyup', this.arrowHotkeys)
     }

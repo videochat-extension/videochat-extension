@@ -1154,8 +1154,9 @@ export class ContentSwalChangelog extends SwalWithSteps {
     }
 
     // TODO: this is awful, please rework
-    protected didOpen() {
-        super.didOpen()
+    protected didOpen = () => {
+        document.removeEventListener('keyup', this.arrowHotkeys)
+        document.addEventListener('keyup', this.arrowHotkeys)
         chrome.storage.sync.get({'allowShowChangelog': true}, (res) => {
             (<HTMLInputElement>document.getElementById('allowShowChangelogCheck')).checked = res.allowShowChangelog
         })
