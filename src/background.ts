@@ -92,8 +92,8 @@ async function ensureSettingsAreUpToDate() {
                 }
             }
 
-            await chrome.storage.sync.set({"98ea82db-9d50-4951-935e-2405d9fe892e": chatruletka})
-            await chrome.storage.sync.set({"7fef97eb-a5cc-4caa-8d19-75dab7407b6b": ometv})
+            await chrome.storage.sync.set({"7390db38-a617-4f6e-8a8a-ee353b76cc25": chatruletka})
+            await chrome.storage.sync.set({"8fa234f6-1767-4d81-897e-758df844ae31": ometv})
 
             await chrome.storage.sync.remove(keysToRemove)
 
