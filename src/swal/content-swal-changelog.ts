@@ -573,7 +573,7 @@ export class ContentSwalChangelog extends SwalWithSteps {
             "— The extension offers to scan the history and add video chats to favorites on the page that opens after installation.<br>" +
             "— Video chat platforms in the list of supported ones are listed in the order of appearance of this very support.<br>" +
             '<br>' +
-            '<b>Minimalist mode</b><br>' +
+            '<b>Minimalism mode.</b><br>' +
             '— Changed the logic of the minimalism mode and the geolocation data display format.<br>' +
             '— Cellural location data is displayed for Russia and Ukraine with city and region.' +
             '<br>' +
@@ -585,6 +585,9 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '<br>' +
             '<b>Local hotkeys.</b><br>' +
             "— If you hold <- for more than 5 seconds and release, the interlocutor will not be skipped.<br>" +
+            '<br>' +
+            '<b>Changelog.</b><br>' +
+            "— You can now prevent the changelog from opening on every update.<br>" +
             '<br>' +
             '<b>Important:</b><br>' +
             `If you think something is broken, please write in <a style="text-decoration:none;" target="_blank" href="https://discord.gg/YZKnbKGWen">Discord</a> or directly on <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">developer email</a>`,
@@ -1141,6 +1144,9 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '<br>' +
             '<b>Локальные горячие клавиши.</b><br>' +
             "— Если держать <- больше 5 секунд и отпустить, то собеседник не будет пропущен.<br>" +
+            '<br>' +
+            '<b>История изменений.</b><br>' +
+            "— Теперь вы можете запретить журналу изменений открываться после каждого обновления.<br>" +
             '<br>' +
             '<b>Важно:</b><br>' +
             `Если вам кажется, что что-то сломалось, пожалуйста, напишите в <a style="text-decoration:none;" target="_blank" href="https://discord.gg/YZKnbKGWen">Discord</a> или прямо на <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">почту разработчика</a>`
