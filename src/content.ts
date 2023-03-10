@@ -52,7 +52,7 @@ async function content() {
     let recentDict = (await chrome.storage.sync.get({"recentDict": {}})).recentDict
     recentDict[website.site.id] = Math.ceil(+new Date() / 1000)
 
-    globalThis.platformSettings = PlatformSettings.initInstance(website.platform)
+    globalThis.platformSettings = PlatformSettings.initInstance(website.platform.id)
 
     await globalThis.platformSettings.setup()
 
