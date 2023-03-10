@@ -180,10 +180,10 @@ POSSIBILITY OF SUCH DAMAGE.</div>`
         this.swalQueueStep = this.swalQueueStep.mixin({
             progressSteps: this.steps,
             preDeny: () => {
-                chrome.storage.sync.set({"swalInfoCompleted": true})
+                globalThis.platformSettings.set({"swalInfoCompleted": true})
             },
             didDestroy() {
-                chrome.storage.sync.set({"swalInfoCompleted": true})
+                globalThis.platformSettings.set({"swalInfoCompleted": true})
             }
         })
     }
