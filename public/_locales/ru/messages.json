@@ -491,6 +491,9 @@
   "welcomeButtonText": {
     "message": "Открыть приветственное окно"
   },
+  "postInstallButtonText": {
+    "message": "Открыть послеустановочное окно"
+  },
   "YKWYDConfirmButtonText": {
     "message": "Ок (откроет окно)"
   },

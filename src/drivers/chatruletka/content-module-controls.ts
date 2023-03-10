@@ -444,11 +444,21 @@ export class ControlsTabAbout {
                     utils.createElement('br'),
                     utils.createElement('button', {
                         onclick: () => {
-                            chrome.runtime.sendMessage({openWelcome: true})
+                            new ContentSwalInfo(this.driver.platform.name).showFromStart()
                         },
                     }, [
                         utils.createElement('b', {
                             innerText: chrome.i18n.getMessage("welcomeButtonText")
+                        })
+                    ]),
+                    utils.createElement('br'),
+                    utils.createElement('button', {
+                        onclick: () => {
+                            chrome.runtime.sendMessage({openWelcome: true})
+                        },
+                    }, [
+                        utils.createElement('b', {
+                            innerText: chrome.i18n.getMessage("postInstallButtonText")
                         })
                     ]),
                 ]

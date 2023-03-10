@@ -491,6 +491,9 @@
   "welcomeButtonText": {
     "message": "Open welcome window"
   },
+  "postInstallButtonText": {
+    "message": "Open post-install window"
+  },
   "YKWYDConfirmButtonText": {
     "message": "Ok (will open window)"
   },

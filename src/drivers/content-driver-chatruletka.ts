@@ -15,7 +15,7 @@ export class ChatruletkaDriver {
     private static instanceRef: ChatruletkaDriver;
     // Stages: stop = 0 | search = 1 | found = 2 | connected = 3 | play = 4
     public stage: 0 | 1 | 2 | 3 | 4 = 0
-    public platform: string
+    public platform: any
     public site: any
     public modules
     public play: number = 0;
