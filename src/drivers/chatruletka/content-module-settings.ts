@@ -89,7 +89,7 @@ export class ControlsTabSettings {
     }
 
     static createSettingsCheckbox(global: boolean, tagName: string, key: string, settingText: string, settingTooltip: string, enable?: () => void | undefined, disable?: () => void | undefined, controls?: string | undefined) {
-        return utils.createElement('dd', {}, [
+        return utils.createElement(global ? 'div' : 'dd', {}, [
             utils.createElement('span', {}, [
                 utils.createElement(tagName, {
                     innerText: settingText,
@@ -102,7 +102,7 @@ export class ControlsTabSettings {
                 }),
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: global ? false: globalThis.platformSettings.get(key),
+                    checked: global ? false : globalThis.platformSettings.get(key),
                     id: `${key}Check`,
                     onchange: (event: ChangeEvent) => {
                         let checked = event.currentTarget.checked
