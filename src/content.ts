@@ -8,6 +8,7 @@ import {ChatruletkaDriver} from "./drivers/content-driver-chatruletka";
 import {ChatruletkaSimpleDriver} from "./drivers/content-driver-chatruletka-simple";
 import {switchMode} from "./drivers/chatruletka/content-swal-switchmode";
 import {injectIpGrabber} from "./drivers/chatruletka/content-module-geolocation";
+import {ContentSwalInfo} from "./drivers/chatruletka/content-swal-info";
 import {ContentSwalChangelog} from "./swal/content-swal-changelog";
 import {extractDomain, getPlatformByHost} from "./utils/utils";
 import * as Sentry from "@sentry/browser";
@@ -61,7 +62,7 @@ async function content() {
     await chrome.storage.sync.set({"lastIconName": website.site.favicon})
     await chrome.storage.sync.set({"lastDomain": domain})
 
-    let platform = website.platform
+    let platform = website.platform.id
     if (["7390db38-a617-4f6e-8a8a-ee353b76cc25", "8fa234f6-1767-4d81-897e-758df844ae31", "b15b920c-6882-4023-af28-f31e296b80e3", "b0073d25-a35d-4388-8dfb-6db6c81ad6ed"].includes(platform)) {
         platform = "COMC"
     }
@@ -93,7 +94,7 @@ async function content() {
 
     if (!globalThis.platformSettings.get("swalInfoCompleted")) {
         // TODO: maybe show people only 1-step info about what features are supported?
-        // ContentSwalInfo.getInstance().showFromStart()
+        new ContentSwalInfo(website.platform.name).showFromStart()
     } else {
         if (settings.allowShowChangelog) {
             if (settings.lastVersion !== chrome.runtime.getManifest().version) {

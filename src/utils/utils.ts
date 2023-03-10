@@ -81,7 +81,7 @@ export function getPlatformByHost(platforms: any[], host: string) {
     for (const platform of platforms) {
         for (const site of platform.sites) {
             if (site.origin.includes(host)) {
-                return {site: site, platform: platform.id}
+                return {site: site, platform: platform}
             }
         }
     }
