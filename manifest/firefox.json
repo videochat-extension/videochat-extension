@@ -1,6 +1,6 @@
 {
   "name": "__MSG_extension_name__",
-  "version": "1.6.3",
+  "version": "1.7.0",
 
   "background": {
     "scripts": ["background.js"]
