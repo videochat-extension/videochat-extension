@@ -457,7 +457,7 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '<b>- Section \'IP\'.</b><br>' +
             "— Fixed an incorrect locale detection that caused torrent checking to work incorrectly for some users.",
 
-            // 1.7.0 (2023-03-10)
+            // 1.7.0 (2023-03-11)
             '<b>Support for 44 video chat sites, Firefox, Edge and TypeScript.</b>' +
             '<br>' +
             '<br>' +
@@ -1246,6 +1246,6 @@ export class ContentSwalChangelog extends SwalWithSteps {
         this.getGitHub('v1.6.1', '(2022-11-25)'),
         this.getGitHub('v1.6.2', '(2023-01-15)'),
         this.getGitHub('v1.6.3', '(2023-01-15)'),
-        this.getGitHub('v1.7.0', '(2023-03-10)')
+        this.getGitHub('v1.7.0', '(2023-03-11)')
     ]
 }
