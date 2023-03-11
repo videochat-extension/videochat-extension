@@ -494,10 +494,10 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '1. This extension will never be sold to third parties and will never be monetized by the malicious methods allegedly due to which the Omegle IP Locator extension was removed. ' +
             '<br>' +
             '<br>' +
-            '2. This extension will never interfere with the functionality that is critical for the functioning of video chats: I will not oppose the moderation, user identification and ban systems, as well as implement functionality similar to the paid functions of video chat platforms (for example, if video chat offers a gender filter for money - I don\'t implement the same in the extension and so on, there may be exceptions, such as: geolocation, advertising, bot filter, etc.).' +
+            '2. This extension will never interfere with the functionality that is critical for the functioning of video chats: I will not oppose the moderation, user identification and ban systems, as well as implement functionality similar to the paid functions of video chat platforms (for example, if video chat offers a gender filter for money - I don\'t implement the same in the extension and so on, there may be exceptions, such as: geolocation, adblock, bot filter, etc.).' +
             '<br>' +
             '<br>' +
-            '3. This extension will never partner with video chats to promote them to the extension\'s audience.' +
+            '3. This extension will never partner with video chats to promote them to the extension\'s audience. Video chat platforms in the list of supported ones are listed in the order of appearance of this very support.' +
             '<br>' +
             '<br>' +
             '4. I don\'t plan to create my own video chat and use my extension to promote it: I have my main project (unrelated to video chats), which takes most of my life energy and I\'m not going to cheat on it.' +
@@ -1053,7 +1053,7 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '1. Это расширение никогда не будет продано третьим лицам и никогда не будет монетизироваться вредоносными методами, предположительно из-за которых было удалено расширение Omegle IP Locator. ' +
             '<br>' +
             '<br>' +
-            '2. Это расширение никогда не будет вмешиваться в функционал, критичный для функционирования видеочатов: я не буду противодействовать системе модерации, системам идентификации и блокировки пользователей, а так же реализовывать функционал, аналогичный платным функциям платформ-видеочатов (например, если видеочат предлагает фильтр полов за деньги - я не реализовываю аналогичный в расширении и так далее, возможны исключения, такие как: геолокация, реклама, фильтр ботов и др.).' +
+            '2. Это расширение никогда не будет вмешиваться в функционал, критичный для функционирования видеочатов: я не буду противодействовать системе модерации, системам идентификации и блокировки пользователей, а так же реализовывать функционал, аналогичный платным функциям платформ-видеочатов (например, если видеочат предлагает фильтр полов за деньги - я не реализовываю аналогичный в расширении и так далее, возможны исключения, такие как: геолокация, блокировка рекламы, фильтр ботов и др.).' +
             '<br>' +
             '<br>' +
             '3. Это расширение никогда не будет сотрудничать с видеочатами в целях их продвижения среди аудитории расширения.' +
