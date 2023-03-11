@@ -72,7 +72,7 @@ async function content() {
         platform = "Omegle"
     }
 
-    function processSwals(website: { site?: any; platform: any; }) {
+    async function processSwals(website: { site?: any; platform: any; }) {
         if (!globalThis.platformSettings.get("swalInfoCompleted")) {
             // TODO: maybe show people only 1-step info about what features are supported?
             new ContentSwalInfo(website.platform.name).showFromStart()
@@ -102,10 +102,12 @@ async function content() {
             } else {
                 await globalThis.platformSettings.setDriverDefaults(ChatruletkaDriver.defaults)
                 document.arrive(".buttons__button.start-button", {onceOnly: true, existing: true}, () => {
-                    globalThis.driver = ChatruletkaDriver.getInstance(website)
-                    globalThis.driver.start(document.getElementById('remote-video-wrapper') as HTMLElement)
+                    if (website) {
+                        processSwals(website)
+                        globalThis.driver = ChatruletkaDriver.getInstance(website)
+                        globalThis.driver.start(document.getElementById('remote-video-wrapper') as HTMLElement)
+                    }
                 })
-                processSwals(website)
             }
             break;
         }
