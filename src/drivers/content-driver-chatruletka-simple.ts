@@ -146,7 +146,7 @@ export class ChatruletkaSimpleDriver {
             this.curIps.push(newIp)
         }
 
-        chrome.runtime.sendMessage({aremoteIP: newIp, language: "en"}, (response) => {
+        chrome.runtime.sendMessage({aremoteIP: newIp, language: this.apiLanguage}, (response) => {
             if (!this.curIps.includes(newIp)) {
                 return
             }
