@@ -32,7 +32,7 @@ const showSwalChangelog = async function () {
             `<img style="height: 170px;
             margin-left: auto;
             margin-right: auto;
-            display: block;" src="${chrome.runtime.getURL('welcome/firefox-pin.png')}">` +
+            display: block;" src="${typeof browser === "undefined" ? chrome.runtime.getURL('welcome/chromium_' + lang + '.png') : chrome.runtime.getURL('welcome/firefox_' + lang + '.png')}">` +
             '<br>' +
             '<b>What did I just install?</b><br>' +
             'You have just installed an <a style="text-decoration:none;" target="_blank" href="https://github.com/qrlk/videochat-extension">open source</a> browser extension, which will try to improve your experience of using online video chats.<br>' +
@@ -418,7 +418,7 @@ const showSwalChangelog = async function () {
                     if (found.length === 0) {
                         alert(chrome.i18n.getMessage("welcomeHistoryScanNotFound"))
                     } else {
-                        alert(chrome.i18n.getMessage("welcomeHistoryScanAdded", [found.length,found.map(r => r.site.text).join(', ')]))
+                        alert(chrome.i18n.getMessage("welcomeHistoryScanAdded", [found.length, found.map(r => r.site.text).join(', ')]))
                     }
                 }
             })
@@ -530,7 +530,7 @@ console.dir(showSwalChangelog().then(() => {
             Swal.showLoading()
             const b = Swal.getHtmlContainer().querySelector('b')
             timerInterval = setInterval(() => {
-                b.textContent = Math.ceil(Swal.getTimerLeft()/1000)
+                b.textContent = Math.ceil(Swal.getTimerLeft() / 1000)
             }, 100)
         },
         willClose: () => {
