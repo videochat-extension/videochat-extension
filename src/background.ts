@@ -139,7 +139,7 @@ async function onPermissionsAdded(permissions: chrome.permissions.Permissions) {
         })
 
         for (const site of sites) {
-            await enableReg(site.id, site.origin, content)
+            enableReg(site.id, site.origin, content)
         }
     }
 }
