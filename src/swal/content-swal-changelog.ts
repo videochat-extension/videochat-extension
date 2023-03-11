@@ -458,7 +458,7 @@ export class ContentSwalChangelog extends SwalWithSteps {
             "— Fixed an incorrect locale detection that caused torrent checking to work incorrectly for some users.",
 
             // 1.7.0 (2023-03-11)
-            '<b>Support for 44 video chat sites, Firefox, Edge and TypeScript.</b>' +
+            '<b>Support for 46 video chat sites, Firefox, Edge and TypeScript.</b>' +
             '<br>' +
             '<br>' +
             'This is a very big and important update: every inner gear has been touched. If you think something is broken, please report to <a style="text-decoration:none;" target="_blank" href="https://discord.gg/YZKnbKGWen">Discord</a> or directly write to the <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">developer\'s email</a>.' +
@@ -520,8 +520,9 @@ export class ContentSwalChangelog extends SwalWithSteps {
             "— Countless bugs fixed, new ones added.<br>" +
             "— This process is not yet complete, but the extension is already functioning with the full functionality of the previous version.<br>" +
             '<br>' +
-            '<b>Support for 44 video chat sites.</b><br>' +
+            '<b>Support for 46 video chat sites.</b><br>' +
             "— The extension now supports all known mirror sites of the platforms: Chatruletka, ome.tv, minichat, chatrulez.<br>" +
+            "— Implemented basic Omegle support similar to minimalistic mode, except for the dark theme.<br>" +
             "— Implemented support for an alternative chatroulette interface, such as, for example, on <a href='https://ome.chat' target='_blank' style='text-decoration: none!important;'>ome.chat</a>.<br>" +
             '<br>' +
             '<b>Firefox support.</b><br>' +
@@ -1017,7 +1018,7 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '— Исправлено неправильное определении локали, из-за которой у некоторых пользователей неправильно работала проверка торрентов.',
 
             // 1.7.0 (2023-01-15)
-            '<b>Поддержка 44 сайтов-видеочатов, Firefox, Edge и TypeScript.</b>' +
+            '<b>Поддержка 46 сайтов-видеочатов, Firefox, Edge и TypeScript.</b>' +
             '<br>' +
             '<br>' +
             'Это очень большое и важное обновление: в нём была затронута каждая внутренняя шестеренка. Если вам кажется, что что-то сломалось, пожалуйста, напишите в <a style="text-decoration:none;" target="_blank" href="https://discord.gg/YZKnbKGWen">Discord</a> или прямо на <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">почту разработчика</a>.' +
@@ -1079,8 +1080,9 @@ export class ContentSwalChangelog extends SwalWithSteps {
             "— Исправлено бесчисленное количество багов, добавлены новые.<br>" +
             "— Этот процесс ещё не закончен, но расширение уже функционирует с полным набором функций предыдущей версии.<br>" +
             '<br>' +
-            '<b>Поддержка 44 сайтов-видеочатов.</b><br>' +
+            '<b>Поддержка 46 сайтов-видеочатов.</b><br>' +
             "— Расширение теперь поддерживает все известные зеркала сайтов платформ Chatruletka, ome.tv, minichat, chatrulez.<br>" +
+            "— Реализована базовая поддержка Omegle, аналогичная минималистичному режиму, за исключением тёмной темы.<br>" +
             "— Реализована поддержка альтернативного интерфейса чат рулетки, такого как, например, на <a href='https://ome.chat' target='_blank' style='text-decoration: none!important;'>ome.chat</a>.<br>" +
             '<br>' +
             '<b>Поддержка Firefox.</b><br>' +
