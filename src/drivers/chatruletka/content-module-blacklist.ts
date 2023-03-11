@@ -89,11 +89,13 @@ export class BlacklistModule {
         this.sync()
     }
 
+    // TODO: does not work in firefox
     public playBanSound() {
         if (globalThis.platformSettings.get("skipSound"))
             this.ban.play();
     }
 
+    // TODO: does not work in firefox
     public playMaleSound() {
         if (globalThis.platformSettings.get("skipSound"))
             this.male.play();

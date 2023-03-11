@@ -453,6 +453,7 @@ export class GeolocationModule {
                     } else {
                         this.driver.needToCheckTarget = false
                         if (globalThis.platformSettings.get("targetSound")) {
+                            // TODO: does not work in firefox
                             this.targetSound.play();
                             console.dir(`FOUND TARGET CITY: ${globalThis.platformSettings.get("targetCity")}`)
                         }
@@ -467,6 +468,7 @@ export class GeolocationModule {
                     } else {
                         this.driver.needToCheckTarget = false
                         if (globalThis.platformSettings.get("targetSound")) {
+                            // TODO: does not work in firefox
                             (this.targetSound).play();
                             console.dir(`FOUND TARGET REGION: ${globalThis.platformSettings.get("targetRegion")}`)
                         }
