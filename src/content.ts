@@ -84,7 +84,9 @@ async function content() {
     switch (platform) {
         case "COMC": {
             if (globalThis.platformSettings.get("askForMode")) {
-                switchMode()
+                document.arrive(".buttons__button.start-button", {onceOnly: true, existing: true}, () => {
+                    switchMode()
+                })
                 return false
             } else if (globalThis.platformSettings.get("minimalism")) {
                 document.arrive(".buttons__button.start-button", {onceOnly: true, existing: true}, () => {
