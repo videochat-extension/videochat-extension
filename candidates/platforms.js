@@ -2,26 +2,6 @@
 // means that the video chat was noticed by me, there are no guarantees that even partial support will be added
 let candidates = [
   {
-    "name": "Omegle",
-    "id": "b101a84a-8549-4676-9bd9-ec2582c72c54",
-    "sites": [
-      {
-        "text": "omegle.com",
-        "id": "13fa70ac-6a70-4eab-8410-0fca063fbdea",
-        "favicon": "omegle.png",
-        "origin": "https://*.omegle.com/*",
-        "href": "https://www.omegle.com/"
-      },
-      {
-        "text": "omegle.tv",
-        "id": "4aef8e93-30f2-4171-be64-2d4a8b7b6d87",
-        "favicon": "omegle.png",
-        "origin": "https://*.omegle.tv/*",
-        "href": "https://www.omegle.tv/"
-      }
-    ]
-  },
-  {
     "name": "Chatroulette",
     "id": "c20b3bc1-d6f9-4639-af21-14f0f438538f",
     "sites": [

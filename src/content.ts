@@ -13,6 +13,8 @@ import {ContentSwalChangelog} from "./swal/content-swal-changelog";
 import {extractDomain, getPlatformByHost} from "./utils/utils";
 import * as Sentry from "@sentry/browser";
 import {PlatformSettings} from "./content-platform";
+import {OmegleSimpleDriver} from "./drivers/content-driver-omegle-simple";
+import {ContentSwalInfoOmegle} from "./drivers/omegle/content-swal-info";
 
 injectIpGrabber()
 
@@ -66,6 +68,9 @@ async function content() {
     if (["7390db38-a617-4f6e-8a8a-ee353b76cc25", "8fa234f6-1767-4d81-897e-758df844ae31", "b15b920c-6882-4023-af28-f31e296b80e3", "b0073d25-a35d-4388-8dfb-6db6c81ad6ed"].includes(platform)) {
         platform = "COMC"
     }
+    if (platform === "b101a84a-8549-4676-9bd9-ec2582c72c54") {
+        platform = "Omegle"
+    }
 
     function processSwals(website: { site?: any; platform: any; }) {
         if (!globalThis.platformSettings.get("swalInfoCompleted")) {
@@ -101,6 +106,21 @@ async function content() {
                     globalThis.driver.start(document.getElementById('remote-video-wrapper') as HTMLElement)
                 })
                 processSwals(website)
+            }
+            break;
+        }
+        case "Omegle": {
+            if (location.pathname === "/") {
+                document.arrive("body", {onceOnly: true, existing: true}, async () => {
+                    await globalThis.platformSettings.setDriverDefaults({
+                        darkMode: false
+                    })
+                    globalThis.driver = OmegleSimpleDriver.getInstance()
+                    globalThis.driver.start(document.body)
+                    if (!globalThis.platformSettings.get("swalInfoCompleted")) {
+                        new ContentSwalInfoOmegle().showFromStart()
+                    }
+                })
             }
             break;
         }

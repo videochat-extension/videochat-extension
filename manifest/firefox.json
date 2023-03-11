@@ -97,7 +97,9 @@
         "https://*.minichat.com/*",
         "https://*.chatrulez.ru/*",
         "https://*.videochatruletka.com/*",
-        "https://*.videochatruletka.ru/*"
+        "https://*.videochatruletka.ru/*",
+        "https://*.omegle.com/*",
+        "https://*.omegle.tv/*"
       ],
       "extension_ids": []
     }
@@ -156,7 +158,9 @@
     "https://*.minichat.com/*",
     "https://*.chatrulez.ru/*",
     "https://*.videochatruletka.com/*",
-    "https://*.videochatruletka.ru/*"
+    "https://*.videochatruletka.ru/*",
+    "https://*.omegle.com/*",
+    "https://*.omegle.tv/*"
   ],
   "permissions": [
     "storage",
