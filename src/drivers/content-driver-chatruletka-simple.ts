@@ -2,6 +2,7 @@ import $ from "jquery";
 import {createSwitchModeButton} from "./chatruletka/content-swal-switchmode";
 import * as DOMPurify from "dompurify";
 import * as utils from "../utils/utils";
+import * as SDPUtils from "sdp";
 
 export class ChatruletkaSimpleDriver {
     private static instanceRef: ChatruletkaSimpleDriver;
@@ -54,15 +55,12 @@ export class ChatruletkaSimpleDriver {
         window.addEventListener("[object Object]", (evt) => {
             let candidate: any = (<CustomEvent>evt).detail.candidate
 
-            // chrome returns only one property
-            if (Object.keys(candidate).length === 1) {
-                candidate = new RTCIceCandidate((<CustomEvent>evt).detail.candidate.json)
-            }
+            let parsedCandidate = SDPUtils.parseCandidate(JSON.parse(candidate).candidate)
 
-            if (candidate.type === "srflx" && candidate.address) {
-                console.dir("IP: " + candidate.address)
-                if (this.rmdaddr !== candidate.address) {
-                    this.rmdaddr = candidate.address;
+            if (parsedCandidate.type === "srflx" && parsedCandidate.address) {
+                console.dir("IP: " + parsedCandidate.address)
+                if (this.rmdaddr !== parsedCandidate.address) {
+                    this.rmdaddr = parsedCandidate.address;
                     console.dir("IP CHANGED")
                     this.onNewIP(this.rmdaddr)
                 }
