@@ -457,7 +457,7 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '<b>- Section \'IP\'.</b><br>' +
             "— Fixed an incorrect locale detection that caused torrent checking to work incorrectly for some users.",
 
-            // 1.7.0 (2023-03-11)
+            // 1.7.0 (2023-03-14)
             '<b>Support for 46 video chat sites, Firefox, Edge and TypeScript.</b>' +
             '<br>' +
             '<br>' +
@@ -523,7 +523,7 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '<b>Support for 46 video chat sites.</b><br>' +
             "— The extension now supports all known mirror sites of the platforms: Chatruletka, ome.tv, minichat, chatrulez.<br>" +
             "— Implemented basic Omegle support similar to minimalistic mode, except for the dark theme.<br>" +
-            "— Implemented support for an alternative chatroulette interface, such as, for example, on <a href='https://ome.chat' target='_blank' style='text-decoration: none!important;'>ome.chat</a>.<br>" +
+            "— Implemented support for an alternative ome.tv interface, such as, for example, on <a href='https://ome.chat' target='_blank' style='text-decoration: none!important;'>ome.chat</a>.<br>" +
             '<br>' +
             '<b>Firefox support.</b><br>' +
             "— A lot of work has been done to analyze all the issues and ensure compatibility with the latest versions of Firefox.<br>" +
@@ -564,7 +564,7 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '— The welcome window has been redesigned, now there are only three pages: brief information about the video chat, features supported by the extension, and extension license.<br>' +
             '<br>' +
             '<b>Popup.</b><br>' +
-            "Clicking on the extension now opens not the last video chat, but a special menu.<br>" +
+            "— Clicking on the extension now opens not the last video chat, but a special menu.<br>" +
             "— The menu has lists of favorite, recent and supported video chats, global settings and links.<br>" +
             "— Menu allows you to fix possible problems with missing permissions.<br>" +
             "— The menu allows you to enable / disable the extension for specific video chats.<br>" +
@@ -591,7 +591,7 @@ export class ContentSwalChangelog extends SwalWithSteps {
             "— You can now prevent the changelog from opening on every update.<br>" +
             '<br>' +
             '<b>Important:</b><br>' +
-            `If you think something is broken, please write in <a style="text-decoration:none;" target="_blank" href="https://discord.gg/YZKnbKGWen">Discord</a> or directly on <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">developer email</a>`,
+            `If you think something is broken, please write about it in <a style="text-decoration:none;" target="_blank" href="https://discord.gg/YZKnbKGWen">Discord</a> or directly to the <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">developer email</a>`,
         ],
         "ru": [
             // v0.1 (2021-09-27)
@@ -1017,7 +1017,7 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '<b>- Раздел \'IP\'.</b><br>' +
             '— Исправлено неправильное определении локали, из-за которой у некоторых пользователей неправильно работала проверка торрентов.',
 
-            // 1.7.0 (2023-01-15)
+            // 1.7.0 (2023-03-14)
             '<b>Поддержка 46 сайтов-видеочатов, Firefox, Edge и TypeScript.</b>' +
             '<br>' +
             '<br>' +
@@ -1045,7 +1045,7 @@ export class ContentSwalChangelog extends SwalWithSteps {
             'На данный момент у меня есть мотивация для работы над проектом и новые идеи, среди которых есть: поддержка и развитие всего того, что уже работает, улучшение качества кода, новые функции, поддержка новых платформ видеочатов и некоторые запланированные эксперименты.' +
             '<br>' +
             '<br>' +
-            ' Перед расширением открылось много интересных возможностей, вроде пути на рынок США (самое популярное расширение с геолокацией для американского Omegle с 270.000 пользователей было удалено из магазина Chrome).' +
+            'Перед расширением открылось много интересных возможностей, вроде пути на рынок США (самое популярное расширение с геолокацией для американского Omegle с 270.000 пользователей было удалено из магазина Chrome).' +
             '<br>' +
             '<br>' +
             '<b>При этом стоит отметить несколько важных моментов:</b>' +
@@ -1248,6 +1248,6 @@ export class ContentSwalChangelog extends SwalWithSteps {
         this.getGitHub('v1.6.1', '(2022-11-25)'),
         this.getGitHub('v1.6.2', '(2023-01-15)'),
         this.getGitHub('v1.6.3', '(2023-01-15)'),
-        this.getGitHub('v1.7.0', '(2023-03-11)')
+        this.getGitHub('v1.7.0', '(2023-03-14)')
     ]
 }
