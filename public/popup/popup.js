@@ -170,7 +170,7 @@ $(async function () {
         } else {
             const result = await requestOrigin(origin)
             if (result) {
-                setTimeout(dumbUpdStatus, 300)
+                // setTimeout(dumbUpdStatus, 300)
                 newIconClass = 'bi-x-circle-fill'
             } else {
                 newIconClass = 'bi-exclamation-triangle-fill'
@@ -527,12 +527,12 @@ $(async function () {
 
     async function fixAll(e) {
         let obj = getArrayToFix(platforms)
-        let res = await chrome.permissions.request({
+        await chrome.permissions.request({
             permissions: ["scripting"],
             origins: obj.map(site => site.origin)
         }, async (res) => {
             if (res) {
-                setTimeout(dumbUpdStatus, 300)
+                // setTimeout(dumbUpdStatus, 300)
                 e.target.style.display = "none"
             } else {
                 e.target.style.display = ""
@@ -590,6 +590,23 @@ $(async function () {
         parentsMarginLeft: '1.25rem',
         openNodeLinkOnNewTab: true
     });
+
+    chrome.runtime.onMessage.addListener(
+        (request) => {
+            if (request.updateStatus) {
+                let buttons = $(`[type="status"][siteId="${request.updateStatus.siteId}"]`)
+                let newIconClass
+                if (request.updateStatus.bool) {
+                    newIconClass = 'bi-check-circle-fill'
+                } else {
+                    newIconClass = 'bi-x-circle-fill'
+                }
+                buttons.children().attr('class', newIconClass)
+                buttons.attr('title', getTitleByIconClass(newIconClass))
+            }
+        }
+    )
+
     console.timeEnd("start tree")
     // toggleFavoritesVisibility()
     console.timeEnd("show tree")

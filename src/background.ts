@@ -579,6 +579,12 @@ async function updScriptStatus(siteId: string, bool: boolean) {
         scripts[siteId] = bool
         await setValue("scripts", scripts)
     }
+    // try to tell popup.js to update siteId status
+    try {
+        await chrome.runtime.sendMessage({updateStatus: {siteId: siteId, bool: bool}})
+    } catch (e) {
+        console.dir(e)
+    }
 }
 
 async function isRegistered(siteId: string) {
