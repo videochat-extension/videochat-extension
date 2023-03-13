@@ -57,8 +57,8 @@ async function ensureSettingsAreUpToDate() {
 
         let keysDefault = Object.keys(defaults)
 
-        let chatruletka = await getValue("98ea82db-9d50-4951-935e-2405d9fe892e", {})
-        let ometv = await getValue("7fef97eb-a5cc-4caa-8d19-75dab7407b6b", {})
+        let chatruletka = await getValue("7390db38-a617-4f6e-8a8a-ee353b76cc25", {})
+        let ometv = await getValue("8fa234f6-1767-4d81-897e-758df844ae31", {})
 
         let keysToRemove = []
 
