@@ -1,6 +1,5 @@
 import "./content-globals"
 
-import "./swal/content-swal-context-invalidated"
 
 require('arrive')
 
@@ -8,6 +7,7 @@ import {ChatruletkaDriver} from "./drivers/content-driver-chatruletka";
 import {ChatruletkaSimpleDriver} from "./drivers/content-driver-chatruletka-simple";
 import {switchMode} from "./drivers/chatruletka/content-swal-switchmode";
 import {injectIpGrabber} from "./drivers/chatruletka/content-module-geolocation";
+import {injectContextInvalidatedCheck} from "./swal/content-swal-context-invalidated"
 import {ContentSwalInfo} from "./drivers/chatruletka/content-swal-info";
 import {ContentSwalChangelog} from "./swal/content-swal-changelog";
 import {extractDomain, getPlatformByHost} from "./utils/utils";
@@ -95,6 +95,7 @@ async function content() {
                 return false
             } else if (globalThis.platformSettings.get("minimalism")) {
                 document.arrive(".buttons__button.start-button", {onceOnly: true, existing: true}, () => {
+                    injectContextInvalidatedCheck()
                     globalThis.driver = ChatruletkaSimpleDriver.getInstance()
                     globalThis.driver.start(document.getElementById('remote-video-wrapper') as HTMLElement)
                 })
@@ -103,6 +104,7 @@ async function content() {
                 await globalThis.platformSettings.setDriverDefaults(ChatruletkaDriver.defaults)
                 document.arrive(".buttons__button.start-button", {onceOnly: true, existing: true}, () => {
                     if (website) {
+                        injectContextInvalidatedCheck()
                         processSwals(website)
                         globalThis.driver = ChatruletkaDriver.getInstance(website)
                         globalThis.driver.start(document.getElementById('remote-video-wrapper') as HTMLElement)
@@ -112,8 +114,9 @@ async function content() {
             break;
         }
         case "Omegle": {
-            if (location.pathname === "/") {
+            if (location.pathname === "/" && window === window.top) {
                 document.arrive("body", {onceOnly: true, existing: true}, async () => {
+                    injectContextInvalidatedCheck()
                     await globalThis.platformSettings.setDriverDefaults({
                         darkMode: false
                     })
