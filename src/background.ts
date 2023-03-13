@@ -139,7 +139,7 @@ async function onPermissionsAdded(permissions: chrome.permissions.Permissions) {
         })
 
         for (const site of sites) {
-            enableReg(site.id, site.origin, content)
+            await enableReg(site.id, site.origin, content)
         }
     }
 }
@@ -196,6 +196,7 @@ async function onRuntimeInstalled(_reason: chrome.runtime.InstalledDetails) {
 }
 
 async function ensureContentScriptsAreRegistered() {
+    console.time('ensureContentScriptsAreRegistered')
     if (chrome.scripting) {
         await ensureSettingsAreUpToDate()
 
@@ -219,19 +220,19 @@ async function ensureContentScriptsAreRegistered() {
                     }))) {
                         let site = getSiteById(script.id, platforms)
                         if (site) {
-                            disableReg(script.id)
+                            await disableReg(script.id)
                         }
                     }
                 } else {
                     let site = getSiteById(script.id, platforms)
                     if (site) {
-                        disableReg(script.id)
+                        await disableReg(script.id)
                     }
                 }
             } else {
                 let site = getSiteById(script.id, platforms)
                 if (site) {
-                    disableReg(script.id)
+                    await disableReg(script.id)
                 }
             }
         }
@@ -241,11 +242,12 @@ async function ensureContentScriptsAreRegistered() {
             if (!actualScriptsArray.includes(id)) {
                 let site = getSiteById(id, platforms)
                 if (site) {
-                    enableReg(id, site.site.origin, content)
+                    await enableReg(id, site.site.origin, content)
                 }
             }
         }
     }
+    console.timeEnd('ensureContentScriptsAreRegistered')
 }
 
 async function onStorageChanged(changes: { [p: string]: chrome.storage.StorageChange }, namespace: chrome.storage.AreaName) {
@@ -286,7 +288,7 @@ async function commandsOnCommand(command: string, tab: chrome.tabs.Tab) {
 
         default:
             // redirect the command to the active videochat's content script
-            chrome.tabs.sendMessage(data.chatId, {command: command})
+            await chrome.tabs.sendMessage(data.chatId, {command: command})
             break;
     }
 }
@@ -315,7 +317,7 @@ function tabsOnActivated(chTab: chrome.tabs.TabActiveInfo) {
             // store active tab id in the 'curId' variable
             data.curId = tab["id"];
 
-            chrome.storage.local.set(data)
+            await chrome.storage.local.set(data)
 
             if (await getValue('missingPermissionCheck', true)) {
                 await checkIfMissingPermissions(tab.windowId, tab["url"], chTab["tabId"])
@@ -575,7 +577,7 @@ async function updScriptStatus(siteId: string, bool: boolean) {
     })).scripts;
     if (scripts[siteId] !== bool) {
         scripts[siteId] = bool
-        setValue("scripts", scripts)
+        await setValue("scripts", scripts)
     }
 }
 
