@@ -494,9 +494,37 @@ const showSwalChangelog = async function () {
     return result
 }
 
+function getSiteByDomain(domain, platforms) {
+    for (const platform of platforms) {
+        for (const site of platform.sites) {
+            if (site.text === domain) {
+                return {site: site, platform: platform.id}
+            }
+        }
+    }
+}
+
+function extractDomain(url) {
+    return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?([^.\/]+\.[^.\/]+).*$/, "$1");
+}
+
 async function fixPermissions() {
     let origins = []
-    let block = ["7fef97eb-a5cc-4caa-8d19-75dab7407b6b", "98ea82db-9d50-4951-935e-2405d9fe892e"]
+    let block = []
+    let contentScripts = chrome.runtime.getManifest().content_scripts
+    if (contentScripts) {
+        for (const script of contentScripts) {
+            for (const match of script.matches) {
+                let domain = extractDomain(match)
+                if (domain) {
+                    let site = getSiteByDomain(domain, platforms)
+                    if (site && site.site && site.site.id) {
+                        block.push(site.site.id)
+                    }
+                }
+            }
+        }
+    }
     for (const platform of platforms) {
         for (const site of platform.sites) {
             if (!block.includes(site.id)) {

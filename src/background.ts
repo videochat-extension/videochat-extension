@@ -437,7 +437,25 @@ async function checkIfMissingPermissions(windowId: number, url: string, fromTabI
         if (!platforms) {
             let domains: string[] = [];
             (await fetchPlatforms()).forEach((platform: any) => {
-                let ignore = ["7fef97eb-a5cc-4caa-8d19-75dab7407b6b", "98ea82db-9d50-4951-935e-2405d9fe892e"]
+                let ignore: string[] = []
+
+                let contentScripts = chrome.runtime.getManifest().content_scripts
+                if (contentScripts) {
+                    for (const script of contentScripts) {
+                        if (script.matches) {
+                            for (const match of script.matches) {
+                                let domain = extractDomain(match)
+                                if (domain) {
+                                    let site = getSiteByDomain(domain, platforms)
+                                    if (site && site.site && site.site.id) {
+                                        ignore.push(site.site.id)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
                 platform.sites.forEach((site: any) => {
                     if (!ignore.includes(site.id)) {
                         domains.push(site.text)

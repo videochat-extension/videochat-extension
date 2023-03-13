@@ -24,8 +24,28 @@ $(async function () {
     console.timeEnd("get favorites")
 
     let forced_content = {
-        ids: ["7fef97eb-a5cc-4caa-8d19-75dab7407b6b", "98ea82db-9d50-4951-935e-2405d9fe892e"],
-        origins: ["https://*.ome.tv/*", "https://*.videochatru.com/*"]
+        ids: [],
+        origins: []
+    }
+
+    function extractDomain(url) {
+        return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?([^.\/]+\.[^.\/]+).*$/, "$1");
+    }
+
+    let contentScripts = chrome.runtime.getManifest().content_scripts
+    if (contentScripts) {
+        for (const script of contentScripts) {
+            for (const match of script.matches) {
+                let domain = extractDomain(match)
+                if (domain) {
+                    let site = getSiteByDomain(domain, platforms)
+                    if (site && site.site && site.site.id) {
+                        forced_content.ids.push(site.site.id)
+                        forced_content.origins.push(site.site.origin)
+                    }
+                }
+            }
+        }
     }
 
     console.time("get startPermissions")

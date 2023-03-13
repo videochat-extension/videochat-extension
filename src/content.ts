@@ -32,15 +32,6 @@ async function content() {
         });
     }
     let domain = extractDomain(location.href)
-    if (domain === 'videochatru.com') {
-        if (settings["legacyPrevent"]["98ea82db-9d50-4951-935e-2405d9fe892e"]) {
-            return
-        }
-    } else if (domain === 'ome.tv') {
-        if (settings["legacyPrevent"]["7fef97eb-a5cc-4caa-8d19-75dab7407b6b"]) {
-            return
-        }
-    }
 
     let platforms = await (await fetch(chrome.runtime.getURL('platforms.json'))).json()
 
@@ -49,6 +40,22 @@ async function content() {
     if (!website) {
         alert("VIDEOCHAT EXTENSION: unknown videochat platform / host, no idea what to do, sorry :(.\n\nYou can report the bug to: https://github.com/qrlk/videochat-extension, https://discord.gg/YZKnbKGWen or qrluke@proton.me.")
         return
+    } else {
+        let contentScripts = chrome.runtime.getManifest().content_scripts
+        if (contentScripts) {
+            for (const script of contentScripts) {
+                if (script.matches) {
+                    for (const match of script.matches) {
+                        let matchDomain = extractDomain(match)
+                        if (domain === matchDomain) {
+                            if (settings["legacyPrevent"][website.site.id]) {
+                                return
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     let recentDict = (await chrome.storage.sync.get({"recentDict": {}})).recentDict
