@@ -139,7 +139,7 @@ const showSwalChangelog = async function () {
             `<img style="height: 200px;
             margin-left: auto;
             margin-right: auto;
-            display: block;" src="${chrome.runtime.getURL('welcome/firefox-test.png')}">` +
+            display: block;" src="${typeof browser === "undefined" ? chrome.runtime.getURL('welcome/chromium_' + lang + '.png') : chrome.runtime.getURL('welcome/firefox_' + lang + '.png')}">` +
             '<br>' +
 
             '<b>How to use this extension?</b><br>' +
