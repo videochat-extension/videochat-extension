@@ -133,7 +133,7 @@
                 "text": "videochatru.com",
                 "id": "98ea82db-9d50-4951-935e-2405d9fe892e",
                 "favicon": "chatruletka.png",
-                "origin": "https://*.videochatru.com/*",
+                "origin": "https://videochatru.com/*",
                 "href": "https://videochatru.com/embed"
             },
             {
@@ -188,7 +188,7 @@
                 "text": "ome.tv",
                 "id": "7fef97eb-a5cc-4caa-8d19-75dab7407b6b",
                 "favicon": "ometv.png",
-                "origin": "https://*.ome.tv/*",
+                "origin": "https://ome.tv/*",
                 "href": "https://ome.tv/embed"
             },
             {
