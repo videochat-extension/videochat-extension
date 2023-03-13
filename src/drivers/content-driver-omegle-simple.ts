@@ -93,11 +93,13 @@ export class OmegleSimpleDriver {
             if (!document.getElementById("darkMode")) {
                 (document.body || document.documentElement).appendChild(this.dark);
                 $("#logo > canvas")[0].style.filter = "invert(100%)";
+                $('[src=\"/static/tagline.png\"]').hide()
             }
         } else {
             if (document.getElementById("darkMode") as HTMLElement) {
                 (document.getElementById("darkMode") as HTMLElement).remove();
                 $("#logo > canvas")[0].style.filter = ""
+                $('[src=\"/static/tagline.png\"]').show()
             }
         }
     }
