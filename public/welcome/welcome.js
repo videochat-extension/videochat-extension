@@ -524,7 +524,7 @@ console.dir(showSwalChangelog().then(() => {
     let timerInterval
     Swal.fire({
         html: chrome.i18n.getMessage('welcomeSwalTimerText'),
-        timer: 3000,
+        timer: 1000,
         timerProgressBar: true,
         didOpen: () => {
             Swal.showLoading()
