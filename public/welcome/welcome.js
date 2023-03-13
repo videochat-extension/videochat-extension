@@ -537,6 +537,6 @@ console.dir(showSwalChangelog().then(() => {
             clearInterval(timerInterval)
         }
     }).then((result) => {
-        location.href = chrome.runtime.getURL('popup/popup.html?zoom=120')
+        location.href = chrome.runtime.getURL('popup/popup.html?zoom=120&scanHistory')
     })
 }))

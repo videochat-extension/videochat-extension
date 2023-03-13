@@ -540,11 +540,64 @@ $(async function () {
         })
     }
 
+    async function scanHistory(e) {
+        let res = await chrome.permissions.request({
+            permissions: ["history"]
+        })
+        if (res && chrome.history) {
+            let startDate = +new Date() - 28 * 24 * 3600 * 1000
+            let found = []
+            let favorites = (await chrome.storage.sync.get({'favorites': []}))["favorites"]
+
+            for (const platform of platforms) {
+                for (const site of platform.sites) {
+                    let res = await chrome.history.search({
+                        "text": site.text,
+                        "maxResults": 1,
+                        "startTime": startDate
+                    })
+                    if (res.length > 0) {
+                        if (!favorites.includes(site.id)) {
+                            found.push({site: site, last: res[0].lastVisitTime})
+                        }
+                    }
+                }
+            }
+
+            await chrome.permissions.remove({
+                permissions: ["history"]
+            })
+
+            let recentDict = (await chrome.storage.sync.get({"recentDict": {}})).recentDict
+            for (const res of found) {
+                recentDict[res.site.id] = Math.ceil(res.last / 1000)
+                favorites.push(res.site.id)
+            }
+            await chrome.storage.sync.set({"recentDict": recentDict})
+            await chrome.storage.sync.set({favorites: favorites})
+            if (found.length === 0) {
+                alert(chrome.i18n.getMessage("welcomeHistoryScanNotFound"))
+            } else {
+                alert(chrome.i18n.getMessage("welcomeHistoryScanAdded", [found.length, found.map(r => r.site.text).join(', ')]))
+                location.href = location.href.replace("&scanHistory", "")
+            }
+        }
+    }
+
     let json = [{
         text: chrome.i18n.getMessage("popupTreeFavoritesTitle"),
         expanded: !params.has('recent'),
         id: "favorites",
         hide: favorites.length === 0,
+
+        bigFixButton: {
+            text: chrome.i18n.getMessage("popupTreeFavoritesContentScanHistoryButtonText"),
+            display: function () {
+                return params.has('scanHistory') ? "" : "none"
+            }(),
+            class: "btn btn-primary btn-sm",
+            onclick: scanHistory
+        },
         nodes: createFavorites()
     },
         {
@@ -562,6 +615,7 @@ $(async function () {
                     let arrayToFix = getArrayToFix(platforms)
                     return arrayToFix.length > 0 ? "" : "none"
                 }(),
+                class: "btn btn-danger btn-sm",
                 onclick: fixAll
             },
             nodes: createNodesFromPlatformList()

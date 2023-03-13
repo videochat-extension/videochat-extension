@@ -233,7 +233,7 @@
                     treeItem.append(html)
                 }
                 if (node.bigFixButton) {
-                    let html = $(`<button type="button" class="btn btn-danger btn-sm"></button>`)
+                    let html = $(`<button type="button" class="${node.bigFixButton.class}"></button>`)
                     html[0].innerText = node.bigFixButton.text
                     html[0].style.display = node.bigFixButton.display
 

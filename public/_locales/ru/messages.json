@@ -602,6 +602,9 @@
   "popupTreeFavoritesTitle": {
     "message": "Избранное"
   },
+  "popupTreeFavoritesContentScanHistoryButtonText": {
+    "message": "Добавить из истории"
+  },
   "popupTreeRecentTitle": {
     "message": "Недавние"
   },
