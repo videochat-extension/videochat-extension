@@ -1,9 +1,10 @@
 {
   "name": "__MSG_extension_name__",
   "version": "1.7.0",
-
   "background": {
-    "scripts": ["background.js"]
+    "scripts": [
+      "background.js"
+    ]
   },
   "browser_specific_settings": {
     "gecko": {
@@ -13,23 +14,9 @@
   "content_security_policy": {
     "extension_pages": "script-src 'self' 'wasm-unsafe-eval'"
   },
-
   "description": "  __MSG_extension_description__",
   "default_locale": "en",
   "manifest_version": 3,
-  "content_scripts": [
-    {
-      "matches": [
-        "https://videochatru.com/*",
-        "https://ome.tv/*"
-      ],
-      "js": [
-        "vendor.js",
-        "content_script.js"
-      ],
-      "run_at": "document_idle"
-    }
-  ],
   "icons": {
     "16": "resources/img/icon.png",
     "48": "resources/img/icon.png",
@@ -72,14 +59,14 @@
         "https://*.videochatnl.com/*",
         "https://*.videochatpl.com/*",
         "https://*.videochatpt.com/*",
-        "https://*.videochatru.com/*",
+        "https://videochatru.com/*",
         "https://*.videochatuk.com/*",
         "https://*.videochatus.com/*",
         "https://*.roulette-espanol.com/*",
         "https://*.ruletaespanol.com/*",
         "https://*.ruletkavideochat.com/*",
         "https://*.turkishvideochat.com/*",
-        "https://*.ome.tv/*",
+        "https://ome.tv/*",
         "https://*.ome.chat/*",
         "https://*.camki.com/*",
         "https://*.chatalternative.com/*",
@@ -116,7 +103,6 @@
   "optional_permissions": [
     "scripting",
     "history",
-
     "https://*.chatruletka.com/*",
     "https://*.chatruletka.ua/*",
     "https://*.ruletka.chat/*",
@@ -135,12 +121,14 @@
     "https://*.videochatnl.com/*",
     "https://*.videochatpl.com/*",
     "https://*.videochatpt.com/*",
+    "https://videochatru.com/*",
     "https://*.videochatuk.com/*",
     "https://*.videochatus.com/*",
     "https://*.roulette-espanol.com/*",
     "https://*.ruletaespanol.com/*",
     "https://*.ruletkavideochat.com/*",
     "https://*.turkishvideochat.com/*",
+    "https://ome.tv/*",
     "https://*.ome.chat/*",
     "https://*.camki.com/*",
     "https://*.chatalternative.com/*",
