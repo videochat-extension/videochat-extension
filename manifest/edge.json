@@ -8,7 +8,9 @@
     {
       "matches": [
         "https://videochatru.com/*",
-        "https://ome.tv/*"
+        "https://ome.tv/*",
+        "https://*.omegle.com/*",
+        "https://*.omegle.tv/*"
       ],
       "js": [
         "vendor.js",
@@ -146,9 +148,7 @@
     "https://*.minichat.com/*",
     "https://*.chatrulez.ru/*",
     "https://*.videochatruletka.com/*",
-    "https://*.videochatruletka.ru/*",
-    "https://*.omegle.com/*",
-    "https://*.omegle.tv/*"
+    "https://*.videochatruletka.ru/*"
   ],
   "permissions": [
     "storage",

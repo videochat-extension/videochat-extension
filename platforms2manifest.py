@@ -33,4 +33,4 @@ print("\n\n\nPRODUCTION CHROME")
 print_manifest_values('public/platforms.json', ["7fef97eb-a5cc-4caa-8d19-75dab7407b6b", "98ea82db-9d50-4951-935e-2405d9fe892e"])
 
 print("\n\n\nPRODUCTION EDGE")
-print_manifest_values('public/platforms.json', ["7fef97eb-a5cc-4caa-8d19-75dab7407b6b", "98ea82db-9d50-4951-935e-2405d9fe892e"])
+print_manifest_values('public/platforms.json', ["7fef97eb-a5cc-4caa-8d19-75dab7407b6b", "98ea82db-9d50-4951-935e-2405d9fe892e", "13fa70ac-6a70-4eab-8410-0fca063fbdea", "4aef8e93-30f2-4171-be64-2d4a8b7b6d87"])
