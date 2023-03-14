@@ -14,7 +14,7 @@
   "content_security_policy": {
     "extension_pages": "script-src 'self' 'wasm-unsafe-eval'"
   },
-  "description": "  __MSG_extension_description__",
+  "description": "__MSG_extension_description__",
   "default_locale": "en",
   "manifest_version": 3,
   "icons": {
