@@ -99,7 +99,10 @@
     "message": "faceapi: пожалуйста, подождите..."
   },
   "hotkeys": {
-    "message": "<dd>стрелка влево - пропустить</dd><dd>shift+стрелка влево - пропустить+бан</dd><dd>стрелка вверх - стоп</dd><dd>стрелка вниз - репорт</dd><dd style='margin-inline-start: 40px!important;'>стрелка влево - отменить</dd><dd style='margin-inline-start: 40px!important;'>стрелка вправо - отправить</dd><br><dd>больше: 'chrome://extensions/shortcuts'</dd></dl>"
+    "message": "<dd>стрелка влево - пропустить</dd><dd>shift+стрелка влево - пропустить+бан</dd><dd>стрелка вверх - стоп</dd><dd>стрелка вниз - репорт</dd><dd style='margin-inline-start: 40px!important;'>стрелка влево - отменить</dd><dd style='margin-inline-start: 40px!important;'>стрелка вправо - отправить</dd>"
+  },
+  "hotkeysGlobal": {
+    "message": "<dd>больше: 'chrome://extensions/shortcuts'</dd>"
   },
   "avoidBanLinkText": {
     "message": "Меня забанили, что мне теперь делать?"
@@ -183,10 +186,10 @@
     "message": "<b>Хоткеи</b>"
   },
   "enableHotkeys": {
-    "message": "включить хоткеи:"
+    "message": "включить локальные хоткеи:"
   },
   "tooltipEnableHotkeys": {
-    "message": "Включает горячие клавиши со стрелками. Это не влияет на специальные хоткеи расширения, настроенные в настройках браузера."
+    "message": "Включает горячие клавиши со стрелками. Это не влияет на специальные хоткеи расширения, настроенные в настройках браузера. Если вы случайно нажали клавишу: удерживайте ее в течение 5 секунд, прежде чем отпустить, чтобы расширение поняло, что не нужно обрабатывать нажатие."
   },
   "settingsStreamerMode": {
     "message": "<b>Стримерам</b>"

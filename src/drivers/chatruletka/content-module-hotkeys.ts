@@ -18,6 +18,7 @@ export class HotkeysModule {
             key: "hotkeys",
             text: chrome.i18n.getMessage("enablehotkeys"),
             tooltip: chrome.i18n.getMessage("tooltipEnableHotkeys"),
+            controlsSection: "hotkeysSection",
             enable: () => {
                 this.unregister()
                 this.register()
@@ -27,14 +28,30 @@ export class HotkeysModule {
             }
         },
         {
+            type: "section",
+            hide: globalThis.platformSettings.get("hotkeys"),
+            sectionId: "hotkeysSection",
+            children: [
+                {
+                    type: "br"
+                },
+                {
+                    type: "HTMLElement",
+                    element: utils.createElement('span', {
+                        innerHTML: chrome.i18n.getMessage("hotkeys")
+                    })
+                }
+            ]
+        },
+        {
             type: "br"
         },
         {
             type: "HTMLElement",
             element: utils.createElement('span', {
-                innerHTML: chrome.i18n.getMessage("hotkeys")
+                innerHTML: chrome.i18n.getMessage("hotkeysGlobal")
             })
-        },
+        }
     ]
     private driver: ChatruletkaDriver;
 
@@ -69,19 +86,19 @@ export class HotkeysModule {
     private localHotkeysKeyDownTiming(e: KeyboardEvent) {
         switch (e.key) {
             case "ArrowLeft":
-                this.arrowLeft = + new Date()
+                this.arrowLeft = +new Date()
                 break;
 
             case "ArrowUp":
-                this.arrowRight = + new Date()
+                this.arrowRight = +new Date()
                 break;
 
             case "ArrowDown":
-                this.arrowDown = + new Date()
+                this.arrowDown = +new Date()
                 break;
 
             case "ArrowRight":
-                this.arrowUp = + new Date()
+                this.arrowUp = +new Date()
                 break;
         }
     }

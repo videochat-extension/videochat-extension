@@ -117,7 +117,10 @@
     "message": "faceapi: initial face detection..."
   },
   "hotkeys": {
-    "message": "<dd>left arrow - skip</dd><dd>shift+left arrow - skip+ban</dd><dd>up arrow - stop</dd><dd>down arrow - report</dd><dd style='margin-inline-start: 40px!important;'>left arrow - cancel report</dd><dd style='margin-inline-start: 40px!important;'>right arrow - send report</dd><br><dd>custom: 'chrome://extensions/shortcuts'</dd>"
+    "message": "<dd>left arrow - skip</dd><dd>shift+left arrow - skip+ban</dd><dd>up arrow - stop</dd><dd>down arrow - report</dd><dd style='margin-inline-start: 40px!important;'>left arrow - cancel report</dd><dd style='margin-inline-start: 40px!important;'>right arrow - send report</dd>"
+  },
+  "hotkeysGlobal": {
+    "message": "<dd>global: 'chrome://extensions/shortcuts'</dd>"
   },
   "avoidBanLinkText": {
     "message": "I was banned. What should I do now?"
@@ -192,10 +195,10 @@
     "message": "<b>Hotkeys</b>"
   },
   "enableHotkeys": {
-    "message": "enable hotkeys:"
+    "message": "enable local hotkeys:"
   },
   "tooltipEnableHotkeys": {
-    "message": "Enable cool arrows hotkeys. This does not affect the extension hotkeys that are configured in the browser settings."
+    "message": "Enable cool arrows hotkeys. This does not affect the extension hotkeys that are configured in the browser settings. If you accidentally pressed a key, hold for 5 seconds before releasing so that the extension can understand that there is no need to process."
   },
   "settingsStreamerMode": {
     "message": "<b>Streamers</b>"
