@@ -12,10 +12,10 @@
     "message": "Videochat Extension"
   },
   "extension_description": {
-    "message": "IP Locator & more for your favorite video chats: Chatruletka, ome.tv, Minichat & Omegle."
+    "message": "IP Locator & more for your favorite video chats: Chatruletka, ome.tv, Minichat & Omegle. Previously known as Chatruletka Extension."
   },
   "desc": {
-    "message": "This is a browser extension that extends the functionality of Chatruletka (aka ome.tv)."
+    "message": "This is a browser extension that extends the functionality of Chatruletka (aka ome.tv), as well as other online video chats."
   },
   "map_lang": {
     "message": "en"
