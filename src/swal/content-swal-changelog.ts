@@ -458,7 +458,7 @@ export class ContentSwalChangelog extends SwalWithSteps {
             "— Fixed an incorrect locale detection that caused torrent checking to work incorrectly for some users.",
 
             // 1.7.0 (2023-03-14)
-            '<b>Support for 46 video chat sites, Firefox, Edge and TypeScript.</b>' +
+            '<b>Support for 46 video chat sites, <a style="text-decoration:none;" target="_blank" href="https://addons.mozilla.org/firefox/addon/videochat-extension-ip-locator/">Firefox</a>, <a style="text-decoration:none;" target="_blank" href="https://microsoftedge.microsoft.com/addons/detail/jdpiggacibaaecfbegkhakcmgaafjajn">Edge</a> and TypeScript.</b>' +
             '<br>' +
             '<br>' +
             'This is a very big and important update: every inner gear has been touched. If you think something is broken, please report to <a style="text-decoration:none;" target="_blank" href="https://discord.gg/9jCuhYg55P">Discord</a> or directly write to the <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">developer\'s email</a>.' +
@@ -527,11 +527,11 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '<br>' +
             '<b>Firefox support.</b><br>' +
             "— A lot of work has been done to analyze all the issues and ensure compatibility with the latest versions of Firefox.<br>" +
-            "— The extension has/will be added to the Firefox browser add-ons store</b>.<br>" +
+            "— The extension has been added to the <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://addons.mozilla.org/firefox/addon/videochat-extension-ip-locator/\">Firefox browser add-ons store</a>.<br>" +
             "— There are still some problems: the error collection system, the hotkey for switching between chat and the last tab, the notification sounds and the streamer mode do not work, but all the main functionality works and the future will be implemented with Firefox support.<br>" +
             '<br>' +
             '<b>Edge support.</b><br>' +
-            "— The extension has/will be added to the Edge browser extension store</b>.<br>" +
+            "— The extension has been added to the <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://microsoftedge.microsoft.com/addons/detail/jdpiggacibaaecfbegkhakcmgaafjajn\">Edge browser extension store</a>.<br>" +
             '<br>' +
             '<b>Name changed.</b><br>' +
             "— The English version of the extension has been renamed to <b>Videochat Extension</b>.<br>" +
@@ -1018,7 +1018,7 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '— Исправлено неправильное определении локали, из-за которой у некоторых пользователей неправильно работала проверка торрентов.',
 
             // 1.7.0 (2023-03-14)
-            '<b>Поддержка 46 сайтов-видеочатов, Firefox, Edge и TypeScript.</b>' +
+            '<b>Поддержка 46 сайтов-видеочатов, <a style="text-decoration:none;" target="_blank" href="https://addons.mozilla.org/firefox/addon/videochat-extension-ip-locator/">Firefox</a>, <a style="text-decoration:none;" target="_blank" href="https://microsoftedge.microsoft.com/addons/detail/jdpiggacibaaecfbegkhakcmgaafjajn">Edge</a> и TypeScript.</b>' +
             '<br>' +
             '<br>' +
             'Это очень большое и важное обновление: в нём была затронута каждая внутренняя шестеренка. Если вам кажется, что что-то сломалось, пожалуйста, напишите в <a style="text-decoration:none;" target="_blank" href="https://discord.gg/YZKnbKGWen">Discord</a> или прямо на <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">почту разработчика</a>.' +
@@ -1087,11 +1087,11 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '<br>' +
             '<b>Поддержка Firefox.</b><br>' +
             "— Проделана колоссальная работа по анализу всех проблем и обеспечению совместимости с Firefox последних версий.<br>" +
-            "— Расширение добавлено/будет добавлено в магазин расширений браузера Firefox</b>.<br>" +
+            "— Расширение было добавлено в <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://addons.mozilla.org/firefox/addon/videochat-extension-ip-locator/\">магазин расширений браузера Firefox</a>.<br>" +
             "— Всё ещё есть некоторые проблемы: не работают система сбора ошибок, хоткей переключения между чатом и последней вкладкой, звуки-уведомления и режим стримера, но весь основной функионал работает и будущий будет реализовываться с поддержкой Firefox.<br>" +
             '<br>' +
             '<b>Поддержка Edge.</b><br>' +
-            "— Расширение добавлено/будет добавлено в магазин расширений браузера Edge</b>.<br>" +
+            "— Расширение было добавлено в <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://microsoftedge.microsoft.com/addons/detail/jdpiggacibaaecfbegkhakcmgaafjajn\">магазин расширений браузера Edge</a>.<br>" +
             '<br>' +
             '<b>Изменено название.</b><br>' +
             "— Англоязычная версия расширения переименована в <b>Videochat Extension</b>.<br>" +
