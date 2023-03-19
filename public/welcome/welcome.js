@@ -136,10 +136,10 @@ const showSwalChangelog = async function () {
             '<br>' +
             `<b>Full text list of platforms?</b><br>${platforms.map(p => p.name).join(', ')}.`,
 
-            `<img style="height: 200px;
+            `<img style="height: 170px;
             margin-left: auto;
             margin-right: auto;
-            display: block;" src="${typeof browser === "undefined" ? chrome.runtime.getURL('welcome/chromium_' + lang + '.png') : chrome.runtime.getURL('welcome/firefox_' + lang + '.png')}">` +
+            display: block;" src="${chrome.runtime.getURL('welcome/firefox-test.png')}">` +
             '<br>' +
 
             '<b>How to use this extension?</b><br>' +
@@ -187,7 +187,7 @@ const showSwalChangelog = async function () {
             `<img style="height: 170px;
             margin-left: auto;
             margin-right: auto;
-            display: block;" src="${chrome.runtime.getURL('welcome/firefox-pin.png')}">` +
+            display: block;" src="${typeof browser === "undefined" ? chrome.runtime.getURL('welcome/chromium_' + lang + '.png') : chrome.runtime.getURL('welcome/firefox_' + lang + '.png')}">` +
             '<br>' +
             '<b>Что я установил(а)?</b><br>' +
             'Вы установили браузерное расширение с <a style="text-decoration:none;" target="_blank" href="https://github.com/qrlk/videochat-extension">открытым исходным кодом</a>, которое постарается улучшить ваш опыт использования онлайн видеочатов.<br>' +
@@ -294,7 +294,7 @@ const showSwalChangelog = async function () {
             `<b>Полный текстовый список платформ?</b><br>${platforms.map(p => p.name).join(', ')}.`,
 
 
-            `<img style="height: 200px;
+            `<img style="height: 170px;
             margin-left: auto;
             margin-right: auto;
             display: block;" src="${chrome.runtime.getURL('welcome/firefox-test.png')}">` +
