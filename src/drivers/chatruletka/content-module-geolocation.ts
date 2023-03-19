@@ -5,6 +5,7 @@ import * as utils from "../../utils/utils";
 import {ChatruletkaDriver} from "../content-driver-chatruletka";
 import {mapModule} from "./content-module-controls-map";
 import * as SDPUtils from "sdp";
+import {getPlatform} from "../../utils/utils";
 
 
 export function injectIpGrabber() {
@@ -528,12 +529,19 @@ export class ControlsTabApi {
     public readonly marginBottom = 5
     private driver: ChatruletkaDriver;
     private module: any
+    private reviewLinkContainer: JQuery<HTMLElement>;
 
     private constructor(driver: ChatruletkaDriver, module?: any) {
         this.driver = driver
         this.module = module
         this.tab = this.getTabHTML()
         this.content = this.getContentHTML()
+
+        this.reviewLinkContainer = this.getReviewLink()
+        let self = this
+        document.arrive("#reviewImageContainer", {existing: true}, function (el) {
+            self.reviewLinkContainer.appendTo(el)
+        })
     }
 
     static initInstance(driver: ChatruletkaDriver, module?: any): ControlsTabApi {
@@ -580,6 +588,38 @@ export class ControlsTabApi {
                 style: "overflow-y: auto;margin-top: 3px"
             })
         ])
+    }
+
+    private getReviewLink() {
+        return $(utils.createElement('a', {
+                target: "_blank",
+                style: "margin-left: 3px; text-decoration: none !important;",
+                href: function f() {
+                    switch (getPlatform()) {
+                        case "chrome":
+                            return "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi/reviews"
+                        case "edge":
+                            return "https://microsoftedge.microsoft.com/addons/detail/jdpiggacibaaecfbegkhakcmgaafjajn"
+                        case "firefox":
+                            return "https://addons.mozilla.org/firefox/addon/videochat-extension-ip-locator/"
+                    }
+                }()
+            }, [
+                utils.createElement('img', {
+                    src: function f() {
+                        switch (getPlatform()) {
+                            case "chrome":
+                                return `https://img.shields.io/chrome-web-store/stars/alchldmijhnnapijdmchpkdeikibjgoi?label=${chrome.i18n.getMessage('mainReviewLabelChrome')}&logo=${chrome.i18n.getMessage('mainReviewLogoChrome')}&style=plastic`
+                            case "edge":
+                                // no stars from shields.io for edge yet, using cws rating to show stars as I don't expect a lot of edge enjoyers
+                                return `https://img.shields.io/chrome-web-store/stars/alchldmijhnnapijdmchpkdeikibjgoi?label=${chrome.i18n.getMessage('mainReviewLabelEdge')}&logo=${chrome.i18n.getMessage('mainReviewLogoEdge')}&style=plastic`
+                            case "firefox":
+                                return `https://img.shields.io/amo/stars/videochat-extension-ip-locator?label=${chrome.i18n.getMessage('mainReviewLabelFirefox')}&logo=${chrome.i18n.getMessage('mainReviewLogoFirefox')}&style=plastic`
+                        }
+                    }()
+                })
+            ]
+        ))
     }
 }
 
