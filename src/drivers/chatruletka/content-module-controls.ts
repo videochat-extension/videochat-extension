@@ -193,8 +193,17 @@ export class ControlsModule {
                                 // console.dir("MUTATED")
                                 oldWidth = mutation.target.style.width
                                 let mar = parseInt(window.getComputedStyle(this.controls).marginRight)
-                                mutation.target.style.maxWidth = (parseInt(mutation.target.style.width) - (parseInt(this.controls.style.width) + mar) / 2) + "px"
-                                this.driver.chat.style.maxWidth = (parseInt(mutation.target.style.width) - (parseInt(this.controls.style.width) + mar) / 2) + "px"
+
+                                let videoContainer = document.getElementById('video-container')
+                                let correction = 0
+                                if (videoContainer) {
+                                    if (videoContainer.className.includes('full-width')) {
+                                        correction = (<HTMLElement>document.querySelector(".chat-container")).offsetLeft
+                                    }
+                                }
+
+                                mutation.target.style.maxWidth = (parseInt(mutation.target.style.width) - (parseInt(this.controls.style.width) + mar) / 2) - correction + "px"
+                                this.driver.chat.style.maxWidth = (parseInt(mutation.target.style.width) - (parseInt(this.controls.style.width) + mar) / 2) - correction + "px"
                                 this.resizeControls()
                             }
                         }
@@ -403,7 +412,7 @@ export class ControlsTabAbout {
                     ]),
                     utils.createElement('br'),
                     utils.createElement('br'),
-                    utils.createElement('table', {},[
+                    utils.createElement('table', {}, [
                         utils.createElement('tr', {}, [
                             utils.createElement('th', {}, [
                                 this.createBadgeLink("https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi", `https://img.shields.io/chrome-web-store/v/alchldmijhnnapijdmchpkdeikibjgoi?logo=${chrome.i18n.getMessage('mainReviewLogoChrome')}`),
