@@ -10,6 +10,7 @@ import {FaceapiModule} from "./chatruletka/content-module-faceapi";
 import {createSwitchModeButtonContainer} from "./chatruletka/content-swal-switchmode";
 import {StatsModule} from "./chatruletka/content-module-stats";
 import {ControlsTabSettings} from "./chatruletka/content-module-settings";
+import {getPlatform} from "../utils/utils";
 
 export class ChatruletkaDriver {
     private static instanceRef: ChatruletkaDriver;
@@ -128,8 +129,7 @@ export class ChatruletkaDriver {
             this.modules.hotkeys.settings,
             this.modules.stats.settings
         ]
-        // @ts-ignore
-        if (typeof browser === "undefined") {
+        if (["chrome", "edge"].includes(getPlatform())) {
             settings.splice(-1, 0, this.modules.streamer.settings)
         }
         return ControlsTabSettings.initInstance(this, null, settings)

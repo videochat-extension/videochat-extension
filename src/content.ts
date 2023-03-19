@@ -10,7 +10,7 @@ import {injectIpGrabber} from "./drivers/chatruletka/content-module-geolocation"
 import {injectContextInvalidatedCheck} from "./swal/content-swal-context-invalidated"
 import {ContentSwalInfo} from "./drivers/chatruletka/content-swal-info";
 import {ContentSwalChangelog} from "./swal/content-swal-changelog";
-import {extractDomain, getPlatformByHost} from "./utils/utils";
+import {extractDomain, getPlatformByHost, getPlatform} from "./utils/utils";
 import * as Sentry from "@sentry/browser";
 import {PlatformSettings} from "./content-platform";
 import {OmegleSimpleDriver} from "./drivers/content-driver-omegle-simple";
@@ -24,7 +24,7 @@ async function content() {
     // TODO: firefox just crashes when sentry tries to initialise
     // ¯\_(ツ)_/¯
     // @ts-ignore
-    if (settings.sentry && typeof browser === "undefined") {
+    if (settings.sentry && ["chrome", "edge"].includes(getPlatform())) {
         Sentry.init({
             dsn: "https://09512316dbc3422f931ad37d4fb12ed2@o1272228.ingest.sentry.io/6533563",
             release: "videochat-extension@" + chrome.runtime.getManifest().version,

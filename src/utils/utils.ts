@@ -77,6 +77,20 @@ export function isDevMode(): boolean {
     return !('update_url' in chrome.runtime.getManifest());
 }
 
+export function getPlatform(): string {
+    let version_name = chrome.runtime.getManifest().version_name
+    if (version_name) {
+        if (version_name.includes("chrome")) {
+            return "chrome"
+        } else if (version_name.includes("edge")) {
+            return "edge"
+        } else if (version_name.includes("firefox")) {
+            return "firefox"
+        }
+    }
+    return "chrome"
+}
+
 export function getPlatformByHost(platforms: any[], host: string) {
     for (const platform of platforms) {
         for (const site of platform.sites) {
