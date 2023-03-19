@@ -60,7 +60,7 @@
     "message": "Leave%20a%20review%20in%20the%20Firefox%20Add-ons%20Store"
   },
   "main": {
-    "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row\"><div><div id=\"reviewImageContainer\"></div><br><b>Important:</b><br>This extension is a hobby project and is not affiliated with '$1' in any way.<br><br>Use it at your own risk.</div></div>"
+    "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row\"><div><div id=\"reviewImageContainer\"></div><br><b>Important:</b><br>This extension is a hobby project and is not affiliated with '$1' in any way.</div></div>"
   },
   "apiStatus0": {
     "message": "<b>IP geolocation API doesn't work at all.</b></br>"
