@@ -36,7 +36,8 @@ export class ContentSwalChangelog extends SwalWithSteps {
         '1.6.1',
         '1.6.2',
         '1.6.3',
-        '1.7.0'
+        '1.7.0',
+        '1.7.1'
     ]
     protected values: { en: string[], ru: string[] } = {
         "en": [
@@ -592,6 +593,29 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '<br>' +
             '<b>Important:</b><br>' +
             `If you think something is broken, please write about it in <a style="text-decoration:none;" target="_blank" href="https://discord.gg/9jCuhYg55P">Discord</a> or directly to the <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">developer email</a>`,
+
+            // 1.7.1 (2023-03-19)
+            '<b>Minor improvements for Chatruletka.</b><br>' +
+            '<br>' +
+            '<b>- Section \'IP\'.</b><br>' +
+            '— Improved the look and feel of the API health check by adding information on how to fix common errors.<br>' +
+            '— Smoother transition from the API \'check ongoing\' state to the result of this check.<br>' +
+            '— Added Badge \'leave review in...\' for firefox and edge versions of the extension.<br>' +
+            '— Badge should now only be loaded once.<br>' +
+            '— Badge for Edge uses the star rating of the Chrome version because there\'s no other way.<br>' +
+            '— Fixed the name of the current site not being displayed after pressing the \'Stop\' button.<br>' +
+            '— Shortened the reminder that the extension is not affiliated with any video chats.<br><br>' +
+            '<b>- Section \'Settings\'.</b><br>' +
+            '— The list of local hotkeys is now hidden if local hotkeys are disabled.<br>' +
+            '— Added a mention in the tooltip that the user can cancel the activation of the hotkey if it is held for more than 5 seconds (for example, you accidentally pressed the arrow to skip and do not want to skip the interlocutor).<br><br>' +
+            '<b>- Section \'Info\'.</b><br>' +
+            '— Changed the short description of the extension (added information that more video chats are supported).<br>' +
+            '— Added badges table for all published extensions.<br><br>' +
+            '<b>- Miscellaneous.</b><br>' +
+            '— Incorrect determination of the size of the control panel of the extension has been fixed if the container with the video player occupies all the free space in width.<br>' +
+            '— Fixed broken discord links in different places of the extension.<br>' +
+            '— Added links to extensions published in Edge and Firefox stores in changelog v1.7.0.<br>' +
+            '— Fixed incorrect pictures in Russian localization in the post-installation window.'
         ],
         "ru": [
             // v0.1 (2021-09-27)
@@ -1151,7 +1175,30 @@ export class ContentSwalChangelog extends SwalWithSteps {
             "— Теперь вы можете запретить журналу изменений открываться после каждого обновления.<br>" +
             '<br>' +
             '<b>Важно:</b><br>' +
-            `Если вам кажется, что что-то сломалось, пожалуйста, напишите в <a style="text-decoration:none;" target="_blank" href="https://discord.gg/YZKnbKGWen">Discord</a> или прямо на <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">почту разработчика</a>`
+            `Если вам кажется, что что-то сломалось, пожалуйста, напишите в <a style="text-decoration:none;" target="_blank" href="https://discord.gg/YZKnbKGWen">Discord</a> или прямо на <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">почту разработчика</a>`,
+
+            // 1.7.1 (2023-03-19)
+            '<b>Мелкие улучшения для Chatruletka.</b><br>' +
+            '<br>' +
+            '<b>- Раздел \'IP\'.</b><br>' +
+            '— Улучшен внешний вид проверки работоспособности API: добавлена информация о том, как можно исправить частые ошибки.<br>' +
+            '— Более плавный переход от состояния проверки API к результату этой проверки.<br>' +
+            '— Добавлен Badge \'оставьте отзыв в\' для firefox и edge версий расширения.<br>' +
+            '— Badge теперь должен прогружаться только один раз.<br>' +
+            '— Badge для Edge использует рейтинг из звездочек версии для Chrome, потому что по-другому никак.<br>' +
+            '— Исправлено название текущего сайта, не отображающееся после нажатия на кнопку \'Стоп\'.<br>' +
+            '— Укорочено напоминание о том, что расширение развивается не связано с администрацией видеочатов.<br><br>' +
+            '<b>- Раздел \'Настройки\'.</b><br>' +
+            '— Список локальных хоткеев теперь скрывается, если локальные хоткеи отключены.<br>' +
+            '— Добавлено упоминание в tooltip о том, что пользователь может отменить активацию горячей клавиши, если будет её держать больше 5-ти секунд (например, вы случайно нажали стрелочку для пропуска и не хотите пропускать собеседника).<br><br>' +
+            '<b>- Раздел \'Инфо\'.</b><br>' +
+            '— Изменено краткое описание расширения (добавлена информация что поддерживается больше видеочатов).<br>' +
+            '— Добавлена таблица badges для всех опубликованных расширений.<br><br>' +
+            '<b>- Разное.</b><br>' +
+            '— Исправлено некорректное определение размера контрольной панели расширения в случае, если контейнер с видеоплеером занимает всё свободное пространство по ширине.<br>' +
+            '— Исправлены некорректные ссылки на discord в разных местах расширения.<br>' +
+            '— В changelog v1.7.0 добавлены ссылки на опубликованные в магазинах Edge и Firefox расширения.<br>' +
+            '— Исправлены некорректные картинки в русской локализации в послеустановочном окне.'
         ],
     }
 
@@ -1248,6 +1295,7 @@ export class ContentSwalChangelog extends SwalWithSteps {
         this.getGitHub('v1.6.1', '(2022-11-25)'),
         this.getGitHub('v1.6.2', '(2023-01-15)'),
         this.getGitHub('v1.6.3', '(2023-01-15)'),
-        this.getGitHub('v1.7.0', '(2023-03-14)')
+        this.getGitHub('v1.7.0', '(2023-03-14)'),
+        this.getGitHub('v1.7.1', '(2023-03-19)')
     ]
 }
