@@ -461,7 +461,7 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '<b>Support for 46 video chat sites, Firefox, Edge and TypeScript.</b>' +
             '<br>' +
             '<br>' +
-            'This is a very big and important update: every inner gear has been touched. If you think something is broken, please report to <a style="text-decoration:none;" target="_blank" href="https://discord.gg/YZKnbKGWen">Discord</a> or directly write to the <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">developer\'s email</a>.' +
+            'This is a very big and important update: every inner gear has been touched. If you think something is broken, please report to <a style="text-decoration:none;" target="_blank" href="https://discord.gg/9jCuhYg55P">Discord</a> or directly write to the <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">developer\'s email</a>.' +
             '<br>' +
             '<br>' +
             'The goal of this update was to <b>rewrite the extension in a way that you wouldn\'t notice any changes</b>. Outwardly, almost nothing has changed, but inside, almost everything has changed.' +
@@ -470,7 +470,7 @@ export class ContentSwalChangelog extends SwalWithSteps {
             'Chatruletka Extension has grown tremendously over the past year, but its technical state has always been very bad. This extension was never intended to be published and to support such a wide audience. Because of this, with every unmotivated update, technical debt accumulated: a snowball of bad decisions that would sooner or later lead to disaster.' +
             '<br>' +
             '<br>' +
-            'At the time these decisions were made, they were justified: saving time (time is the most valuable resource on the planet), loss of interest in developing videochats-related projects, lack of motivation to dive into new technologies in areas that were not interesting to me, and general universal sadness - all these things seemed like good reasons to forget about the serious development of this project.' +
+            'At the time these decisions were made, they were justified: saving time (time is the most valuable resource on the planet), loss of interest in developing videochat-related projects, lack of motivation to dive into new technologies in areas that were not interesting to me, and general universal sadness - all these things seemed like good reasons to forget about the serious development of this project.' +
             '<br>' +
             '<br>' +
             'But now that this project is in danger of becoming my most successful and popular yet, and its state at v1.6.3 does not justify the trust placed in it by you, I\'m just ashamed to leave it like this.' +
@@ -555,7 +555,7 @@ export class ContentSwalChangelog extends SwalWithSteps {
             "— A system of local settings for each platform has been implemented (one platform can have several sites).<br>" +
             "— When updating from v1.6.3, the extension will try to migrate your old settings.<br>" +
             "— Your video chat usage statistics will be transferred to the platform (Chatruletka or ome.tv) you last used.<br>" +
-            "— The black list is not portable, it is common to all platforms.<br>" +
+            "— The blacklist is shared between all platforms.<br>" +
             '<br>' +
             '<b>Window after installation.</b><br>' +
             '— After installing the extension, a page with information about the extension opens, which allows you to learn more about the extension, or go directly to the chat.<br>' +
