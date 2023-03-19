@@ -5,7 +5,7 @@ import * as utils from "../../utils/utils";
 import {ChatruletkaDriver} from "../content-driver-chatruletka";
 import {mapModule} from "./content-module-controls-map";
 import * as SDPUtils from "sdp";
-import {getPlatform} from "../../utils/utils";
+import {getUserBrowser} from "../../utils/utils";
 
 
 export function injectIpGrabber() {
@@ -595,7 +595,7 @@ export class ControlsTabApi {
                 target: "_blank",
                 style: "margin-left: 3px; text-decoration: none !important;",
                 href: function f() {
-                    switch (getPlatform()) {
+                    switch (getUserBrowser()) {
                         case "chrome":
                             return "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi/reviews"
                         case "edge":
@@ -607,7 +607,7 @@ export class ControlsTabApi {
             }, [
                 utils.createElement('img', {
                     src: function f() {
-                        switch (getPlatform()) {
+                        switch (getUserBrowser()) {
                             case "chrome":
                                 return `https://img.shields.io/chrome-web-store/stars/alchldmijhnnapijdmchpkdeikibjgoi?label=${chrome.i18n.getMessage('mainReviewLabelChrome')}&logo=${chrome.i18n.getMessage('mainReviewLogoChrome')}&style=plastic`
                             case "edge":

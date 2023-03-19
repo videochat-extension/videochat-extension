@@ -77,15 +77,19 @@ export function isDevMode(): boolean {
     return !('update_url' in chrome.runtime.getManifest());
 }
 
-export function getPlatform(): string {
-    let version_name = chrome.runtime.getManifest().version_name
-    if (version_name) {
-        if (version_name.includes("chrome")) {
-            return "chrome"
-        } else if (version_name.includes("edge")) {
-            return "edge"
-        } else if (version_name.includes("firefox")) {
-            return "firefox"
+export function getUserBrowser(): string {
+    let manifest = chrome.runtime.getManifest()
+    if (manifest.browser_specific_settings) {
+        return "firefox"
+    } else {
+        if (manifest.update_url) {
+            if (manifest.update_url.includes('microsoft') || manifest.update_url.includes('edge')) {
+                return "edge"
+            } else if (manifest.update_url.includes('google')) {
+                return "chrome"
+            }
+        } else {
+            return Math.round(Math.random()) ? "edge" : "chrome"
         }
     }
     return "chrome"

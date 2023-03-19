@@ -1,7 +1,6 @@
 {
   "name": "__MSG_extension_name__",
   "version": "1.7.0",
-  "version_name": "v1.7.0 (firefox)",
   "background": {
     "scripts": [
       "background.js"

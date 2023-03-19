@@ -4,7 +4,7 @@ import $ from "jquery";
 import {ContentSwalChangelog} from "../../swal/content-swal-changelog";
 import {ContentSwalInfo} from "./content-swal-info";
 import {ControlsTabApi} from "./content-module-geolocation";
-import {getPlatform} from "../../utils/utils";
+import {getUserBrowser} from "../../utils/utils";
 
 require('tooltipster')
 
@@ -568,7 +568,7 @@ function createHeader() {
             utils.createElement('button', {
                 // requestPictureInPicture is not supported by firefox
                 style: function f() {
-                    if (getPlatform() === "firefox") {
+                    if (getUserBrowser() === "firefox") {
                         return "color: green; height:15px; display:none"
                     } else {
                         return "color: green; height:15px"
@@ -624,7 +624,7 @@ function createHeader() {
             utils.createElement('button', {
                 // requestPictureInPicture is not supported by firefox
                 style: function f() {
-                    if (getPlatform() === "firefox") {
+                    if (getUserBrowser() === "firefox") {
                         return "color: green; height:15px; display:none"
                     } else {
                         return "color: green; height:15px"
