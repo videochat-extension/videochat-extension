@@ -38,7 +38,7 @@ async function content() {
     let website = getPlatformByHost(platforms, domain)
 
     if (!website) {
-        alert("VIDEOCHAT EXTENSION: unknown videochat platform / host, no idea what to do, sorry :(.\n\nYou can report the bug to: https://github.com/qrlk/videochat-extension, https://discord.gg/YZKnbKGWen or qrluke@proton.me.")
+        alert("VIDEOCHAT EXTENSION: unknown videochat platform / host, no idea what to do, sorry :(.\n\nYou can report the bug to: https://github.com/qrlk/videochat-extension, https://discord.gg/9jCuhYg55P or qrluke@proton.me.")
         return
     } else {
         let contentScripts = chrome.runtime.getManifest().content_scripts

@@ -591,7 +591,7 @@ export class ContentSwalChangelog extends SwalWithSteps {
             "— You can now prevent the changelog from opening on every update.<br>" +
             '<br>' +
             '<b>Important:</b><br>' +
-            `If you think something is broken, please write about it in <a style="text-decoration:none;" target="_blank" href="https://discord.gg/YZKnbKGWen">Discord</a> or directly to the <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">developer email</a>`,
+            `If you think something is broken, please write about it in <a style="text-decoration:none;" target="_blank" href="https://discord.gg/9jCuhYg55P">Discord</a> or directly to the <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">developer email</a>`,
         ],
         "ru": [
             // v0.1 (2021-09-27)

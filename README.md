@@ -11,7 +11,7 @@
 <p align="center">
 <a href = "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi"><img src="https://img.shields.io/chrome-web-store/users/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20users"></a> 
 <a href = "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi/reviews"><img src="https://img.shields.io/chrome-web-store/rating/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20rating"></a>
-<a href = "https://discord.gg/YZKnbKGWen"><img src="https://img.shields.io/discord/925632108150530108?label=join%20our%20discord&amp;logo=discord"></a> 
+<a href = "https://discord.gg/9jCuhYg55P"><img src="https://img.shields.io/discord/925632108150530108?label=join%20our%20discord&amp;logo=discord"></a> 
 <img src="https://img.shields.io/github/license/qrlk/videochatru-extension" >
 <img src="https://img.shields.io/date/1632816617?label=released" >
 </p>

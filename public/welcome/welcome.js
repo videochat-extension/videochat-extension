@@ -41,7 +41,7 @@ const showSwalChangelog = async function () {
             'The most important thing: now you can find out the approximate location of your interlocutor, his IP address and whether he uses a VPN.' +
             '<br>' +
             '<br>' +
-            "<b>Click the red button to check it out now!</b><br><br>Or don't, so you can stay and learn more about what features are available, how to join our <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/YZKnbKGWen\">discord</a>, which videochats we support, how to use the extension and how we do NOT process/store you data.",
+            "<b>Click the red button to check it out now!</b><br><br>Or don't, so you can stay and learn more about what features are available, how to join our <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/9jCuhYg55P\">discord</a>, which videochats we support, how to use the extension and how we do NOT process/store you data.",
 
             '<br>' +
             '<b>What features are available?</b><br>' +
@@ -125,13 +125,13 @@ const showSwalChangelog = async function () {
             'Many video chats are very similar to each other and the architecture of the extension allows to reuse some code written for other platforms, but there are still many non-obvious things, such as the reaction of the chat moderation system to frequent skips or interface differences that need to be clarified and tested before giving you access.' +
             '<br>' +
             '<br>' +
-            'Join <a style="text-decoration:none;" target="_blank" href="https://discord.gg/YZKnbKGWen">our discord</a> to receive updates about the life of the project!',
+            'Join <a style="text-decoration:none;" target="_blank" href="https://discord.gg/9jCuhYg55P">our discord</a> to receive updates about the life of the project!',
             '<br>' +
             '<b>Which video chats does the extension support?</b><br>' +
             `In 2021 we only supported videochatru.com, but in 2022 ome.tv support was added.<br><br>In 2023, the extension was rewritten almost from scratch, which made it possible to support ${countAllSites} video chat sites belonging to ${platforms.length} platforms.` +
             '<br>' +
             '<br>' +
-            `Not all features of the extension are available on all platforms, but this problem is only a matter of time, priority, and technical feasibility.<br><br>The architecture of the extension makes it easy to add support for more chats, so there could be even more supported platforms in the future.<br><br>Join <a style="text-decoration:none;" target="_blank" href="https://discord.gg/YZKnbKGWen">our discord</a> to receive updates about the life of the project!` +
+            `Not all features of the extension are available on all platforms, but this problem is only a matter of time, priority, and technical feasibility.<br><br>The architecture of the extension makes it easy to add support for more chats, so there could be even more supported platforms in the future.<br><br>Join <a style="text-decoration:none;" target="_blank" href="https://discord.gg/9jCuhYg55P">our discord</a> to receive updates about the life of the project!` +
             '<br>' +
             '<br>' +
             `<b>Full text list of platforms?</b><br>${platforms.map(p => p.name).join(', ')}.`,
