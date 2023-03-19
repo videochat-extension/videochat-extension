@@ -38,7 +38,7 @@ const showSwalChangelog = async function () {
             'You have just installed an <a style="text-decoration:none;" target="_blank" href="https://github.com/qrlk/videochat-extension">open source</a> browser extension, which will try to improve your experience of using online video chats.<br>' +
             '<br>' +
             '<b>What does this mean?</b><br>' +
-            'The most important thing: now you can find out the approximate location of your interlocutor, his IP address and whether he uses a VPN.' +
+            'The most important thing: now you can find out the approximate location of your interlocutor (by trying to geolocate his IP address) and whether he uses a VPN.' +
             '<br>' +
             '<br>' +
             "<b>Click the red button to check it out now!</b><br><br>Or don't, so you can stay and learn more about what features are available, how to join our <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/9jCuhYg55P\">discord</a>, which videochats we support, how to use the extension and how we do NOT process/store you data.",
@@ -193,7 +193,7 @@ const showSwalChangelog = async function () {
             'Вы установили браузерное расширение с <a style="text-decoration:none;" target="_blank" href="https://github.com/qrlk/videochat-extension">открытым исходным кодом</a>, которое постарается улучшить ваш опыт использования онлайн видеочатов.<br>' +
             '<br>' +
             '<b>Что это значит?</b><br>' +
-            'Самое главное: теперь вы можете узнать приблизительное местоположение вашего собеседника, его IP адрес и использует ли он VPN.' +
+            'Самое главное: теперь вы сможете узнать приблизительное местоположение вашего собеседника (путём геолокации его IP адреса), а так же использует ли он VPN.' +
             '<br>' +
             '<br>' +
             "<b>Нажмите красную кнопку, чтобы проверить это прямо сейчас!</b><br><br>Или не делайте этого, чтобы остаться и узнать больше о доступных функциях, о нашем <a style= \"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/YZKnbKGWen\">discord</a>, о том, какие видеочаты мы поддерживаем, как использовать расширение и как мы НЕ обрабатываем/храним ваши данные",
