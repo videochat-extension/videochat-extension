@@ -124,12 +124,7 @@ export class ChatruletkaSimpleDriver {
             self.checkApi()
         }
 
-        let rules = $("[data-tr=\"rules\"]")
-        if (rules.length === 1) {
-            addButtonTo(rules[0])
-        }
-
-        document.arrive("[data-tr=\"rules\"]", function (el) {
+        document.arrive("[data-tr=\"rules\"]", {existing: true}, function (el) {
             addButtonTo(<HTMLElement>el)
         })
     }

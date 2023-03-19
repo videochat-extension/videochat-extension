@@ -107,15 +107,9 @@ export class ChatruletkaDriver {
             obs.observe(el, {attributes: true})
         }
 
-        let rules = $("[data-tr=\"rules\"]")
-        if (rules.length === 1) {
-            addButtonTo(rules[0])
-        } else {
-            document.arrive("[data-tr=\"rules\"]", function (el) {
-                addButtonTo(<HTMLElement>el)
-                document.unbindArrive("[data-tr=\"rules\"]")
-            })
-        }
+        document.arrive("[data-tr=\"rules\"]", {existing: true, onceOnly: true}, function (el) {
+            addButtonTo(<HTMLElement>el)
+        })
     }
 
     public getSettingsTab() {
