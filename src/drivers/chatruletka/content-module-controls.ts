@@ -46,7 +46,9 @@ export class ControlsModule {
         // TODO: CHECK IF FIX FOR OME.TV WORKED
         if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab3")) {
             if (globalThis.platformSettings.get("expand")) {
-                setTimeout(()=>{this.resizemap(true)}, 600)
+                setTimeout(() => {
+                    this.resizemap(true)
+                }, 600)
             } else {
                 this.videoContainerHeight = 0
                 this.chatContainerHeight = 0
@@ -398,9 +400,48 @@ export class ControlsTabAbout {
                     utils.createElement('br'),
                     utils.createElement('span', {}, [
                         this.createBadgeLink("https://discord.gg/9jCuhYg55P", chrome.i18n.getMessage("discordBadge")),
-                        this.createBadgeLink("https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi", `https://img.shields.io/chrome-web-store/users/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20users&logo=${chrome.i18n.getMessage('mainReviewLogoChrome')}&style=plastic`),
                     ]),
                     utils.createElement('br'),
+                    utils.createElement('br'),
+                    utils.createElement('table', {},[
+                        utils.createElement('tr', {}, [
+                            utils.createElement('th', {}, [
+                                this.createBadgeLink("https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi", `https://img.shields.io/chrome-web-store/v/alchldmijhnnapijdmchpkdeikibjgoi?logo=${chrome.i18n.getMessage('mainReviewLogoChrome')}`),
+                            ]),
+                            utils.createElement('th', {}, [
+                                this.createBadgeLink("https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi/reviews", "https://img.shields.io/chrome-web-store/rating/alchldmijhnnapijdmchpkdeikibjgoi"),
+                            ]),
+                            utils.createElement('th', {}, [
+                                this.createBadgeLink("https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi", "https://img.shields.io/chrome-web-store/users/alchldmijhnnapijdmchpkdeikibjgoi"),
+                            ]),
+                        ]),
+
+
+                        utils.createElement('tr', {}, [
+                            utils.createElement('th', {}, [
+                                this.createBadgeLink("https://microsoftedge.microsoft.com/addons/detail/jdpiggacibaaecfbegkhakcmgaafjajn", `https://img.shields.io/badge/dynamic/json?label=edge%20add-on%E2%A0%80%E2%A0%80%E2%A0%80%E2%A0%80&prefix=v&query=%24.version&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Fjdpiggacibaaecfbegkhakcmgaafjajn&logo=${chrome.i18n.getMessage('mainReviewLogoEdge')}`),
+                            ]),
+                            utils.createElement('th', {}, [
+                                this.createBadgeLink("https://microsoftedge.microsoft.com/addons/detail/jdpiggacibaaecfbegkhakcmgaafjajn", "https://img.shields.io/badge/dynamic/json?label=rating&suffix=/5&query=%24.averageRating&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Fjdpiggacibaaecfbegkhakcmgaafjajn&color=brightgreen"),
+                            ]),
+                            utils.createElement('th', {}, [
+                                this.createBadgeLink("https://microsoftedge.microsoft.com/addons/detail/jdpiggacibaaecfbegkhakcmgaafjajn", "https://img.shields.io/badge/dynamic/json?label=users&query=%24.activeInstallCount&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Fjdpiggacibaaecfbegkhakcmgaafjajn"),
+                            ]),
+                        ]),
+
+
+                        utils.createElement('tr', {}, [
+                            utils.createElement('th', {}, [
+                                this.createBadgeLink("https://addons.mozilla.org/firefox/addon/videochat-extension-ip-locator/", `https://img.shields.io/amo/v/videochat-extension-ip-locator?label=mozilla add-on%E2%A0%80%E2%A0%80&logo=${chrome.i18n.getMessage('mainReviewLogoFirefox')}`, "width: 171px"),
+                            ]),
+                            utils.createElement('th', {}, [
+                                this.createBadgeLink("https://addons.mozilla.org/firefox/addon/videochat-extension-ip-locator/reviews", "https://img.shields.io/amo/rating/videochat-extension-ip-locator"),
+                            ]),
+                            utils.createElement('th', {}, [
+                                this.createBadgeLink("https://addons.mozilla.org/firefox/addon/videochat-extension-ip-locator/", "https://img.shields.io/amo/users/videochat-extension-ip-locator"),
+                            ]),
+                        ])
+                    ]),
                     utils.createElement('br'),
                     utils.createElement('span', {
                         innerHTML: chrome.i18n.getMessage("github"),
@@ -467,7 +508,7 @@ export class ControlsTabAbout {
         ])
     }
 
-    protected createBadgeLink(href: string, badgeSrc: string) {
+    protected createBadgeLink(href: string, badgeSrc: string, badgeStyle?: string) {
         return utils.createElement('a', {
             target: "_blank",
             style: "text-decoration: none!important; margin-right: 3px",
@@ -475,6 +516,7 @@ export class ControlsTabAbout {
         }, [
             utils.createElement('img', {
                 src: badgeSrc,
+                style: badgeStyle
             }),
         ])
     }

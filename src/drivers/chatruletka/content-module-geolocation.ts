@@ -601,7 +601,7 @@ export class ControlsTabApi {
                         case "edge":
                             return "https://microsoftedge.microsoft.com/addons/detail/jdpiggacibaaecfbegkhakcmgaafjajn"
                         case "firefox":
-                            return "https://addons.mozilla.org/firefox/addon/videochat-extension-ip-locator/"
+                            return "https://addons.mozilla.org/firefox/addon/videochat-extension-ip-locator/reviews"
                     }
                 }()
             }, [
