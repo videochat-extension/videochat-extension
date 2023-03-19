@@ -173,7 +173,7 @@ export class ChatruletkaDriver {
         document.getElementsByClassName('buttons__button stop-button')[0].addEventListener("click", (e: any) => { // TODO: fix type
             if (this.modules.geolocation) {
                 if (e.pointerType !== "") {
-                    (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("main")
+                    (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("main", [this.site.text])
                     this.modules.geolocation.checkApi()
                 }
             }
