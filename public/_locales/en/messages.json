@@ -63,7 +63,10 @@
     "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row\"><div><div id=\"reviewImageContainer\"></div><br><b>Important:</b><br>This extension is a hobby project and is not affiliated with '$1' in any way.</div></div>"
   },
   "apiStatus0": {
-    "message": "<b>IP geolocation API doesn't work at all.</b></br>"
+    "message": "<b>IP geolocation API doesn't work at all, check if vpn/adblock is blocking the connection: try disabling adblock, adding ip-api.com to whitelist or even using another browser. If that didn't work for you, please ask the developer for help via <a href=\"https://discord.gg/gYmQWWjwEb\" style=\"text-decoration: none!important;color:red\" target=\"_blank\">discord</a>.</b>"
+  },
+  "apiStatusRegular": {
+    "message": "Please report the issue to <a href=\"https://discord.gg/gYmQWWjwEb\" target='_blank' style=\"text-decoration: none!important;color:red\">discord</a>."
   },
   "apiStatus429": {
     "message": "<b>Too many requests, please try again later.</b>"
@@ -73,6 +76,9 @@
   },
   "apiStatus2": {
     "message": "<b>API works correctly.</b>"
+  },
+  "apiStartCheck": {
+    "message": "<b>Checking the API...</b>"
   },
   "github": {
     "message": "More useful information: <b><a style= 'text-decoration: none!important;' target='_blank' href='https://github.com/qrlk/videochatru-extension'>github</a></b>."

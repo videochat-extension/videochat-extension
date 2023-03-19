@@ -365,7 +365,7 @@ function runtimeOnMessage(request: any, sender: chrome.runtime.MessageSender, se
                 } else {
                     sendResponse({status: response.status, body: {}})
                 }
-            }).catch((error) => (sendResponse({status: 0, body: error})))
+            }).catch((error) => {sendResponse({status: 0, body: `${error.message}`})})
 
         return true;
     }
