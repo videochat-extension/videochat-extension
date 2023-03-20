@@ -625,7 +625,9 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '— If \'skip wrong country\' is enabled in automation settings, IP geolocation will not be requested until the country is confirmed to be correct.<br>' +
             '— Fixed unnecessary activation of api check when emulating a click on the stop button by the extension in Firefox.<br><br>' +
             '<b>- Section \'Settings\'.</b><br>' +
-            '— Fixed incorrect activation of local hotkeys: arrow-up and arrow-right.<br>'
+            '— Fixed incorrect activation of local hotkeys: arrow-up and arrow-right.<br><br>' +
+            '<b>- Miscellaneous.</b><br>' +
+            '— Replaced the picture of the minimalistic mode in the English localization (in the switch mode window).'
         ],
         "ru": [
             // v0.1 (2021-09-27)
@@ -1217,7 +1219,9 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '— Если включен \'пропуск неверной страны\' в настройках автоматизации, геолокация IP не будет запрашиваться пока не подтвердится, что страна правильная.<br>' +
             '— Исправлена ненужная активация проверки API при эмуляции нажатия \'стоп\' расширением в Firefox.<br><br>' +
             '<b>- Раздел \'Настройки\'.</b><br>' +
-            '— Исправлена некорректная активация локальных хоткеев: стрелка вверх и стрелка вправо.<br>'
+            '— Исправлена некорректная активация локальных хоткеев: стрелка вверх и стрелка вправо.<br><br>' +
+            '<b>- Разное.</b><br>' +
+            '— Заменена картинка-пример минималистичного режима в английской локализации (окно смены режима).'
         ],
     }
 
