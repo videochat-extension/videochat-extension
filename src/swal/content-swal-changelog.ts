@@ -618,7 +618,7 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '— Added links to extensions published in Edge and Firefox stores in changelog v1.7.0.<br>' +
             '— Fixed incorrect pictures in Russian localization in the post-installation window.',
 
-            // 1.7.2 (2023-03-XX)
+            // 1.7.2 (2023-03-20)
             '<b>Bug fixes and minor improvements.</b><br>' +
             '<br>' +
             '<b>- Section \'IP\'.</b><br>' +
@@ -1212,7 +1212,7 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '— В changelog v1.7.0 добавлены ссылки на опубликованные в магазинах Edge и Firefox расширения.<br>' +
             '— Исправлены некорректные картинки в русской локализации в послеустановочном окне.',
 
-            // 1.7.2 (2023-03-XX)
+            // 1.7.2 (2023-03-20)
             '<b>Исправление ошибок.</b><br>' +
             '<br>' +
             '<b>- Раздел \'IP\'.</b><br>' +
@@ -1320,6 +1320,6 @@ export class ContentSwalChangelog extends SwalWithSteps {
         this.getGitHub('v1.6.3', '(2023-01-15)'),
         this.getGitHub('v1.7.0', '(2023-03-14)'),
         this.getGitHub('v1.7.1', '(2023-03-19)'),
-        this.getGitHub('v1.7.2', '(2023-03-XX)')
+        this.getGitHub('v1.7.2', '(2023-03-20)')
     ]
 }
