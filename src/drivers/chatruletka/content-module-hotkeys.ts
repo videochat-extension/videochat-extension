@@ -90,7 +90,7 @@ export class HotkeysModule {
                 break;
 
             case "ArrowUp":
-                this.arrowRight = +new Date()
+                this.arrowUp = +new Date()
                 break;
 
             case "ArrowDown":
@@ -98,7 +98,7 @@ export class HotkeysModule {
                 break;
 
             case "ArrowRight":
-                this.arrowUp = +new Date()
+                this.arrowRight = +new Date()
                 break;
         }
     }
