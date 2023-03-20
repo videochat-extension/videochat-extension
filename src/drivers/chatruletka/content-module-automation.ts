@@ -106,7 +106,7 @@ export class AutomationModule {
             }
         }
     }
-
+    public checkedCountry = false
     public injectAutomationSkipWrongCountry() {
         let self = this
         document.arrive(".tr-country", function (el: any) { // TODO: FIX TYPE
@@ -123,6 +123,11 @@ export class AutomationModule {
                             self.driver.stopAndStart()
                             console.dir(el)
                             console.dir(`SKIPPED WRONG COUNTRY. EXPECTED: ${expectedCountry}, RECEIVED: ${receivedCountry}.`)
+                        } else {
+                            console.dir(`FOUND TARGET COUNTRY. EXPECTED: ${expectedCountry}, RECEIVED: ${receivedCountry}.`)
+                            console.dir(`PROCESSING DELAYED IPS: ${self.driver.modules.geolocation.delayIPs.length}.`)
+                            self.checkedCountry = true
+                            self.driver.modules.geolocation.processDelayed()
                         }
                     }
                 } catch (e) {

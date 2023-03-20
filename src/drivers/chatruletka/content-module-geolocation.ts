@@ -190,6 +190,7 @@ export class GeolocationModule {
     private torrenstsConfirmed = false;
     private started: number = 0;
     private targetSound = new Audio(chrome.runtime.getURL('resources/audio/found.mp3'))
+    public delayIPs: string[] = [];
 
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver
@@ -257,7 +258,7 @@ export class GeolocationModule {
                 console.dir(chrome.i18n.getMessage("apiStatus0") + ' ERROR: ' + response.status);
 
                 (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
-                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize(`<b>HTTP ERROR: ${response.status} || `) +'<b>' + chrome.i18n.getMessage("apiStatusRegular") + "</b></br></br>" + chrome.i18n.getMessage("main", [this.driver.site.text])
+                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize(`<b>HTTP ERROR: ${response.status} || `) + '<b>' + chrome.i18n.getMessage("apiStatusRegular") + "</b></br></br>" + chrome.i18n.getMessage("main", [this.driver.site.text])
                 if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
                     this.driver.modules.controls.resizemap(false)
                 }
@@ -289,13 +290,32 @@ export class GeolocationModule {
             }
             console.dir("new ip")
             switch (this.api) {
-                case 2:
-                    this.doLookupRequest2(newIp)
+                case 2: {
+                    if (globalThis.platformSettings.get("skipwrongcountry")) {
+                        if (this.driver.modules.automation.checkedCountry) {
+                            console.dir('CHECKED')
+                            this.doLookupRequest2(newIp)
+                        } else {
+                            console.dir(`${newIp} ADDED TO delayIPs`)
+                            this.delayIPs.push(newIp)
+                        }
+                    } else {
+                        this.doLookupRequest2(newIp)
+                    }
                     break;
+                }
                 default:
                     break;
             }
         }
+    }
+
+    public processDelayed() {
+        console.dir("PROCESS DELAYED")
+        console.dir(this.delayIPs)
+        this.delayIPs.forEach((ip: string) => {
+            this.doLookupRequest2(ip)
+        })
     }
 
     public doLookupRequest2(ip: string) {
@@ -361,8 +381,10 @@ export class GeolocationModule {
 
     public processData(json: any, ip: string) { // TODO: fix type
         if (!this.curIps.includes(ip)) {
+            console.dir(`DISCARD ${ip}`)
             return
         }
+        console.dir(`PROCESS ${ip}`)
 
         this.curInfo[ip] = json
         this.started = Date.now()

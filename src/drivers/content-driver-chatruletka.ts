@@ -235,7 +235,11 @@ export class ChatruletkaDriver {
 
                     if (this.modules.geolocation) {
                         this.modules.geolocation.curIps = []
+                        this.modules.geolocation.delayIPs = []
                         this.modules.geolocation.curInfo = {}
+                    }
+                    if (this.modules.automation) {
+                        this.modules.automation.checkedCountry = false
                     }
                     // (document.getElementById("remoteInfo") as HTMLElement).innerHTML = ''
                     this.needToClear = true;
@@ -254,7 +258,11 @@ export class ChatruletkaDriver {
                     this.stage = 1
                     if (this.modules.geolocation) {
                         this.modules.geolocation.curIps = []
+                        this.modules.geolocation.delayIPs = []
                         this.modules.geolocation.curInfo = {}
+                    }
+                    if (this.modules.automation) {
+                        this.modules.automation.checkedCountry = false
                     }
                     this.needToClear = true
                     this.needToCheckTarget = true
