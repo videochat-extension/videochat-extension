@@ -619,10 +619,12 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '— Fixed incorrect pictures in Russian localization in the post-installation window.',
 
             // 1.7.2 (2023-03-XX)
-            '<b>Bug fixes.</b><br>' +
+            '<b>Bug fixes and minor improvements.</b><br>' +
             '<br>' +
-            '<b>- Miscellaneous.</b><br>' +
-            '— Fixed activation of API checking when artificially clicking on the \'stop\' button in Firefox.<br>' +
+            '<b>- Section \'IP\'.</b><br>' +
+            '— If \'skip wrong country\' is enabled in automation settings, IP geolocation will not be requested until the country is confirmed to be correct.<br>' +
+            '— Fixed unnecessary activation of api check when emulating a click on the stop button by the extension in Firefox.<br><br>' +
+            '<b>- Section \'Settings\'.</b><br>' +
             '— Fixed incorrect activation of local hotkeys: arrow-up and arrow-right.<br>'
         ],
         "ru": [
@@ -1209,10 +1211,12 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '— Исправлены некорректные картинки в русской локализации в послеустановочном окне.',
 
             // 1.7.2 (2023-03-XX)
-            '<b>Исправления ошибок.</b><br>' +
+            '<b>Исправление ошибок.</b><br>' +
             '<br>' +
-            '<b>- Разное.</b><br>' +
-            '— Исправлена активация проверки API при искуственном клике на кнопку \'стоп\' в Firefox.<br>' +
+            '<b>- Раздел \'IP\'.</b><br>' +
+            '— Если включен \'пропуск неверной страны\' в настройках автоматизации, геолокация IP не будет запрашиваться пока не подтвердится, что страна правильная.<br>' +
+            '— Исправлена ненужная активация проверки API при эмуляции нажатия \'стоп\' расширением в Firefox.<br><br>' +
+            '<b>- Раздел \'Настройки\'.</b><br>' +
             '— Исправлена некорректная активация локальных хоткеев: стрелка вверх и стрелка вправо.<br>'
         ],
     }
