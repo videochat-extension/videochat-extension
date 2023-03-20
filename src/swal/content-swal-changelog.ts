@@ -37,7 +37,8 @@ export class ContentSwalChangelog extends SwalWithSteps {
         '1.6.2',
         '1.6.3',
         '1.7.0',
-        '1.7.1'
+        '1.7.1',
+        '1.7.2'
     ]
     protected values: { en: string[], ru: string[] } = {
         "en": [
@@ -615,7 +616,14 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '— Incorrect determination of the size of the control panel of the extension has been fixed if the container with the video player occupies all the free space in width.<br>' +
             '— Fixed broken discord links in different places of the extension.<br>' +
             '— Added links to extensions published in Edge and Firefox stores in changelog v1.7.0.<br>' +
-            '— Fixed incorrect pictures in Russian localization in the post-installation window.'
+            '— Fixed incorrect pictures in Russian localization in the post-installation window.',
+
+            // 1.7.2 (2023-03-XX)
+            '<b>Bug fixes.</b><br>' +
+            '<br>' +
+            '<b>- Miscellaneous.</b><br>' +
+            '— Fixed activation of API checking when artificially clicking on the \'stop\' button in Firefox.<br>' +
+            '— Fixed incorrect activation of local hotkeys: arrow-up and arrow-right.<br>'
         ],
         "ru": [
             // v0.1 (2021-09-27)
@@ -1198,7 +1206,14 @@ export class ContentSwalChangelog extends SwalWithSteps {
             '— Исправлено некорректное определение размера контрольной панели расширения в случае, если контейнер с видеоплеером занимает всё свободное пространство по ширине.<br>' +
             '— Исправлены некорректные ссылки на discord в разных местах расширения.<br>' +
             '— В changelog v1.7.0 добавлены ссылки на опубликованные в магазинах Edge и Firefox расширения.<br>' +
-            '— Исправлены некорректные картинки в русской локализации в послеустановочном окне.'
+            '— Исправлены некорректные картинки в русской локализации в послеустановочном окне.',
+
+            // 1.7.2 (2023-03-XX)
+            '<b>Исправления ошибок.</b><br>' +
+            '<br>' +
+            '<b>- Разное.</b><br>' +
+            '— Исправлена активация проверки API при искуственном клике на кнопку \'стоп\' в Firefox.<br>' +
+            '— Исправлена некорректная активация локальных хоткеев: стрелка вверх и стрелка вправо.<br>'
         ],
     }
 
@@ -1296,6 +1311,7 @@ export class ContentSwalChangelog extends SwalWithSteps {
         this.getGitHub('v1.6.2', '(2023-01-15)'),
         this.getGitHub('v1.6.3', '(2023-01-15)'),
         this.getGitHub('v1.7.0', '(2023-03-14)'),
-        this.getGitHub('v1.7.1', '(2023-03-19)')
+        this.getGitHub('v1.7.1', '(2023-03-19)'),
+        this.getGitHub('v1.7.2', '(2023-03-XX)')
     ]
 }
