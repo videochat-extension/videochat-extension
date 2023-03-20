@@ -166,8 +166,14 @@ export class ChatruletkaDriver {
 
         document.getElementsByClassName('buttons__button stop-button')[0].addEventListener("click", (e: any) => { // TODO: fix type
             if (this.modules.geolocation) {
-                if (e.pointerType !== "") {
-                    this.modules.geolocation.checkApi()
+                if (typeof e.pointerType !== "undefined") {
+                    if (e.pointerType !== "") {
+                        this.modules.geolocation.checkApi()
+                    }
+                } else {
+                    if (e.isTrusted) {
+                        this.modules.geolocation.checkApi()
+                    }
                 }
             }
 
