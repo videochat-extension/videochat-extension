@@ -201,7 +201,7 @@ export class FaceapiModule {
             if (skip_m && globalThis.platformSettings.get("skipMale")) {
                 text += `<b>male skipping...</b></br>`;
                 (document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement).click()
-                console.log("MALE SKIPPED")
+                console.dir("MALE SKIPPED")
 
                 if (this.driver.modules.stats) {
                     this.driver.modules.stats.increaseMaleSkip()
@@ -216,7 +216,7 @@ export class FaceapiModule {
             if (skip_f && globalThis.platformSettings.get("skipFemale")) {
                 text += `<b>female skipping...</b></br>`;
                 (document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement).click()
-                console.log("FEMALE SKIPPED")
+                console.dir("FEMALE SKIPPED")
                 if (this.driver.modules.stats) {
                     this.driver.modules.stats.increaseFemaleSkip()
                     this.driver.modules.stats.decreaseManSkip()

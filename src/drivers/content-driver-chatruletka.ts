@@ -264,7 +264,7 @@ export class ChatruletkaDriver {
                     }
                     // (document.getElementById("remoteFace") as HTMLElement).innerHTML = ''
                     if (this.play < this.search) {
-                        // console.log("Dialog ended before even started")
+                        // console.dir("Dialog ended before even started")
                     }
 
                     this.search = Date.now()
@@ -292,7 +292,7 @@ export class ChatruletkaDriver {
                     }
 
                     this.play = Date.now()
-                    console.log("Loading took: ", ((this.play - this.found) / 1000).toFixed(2), "sec")
+                    console.dir(`Loading took: ${((this.play - this.found) / 1000).toFixed(2)} sec`)
 
                     if (this.modules.stats) {
                         this.modules.stats.increaseCountAll()
