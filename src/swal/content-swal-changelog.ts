@@ -1261,6 +1261,9 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Added support for chatgenerator.com.<br>' +
                 '— Added support for chatbizar.com.' +
                 '<br><br>' +
+                '<b>- Section \'IP\'.</b><br>' +
+                '— If the display of city/region of the mobile IPs is disabled (this is by default), now you can hover over LOCATION HIDDEN to see which city and region have been determined for the stanger. Once again, it is worth recalling that the accuracy of geolocation of IP addresses of mobile operators is very, very low.' +
+                '<br><br>' +
                 '<b>- Section \'Settings\'.</b><br>' +
                 '— An option (enabled by default) has been added to the control panel section to prohibit changing the font size of control panel elements. Extension supports a lot of sites and some of them have promotional materials with very large fonts that can affect the control panel leading to a very ugly result.' +
                 '<br><br>' +
@@ -1275,6 +1278,9 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Добавлена поддержка chatrooms.pro.<br>' +
                 '— Добавлена поддержка chatgenerator.com.<br>' +
                 '— Добавлена поддержка chatbizar.com.' +
+                '<br><br>' +
+                '<b>- Раздел \'IP\'.</b><br>' +
+                '— Если отображение мобильных городов скрыто, то теперь можно навести мышку на ЛОКАЦИЯ СКРЫТА, чтобы посмотреть какой город и регион определились для собеседника. В очередной раз стоит напомнить, что точность геолокации IP адресов мобильных операторов очень низкая.' +
                 '<br><br>' +
                 '<b>- Раздел \'Настройки\'.</b><br>' +
                 '— В раздел панели управления добавлена опция (по умолчанию включена), запрещающая изменение размера шрифта элементов панели управления. Расширение поддерживает множество сайтов и на некоторых из них есть промотекст с очень крупным шрифтом, что может очень неприятно повлиять на панель управления.' +
