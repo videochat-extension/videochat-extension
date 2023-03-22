@@ -1247,6 +1247,24 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<b>- Разное.</b><br>' +
                 '— Заменена картинка-пример минималистичного режима в английской локализации (окно смены режима).'
         }
+    },
+    {
+        version: "1.7.3",
+        date: "2023-03-XX",
+        description: {
+            en: '',
+            ru: '<b>Новые зеркала для ome.tv, мелкие улучшения</b><br>' +
+                '<br>' +
+                '<b>- Поддержка платформы ome.tv</b><br>' +
+                '— Добавлена поддержка webcamchatta.com.<br>' +
+                '— Добавлена поддержка indiavideochat.com.<br>' +
+                '— Добавлена поддержка chatrooms.pro.<br>' +
+                '— Добавлена поддержка chatgenerator.com.<br>' +
+                '— Добавлена поддержка chatbizar.com.<br>' +
+                '<br><br>' +
+                '<b>- Omegle.</b><br>' +
+                '— Уменьшено выделение тени заголовка Omegle при активированной тёмной теме.'
+        }
     }
 ]
 
