@@ -223,6 +223,14 @@
                 "href": "https://chatrooms.chat"
             },
             {
+                "text": "chatrooms.pro",
+                "vertical": true,
+                "id": "0ec1c5cb-814e-4fe3-9b00-2a88fe97a05a",
+                "favicon": "ometv.png",
+                "origin": "https://*.chatrooms.pro/*",
+                "href": "https://chatrooms.pro/embed"
+            },
+            {
                 "text": "chat-brasil.com",
                 "vertical": true,
                 "id": "f3e2a048-5e38-4aa5-81de-e44da431c43c",
@@ -271,6 +279,14 @@
                 "href": "https://chat-pt.com/embed"
             },
             {
+                "text": "chatgenerator.com",
+                "vertical": true,
+                "id": "4218ed66-1198-41f9-a552-bf520a6de241",
+                "favicon": "ometv.png",
+                "origin": "https://*.chatgenerator.com/*",
+                "href": "https://chatgenerator.com/embed"
+            },
+            {
                 "text": "prostochat.com",
                 "vertical": true,
                 "id": "df1cb40f-1a7f-4a74-a50e-db2b5701a3a7",
@@ -287,6 +303,14 @@
                 "href": "https://stickam.chat/embed"
             },
             {
+                "text": "chatbizar.com",
+                "vertical": true,
+                "id": "ec9c76dc-f4d5-4d0e-9659-7ebb40583e62",
+                "favicon": "ukrchat.png",
+                "origin": "https://*.chatbizar.com/*",
+                "href": "https://chatbizar.com/embed"
+            },
+            {
                 "text": "ukr.chat",
                 "vertical": true,
                 "id": "ef3810b6-0f48-40ca-8471-45be083847f4",
@@ -301,6 +325,22 @@
                 "favicon": "cafeclubua.png",
                 "origin": "https://*.cafeclub.ua/*",
                 "href": "https://cafeclub.ua"
+            },
+            {
+                "text": "indiavideochat.com",
+                "vertical": true,
+                "id": "ca291ac7-a4e5-44ea-8374-b4fcbcb49f94",
+                "favicon": "indiavideochat.png",
+                "origin": "https://*.indiavideochat.com/*",
+                "href": "https://indiavideochat.com/embed"
+            },
+            {
+                "text": "webcamchatta.com",
+                "vertical": true,
+                "id": "24e9d640-1f8a-4eab-aca4-7c30da8d13e6",
+                "favicon": "webcamchatta.png",
+                "origin": "https://*.webcamchatta.com/*",
+                "href": "https://webcamchatta.com/embed"
             }
         ]
     },
