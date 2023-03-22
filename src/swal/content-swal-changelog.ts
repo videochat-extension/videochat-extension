@@ -1269,7 +1269,10 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<br><br>' +
                 '<b>- Dark Mode.</b><br>' +
                 '— Added filter for social media buttons to emulate dark theme.<br>' +
-                '— Reduced Omegle header shadow highlighting when dark theme is enabled.',
+                '— Reduced Omegle header shadow highlighting when dark theme is enabled.' +
+                '<br><br>' +
+                '<b>- Minimalism mode.</b><br>' +
+                '— Changed the display format of geolocation data of mobile IP addresses of Ukraine and Russia.',
             ru: '<b>Новые зеркала для ome.tv, мелкие улучшения.</b><br>' +
                 '<br>' +
                 '<b>- Поддержка платформы ome.tv</b><br>' +
@@ -1287,7 +1290,10 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<br><br>' +
                 '<b>- Тёмная тема.</b><br>' +
                 '— Добавлен фильтр для кнопок социальных сетей, чтобы эмулировать тёмную тему.<br>' +
-                '— Уменьшено выделение тени заголовка Omegle при активированной тёмной теме.'
+                '— Уменьшено выделение тени заголовка Omegle при активированной тёмной теме.' +
+                '<br><br>' +
+                '<b>- Простой режим.</b><br>' +
+                '— Изменен формат отображения данных геолокации мобильных IP адресов Украины и России.'
         }
     }
 ]
