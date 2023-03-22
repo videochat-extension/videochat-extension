@@ -1264,7 +1264,8 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<b>- Section \'Settings\'.</b><br>' +
                 '— An option (enabled by default) has been added to the control panel section to prohibit changing the font size of control panel elements. Extension supports a lot of sites and some of them have promotional materials with very large fonts that can affect the control panel leading to a very ugly result.' +
                 '<br><br>' +
-                '<b>- Omegle.</b><br>' +
+                '<b>- Dark Mode.</b><br>' +
+                '— Added filter for social media buttons to emulate dark theme.<br>' +
                 '— Reduced Omegle header shadow highlighting when dark theme is enabled.',
             ru: '<b>Новые зеркала для ome.tv, мелкие улучшения.</b><br>' +
                 '<br>' +
@@ -1276,9 +1277,10 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Добавлена поддержка chatbizar.com.' +
                 '<br><br>' +
                 '<b>- Раздел \'Настройки\'.</b><br>' +
-                'В раздел панели управления добавлена опция (по умолчанию включена), запрещающая изменение размера шрифта элементов панели управления. Расширение поддерживает множество сайтов и на некоторых из них есть промотекст с очень крупным шрифтом, что может очень неприятно повлиять на панель управления.' +
+                '— В раздел панели управления добавлена опция (по умолчанию включена), запрещающая изменение размера шрифта элементов панели управления. Расширение поддерживает множество сайтов и на некоторых из них есть промотекст с очень крупным шрифтом, что может очень неприятно повлиять на панель управления.' +
                 '<br><br>' +
-                '<b>- Omegle.</b><br>' +
+                '<b>- Тёмная тема.</b><br>' +
+                '— Добавлен фильтр для кнопок социальных сетей, чтобы эмулировать тёмную тему.<br>' +
                 '— Уменьшено выделение тени заголовка Omegle при активированной тёмной теме.'
         }
     }
