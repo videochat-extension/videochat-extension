@@ -117,7 +117,8 @@ export class ControlsModule {
     }
 
     public static defaults = {
-        expand: true
+        expand: true,
+        ignoreSiteStyles: true
     }
     public settings = [
         {
@@ -137,6 +138,25 @@ export class ControlsModule {
             },
             disable: () => {
                 this.resizemap(false)
+            }
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "ignoreSiteStyles",
+            text: chrome.i18n.getMessage("ignoreSiteStyles"),
+            tooltip: chrome.i18n.getMessage("tooltipIgnoreSiteStyles"),
+            enable: () => {
+                if (this.controls) {
+                    if (!location.pathname.includes("embed")) {
+                        this.controls.style.fontSize = "initial"
+                    }
+                }
+            },
+            disable: () => {
+                if (this.controls) {
+                    this.controls.style.fontSize = ""
+                }
             }
         },
     ]
@@ -281,6 +301,10 @@ export class ControlsModule {
                 margin-left: 5px!important;
               }
               
+              sup {
+                top: initial
+              } 
+              
               p {
                 display: inline-block;
               }
@@ -320,11 +344,18 @@ export class ControlsModule {
                 className: "tabs"
             }, content)])
         } else {
-            return utils.createElement('div', {
+            let con = utils.createElement('div', {
                 className: 'chat', id: 'controls', style: "width:390px; margin-right: calc(100vh / 768 * 10)"
             }, [utils.createElement('div', {
                 className: "tabs chat"
             }, content)])
+
+            if (globalThis.platformSettings.get("ignoreSiteStyles")) {
+                if (!location.pathname.includes("embed")) {
+                    con.style.fontSize = "initial"
+                }
+            }
+            return con
         }
     }
 

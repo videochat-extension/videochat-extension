@@ -500,6 +500,12 @@
   "tooltipExpand": {
     "message": "expands the height of the 'Settings' tab to make it easier to customize"
   },
+  "ignoreSiteStyles": {
+    "message": "prevent font resizing:"
+  },
+  "tooltipIgnoreSiteStyles": {
+    "message": "prevents the font size of the control panel elements from changing due to the non-embed style of the video chat site itself"
+  },
   "swalInfoTitle1": {
     "message": "Congratulations!"
   },
