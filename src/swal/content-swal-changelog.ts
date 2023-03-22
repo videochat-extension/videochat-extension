@@ -1252,15 +1252,31 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
         version: "1.7.3",
         date: "2023-03-XX",
         description: {
-            en: '',
-            ru: '<b>Новые зеркала для ome.tv, мелкие улучшения</b><br>' +
+            en: '<b>New mirrors for ome.tv, minor improvements.</b><br>' +
+                '<br>' +
+                '<b>- Support for ome.tv platform</b><br>' +
+                '— Added support for webcamchatta.com.<br>' +
+                '— Added support for indiavideochat.com.<br>' +
+                '— Added support for chatrooms.pro.<br>' +
+                '— Added support for chatgenerator.com.<br>' +
+                '— Added support for chatbizar.com.' +
+                '<br><br>' +
+                '<b>- Section \'Settings\'.</b><br>' +
+                '— An option (enabled by default) has been added to the control panel section to prohibit changing the font size of control panel elements. Extension supports a lot of sites and some of them have promotional materials with very large fonts that can affect the control panel leading to a very ugly result.' +
+                '<br><br>' +
+                '<b>- Omegle.</b><br>' +
+                '— Reduced Omegle header shadow highlighting when dark theme is enabled.',
+            ru: '<b>Новые зеркала для ome.tv, мелкие улучшения.</b><br>' +
                 '<br>' +
                 '<b>- Поддержка платформы ome.tv</b><br>' +
                 '— Добавлена поддержка webcamchatta.com.<br>' +
                 '— Добавлена поддержка indiavideochat.com.<br>' +
                 '— Добавлена поддержка chatrooms.pro.<br>' +
                 '— Добавлена поддержка chatgenerator.com.<br>' +
-                '— Добавлена поддержка chatbizar.com.<br>' +
+                '— Добавлена поддержка chatbizar.com.' +
+                '<br><br>' +
+                '<b>- Раздел \'Настройки\'.</b><br>' +
+                'В раздел панели управления добавлена опция (по умолчанию включена), запрещающая изменение размера шрифта элементов панели управления. Расширение поддерживает множество сайтов и на некоторых из них есть промотекст с очень крупным шрифтом, что может очень неприятно повлиять на панель управления.' +
                 '<br><br>' +
                 '<b>- Omegle.</b><br>' +
                 '— Уменьшено выделение тени заголовка Omegle при активированной тёмной теме.'
