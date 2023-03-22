@@ -971,8 +971,62 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<b>Support for 46 video chat sites.</b><br>' +
                 "— The extension now supports all known mirror sites of the platforms: Chatruletka, ome.tv, minichat, chatrulez.<br>" +
                 "— Implemented basic Omegle support similar to minimalistic mode, except for the dark theme.<br>" +
-                "— Implemented support for an alternative ome.tv interface, such as, for example, on <a href='https://ome.chat' target='_blank' style='text-decoration: none!important;'>ome.chat</a>.<br>" +
-                '<br>' +
+                "— Implemented support for an alternative ome.tv interface, such as, for example, on <a href='https://ome.chat' target='_blank' style='text-decoration: none!important;'>ome.chat</a>." +
+                '<br><br>' +
+                '<b>- Omegle platform support.</b><br>' +
+                '— Added basic support for omegle.com<br>' +
+                '— Added basic support for omegle.tv' +
+                '<br><br>' +
+                '<b>- Chatruletka platform support (extension).</b><br>' +
+                '— Added support for chatruletka.com<br>' +
+                '— Added support for chatruletka.ua<br>' +
+                '— Added support for ruletka.chat<br>' +
+                '— Added support for videochatar.com<br>' +
+                '— Added support for videochatau.com<br>' +
+                '— Added support for videochatbr.com<br>' +
+                '— Added support for brvideochat.com<br>' +
+                '— Added support for videochatca.com<br>' +
+                '— Added support for videochatde.com<br>' +
+                '— Added support for videochatfr.com<br>' +
+                '— Added support for frvideochat.com<br>' +
+                '— Added support for roulettefrancais.com<br>' +
+                '— Added support for videochatit.com<br>' +
+                '— Added support for videochatjp.com<br>' +
+                '— Added support for videochatmx.com<br>' +
+                '— Added support for videochatnl.com<br>' +
+                '— Added support for videochatpl.com<br>' +
+                '— Added support for videochatpt.com<br>' +
+                '— Added support for videochatuk.com<br>' +
+                '— Added support for videochatus.com<br>' +
+                '— Added support for roulette-espanol.com<br>' +
+                '— Added support for ruletaespanol.com<br>' +
+                '— Added support for ruletkavideochat.com<br>' +
+                '— Added support for turkishvideochat.com' +
+                '<br><br>' +
+                '<b>- ome.tv platform support (extension).</b><br>' +
+                '— Added support for ome.chat<br>' +
+                '— Added support for camki.com<br>' +
+                '— Added support for chatalternative.com<br>' +
+                '— Added support for chatrooms.chat<br>' +
+                '— Added support for chat-brasil.com<br>' +
+                '— Added support for chat-de.com<br>' +
+                '— Added support for chat-fr.com<br>' +
+                '— Added support for chat-nl.com<br>' +
+                '— Added support for chat-pl.com<br>' +
+                '— Added support for chat-pt.com<br>' +
+                '— Added support for prostochat.com<br>' +
+                '— Added support for stickam.chat<br>' +
+                '— Added support for ukr.chat<br>' +
+                '— Added support for cafeclub.ua' +
+                '<br><br>' +
+                '<b>- Minichat platform support</b><br>' +
+                '— Added support for minichat.com' +
+                '<br><br>' +
+                '<b>- Chatrulez platform support</b><br>' +
+                '— Added support for chatrulez.ru<br>' +
+                '— Added support for videochatruletka.com<br>' +
+                '— Added support for videochatruletka.ru' +
+                '<br><br>' +
                 '<b>Firefox support.</b><br>' +
                 "— A lot of work has been done to analyze all the issues and ensure compatibility with the latest versions of Firefox.<br>" +
                 "— The extension has been added to the <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://addons.mozilla.org/firefox/addon/videochat-extension-ip-locator/\">Firefox browser add-ons store</a>.<br>" +
@@ -1105,7 +1159,62 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<b>Поддержка 46 сайтов-видеочатов.</b><br>' +
                 "— Расширение теперь поддерживает все известные зеркала сайтов платформ Chatruletka, ome.tv, minichat, chatrulez.<br>" +
                 "— Реализована базовая поддержка Omegle, аналогичная минималистичному режиму, за исключением тёмной темы.<br>" +
-                "— Реализована поддержка альтернативного интерфейса чат рулетки, такого как, например, на <a href='https://ome.chat' target='_blank' style='text-decoration: none!important;'>ome.chat</a>.<br>" +
+                "— Реализована поддержка альтернативного интерфейса чат рулетки, такого как, например, на <a href='https://ome.chat' target='_blank' style='text-decoration: none!important;'>ome.chat</a>." +
+                '<br><br>' +
+                '<b>- Поддержка платформы Omegle.</b><br>' +
+                '— Добавлена базовая поддержка omegle.com<br>' +
+                '— Добавлена базовая поддержка omegle.tv' +
+                '<br><br>' +
+                '<b>- Расширение поддержки платформы Chatruletka.</b><br>' +
+                '— Добавлена поддержка chatruletka.com<br>' +
+                '— Добавлена поддержка chatruletka.ua<br>' +
+                '— Добавлена поддержка ruletka.chat<br>' +
+                '— Добавлена поддержка videochatar.com<br>' +
+                '— Добавлена поддержка videochatau.com<br>' +
+                '— Добавлена поддержка videochatbr.com<br>' +
+                '— Добавлена поддержка brvideochat.com<br>' +
+                '— Добавлена поддержка videochatca.com<br>' +
+                '— Добавлена поддержка videochatde.com<br>' +
+                '— Добавлена поддержка videochatfr.com<br>' +
+                '— Добавлена поддержка frvideochat.com<br>' +
+                '— Добавлена поддержка roulettefrancais.com<br>' +
+                '— Добавлена поддержка videochatit.com<br>' +
+                '— Добавлена поддержка videochatjp.com<br>' +
+                '— Добавлена поддержка videochatmx.com<br>' +
+                '— Добавлена поддержка videochatnl.com<br>' +
+                '— Добавлена поддержка videochatpl.com<br>' +
+                '— Добавлена поддержка videochatpt.com<br>' +
+                '— Добавлена поддержка videochatuk.com<br>' +
+                '— Добавлена поддержка videochatus.com<br>' +
+                '— Добавлена поддержка roulette-espanol.com<br>' +
+                '— Добавлена поддержка ruletaespanol.com<br>' +
+                '— Добавлена поддержка ruletkavideochat.com<br>' +
+                '— Добавлена поддержка turkishvideochat.com' +
+                '<br><br>' +
+                '<b>- Расширение поддержки платформы ome.tv</b><br>' +
+                '— Добавлена поддержка ome.chat<br>' +
+                '— Добавлена поддержка camki.com<br>' +
+                '— Добавлена поддержка chatalternative.com<br>' +
+                '— Добавлена поддержка chatrooms.chat<br>' +
+                '— Добавлена поддержка chat-brasil.com<br>' +
+                '— Добавлена поддержка chat-de.com<br>' +
+                '— Добавлена поддержка chat-fr.com<br>' +
+                '— Добавлена поддержка chat-nl.com<br>' +
+                '— Добавлена поддержка chat-pl.com<br>' +
+                '— Добавлена поддержка chat-pt.com<br>' +
+                '— Добавлена поддержка prostochat.com<br>' +
+                '— Добавлена поддержка stickam.chat<br>' +
+                '— Добавлена поддержка ukr.chat<br>' +
+                '— Добавлена поддержка cafeclub.ua' +
+                '<br><br>' +
+                '<b>- Поддержка платформы Minichat</b><br>' +
+                '— Добавлена поддержка minichat.com' +
+                '<br><br>' +
+                '<b>- Поддержка платформы Chatrulez</b><br>' +
+                '— Добавлена поддержка chatrulez.ru<br>' +
+                '— Добавлена поддержка videochatruletka.com<br>' +
+                '— Добавлена поддержка videochatruletka.ru' +
+                '<br><br>' +
                 '<br>' +
                 '<b>Поддержка Firefox.</b><br>' +
                 "— Проделана колоссальная работа по анализу всех проблем и обеспечению совместимости с Firefox последних версий.<br>" +
@@ -1254,7 +1363,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
         description: {
             en: '<b>New mirrors for ome.tv, minor improvements.</b><br>' +
                 '<br>' +
-                '<b>- Support for ome.tv platform</b><br>' +
+                '<b>- Support for ome.tv platform (extension).</b><br>' +
                 '— Added support for webcamchatta.com.<br>' +
                 '— Added support for indiavideochat.com.<br>' +
                 '— Added support for chatrooms.pro.<br>' +
@@ -1275,7 +1384,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Changed the display format of geolocation data of mobile IP addresses of Ukraine and Russia.',
             ru: '<b>Новые зеркала для ome.tv, мелкие улучшения.</b><br>' +
                 '<br>' +
-                '<b>- Поддержка платформы ome.tv</b><br>' +
+                '<b>- Расширение поддержки платформы ome.tv</b><br>' +
                 '— Добавлена поддержка webcamchatta.com.<br>' +
                 '— Добавлена поддержка indiavideochat.com.<br>' +
                 '— Добавлена поддержка chatrooms.pro.<br>' +
