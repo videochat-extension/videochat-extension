@@ -160,7 +160,7 @@ export class ChatruletkaSimpleDriver {
 
             if (json.mobile) {
                 if (json.countryCode === "RU" || json.countryCode === "UA") {
-                    ipApiString += `<span><b>${json.city} (${json.regionName}), ${json.country} (${chrome.i18n.getMessage("minimalismExplainMobile")}).</b></span>`
+                    ipApiString += `<span><b>${json.country} (${chrome.i18n.getMessage("minimalismExplainMobile")}: ${json.regionName}, ${json.city}).</b></span>`
                 } else {
                     ipApiString += `<span><b>${json.country} (${chrome.i18n.getMessage("minimalismExplainMobile")}).</b></span>`
                 }
