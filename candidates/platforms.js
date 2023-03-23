@@ -91,32 +91,5 @@ let candidates = [
         "href": "https://video-roulette.online/"
       }
     ]
-  },
-  {
-    "name": "Coomeet Free",
-    "id": "83b6a71d-d878-4563-bee2-ff4c276c2de4",
-    "sites": [
-      {
-        "text": "rusvideochat.ru",
-        "id": "89c68095-6ce3-4902-964d-45e3aee4ddcf",
-        "favicon": "rusvideochat.png",
-        "origin": "https://*.rusvideochat.ru/*",
-        "href": "https://rusvideochat.ru/"
-      },
-      {
-        "text": "video-roulette24.ru",
-        "id": "a584ff00-4b49-4994-bb66-4fd5009be171",
-        "favicon": "videoroulette24ru.png",
-        "origin": "https://*.video-roulette24.ru/*",
-        "href": "https://video-roulette24.ru/"
-      },
-      {
-        "text": "chatroulette.msk.ru",
-        "id": "07ae1d96-5479-49cf-a6c7-83ca1cb09752",
-        "favicon": "chatroulettemskru.png",
-        "origin": "https://*.chatroulette.msk.ru/*",
-        "href": "https://chatroulette.msk.ru/"
-      }
-    ]
   }
 ]

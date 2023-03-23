@@ -91,7 +91,10 @@
         "https://*.videochatruletka.com/*",
         "https://*.videochatruletka.ru/*",
         "https://*.omegle.com/*",
-        "https://*.omegle.tv/*"
+        "https://*.omegle.tv/*",
+        "https://*.rusvideochat.ru/*",
+        "https://*.video-roulette24.ru/*",
+        "https://*.chatroulette.msk.ru/*"
       ],
       "extension_ids": []
     }
@@ -158,7 +161,10 @@
     "https://*.videochatruletka.com/*",
     "https://*.videochatruletka.ru/*",
     "https://*.omegle.com/*",
-    "https://*.omegle.tv/*"
+    "https://*.omegle.tv/*",
+    "https://*.rusvideochat.ru/*",
+    "https://*.video-roulette24.ru/*",
+    "https://*.chatroulette.msk.ru/*"
   ],
   "permissions": [
     "storage",
