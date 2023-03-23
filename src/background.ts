@@ -512,12 +512,17 @@ function init() {
     chrome.runtime.onInstalled.addListener(onRuntimeInstalled);
     chrome.runtime.onInstalled.addListener(syncBadgeIcon);
     chrome.runtime.onInstalled.addListener(ensureContentScriptsAreRegistered)
+    chrome.runtime.onInstalled.addListener(async () => {
+        await chrome.storage.local.set({"stopPermissionCheck": []})
+        await chrome.storage.local.remove(["domains"])
+    })
 
     chrome.runtime.onStartup.addListener(syncBadgeIcon)
     chrome.runtime.onStartup.addListener(ensureContentScriptsAreRegistered)
     // resetting certain values in chrome.storage.local because firefox doesn't support chrome.storage.session
     chrome.runtime.onStartup.addListener(async () => {
         await chrome.storage.local.set({"stopPermissionCheck": []})
+        await chrome.storage.local.remove(["domains"])
     })
 
     chrome.commands.onCommand.addListener(commandsOnCommand);
