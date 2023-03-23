@@ -98,9 +98,6 @@
   "banner": {
     "message": "скрыть баннер: "
   },
-  "initialFaceDetect": {
-    "message": "faceapi: пожалуйста, подождите..."
-  },
   "hotkeys": {
     "message": "<dd>стрелка влево - пропустить</dd><dd>shift+стрелка влево - пропустить+бан</dd><dd>стрелка вверх - стоп</dd><dd>стрелка вниз - репорт</dd><dd style='margin-inline-start: 40px!important;'>стрелка влево - отменить</dd><dd style='margin-inline-start: 40px!important;'>стрелка вправо - отправить</dd>"
   },

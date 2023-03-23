@@ -145,19 +145,6 @@ export class FaceapiModule {
             await faceapi.nets.ageGenderNet.loadFromDisk(chrome.runtime.getURL('resources/models'))
             console.timeEnd("faceapi: loading models")
 
-            // TODO: this does not work on firefox
-            // let opt = new faceapi.TinyFaceDetectorOptions()
-            // console.time("faceapi: initial facedetect");
-            // this.setText(chrome.i18n.getMessage("initialFaceDetect"));
-            // let tempImage = document.createElement('img')
-            // tempImage.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAMSURBVBhXY/j//z8ABf4C/qc1gYQAAAAASUVORK5CYII="
-            // // @ts-ignore
-            // document.getElementsByClassName("caption__logo")[0].firstChild
-            // // @ts-ignore
-            // console.dir(await faceapi.detectAllFaces(document.getElementsByClassName("caption__logo")[0].firstChild, opt).withAgeAndGender())
-            // console.timeEnd("faceapi: initial facedetect");
-            // this.setText("");
-
             this.faceApiLoaded = true
 
             this.start(200)
