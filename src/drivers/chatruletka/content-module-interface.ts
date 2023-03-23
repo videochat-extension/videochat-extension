@@ -260,23 +260,7 @@ export class InterfaceModule {
         return InterfaceModule.instanceRef;
     }
 
-    public tweakLoginWindow() {
-        utils.tryCatch(() => {
-            let new_el = $(document.createElement("div"))
-
-            new_el[0].innerHTML = chrome.i18n.getMessage("loginWindow")
-
-            new_el[0].style.marginTop = "15px"
-            new_el[0].style.marginBottom = "15px"
-
-            new_el.insertAfter(document.querySelector('[data-tr="sign_in_to"]') as HTMLElement)
-            $(".login-popup__item.right")[0].style.overflowY = "auto"
-        })
-    }
-
     public applyTweaks() {
-        // this.tweakLoginWindow()
-
         if (globalThis.platformSettings.get("hideLogo")) {
             this.tweaks.hideLogo.enable()
         }
