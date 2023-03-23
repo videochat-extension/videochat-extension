@@ -395,7 +395,7 @@ export class GeolocationModule {
             if (json.mobile) {
                 if (globalThis.platformSettings.get("hideMobileLocation") || globalThis.platformSettings.get("showCT")) {
                     if (!globalThis.platformSettings.get("showCT")) {
-                        strings.push(`<small title="${chrome.i18n.getMessage("lowAccuracy")} || Country: ${json.country} || Region: ${json.regionName} || City: ${json.city}">MOBILE [${chrome.i18n.getMessage('apiMobileHidden')}]</small>`)
+                        strings.push(`<small title="${chrome.i18n.getMessage("lowAccuracy")} || Country: ${json.country} || Region: ${json.regionName} || City: ${json.city} || ISP: ${json.isp}">MOBILE [${chrome.i18n.getMessage('apiMobileHidden')}]</small>`)
                     } else {
                         strings.push(`<small>MOBILE [${chrome.i18n.getMessage('apiMobile')}]</small>`)
                     }
