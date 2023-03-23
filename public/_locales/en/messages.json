@@ -14,9 +14,6 @@
   "desc": {
     "message": "This is a browser extension that extends the functionality of Chatruletka (aka ome.tv), as well as some other online video chats."
   },
-  "map_lang": {
-    "message": "en"
-  },
   "iknowwhatyoudownload_lang": {
     "message": "en"
   },
@@ -121,15 +118,6 @@
   },
   "hotkeysGlobal": {
     "message": "<dd>global: 'chrome://extensions/shortcuts'</dd>"
-  },
-  "avoidBanLinkText": {
-    "message": "I was banned. What should I do now?"
-  },
-  "avoidBanSwalTitle": {
-    "message": "How to avoid ban?"
-  },
-  "avoidBanSwalInnerHTML": {
-    "message": "There was an instruction for bypassing the ban, but due to the fact that the number of users grew very quickly, it was hidden behind the paywall, and now it has been completely removed.<br><br>Now here is just a list of what not to do if you don't want to get banned:<br>1. Don't show the middle finger to Chatruletka interlocutors, especially if they express that they want you to show it.<br>2. Do not write anything in the chat, especially insults or links.<br>3. Make sure that your face is visible and the picture is clear, otherwise you may get banned for an incorrect image.<br>4. Don't show your genitals to the camera.<br><br>That's all. Now that you have received a ban, you will have to deal with it yourself: either pay, or wait, or find a way around it yourself."
   },
   "settingsInterface": {
     "message": "<b>Interface</b>"
