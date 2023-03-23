@@ -112,6 +112,10 @@
 * russian answer to omegle which was destroyed by ukrainian chatruletka, it is unknown to me if it's still alive, but should check
 # Camsurf
 * builtwith showed that it is linked with chatruletka in the past
+* relatively easy to support IP geolocation, seams to be connecting to people with residential IPS
+* not sure if there are a lot of people using this chat, I met like 5 people in 10 minutes
+* not sure if I should support this videochat
+* I am quite sure that camsurf is not connected to the chatruletka user base
 # Chatrandom
 * random chat from Google
 # camloo
