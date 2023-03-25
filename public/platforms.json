@@ -409,12 +409,13 @@
         "id": "83b6a71d-d878-4563-bee2-ff4c276c2de4",
         "sites": [
             {
-                "text": "free.coomeet.me",
+                "text": "free.coomeet.com",
                 "id": "8d3f9f09-ac53-4fdf-b8e4-02928cc0611c",
                 "favicon": "coomeetfree.png",
                 "origin": "https://*.free.coomeet.com/*",
                 "href": "https://free.coomeet.com/"
-            },            {
+            },
+            {
                 "text": "rusvideochat.ru",
                 "id": "89c68095-6ce3-4902-964d-45e3aee4ddcf",
                 "favicon": "rusvideochat.png",
