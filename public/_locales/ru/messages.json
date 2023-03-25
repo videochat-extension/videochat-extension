@@ -652,5 +652,29 @@
   },
   "tooltipShowChangelogToggle": {
     "message": "Если включено, то когда вы заходите на сайт видеочата и произошло обновление расширения, откроется окно с изменениями, чтобы вы узнали что изменилось (не показывается в минималистичном/ограниченных режимах)."
+  },
+  "freecmBotButton": {
+    "message": "ВАШ СОБЕСЕДНИК БОТ"
+  },
+  "freecmBotNextButton": {
+    "message": "Следующий (сейчас: $1)"
+  },
+  "freecmExtensionHeaderTitle": {
+    "message": "Нажмите чтобы прочитать о функциях расширения на этом сайте."
+  },
+  "freecmSettingHideBots": {
+    "message": "Скрывать ботов: "
+  },
+  "freecmSettingHideBotsTooltip": {
+    "message": "Расширение будет скрывать видео для собеседников-ботов"
+  },
+  "freecmSettingMuteBots": {
+    "message": "Мутить ботов: "
+  },
+  "freecmSettingMuteTooltip": {
+    "message": "Расширение будет отключать звук для собеседников-ботов"
+  },
+  "freecmCountriesListTitle": {
+    "message": "Информация от $1: Вас определило как $2. Вам будут попадаться следующие страны: $3."
   }
 }

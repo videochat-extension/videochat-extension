@@ -6,7 +6,7 @@ require('arrive')
 import {ChatruletkaDriver} from "./drivers/content-driver-chatruletka";
 import {ChatruletkaSimpleDriver} from "./drivers/content-driver-chatruletka-simple";
 import {switchMode} from "./drivers/chatruletka/content-swal-switchmode";
-import {injectIpGrabber} from "./drivers/chatruletka/content-module-geolocation";
+import {injectScript} from "./drivers/chatruletka/content-module-geolocation";
 import {injectContextInvalidatedCheck} from "./swal/content-swal-context-invalidated"
 import {ContentSwalInfo} from "./drivers/chatruletka/content-swal-info";
 import {ContentSwalChangelog} from "./swal/content-swal-changelog";
@@ -15,8 +15,10 @@ import * as Sentry from "@sentry/browser";
 import {PlatformSettings} from "./content-platform";
 import {OmegleSimpleDriver} from "./drivers/content-driver-omegle-simple";
 import {ContentSwalInfoOmegle} from "./drivers/omegle/content-swal-info";
+import {CooMeetFreeSimpleDriver} from "./drivers/content-driver-coomeetfree-simple";
+import {ContentSwalInfoCoomeetFree} from "./drivers/coomeetfree/content-swal-info";
 
-injectIpGrabber()
+injectScript('injection/ip-api.js')
 
 async function content() {
     let settings = await chrome.storage.sync.get()
@@ -78,6 +80,9 @@ async function content() {
     if (platform === "b101a84a-8549-4676-9bd9-ec2582c72c54") {
         platform = "Omegle"
     }
+    if (platform === "83b6a71d-d878-4563-bee2-ff4c276c2de4") {
+        platform = "Coomeet Free"
+    }
 
     async function processSwals(website: { site?: any; platform: any; }) {
         if (!globalThis.platformSettings.get("swalInfoCompleted")) {
@@ -134,6 +139,22 @@ async function content() {
                     }
                 })
             }
+            break;
+        }
+        case "Coomeet Free": {
+            document.arrive(".free-cm-app-video-stream", {onceOnly: true, existing: true}, async () => {
+                injectContextInvalidatedCheck()
+                injectScript('injection/coomeetfree.js')
+                await globalThis.platformSettings.setDriverDefaults({
+                    hideBots: false,
+                    muteBots: false
+                })
+                globalThis.driver = CooMeetFreeSimpleDriver.getInstance()
+                globalThis.driver.start(document.body)
+                if (!globalThis.platformSettings.get("swalInfoCompleted")) {
+                    new ContentSwalInfoCoomeetFree().showFromStart()
+                }
+            })
             break;
         }
         default: {

@@ -429,6 +429,12 @@ function runtimeOnMessage(request: any, sender: chrome.runtime.MessageSender, se
             url: `welcome/welcome.html`
         });
     }
+
+    if (request.openLink) {
+        chrome.tabs.create({
+            url: request.openLink
+        });
+    }
 }
 
 async function checkIfMissingPermissions(windowId: number, url: string, fromTabId: number) {

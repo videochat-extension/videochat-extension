@@ -9,6 +9,7 @@ const BUILD_DIR_NAME = process.env.DIR;
 module.exports = {
     entry: {
         injection_ip: path.join(srcDir, 'injection/ip-api.ts'),
+        injection_coomeetfree: path.join(srcDir, 'injection/coomeetfree.ts'),
         background: path.join(srcDir, 'background.ts'),
         content_script: path.join(srcDir, 'content.ts'),
     },
@@ -16,6 +17,7 @@ module.exports = {
         path: path.join(__dirname, `../${BUILD_DIR_NAME}`),
         filename: (chunkData) => {
             if(chunkData.chunk.name === 'injection_ip') return "injection/ip-api.js";
+            if(chunkData.chunk.name === 'injection_coomeetfree') return "injection/coomeetfree.js";
             return "[name].js";
         },
     },

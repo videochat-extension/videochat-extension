@@ -658,5 +658,29 @@
   },
   "tooltipShowChangelogToggle": {
     "message": "If enabled, when you go to the video chat site and the extension has been updated, a window will open with the changes to let you know what has changed (not shown in minimalist/limited mode)."
+  },
+  "freecmBotButton": {
+    "message": "BOT DETECTED"
+  },
+  "freecmBotNextButton": {
+    "message": "Next (current: $1)"
+  },
+  "freecmExtensionHeaderTitle": {
+    "message": "Click to read about the features of the extension on this site."
+  },
+  "freecmSettingHideBots": {
+    "message": "Hide bots: "
+  },
+  "freecmSettingHideBotsTooltip": {
+    "message": "The extension will hide the bot's video feed if enabled."
+  },
+  "freecmSettingMuteBots": {
+    "message": "Mute bots: "
+  },
+  "freecmSettingMuteTooltip": {
+    "message": "The extension will hide the bot's audio feed if enabled."
+  },
+  "freecmCountriesListTitle": {
+    "message": "Message from $1: You have been identified as $2. You will come across the following countries: $3."
   }
 }

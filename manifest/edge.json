@@ -94,6 +94,7 @@
         "https://*.videochatruletka.ru/*",
         "https://*.omegle.com/*",
         "https://*.omegle.tv/*",
+        "https://*.free.coomeet.com/*",
         "https://*.rusvideochat.ru/*",
         "https://*.video-roulette24.ru/*",
         "https://*.chatroulette.msk.ru/*"
@@ -162,6 +163,7 @@
     "https://*.chatrulez.ru/*",
     "https://*.videochatruletka.com/*",
     "https://*.videochatruletka.ru/*",
+    "https://*.free.coomeet.com/*",
     "https://*.rusvideochat.ru/*",
     "https://*.video-roulette24.ru/*",
     "https://*.chatroulette.msk.ru/*"

@@ -8,9 +8,9 @@ import * as SDPUtils from "sdp";
 import {getUserBrowser} from "../../utils/utils";
 
 
-export function injectIpGrabber() {
+export function injectScript(path: string) {
     const s = document.createElement('script');
-    s.src = chrome.runtime.getURL('injection/ip-api.js');
+    s.src = chrome.runtime.getURL(path);
     s.onload = () => s.remove();
     (document.head || document.documentElement).appendChild(s);
 }
