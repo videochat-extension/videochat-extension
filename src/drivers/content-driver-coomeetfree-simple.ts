@@ -73,10 +73,10 @@ export class CooMeetFreeSimpleDriver {
         this.video.addEventListener('play', () => {
             this.stage = 1
             if (this.bot) {
-                this.cmtNext!.innerText = chrome.i18n.getMessage('freecmBotButton')
+                this.setNextButtonText(chrome.i18n.getMessage('freecmBotButton'))
                 this.cmtNext!.style.background = 'black'
             } else {
-                this.cmtNext!.innerText = chrome.i18n.getMessage('freecmBotNextButton', [this.country])
+                this.setNextButtonText(chrome.i18n.getMessage('freecmBotNextButton', [this.country]))
                 this.cmtNext!.style.background = 'green'
             }
             if (this.bot) {
@@ -278,6 +278,15 @@ export class CooMeetFreeSimpleDriver {
             }
         }
         return undefined;
+    }
+
+    private setNextButtonText(str: string) {
+        if (this.cmtNext!.tagName === "INPUT") {
+            // @ts-ignore
+            this.cmtNext!.value = str
+        } else {
+            this.cmtNext!.innerText = str
+        }
     }
 
     private getStopButton(): HTMLElement | undefined {
