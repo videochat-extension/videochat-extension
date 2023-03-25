@@ -13,6 +13,7 @@ const defaults = {
     // favorites sites list, videochatru.com and ome.tv are defaults for legacy UX reasons
     // if other chats were found in open tabs on first install,
     // then default favorites are replaced with found chats
+    // TODO: add check which should remove all uuids not found in the platforms.json
     "favorites": ["7fef97eb-a5cc-4caa-8d19-75dab7407b6b", "98ea82db-9d50-4951-935e-2405d9fe892e"],
     // dict containing site uuid and last opened unix timestamp
     "recentDict": {},
