@@ -188,11 +188,8 @@ export class OmegleSimpleDriver {
             let title = ``
 
             if (json.mobile) {
-                if (json.countryCode === "RU" || json.countryCode === "UA") {
-                    ipApiString += `<span><b>${json.city} (${json.regionName}), ${json.country} (${chrome.i18n.getMessage("minimalismExplainMobile")}).</b></span>`
-                } else {
-                    ipApiString += `<span><b>${json.country} (${chrome.i18n.getMessage("minimalismExplainMobile")}).</b></span>`
-                }
+                ipApiString += `<span><b>${json.country} (${chrome.i18n.getMessage("minimalismExplainMobile")}: ${json.regionName}, ${json.city}).</b></span>`
+                title = `${chrome.i18n.getMessage("lowAccuracy")} |||| IP: ${json.query}  Country: ${json.country} || Region: ${json.regionName} || City: ${json.city} || ISP: ${json.isp} ||  Mobile: ${json.mobile} || Proxy: ${json.proxy} || Hosting: ${json.hosting}`
 
                 title = `${chrome.i18n.getMessage("lowAccuracy")} || IP: ${json.query} || Country: ${json.country} || Region: ${json.regionName} || City: ${json.city} || Mobile: ${json.mobile} || Proxy: ${json.proxy} || Hosting: ${json.hosting}`
             } else {

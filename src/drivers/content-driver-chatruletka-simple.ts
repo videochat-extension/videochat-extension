@@ -160,7 +160,7 @@ export class ChatruletkaSimpleDriver {
 
             if (json.mobile) {
                 ipApiString += `<span><b>${json.country} (${chrome.i18n.getMessage("minimalismExplainMobile")}: ${json.regionName}, ${json.city}).</b></span>`
-                title = `${chrome.i18n.getMessage("lowAccuracy")} || Country: ${json.country} || Region: ${json.regionName} || City: ${json.city} || Mobile: ${json.mobile} || Proxy: ${json.proxy} || Hosting: ${json.hosting}`
+                title = `${chrome.i18n.getMessage("lowAccuracy")} || Country: ${json.country} || Region: ${json.regionName} || City: ${json.city} || ISP: ${json.isp} ||  Mobile: ${json.mobile} || Proxy: ${json.proxy} || Hosting: ${json.hosting}`
             } else {
                 ipApiString += `<span><b>${json.city} (${json.regionName}), ${json.country}.</b></span>`
                 title = `Country: ${json.country} || Region: ${json.regionName} || City: ${json.city} || ISP: ${json.isp} || Mobile: ${json.mobile} || Proxy: ${json.proxy} || Hosting: ${json.hosting}`
