@@ -148,6 +148,7 @@ export class CooMeetFreeSimpleDriver {
                 utils.createElement('span', {
                     innerText: chrome.i18n.getMessage("extension_name_header") + " v" + chrome.runtime.getManifest().version + " (?)",
                     title: chrome.i18n.getMessage('freecmExtensionHeaderTitle'),
+                    style:"white-space: nowrap; overflow: hidden;",
                     onclick: () => {
                         new ContentSwalInfoCoomeetFree().showFromStart()
                     }
@@ -160,7 +161,7 @@ export class CooMeetFreeSimpleDriver {
             }, [
                 utils.createElement("span", {
                     innerText: chrome.i18n.getMessage('freecmSettingHideBots'),
-                    style: "cursor:pointer",
+                    style: "cursor:pointer; white-space: nowrap; overflow: hidden;",
                     title: chrome.i18n.getMessage('freecmSettingHideBotsTooltip'),
                     onclick: () => {
                         document.getElementById('hideBotsCheck')!.click()
@@ -194,7 +195,7 @@ export class CooMeetFreeSimpleDriver {
             }, [
                 utils.createElement("span", {
                     innerText: chrome.i18n.getMessage('freecmSettingMuteBots'),
-                    style: "cursor:pointer",
+                    style: "cursor:pointer; white-space: nowrap; overflow: hidden;",
                     title: chrome.i18n.getMessage('freecmSettingMuteTooltip'),
                     onclick: () => {
                         document.getElementById('muteBotsCheck')!.click()
