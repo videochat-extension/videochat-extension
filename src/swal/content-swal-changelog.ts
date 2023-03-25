@@ -974,6 +974,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 "— Implemented support for an alternative ome.tv interface, such as, for example, on <a href='https://ome.chat' target='_blank' style='text-decoration: none!important;'>ome.chat</a>." +
                 '<br><br>' +
                 '<b>- Omegle platform support.</b><br>' +
+                '— Features: IP Locator & Dark Mode.<br>' +
                 '— Added basic support for omegle.com<br>' +
                 '— Added basic support for omegle.tv' +
                 '<br><br>' +
@@ -1162,6 +1163,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 "— Реализована поддержка альтернативного интерфейса чат рулетки, такого как, например, на <a href='https://ome.chat' target='_blank' style='text-decoration: none!important;'>ome.chat</a>." +
                 '<br><br>' +
                 '<b>- Поддержка платформы Omegle.</b><br>' +
+                '— Функции: геолокация IP и тёмная тема.<br>' +
                 '— Добавлена базовая поддержка omegle.com<br>' +
                 '— Добавлена базовая поддержка omegle.tv' +
                 '<br><br>' +
@@ -1361,7 +1363,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
         version: "1.7.3",
         date: "2023-03-XX",
         description: {
-            en: '<b>New mirrors for ome.tv, minor improvements.</b><br>' +
+            en: '<b>New mirrors for ome.tv, basic Coomeet Free support, minor improvements.</b><br>' +
                 '<br>' +
                 '<b>- Support for ome.tv platform (extension).</b><br>' +
                 '— Added support for webcamchatta.com.<br>' +
@@ -1369,6 +1371,13 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Added support for chatrooms.pro.<br>' +
                 '— Added support for chatgenerator.com.<br>' +
                 '— Added support for chatbizar.com.' +
+                '<br><br>' +
+                '<b>- Added basic support for the Coomeet Free platform.</b><br>' +
+                '— Features: bot recognition and the ability to automatically hide their video / audio feeds, interface tweaks: shows what country the stranger is from, shows the country in which the service thinks you live and which countries the service should connect you with.<br>' +
+                '— Added basic support for free.coomeet.com.<br>' +
+                '— Added basic support for rusvideochat.ru.<br>' +
+                '— Added basic support for video-roulette24.ru.<br>' +
+                '— Added basic support for chatroulette.msk.ru.' +
                 '<br><br>' +
                 '<b>- Section \'IP\'.</b><br>' +
                 '— If mobile IP city/region display is disabled (this is by default), now you can hover over LOCATION HIDDEN to see which city and region have been determined for the stanger. Once again, it is worth recalling that the accuracy of geolocation of IP addresses of mobile operators is very, very low.' +
@@ -1380,9 +1389,9 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Added filter for social media buttons to emulate dark theme.<br>' +
                 '— Reduced Omegle header shadow highlighting when dark theme is enabled.' +
                 '<br><br>' +
-                '<b>- Minimalism mode.</b><br>' +
+                '<b>- Minimalism mode & Omegle.</b><br>' +
                 '— Changed the display format of geolocation data of mobile IP addresses.',
-            ru: '<b>Новые зеркала для ome.tv, мелкие улучшения.</b><br>' +
+            ru: '<b>Новые зеркала для ome.tv, базовая поддержка Coomeet Free, мелкие улучшения.</b><br>' +
                 '<br>' +
                 '<b>- Расширение поддержки платформы ome.tv</b><br>' +
                 '— Добавлена поддержка webcamchatta.com.<br>' +
@@ -1391,8 +1400,15 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Добавлена поддержка chatgenerator.com.<br>' +
                 '— Добавлена поддержка chatbizar.com.' +
                 '<br><br>' +
+                '<b>- Добавлена базовая поддержка платформы Coomeet Free.</b><br>' +
+                '— Функции: распознавание ботов и возможность автоматически скрывать их видео/аудио, улучшения интерфейса: показывает из какой страны ваш собеседник, какая страна определилась у вас и с какими странами сервис должен вас соединять.<br>' +
+                '— Добавлена базовая поддержка free.coomeet.com.<br>' +
+                '— Добавлена базовая поддержка rusvideochat.ru.<br>' +
+                '— Добавлена базовая поддержка video-roulette24.ru.<br>' +
+                '— Добавлена базовая поддержка chatroulette.msk.ru.' +
+                '<br><br>' +
                 '<b>- Раздел \'IP\'.</b><br>' +
-                '— Если отображение мобильных городов скрыто, то теперь можно навести мышку на ЛОКАЦИЯ СКРЫТА, чтобы посмотреть какой город и регион определились для собеседника. В очередной раз стоит напомнить, что точность геолокации IP адресов мобильных операторов очень низкая.' +
+                '— Если отображение мобильных городов скрыто, то теперь можно навести мышку на ЛОКАЦИЯ СКРЫТА, чтобы посмотреть какой город и регион определились для собеседника. В очередной раз стоит напомнить, что точность геолокации IP адресов мобильных операторов ОЧЕНЬ НИЗКАЯ.' +
                 '<br><br>' +
                 '<b>- Раздел \'Настройки\'.</b><br>' +
                 '— В раздел панели управления добавлена опция (по умолчанию включена), запрещающая изменение размера шрифта элементов панели управления. Расширение поддерживает множество сайтов и на некоторых из них есть промотекст с очень крупным шрифтом, что может очень неприятно повлиять на панель управления.' +
@@ -1401,7 +1417,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Добавлен фильтр для кнопок социальных сетей, чтобы эмулировать тёмную тему.<br>' +
                 '— Уменьшено выделение тени заголовка Omegle при активированной тёмной теме.' +
                 '<br><br>' +
-                '<b>- Простой режим.</b><br>' +
+                '<b>- Простой режим и Omegle.</b><br>' +
                 '— Изменен формат отображения данных геолокации мобильных IP адресов.'
         }
     }
