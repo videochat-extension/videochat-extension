@@ -55,7 +55,7 @@ export class CooMeetFreeSimpleDriver {
 
         // TODO: adapt to layout on free.coomeet.com to support loader there
         let self = this
-        document.arrive('.free-cm-app-loader2', {onceOnly: true, existing: true}, (el: Element)=> {
+        document.arrive('.free-cm-app-loader2', {onceOnly: true, existing: true}, (el: Element) => {
             self.loader = (el as HTMLElement).cloneNode(true) as HTMLElement
             self.loader.style.visibility = "hidden"
 
@@ -64,7 +64,7 @@ export class CooMeetFreeSimpleDriver {
             }
         })
 
-        this.cmtStop.addEventListener('click',()=> {
+        this.cmtStop.addEventListener('click', () => {
             if (self.loader) {
                 self.loader.style.visibility = "hidden"
             }
