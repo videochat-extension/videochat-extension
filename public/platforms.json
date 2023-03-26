@@ -5,6 +5,8 @@
         "sites": [
             {
                 "text": "chatruletka.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "76be5ce9-5af8-4267-aaf1-c68270091c6d",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.chatruletka.com/*",
@@ -12,6 +14,8 @@
             },
             {
                 "text": "chatruletka.ua",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "9120fc38-cdf5-4467-902c-26eef276b1d2",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.chatruletka.ua/*",
@@ -19,6 +23,8 @@
             },
             {
                 "text": "ruletka.chat",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "7c4bfd1e-91e2-4297-ae13-f14e60bee20f",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.ruletka.chat/*",
@@ -26,6 +32,8 @@
             },
             {
                 "text": "videochatar.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "c04cdbd5-0ad7-4800-882f-69f814d1bc20",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.videochatar.com/*",
@@ -33,6 +41,8 @@
             },
             {
                 "text": "videochatau.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "561fcddc-7e6e-4a1c-a309-9fd0d2aae151",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.videochatau.com/*",
@@ -40,6 +50,8 @@
             },
             {
                 "text": "videochatbr.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "4e8f3bd0-4122-4841-876b-73b93d075b6a",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.videochatbr.com/*",
@@ -47,6 +59,8 @@
             },
             {
                 "text": "brvideochat.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "7b294844-8215-42ef-889f-8976007c8bbb",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.brvideochat.com/*",
@@ -54,6 +68,8 @@
             },
             {
                 "text": "videochatca.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "6304e90c-ee50-4367-b6a5-4904f351460a",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.videochatca.com/*",
@@ -61,6 +77,8 @@
             },
             {
                 "text": "videochatde.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "300bd02d-03b9-4a39-830a-899afaeee4df",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.videochatde.com/*",
@@ -68,6 +86,8 @@
             },
             {
                 "text": "videochatfr.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "4d923ecd-c811-4adf-bb22-85ea364b59c4",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.videochatfr.com/*",
@@ -75,6 +95,8 @@
             },
             {
                 "text": "frvideochat.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "8a5768f5-fc69-4c1b-abaf-5f91630fe270",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.frvideochat.com/*",
@@ -82,6 +104,8 @@
             },
             {
                 "text": "roulettefrancais.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "435c7acd-f14b-4dad-b5c0-e7fc12134034",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.roulettefrancais.com/*",
@@ -89,6 +113,8 @@
             },
             {
                 "text": "videochatit.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "54e104c2-6400-48db-aecc-fb2a6667c4a2",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.videochatit.com/*",
@@ -96,6 +122,8 @@
             },
             {
                 "text": "videochatjp.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "82869d66-57d8-499f-a0d7-ef602985e2d5",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.videochatjp.com/*",
@@ -103,6 +131,8 @@
             },
             {
                 "text": "videochatmx.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "d25e509e-3d46-43aa-8992-2b28803f3d61",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.videochatmx.com/*",
@@ -110,6 +140,8 @@
             },
             {
                 "text": "videochatnl.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "f33fc358-981a-4f47-a3c5-e744ff1ca397",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.videochatnl.com/*",
@@ -117,6 +149,8 @@
             },
             {
                 "text": "videochatpl.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "c5f729c5-5ab6-4a41-8bc5-4d3c53e82e3f",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.videochatpl.com/*",
@@ -124,6 +158,8 @@
             },
             {
                 "text": "videochatpt.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "e8ff9008-8076-4298-8d18-70f3ac1ae292",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.videochatpt.com/*",
@@ -131,6 +167,8 @@
             },
             {
                 "text": "videochatru.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "98ea82db-9d50-4951-935e-2405d9fe892e",
                 "favicon": "chatruletka.png",
                 "origin": "https://videochatru.com/*",
@@ -138,6 +176,8 @@
             },
             {
                 "text": "videochatuk.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "7c0d647f-4428-4ac0-94c3-d19f8b7baac0",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.videochatuk.com/*",
@@ -145,6 +185,8 @@
             },
             {
                 "text": "videochatus.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "88fb811c-2c46-4b8f-95f3-47031339a4b2",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.videochatus.com/*",
@@ -152,6 +194,8 @@
             },
             {
                 "text": "roulette-espanol.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "faea5de8-9289-4206-88bc-3f1c6da1d153",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.roulette-espanol.com/*",
@@ -159,6 +203,8 @@
             },
             {
                 "text": "ruletaespanol.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "aadc258a-1edc-4b7a-8fdb-2956a76b71fe",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.ruletaespanol.com/*",
@@ -166,6 +212,8 @@
             },
             {
                 "text": "ruletkavideochat.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "d3b9e57b-83fd-4bc4-bee3-941d2f5e5070",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.ruletkavideochat.com/*",
@@ -173,6 +221,8 @@
             },
             {
                 "text": "turkishvideochat.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "471c5169-b762-456d-8ca2-9e79c4f634db",
                 "favicon": "chatruletka.png",
                 "origin": "https://*.turkishvideochat.com/*",
@@ -186,6 +236,8 @@
         "sites": [
             {
                 "text": "ome.tv",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "7fef97eb-a5cc-4caa-8d19-75dab7407b6b",
                 "favicon": "ometv.png",
                 "origin": "https://ome.tv/*",
@@ -193,6 +245,8 @@
             },
             {
                 "text": "ome.chat",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "vertical": true,
                 "id": "a8b7e712-740d-4bca-b60c-a0784b78b65b",
                 "favicon": "ometv.png",
@@ -201,6 +255,8 @@
             },
             {
                 "text": "camki.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "vertical": true,
                 "id": "8fbba2de-bb34-406f-adf2-13db02b26ec0",
                 "favicon": "camkicom.png",
@@ -209,6 +265,8 @@
             },
             {
                 "text": "chatalternative.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "a403aaa9-7d0a-4ea0-b20e-2abfb2aa55e3",
                 "favicon": "chatalternative.png",
                 "origin": "https://*.chatalternative.com/*",
@@ -216,6 +274,8 @@
             },
             {
                 "text": "chatrooms.chat",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "vertical": true,
                 "id": "2664dbb0-2658-4a1e-bc09-755b43fc27d9",
                 "favicon": "ometv.png",
@@ -224,6 +284,8 @@
             },
             {
                 "text": "chatrooms.pro",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "vertical": true,
                 "id": "0ec1c5cb-814e-4fe3-9b00-2a88fe97a05a",
                 "favicon": "ometv.png",
@@ -232,6 +294,8 @@
             },
             {
                 "text": "chat-brasil.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "vertical": true,
                 "id": "f3e2a048-5e38-4aa5-81de-e44da431c43c",
                 "favicon": "chatbrasil.png",
@@ -240,6 +304,8 @@
             },
             {
                 "text": "chat-de.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "vertical": true,
                 "id": "e89b035f-8fff-4366-bc7e-524bf073c82d",
                 "favicon": "chatde.png",
@@ -248,6 +314,8 @@
             },
             {
                 "text": "chat-fr.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "vertical": true,
                 "id": "22b5fbe5-a51e-4f14-b661-bbf798e26fe9",
                 "favicon": "chatfr.png",
@@ -256,6 +324,8 @@
             },
             {
                 "text": "chat-nl.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "vertical": true,
                 "id": "4de4a883-03cf-4f01-9c79-72ee911cb814",
                 "favicon": "chatnl.png",
@@ -264,6 +334,8 @@
             },
             {
                 "text": "chat-pl.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "vertical": true,
                 "id": "b20a89fd-728a-43ba-8a3c-1b777daa2108",
                 "favicon": "chatpl.png",
@@ -272,6 +344,8 @@
             },
             {
                 "text": "chat-pt.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "vertical": true,
                 "id": "2b963038-1ebf-42be-8a49-911c4fb2d880",
                 "favicon": "chatpt.png",
@@ -280,6 +354,8 @@
             },
             {
                 "text": "chatgenerator.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "vertical": true,
                 "id": "4218ed66-1198-41f9-a552-bf520a6de241",
                 "favicon": "ometv.png",
@@ -288,6 +364,8 @@
             },
             {
                 "text": "prostochat.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "vertical": true,
                 "id": "df1cb40f-1a7f-4a74-a50e-db2b5701a3a7",
                 "favicon": "ometv.png",
@@ -296,6 +374,8 @@
             },
             {
                 "text": "stickam.chat",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "vertical": true,
                 "id": "96add9fc-d9bd-4a27-998a-362f989de713",
                 "favicon": "ometv.png",
@@ -304,6 +384,8 @@
             },
             {
                 "text": "chatbizar.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "vertical": true,
                 "id": "ec9c76dc-f4d5-4d0e-9659-7ebb40583e62",
                 "favicon": "ukrchat.png",
@@ -312,6 +394,8 @@
             },
             {
                 "text": "ukr.chat",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "vertical": true,
                 "id": "ef3810b6-0f48-40ca-8471-45be083847f4",
                 "favicon": "ukrchat.png",
@@ -320,6 +404,8 @@
             },
             {
                 "text": "cafeclub.ua",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "vertical": true,
                 "id": "54d83a2c-646d-44bc-bdac-81955063f062",
                 "favicon": "cafeclubua.png",
@@ -328,6 +414,8 @@
             },
             {
                 "text": "indiavideochat.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "vertical": true,
                 "id": "ca291ac7-a4e5-44ea-8374-b4fcbcb49f94",
                 "favicon": "indiavideochat.png",
@@ -336,6 +424,8 @@
             },
             {
                 "text": "webcamchatta.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "vertical": true,
                 "id": "24e9d640-1f8a-4eab-aca4-7c30da8d13e6",
                 "favicon": "webcamchatta.png",
@@ -350,6 +440,8 @@
         "sites": [
             {
                 "text": "minichat.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "4626defa-6c31-4d5c-9777-691022a59997",
                 "favicon": "minichat.png",
                 "origin": "https://*.minichat.com/*",
@@ -363,6 +455,8 @@
         "sites": [
             {
                 "text": "chatrulez.ru",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "419ec9bc-cc89-445b-8675-cdc5de462db6",
                 "origin": "https://*.chatrulez.ru/*",
                 "favicon": "chatrulez.png",
@@ -370,6 +464,8 @@
             },
             {
                 "text": "videochatruletka.com",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "87257afe-d02f-4b78-b9dc-cdce9c76e1da",
                 "favicon": "videochatruletkaru.png",
                 "origin": "https://*.videochatruletka.com/*",
@@ -377,6 +473,8 @@
             },
             {
                 "text": "videochatruletka.ru",
+                "support": "full",
+                "supportDesc": "supportDescCOMC",
                 "id": "11752b1e-5db4-4ba8-9c6e-4c6a80cf1fbe",
                 "favicon": "videochatruletkaru.png",
                 "origin": "https://*.videochatruletka.ru/*",
@@ -390,6 +488,8 @@
         "sites": [
             {
                 "text": "omegle.com",
+                "support": "limited",
+                "supportDesc": "supportDescOmegle",
                 "id": "13fa70ac-6a70-4eab-8410-0fca063fbdea",
                 "favicon": "omegle.png",
                 "origin": "https://*.omegle.com/*",
@@ -397,6 +497,8 @@
             },
             {
                 "text": "omegle.tv",
+                "support": "limited",
+                "supportDesc": "supportDescOmegle",
                 "id": "4aef8e93-30f2-4171-be64-2d4a8b7b6d87",
                 "favicon": "omegle.png",
                 "origin": "https://*.omegle.tv/*",
@@ -410,6 +512,8 @@
         "sites": [
             {
                 "text": "free.coomeet.com",
+                "support": "limited",
+                "supportDesc": "supportDescFreecm",
                 "id": "8d3f9f09-ac53-4fdf-b8e4-02928cc0611c",
                 "favicon": "coomeetfree.png",
                 "origin": "https://*.free.coomeet.com/*",
@@ -417,6 +521,8 @@
             },
             {
                 "text": "rusvideochat.ru",
+                "support": "limited",
+                "supportDesc": "supportDescFreecm",
                 "id": "89c68095-6ce3-4902-964d-45e3aee4ddcf",
                 "favicon": "rusvideochat.png",
                 "origin": "https://*.rusvideochat.ru/*",
@@ -424,6 +530,8 @@
             },
             {
                 "text": "video-roulette24.ru",
+                "support": "limited",
+                "supportDesc": "supportDescFreecm",
                 "id": "a584ff00-4b49-4994-bb66-4fd5009be171",
                 "favicon": "videoroulette24ru.png",
                 "origin": "https://*.video-roulette24.ru/*",
@@ -431,6 +539,8 @@
             },
             {
                 "text": "chatroulette.msk.ru",
+                "support": "limited",
+                "supportDesc": "supportDescFreecm",
                 "id": "07ae1d96-5479-49cf-a6c7-83ca1cb09752",
                 "favicon": "chatroulettemskru.png",
                 "origin": "https://*.chatroulette.msk.ru/*",

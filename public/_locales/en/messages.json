@@ -685,5 +685,14 @@
   },
   "freecmCountriesListTitle": {
     "message": "Message from $1: You have been identified as $2. You will come across the following countries: $3."
+  },
+  "supportDescCOMC": {
+    "message": "Full support"
+  },
+  "supportDescOmegle": {
+    "message": "Limited support. Features: IP Locator & Dark Mode."
+  },
+  "supportDescFreecm": {
+    "message": "Limited support. Features: bot recognition & interface tweaks."
   }
 }
