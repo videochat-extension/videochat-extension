@@ -547,9 +547,7 @@ function init() {
     // this thing handles all messages coming from content scripts
     chrome.runtime.onMessage.addListener(runtimeOnMessage);
 
-    // very old post-install poll, a Google script then uses webhook to forward the response to the text channel in the extension's discord server
-    // very demotivating experience for a dev, should be replaced with less intrusive
-    // chrome.runtime.setUninstallURL("https://docs.google.com/forms/d/1TIynfMSRGrFb7_Co9Rb0ZEhts3WROMRcrCNPV8XE0ls")
+    chrome.runtime.setUninstallURL(chrome.i18n.getMessage('lang') === "ru" ? "https://forms.gle/Li9geDBq2DAds8Fy9" : "https://forms.gle/sSnsuAHM1oYh6c938")
 }
 
 init()
