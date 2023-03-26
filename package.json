@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@sentry/types": "^7.38.0",
+    "@sentry/webpack-plugin": "^1.20.0",
     "@types/chrome": "^0.0.219",
     "@types/dompurify": "^2.4.0",
     "@types/jquery": "^3.5.16",
