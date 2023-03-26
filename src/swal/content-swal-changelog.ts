@@ -1374,7 +1374,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Added basic support for chatroulette.msk.ru.' +
                 '<br><br>' +
                 '<b>- Section \'IP\'.</b><br>' +
-                '— If mobile IP city/region display is disabled (this is by default), now you can hover over LOCATION HIDDEN to see which city and region have been determined for the stanger. Once again, it is worth recalling that the accuracy of geolocation of IP addresses of mobile operators is very, very low.' +
+                '— If mobile IP city/region display is disabled (this is by default), now you can hover over LOCATION HIDDEN to see which city and region have been determined for the stranger. Once again, it is worth recalling that the accuracy of geolocation of IP addresses of mobile operators is very, very low.' +
                 '<br><br>' +
                 '<b>- Section \'Settings\'.</b><br>' +
                 '— An option (enabled by default) has been added to the control panel section to prohibit changing the font size of control panel elements. Extension supports a lot of sites and some of them have promotional materials with very large fonts that can affect the control panel leading to a very ugly result.' +
