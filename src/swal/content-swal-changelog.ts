@@ -1387,7 +1387,8 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Changed the display format of geolocation data of mobile IP addresses.' +
                 '<br><br>' +
                 '<b>- Miscellaneous.</b><br>' +
-                '— Added post-uninstall Google Form.',
+                '— Added post-uninstall Google Form.<br>' +
+                '— Sites with limited support are now highlighted with a separate icon and description in the popup.',
             ru: '<b>Новые зеркала для ome.tv, базовая поддержка Coomeet Free, мелкие улучшения.</b><br>' +
                 '<br>' +
                 '<b>- Расширение поддержки платформы ome.tv</b><br>' +
@@ -1418,7 +1419,8 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Изменен формат отображения данных геолокации мобильных IP адресов.' +
                 '<br><br>' +
                 '<b>- Разное.</b><br>' +
-                '— Добавлена Google Form при удалении расширения.'
+                '— Добавлена Google Form при удалении расширения.<br>' +
+                '— В Popup сайты с ограниченной поддержкой теперь выделены отдельной иконкой и описанием.'
         }
     }
 ]
