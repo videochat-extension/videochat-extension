@@ -662,6 +662,9 @@
   "freecmBotButton": {
     "message": "BOT DETECTED"
   },
+  "freecmBotButtonReset": {
+    "message": "Find a chat partner"
+  },
   "freecmBotNextButton": {
     "message": "Next (current: $1)"
   },

@@ -656,6 +656,9 @@
   "freecmBotButton": {
     "message": "ВАШ СОБЕСЕДНИК БОТ"
   },
+  "freecmBotButtonReset": {
+    "message": "Найти собеседника"
+  },
   "freecmBotNextButton": {
     "message": "Следующий (сейчас: $1)"
   },

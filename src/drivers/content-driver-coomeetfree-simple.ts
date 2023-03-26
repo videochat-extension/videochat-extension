@@ -65,6 +65,8 @@ export class CooMeetFreeSimpleDriver {
         })
 
         this.cmtStop.addEventListener('click', () => {
+            this.setNextButtonText(chrome.i18n.getMessage('freecmBotButtonReset'))
+            this.cmtNext!.style.background = ''
             if (self.loader) {
                 self.loader.style.visibility = "hidden"
             }
