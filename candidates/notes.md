@@ -29,13 +29,16 @@
 * UI feels very old, do users want to alter it? is the platform ok with extensions messing with the well-known UI?
 * lots of chrome/firefox extensions on the market, expect heavy competition
     * **Omegle Ip Locator (bjlelflfdakmhpenaoodokchfhehacmh)**
-        * **<= 2020-12-27 -> <=2023-02-10**
+        * **<= 2020-12-27 -> <=2023-02-10; 2023-03-24 -> ...**
+        * biggest possible competitor, but no new features expected
         * Similar to chatruletka extension's minimalism mode: only ip geolocation to the chat
-        * Had ~276k by the time it was removed
+        * Had ~276k by the time it was removed, ~240k when restored.
         * Removed on 2023-02-10 because of obfuscated content script.
+        * Restored on 2023-03-24 with clean content script, but still allowing all host_permisisons in the manifest for some reason.
+        * When the extension was restored in the Chrome Web Store, Chromegle API server was DDOSed.
   * **Chromegle (gcbbaikjfjmidabapdnebofcmconhdbn)**
     * **<= 2021-07-22**
-    * biggest possible competitor, 0.5-1.5% of people online use Chromegle, is growing fast
+    * quite big, 0.5-1.5% of people online use Chromegle, was growing very fast during the omegle ip locator removal
     * GPL-3
     * Features
       * ip geolocation

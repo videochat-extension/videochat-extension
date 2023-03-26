@@ -933,13 +933,10 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 'At the moment I have motivation to work on the project and I also have new ideas, which include: maintaining and developing everything that is already working, improving the quality of the code, new features, support for new video chat platforms and some experiments.' +
                 '<br>' +
                 '<br>' +
-                'Many interesting opportunities opened up, such as the path to the US market (the most popular geolocation extension for US Omegle with 270,000 users was removed from the Chrome Web Store).' +
-                '<br>' +
-                '<br>' +
                 '<b>At the same time, it is worth noting a few important things:</b>' +
                 '<br>' +
                 '<br>' +
-                '1. This extension will never be sold to third parties and will never be monetized by the malicious methods allegedly due to which the Omegle IP Locator extension was removed. ' +
+                '1. This extension will never be sold to third parties and will never be monetized by the malicious methods. ' +
                 '<br>' +
                 '<br>' +
                 '2. This extension will never interfere with the functionality that is critical for the functioning of video chats: I will not oppose the moderation, user identification and ban systems, as well as implement functionality similar to the paid functions of video chat platforms (for example, if video chat offers a gender filter for money - I don\'t implement the same in the extension and so on, there may be exceptions, such as: geolocation, adblock, bot filter, etc.).' +
@@ -1122,13 +1119,10 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 'На данный момент у меня есть мотивация для работы над проектом и новые идеи, среди которых есть: поддержка и развитие всего того, что уже работает, улучшение качества кода, новые функции, поддержка новых платформ видеочатов и некоторые запланированные эксперименты.' +
                 '<br>' +
                 '<br>' +
-                'Перед расширением открылось много интересных возможностей, вроде пути на рынок США (самое популярное расширение с геолокацией для американского Omegle с 270.000 пользователей было удалено из магазина Chrome).' +
-                '<br>' +
-                '<br>' +
                 '<b>При этом стоит отметить несколько важных моментов:</b>' +
                 '<br>' +
                 '<br>' +
-                '1. Это расширение никогда не будет продано третьим лицам и никогда не будет монетизироваться вредоносными методами, предположительно из-за которых было удалено расширение Omegle IP Locator. ' +
+                '1. Это расширение никогда не будет продано третьим лицам и никогда не будет монетизироваться вредоносными методами. ' +
                 '<br>' +
                 '<br>' +
                 '2. Это расширение никогда не будет вмешиваться в функционал, критичный для функционирования видеочатов: я не буду противодействовать системе модерации, системам идентификации и блокировки пользователей, а так же реализовывать функционал, аналогичный платным функциям платформ-видеочатов (например, если видеочат предлагает фильтр полов за деньги - я не реализовываю аналогичный в расширении и так далее, возможны исключения, такие как: геолокация, блокировка рекламы, фильтр ботов и др.).' +
