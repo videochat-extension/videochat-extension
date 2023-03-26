@@ -1,3 +1,5 @@
+import * as Sentry from "@sentry/browser";
+
 export function addStyle(styleString: string) {
     const style = document.createElement('style');
     style.textContent = styleString;
@@ -8,6 +10,7 @@ export function tryCatch(func: any, ...args: any) {
     try {
         return func(...args)
     } catch (e) {
+        Sentry.captureException(e)
         console.dir(e)
     }
 }
