@@ -48,9 +48,13 @@ export class SwalWithSteps {
         this.swalQueueStep.update({
             title: this.titles[this.currentStep],
             showCancelButton: this.currentStep > 0,
-            html: this.getHTML(),
+            html: `<div id="swalWithStepsContainer">${this.getHTML()}</div>`,
             currentProgressStep: this.currentStep
         })
+        let con = document.getElementById('swalWithStepsContainer')
+        if (con) {
+            con.scrollIntoView()
+        }
     }
 
     protected getHTML = () => {
