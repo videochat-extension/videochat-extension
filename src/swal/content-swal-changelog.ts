@@ -1390,7 +1390,10 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Reduced Omegle header shadow highlighting when dark theme is enabled.' +
                 '<br><br>' +
                 '<b>- Minimalism mode & Omegle.</b><br>' +
-                '— Changed the display format of geolocation data of mobile IP addresses.',
+                '— Changed the display format of geolocation data of mobile IP addresses.' +
+                '<br><br>' +
+                '<b>- Miscellaneous.</b><br>' +
+                '— Added post-uninstall Google Form.',
             ru: '<b>Новые зеркала для ome.tv, базовая поддержка Coomeet Free, мелкие улучшения.</b><br>' +
                 '<br>' +
                 '<b>- Расширение поддержки платформы ome.tv</b><br>' +
@@ -1418,7 +1421,10 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Уменьшено выделение тени заголовка Omegle при активированной тёмной теме.' +
                 '<br><br>' +
                 '<b>- Простой режим и Omegle.</b><br>' +
-                '— Изменен формат отображения данных геолокации мобильных IP адресов.'
+                '— Изменен формат отображения данных геолокации мобильных IP адресов.' +
+                '<br><br>' +
+                '<b>- Разное.</b><br>' +
+                '— Добавлена Google Form при удалении расширения.'
         }
     }
 ]
