@@ -1355,7 +1355,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
     },
     {
         version: "1.7.3",
-        date: "2023-03-XX",
+        date: "2023-03-26",
         description: {
             en: '<b>New mirrors for ome.tv, basic Coomeet Free support, minor improvements.</b><br>' +
                 '<br>' +
