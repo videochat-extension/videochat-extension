@@ -1,10 +1,3 @@
-> v1.7.0 update brings typescript rewrite, support for firefox, omegle and 44 sites of the global Chatruletka/ometv platform (like https://ome.chat)!  
-
-> Unfortunately the v1.7.0 update for Chrome Web Store is not available yet due to unexpected problems with the store policy, which I am currently trying to solve, but due to slow moderation it may take longer than expected.  
-
-> You can check v1.7.0 in the Firefox, which just got Firefox support:  
-> https://addons.mozilla.org/firefox/addon/videochat-extension-ip-locator
-
 <h1 align="center">Videochat Extension (Чат Рулетное Расширение)</h1>
 
 <p align="center">
