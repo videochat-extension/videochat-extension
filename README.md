@@ -8,7 +8,7 @@
 <a href = ""><img src="https://img.shields.io/date/1632816617?label=released"></a>
 </p>
 
-Videochat Extension (Chatruletka Extension) is an independent open-source project that extends the functionality of your favorite online video chats.
+Videochat Extension (Chatruletka Extension) is an independent open-source browser extension that expands the functionality of your favorite online video chats.
 
 It currently supports 55 video chat sites belonging to six platforms: Chatruletka (Чат Рулетка), Ome.tv, Minichat, Chatrulez, Omegle (IP Locator & Dark Mode only) and Coomeet Free (bot recognition only).
 
