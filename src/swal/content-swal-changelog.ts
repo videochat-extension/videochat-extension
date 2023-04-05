@@ -1436,7 +1436,21 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Добавлена Google Form при удалении расширения.<br>' +
                 '— В Popup сайты с ограниченной поддержкой теперь выделены отдельной иконкой и описанием.'
         }
-    }
+    },
+    {
+        version: "1.7.5",
+        date: "2023-04-05",
+        description: {
+            en: '<b>Minor release.</b><br>' +
+                '<br>' +
+                '<b>- Information.</b><br>' +
+                '— Returned temporary v1.6.4 to the changelog, because when updating from v1.6.4, the changelog was not displayed correctly.',
+            ru: '<b>Небольшое исправление.</b><br>' +
+                '<br>' +
+                '<b>- Информация.</b><br>' +
+                '— В changelog возвращена временная v1.6.4, потому что при обновлении с v1.6.4 неправильно отображался changelog.'
+        }
+    },
 ]
 
 
