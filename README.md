@@ -151,6 +151,21 @@ It currently supports 55 video chat sites belonging to six platforms: Chatruletk
 * **https://video-roulette24.ru**
 * **https://chatroulette.msk.ru**
 
-## Please note
-* This extension is intended for real users who come to chat without destructive / hostile intentions.  
-* All PRs with functionality that can harm users of the platform, such as bypassing the ban on virtual cameras to scare people with screamers, will be rejected.
+## Policy of neutrality, acceptable use and functional limitations
+* This extension is meant to improve UX of real users / streamers who enter the chat without destructive/hostile intent. I do not endorse any other use of the extension and when choosing new features, I focus on the video chat policy and try to follow it as much as possible to avoid any conflict.
+* This extension is completely independent of the administration of video chats, but tries to develop in such a way as not to harm the platforms and their users.
+* This extension will never interfere with the functionality that is critical for the functioning of video chats: it will not oppose the moderation, user identification and ban systems, as well as implement functionality similar to the paid functions of video chat platforms (for example, if video chat offers a gender filter for money - I don't implement the same in the extension and so on, there may be exceptions, such as: geolocation, adblock, bot filter, etc.).
+* This extension will never partner with any video chats to promote them to the extension's audience. Video chat platforms in the list of supported ones are listed in the order of appearance of this very support.
+* This extension will never be sold to third parties and will never be monetized by the malicious methods.
+* This extension respects the privacy of its users and develops according to this statement.
+* This extension and all of its software components will always be distributed under free and open source licenses to ensure transparency, freedom and security of use and modification.
+* I don't plan to create my own video chat and use my extension to promote it: I have my main project (unrelated to video chats), which takes most of my life energy, and I'm not going to cheat on it. I can use the money donated by the users of the extension to finance the development of my own projects, but сreating and maintaining a global videochat is beyond my capabilities, given the number and complexity of my independent projects, in the constant development and support of which I am interested. I recognize the permanence of the current leaders in the video chat market, which has been developing for 15 years, and I could not do anything with them even if I wanted to.
+
+### What happens if there is an attempt to disrupt the functionality of the extension?
+If any supported videochat tries to intentionally prevent the extension from working or harm its users, I will first try to contact its owners and use diplomacy to try to resolve the conflict and continue supporting their video chat on the browser extension platform.
+
+If the efforts are pointless and the conflict is not resolved, it will be very sad, because we will have to consider this particular videochat as hostile and the set of possible functions for implementation will be greatly reduced, because in order to implement some functions it is necessary to make changes to the html / js code of the site, which may want to prevent it and be able to do it.
+
+If this video chat was popular among users of the extension, we will continue to support it in the desktop program based on our electron fork and the implementation of all the necessary hooks with chromium code patches. Basic functions like geolocation will continue to work, while it will be very difficult for the videochat itself to distinguish the user of the program from the user of the usual browser. In addition, since we will no longer be bound by our policies and the policies of the extension stores, we will be able to implement features aimed at protecting the user's privacy from moderators and much more.
+
+In any case, I hope that it will not come to this and video chats will find my independent project useful for themselves so that they will not interfere with a very small percentage of users from using limited extended functionality. I just wanted to indicate that there is always a backup plan and if the platform becomes hostile, the user will always stay in priority.
