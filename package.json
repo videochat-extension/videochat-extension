@@ -1,6 +1,6 @@
 {
   "name": "videochat-extension",
-  "version": "1.7.5",
+  "version": "1.7.6",
   "description": "",
   "scripts": {
     "ext:chrome": "rimraf 'webpack_builds/release_chrome' && cross-env BROWSER='chrome' DIR='webpack_builds/release_chrome' webpack --config webpack/webpack.prod.js",
@@ -47,9 +47,9 @@
     "@vladmandic/face-api": "1.7.9",
     "arrive": "^2.4.1",
     "dompurify": "^3.0.0",
-    "leaflet": "^1.9.3",
+    "leaflet": "1.9.3",
     "sdp": "^3.2.0",
-    "sweetalert2": "^11.4.8",
+    "sweetalert2": "11.4.8",
     "tooltipster": "^4.2.8"
   }
 }

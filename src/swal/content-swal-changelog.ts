@@ -1451,6 +1451,20 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— В changelog возвращена временная v1.6.4, потому что при обновлении с v1.6.4 неправильно отображался changelog.'
         }
     },
+    {
+        version: "1.7.6",
+        date: "2023-04-05",
+        description: {
+            en: '<b>Minor release.</b><br>' +
+                '<br>' +
+                '<b>- Information.</b><br>' +
+                '— Downgrade sweetalert2 because of the protestware code.',
+            ru: '<b>Небольшое исправление.</b><br>' +
+                '<br>' +
+                '<b>- Информация.</b><br>' +
+                '— Откат версии sweetalert2 из-за protestware кода.'
+        }
+    },
 ]
 
 
