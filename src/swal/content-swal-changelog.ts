@@ -903,6 +903,20 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
         }
     },
     {
+        version: "1.6.4",
+        date: "2023-03-26",
+        description: {
+            en: '<b>Urgent temporary release fixing work on ome.tv.</b><br>' +
+                '<br>' +
+                '<b>- Information.</b><br>' +
+                '— Fixed a bug when the extension were not starting when the ome.tv website was loading slowly (videochatru.com worked fine).',
+            ru: '<b>Срочный временный релиз, исправляющий работу на ome.tv.</b><br>' +
+                '<br>' +
+                '<b>- Информация.</b><br>' +
+                '— Исправлена ошибка при старте расширения при медленной загрузке сайта ome.tv (videochatru.com работал нормально).'
+        }
+    },
+    {
         version: "1.7.0",
         date: "2023-03-14",
         description: {
