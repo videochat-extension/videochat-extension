@@ -50,8 +50,10 @@ async function content() {
                     for (const match of script.matches) {
                         let matchDomain = extractDomain(match)
                         if (domain === matchDomain) {
-                            if (settings["legacyPrevent"][website.site.id]) {
-                                return
+                            if (typeof settings["legacyPrevent"][website.site.id] !== "undefined") {
+                                if (settings["legacyPrevent"][website.site.id]) {
+                                    return
+                                }
                             }
                         }
                     }
