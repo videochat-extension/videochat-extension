@@ -10,7 +10,8 @@ export function tryCatch(func: any, ...args: any) {
     try {
         return func(...args)
     } catch (e) {
-        Sentry.captureException(e)
+        // too much
+        // Sentry.captureException(e)
         console.dir(e)
     }
 }
