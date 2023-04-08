@@ -166,5 +166,8 @@ async function content() {
 // TODO: firefox for some reason injects the content script in about:blank ???
 // this happens only in dynamic scripts, possible allFrames issue ???
 if (location.href.includes('http')) {
-    content()
+    // avoid injecting into oauth2 pages
+    if (!location.href.includes('/auth/')) {
+        content()
+    }
 }
