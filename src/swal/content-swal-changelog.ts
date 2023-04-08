@@ -1471,20 +1471,16 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
         description: {
             en: '<b>Minor release.</b><br>' +
                 '<br>' +
-                '<b>- Hotkeys.</b><br>' +
+                '<b>- Fixes & Improvements.</b><br>' +
                 '— Fixed shift+arrow-left ban hotkey (Chatruletka, Ome.tv, Minichat, Chatrulez).' +
-                '<br>' +
-                '<br>' +
-                '<b>- Miscellaneous.</b><br>' +
-                '— Removed zoom in the \'Missing permission detected\' window.',
+                '— Fixed spinner color in omegle dark theme.<br>' +
+                "— Fixed zoom in the 'Missing permission detected' window.",
             ru: '<b>Небольшое исправление.</b><br>' +
                 '<br>' +
-                '<b>- Хоткеи.</b><br>' +
+                '<b>- Исправления и улучшения.</b><br>' +
                 '— Исправлена работа клавиши shift+стрелка-влево (Chatruletka, Ome.tv, Minichat, Chatrulez).' +
-                '<br>' +
-                '<br>' +
-                '<b>- Разное.</b><br>' +
-                '— Уменьшен размер окна \'Обнаружено отсутствующее разрешение\'.'
+                '— Исправлен цвет спиннера при включённой тёмной теме (Omegle).<br>' +
+                '— Исправлен размер окошка \'Обнаружено отсутствующее разрешение\'.'
         }
     },
 ]
