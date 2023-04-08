@@ -69,13 +69,13 @@ export class HotkeysModule {
     }
 
     public unregister() {
-        document.removeEventListener('keydown', this.localHotkeysKeyDownTiming)
-        document.removeEventListener('keyup', this.localHotkeys)
+        document.removeEventListener('keydown', this.localHotkeysKeyDownTiming.bind(this))
+        document.removeEventListener('keyup', this.localHotkeys.bind(this))
     }
 
     public register() {
-        document.addEventListener('keydown', this.localHotkeysKeyDownTiming)
-        document.addEventListener('keyup', this.localHotkeys)
+        document.addEventListener('keydown', this.localHotkeysKeyDownTiming.bind(this))
+        document.addEventListener('keyup', this.localHotkeys.bind(this))
     }
 
     private arrowLeft = 0
