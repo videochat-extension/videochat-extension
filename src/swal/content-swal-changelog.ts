@@ -1465,6 +1465,20 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Откат версии sweetalert2 из-за protestware кода.'
         }
     },
+    {
+        version: "1.7.7",
+        date: "2023-04-XX",
+        description: {
+            en: '<b>Minor release.</b><br>' +
+                '<br>' +
+                '<b>- Hotkeys.</b><br>' +
+                '— Fixed shift+left ban hotkey (Chatruletka, Ome.tv, Minichat, Chatrulez).',
+            ru: '<b>Небольшое исправление.</b><br>' +
+                '<br>' +
+                '<b>- Хоткеи.</b><br>' +
+                '— Исправлена работа клавиши shift+влево (Chatruletka, Ome.tv, Minichat, Chatrulez).'
+        }
+    },
 ]
 
 
