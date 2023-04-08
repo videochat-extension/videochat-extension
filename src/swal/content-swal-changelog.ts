@@ -1472,11 +1472,19 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
             en: '<b>Minor release.</b><br>' +
                 '<br>' +
                 '<b>- Hotkeys.</b><br>' +
-                '— Fixed shift+left ban hotkey (Chatruletka, Ome.tv, Minichat, Chatrulez).',
+                '— Fixed shift+arrow-left ban hotkey (Chatruletka, Ome.tv, Minichat, Chatrulez).' +
+                '<br>' +
+                '<br>' +
+                '<b>- Miscellaneous.</b><br>' +
+                '— Removed zoom in the \'Missing permission detected\' window.',
             ru: '<b>Небольшое исправление.</b><br>' +
                 '<br>' +
                 '<b>- Хоткеи.</b><br>' +
-                '— Исправлена работа клавиши shift+влево (Chatruletka, Ome.tv, Minichat, Chatrulez).'
+                '— Исправлена работа клавиши shift+стрелка-влево (Chatruletka, Ome.tv, Minichat, Chatrulez).' +
+                '<br>' +
+                '<br>' +
+                '<b>- Разное.</b><br>' +
+                '— Уменьшен размер окна \'Обнаружено отсутствующее разрешение\'.'
         }
     },
 ]
