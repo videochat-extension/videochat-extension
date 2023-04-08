@@ -152,7 +152,7 @@ modification, are permitted provided that the following conditions are met:<br><
    documentation and/or other materials provided with the distribution. <br>
  * All advertising materials mentioning features or use of this software 
    must display the following acknowledgement: This product includes 
-   software developed the Videochat Extension project and its contributors. <br>
+   software developed by the Videochat Extension and its contributors. <br>
  * Neither the name of the Videochat Extension nor the names of its 
    contributors may be used to endorse or promote products derived from 
    this software without specific prior written permission. <br><br>
