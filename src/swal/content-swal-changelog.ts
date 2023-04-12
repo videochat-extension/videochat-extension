@@ -1469,18 +1469,20 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
         version: "1.7.7",
         date: "2023-04-XX",
         description: {
-            en: '<b>Minor release.</b><br>' +
+            en: '<b><a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/en\">Website</a>, fixes.</b><br>' +
                 '<br>' +
                 '<b>- Fixes & Improvements.</b><br>' +
-                '— Fixed shift+arrow-left ban hotkey (Chatruletka, Ome.tv, Minichat, Chatrulez).' +
+                '— Fixed shift+arrow-left ban hotkey (Chatruletka, Ome.tv, Minichat, Chatrulez).<br>' +
                 '— Fixed spinner color in omegle dark theme.<br>' +
-                "— Fixed zoom in the 'Missing permission detected' window.",
-            ru: '<b>Небольшое исправление.</b><br>' +
+                "— Fixed zoom in the 'Missing permission detected' window.<br>" +
+                "— Post-uninstall survey now opens on the <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/en\">extension's website</a>.",
+            ru: '<b><a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/ru\">Сайт расширения</a>, исправления ошибок.</b><br>' +
                 '<br>' +
                 '<b>- Исправления и улучшения.</b><br>' +
-                '— Исправлена работа клавиши shift+стрелка-влево (Chatruletka, Ome.tv, Minichat, Chatrulez).' +
+                '— Исправлена работа клавиши shift+стрелка-влево (Chatruletka, Ome.tv, Minichat, Chatrulez).<br>' +
                 '— Исправлен цвет спиннера при включённой тёмной теме (Omegle).<br>' +
-                '— Исправлен размер окошка \'Обнаружено отсутствующее разрешение\'.'
+                '— Исправлен размер окошка \'Обнаружено отсутствующее разрешение\'.<br>' +
+                "— Опрос после удаления теперь открывается на <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/ru\">сайте расширения</a>.",
         }
     },
 ]
