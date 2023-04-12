@@ -225,7 +225,7 @@ export class GeolocationModule {
     }
 
     public checkApi() {
-        this.main = utils.getRandomInt(1, 15);
+        this.main = utils.getRandomInt(1, 20);
         (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStartCheck") + "</br></br>" + chrome.i18n.getMessage(this.main === 10 ? "mainDiscord" : "main", [this.driver.site.text])
 
         chrome.runtime.sendMessage({aremoteIP: "1.1.1.1", language: "en"}, (response) => {
