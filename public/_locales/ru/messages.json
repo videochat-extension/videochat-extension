@@ -47,6 +47,9 @@
   "main": {
     "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row\"><div><div id=\"reviewImageContainer\"></div><br><b>Важно:</b><br>Это расширение не имеет никакого отношения к администрации видеочата '$1'.</div></div>"
   },
+  "mainDiscord": {
+    "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row\"><div><div id=\"discordImageContainer\"></div><br><b>Важно:</b><br>Сообщество расширения размещено в <a href=\"https://discord.gg/7DYWu5RF7Y\" target=\"_blank\" style=\"text-decoration: none!important;\">Discord</a>.<br><br>В <a href=\"https://discord.gg/7DYWu5RF7Y\" target=\"_blank\" style=\"text-decoration: none!important;\">нашем Discord сервере</a> вы можете следить за новостями проекта, сообщить об ошибке, предложить функцию, получить техническую помощь и обсудить расширение с разработчиком и другими пользователями.</div></div>"
+  },
   "apiStatus0": {
     "message": "<b>Не удалось установить связь с сервисом геолокации IP. Проверьте, не блокирует ли vpn/adblock соединение: попробуйте изменить их настройки, добавить ip-api.com в белый список, попробуйте другой браузер. Если это не помогло, обратитесь за помощью к разработчику через <a href=\"https://discord.gg/7DYWu5RF7Y\" style=\"text-decoration: none!important;color:red\" target=\"_blank\">discord</a>.</b>"
   },
@@ -466,6 +469,9 @@
   },
   "discordBadge": {
     "message": "https://img.shields.io/discord/925632108150530108?label=%D0%BF%D1%80%D0%B8%D1%81%D0%BE%D0%B5%D0%B4%D0%B8%D0%BD%D1%8F%D0%B9%D1%82%D0%B5%D1%81%D1%8C&logo=discord"
+  },
+  "mainDiscordBadge": {
+    "message": "https://img.shields.io/discord/925632108150530108?label=%D0%92%D1%81%D1%82%D1%83%D0%BF%D0%B0%D0%B9%D1%82%D0%B5%20%D0%B2%20%D0%BD%D0%B0%D1%88%20%D0%BE%D1%84.%20Discord%20%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80&logo=discord&style=plastic"
   },
   "expand": {
     "message": "увеличить высоту 'Настройки':"

@@ -56,6 +56,9 @@
   "main": {
     "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row\"><div><div id=\"reviewImageContainer\"></div><br><b>Important:</b><br>This extension is a hobby project and is not affiliated with '$1' in any way.</div></div>"
   },
+  "mainDiscord": {
+    "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row\"><div><div id=\"discordImageContainer\"></div><br><b>Important:</b><br>The extension community is hosted on <a href=\"https://discord.gg/7DYWu5RF7Y\" target='_blank' style=\"text-decoration: none!important;\">Discord</a>.<br><br>In <a href=\"https://discord.gg/7DYWu5RF7Y\" target='_blank' style=\"text-decoration: none!important;\">our Discord server</a> you can subscribe to project updates, report a bug, suggest a feature, get technical help and discuss the extension with the developer and other users.</div></div>"
+  },
   "apiStatus0": {
     "message": "<b>IP geolocation API doesn't work at all, check if vpn/adblock is blocking the connection: try disabling adblock, adding ip-api.com to whitelist or even using another browser. If that didn't work for you, please ask the developer for help via <a href=\"https://discord.gg/7DYWu5RF7Y\" style=\"text-decoration: none!important;color:red\" target=\"_blank\">discord</a>.</b>"
   },
@@ -475,6 +478,9 @@
   },
   "discordBadge": {
     "message": "https://img.shields.io/discord/925632108150530108?label=join%20our%20discord&logo=discord"
+  },
+  "mainDiscordBadge": {
+    "message": "https://img.shields.io/discord/925632108150530108?label=You%20should%20join%20our%20official%20Discord%20server&logo=discord&style=plastic"
   },
   "expand": {
     "message": "expand 'Settings' tab:"

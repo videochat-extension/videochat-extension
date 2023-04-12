@@ -187,6 +187,7 @@ export class GeolocationModule {
     private driver: ChatruletkaDriver;
     private rmdaddr = "0.0.0.0"
     private api: number = 0;
+    private main: number = 0;
     private torrenstsConfirmed = false;
     private started: number = 0;
     private targetSound = new Audio(chrome.runtime.getURL('resources/audio/found.mp3'))
@@ -224,13 +225,14 @@ export class GeolocationModule {
     }
 
     public checkApi() {
-        (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStartCheck") + "</br></br>" + chrome.i18n.getMessage("main", [this.driver.site.text])
+        this.main = utils.getRandomInt(1, 15);
+        (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStartCheck") + "</br></br>" + chrome.i18n.getMessage(this.main === 10 ? "mainDiscord" : "main", [this.driver.site.text])
 
         chrome.runtime.sendMessage({aremoteIP: "1.1.1.1", language: "en"}, (response) => {
             if (response.status === 200) {
                 this.api = 2;
                 (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
-                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage("main", [this.driver.site.text])
+                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage(this.main === 10 ? "mainDiscord" : "main", [this.driver.site.text])
 
                 if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
                     this.driver.modules.controls.resizemap(false)
@@ -238,27 +240,29 @@ export class GeolocationModule {
                 console.dir(`ip-api.com test passed: ${response.status}`)
             } else if (response.status === 429) {
                 (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
-                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus429") + "</br></br>" + chrome.i18n.getMessage("main", [this.driver.site.text])
+                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus429") + "</br></br>" + chrome.i18n.getMessage(this.main === 10 ? "mainDiscord" : "main", [this.driver.site.text])
                 this.api = 2;
 
                 console.dir(`ip-api.com test passed: ${response.status}`)
             } else if (response.status === 0) {
                 this.api = 0
+                this.main = 10
                 console.dir(`ip-api.com test failed: ${response.status} ${response.body}`)
                 console.dir(chrome.i18n.getMessage("apiStatus0") + ' ERROR: ' + response.status);
 
                 (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
-                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize(`<b>ERROR: ${response.status} (${response.body}) || </b>`) + chrome.i18n.getMessage("apiStatus0") + "</br></br>" + chrome.i18n.getMessage("main", [this.driver.site.text])
+                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize(`<b>ERROR: ${response.status} (${response.body}) || </b>`) + chrome.i18n.getMessage("apiStatus0") + "</br></br>" + chrome.i18n.getMessage(this.main === 10 ? "mainDiscord" : "main", [this.driver.site.text])
                 if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
                     this.driver.modules.controls.resizemap(false)
                 }
             } else {
                 this.api = 0
+                this.main = 10
                 console.dir(`ip-api.com test failed: ${response.status} ${response.body}`)
                 console.dir(chrome.i18n.getMessage("apiStatus0") + ' ERROR: ' + response.status);
 
                 (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
-                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize(`<b>HTTP ERROR: ${response.status} || `) + '<b>' + chrome.i18n.getMessage("apiStatusRegular") + "</b></br></br>" + chrome.i18n.getMessage("main", [this.driver.site.text])
+                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize(`<b>HTTP ERROR: ${response.status} || `) + '<b>' + chrome.i18n.getMessage("apiStatusRegular") + "</b></br></br>" + chrome.i18n.getMessage(this.main === 10 ? "mainDiscord" : "main", [this.driver.site.text])
                 if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
                     this.driver.modules.controls.resizemap(false)
                 }
@@ -564,6 +568,7 @@ export class ControlsTabApi {
     private driver: ChatruletkaDriver;
     private module: any
     private reviewLinkContainer: JQuery<HTMLElement>;
+    private discordLinkContainer: JQuery<HTMLElement>;
 
     private constructor(driver: ChatruletkaDriver, module?: any) {
         this.driver = driver
@@ -572,9 +577,13 @@ export class ControlsTabApi {
         this.content = this.getContentHTML()
 
         this.reviewLinkContainer = this.getReviewLink()
+        this.discordLinkContainer = this.getDiscordLink()
         let self = this
         document.arrive("#reviewImageContainer", {existing: true}, function (el) {
             self.reviewLinkContainer.appendTo(el)
+        })
+        document.arrive("#discordImageContainer", {existing: true}, function (el) {
+            self.discordLinkContainer.appendTo(el)
         })
     }
 
@@ -651,6 +660,19 @@ export class ControlsTabApi {
                                 return `https://img.shields.io/amo/stars/videochat-extension-ip-locator?label=${chrome.i18n.getMessage('mainReviewLabelFirefox')}&logo=${chrome.i18n.getMessage('mainReviewLogoFirefox')}&style=plastic`
                         }
                     }()
+                })
+            ]
+        ))
+    }
+
+    private getDiscordLink() {
+        return $(utils.createElement('a', {
+                target: "_blank",
+                style: "margin-left: 3px; text-decoration: none !important;",
+                href: "https://discord.gg/7DYWu5RF7Y"
+            }, [
+                utils.createElement('img', {
+                    src: chrome.i18n.getMessage('mainDiscordBadge')
                 })
             ]
         ))
