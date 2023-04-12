@@ -1,6 +1,5 @@
 import $ from "jquery";
 import {ChatruletkaDriver} from "../content-driver-chatruletka";
-import {confirmAndReload} from "./content-module-settings";
 
 require('arrive')
 
@@ -62,12 +61,12 @@ export class AutomationModule {
         setInterval(() => {
             if (globalThis.platformSettings.get("skipFourSec")) {
                 try {
-                    if ((this.driver.stage === 2) && (this.driver.found + 4000 < Date.now())) {
+                    if ((this.driver.stage === 3) && (this.driver.found + 4000 < Date.now())) {
                         console.dir("Skipping due to loading time limit");
                         (document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement).click()
                     }
                 } catch (e) {
-                    //console.dir(e)
+                    // console.dir(e)
                 }
             }
         }, 1000)
