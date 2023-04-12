@@ -1469,7 +1469,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
         version: "1.7.7",
         date: "2023-04-XX",
         description: {
-            en: '<b>Our <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/en\">Website</a> & <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/7DYWu5RF7Y\">Discord server</a>. Minor fixes.</b><br>' +
+            en: '<b>Our <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/en\">website</a> & <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/7DYWu5RF7Y\">Discord server</a>. Minor fixes.</b><br>' +
                 '<br>' +
                 '<b>- Website.</b><br>' +
                 "— Launched a simple <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/en\">promo website</a>.<br>" +
@@ -1478,6 +1478,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 "— Redesigned <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/7DYWu5RF7Y\">our server in Discord</a>.<br>" +
                 "— If you use Discord, you should join our <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/7DYWu5RF7Y\">server</a>.<br>" +
                 "— There you can subscribe to the project's news, give us your feedback, report a bug, suggest an idea, or simply discuss the extension / video chats with other users.<br>" +
+                "— The extension will sometimes show you a reminder on the stop screen.<br>" +
                 '<br>' +
                 '<b>- Fixes & Improvements.</b><br>' +
                 '— Fixed shift+arrow-left ban hotkey (Chatruletka, Ome.tv, Minichat, Chatrulez).<br>' +
@@ -1493,6 +1494,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 "— Переработан <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/7DYWu5RF7Y\">наш сервер в Discord</a>.<br>" +
                 "— Если вы используете Discord, вам стоит присоединиться к <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/7DYWu5RF7Y\">нашему серверу</a>.<br>" +
                 "— Там вы сможете подписаться на новости проекта, оставить свой отзыв, сообщить о баге, предложить идею или же просто обсудить расширение и видеочаты с другими пользователями.<br>" +
+                "— Расширение иногда будет показывать вам напоминание на экране 'Стоп'.<br>" +
                 '<br>' +
                 '<b>- Исправления и улучшения.</b><br>' +
                 '— Исправлена работа клавиши shift+стрелка-влево (Chatruletka, Ome.tv, Minichat, Chatrulez).<br>' +
