@@ -616,20 +616,23 @@ export class ControlsTabApi {
             style: "height:100%;"
         }, [
             utils.createElement('div', {
-                id: "remoteFace",
-            }),
-            utils.createElement('div', {
-                id: "streamerStatus",
-                // style: "display: none;"
-            }),
-            utils.createElement('div', {
-                id: "apiStatus",
-                style: "margin-top: 3px"
-            }),
-            utils.createElement('div', {
-                id: "remoteInfo",
-                style: "overflow-y: auto;margin-top: 3px"
-            })
+                style: "display: flex; flex-flow: column;"
+            }, [
+                utils.createElement('div', {
+                    id: "remoteFace",
+                }),
+                utils.createElement('div', {
+                    id: "streamerStatus",
+                }),
+                utils.createElement('div', {
+                    id: "apiStatus",
+                    style: "margin-top: 3px"
+                }),
+                utils.createElement('div', {
+                    id: "remoteInfo",
+                    style: "overflow-y: auto; height: 100%; margin-top: 3px"
+                })
+            ])
         ])
     }
 
