@@ -48,10 +48,10 @@
     "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row\"><div><div id=\"reviewImageContainer\"></div><br><b>Важно:</b><br>Это расширение не имеет никакого отношения к администрации видеочата '$1'.</div></div>"
   },
   "apiStatus0": {
-    "message": "<b>Не удалось установить связь с сервисом геолокации IP. Проверьте, не блокирует ли vpn/adblock соединение: попробуйте изменить их настройки, добавить ip-api.com в белый список, попробуйте другой браузер. Если это не помогло, обратитесь за помощью к разработчику через <a href=\"https://discord.gg/gYmQWWjwEb\" style=\"text-decoration: none!important;color:red\" target=\"_blank\">discord</a>.</b>"
+    "message": "<b>Не удалось установить связь с сервисом геолокации IP. Проверьте, не блокирует ли vpn/adblock соединение: попробуйте изменить их настройки, добавить ip-api.com в белый список, попробуйте другой браузер. Если это не помогло, обратитесь за помощью к разработчику через <a href=\"https://discord.gg/7DYWu5RF7Y\" style=\"text-decoration: none!important;color:red\" target=\"_blank\">discord</a>.</b>"
   },
   "apiStatusRegular": {
-    "message": "Пожалуйста, сообщите о проблеме в <a href=\"https://discord.gg/gYmQWWjwEb\" target=\"_blank\" style=\"text-decoration: none!important;color:red\">discord</a>."
+    "message": "Пожалуйста, сообщите о проблеме в <a href=\"https://discord.gg/7DYWu5RF7Y\" target=\"_blank\" style=\"text-decoration: none!important;color:red\">discord</a>."
   },
   "apiStatus429": {
     "message": "<b>Слишком много запросов, попробуйте позже.</b>"

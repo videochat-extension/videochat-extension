@@ -439,7 +439,7 @@ export class ControlsTabAbout {
                     utils.createElement('br'),
                     utils.createElement('br'),
                     utils.createElement('span', {}, [
-                        this.createBadgeLink("https://discord.gg/gYmQWWjwEb", chrome.i18n.getMessage("discordBadge")),
+                        this.createBadgeLink("https://discord.gg/7DYWu5RF7Y", chrome.i18n.getMessage("discordBadge")),
                     ]),
                     utils.createElement('br'),
                     utils.createElement('br'),

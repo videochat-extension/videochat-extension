@@ -523,7 +523,7 @@ $(async function () {
             },
             {
                 text: "discord",
-                href: "https://discord.gg/gYmQWWjwEb",
+                href: "https://discord.gg/7DYWu5RF7Y",
                 buttons: [{
                     type: "link",
                     icon: "bi-box-arrow-up-right",

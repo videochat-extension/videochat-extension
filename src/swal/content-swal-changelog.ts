@@ -923,7 +923,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
             en: '<b>Support for 46 video chat sites, <a style="text-decoration:none;" target="_blank" href="https://addons.mozilla.org/firefox/addon/videochat-extension-ip-locator/">Firefox</a>, <a style="text-decoration:none;" target="_blank" href="https://microsoftedge.microsoft.com/addons/detail/jdpiggacibaaecfbegkhakcmgaafjajn">Edge</a> and TypeScript.</b>' +
                 '<br>' +
                 '<br>' +
-                'This is a very big and important update: every inner gear has been touched. If you think something is broken, please report to <a style="text-decoration:none;" target="_blank" href="https://discord.gg/9jCuhYg55P">Discord</a> or directly write to the <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">developer\'s email</a>.' +
+                'This is a very big and important update: every inner gear has been touched. If you think something is broken, please report to <a style="text-decoration:none;" target="_blank" href="https://discord.gg/7DYWu5RF7Y">Discord</a> or directly write to the <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">developer\'s email</a>.' +
                 '<br>' +
                 '<br>' +
                 'The goal of this update was to <b>rewrite the extension in a way that you wouldn\'t notice any changes</b>. Outwardly, almost nothing has changed, but inside, almost everything has changed.' +
@@ -1105,11 +1105,11 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 "— You can now prevent the changelog from opening on every update.<br>" +
                 '<br>' +
                 '<b>Important:</b><br>' +
-                `If you think something is broken, please write about it in <a style="text-decoration:none;" target="_blank" href="https://discord.gg/9jCuhYg55P">Discord</a> or directly to the <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">developer email</a>`,
+                `If you think something is broken, please write about it in <a style="text-decoration:none;" target="_blank" href="https://discord.gg/7DYWu5RF7Y">Discord</a> or directly to the <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">developer email</a>`,
             ru: '<b>Поддержка 46 сайтов-видеочатов, <a style="text-decoration:none;" target="_blank" href="https://addons.mozilla.org/firefox/addon/videochat-extension-ip-locator/">Firefox</a>, <a style="text-decoration:none;" target="_blank" href="https://microsoftedge.microsoft.com/addons/detail/jdpiggacibaaecfbegkhakcmgaafjajn">Edge</a> и TypeScript.</b>' +
                 '<br>' +
                 '<br>' +
-                'Это очень большое и важное обновление: в нём была затронута каждая внутренняя шестеренка. Если вам кажется, что что-то сломалось, пожалуйста, напишите в <a style="text-decoration:none;" target="_blank" href="https://discord.gg/YZKnbKGWen">Discord</a> или прямо на <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">почту разработчика</a>.' +
+                'Это очень большое и важное обновление: в нём была затронута каждая внутренняя шестеренка. Если вам кажется, что что-то сломалось, пожалуйста, напишите в <a style="text-decoration:none;" target="_blank" href="https://discord.gg/7DYWu5RF7Y">Discord</a> или прямо на <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">почту разработчика</a>.' +
                 '<br>' +
                 '<br>' +
                 'Задачей этого обновления было <b>переписать расширение таким образом, чтобы вы этого не заметили</b>. Внешне почти ничего не изменилось, но внутри изменилось практически всё.' +
@@ -1292,7 +1292,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 "— Теперь вы можете запретить журналу изменений открываться после каждого обновления.<br>" +
                 '<br>' +
                 '<b>Важно:</b><br>' +
-                `Если вам кажется, что что-то сломалось, пожалуйста, напишите в <a style="text-decoration:none;" target="_blank" href="https://discord.gg/YZKnbKGWen">Discord</a> или прямо на <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">почту разработчика</a>`
+                `Если вам кажется, что что-то сломалось, пожалуйста, напишите в <a style="text-decoration:none;" target="_blank" href="https://discord.gg/7DYWu5RF7Y">Discord</a> или прямо на <a style="text-decoration:none;" target="_blank" href="mailto:qrluke@proton.me">почту разработчика</a>`
         }
     },
     {
@@ -1469,14 +1469,14 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
         version: "1.7.7",
         date: "2023-04-XX",
         description: {
-            en: '<b>Our <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/en\">Website</a> & <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/9jCuhYg55P\">Discord server</a>. Minor fixes.</b><br>' +
+            en: '<b>Our <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/en\">Website</a> & <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/7DYWu5RF7Y\">Discord server</a>. Minor fixes.</b><br>' +
                 '<br>' +
                 '<b>- Website.</b><br>' +
                 "— Launched a simple <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/en\">promo website</a>.<br>" +
                 '<br>' +
                 '<b>- Discord.</b><br>' +
-                "— Redesigned <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/9jCuhYg55P\">our server in Discord</a>.<br>" +
-                "— If you use Discord, you should join our <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/9jCuhYg55P\">server</a>.<br>" +
+                "— Redesigned <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/7DYWu5RF7Y\">our server in Discord</a>.<br>" +
+                "— If you use Discord, you should join our <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/7DYWu5RF7Y\">server</a>.<br>" +
                 "— There you can subscribe to the project's news, give us your feedback, report a bug, suggest an idea, or simply discuss the extension / video chats with other users.<br>" +
                 '<br>' +
                 '<b>- Fixes & Improvements.</b><br>' +
@@ -1484,14 +1484,14 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Fixed spinner color in omegle dark theme.<br>' +
                 "— Fixed zoom in the 'Missing permission detected' window.<br>" +
                 "— Post-uninstall survey now opens on the <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/en\">extension's website</a>.",
-            ru: '<b>Наш <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/ru\">веб-сайт</a> & <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/YZKnbKGWen\">сервер в Discord</a>. Исправления ошибок.</b><br>' +
+            ru: '<b>Наш <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/ru\">веб-сайт</a> & <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/7DYWu5RF7Y\">сервер в Discord</a>. Исправления ошибок.</b><br>' +
                 '<br>' +
                 '<b>- Веб-сайт.</b><br>' +
                 "— Опубликован <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/ru\">веб-сайт проекта</a>.<br>" +
                 '<br>' +
                 '<b>- Discord.</b><br>' +
-                "— Переработан <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/YZKnbKGWen\">наш сервер в Discord</a>.<br>" +
-                "— Если вы используете Discord, вам стоит присоединиться к <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/9jCuhYg55P\">нашему серверу</a>.<br>" +
+                "— Переработан <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/7DYWu5RF7Y\">наш сервер в Discord</a>.<br>" +
+                "— Если вы используете Discord, вам стоит присоединиться к <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/7DYWu5RF7Y\">нашему серверу</a>.<br>" +
                 "— Там вы сможете подписаться на новости проекта, оставить свой отзыв, сообщить о баге, предложить идею или же просто обсудить расширение и видеочаты с другими пользователями.<br>" +
                 '<br>' +
                 '<b>- Исправления и улучшения.</b><br>' +
