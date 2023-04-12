@@ -1469,14 +1469,30 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
         version: "1.7.7",
         date: "2023-04-XX",
         description: {
-            en: '<b><a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/en\">Website</a>, fixes.</b><br>' +
+            en: '<b>Our <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/en\">Website</a> & <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/9jCuhYg55P\">Discord server</a>. Minor fixes.</b><br>' +
+                '<br>' +
+                '<b>- Website.</b><br>' +
+                "— Launched a simple <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/en\">promo website</a>.<br>" +
+                '<br>' +
+                '<b>- Discord.</b><br>' +
+                "— Redesigned <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/9jCuhYg55P\">our server in Discord</a>.<br>" +
+                "— If you use Discord, you should join our <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/9jCuhYg55P\">server</a>.<br>" +
+                "— There you can subscribe to the project's news, give us your feedback, report a bug, suggest an idea, or simply discuss the extension / video chats with other users.<br>" +
                 '<br>' +
                 '<b>- Fixes & Improvements.</b><br>' +
                 '— Fixed shift+arrow-left ban hotkey (Chatruletka, Ome.tv, Minichat, Chatrulez).<br>' +
                 '— Fixed spinner color in omegle dark theme.<br>' +
                 "— Fixed zoom in the 'Missing permission detected' window.<br>" +
                 "— Post-uninstall survey now opens on the <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/en\">extension's website</a>.",
-            ru: '<b><a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/ru\">Сайт расширения</a>, исправления ошибок.</b><br>' +
+            ru: '<b>Наш <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/ru\">веб-сайт</a> & <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/YZKnbKGWen\">сервер в Discord</a>. Исправления ошибок.</b><br>' +
+                '<br>' +
+                '<b>- Веб-сайт.</b><br>' +
+                "— Опубликован <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/ru\">веб-сайт проекта</a>.<br>" +
+                '<br>' +
+                '<b>- Discord.</b><br>' +
+                "— Переработан <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/YZKnbKGWen\">наш сервер в Discord</a>.<br>" +
+                "— Если вы используете Discord, вам стоит присоединиться к <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/9jCuhYg55P\">нашему серверу</a>.<br>" +
+                "— Там вы сможете подписаться на новости проекта, оставить свой отзыв, сообщить о баге, предложить идею или же просто обсудить расширение и видеочаты с другими пользователями.<br>" +
                 '<br>' +
                 '<b>- Исправления и улучшения.</b><br>' +
                 '— Исправлена работа клавиши shift+стрелка-влево (Chatruletka, Ome.tv, Minichat, Chatrulez).<br>' +
