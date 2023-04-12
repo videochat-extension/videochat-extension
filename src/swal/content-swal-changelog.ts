@@ -1482,6 +1482,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<br>' +
                 '<b>- Fixes & Improvements.</b><br>' +
                 '— Fixed shift+arrow-left ban hotkey (Chatruletka, Ome.tv, Minichat, Chatrulez).<br>' +
+                '— Fixed \'autoskip long loading\' automation feature.<br>' +
                 '— Fixed spinner color in omegle dark theme.<br>' +
                 "— Fixed zoom in the 'Missing permission detected' window.<br>" +
                 "— Post-uninstall survey now opens on the <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/en\">extension's website</a>.",
@@ -1498,6 +1499,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<br>' +
                 '<b>- Исправления и улучшения.</b><br>' +
                 '— Исправлена работа клавиши shift+стрелка-влево (Chatruletka, Ome.tv, Minichat, Chatrulez).<br>' +
+                '— Исправлена работа функции \'автопропуск долгой загрузки\'.<br>' +
                 '— Исправлен цвет спиннера при включённой тёмной теме (Omegle).<br>' +
                 '— Исправлен размер окошка \'Обнаружено отсутствующее разрешение\'.<br>' +
                 "— Опрос после удаления теперь открывается на <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/ru\">сайте расширения</a>.",
