@@ -1467,7 +1467,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
     },
     {
         version: "1.7.7",
-        date: "2023-04-XX",
+        date: "2023-04-14",
         description: {
             en: '<b>Our <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/en\">website</a> & <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/7DYWu5RF7Y\">Discord server</a>. Minor fixes.</b><br>' +
                 '<br>' +
