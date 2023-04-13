@@ -6,6 +6,7 @@ import {ChatruletkaDriver} from "../content-driver-chatruletka";
 import {mapModule} from "./content-module-controls-map";
 import * as SDPUtils from "sdp";
 import {getUserBrowser} from "../../utils/utils";
+import {parseCandidate} from "sdp";
 
 
 export function injectScript(path: string) {
@@ -209,16 +210,19 @@ export class GeolocationModule {
 
     public injectIpEventListener() {
         window.addEventListener("[object Object]", (evt) => {
-            let candidate: any = (<CustomEvent>evt).detail.candidate
+            let candidate: string = (<CustomEvent>evt).detail.candidate
 
-            let parsedCandidate = SDPUtils.parseCandidate(JSON.parse(candidate).candidate)
+            // avoiding errors while parsing useless candidates
+            if (candidate.includes('srflx')) {
+                let parsedCandidate = SDPUtils.parseCandidate(JSON.parse(candidate).candidate)
 
-            if (parsedCandidate.type === "srflx" && parsedCandidate.address) {
-                console.dir("IP: " + parsedCandidate.address)
-                if (this.rmdaddr !== parsedCandidate.address) {
-                    this.rmdaddr = parsedCandidate.address;
-                    console.dir("IP CHANGED")
-                    this.onNewIP(this.rmdaddr)
+                if (parsedCandidate.type === "srflx" && parsedCandidate.address) {
+                    console.dir("IP: " + parsedCandidate.address)
+                    if (this.rmdaddr !== parsedCandidate.address) {
+                        this.rmdaddr = parsedCandidate.address;
+                        console.dir("IP CHANGED")
+                        this.onNewIP(this.rmdaddr)
+                    }
                 }
             }
         }, false);
