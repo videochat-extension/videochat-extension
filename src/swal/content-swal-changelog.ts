@@ -1507,6 +1507,22 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 "— Опрос после удаления теперь открывается на <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki/ru\">сайте расширения</a>.",
         }
     },
+    {
+        version: "1.7.8",
+        date: "2023-04-05",
+        description: {
+            en: '<b>Redesigned welcome screens.</b><br>' +
+                '<br>' +
+                '<b>- Welcome screens.</b><br>' +
+                '— Reduced the amount of information that is displayed after installing the extension / opening the platform for the first time.<br>' +
+                '— Full welcome screens can still be viewed by opening them in the chat interface or by clicking on the checkbox in the post-installation window.',
+            ru: '<b>Переработаны приветственные экраны.</b><br>' +
+                '<br>' +
+                '<b>- Приветственные экраны.</b><br>' +
+                '— Сильно сокращено количество информации, которая отображается после установки расширения и первого использования новой (для пользователя) платформы.<br>' +
+                '— Полноценные приветственные экраны всё ещё можно посмотреть, открыв их в интерфейсе чатов или нажав на чекбокс в послеустановочном окне.'
+        }
+    },
 ]
 
 
