@@ -578,11 +578,23 @@
   "welcomeDenyButtonText": {
     "message": "I want to chat"
   },
+  "welcomeCuriousCheckText": {
+    "message": "I want to learn more and customize the extension: "
+  },
+  "welcomeCuriousCheckTitle": {
+    "message": "If enabled, the extension will show you more useful (from the developer's point of view) information in the welcome screens. This option is disabled by default because people don't like to read."
+  },
   "welcomeHistoryScanNotFound": {
     "message": "We did not find supported video chats in your history / they are already in Favorites."
   },
   "welcomeHistoryScanAdded": {
     "message": "Added $1 video chats to favorites: $2."
+  },
+  "welcomeSwalPermissionTitle": {
+    "message": "Missing permissions detected"
+  },
+  "welcomeSwalPermissionContent": {
+      "message": "The extension doesn't have enough permissions right now.<br><br>The extension requested access to the sites of supported video chats, you should have a dialog box.<br><br>You may not give permission, but then the extension will not work on these sites ¯\\_(ツ)_/¯"
   },
   "welcomeSwalTimerText": {
     "message": "The menu will open in <b></b> sec."

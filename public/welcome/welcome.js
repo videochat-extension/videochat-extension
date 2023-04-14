@@ -1,5 +1,30 @@
 let platforms
 let lang = chrome.i18n.getMessage('lang') || "en"
+
+function toObject(from, to) {
+    for (let key in from) {
+        let value = from[key]
+
+        if (typeof value === 'object' && value && !Array.isArray(value)) {
+            toObject(value, from[key])
+            continue
+        }
+
+        to[key] = value
+    }
+}
+
+function createElement(tagName, options, childs) {
+    const element = document.createElement(tagName)
+
+    toObject(options, element)
+
+    for (let child of childs)
+        element.appendChild(child)
+
+    return element
+}
+
 const showSwalChangelog = async function () {
     const steps = [
         '1', '2', '3', '4', '5', '6'
@@ -26,6 +51,41 @@ const showSwalChangelog = async function () {
 
     platforms = await (await fetch(chrome.runtime.getURL('platforms.json'))).json()
     let countAllSites = platforms.map(pl => pl.sites.length).reduce((partialSum, a) => partialSum + a, 0)
+
+    const simple = {
+        "ru": [
+            `<img style="height: 145px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;" src="${typeof browser === "undefined" ? chrome.runtime.getURL('welcome/chromium_' + lang + '.png') : chrome.runtime.getURL('welcome/firefox_' + lang + '.png')}">` +
+            '<br>' +
+            '<b>Что я установил(а)?</b><br>' +
+            'Это браузерное расширение для Чат Рулеток:' +
+            '<ul>' +
+            '<li><strong>Chatruletka</strong>, <strong>Ome.tv</strong>, <strong>Minichat</strong>, <strong>Chatrulez</strong>.</li>' +
+            '<li><strong>Omegle (IP Locator &amp; Dark Mode only)</strong>.</li>' +
+            '<li><strong>Coomeet Free (bot recognition only)</strong>.</li>' +
+            '</ul>' +
+            '<b>Важно</b><br>' +
+            'Чат Рулетное Расширение — это <b><a style="text-decoration:none;" target="_blank" href="https://github.com/videochat-extension/videochat-extension#policy-of-neutrality-acceptable-use-and-functional-limitations">независимый</a></b> проект с <b><a style="text-decoration:none;" target="_blank" href="https://github.com/videochat-extension">открытым исходным кодом</a></b>, наше сообщество размещено в <b><a style="text-decoration:none;" target="_blank" href="https://discord.gg/7DYWu5RF7Y">Discord</a></b>.'
+        ],
+        "en": [
+            `<img style="height: 170px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;" src="${typeof browser === "undefined" ? chrome.runtime.getURL('welcome/chromium_' + lang + '.png') : chrome.runtime.getURL('welcome/firefox_' + lang + '.png')}">` +
+            '<br>' +
+            '<b>What did I just install?</b><br>' +
+            'This is a browser extension for the following video chats:' +
+            '<ul>' +
+            '<li><strong>Chatruletka</strong>, <strong>Ome.tv</strong>, <strong>Minichat</strong>, <strong>Chatrulez</strong>.</li>' +
+            '<li><strong>Omegle (IP Locator &amp; Dark Mode only)</strong>.</li>' +
+            '<li><strong>Coomeet Free (bot recognition only)</strong>.</li>' +
+            '</ul>' +
+            '<b>Important</b><br>' +
+            'Videochat Extension is an <b><a style="text-decoration:none;" target="_blank" href="https://github.com/videochat-extension/videochat-extension#policy-of-neutrality-acceptable-use-and-functional-limitations">independent</a></b> <b><a style="text-decoration:none;" target="_blank" href="https://github.com/videochat-extension">open source</a></b> project, our community is hosted on <b><a style="text-decoration:none;" target="_blank" href="https://discord.gg/7DYWu5RF7Y">Discord</a></b>.'
+        ]
+    }
 
     const values = {
         "en": [
@@ -347,6 +407,8 @@ const showSwalChangelog = async function () {
 
     let currentStep = index
 
+    let isCurious = (await chrome.storage.sync.get({['curious']: false}))['curious']
+
     const swalQueueStep = Swal.mixin({
         // disable animation
         showClass: {popup: 'swal2-noanimation', backdrop: 'swal2-noanimation'},
@@ -361,13 +423,44 @@ const showSwalChangelog = async function () {
         cancelButtonText: '<-',
         heightAuto: false,
         reverseButtons: true,
-        progressSteps: steps,
+        progressSteps: isCurious ? steps : ['👋'],
+        footer: createElement('div', {}, [
+            createElement('span', {}, [
+                createElement('span', {
+                    innerText: chrome.i18n.getMessage('welcomeCuriousCheckText'),
+                    className: "tooltip",
+                    style: "cursor: pointer",
+                    title: chrome.i18n.getMessage('welcomeCuriousCheckTitle'),
+                    onclick: () => {
+                        document.getElementById(`curiousCheck`).click()
+                    }
+                }, []),
+                createElement('input', {
+                    type: "checkbox",
+                    checked: isCurious,
+                    id: `curiousCheck`,
+                    onchange: (event) => {
+                        let checked = event.currentTarget.checked
+
+                        let syncDict = {}
+                        syncDict['curious'] = event.currentTarget.checked
+                        chrome.storage.sync.set(syncDict, function () {
+                            if (checked) {
+                                showSwalChangelog()
+                            } else {
+                                showSwalChangelog()
+                            }
+                        })
+                    },
+                }, [])
+            ]),
+        ])
     })
 
     const selectStep = function (step) {
         swalQueueStep.update({
             title: titles[lang][currentStep],
-            html: `<div id="container" style="text-align: left; min-height: 400px; max-height: 400px">${values[lang][currentStep]}</div>`,
+            html: `<div id="container" style="text-align: left; min-height: 400px; max-height: 400px">${isCurious ? values[lang][currentStep] : simple[lang][currentStep]}</div>`,
             currentProgressStep: currentStep
         })
         document.getElementById('container').scrollIntoView()
@@ -445,7 +538,7 @@ const showSwalChangelog = async function () {
     const result = await swalQueueStep.fire(
         {
             title: titles[lang][currentStep],
-            html: `<div id="container" style="text-align: left; min-height: 400px; max-height: 400px">${values[lang][currentStep]}</div>`,
+            html: `<div id="container" style="text-align: left; min-height: 400px; max-height: 400px">${isCurious ? values[lang][currentStep] : simple[lang][currentStep]}</div>`,
             currentProgressStep: currentStep,
 
             willOpen: (e) => {
@@ -458,17 +551,15 @@ const showSwalChangelog = async function () {
                     }
                 }
                 e.querySelector('.swal2-confirm').onclick = async (e) => {
-                    if (currentStep + 1 < steps.length) {
+                    if (isCurious && currentStep + 1 < steps.length) {
                         currentStep = currentStep + 1
                         selectStep(currentStep)
                     } else {
                         await fixPermissions()
-                        Swal.close()
                     }
                 }
                 e.querySelector('.swal2-deny').onclick = async (e) => {
                     await fixPermissions()
-                    Swal.close()
                 }
             },
             didOpen: () => {
@@ -533,38 +624,61 @@ async function fixPermissions() {
         }
     }
     console.dir(origins)
+
+    // firefox does not let use await here :(
+    let shouldWait = true
+    chrome.permissions.contains({
+        permissions: ["scripting"],
+        origins: origins
+    }).then((res) => {
+        if (!res) {
+            Swal.fire({
+                title: chrome.i18n.getMessage('welcomeSwalPermissionTitle'),
+                html: chrome.i18n.getMessage('welcomeSwalPermissionContent'),
+                icon: 'warning',
+            })
+        } else {
+            shouldWait = false
+        }
+    })
+
     // might break if not called inside a user gesture
     try {
-        await chrome.permissions.request({
+        chrome.permissions.request({
             permissions: ["scripting"],
             origins: origins
+        }).then(() => {
+            if (shouldWait) {
+                location.href = chrome.runtime.getURL('popup/popup.html?zoom=120&scanHistory')
+            } else {
+                // background service worker needs some time to register content scripts on new origins
+                let timerInterval
+                Swal.fire({
+                    html: chrome.i18n.getMessage('welcomeSwalTimerText'),
+                    timer: 1000,
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading()
+                        const b = Swal.getHtmlContainer().querySelector('b')
+                        timerInterval = setInterval(() => {
+                            b.textContent = Math.ceil(Swal.getTimerLeft() / 1000)
+                        }, 100)
+                    },
+                    willClose: () => {
+                        clearInterval(timerInterval)
+                    }
+                }).then((result) => {
+                    location.href = chrome.runtime.getURL('popup/popup.html?zoom=120&scanHistory')
+                })
+            }
         })
     } catch (el) {
         // TODO: should collect this error
         console.dir(el)
+        location.href = chrome.runtime.getURL('popup/popup.html?zoom=120&scanHistory')
     }
 }
 
 document.title = chrome.i18n.getMessage('welcomeTitle')
 
-console.dir(showSwalChangelog().then(() => {
-    // background service worker needs some time to register content scripts on new origins
-    let timerInterval
-    Swal.fire({
-        html: chrome.i18n.getMessage('welcomeSwalTimerText'),
-        timer: 1000,
-        timerProgressBar: true,
-        didOpen: () => {
-            Swal.showLoading()
-            const b = Swal.getHtmlContainer().querySelector('b')
-            timerInterval = setInterval(() => {
-                b.textContent = Math.ceil(Swal.getTimerLeft() / 1000)
-            }, 100)
-        },
-        willClose: () => {
-            clearInterval(timerInterval)
-        }
-    }).then((result) => {
-        location.href = chrome.runtime.getURL('popup/popup.html?zoom=120&scanHistory')
-    })
-}))
+console.dir(showSwalChangelog())

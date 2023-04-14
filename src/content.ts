@@ -8,15 +8,18 @@ import {ChatruletkaSimpleDriver} from "./drivers/content-driver-chatruletka-simp
 import {switchMode} from "./drivers/chatruletka/content-swal-switchmode";
 import {injectScript} from "./drivers/chatruletka/content-module-geolocation";
 import {injectContextInvalidatedCheck} from "./swal/content-swal-context-invalidated"
-import {ContentSwalInfo} from "./drivers/chatruletka/content-swal-info";
+import {ContentSwalInfo, ContentSwalInfoSimplified} from "./drivers/chatruletka/content-swal-info";
 import {ContentSwalChangelog} from "./swal/content-swal-changelog";
 import {extractDomain, getPlatformByHost, getUserBrowser} from "./utils/utils";
 import * as Sentry from "@sentry/browser";
 import {PlatformSettings} from "./content-platform";
 import {OmegleSimpleDriver} from "./drivers/content-driver-omegle-simple";
-import {ContentSwalInfoOmegle} from "./drivers/omegle/content-swal-info";
+import {ContentSwalInfoOmegle, ContentSwalInfoOmegleSimplified} from "./drivers/omegle/content-swal-info";
 import {CooMeetFreeSimpleDriver} from "./drivers/content-driver-coomeetfree-simple";
-import {ContentSwalInfoCoomeetFree} from "./drivers/coomeetfree/content-swal-info";
+import {
+    ContentSwalInfoCoomeetFree,
+    ContentSwalInfoCoomeetFreeSimplified
+} from "./drivers/coomeetfree/content-swal-info";
 
 injectScript('injection/ip-api.js')
 
@@ -88,8 +91,11 @@ async function content() {
 
     async function processSwals(website: { site?: any; platform: any; }) {
         if (!globalThis.platformSettings.get("swalInfoCompleted")) {
-            // TODO: maybe show people only 1-step info about what features are supported?
-            new ContentSwalInfo(website.platform.name).showFromStart()
+            if (settings.curious) {
+                new ContentSwalInfo(website.platform.name).showFromStart()
+            } else {
+                new ContentSwalInfoSimplified(website.platform.name).showFromStart()
+            }
         } else {
             if (settings.allowShowChangelog) {
                 if (settings.lastVersion !== chrome.runtime.getManifest().version) {
@@ -137,7 +143,11 @@ async function content() {
                     globalThis.driver = OmegleSimpleDriver.getInstance()
                     globalThis.driver.start(document.body)
                     if (!globalThis.platformSettings.get("swalInfoCompleted")) {
-                        new ContentSwalInfoOmegle().showFromStart()
+                        if (settings.curious) {
+                            new ContentSwalInfoOmegle().showFromStart()
+                        } else {
+                            new ContentSwalInfoOmegleSimplified().showFromStart()
+                        }
                     }
                 })
             }
@@ -154,7 +164,11 @@ async function content() {
                 globalThis.driver = CooMeetFreeSimpleDriver.getInstance()
                 globalThis.driver.start(document.body)
                 if (!globalThis.platformSettings.get("swalInfoCompleted")) {
-                    new ContentSwalInfoCoomeetFree().showFromStart()
+                    if (settings.curious) {
+                        new ContentSwalInfoCoomeetFree().showFromStart()
+                    } else {
+                        new ContentSwalInfoCoomeetFreeSimplified().showFromStart()
+                    }
                 }
             })
             break;

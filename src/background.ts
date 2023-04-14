@@ -40,6 +40,9 @@ const defaults = {
     "lastVersion": "",
     "missingPermissionCheck": true,
 
+    // if user wants to see more detailed info on welcome screens
+    "curious": false,
+
     // settings managed by PlatformSettings
     // "98ea82db-9d50-4951-935e-2405d9fe892e": {},
 };

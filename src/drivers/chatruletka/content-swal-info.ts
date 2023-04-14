@@ -172,7 +172,7 @@ POSSIBILITY OF SUCH DAMAGE.</div>`
             "en": [
                 `<p><b>This is your first use of the «Videochat Extension» on the «${this.platform}» video chat platform!</b><br><br>Launched in 2011 by the Ukranians, this video chat platform quickly gained popularity among the Russian-speaking segment of the Internet.<br><br>${this.platform} is currently one of the most popular video chat platforms in the world, featuring 40+ websites and several very popular mobile apps.<br><br>This video chat is known by such names as chatruletka, ome.tv, minichat, chatrulez and others.<br><br>The purpose of the extension is to provide ${this.platform} users with more features, while not harming the platform itself.</p>`,
                 `${this.platform === "Chatruletka" ? this.platform : "Chatruletka (aka " + this.platform + ")"} is the very first platform that we started to support.<br><br>Now you can enjoy such features as the stranger's IP Locator, Picture-in-Picture mode, city and gender filtering, streamer mode (not available in Firefox), hotkeys and 40+ other features!<br><br>Join <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://discord.gg/7DYWu5RF7Y\">our Discord server</a> so that you can monitor the project's life and give us feedback we can work on!<br><br>We strongly encourage you to read the video chat rules and privacy policy before you start using it.`,
-                `<div style="max-height: 400px; text-align: left;"><b>Videochat Extension is an <a style="text-decoration:none;" target="_blank" href="https://github.com/qrlk/videochat-extension">open source</a> extension licensed under BSD-4.</b><br><br>` + copyrightLicense
+                `<div style="max-height: 400px; text-align: left;"><b>Videochat Extension is an <a style="text-decoration:none;" target="_blank" href="https://github.com/qrlk/videochat-extension">open source</a> project licensed under BSD-4.</b><br><br>` + copyrightLicense
             ],
             "ru": [
                 `<p><b>Это ваше первое использование Чат Рулетного Расширения на платформе видеочата «${this.platform}»!</b><br><br>Запущенная украинцами в 2011 году, эта платформа видеочата быстро завоевала популярность в русскоязычном сегменте Интернета.<br><br>${this.platform} в настоящее время является одной из самых популярных платформ в мире, объединяя более 40 веб-сайтов и несколько очень популярных мобильных приложений.<br><br>Этот видеочат известен под такими названиями, как чат рулетка, ome.tv, MiniChat, ChatRulez и др.<br><br>Цель расширения: предоставить пользователям ${this.platform} больше возможностей, при этом не навредив самой платформе.</p>`,
@@ -183,6 +183,57 @@ POSSIBILITY OF SUCH DAMAGE.</div>`
 
         this.swalQueueStep = this.swalQueueStep.mixin({
             progressSteps: this.steps,
+            preDeny: () => {
+                globalThis.platformSettings.set({"swalInfoCompleted": true})
+            },
+            didDestroy() {
+                globalThis.platformSettings.set({"swalInfoCompleted": true})
+            }
+        })
+    }
+
+    protected getValue: () => string = () => {
+        let lang = chrome.i18n.getMessage('lang')
+        if (lang == "en" || lang === "ru") {
+            return this.values[lang][this.currentStep]
+        } else {
+            return this.values["en"][this.currentStep]
+        }
+    }
+
+    public showFromStart = async () => {
+        this.currentStep = 0
+        return this.show()
+    }
+}
+
+export class ContentSwalInfoSimplified extends SwalWithSteps {
+    protected steps = ['🎉']
+    protected titles = [
+        chrome.i18n.getMessage("swalInfoTitle1")
+    ]
+    protected values: { en: string[], ru: string[] }
+    private platform: string;
+
+    public constructor(platform: string){
+        super();
+        this.platform = platform
+        let copyrightLicense = `<b>Videochat Extension is an <a style="text-decoration:none;" target="_blank" href="https://github.com/qrlk/videochat-extension">open source</a> project <a style="text-decoration:none;" target="_blank" href="https://github.com/videochat-extension/videochat-extension/blob/main/LICENSE">licensed under BSD-4</a>.</b><br><br><b>Copyright (c) 2021-2023, <a href="http://qrlk.me" style="text-decoration: none!important;" target="_blank">Fyodor Kurlyuk</a><br>
+            All rights reserved.</b></div>`
+        this.values = {
+            "en": [
+                `<b>This is your first use of the «Videochat Extension» on the «${this.platform}» video chat platform!</b><br><br>Now you can enjoy such features as the stranger's IP Locator, Picture-in-Picture mode, city and gender filtering, streamer mode (not available in Firefox), hotkeys and 40+ other features!<br><br>Join <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://discord.gg/7DYWu5RF7Y\">our Discord server</a>, so you can follow the life of the project and give your feedback!<br><br>` + copyrightLicense
+            ],
+            "ru": [
+                `<b>Это ваше первое использование Чат Рулетного Расширения на платформе видеочата «${this.platform}»!</b><br><br>Теперь вам доступен такой функционал, как геолокация IP собеседника, режим Картинка-в-Картинке, фильтр по городу и полу, режим стримера (не доступно в Firefox), горячие клавиши и ещё 40+ функций!<br><br>Вступайте в наш <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://discord.gg/7DYWu5RF7Y\">Discord</a>, чтобы следить за жизнью проекта и поделиться своим отзывом!<br><br>` + copyrightLicense
+            ]
+        }
+
+        this.swalQueueStep = this.swalQueueStep.mixin({
+            progressSteps: this.steps,
+            allowOutsideClick: true,
+            showConfirmButton: false,
+            focusDeny: true,
             preDeny: () => {
                 globalThis.platformSettings.set({"swalInfoCompleted": true})
             },

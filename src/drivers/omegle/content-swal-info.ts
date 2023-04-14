@@ -70,3 +70,43 @@ export class ContentSwalInfoOmegle extends SwalWithSteps {
         return this.show()
     }
 }
+
+export class ContentSwalInfoOmegleSimplified extends SwalWithSteps {
+    protected steps = ['🎉']
+    protected titles = [
+        "Congratulations!",
+    ]
+    protected values: string[]
+    private platform: string;
+
+    public constructor() {
+        super();
+        this.platform = "Omegle"
+        this.values = [
+            `<p><b>This is your first use of the «Videochat Extension» on the «${this.platform}» video chat platform!</b><br><br><b>At the moment only the IP Locator and the Dark Mode are available!</b><br>Open the video chat page, so you can check it yourself.<br><br>Join <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://discord.gg/7DYWu5RF7Y\">our Discord server</a> so that you can monitor the project's life and give us feedback we can work on!<br><br><b>Videochat Extension is an <a style="text-decoration:none;" target="_blank" href="https://github.com/qrlk/videochat-extension">open source</a> project <a style="text-decoration:none;" target="_blank" href="https://github.com/videochat-extension/videochat-extension/blob/main/LICENSE">licensed under BSD-4</a>.</b><br><br>` + `<b>Copyright (c) 2021-2023, <a href="http://qrlk.me" style="text-decoration: none!important;" target="_blank">Fyodor Kurlyuk</a><br>
+            All rights reserved.</b></div>`
+        ]
+
+        this.swalQueueStep = this.swalQueueStep.mixin({
+            progressSteps: this.steps,
+            allowOutsideClick: true,
+            showConfirmButton: false,
+            focusDeny: true,
+            preDeny: () => {
+                globalThis.platformSettings.set({"swalInfoCompleted": true})
+            },
+            didDestroy() {
+                globalThis.platformSettings.set({"swalInfoCompleted": true})
+            }
+        })
+    }
+
+    protected getValue: () => string = () => {
+        return this.values[this.currentStep]
+    }
+
+    public showFromStart = async () => {
+        this.currentStep = 0
+        return this.show()
+    }
+}
