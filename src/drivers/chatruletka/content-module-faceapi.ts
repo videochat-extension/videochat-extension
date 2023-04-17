@@ -1,6 +1,4 @@
-import * as faceapi from '@vladmandic/face-api/dist/face-api.esm.js';
 import {ChatruletkaDriver} from "../content-driver-chatruletka";
-import {confirmAndReload} from "./content-module-settings";
 
 export class FaceapiModule {
     private static instanceRef: FaceapiModule;
@@ -74,6 +72,8 @@ export class FaceapiModule {
         },
     ]
     private driver: ChatruletkaDriver;
+    // TODO: fix faceapi type
+    private faceapi: any | undefined;
 
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver
@@ -106,13 +106,14 @@ export class FaceapiModule {
 
     public injectFaceApi() {
         setTimeout(async () => {
+            this.faceapi = await import('@vladmandic/face-api/dist/face-api.esm.js')
             console.time("faceapi: loading models")
             // monkeyPatch fixes firefox compatibility, chrome works without it,
             // I wasted 2 hours on this, but got a lot of new reasons to hate firefox
             // faceapi performance on firefox is 5x slower than on chrome
             // I don't even know what I hate more now: background service workers or firefox compatibility issues
-            faceapi.env.monkeyPatch({
-                readFile: async (filePath) => {
+            this.faceapi.env.monkeyPatch({
+                readFile: async (filePath: string) => {
                     filePath = filePath.replace(/^(moz-extension:\/)([\d\w])/g, 'moz-extension://$2')
                     if (filePath.endsWith('bin')) {
                         return new Uint8Array(await (await fetch(filePath)).arrayBuffer())
@@ -128,21 +129,21 @@ export class FaceapiModule {
                 createImageElement: () => document.createElement('img')
             });
             // @ts-ignore
-            await faceapi.tf?.setWasmPaths(chrome.runtime.getURL('resources/models') + "/")
+            await this.faceapi.tf?.setWasmPaths(chrome.runtime.getURL('resources/models') + "/")
             // @ts-ignore
-            await faceapi.tf.setBackend('wasm');
+            await this.faceapi.tf.setBackend('wasm');
             // @ts-ignore
-            if (faceapi.tf?.env().flagRegistry.CANVAS2D_WILL_READ_FREQUENTLY_FOR_GPU) faceapi.tf.env().set('CANVAS2D_WILL_READ_FREQUENTLY_FOR_GPU', true);
+            if (this.faceapi.tf?.env().flagRegistry.CANVAS2D_WILL_READ_FREQUENTLY_FOR_GPU) this.faceapi.tf.env().set('CANVAS2D_WILL_READ_FREQUENTLY_FOR_GPU', true);
             // @ts-ignore
-            if (faceapi.tf?.env().flagRegistry.WEBGL_EXP_CONV) faceapi.tf.env().set('WEBGL_EXP_CONV', true);
+            if (this.faceapi.tf?.env().flagRegistry.WEBGL_EXP_CONV) this.faceapi.tf.env().set('WEBGL_EXP_CONV', true);
             // @ts-ignore
-            if (faceapi.tf?.env().flagRegistry.WEBGL_EXP_CONV) faceapi.tf.env().set('WEBGL_EXP_CONV', true);
+            if (this.faceapi.tf?.env().flagRegistry.WEBGL_EXP_CONV) this.faceapi.tf.env().set('WEBGL_EXP_CONV', true);
             // @ts-ignore
-            await faceapi.tf.enableProdMode();
+            await this.faceapi.tf.enableProdMode();
             // @ts-ignore
-            await faceapi.tf.ready();
-            await faceapi.nets.tinyFaceDetector.loadFromDisk(chrome.runtime.getURL('resources/models'))
-            await faceapi.nets.ageGenderNet.loadFromDisk(chrome.runtime.getURL('resources/models'))
+            await this.faceapi.tf.ready();
+            await this.faceapi.nets.tinyFaceDetector.loadFromDisk(chrome.runtime.getURL('resources/models'))
+            await this.faceapi.nets.ageGenderNet.loadFromDisk(chrome.runtime.getURL('resources/models'))
             console.timeEnd("faceapi: loading models")
 
             this.faceApiLoaded = true
@@ -165,7 +166,7 @@ export class FaceapiModule {
             this.stop()
             console.time("faceapi: detectAllFaces()")
 
-            let array = await faceapi.detectAllFaces(document.getElementById('remote-video') as HTMLVideoElement, new faceapi.TinyFaceDetectorOptions()).withAgeAndGender()
+            let array = await this.faceapi.detectAllFaces(document.getElementById('remote-video') as HTMLVideoElement, new this.faceapi.TinyFaceDetectorOptions()).withAgeAndGender()
 
             for (let i = 0; i < array.length; i++) {
                 text += `<b>* ${array[i].gender} (${(array[i].genderProbability * 100).toFixed(0) + '%'}), ${(array[i].age).toFixed(0)}</b></br>`
