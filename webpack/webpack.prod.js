@@ -41,6 +41,14 @@ module.exports = merge(common, {
         new SentryWebpackPlugin({
             org: "cool-projects",
             project: "videochatru-extension",
+            entries: (s) => {
+                // sentrywebpackplugin pollutes injection scripts for no reason
+                if (s.includes('injection')) {
+                    return false
+                }
+
+                return true
+            },
             include: process.env.DIR,
             authToken: process.env.SENTRY_TOKEN,
             // this plugin should fail if a reviewer does not have my SENTRY_TOKEN,
