@@ -73,24 +73,6 @@ POSSIBILITY OF SUCH DAMAGE.</div>`
         })
     }
 
-    // TODO: this is awful, please rework
-    protected didOpen = () => {
-        document.removeEventListener('keyup', this.arrowHotkeys)
-        document.addEventListener('keyup', this.arrowHotkeys)
-
-        // this is just an experiment, I'm not going to promote certain chats in the extension interface / other chats,
-        // this is an affiliate link from open program asking to visit coomeet premium displaying only on the coomeet free platform welcome window
-        // coomeet free will attempt to trick user into opening coomeet.me any way, it's their business model
-        // there is no messing with other partners ids too
-        let lnk = document.getElementById('coometpremiumlink')
-        if (lnk) {
-            lnk.onclick = () => {
-                chrome.runtime.sendMessage({openLink: "https://coomeet.me/?id=16795588704389"})
-            }
-        }
-    }
-
-
     protected getValue: () => string = () => {
         let lang = chrome.i18n.getMessage('lang')
         if (lang == "en" || lang === "ru") {
