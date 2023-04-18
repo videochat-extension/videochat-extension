@@ -148,7 +148,7 @@ export class CooMeetFreeSimpleDriver {
                 className: 'free-cm-app-tape-detect__item'
             }, [
                 utils.createElement('span', {
-                    innerText: chrome.i18n.getMessage("extension_name_header") + " v" + chrome.runtime.getManifest().version + " (?)",
+                    innerText: "v" + chrome.runtime.getManifest().version + " (?)",
                     title: chrome.i18n.getMessage('freecmExtensionHeaderTitle'),
                     style: "white-space: nowrap; overflow: hidden; cursor: pointer;",
                     onclick: () => {
