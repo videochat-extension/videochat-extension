@@ -1,6 +1,6 @@
-// dict with default settings that should be applied when installing/updating the extension
-import {extractDomain} from "./utils/utils";
+import * as Sentry from "@sentry/browser";
 
+// dict with default settings that should be applied when installing/updating the extension
 const defaults = {
     // no way to prevent videochatru.com and ome.tv from loading content script,
     // so I decided to add a way to prevent them from loading drivers if necessary
@@ -555,12 +555,34 @@ function init() {
     chrome.runtime.setUninstallURL(chrome.i18n.getMessage('lang') === "ru" ? "https://videochat-extension.starbase.wiki/ru?uninstall-ru" : "https://videochat-extension.starbase.wiki/en?uninstall-en")
 }
 
+try {
+    Sentry.init({
+        dsn: "https://09512316dbc3422f931ad37d4fb12ed2@o1272228.ingest.sentry.io/6533563",
+        release: "videochat-extension@" + chrome.runtime.getManifest().version,
+        autoSessionTracking: false, // disable session tracking
+        ignoreErrors: [
+            "Extension context invalidated."
+        ],
+        async beforeSend(event) {
+            let enabled = await (await chrome.storage.sync.get({['sentry']: 'true'}))['sentry']
+            if (enabled) return event;
+            return null;
+        },
+    });
+} catch (e) {
+    console.dir(e)
+}
+
 init()
 
 // import export does not work in service workers ¯\_(ツ)_/¯
 function filterUUID(str: string) {
     const regexExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
     return !regexExp.test(str)
+}
+
+function extractDomain(url: string) {
+    return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?([^.\/]+\.[^.\/]+).*$/, "$1");
 }
 
 async function showBadge() {
