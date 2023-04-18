@@ -1529,17 +1529,27 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
         description: {
             en: '<b>Boring maintence release.</b><br>' +
                 '<br>' +
+                '<b>- Coomeet Free.</b><br>' +
+                '— Reduced size of extension controls.<br>' +
+                '— Added country output to the \'bot detected\' notification.<br>' +
+                '<br>' +
                 '<b>- Dev.</b><br>' +
                 '— Faceapi is now loaded only when needed, which improves the launch speed of the extension on very old computers.<br>' +
                 '— Slightly reduced the size of the extension.<br>' +
+                '— Fixed checking for missing permissions on sites like ABC.domain.com.<br>' +
                 '— Added caching of popup content and height. The popup loads just as slowly (0.1s-0.3s), but it\'s less noticeable.<br>' +
                 '— Improved error collection functionality, which will allow us to identify and fix errors faster than before.<br>' +
                 '— Changed the way the extension is compiled, which in theory should significantly speed up the approval process for future updates in stores.',
             ru: '<b>Скучный maintence релиз.</b><br>' +
                 '<br>' +
+                '<b>- Coomeet Free.</b><br>' +
+                '— Уменьшен размер элементов управления расширением.<br>' +
+                '— Добавлен вывод страны в детектор вероятных ботов.<br>' +
+                '<br>' +
                 '<b>- Скучные буквы.</b><br>' +
                 '— Faceapi теперь загружается только при необходимости, что сильно ускоряет запуск расширения на очень слабых компьютерах.<br>' +
                 '— Немного уменьшен размер расширения.<br>' +
+                '— Пофикшена проверка отсутствующих разрешений на сайтах вида ABC.domain.com.<br>' +
                 '— Добавлено кэширование содержимого и высоты попапа. Попап загружается так же медленно, но это менее заметно.<br>' +
                 '— Улучшен функционал сбора ошибок, что позволит быстрее нам определять и исправлять ошибки, чем раньше.<br>' +
                 '— Изменен способ компиляции расширения, что в теории должно привести к ускорению процесса одобрения будущих обновлений магазинами.'
