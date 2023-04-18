@@ -28,16 +28,19 @@ async function content() {
 
     // TODO: firefox just crashes when sentry tries to initialise
     // ¯\_(ツ)_/¯
-    // @ts-ignore
     if (settings.sentry && ["chrome", "edge"].includes(getUserBrowser())) {
-        Sentry.init({
-            dsn: "https://09512316dbc3422f931ad37d4fb12ed2@o1272228.ingest.sentry.io/6533563",
-            release: "videochat-extension@" + chrome.runtime.getManifest().version,
-            autoSessionTracking: false, // disable session tracking
-            ignoreErrors: [
-                "Extension context invalidated."
-            ]
-        });
+        try {
+            Sentry.init({
+                dsn: "https://09512316dbc3422f931ad37d4fb12ed2@o1272228.ingest.sentry.io/6533563",
+                release: "videochat-extension@" + chrome.runtime.getManifest().version,
+                autoSessionTracking: false, // disable session tracking
+                ignoreErrors: [
+                    "Extension context invalidated."
+                ]
+            });
+        } catch (e) {
+            console.dir(e)
+        }
     }
     let domain = extractDomain(location.href)
 
