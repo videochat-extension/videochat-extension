@@ -1,4 +1,4 @@
-import * as Sentry from "@sentry/browser";
+// import * as Sentry from "@sentry/browser";
 
 export function addStyle(styleString: string) {
     const style = document.createElement('style');
