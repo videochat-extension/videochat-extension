@@ -648,14 +648,14 @@ async function fixPermissions() {
             permissions: ["scripting"],
             origins: origins
         }).then(() => {
-            if (shouldWait) {
+            if (!shouldWait) {
                 location.href = chrome.runtime.getURL('popup/popup.html?zoom=120&scanHistory')
             } else {
                 // background service worker needs some time to register content scripts on new origins
                 let timerInterval
                 Swal.fire({
                     html: chrome.i18n.getMessage('welcomeSwalTimerText'),
-                    timer: 1000,
+                    timer: 3000,
                     timerProgressBar: true,
                     didOpen: () => {
                         Swal.showLoading()
