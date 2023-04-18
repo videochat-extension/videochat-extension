@@ -1534,7 +1534,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Slightly reduced the size of the extension.<br>' +
                 '— Added caching of popup content and height. The popup loads just as slowly (0.1s-0.3s), but it\'s less noticeable.<br>' +
                 '— Improved error collection functionality, which will allow us to identify and fix errors faster than before.<br>' +
-                '— Changed the way the extension is compiled, which in theory should significantly speed up the approval process for future updates by stores.',
+                '— Changed the way the extension is compiled, which in theory should significantly speed up the approval process for future updates in stores.',
             ru: '<b>Скучный maintence релиз.</b><br>' +
                 '<br>' +
                 '<b>- Скучные буквы.</b><br>' +
