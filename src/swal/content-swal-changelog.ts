@@ -1532,14 +1532,14 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<b>- Dev.</b><br>' +
                 '— Faceapi is now loaded only when needed, which improves the launch speed of the extension on very old computers.<br>' +
                 '— Slightly reduced the size of the extension.<br>' +
-                '— Errors are now collected in more extension locations than before.<br>' +
+                '— Improved error collection functionality, which will allow us to identify and fix errors faster than before.<br>' +
                 '— Changed the way the extension is compiled, which in theory should significantly speed up the approval process for future updates by stores.',
             ru: '<b>Скучный maintence релиз.</b><br>' +
                 '<br>' +
                 '<b>- Скучные буквы.</b><br>' +
                 '— Faceapi теперь загружается только при необходимости, что сильно ускоряет запуск расширения на очень слабых компьютерах.<br>' +
                 '— Немного уменьшен размер расширения.<br>' +
-                '— Ошибки теперь собираются в бОльшем количестве мест расширения, чем раньше.<br>' +
+                '— Улучшен функционал сбора ошибок, что позволит быстрее нам определять и исправлять ошибки, чем раньше.<br>' +
                 '— Изменен способ компиляции расширения, что в теории должно привести к ускорению процесса одобрения будущих обновлений магазинами.'
         }
     },
