@@ -1529,12 +1529,18 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
         description: {
             en: '<b>Boring maintence release.</b><br>' +
                 '<br>' +
-                '<b>- Information.</b><br>' +
-                '— The way the extension code is built has been changed, which in theory should lead to a faster reviews by mods.',
-            ru: '<b>Скучный сервисный релиз.</b><br>' +
+                '<b>- Dev.</b><br>' +
+                '— Faceapi is now loaded only when needed, which improves the launch speed of the extension on very old computers.<br>' +
+                '— Slightly reduced the size of the extension.<br>' +
+                '— Errors are now collected in more extension locations than before.<br>' +
+                '— Changed the way the extension is compiled, which in theory should significantly speed up the approval process for future updates by stores.',
+            ru: '<b>Скучный maintence релиз.</b><br>' +
                 '<br>' +
-                '<b>- Информация.</b><br>' +
-                '— Изменен способ компиляции расширения, что в теории должно привести к более быстрому одобрению будущих обновлений модераторами магазинов расширений.'
+                '<b>- Скучные буквы.</b><br>' +
+                '— Faceapi теперь загружается только при необходимости, что сильно ускоряет запуск расширения на очень слабых компьютерах.<br>' +
+                '— Немного уменьшен размер расширения.<br>' +
+                '— Ошибки теперь собираются в бОльшем количестве мест расширения, чем раньше.<br>' +
+                '— Изменен способ компиляции расширения, что в теории должно привести к ускорению процесса одобрения будущих обновлений магазинами.'
         }
     },
 ]
