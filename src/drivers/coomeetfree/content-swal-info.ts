@@ -131,6 +131,7 @@ export class ContentSwalInfoCoomeetFreeSimplified extends SwalWithSteps {
 
         this.swalQueueStep = this.swalQueueStep.mixin({
             progressSteps: this.steps,
+            backdrop: true,
             allowOutsideClick: true,
             showConfirmButton: false,
             focusDeny: true,
