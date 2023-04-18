@@ -1523,6 +1523,20 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Полноценные приветственные экраны всё ещё можно посмотреть, открыв их в интерфейсе чатов или нажав на чекбокс в послеустановочном окне.'
         }
     },
+    {
+        version: "1.7.9",
+        date: "2023-04-XX",
+        description: {
+            en: '<b>Boring maintence release.</b><br>' +
+                '<br>' +
+                '<b>- Information.</b><br>' +
+                '— The way the extension code is built has been changed, which in theory should lead to a faster reviews by mods.',
+            ru: '<b>Скучный сервисный релиз.</b><br>' +
+                '<br>' +
+                '<b>- Информация.</b><br>' +
+                '— Изменен способ компиляции расширения, что в теории должно привести к более быстрому одобрению будущих обновлений модераторами магазинов расширений.'
+        }
+    },
 ]
 
 
