@@ -75,7 +75,7 @@ export class CooMeetFreeSimpleDriver {
         this.video.addEventListener('play', () => {
             this.stage = 1
             if (this.bot) {
-                this.setNextButtonText(chrome.i18n.getMessage('freecmBotButton'))
+                this.setNextButtonText(chrome.i18n.getMessage('freecmBotButton', [this.country]))
                 this.cmtNext!.style.background = 'black'
             } else {
                 this.setNextButtonText(chrome.i18n.getMessage('freecmBotNextButton', [this.country]))
@@ -241,6 +241,7 @@ export class CooMeetFreeSimpleDriver {
                         this.country = data.data.countryName
                     } else {
                         this.bot = true
+                        this.country = data.data.country
                     }
                 }
                 if (data && data.data && data.data.code && data.data.countries) {
