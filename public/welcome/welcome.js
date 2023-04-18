@@ -595,8 +595,8 @@ function getSiteByDomain(domain, platforms) {
     }
 }
 
-function extractDomain(url) {
-    return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?([^.\/]+\.[^.\/]+).*$/, "$1");
+function extractHost(url) {
+    return new URL(url).hostname;
 }
 
 async function fixPermissions() {
@@ -606,7 +606,7 @@ async function fixPermissions() {
     if (contentScripts) {
         for (const script of contentScripts) {
             for (const match of script.matches) {
-                let domain = extractDomain(match)
+                let domain = extractHost(match)
                 if (domain) {
                     let site = getSiteByDomain(domain, platforms)
                     if (site && site.site && site.site.id) {

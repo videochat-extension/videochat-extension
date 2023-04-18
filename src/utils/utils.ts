@@ -109,6 +109,6 @@ export function getPlatformByHost(platforms: any[], host: string) {
     }
 }
 
-export function extractDomain(url: string) {
-    return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?([^.\/]+\.[^.\/]+).*$/, "$1");
+export function extractHost(url: string) {
+    return new URL(url).hostname;
 }

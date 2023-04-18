@@ -457,7 +457,7 @@ async function checkIfMissingPermissions(windowId: number, url: string, fromTabI
                     for (const script of contentScripts) {
                         if (script.matches) {
                             for (const match of script.matches) {
-                                let domain = extractDomain(match)
+                                let domain = extractHost(match)
                                 if (domain) {
                                     let site = getSiteByDomain(domain, platformsJson)
                                     if (site && site.site && site.site.id) {
@@ -478,7 +478,7 @@ async function checkIfMissingPermissions(windowId: number, url: string, fromTabI
             await chrome.storage.local.set({"domains": domains})
             platforms = (await chrome.storage.local.get("domains")).domains
         }
-        let domain = extractDomain(url)
+        let domain = extractHost(url)
         if (domain && platforms.includes(domain)) {
             let arr = (await chrome.storage.local.get({"stopPermissionCheck": []})).stopPermissionCheck
             let site = getSiteByDomain(domain, (await fetchPlatforms()))
@@ -498,6 +498,8 @@ async function checkIfMissingPermissions(windowId: number, url: string, fromTabI
                     let recentDict = await getValue("recentDict", {})
                     recentDict[site.site.id] = Math.ceil(+new Date() / 1000)
                     await setValue("recentDict", recentDict)
+
+                    console.dir(site)
 
                     let permission = await chrome.permissions.contains({
                         origins: [site.site.origin]
@@ -582,8 +584,8 @@ function filterUUID(str: string) {
     return !regexExp.test(str)
 }
 
-function extractDomain(url: string) {
-    return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?([^.\/]+\.[^.\/]+).*$/, "$1");
+function extractHost(url: string) {
+    return new URL(url).hostname;
 }
 
 async function showBadge() {

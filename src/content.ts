@@ -10,7 +10,7 @@ import {injectScript} from "./drivers/chatruletka/content-module-geolocation";
 import {injectContextInvalidatedCheck} from "./swal/content-swal-context-invalidated"
 import {ContentSwalInfo, ContentSwalInfoSimplified} from "./drivers/chatruletka/content-swal-info";
 import {ContentSwalChangelog} from "./swal/content-swal-changelog";
-import {extractDomain, getPlatformByHost, getUserBrowser} from "./utils/utils";
+import {extractHost, getPlatformByHost, getUserBrowser} from "./utils/utils";
 import * as Sentry from "@sentry/browser";
 import {PlatformSettings} from "./content-platform";
 import {OmegleSimpleDriver} from "./drivers/content-driver-omegle-simple";
@@ -43,7 +43,7 @@ async function content() {
             console.dir(e)
         }
     }
-    let domain = extractDomain(location.href)
+    let domain = extractHost(location.href)
 
     let platforms = await (await fetch(chrome.runtime.getURL('platforms.json'))).json()
 
@@ -58,7 +58,7 @@ async function content() {
             for (const script of contentScripts) {
                 if (script.matches) {
                     for (const match of script.matches) {
-                        let matchDomain = extractDomain(match)
+                        let matchDomain = extractHost(match)
                         if (domain === matchDomain) {
                             if (typeof settings["legacyPrevent"][website.site.id] !== "undefined") {
                                 if (settings["legacyPrevent"][website.site.id]) {
