@@ -150,7 +150,7 @@ export class CooMeetFreeSimpleDriver {
                 utils.createElement('span', {
                     innerText: chrome.i18n.getMessage("extension_name_header") + " v" + chrome.runtime.getManifest().version + " (?)",
                     title: chrome.i18n.getMessage('freecmExtensionHeaderTitle'),
-                    style:"white-space: nowrap; overflow: hidden; cursor: pointer;",
+                    style: "white-space: nowrap; overflow: hidden; cursor: pointer;",
                     onclick: () => {
                         new ContentSwalInfoCoomeetFree().showFromStart()
                     }

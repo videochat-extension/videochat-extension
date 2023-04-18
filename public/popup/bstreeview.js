@@ -8,7 +8,7 @@
  * Project: https://github.com/chniter/bstreeview
  * Project: https://github.com/nhmvienna/bs5treeview (bootstrap 5)
  */
-; (function ($, window, document, undefined) {
+;(function ($, window, document, undefined) {
     "use strict";
     /**
      * Default bstreeview  options.
@@ -71,7 +71,7 @@
             // Set main bstreeview class to element.
             $(this.element).addClass('bstreeview');
 
-            this.initData({ nodes: this.tree });
+            this.initData({nodes: this.tree});
             var _this = this;
             this.build($(this.element), this.tree, 0);
             // Update angle icon on collapse

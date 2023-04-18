@@ -16,8 +16,8 @@ module.exports = {
     output: {
         path: path.join(__dirname, `../${BUILD_DIR_NAME}`),
         filename: (chunkData) => {
-            if(chunkData.chunk.name === 'injection_ip') return "injection/ip-api.js";
-            if(chunkData.chunk.name === 'injection_coomeetfree') return "injection/coomeetfree.js";
+            if (chunkData.chunk.name === 'injection_ip') return "injection/ip-api.js";
+            if (chunkData.chunk.name === 'injection_coomeetfree') return "injection/coomeetfree.js";
             return "[name].js";
         },
     },
@@ -36,8 +36,8 @@ module.exports = {
                 use: "ts-loader",
                 exclude: /node_modules/,
             },
-            { test: require.resolve('arrive') },
-            { test: require.resolve('tooltipster') }
+            {test: require.resolve('arrive')},
+            {test: require.resolve('tooltipster')}
         ],
     },
     resolve: {
@@ -46,8 +46,8 @@ module.exports = {
     plugins: [
         new CopyPlugin({
             patterns: [
-                { from: ".", to: "", context: "public" },
-                { from: `${browser}.json`, to: `manifest.json`, context: 'manifest' },
+                {from: ".", to: "", context: "public"},
+                {from: `${browser}.json`, to: `manifest.json`, context: 'manifest'},
             ],
             options: {},
         }),

@@ -1,14 +1,16 @@
 {
-    "compilerOptions": {
-        "strict": true,
-        "module": "commonjs",
-        "target": "es6",
-        "esModuleInterop": true,
-        "sourceMap": true,
-        "inlineSources": true,
-        "rootDir": "src",
-        "outDir": "dist/js",
-        "noEmitOnError": true,
-        "typeRoots": [ "node_modules/@types" ]
-    }
+  "compilerOptions": {
+    "strict": true,
+    "module": "commonjs",
+    "target": "es6",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "inlineSources": true,
+    "rootDir": "src",
+    "outDir": "dist/js",
+    "noEmitOnError": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ]
+  }
 }

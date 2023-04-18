@@ -106,6 +106,7 @@ export class AutomationModule {
         }
     }
     public checkedCountry = false
+
     public injectAutomationSkipWrongCountry() {
         let self = this
         document.arrive(".tr-country", function (el: any) { // TODO: FIX TYPE

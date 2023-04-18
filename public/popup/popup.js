@@ -352,7 +352,7 @@ $(async function () {
                 onclick: handleStar
             }, {
                 type: "link",
-                icon: site.support === "full" ? "bi-box-arrow-up-right": "bi-box-arrow-in-up-right",
+                icon: site.support === "full" ? "bi-box-arrow-up-right" : "bi-box-arrow-in-up-right",
                 title: chrome.i18n.getMessage(site.supportDesc),
                 link: site.href,
                 onclick: handleLink

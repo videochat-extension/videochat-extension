@@ -1,9 +1,12 @@
-
 # screens
-![main](screens/github.jpg)  
+
+![main](screens/github.jpg)
+
 * [English](#english)
 * [Russian](#russian)
+
 ## English
+
 ![1](screens/en/0.7/en1_3.jpg)  
 ![2](screens/en/0.7/en2.jpg)  
 ![3](screens/en/0.7/en3.jpg)  
@@ -20,6 +23,7 @@
 </details>
 
 ## Russian
+
 ![1](screens/ru/0.7/ru1.jpg)  
 ![2](screens/ru/0.7/ru2.jpg)  
 ![3](screens/ru/0.7/ru3.jpg)  

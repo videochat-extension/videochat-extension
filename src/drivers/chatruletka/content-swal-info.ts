@@ -215,7 +215,7 @@ export class ContentSwalInfoSimplified extends SwalWithSteps {
     protected values: { en: string[], ru: string[] }
     private platform: string;
 
-    public constructor(platform: string){
+    public constructor(platform: string) {
         super();
         this.platform = platform
         let copyrightLicense = `<b>Videochat Extension is an <a style="text-decoration:none;" target="_blank" href="https://github.com/qrlk/videochat-extension">open source</a> project <a style="text-decoration:none;" target="_blank" href="https://github.com/videochat-extension/videochat-extension/blob/main/LICENSE">licensed under BSD-4</a>.</b><br><br><b>Copyright (c) 2021-2023, <a href="http://qrlk.me" style="text-decoration: none!important;" target="_blank">Fyodor Kurlyuk</a><br>
