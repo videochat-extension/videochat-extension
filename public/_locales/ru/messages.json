@@ -684,13 +684,13 @@
     "message": "Нажмите чтобы прочитать о функциях расширения на этом сайте."
   },
   "freecmSettingHideBots": {
-    "message": "Скрывать ботов: "
+    "message": "С. ботов: "
   },
   "freecmSettingHideBotsTooltip": {
     "message": "Расширение будет скрывать видео для собеседников-ботов"
   },
   "freecmSettingMuteBots": {
-    "message": "Мутить ботов: "
+    "message": "М. ботов: "
   },
   "freecmSettingMuteTooltip": {
     "message": "Расширение будет отключать звук для собеседников-ботов"
