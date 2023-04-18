@@ -15,6 +15,26 @@ let params = new URLSearchParams(window.location.search);
 
 console.time("show tree")
 $(async function () {
+
+    console.time("cache grab")
+    let cached = (await chrome.storage.local.get({'popupCachedContent': ''}))
+    let cachedHTML = cached.popupCachedContent
+
+    if (cachedHTML !== "") {
+        cachedHTML = cachedHTML.replaceAll('id="tree', 'id="cached_tree')
+        // ALLOW_UNKNOWN_PROTOCOLS allows to keep chrome://.. image src
+        let sanitizedCachedHTML = DOMPurify.sanitize(cachedHTML, {ALLOW_UNKNOWN_PROTOCOLS: true})
+        document.getElementById('cached').innerHTML = sanitizedCachedHTML;
+    }
+    console.timeEnd("cache grab")
+
+    async function updCache() {
+        await chrome.storage.local.set({
+            'popupCachedContent': document.getElementById('container').innerHTML,
+            'popupCachedOffsetHeight': document.getElementById('container').offsetHeight
+        })
+    }
+
     console.time("get platforms dict")
     let platforms = await (await fetch(chrome.runtime.getURL('platforms.json'))).json()
     console.timeEnd("get platforms dict")
@@ -665,6 +685,10 @@ $(async function () {
         parentsMarginLeft: '1.25rem',
         openNodeLinkOnNewTab: true
     });
+
+    $('#cached').remove();
+    document.body.style.minHeight = null
+    await updCache();
 
     chrome.runtime.onMessage.addListener(
         (request) => {
