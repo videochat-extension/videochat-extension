@@ -460,7 +460,7 @@ const showSwalChangelog = async function () {
     const selectStep = function (step) {
         swalQueueStep.update({
             title: titles[lang][currentStep],
-            html: `<div id="container" style="text-align: left; min-height: 400px; max-height: 400px">${isCurious ? values[lang][currentStep] : simple[lang][currentStep]}</div>`,
+            html: `<div id="container" style="text-align: left; min-height: 400px; max-height: 400px">${isCurious ? values[lang][currentStep] : simple[lang][0]}</div>`,
             currentProgressStep: currentStep
         })
         document.getElementById('container').scrollIntoView()
@@ -538,7 +538,7 @@ const showSwalChangelog = async function () {
     const result = await swalQueueStep.fire(
         {
             title: titles[lang][currentStep],
-            html: `<div id="container" style="text-align: left; min-height: 400px; max-height: 400px">${isCurious ? values[lang][currentStep] : simple[lang][currentStep]}</div>`,
+            html: `<div id="container" style="text-align: left; min-height: 400px; max-height: 400px">${isCurious ? values[lang][currentStep] : simple[lang][0]}</div>`,
             currentProgressStep: currentStep,
 
             willOpen: (e) => {
