@@ -57,7 +57,7 @@ const showSwalChangelog = async function () {
             `<img style="height: 145px;
             margin-left: auto;
             margin-right: auto;
-            display: block;" src="${typeof browser === "undefined" ? chrome.runtime.getURL('welcome/chromium_' + lang + '.png') : chrome.runtime.getURL('welcome/firefox_' + lang + '.png')}">` +
+            display: block;" src="${typeof browser === "undefined" ? chrome.runtime.getURL('welcome/img/chromium_' + lang + '.png') : chrome.runtime.getURL('welcome/img/firefox_' + lang + '.png')}">` +
             '<br>' +
             '<b>Что я установил(а)?</b><br>' +
             'Это браузерное расширение для Чат Рулеток:' +
@@ -73,7 +73,7 @@ const showSwalChangelog = async function () {
             `<img style="height: 170px;
             margin-left: auto;
             margin-right: auto;
-            display: block;" src="${typeof browser === "undefined" ? chrome.runtime.getURL('welcome/chromium_' + lang + '.png') : chrome.runtime.getURL('welcome/firefox_' + lang + '.png')}">` +
+            display: block;" src="${typeof browser === "undefined" ? chrome.runtime.getURL('welcome/img/chromium_' + lang + '.png') : chrome.runtime.getURL('welcome/img/firefox_' + lang + '.png')}">` +
             '<br>' +
             '<b>What did I just install?</b><br>' +
             'This is a browser extension for the following video chats:' +
@@ -92,7 +92,7 @@ const showSwalChangelog = async function () {
             `<img style="height: 170px;
             margin-left: auto;
             margin-right: auto;
-            display: block;" src="${typeof browser === "undefined" ? chrome.runtime.getURL('welcome/chromium_' + lang + '.png') : chrome.runtime.getURL('welcome/firefox_' + lang + '.png')}">` +
+            display: block;" src="${typeof browser === "undefined" ? chrome.runtime.getURL('welcome/img/chromium_' + lang + '.png') : chrome.runtime.getURL('welcome/img/firefox_' + lang + '.png')}">` +
             '<br>' +
             '<b>What did I just install?</b><br>' +
             'You have just installed an <a style="text-decoration:none;" target="_blank" href="https://github.com/qrlk/videochat-extension">open source</a> browser extension, which will try to improve your experience of using online video chats.<br>' +
@@ -199,7 +199,7 @@ const showSwalChangelog = async function () {
             `<img style="height: 170px;
             margin-left: auto;
             margin-right: auto;
-            display: block;" src="${chrome.runtime.getURL('welcome/firefox-test.png')}">` +
+            display: block;" src="${chrome.runtime.getURL('welcome/img/firefox-test.png')}">` +
             '<br>' +
 
             '<b>How to use this extension?</b><br>' +
@@ -247,7 +247,7 @@ const showSwalChangelog = async function () {
             `<img style="height: 170px;
             margin-left: auto;
             margin-right: auto;
-            display: block;" src="${typeof browser === "undefined" ? chrome.runtime.getURL('welcome/chromium_' + lang + '.png') : chrome.runtime.getURL('welcome/firefox_' + lang + '.png')}">` +
+            display: block;" src="${typeof browser === "undefined" ? chrome.runtime.getURL('welcome/img/chromium_' + lang + '.png') : chrome.runtime.getURL('welcome/img/firefox_' + lang + '.png')}">` +
             '<br>' +
             '<b>Что я установил(а)?</b><br>' +
             'Вы установили браузерное расширение с <a style="text-decoration:none;" target="_blank" href="https://github.com/qrlk/videochat-extension">открытым исходным кодом</a>, которое постарается улучшить ваш опыт использования онлайн видеочатов.<br>' +
@@ -357,7 +357,7 @@ const showSwalChangelog = async function () {
             `<img style="height: 170px;
             margin-left: auto;
             margin-right: auto;
-            display: block;" src="${chrome.runtime.getURL('welcome/firefox-test.png')}">` +
+            display: block;" src="${chrome.runtime.getURL('welcome/img/firefox-test.png')}">` +
             '<br>' +
             '<b>Как использовать расширение?</b><br>' +
             '1. Закрепите расширение в списке расширений вашего браузера.<br>' +
