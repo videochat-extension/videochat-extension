@@ -1531,10 +1531,11 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<br>' +
                 '<b>- Coomeet Free.</b><br>' +
                 '— Reduced size of extension controls.<br>' +
-                '— Added country output to the \'bot detected\' notification.<br>' +
+                '— Added country output to the \'bot detected\' button.<br>' +
                 '<br>' +
-                '<b>- Dev.</b><br>' +
+                '<b>- Boring improvements.</b><br>' +
                 '— Faceapi is now loaded only when needed, which improves the launch speed of the extension on very old computers.<br>' +
+                '— Optimized the speed of registration of dynamic scripts when granting permissions / reloading the extension.<br>' +
                 '— Slightly reduced the size of the extension.<br>' +
                 '— Fixed checking for missing permissions on sites like ABC.domain.com.<br>' +
                 '— Added caching of popup content and height. The popup loads just as slowly (0.1s-0.3s), but it\'s less noticeable.<br>' +
@@ -1548,6 +1549,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<br>' +
                 '<b>- Скучные буквы.</b><br>' +
                 '— Faceapi теперь загружается только при необходимости, что сильно ускоряет запуск расширения на очень слабых компьютерах.<br>' +
+                '— Оптимизирована регистрация динамических скриптов при выдаче разрешений / перезагрузке расширения.<br>' +
                 '— Немного уменьшен размер расширения.<br>' +
                 '— Пофикшена проверка отсутствующих разрешений на сайтах вида ABC.domain.com.<br>' +
                 '— Добавлено кэширование содержимого и высоты попапа. Попап загружается так же медленно, но это менее заметно.<br>' +
