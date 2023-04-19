@@ -585,7 +585,7 @@ function filterUUID(str: string) {
 }
 
 function extractHost(url: string) {
-    return new URL(url).hostname;
+    return new URL(url).hostname.replace('www.', '');
 }
 
 async function showBadge() {

@@ -51,7 +51,7 @@ $(async function () {
     }
 
     function extractHost(url) {
-        return new URL(url).hostname;
+        return new URL(url).hostname.replace('www.', '');
     }
 
     let contentScripts = chrome.runtime.getManifest().content_scripts

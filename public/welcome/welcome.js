@@ -596,7 +596,7 @@ function getSiteByDomain(domain, platforms) {
 }
 
 function extractHost(url) {
-    return new URL(url).hostname;
+    return new URL(url).hostname.replace('www.', '');
 }
 
 async function fixPermissions() {

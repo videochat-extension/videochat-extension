@@ -110,5 +110,5 @@ export function getPlatformByHost(platforms: any[], host: string) {
 }
 
 export function extractHost(url: string) {
-    return new URL(url).hostname;
+    return new URL(url).hostname.replace('www.', '');
 }
