@@ -444,7 +444,7 @@ function runtimeOnMessage(request: any, sender: chrome.runtime.MessageSender, se
 
 async function checkIfMissingPermissions(windowId: number, url: string, fromTabId: number) {
     let windowType = (await chrome.windows.get(windowId)).type
-    if (windowType == "normal") {
+    if (windowType == "normal" && url.startsWith('http')) {
         let platforms = (await chrome.storage.local.get("domains")).domains
         if (!platforms) {
             let domains: string[] = [];
