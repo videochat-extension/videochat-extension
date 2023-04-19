@@ -142,8 +142,29 @@ async function onPermissionsAdded(permissions: chrome.permissions.Permissions) {
             })
         })
 
+        let bulkContentScripts: chrome.scripting.RegisteredContentScript[] = []
+
         for (const site of sites) {
-            await enableReg(site.id, site.origin, content)
+            bulkContentScripts.push({
+                allFrames: true,
+                id: site.id,
+                js: content,
+                matches: [site.origin],
+                persistAcrossSessions: true,
+                runAt: "document_idle"
+            })
+        }
+
+        if (bulkContentScripts.length > 0) {
+            console.time('bulk')
+            await chrome.scripting.registerContentScripts(bulkContentScripts)
+            console.timeEnd('bulk')
+
+            console.time('updateStatus')
+            for (const script of bulkContentScripts) {
+                await updScriptStatus(script.id, true)
+            }
+            console.timeEnd('updateStatus')
         }
     }
 }
@@ -242,13 +263,35 @@ async function ensureContentScriptsAreRegistered() {
         }
 
         let actualScriptsArray = (await chrome.scripting.getRegisteredContentScripts()).map(s => s.id)
+
+        let bulkContentScripts: chrome.scripting.RegisteredContentScript[] = []
+
         for (const id of supposedScripts) {
             if (!actualScriptsArray.includes(id)) {
                 let site = getSiteById(id, platforms)
                 if (site) {
-                    await enableReg(id, site.site.origin, content)
+                    bulkContentScripts.push({
+                        allFrames: true,
+                        id: id,
+                        js: content,
+                        matches: [site.site.origin],
+                        persistAcrossSessions: true,
+                        runAt: "document_idle"
+                    })
                 }
             }
+        }
+
+        if (bulkContentScripts.length > 0) {
+            console.time('bulk')
+            await chrome.scripting.registerContentScripts(bulkContentScripts)
+            console.timeEnd('bulk')
+
+            console.time('updateStatus')
+            for (const script of bulkContentScripts) {
+                await updScriptStatus(script.id, true)
+            }
+            console.timeEnd('updateStatus')
         }
     }
     console.timeEnd('ensureContentScriptsAreRegistered')
