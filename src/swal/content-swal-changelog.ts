@@ -1527,7 +1527,19 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
         version: "1.7.9",
         date: "2023-04-XX",
         description: {
-            en: '<b>Boring maintence release.</b><br>' +
+            en: '<b>Hint system, bug fixes, optimization.</b><br>' +
+                '<br>' +
+                '<b>- Hint system (Chatruletka, Ome.tv, Minichat, Chatrulez).</b><br>' +
+                '— The idea of occasionally showing a reminder of our Discord server existence instead of the usual disclaimer turned out to be not cool, because you most likely do not want to be distracted by these rare reminders during the session, even if you pressed STOP. Therefore, this idea has been refined into a full-fledged hint system.<br>' +
+                '— Now, instead of the usual disclaimer, each time you open a video chat, one of the messages of the form \'Did you know?\' is displayed.<br>' +
+                '— Hints contain brief information that should be useful for you: where to complain if something is broken, reminders of the existence of some useful functions (and the ability to test them right away), etc.<br>' +
+                '— The hint appears at the first API check, which occurs when you open a video chat.<br>' +
+                '— The display of hints can be disabled in the settings of the control panel.<br>' +
+                '— There are 19 hints in total, the most useful of them will appear more often.<br>' +
+                '<br>' +
+                '<b>- Control panel (COMC).</b><br>' +
+                '— Fixed an issue with incorrect content height in different tabs of the control panel.<br>' +
+                '— Fixed an issue with incorrect margin-top of geolocation data (6px -> 3px).<br>' +
                 '<br>' +
                 '<b>- Coomeet Free.</b><br>' +
                 '— Reduced size of extension controls.<br>' +
@@ -1541,7 +1553,19 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Added caching of popup content and height. The popup loads just as slowly (0.1s-0.3s), but it\'s less noticeable.<br>' +
                 '— Improved error collection functionality, which will allow us to identify and fix errors faster than before.<br>' +
                 '— Changed the way the extension is compiled, which in theory should significantly speed up the approval process for future updates in stores.',
-            ru: '<b>Скучный maintence релиз.</b><br>' +
+            ru: '<b>Система подсказок, исправление багов, оптимизация.</b><br>' +
+                '<br>' +
+                '<b>- Система подсказок (Chatruletka, Ome.tv, Minichat, Chatrulez).</b><br>' +
+                '— Идея изредка показывать вместо обычного дисклеймера напоминание о нашем Discord сервере оказалась не совсем удачной, ведь вам скорее всего не хочется отвлекаться во время сессии на эти напоминания, пусть даже если вы нажали СТОП. Поэтому эта идея была доработана до полноценной системы подсказок.<br>' +
+                '— Теперь вместо привычного дисклеймера при каждом открытии видеочата отоборажается одно из сообщений вида \'А Вы знали?\'.<br>' +
+                '— Подсказки содержат краткую информацию, которую было бы неплохо донести до пользователя: куда обращаться если что-то сломалось, ссылки на ресурсы проекта, напоминания о существовании некоторых полезных функций (и возможность их сразу протестировать) и т.д.<br>' +
+                '— Подсказка появляется при первой проверке API, которая происходит при открытии видеочата. Дальше - всё как раньше, стандартный дисклеймер.<br>' +
+                '— Отображение подсказок можно отключить в настройках контрольной панели.<br>' +
+                '— Всего подсказок 19 штук, самые полезные из них будут появляться чаще, чем другие.<br>' +
+                '<br>' +
+                '<b>- Контрольная панель (COMC).</b><br>' +
+                '— Исправлена проблема с неправильной высотой контента в разных вкладках контрольной панели.<br>' +
+                '— Исправлена проблема с неправильным подсчётом отступа данных геолокации (6px -> 3px).<br>' +
                 '<br>' +
                 '<b>- Coomeet Free.</b><br>' +
                 '— Уменьшен размер элементов управления расширением.<br>' +
