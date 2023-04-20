@@ -1525,7 +1525,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
     },
     {
         version: "1.7.9",
-        date: "2023-04-XX",
+        date: "2023-04-20",
         description: {
             en: '<b>Hint system, bug fixes, optimization.</b><br>' +
                 '<br>' +
