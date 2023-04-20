@@ -1509,7 +1509,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
     },
     {
         version: "1.7.8",
-        date: "2023-04-05",
+        date: "2023-04-15",
         description: {
             en: '<b>Redesigned welcome screens.</b><br>' +
                 '<br>' +
