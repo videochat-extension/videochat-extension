@@ -617,10 +617,10 @@ export class ControlsTabApi {
         return utils.createElement('div', {
             className: "tabs__content active controls__row",
             id: "apiInfoContent",
-            style: "height:100%;"
+            style: "height:100%; padding-top: 1px"
         }, [
             utils.createElement('div', {
-                style: "display: flex; flex-flow: column;"
+                style: "display: flex; flex-flow: column; height:100%;"
             }, [
                 utils.createElement('div', {
                     id: "remoteFace",
@@ -634,7 +634,7 @@ export class ControlsTabApi {
                 }),
                 utils.createElement('div', {
                     id: "remoteInfo",
-                    style: "overflow-y: auto; height: 100%; margin-top: 3px"
+                    style: "overflow-y: auto; height: 100%; padding-top:2px;"
                 })
             ])
         ])
@@ -705,7 +705,7 @@ export class ControlsTabMap {
 
         this.mapContainer = utils.createElement('div', {
             id: "mapid",
-            style: "width: 100%; margin-top: 1px;"
+            style: "width: 100%; height:100%;"
         })
         this.map = new mapModule(this.mapContainer)
         this.content = this.getContentHTML()
@@ -721,7 +721,7 @@ export class ControlsTabMap {
 
     public handleResize() {
         this.map.map.invalidateSize()
-        this.mapContainer.style.height = parseInt(this.mapContainer.style.height) - 2 + "px"
+        // this.mapContainer.style.height = parseInt(this.mapContainer.style.height) - 2 + "px"
     }
 
     public handleTabClick() {
@@ -740,7 +740,7 @@ export class ControlsTabMap {
         return utils.createElement('div', {
             className: "tabs__content",
             id: "faceapiContent",
-            style: "height:100%;"
+            style: "height:100%; padding-top: 1px"
         }, [
             this.mapContainer
         ])

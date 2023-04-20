@@ -232,11 +232,11 @@ export class ControlsTabStats {
         return utils.createElement('div', {
             className: "tabs__content",
             id: "statsPanel",
-            style: "height:100%;"
+            style: "height:100%; padding-top: 1px"
         }, [
             utils.createElement('div', {
                     id: "statsInfo",
-                    style: "overflow-y: auto; margin-top: 3px"
+                    style: "overflow-y: auto; height:100%;"
                 },
                 [
                     utils.createElement('span', {

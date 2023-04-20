@@ -91,25 +91,29 @@ export class ControlsModule {
 
         // I remade the old hardcoded resize function to support the custom set of tabs,
         // but this must be redone normally in the future, without changing what the interface looks like
-        Array.from({length: 2}, () => {
-            this.tabs.forEach((tab: any) => {
-                let el = <HTMLElement>tab.content.lastElementChild
-                if (el) {
-                    if (tab.content.childElementCount > 0) {
-                        let newHeight = tab.content.offsetHeight - tabs.offsetHeight - tab.marginBottom
-                        if (tab.content.childElementCount > 1) {
-                            [...Array(tab.content.childElementCount - 1).keys()].forEach((key) => {
-                                newHeight += -(tab.content.children[key] as HTMLElement).offsetHeight
-                            })
-                        }
-                        if (this.vertical) {
-                            newHeight += -15
-                        }
-                        el.style.height = newHeight + "px"
-                    }
-                }
-            })
-        });
+        // Array.from({length: 2}, () => {
+        //     this.tabs.forEach((tab: any) => {
+        //         let el = <HTMLElement>tab.content.lastElementChild
+        //         if (el) {
+        //             if (tab.content.childElementCount > 0) {
+        //                 let newHeight = tab.content.offsetHeight - tabs.offsetHeight - tab.marginBottom
+        //                 if (tab.content.childElementCount > 1) {
+        //                     [...Array(tab.content.childElementCount - 1).keys()].forEach((key) => {
+        //                         newHeight += -(tab.content.children[key] as HTMLElement).offsetHeight
+        //                     })
+        //                 }
+        //                 if (this.vertical) {
+        //                     newHeight += -15
+        //                 }
+        //                 el.style.height = newHeight + "px"
+        //             }
+        //         }
+        //     })
+        // });
+        let newHeight = document.getElementById("controls")!.offsetHeight - document.getElementById("VE_header")!.offsetHeight - document.getElementById("VE_tab_selector")!.offsetHeight
+
+        newHeight += -1
+        document.getElementById("VE_tab_content")!.style.height = newHeight + "px"
 
         this.tabs.forEach((tab: any) => {
             tab.handleResize()
@@ -323,7 +327,8 @@ export class ControlsModule {
             tabs[0].className = "active"
         }
         return utils.createElement('ul', {
-            className: "tabs__caption"
+            className: "tabs__caption",
+            id: "VE_tab_selector"
         }, tabs)
     }
 
@@ -336,7 +341,10 @@ export class ControlsModule {
     }
 
     protected createControls() {
-        let content = [this.createStyle(), createHeader(), this.createTabs(), ...this.createContent()]
+        let tabs = this.createTabs()
+        let content = [this.createStyle(), createHeader(), utils.createElement('div', {
+            id: 'VE_tab_content', style: "width:100%; height: 100%;"
+        }, this.createContent()), tabs]
         if (this.vertical) {
             return utils.createElement('div', {
                 className: 'chatt', id: 'controls', style: "width:100%; height: 100%;"
@@ -426,11 +434,11 @@ export class ControlsTabAbout {
         return utils.createElement('div', {
             className: "tabs__content",
             id: "aboutPanel",
-            style: "height:100%;"
+            style: "height:100%; padding-top: 1px"
         }, [
             utils.createElement('div', {
                     id: "aboutInfo",
-                    style: "overflow-y: auto; margin-top: 3px"
+                    style: "overflow-y: auto; height:100%;"
                 },
                 [
                     utils.createElement('span', {
@@ -581,7 +589,8 @@ export class ControlsTabAbout {
 
 function createHeader() {
     return utils.createElement('center', {
-        style: "user-select:none"
+        style: "user-select:none",
+        id: "VE_header"
     }, [
         utils.createElement('div', {
             style: "position:absolute; left:0;top:0",
