@@ -12,7 +12,7 @@
     "ext:firefox": "rimraf 'webpack_builds/release_firefox' && cross-env BROWSER='firefox' DIR='webpack_builds/release_firefox' webpack --config webpack/webpack.prod.js",
     "ext:firefox-dev": "cross-env BROWSER='firefox' DIR='webpack_builds/dist_firefox' webpack --config webpack/webpack.dev.js",
     "ext:firefox-dev-watch": "cross-env BROWSER='firefox' DIR='webpack_builds/dist_firefox' webpack --config webpack/webpack.dev.js --watch",
-    "cross-dev": "npm run ext:firefox-dev & npm run ext:chrome-dev & npm run ext:chrome-dev",
+    "cross-dev": "npm run ext:firefox-dev & npm run ext:chrome-dev & npm run ext:edge-dev",
     "cross-dev-watch": "npm run ext:firefox-dev-watch & npm run ext:chrome-dev-watch & npm run ext:edge-dev-watch",
     "clean": "rimraf webpack_builds"
   },
