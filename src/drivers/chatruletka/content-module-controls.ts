@@ -122,7 +122,8 @@ export class ControlsModule {
 
     public static defaults = {
         expand: true,
-        ignoreSiteStyles: true
+        ignoreSiteStyles: true,
+        showHints: true,
     }
     public settings = [
         {
@@ -162,6 +163,13 @@ export class ControlsModule {
                     this.controls.style.fontSize = ""
                 }
             }
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "showHints",
+            text: chrome.i18n.getMessage("showHints"),
+            tooltip: chrome.i18n.getMessage("tooltipShowHints"),
         },
     ]
 

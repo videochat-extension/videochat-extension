@@ -47,6 +47,9 @@
   "main": {
     "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row\"><div><div id=\"reviewImageContainer\"></div><br><b>Важно:</b><br>Это расширение не имеет никакого отношения к администрации видеочата '$1'.</div></div>"
   },
+  "mainHint": {
+    "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row\"><div><div id=\"$1\">$3</div><br><b>А Вы знали?</b><br>$2</div></div>"
+  },
   "mainDiscord": {
     "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row\"><div><div id=\"discordImageContainer\"></div><br><b>Важно:</b><br>Сообщество расширения размещено в <a href=\"https://discord.gg/7DYWu5RF7Y\" target=\"_blank\" style=\"text-decoration: none!important;\">Discord</a>.<br><br>В <a href=\"https://discord.gg/7DYWu5RF7Y\" target=\"_blank\" style=\"text-decoration: none!important;\">нашем Discord сервере</a> вы можете следить за новостями проекта, сообщить об ошибке, предложить функцию, получить техническую помощь и обсудить расширение с разработчиком и другими пользователями.</div></div>"
   },
@@ -484,6 +487,12 @@
   },
   "tooltipIgnoreSiteStyles": {
     "message": "предотвращает изменение размера шрифта элементов панели управления из-за стиля самого сайта видеочата (если не /embed)"
+  },
+  "showHints": {
+    "message": "показывать подсказки:"
+  },
+  "tooltipShowHints": {
+    "message": "если включено, будет показывать случайное 'А Вы знали?' сообщение при каждом запуске видеочата"
   },
   "swalInfoTitle1": {
     "message": "Поздравляем!"
