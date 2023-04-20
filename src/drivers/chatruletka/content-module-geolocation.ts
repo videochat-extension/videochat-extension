@@ -235,16 +235,14 @@ export class GeolocationModule {
         chrome.runtime.sendMessage({aremoteIP: "1.1.1.1", language: "en"}, (response) => {
             if (response.status === 200) {
                 this.api = 2;
-                (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
-                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage(this.main === 10 ? "mainDiscord" : "main", [this.driver.site.text])
+                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage("main", [this.driver.site.text])
 
                 if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
                     this.driver.modules.controls.resizemap(false)
                 }
                 console.dir(`ip-api.com test passed: ${response.status}`)
             } else if (response.status === 429) {
-                (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
-                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus429") + "</br></br>" + chrome.i18n.getMessage(this.main === 10 ? "mainDiscord" : "main", [this.driver.site.text])
+                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus429") + "</br></br>" + chrome.i18n.getMessage("main", [this.driver.site.text])
                 this.api = 2;
 
                 console.dir(`ip-api.com test passed: ${response.status}`)
@@ -254,8 +252,7 @@ export class GeolocationModule {
                 console.dir(`ip-api.com test failed: ${response.status} ${response.body}`)
                 console.dir(chrome.i18n.getMessage("apiStatus0") + ' ERROR: ' + response.status);
 
-                (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
-                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize(`<b>ERROR: ${response.status} (${response.body}) || </b>`) + chrome.i18n.getMessage("apiStatus0") + "</br></br>" + chrome.i18n.getMessage(this.main === 10 ? "mainDiscord" : "main", [this.driver.site.text])
+                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize(`<b>ERROR: ${response.status} (${response.body}) || </b>`) + chrome.i18n.getMessage("apiStatus0") + "</br></br>" + chrome.i18n.getMessage("mainDiscord", [this.driver.site.text])
                 if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
                     this.driver.modules.controls.resizemap(false)
                 }
@@ -265,8 +262,7 @@ export class GeolocationModule {
                 console.dir(`ip-api.com test failed: ${response.status} ${response.body}`)
                 console.dir(chrome.i18n.getMessage("apiStatus0") + ' ERROR: ' + response.status);
 
-                (document.getElementById("apiStatus") as HTMLElement).innerHTML = '';
-                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize(`<b>HTTP ERROR: ${response.status} || `) + '<b>' + chrome.i18n.getMessage("apiStatusRegular") + "</b></br></br>" + chrome.i18n.getMessage(this.main === 10 ? "mainDiscord" : "main", [this.driver.site.text])
+                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize(`<b>HTTP ERROR: ${response.status} || `) + '<b>' + chrome.i18n.getMessage("apiStatusRegular") + "</b></br></br>" + chrome.i18n.getMessage("mainDiscord", [this.driver.site.text]);
                 if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
                     this.driver.modules.controls.resizemap(false)
                 }
@@ -627,10 +623,6 @@ export class ControlsTabApi {
                 }),
                 utils.createElement('div', {
                     id: "streamerStatus",
-                }),
-                utils.createElement('div', {
-                    id: "apiStatus",
-                    style: "margin-top: 3px"
                 }),
                 utils.createElement('div', {
                     id: "remoteInfo",
