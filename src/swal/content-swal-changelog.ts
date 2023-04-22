@@ -1590,12 +1590,14 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<b>- TEXT.</b><br>' +
                 '— Updated text for some hints.<br>' +
                 '— Added omegle.com to default favorites list (because it doesn\'t require additional edge permission).<br>' +
+                '— Added equal space between multiple blocks with geolocation data.<br>' +
                 '— TEXT.',
             ru: '<b>TEXT.</b><br>' +
                 '<br>' +
                 '<b>- TEXT.</b><br>' +
                 '— Обновлен текст некоторых подсказок.<br>' +
                 '— Добавлен omegle.com в список избранного по умолчанию (поскольку он не требует дополнительных разрешений в edge).<br>' +
+                '— Добавлен отступ между блоками с геолокацией.<br>' +
                 '— TEXT'
         }
     },
