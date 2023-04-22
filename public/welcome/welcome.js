@@ -220,10 +220,7 @@ const showSwalChangelog = async function () {
             `When you install the extension for the first time, it checks if you have any tabs open with supported video chats and adds them to your favorites so that you don't get lost.` +
             '<br>' +
             '<br>' +
-            'If nothing is found, then videochatru.com and ome.tv are added to the favorites by default, because for years these were the only supported chats and by clicking on the icon the extension always opened one of them.' +
-            '<br>' +
-            '<br>' +
-            'When I was rewriting the extension, it was important for me that its old users would not get lost in the new huge menu and could immediately return to action.' +
+            'If nothing is found, then videochatru.com, ome.tv and omegle.com are added to the favorites by default because they all don\'t require additional permission.<br>' +
             '<br>' +
             '<br>' +
             'You can also add all the video chats from the browser history of the past month to your favorites with a single click. To do this, you need to temporarily allow the extension to ask your browser if there are any video chats in the history that we support.' +
@@ -378,10 +375,7 @@ const showSwalChangelog = async function () {
             'Когда вы впервые устанавливаете расширение, оно проверяет открыты ли у вас вкладки с поддерживаемыми видеочатами и добавляет их в избранное, чтобы вы не заблудились.' +
             '<br>' +
             '<br>' +
-            'Если ничего не было найдено, то videochatru.com и ome.tv добавляются в избранное по умолчанию, потому что долгие годы это были единственные поддерживаемые чаты и по клику на иконку расширение всегда открывало один из них.' +
-            '<br>' +
-            '<br>' +
-            'Когда я переписывал расширение, для меня было важно, чтобы его старые пользователи не потерялись в новой огромной менюшке и могли сразу вернуться к действию.' +
+            'Если ничего не было найдено, то videochatru.com, ome.tv & omegle.com добавляются в избранное по умолчанию, потому что для их работы не требуются дополнительные разрешения.' +
             '<br>' +
             '<br>' +
             'Так же есть возможность одной кнопкой добавить в избранное все видеочаты из истории вашего браузера за последний месяц. Для этого нужно, чтобы вы временно разрешили расширению узнать у вашего браузера есть ли в вашей истории поддерживаемые нами видеочаты.' +

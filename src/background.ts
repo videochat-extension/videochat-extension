@@ -6,7 +6,9 @@ const defaults = {
     // so I decided to add a way to prevent them from loading drivers if necessary
     "legacyPrevent": {
         "7fef97eb-a5cc-4caa-8d19-75dab7407b6b": false,
-        "98ea82db-9d50-4951-935e-2405d9fe892e": false
+        "98ea82db-9d50-4951-935e-2405d9fe892e": false,
+        // omegle is registered in edge's manifest
+        "13fa70ac-6a70-4eab-8410-0fca063fbdea": false
     },
     // dict contains states if content scripts should be registered: UUID: boolean
     "scripts": {},
@@ -14,7 +16,7 @@ const defaults = {
     // if other chats were found in open tabs on first install,
     // then default favorites are replaced with found chats
     // TODO: add check which should remove all uuids not found in the platforms.json
-    "favorites": ["7fef97eb-a5cc-4caa-8d19-75dab7407b6b", "98ea82db-9d50-4951-935e-2405d9fe892e"],
+    "favorites": ["7fef97eb-a5cc-4caa-8d19-75dab7407b6b", "98ea82db-9d50-4951-935e-2405d9fe892e", "13fa70ac-6a70-4eab-8410-0fca063fbdea"],
     // dict containing site uuid and last opened unix timestamp
     "recentDict": {},
     // if extension should display legacy 'Chatruletka (ome.tv) Extension' icon
@@ -197,7 +199,7 @@ async function onRuntimeInstalled(_reason: chrome.runtime.InstalledDetails) {
                         });
                     }
                 });
-                // If found any chat, then dont add videochatru.com and ome.tv
+                // If found any chat, then dont add videochatru.com and ome.tv and omegle
                 if (found.length > 0) {
                     let favorites: string[] = []
                     found.forEach(site => {
