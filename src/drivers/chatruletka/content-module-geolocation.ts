@@ -625,7 +625,7 @@ export class ControlsTabApi {
                 src: undefined,
                 strength: 4,
                 enabled: true,
-                text: `The extension community is hosted on <a href=\"https://discord.gg/7DYWu5RF7Y\" target='_blank' style=\"text-decoration: none!important;\">Discord</a>.<br><br>On <a href=\"https://discord.gg/7DYWu5RF7Y\" target='_blank' style=\"text-decoration: none!important;\">our Discord server</a> you can subscribe to project updates, report a bug, suggest a feature, get technical help and discuss the extension with the developer and other users!`
+                text: `The extension community is hosted on <a href=\"https://discord.gg/7DYWu5RF7Y\" target='_blank' style=\"text-decoration: none!important;\">Discord</a>.<br><br>On <a href=\"https://discord.gg/7DYWu5RF7Y\" target='_blank' style=\"text-decoration: none!important;\">our Discord server</a> you can subscribe to project updates, report a bug, suggest an idea, get technical help and discuss the extension with the developer and other users!`
             },
 
             {
@@ -643,7 +643,7 @@ export class ControlsTabApi {
                 src: 'https://img.shields.io/github/stars/videochat-extension/videochat-extension?label=Star%20this%20project%20on%20GitHub&style=plastic&logo=github',
                 strength: 1,
                 enabled: true,
-                text: `Project source code is available at <a href=\"https://github.com/videochat-extension\" target=\"_blank\" style=\"text-decoration: none!important;\">GitHub </a>!<br><br>The extension is an open source project (BSD-4 license) and will always be distributed free of charge.<br><br>If they ask you for money for using the extension, they are scammers.`
+                text: `Our source code is available on <a href=\"https://github.com/videochat-extension\" target=\"_blank\" style=\"text-decoration: none!important;\">GitHub</a>!<br><br>This extension is an open source project (BSD-4 license) and will always be distributed for free.`
             },
 
             {
@@ -687,7 +687,7 @@ export class ControlsTabApi {
                 src: undefined,
                 strength: 1,
                 enabled: true,
-                text: "We respect your privacy.<br><br>We do not analyze your behavior, we do not collect any data about you, we do not process / log your geolocation requests.<br><br>We do not know which video chats our users prefer, how many of you use the dark theme, and so on.<br><br>We have no idea if you're currently reading this text.<br><br>The extension doesn't track you — it is <a href=\" https://github.com/videochat-extension\" target=\"_blank\" style=\"text-decoration: none!important;\">open source</a> so you can go check for yourself. <br><br>We use only internal analytics of the stores (we know the number of installs and uninstalls, as well as how many unique browsers are checking updates).<br><br>Also we enable the collection of anonymized information about errors that have occurred by default (it can be disabled in the settings)."
+                text: "We respect your privacy.<br><br>We do not analyze your behavior, we do not collect any data about you, we do not process / log your geolocation requests.<br><br>We do not know which video chats our users prefer, how many of you use the dark theme, and so on.<br><br>We have no idea if you're currently reading this text.<br><br>The extension doesn't track you — it is <a href=\" https://github.com/videochat-extension\" target=\"_blank\" style=\"text-decoration: none!important;\">open source</a> so you can go check for yourself. <br><br>We use only internal analytics of the stores (we know the number of installs and uninstalls, as well as how many unique browsers check for updates).<br><br>Also we enable the collection of anonymized information about errors that have occurred by default (it can be disabled in the settings)."
             },
 
             {
@@ -696,7 +696,7 @@ export class ControlsTabApi {
                 src: undefined,
                 strength: 3,
                 enabled: !globalThis.platformSettings.get("darkMode"),
-                text: `The extension can enable dark theme for you: <input type="checkbox" onchange="document.getElementById('darkModeCheck').click()">`
+                text: `We can turn on the dark theme for you: <input type="checkbox" onchange="document.getElementById('darkModeCheck').click()">`
             },
 
             {
@@ -730,7 +730,7 @@ export class ControlsTabApi {
                 src: undefined,
                 strength: 5,
                 enabled: globalThis.platformSettings.get("enableTargetCity") && globalThis.platformSettings.get("enableTargetRegion"),
-                text: `You have bot 'search by city' and 'search by region' enabled.<br><br>The extension will skip everyone until it finds you someone from a city that is in the list: '${globalThis.platformSettings.get("targetCity ")}', & the region that is in the list: '${globalThis.platformSettings.get("targetRegion")}'.`
+                text: `You have both 'search by city' and 'search by region' enabled.<br><br>The extension will skip everyone until it finds you someone from a city that is in the list: '${globalThis.platformSettings.get("targetCity ")}', & a region that is in the list: '${globalThis.platformSettings.get("targetRegion")}'.`
             },
             {
                 imgcontainer: "reviewImageContainer",
@@ -754,7 +754,7 @@ export class ControlsTabApi {
                 src: undefined,
                 strength: 2,
                 enabled: !globalThis.platformSettings.get("doNotCover"),
-                text: `The extension can display uncut video from the stranger's camera: <input type="checkbox" onchange="document.getElementById('doNotCoverCheck').click()"><br><br>A lot of people use mobile applications, who shoot in landscape mode so part of the picture is cut off by the site interface.<br><br>You can reverse this effect to see the entire interlocutor (at the cost of black bars on the sides).`
+                text: `The extension can display uncut video from the stranger's camera: <input type="checkbox" onchange="document.getElementById('doNotCoverCheck').click()"><br><br>A lot of people use mobile applications, who shoot in portrait mode so part of the picture is cut off by the site interface.<br><br>You can reverse this effect to see the entire interlocutor (at the cost of black bars on the sides).`
             },
             {
                 imgcontainer: "reviewImageContainer",
@@ -806,7 +806,7 @@ export class ControlsTabApi {
                 src: 'https://img.shields.io/github/stars/videochat-extension/videochat-extension?label=%D0%9F%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D1%8C%D1%82%D0%B5%20%D0%BD%D0%B0%D0%BC%20%D0%B7%D0%B2%D1%91%D0%B7%D0%B4%D0%BE%D1%87%D0%BA%D1%83%20%D0%BD%D0%B0%20GitHub&style=plastic&logo=github',
                 strength: 1,
                 enabled: true,
-                text: `Исходный код проекта доступен на <a href=\"https://github.com/videochat-extension\" target=\"_blank\" style=\"text-decoration: none!important;\">GitHub</a>!<br><br>Расширение является проектом с открытым исходным кодом (лицензия BSD-4) и всегда будет распространяться бесплатно.<br><br>Если у вас просят деньги за использование расширения — это мошенники.`
+                text: `Исходный код проекта доступен на <a href=\"https://github.com/videochat-extension\" target=\"_blank\" style=\"text-decoration: none!important;\">GitHub</a>!<br><br>Расширение является проектом с открытым исходным кодом (лицензия BSD-4) и всегда будет распространяться бесплатно.`
             },
 
             {
@@ -918,7 +918,7 @@ export class ControlsTabApi {
                 src: undefined,
                 strength: 2,
                 enabled: !globalThis.platformSettings.get("doNotCover"),
-                text: `Расширение может отображать полное видео с камеры собеседника: <input type="checkbox" onchange="document.getElementById('doNotCoverCheck').click()"><br><br>Значительная часть пользователей видеочата использует мобильные приложения, которые снимают в альбомном режиме, из-за его часть картинки обрезается в интерфейсе сайта.<br><br>Вы можете обратить этот эффект, чтобы видеть всего собеседника целиком (ценой чёрных полос по бокам).`
+                text: `Расширение может отображать полное видео с камеры собеседника: <input type="checkbox" onchange="document.getElementById('doNotCoverCheck').click()"><br><br>Значительная часть пользователей видеочата использует мобильные приложения, которые снимают в портретном режиме, из-за его часть картинки обрезается в интерфейсе сайта.<br><br>Вы можете обратить этот эффект, чтобы видеть всего собеседника целиком (ценой чёрных полос по бокам).`
             },
             {
                 imgcontainer: "reviewImageContainer",
@@ -934,7 +934,7 @@ export class ControlsTabApi {
                 src: undefined,
                 strength: 1,
                 enabled: true,
-                text: `Мы не контролируем когда ваш браузер решает обновить расширение.<br><br>Иногда это может произойти прямо во время чата, в этом случае вам нужно вручную перезагрузить страницу, чтобы восстановить работу расширения.`
+                text: `Мы не контролируем когда ваш браузер решает обновить расширение.<br><br>Иногда это может произойти прямо во время разговора, в этом случае вам нужно будет вручную перезагрузить страницу, чтобы восстановить работу расширения.`
             },
             {
                 imgcontainer: "reviewImageContainer",
@@ -954,7 +954,7 @@ export class ControlsTabApi {
         console.dir(this.hintsDict[lang]);
         for (const hint of this.hintsDict[lang]) {
             if (hint.enabled) {
-                // TODO: this looks bad...
+                // hint is pushed by ref so no memory issues here
                 [...Array(hint.strength).keys()].forEach(index =>
                     hints.push(hint)
                 )
