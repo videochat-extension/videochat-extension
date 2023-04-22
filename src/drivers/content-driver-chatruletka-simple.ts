@@ -69,7 +69,7 @@ export class ChatruletkaSimpleDriver {
     }
 
     private checkApi() {
-        chrome.runtime.sendMessage({aremoteIP: "1.1.1.1", language: this.apiLanguage}, (response) => {
+        chrome.runtime.sendMessage({makeGeolocationRequest: "1.1.1.1", language: this.apiLanguage}, (response) => {
             console.dir(`ip-api.com test: ${response.status}`)
             let apiStatusContainer = $('#apiStatusContainer')
             if (response.status === 200) {
@@ -139,7 +139,7 @@ export class ChatruletkaSimpleDriver {
             this.curIps.push(newIp)
         }
 
-        chrome.runtime.sendMessage({aremoteIP: newIp, language: this.apiLanguage}, (response) => {
+        chrome.runtime.sendMessage({makeGeolocationRequest: newIp, language: this.apiLanguage}, (response) => {
             if (!this.curIps.includes(newIp)) {
                 return
             }

@@ -168,7 +168,7 @@ export class OmegleSimpleDriver {
             this.curIps.push(newIp)
         }
 
-        chrome.runtime.sendMessage({aremoteIP: newIp, language: this.apiLanguage}, (response) => {
+        chrome.runtime.sendMessage({makeGeolocationRequest: newIp, language: this.apiLanguage}, (response) => {
             if (!this.curIps.includes(newIp)) {
                 return
             }

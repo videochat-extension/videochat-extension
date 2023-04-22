@@ -378,36 +378,8 @@ function tabsOnActivated(chTab: chrome.tabs.TabActiveInfo) {
 function runtimeOnMessage(request: any, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void) {
     // makes a request to the geolocation service with the requested IP address and language
     // making a request via service worker helps avoid http restrictions
-    if (request.remoteIP) {
-        fetch(`http://ip-api.com/json/${request.remoteIP}?fields=status%2Cmessage%2Ccountry%2CcountryCode%2Cregion%2CregionName%2Ccity%2Cdistrict%2Czip%2Clat%2Clon%2Ctimezone%2Cisp%2Corg%2Cas%2Cmobile%2Cproxy%2Chosting%2Cquery&lang=${request.language}`)
-            .then((response) => {
-                if (response.ok) {
-                    response.json().then(
-                        function (data) {
-                            if (sender.tab && sender.tab.id) {
-                                chrome.tabs.sendMessage(sender.tab.id, {
-                                    ipData: data,
-                                    apiCode: response.status,
-                                    apiQuery: request.remoteIP
-                                })
-                            }
-                        }
-                    )
-                } else {
-                    if (sender.tab && sender.tab.id) {
-                        chrome.tabs.sendMessage(sender.tab.id, {
-                            ipData: {},
-                            apiCode: response.status,
-                            apiQuery: request.remoteIP
-                        })
-                    }
-                }
-            })
-        sendResponse('fetch should be in progress');
-    }
-
-    if (request.aremoteIP) {
-        fetch(`http://ip-api.com/json/${request.aremoteIP}?fields=status%2Cmessage%2Ccountry%2CcountryCode%2Cregion%2CregionName%2Ccity%2Cdistrict%2Czip%2Clat%2Clon%2Ctimezone%2Cisp%2Corg%2Cas%2Cmobile%2Cproxy%2Chosting%2Cquery&lang=${request.language}`)
+    if (request.makeGeolocationRequest) {
+        fetch(`http://ip-api.com/json/${request.makeGeolocationRequest}?fields=status%2Cmessage%2Ccountry%2CcountryCode%2Cregion%2CregionName%2Ccity%2Cdistrict%2Czip%2Clat%2Clon%2Ctimezone%2Cisp%2Corg%2Cas%2Cmobile%2Cproxy%2Chosting%2Cquery&lang=${request.language}`)
             .then((response) => {
                 if (response.ok) {
                     response.json().then(data => (sendResponse({status: response.status, body: data})))

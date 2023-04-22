@@ -238,7 +238,7 @@ export class GeolocationModule {
             (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStartCheck") + "</br></br>" + chrome.i18n.getMessage("main", [this.driver.site.text]);
         }
 
-        chrome.runtime.sendMessage({aremoteIP: "1.1.1.1", language: "en"}, (response) => {
+        chrome.runtime.sendMessage({makeGeolocationRequest: "1.1.1.1", language: "en"}, (response) => {
             if (response.status === 200) {
                 this.api = 2;
                 if (this.initial) {
@@ -331,7 +331,7 @@ export class GeolocationModule {
     }
 
     public doLookupRequest2(ip: string) {
-        chrome.runtime.sendMessage({aremoteIP: ip, language: this.getApiLanguage()}, (response) => {
+        chrome.runtime.sendMessage({makeGeolocationRequest: ip, language: this.getApiLanguage()}, (response) => {
             console.dir(`ip-api.com returned ${response.status} (${response.body.status}) for '${ip}'`)
 
             if (response.status === 200) {
