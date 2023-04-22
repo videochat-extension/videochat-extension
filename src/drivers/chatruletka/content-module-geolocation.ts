@@ -340,7 +340,7 @@ export class GeolocationModule {
                 if (globalThis.platformSettings.get("enableTargetCity") || globalThis.platformSettings.get("enableTargetRegion")) {
                     this.driver.stopAndStart(5000)
                 } else {
-                    (document.getElementById("remoteInfo") as HTMLElement).innerHTML = '<div id="ipApiContainer" style="display:flex; flex-direction:row"><div>' + chrome.i18n.getMessage("apiStatus429")
+                    (document.getElementById("remoteInfo") as HTMLElement).innerHTML = '<div id="ipApiContainer" style="display:flex; flex-direction:row; justify-content: space-between;"><div>' + chrome.i18n.getMessage("apiStatus429")
                     let button = utils.createElement('button', {
                         innerText: chrome.i18n.getMessage('apiTryAgainButton'),
                         onclick: () => {
