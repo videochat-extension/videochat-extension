@@ -1581,6 +1581,22 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Изменен способ компиляции расширения, что в теории должно привести к ускорению процесса одобрения будущих обновлений магазинами.'
         }
     },
+    {
+        version: "1.8.0",
+        date: "2023-XX-XX",
+        description: {
+            en: '<b>TEXT.</b><br>' +
+                '<br>' +
+                '<b>- TEXT.</b><br>' +
+                '— Updated text for some hints.<br>' +
+                '— TEXT.',
+            ru: '<b>TEXT.</b><br>' +
+                '<br>' +
+                '<b>- TEXT.</b><br>' +
+                '— Обновлен текст некоторых подсказок.<br>' +
+                '— TEXT'
+        }
+    },
 ]
 
 
