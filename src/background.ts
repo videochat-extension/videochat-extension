@@ -347,9 +347,9 @@ async function commandsOnCommand(command: string, tab: chrome.tabs.Tab) {
 // it is mainly used to track the active chat tab
 function tabsOnActivated(chTab: chrome.tabs.TabActiveInfo) {
     chrome.tabs.get(chTab["tabId"], async function (tab) {
-        // torrentWindowId variable tracks window id where iknowwhatyoudownload.com tabs opens
-        let data = await chrome.storage.local.get({tabId: -1, chatId: -1, curId: -1, torrentWindowId: -1})
-        if (tab["url"] !== undefined && tab["id"] !== undefined) {
+        if (tab && tab["url"] !== undefined && tab["id"] !== undefined) {
+            // torrentWindowId variable tracks window id where iknowwhatyoudownload.com tabs opens
+            let data = await chrome.storage.local.get({tabId: -1, chatId: -1, curId: -1, torrentWindowId: -1})
             let lastDomain = await getValue('lastDomain', "")
             if (tab["url"].includes(lastDomain)) {
                 // if the chat is open in torrentWindowId then torrentWindowId can no longer be used for iknowwhatyoudownload tabs
