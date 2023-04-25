@@ -379,7 +379,7 @@ function runtimeOnMessage(request: any, sender: chrome.runtime.MessageSender, se
     // makes a request to the geolocation service with the requested IP address and language
     // making a request via service worker helps avoid http restrictions
     if (request.makeGeolocationRequest) {
-        fetch(`http://ip-api.com/json/${request.makeGeolocationRequest}?fields=status%2Cmessage%2Ccountry%2CcountryCode%2Cregion%2CregionName%2Ccity%2Cdistrict%2Czip%2Clat%2Clon%2Ctimezone%2Cisp%2Corg%2Cas%2Cmobile%2Cproxy%2Chosting%2Cquery&lang=${request.language}`)
+        fetch(`http://ip-api.com/json/${request.makeGeolocationRequest}?fields=17032159&lang=${request.language}`)
             .then((response) => {
                 if (response.ok) {
                     response.json().then(data => (sendResponse({status: response.status, body: data})))
