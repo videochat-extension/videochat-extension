@@ -262,7 +262,7 @@ export class ControlsTabSettings {
         }, [
             utils.createElement('div', {
                     id: "settingsInfo",
-                    style: "overflow-y: auto; height:100%;"
+                    style: "overflow-y: auto; height:100%; user-select: none;"
                 },
                 [
                     utils.createElement('dl', {}, this.getSettingsHTML(this.settings)),
