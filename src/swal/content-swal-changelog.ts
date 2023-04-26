@@ -1587,6 +1587,9 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
         description: {
             en: '<b>TEXT.</b><br>' +
                 '<br>' +
+                '<b>- Geolocation.</b><br>' +
+                '— Now you can choose the language of geolocation, available languages: English, German, Spanish, Portuguese, French, Japanese, Chinese, Russian. Previously it was possible to request the browser language, but now you can choose manually from the list in the geolocation settings. Works only in full COMC mode, in other modes the language is selected based on the browser language.<br>' +
+                '<br>' +
                 '<b>- Minor changes.</b><br>' +
                 '— Updated text for some hints.<br>' +
                 '— The default favorites list now depends on the browser (it now includes only those chats that do not require additional permissions).<br>' +
@@ -1594,6 +1597,9 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Fixed enabling/disabling the script on omegle.com and omegle.tv (Edge).<br>' +
                 '— TEXT.',
             ru: '<b>TEXT.</b><br>' +
+                '<br>' +
+                '<b>- Геолокация.</b><br>' +
+                '— Теперь можно выбрать язык геолокации, доступны: Английский, Немецкий, Испанский, Португальский, Французский, Японский, Китайский, Русский. Раньше была возможность запрашивать язык браузера, а теперь можно выбрать вручную. Это работает только в полноценном режиме COMC, в остальных режимах язык выбирается исходя из языка браузера.<br>' +
                 '<br>' +
                 '<b>- Мелкие изменения.</b><br>' +
                 '— Обновлен текст некоторых подсказок.<br>' +
