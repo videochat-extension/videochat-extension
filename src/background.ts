@@ -58,12 +58,12 @@ const defaults = {
     'firstInstall': true,
     // displays whether the migration of the old settings from v1.6.3 has occurred
     'completedOldSettingsMigration': false,
+    // used to show changelog from last version + 1
     "lastVersion": "",
+    // if the user wants the browser to check if user has opened a supported chat site, but has not yet given permission to work with it
     "missingPermissionCheck": true,
-
     // if user wants to see more detailed info on welcome screens
     "curious": false,
-
     // settings managed by PlatformSettings
     // "98ea82db-9d50-4951-935e-2405d9fe892e": {},
 };
