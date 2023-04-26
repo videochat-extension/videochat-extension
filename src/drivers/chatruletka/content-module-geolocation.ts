@@ -753,7 +753,16 @@ export class ControlsTabApi {
                 src: undefined,
                 strength: 1,
                 enabled: true,
-                text: "We respect your privacy.<br><br>We do not analyze your behavior, we do not collect any data about you, we do not process / log your geolocation requests.<br><br>We do not know which video chats our users prefer, how many of you use the dark theme, and so on.<br><br>We have no idea if you're currently reading this text.<br><br>The extension doesn't track you — it is <a href=\" https://github.com/videochat-extension\" target=\"_blank\" style=\"text-decoration: none!important;\">open source</a> so you can go check for yourself. <br><br>We use only internal analytics of the stores (we know the number of installs and uninstalls, as well as how many unique browsers check for updates).<br><br>Also we enable the collection of anonymized information about errors that have occurred by default (it can be disabled in the settings)."
+                text: "We respect your privacy.<br><br>We do not analyze your activities on the sites, collect any data about you, or log your geolocation requests.<br><br>This extension doesn't track you — it is <a href=\" https://github.com/videochat-extension\" target=\"_blank\" style=\"text-decoration: none!important;\">open source</a> so you can go check for yourself."
+            },
+
+            {
+                imgcontainer: "reviewImageContainer",
+                href: undefined,
+                src: undefined,
+                strength: 1,
+                enabled: true,
+                text: "We respect your privacy.<br><br>We use only internal analytics of the stores, which cannot be disabled. We know the number of installs and uninstalls, as well as how many unique browsers regulary check for updates.<br><br>You should know that we collect anonymized information about extension's errors by default (it can be disabled in the settings)."
             },
 
             {
@@ -917,7 +926,16 @@ export class ControlsTabApi {
                 src: undefined,
                 strength: 1,
                 enabled: true,
-                text: "Мы уважаем вашу приватность.<br><br>Мы не анализируем ваше поведение в чатах, не собираем никаких данных о вас, не обрабатываем / не логируем ваши запросы геолокации.<br><br>Мы не знаем какие видеочаты предпочитают наши пользователи, сколько из вас пользуются тёмной темой и так далее.<br><br>Мы понятия не имеем читаете ли вы сейчас этот текст.<br><br>Расширение не следит за вами — у него <a href=\"https://github.com/videochat-extension\" target=\"_blank\" style=\"text-decoration: none!important;\">открытый исходный код</a> и вы сами можете в этом удостовериться.<br><br>Мы используем только внутренний инструмент аналитики магазинов расширений (знаем количество установок и удалений, а так же сколько у расширения активных пользователей).<br><br>Так же в расширении по умолчанию включен сбор анонимизированной информации о произошедших ошибках (его можно выключить в настройках)."
+                text: "Мы уважаем вашу приватность.<br><br>Мы не анализируем ваше поведение в чатах, не собираем никаких данных о вас, не логируем ваши запросы геолокации.<br><br>Расширение не следит за вами — у него <a href=\"https://github.com/videochat-extension\" target=\"_blank\" style=\"text-decoration: none!important;\">открытый исходный код</a> и вы сами можете в этом убедиться."
+            },
+
+            {
+                imgcontainer: "reviewImageContainer",
+                href: undefined,
+                src: undefined,
+                strength: 1,
+                enabled: true,
+                text: "Мы уважаем вашу приватность.<br><br>Мы используем только внутренний инструмент аналитики магазинов расширений, который невозможно отключить. Мы знаем только количество установок и удалений, а так же сколько уникальных браузеров регулярно проверяют обновления.<br><br>Так же в расширении по умолчанию включен сбор анонимизированной информации о произошедших ошибках (это можно выключить в настройках)."
             },
 
             {

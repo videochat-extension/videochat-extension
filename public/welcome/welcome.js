@@ -101,7 +101,7 @@ const showSwalChangelog = async function () {
             'The most important thing: now you can find out the approximate location of your interlocutor (by trying to geolocate his IP address) and whether he uses a VPN.' +
             '<br>' +
             '<br>' +
-            "<b>Click the red button to check it out now!</b><br><br>Or don't, so you can stay and learn more about what features are available, how to join our <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/7DYWu5RF7Y\">discord</a>, which videochats we support, how to use the extension and how we do NOT process/store you data.",
+            "<b>Click the red button to check it out now!</b><br><br>Or don't, so you can stay and learn more about what features are available, how to join our <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/7DYWu5RF7Y\">discord</a>, which video chats we support, how to use the extension and how we treat your privacy.",
 
             '<br>' +
             '<b>What features are available?</b><br>' +
@@ -234,7 +234,7 @@ const showSwalChangelog = async function () {
 
             '<br>' +
             '<b>Privacy:</b><br>' +
-            'Videochat Extension respects its users and does not collect any data about you.<br><br>The only exceptions are extension store analytics (we do not control it) and automatic anonymous collection of extension errors, which can be disabled in the extension settings or right here (error collection is active: <input type="checkbox" id="sentryCheck">).<br><br>We do not process your IP geolocation requests, but directly use a battle-proven ip-api.com service, which <a style="text-decoration:none;" target="_blank" href="https://ip-api.com/docs/legal ">claims that it does not log requests.</a>' +
+            'Videochat Extension respects its users and does not collect any data about you.<br><br>The only exceptions are extension store analytics (we do not control it) and automatic anonymous collection of extension errors, which can be disabled in the extension settings or right here (error collection is active: <input type="checkbox" id="sentryCheck">).<br><br>We do not log your IP geolocation requests, and there is also an option to directly use a battle-proven ip-api.com service, which also <a style="text-decoration:none;" target="_blank" href="https://ip-api.com/docs/legal">claims that it does not log requests.</a>' +
             '<br>' +
             '<br>' +
             '<b>Pay attention:</b><br>' +
@@ -253,7 +253,7 @@ const showSwalChangelog = async function () {
             'Самое главное: теперь вы сможете узнать приблизительное местоположение вашего собеседника (путём геолокации его IP адреса), а так же использует ли он VPN.' +
             '<br>' +
             '<br>' +
-            "<b>Нажмите красную кнопку, чтобы проверить это прямо сейчас!</b><br><br>Или не делайте этого, чтобы остаться и узнать больше о доступных функциях, о нашем <a style= \"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/7DYWu5RF7Y\">discord</a>, о том, какие видеочаты мы поддерживаем, как использовать расширение и как мы НЕ обрабатываем/храним ваши данные",
+            "<b>Нажмите красную кнопку, чтобы проверить это прямо сейчас!</b><br><br>Или не делайте этого, чтобы остаться и узнать больше о доступных функциях, о нашем <a style= \"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/7DYWu5RF7Y\">discord</a>, о том, какие видеочаты мы поддерживаем, как использовать расширение и как мы уважаем вашу приватность",
 
             '<br>' +
             '<b>Какие функции доступны?</b><br>' +
@@ -389,7 +389,7 @@ const showSwalChangelog = async function () {
 
             '<br>' +
             '<b>Приватность:</b><br>' +
-            'Чат Рулетное Расширение уважает своих пользователей и не собирает никаких данных о вас.<br><br>Исключением может считаться только анатилика магазина расширений (её мы не контролируем) и автоматический сбор анонимной информации об ошибках расширения, который можно отключить в настройках расширения или прямо здесь (сбор ошибок активен: <input type="checkbox" id="sentryCheck">).<br><br>Мы не обрабатываем ваши запросы геолокации IP, а используем напрямую зарекомендовавший себя сервис ip-api.com, который <a  style="text-decoration:none;" target="_blank" href="https://ip-api.com/docs/legal">заявляет, что не логирует запросы.</a>' +
+            'Чат Рулетное Расширение уважает своих пользователей и не собирает никаких данных о вас.<br><br>Исключением может считаться только анатилика магазина расширений (её мы не контролируем) и автоматический сбор анонимной информации об ошибках расширения, который можно отключить в настройках расширения или прямо здесь (сбор ошибок активен: <input type="checkbox" id="sentryCheck">).<br><br>Мы не логируем ваши запросы геолокации IP, так же у вас есть возможность использовать напрямую зарекомендовавший себя сервис ip-api.com, который тоже <a  style="text-decoration:none;" target="_blank" href="https://ip-api.com/docs/legal">заявляет, что не логирует запросы.</a>' +
             '<br>' +
             '<br>' +
             '<b>Обратите внимание:</b><br>' +
