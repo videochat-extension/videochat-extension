@@ -503,6 +503,12 @@
   "tooltipShowHints": {
     "message": "if enabled, will show a random 'Did you know?' message every time you open a video chat"
   },
+  "showHintsMoreOften": {
+    "message": "show hints more often:"
+  },
+  "tooltipshowHintsMoreOften": {
+    "message": "if enabled, hints will show every time you open a video chat. if disabled, there is only a 33% chance of appearing"
+  },
   "swalInfoTitle1": {
     "message": "Congratulations!"
   },

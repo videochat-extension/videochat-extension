@@ -192,7 +192,7 @@ export class GeolocationModule {
     private started: number = 0;
     private targetSound = new Audio(chrome.runtime.getURL('resources/audio/found.mp3'))
     public delayIPs: string[] = [];
-    private initial = globalThis.platformSettings.get("showHints");
+    private needToShowHint = globalThis.platformSettings.get("showHints") ? (globalThis.platformSettings.get("showHintsMoreOften") ? true : utils.getRandomInt(1, 3) === 2) : false;
     private hint: number = 0;
 
     private constructor(driver: ChatruletkaDriver) {
@@ -231,7 +231,7 @@ export class GeolocationModule {
 
     public checkApi() {
 
-        if (this.initial) {
+        if (this.needToShowHint) {
             this.hint = utils.getRandomInt(0, this.tabs[0].hints.length - 1);
             (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStartCheck") + "</br></br>" + this.tabs[0].getHintHTML(this.hint);
         } else {
@@ -241,8 +241,8 @@ export class GeolocationModule {
         chrome.runtime.sendMessage({makeGeolocationRequest: "1.1.1.1", language: "en"}, (response) => {
             if (response.status === 200) {
                 this.api = 2;
-                if (this.initial) {
-                    this.initial = false;
+                if (this.needToShowHint) {
+                    this.needToShowHint = false;
                     (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + this.tabs[0].getHintHTML(this.hint)
                 } else {
                     (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage("main", [this.driver.site.text])

@@ -124,6 +124,7 @@ export class ControlsModule {
         expand: true,
         ignoreSiteStyles: true,
         showHints: true,
+        showHintsMoreOften: false
     }
     public settings = [
         {
@@ -168,9 +169,24 @@ export class ControlsModule {
             type: "checkbox",
             important: false,
             key: "showHints",
+            controlsSection: 'showHintsEnabled',
             text: chrome.i18n.getMessage("showHints"),
             tooltip: chrome.i18n.getMessage("tooltipShowHints"),
         },
+        {
+            type: "section",
+            hide: globalThis.platformSettings.get("showHints"),
+            sectionId: "showHintsEnabled",
+            children: [
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "showHintsMoreOften",
+                    text: chrome.i18n.getMessage("showHintsMoreOften"),
+                    tooltip: chrome.i18n.getMessage("tooltipshowHintsMoreOften")
+                }
+            ]
+        }
     ]
 
     public injectControls(tabs: any[]) {
