@@ -329,6 +329,10 @@ export class ControlsModule {
                 margin-left: 5px!important;
               }
               
+              select {
+                margin-left: 5px!important;
+              }
+              
               sup {
                 top: initial
               } 

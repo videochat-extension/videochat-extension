@@ -387,7 +387,16 @@
     "message": "localisation: "
   },
   "tooltipApiLocalisation": {
-    "message": "Enable this so that the locations are displayed in the browser language. Available languages: Russian, German, Spanish, Portuguese, French, Japanese, Chinese."
+    "message": "Turn this on to request localized data. Available languages: English, German, Spanish, Portuguese, French, Japanese, Chinese, Russian."
+  },
+  "ipApiPreferredLang": {
+    "message": "language: "
+  },
+  "tooltipIpApiPreferredLang": {
+    "message": "Select your preferred language for geolocation data. If there is no translation, data will be in English."
+  },
+  "ipApiPreferredLangAutoOption": {
+    "message": "--browser-language--"
   },
   "hideMobile": {
     "message": "hide mobile location: "

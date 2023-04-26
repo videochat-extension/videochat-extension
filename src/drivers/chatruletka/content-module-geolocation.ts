@@ -22,6 +22,7 @@ export class GeolocationModule {
     public curIps: string[] = []
     public static defaults = {
         ipApiLocalisation: true,
+        ipApiPreferredLang: 'auto',
         hideMobileLocation: true,
         showCT: false,
         showMoreEnabledByDefault: true,
@@ -44,8 +45,70 @@ export class GeolocationModule {
             type: "checkbox",
             important: false,
             key: "ipApiLocalisation",
+            controlsSection: "languageSelectSection",
             text: chrome.i18n.getMessage("apiLocalisation"),
-            tooltip: chrome.i18n.getMessage("tooltipApiLocalisation")
+            tooltip: chrome.i18n.getMessage("tooltipApiLocalisation"),
+            enable: () => {
+                this.apiLanguage = this.getApiLanguage()
+            },
+            disable: () => {
+                this.apiLanguage = this.getApiLanguage()
+            }
+        },
+        {
+            type: "section",
+            hide: globalThis.platformSettings.get("ipApiLocalisation"),
+            sectionId: "languageSelectSection",
+            children: [
+                {
+                    type: "select",
+                    important: false,
+                    key: "ipApiPreferredLang",
+                    options: [
+                        {
+                            value: "auto",
+                            text: chrome.i18n.getMessage("ipApiPreferredLangAutoOption")
+                        },
+                        {
+                            value: 'en',
+                            text: "English"
+                        },
+                        {
+                            value: 'de',
+                            text: "Deutsch (German)"
+                        },
+                        {
+                            value: 'es',
+                            text: "Español (Spanish)"
+                        },
+                        {
+                            value: 'pt-BR',
+                            text: "Português (Portuguese)"
+                        },
+                        {
+                            value: 'fr',
+                            text: "Français (French)"
+                        },
+                        {
+                            value: 'ja',
+                            text: "日本語 (Japanese)"
+                        },
+                        {
+                            value: 'zh-CN',
+                            text: "中国 (Chinese)"
+                        },
+                        {
+                            value: 'ru',
+                            text: "Русский (Russian)"
+                        }
+                    ],
+                    text: chrome.i18n.getMessage("ipApiPreferredLang"),
+                    tooltip: chrome.i18n.getMessage("tooltipIpApiPreferredLang"),
+                    onchange: () => {
+                        this.apiLanguage = this.getApiLanguage()
+                    }
+                },
+            ],
         },
         {
             type: "br"
@@ -331,7 +394,7 @@ export class GeolocationModule {
     }
 
     public doLookupRequest2(ip: string) {
-        chrome.runtime.sendMessage({makeGeolocationRequest: ip, language: this.getApiLanguage()}, (response) => {
+        chrome.runtime.sendMessage({makeGeolocationRequest: ip, language: this.apiLanguage}, (response) => {
             console.dir(`ip-api.com returned ${response.status} (${response.body.status}) for '${ip}'`)
 
             if (response.status === 200) {
@@ -557,7 +620,8 @@ export class GeolocationModule {
     // https://ip-api.com/docs/api:json#:~:text=DEMO-,Localization,-Localized%20city%2C
     private getApiLanguage() {
         if (!globalThis.platformSettings.get("ipApiLocalisation")) return "en"
-        let lang = window.navigator.language.slice(0, 2)
+        let pr = globalThis.platformSettings.get('ipApiPreferredLang')
+        let lang = pr === "auto" ? window.navigator.language.slice(0, 2) : pr
         if (lang === "pt") {
             lang = "pt-BR"
         } else if (lang == "zh") {
@@ -565,6 +629,8 @@ export class GeolocationModule {
         }
         return lang
     }
+
+    private apiLanguage = this.getApiLanguage();
 }
 
 export class ControlsTabApi {
