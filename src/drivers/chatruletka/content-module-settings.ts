@@ -189,6 +189,46 @@ export class ControlsTabSettings {
         ])
     }
 
+    static createSettingsSelect(tagName: string, key: string, selected: string, optionsInput: any, settingText: string, settingTooltip: string, onchange?: (event: ChangeEvent) => void) {
+        let options = []
+        for (const option of optionsInput) {
+            let newOption = utils.createElement('option', {
+                value: option.value,
+                innerText: option.text
+            })
+            if (option.value === selected) {
+                // @ts-ignore
+                newOption.selected = true
+            }
+            options.push(newOption)
+        }
+
+        return utils.createElement('dd', {}, [
+            utils.createElement('span', {}, [
+                utils.createElement(tagName, {
+                    innerText: settingText,
+                    className: "tooltip",
+                    title: settingTooltip
+                }),
+                utils.createElement('select', {
+                    name: `${key}Select`,
+                    id: `${key}Select`,
+                    onchange: (event: ChangeEvent) => {
+                        let syncDict: { [key: string]: any } = {}
+                        syncDict[key] = event.currentTarget.value
+                        let ev = event
+                        // TODO: TEST THIS
+                        globalThis.platformSettings.setBack(syncDict, function () {
+                            if (onchange) {
+                                onchange(ev)
+                            }
+                        });
+                    },
+                }, options)
+            ]),
+        ])
+    }
+
     public handleResize() {
 
     }
@@ -256,6 +296,13 @@ export class ControlsTabSettings {
                 case "range": {
                     let tagName = el.important ? "b" : "p"
                     newElement = ControlsTabSettings.createSettingsRange(tagName, el.key, el.min, el.max, el.text, el.tooltip, el.onchange)
+                    break;
+                }
+
+                case "select": {
+                    let tagName = el.important ? "b" : "p"
+                    el.selected = globalThis.platformSettings.get(el.key)
+                    newElement = ControlsTabSettings.createSettingsSelect(tagName, el.key, el.selected, el.options, el.text, el.tooltip, el.onchange)
                     break;
                 }
 
