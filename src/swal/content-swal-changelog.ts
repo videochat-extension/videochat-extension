@@ -1587,17 +1587,19 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
         description: {
             en: '<b>TEXT.</b><br>' +
                 '<br>' +
-                '<b>- TEXT.</b><br>' +
+                '<b>- Minor changes.</b><br>' +
                 '— Updated text for some hints.<br>' +
-                '— Added omegle.com to default favorites list (because it doesn\'t require additional edge permission).<br>' +
+                '— The default favorites list now depends on the browser (it now includes only those chats that do not require additional permissions).<br>' +
                 '— Added equal space between multiple blocks with geolocation data.<br>' +
+                '— Fixed enabling/disabling the script on omegle.com and omegle.tv (Edge).<br>' +
                 '— TEXT.',
             ru: '<b>TEXT.</b><br>' +
                 '<br>' +
-                '<b>- TEXT.</b><br>' +
+                '<b>- Мелкие изменения.</b><br>' +
                 '— Обновлен текст некоторых подсказок.<br>' +
-                '— Добавлен omegle.com в список избранного по умолчанию (поскольку он не требует дополнительных разрешений в edge).<br>' +
+                '— Список избранного по умолчанию теперь зависит от браузера (в нем теперь те чаты, для запуска которых не нужны дополнительные разрешения).<br>' +
                 '— Добавлен отступ между блоками с геолокацией.<br>' +
+                '— Исправлено включение/выключения скрипта на omegle.com и omegle.tv (Edge).<br>' +
                 '— TEXT'
         }
     },
