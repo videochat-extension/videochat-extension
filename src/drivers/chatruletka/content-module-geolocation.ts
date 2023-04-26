@@ -21,6 +21,9 @@ export class GeolocationModule {
     private static instanceRef: GeolocationModule;
     public curIps: string[] = []
     public static defaults = {
+        customApiBehaviour: false,
+        allowVeApi: true,
+        allowIpApi: true,
         ipApiLocalisation: true,
         ipApiPreferredLang: 'auto',
         hideMobileLocation: true,
@@ -34,12 +37,63 @@ export class GeolocationModule {
         targetSound: false,
         torrentsEnable: false,
         torrentsInfo: true,
-        showISP: false
+        showISP: false,
     }
     public settings = [
         {
             type: "header",
             text: chrome.i18n.getMessage("settingsGeolocation")
+        },
+
+        {
+            type: "checkbox",
+            important: false,
+            key: "customApiBehaviour",
+            controlsSection: "providersSection",
+            text: chrome.i18n.getMessage("customApiBehaviour"),
+            tooltip: chrome.i18n.getMessage("tooltipCustomApiBehaviour"),
+            enable: () => {
+                this.apiProviders = this.getApiProviders()
+            },
+            disable: () => {
+                this.apiProviders = this.getApiProviders()
+            }
+        },
+        {
+            type: "section",
+            hide: globalThis.platformSettings.get("customApiBehaviour"),
+            sectionId: "providersSection",
+            children: [
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "allowVeApi",
+                    text: chrome.i18n.getMessage("allowVeApi"),
+                    tooltip: chrome.i18n.getMessage("tooltipAllowVeApi"),
+                    enable: () => {
+                        this.apiProviders = this.getApiProviders()
+                    },
+                    disable: () => {
+                        this.apiProviders = this.getApiProviders()
+                    }
+                },
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "allowIpApi",
+                    text: chrome.i18n.getMessage("allowIpApi"),
+                    tooltip: chrome.i18n.getMessage("tooltipAllowIpApi"),
+                    enable: () => {
+                        this.apiProviders = this.getApiProviders()
+                    },
+                    disable: () => {
+                        this.apiProviders = this.getApiProviders()
+                    }
+                }
+            ]
+        },
+        {
+            type: "br"
         },
         {
             type: "checkbox",
@@ -301,7 +355,11 @@ export class GeolocationModule {
             (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStartCheck") + "</br></br>" + chrome.i18n.getMessage("main", [this.driver.site.text]);
         }
 
-        chrome.runtime.sendMessage({makeGeolocationRequest: "1.1.1.1", language: "en"}, (response) => {
+        chrome.runtime.sendMessage({
+            makeGeolocationRequest: "1.1.1.1",
+            language: "en",
+            allow: this.apiProviders
+        }, (response) => {
             if (response.status === 200) {
                 this.api = 2;
                 if (this.needToShowHint) {
@@ -313,15 +371,15 @@ export class GeolocationModule {
                 if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
                     this.driver.modules.controls.resizemap(false)
                 }
-                console.dir(`ip-api.com test passed: ${response.status}`)
+                console.dir(`geolocation test passed: ${response.status}`)
             } else if (response.status === 429) {
                 (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus429") + "</br></br>" + chrome.i18n.getMessage("main", [this.driver.site.text])
                 this.api = 2;
 
-                console.dir(`ip-api.com test passed: ${response.status}`)
+                console.dir(`geolocation test passed: ${response.status}`)
             } else if (response.status === 0) {
                 this.api = 0
-                console.dir(`ip-api.com test failed: ${response.status} ${response.body}`)
+                console.dir(`geolocation test failed: ${response.status} ${response.body}`)
                 console.dir(chrome.i18n.getMessage("apiStatus0") + ' ERROR: ' + response.status);
 
                 (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize(`<b>ERROR: ${response.status} (${response.body}) || </b>`) + chrome.i18n.getMessage("apiStatus0") + "</br></br>" + chrome.i18n.getMessage("mainDiscord", [this.driver.site.text])
@@ -330,7 +388,7 @@ export class GeolocationModule {
                 }
             } else {
                 this.api = 0
-                console.dir(`ip-api.com test failed: ${response.status} ${response.body}`)
+                console.dir(`geolocation test failed: ${response.status} ${response.body}`)
                 console.dir(chrome.i18n.getMessage("apiStatus0") + ' ERROR: ' + response.status);
 
                 (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize(`<b>HTTP ERROR: ${response.status} || `) + '<b>' + chrome.i18n.getMessage("apiStatusRegular") + "</b></br></br>" + chrome.i18n.getMessage("mainDiscord", [this.driver.site.text]);
@@ -394,7 +452,11 @@ export class GeolocationModule {
     }
 
     public doLookupRequest2(ip: string) {
-        chrome.runtime.sendMessage({makeGeolocationRequest: ip, language: this.apiLanguage}, (response) => {
+        chrome.runtime.sendMessage({
+            makeGeolocationRequest: ip,
+            language: this.apiLanguage,
+            allow: this.apiProviders
+        }, (response) => {
             console.dir(`ip-api.com returned ${response.status} (${response.body.status}) for '${ip}'`)
 
             if (response.status === 200) {
@@ -631,6 +693,28 @@ export class GeolocationModule {
     }
 
     private apiLanguage = this.getApiLanguage();
+
+    private getApiProviders() {
+        let allow = []
+
+        if (!globalThis.platformSettings.get('customApiBehaviour')) {
+            return ["ve-api", "ip-api"]
+        }
+
+        if (globalThis.platformSettings.get('allowVeApi')) {
+            allow.push('ve-api')
+        }
+
+        if (globalThis.platformSettings.get('allowIpApi')) {
+            allow.push('ip-api')
+        }
+
+        console.dir(allow)
+
+        return allow
+    }
+
+    private apiProviders = this.getApiProviders();
 }
 
 export class ControlsTabApi {

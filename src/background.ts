@@ -397,21 +397,54 @@ function tabsOnActivated(chTab: chrome.tabs.TabActiveInfo) {
     });
 }
 
+function geo(urls: string[], index: number, sendResponse: (response?: any) => void) {
+    const nextIndex = index + 1
+    fetch(urls[index])
+        .then((response) => {
+            if (response.ok) {
+                response.json().then(data => (sendResponse({status: response.status, body: data})))
+            } else {
+                if (nextIndex == urls.length) {
+                    sendResponse({status: response.status, body: {}})
+                } else {
+                    geo(urls, nextIndex, sendResponse)
+                }
+            }
+        })
+        .catch(
+            (error) => {
+                if (nextIndex == urls.length) {
+                    sendResponse({status: 0, body: `${error.message}`})
+                } else {
+                    geo(urls, nextIndex, sendResponse)
+                }
+            }
+        )
+}
+
+function geolocate(ip: string, language: string, allow: string[], sendResponse: (response?: any) => void) {
+    const urls: string[] = []
+    if (allow.includes('ve-api')) {
+        urls.push(`https://ve-api.starbase.wiki/geo?ip=${ip}&lang=${language}`)
+    }
+    if (allow.includes('ip-api')) {
+        urls.push(`http://ip-api.com/json/${ip}?fields=17032159&lang=${language}`)
+    }
+
+    if (urls.length === 0) {
+        sendResponse({status: 0, body: `please allow some providers`})
+        return
+    }
+
+    let index = 0
+    geo(urls, index, sendResponse)
+}
+
 function runtimeOnMessage(request: any, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void) {
     // makes a request to the geolocation service with the requested IP address and language
     // making a request via service worker helps avoid http restrictions
     if (request.makeGeolocationRequest) {
-        fetch(`http://ip-api.com/json/${request.makeGeolocationRequest}?fields=17032159&lang=${request.language}`)
-            .then((response) => {
-                if (response.ok) {
-                    response.json().then(data => (sendResponse({status: response.status, body: data})))
-                } else {
-                    sendResponse({status: response.status, body: {}})
-                }
-            }).catch((error) => {
-            sendResponse({status: 0, body: `${error.message}`})
-        })
-
+        geolocate(request.makeGeolocationRequest, request.language, request.allow, sendResponse)
         return true;
     }
 
