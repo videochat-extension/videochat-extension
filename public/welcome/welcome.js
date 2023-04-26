@@ -220,7 +220,7 @@ const showSwalChangelog = async function () {
             `When you install the extension for the first time, it checks if you have any tabs open with supported video chats and adds them to your favorites so that you don't get lost.` +
             '<br>' +
             '<br>' +
-            'If nothing is found, then videochatru.com, ome.tv and omegle.com are added to the favorites by default because they all don\'t require additional permission.<br>' +
+            'If nothing was found, then those sites that work without additional user permissions are added to this list. On chrome these are videochatru.com and ome.tv, on edge omegle.com is also added to the list, but there are no such sites on firefox.' +
             '<br>' +
             '<br>' +
             'You can also add all the video chats from the browser history of the past month to your favorites with a single click. To do this, you need to temporarily allow the extension to ask your browser if there are any video chats in the history that we support.' +
@@ -375,7 +375,7 @@ const showSwalChangelog = async function () {
             'Когда вы впервые устанавливаете расширение, оно проверяет открыты ли у вас вкладки с поддерживаемыми видеочатами и добавляет их в избранное, чтобы вы не заблудились.' +
             '<br>' +
             '<br>' +
-            'Если ничего не было найдено, то videochatru.com, ome.tv & omegle.com добавляются в избранное по умолчанию, потому что для их работы не требуются дополнительные разрешения.' +
+            'Если ничего не было найдено, то в этот список добавляются те сайты, которые работают без дополнительных разрешений пользователя. На chrome это videochatru.com и ome.tv, на edge в список добавляется omegle.com, на firefox таких сайтов нет.' +
             '<br>' +
             '<br>' +
             'Так же есть возможность одной кнопкой добавить в избранное все видеочаты из истории вашего браузера за последний месяц. Для этого нужно, чтобы вы временно разрешили расширению узнать у вашего браузера есть ли в вашей истории поддерживаемые нами видеочаты.' +

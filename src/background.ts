@@ -12,11 +12,30 @@ const defaults = {
     },
     // dict contains states if content scripts should be registered: UUID: boolean
     "scripts": {},
-    // favorites sites list, videochatru.com and ome.tv are defaults for legacy UX reasons
+    // default favorites list, which consists of sites listed in the manifest's content script
+    // these sites does not require additional permissions to inject the content script
     // if other chats were found in open tabs on first install,
     // then default favorites are replaced with found chats
-    // TODO: add check which should remove all uuids not found in the platforms.json
-    "favorites": ["7fef97eb-a5cc-4caa-8d19-75dab7407b6b", "98ea82db-9d50-4951-935e-2405d9fe892e", "13fa70ac-6a70-4eab-8410-0fca063fbdea"],
+    "favorites": function () {
+        let favorites: string[] = []
+        switch (getUserBrowser()) {
+            case "chrome":
+                // videochatru.com, ome.tv
+                favorites = ["7fef97eb-a5cc-4caa-8d19-75dab7407b6b", "98ea82db-9d50-4951-935e-2405d9fe892e"]
+                break;
+
+            case "edge":
+                // videochatru.com, ome.tv, omegle.com
+                favorites = ["7fef97eb-a5cc-4caa-8d19-75dab7407b6b", "98ea82db-9d50-4951-935e-2405d9fe892e", "13fa70ac-6a70-4eab-8410-0fca063fbdea"]
+                break;
+
+            case "firefox":
+                // mv3 in firefox requires user to confirm extension's right to access the site every single time,
+                // so there are no content scripts in the firefox manifest, all scripts are dynamic to avoid confused ux
+                break;
+        }
+        return favorites
+    }(),
     // dict containing site uuid and last opened unix timestamp
     "recentDict": {},
     // if extension should display legacy 'Chatruletka (ome.tv) Extension' icon
@@ -227,6 +246,7 @@ async function ensureContentScriptsAreRegistered() {
     if (chrome.scripting) {
         await ensureSettingsAreUpToDate()
 
+        // TODO: add check which should remove from favorites all uuids not found in the platforms.json
         let platforms = await fetchPlatforms()
         let scripts = (await chrome.storage.sync.get({scripts: {}})).scripts
         let actualScripts = (await chrome.scripting.getRegisteredContentScripts())
@@ -299,7 +319,9 @@ async function ensureContentScriptsAreRegistered() {
     console.timeEnd('ensureContentScriptsAreRegistered')
 }
 
-async function onStorageChanged(changes: { [p: string]: chrome.storage.StorageChange }, namespace: chrome.storage.AreaName) {
+async function onStorageChanged(changes: {
+    [p: string]: chrome.storage.StorageChange
+}, namespace: chrome.storage.AreaName) {
     if (namespace === "sync") {
         if (changes.allowSetBadgeText || changes.legacyIcon || changes.allowSetLastIcon || changes.lastIconName) {
             await syncBadgeIcon()
