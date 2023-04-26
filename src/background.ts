@@ -624,7 +624,7 @@ function filterUUID(str: string) {
 }
 
 function extractHost(url: string) {
-    return new URL(url).hostname.replace('www.', '');
+    return new URL(url.replace(/(\*\.)|(www\.)/g, '')).hostname;
 }
 
 async function showBadge() {

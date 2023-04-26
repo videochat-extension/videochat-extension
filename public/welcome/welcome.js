@@ -590,7 +590,7 @@ function getSiteByDomain(domain, platforms) {
 }
 
 function extractHost(url) {
-    return new URL(url).hostname.replace('www.', '');
+    return new URL(url.replace(/(\*\.)|(www\.)/g, '')).hostname;
 }
 
 async function fixPermissions() {
