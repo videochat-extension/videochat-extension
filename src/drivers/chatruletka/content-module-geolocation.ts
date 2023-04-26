@@ -949,7 +949,14 @@ export class ControlsTabApi {
 
     public genHintsArray() {
         let lang = chrome.i18n.getMessage('lang') as "en" | "ru"
-        let hints: { imgcontainer: string | undefined, href: string | undefined, src: string | undefined, strength: number, enabled: boolean, text: string }[] = []
+        let hints: {
+            imgcontainer: string | undefined,
+            href: string | undefined,
+            src: string | undefined,
+            strength: number,
+            enabled: boolean,
+            text: string
+        }[] = []
 
         console.dir(this.hintsDict[lang]);
         for (const hint of this.hintsDict[lang]) {
