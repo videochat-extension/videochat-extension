@@ -393,7 +393,7 @@
     "message": "use ve-api: "
   },
   "tooltipAllowVeApi": {
-    "message": "turn this on if you want to use the videochat extension's server to process geolocation requests. we use the ip-api.com's paid service, so the data will not be different, but our server is used by default because it helps avoid issues with http restrictions and has twice the limit per minute than ip-api.com. the server's source code can be found on github."
+    "message": "turn this on if you want to use the videochat extension's server to process geolocation requests. we use the ip-api.com's paid service, so the data will not be different, but our server is used by default because it helps avoid issues with http restrictions and has twice the limit per minute than ip-api.com. our server's source code can be found on github."
   },
   "allowIpApi": {
     "message": "use ip-api: "
@@ -666,7 +666,7 @@
     "message": "Allow extension to share with sentry.io anonymized information about errors that have occurred."
   },
   "popupSettingAllowShowChangelog": {
-    "message": "Open changelog when you open an videochat and there was an update in the extension (does not show in minimalist mode)."
+    "message": "Open changelog when you open a video chat and there was an update in the extension (does not show in minimalist mode)."
   },
   "popupSettingMissingPermissionCheck": {
     "message": "Allow an extension to request access from you to a supported video chat that you have not yet granted access to."
