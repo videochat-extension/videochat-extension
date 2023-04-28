@@ -1585,30 +1585,58 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
         version: "1.8.0",
         date: "2023-XX-XX",
         description: {
-            en: '<b>TEXT.</b><br>' +
+            en: '<b>Geolocation & streamer mode improvements.</b><br>' +
+                '<br>' +
+                '<b>- VE-API.</b><br>' +
+                '— New geolocation provider: ve-api (videochat-extension-api).<br>' +
+                '— For the past two years, the extension has been using the free version of ip-api.com, which has serious limitations: a 45 requests per minute limit and no HTTPS support (which caused problems for a small number of users, especially in Turkey).<br>' +
+                '— To get around these restrictions, we rented a dedicated server in the EU and signed up for a paid subscription to ip-api.com.<br>' +
+                '— ve-api has twice the request per minute limit of the free version of ip-api.com.<br>' +
+                '— ve-api supports SSL, which should solve problems with the API for some users.<br>' +
+                '— The quality of the data will not change - behind the scenes we use the same geolocation service.<br>' +
+                '— ve-api only accepts requests from official versions of the extension installed from stores. If you installed the extension manually, ve-api won\'t work for you.<br>' +
+                '— Server source code can be found on <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://github.com/videochat-extension/backend\">GitHub</a>, we do not analyze / log your requests.<br>' +
+                '— ve-api is used by default, but in the geolocation settings, you can now disable individual providers.<br>' +
                 '<br>' +
                 '<b>- Geolocation.</b><br>' +
                 '— Added equal space between multiple blocks with geolocation data.<br>' +
+                '— Added logic for simultaneous operation of multiple geolocation providers. In the geolocation settings (in advanced mode only) you can choose which providers you want to use. They will be used in order: if one does not work - the extension will try the next in the list and so on to the last one.<br>' +
                 '— Now you can choose the language of geolocation, available languages: English, German, Spanish, Portuguese, French, Japanese, Chinese, Russian. Previously it was possible to request the browser language, but now you can choose manually from the list in the geolocation settings. Works only in full COMC mode, in other modes the language is selected based on the browser language.<br>' +
+                '<br>' +
+                '<b>- Streamer mode.</b><br>' +
+                '— Text.<br>' +
                 '<br>' +
                 '<b>- Minor changes.</b><br>' +
                 '— Updated text for some hints.<br>' +
                 '— The default favorites list now depends on the browser (it now includes only those chats that do not require additional permissions).<br>' +
                 '— Fixed enabling/disabling the script on omegle.com and omegle.tv (Edge).<br>' +
-                '— Disabled the ability to select text in the \'Settings\' tab.<br>' +
-                '— TEXT.',
-            ru: '<b>TEXT.</b><br>' +
+                '— Disabled the ability to select text in the \'Settings\' tab.',
+            ru: '<b>Улучшение геолокации и режима стримера.</b><br>' +
+                '<br>' +
+                '<b>- VE-API.</b><br>' +
+                '— Добавлен новый провайдер геолокации: ve-api (videochat-extension-api).<br>' +
+                '— Последние два года расширение использовало бесплатную версию ip-api.com, у которой были серьёзные ограничения: лимит 45 запросов в минуту и отсутствие HTTPS (из-за этого возникали проблемы у небольшого числа пользователей, особенно в Турции).<br>' +
+                '— Чтобы обойти эти ограничения, мы арендовали выделенный сервер в ЕС и оформили платную подписку на ip-api.com.<br>' +
+                '— ve-api имеет вдвое больший лимит запросов в минуту, чем у бесплатной версии ip-api.com.<br>' +
+                '— ve-api поддерживает SSL, что позволит решить проблемы с API у некоторых пользователей.<br>' +
+                '— Качество данных не изменится - за кулисами мы используем тот же сервис геолокации.<br>' +
+                '— ve-api принимает запросы только от официальных версий расширения, установленных из магазинов. Если вы установили расширение вручную - у вас ve-api работать не будет.<br>' +
+                '— Исходный код сервера можно найти на <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://github.com/videochat-extension/backend\">GitHub</a>, мы не анализируем / не логируем ваши запросы.<br>' +
+                '— ve-api используется по умолчанию, но в настройках геолокации теперь можно отключать отдельные провайдеры.<br>' +
                 '<br>' +
                 '<b>- Геолокация.</b><br>' +
                 '— Добавлен отступ между блоками с геолокацией.<br>' +
+                '— Добавлена логика для одновременной работы нескольких провайдеров геолокации. В настройках геолокации (только в полноценном режиме) вы можете выбрать какие провайдеры вы хотите использовать. Они будут использоваться по порядку: если не сработал один - расширение попробует следующий в списке и так до конца.<br>' +
                 '— Теперь можно выбрать язык геолокации, доступны: Английский, Немецкий, Испанский, Португальский, Французский, Японский, Китайский, Русский. Раньше была возможность запрашивать язык браузера, а теперь можно выбрать вручную. Это работает только в полноценном режиме COMC, в остальных режимах язык выбирается исходя из языка браузера.<br>' +
+                '<br>' +
+                '<b>- Режим стримера.</b><br>' +
+                '— Текст.<br>' +
                 '<br>' +
                 '<b>- Мелкие изменения.</b><br>' +
                 '— Обновлен текст некоторых подсказок.<br>' +
                 '— Список избранного по умолчанию теперь зависит от браузера (в нем теперь те чаты, для запуска которых не нужны дополнительные разрешения).<br>' +
                 '— Исправлено включение/выключения скрипта на omegle.com и omegle.tv (Edge).<br>' +
-                '— Отключена возможность выделять текст во вкладке \'Настройки\'.<br>' +
-                '— TEXT'
+                '— Отключена возможность выделять текст во вкладке \'Настройки\'.'
         }
     },
 ]
