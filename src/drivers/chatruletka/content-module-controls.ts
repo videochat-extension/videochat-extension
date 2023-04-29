@@ -16,12 +16,15 @@ export class ControlsModule {
     private tabs: any = []
     private controls: HTMLElement | undefined;
     public vertical = false
+    private header: ControlsHeader;
 
     protected constructor(driver: ChatruletkaDriver) {
         this.driver = driver
         if (driver.site.vertical) {
             this.vertical = true
         }
+
+        this.header = new ControlsHeader(this.driver, this)
     }
 
     static initInstance(driver: ChatruletkaDriver): ControlsModule {
@@ -370,7 +373,7 @@ export class ControlsModule {
 
     protected createControls() {
         let tabs = this.createTabs()
-        let content = [this.createStyle(), createHeader(), utils.createElement('div', {
+        let content = [this.createStyle(), this.header.content, utils.createElement('div', {
             id: 'VE_tab_content', style: "width:100%; height: 100%;"
         }, this.createContent()), tabs]
         if (this.vertical) {
@@ -615,77 +618,135 @@ export class ControlsTabAbout {
     }
 }
 
-function createHeader() {
-    return utils.createElement('center', {
-        style: "user-select:none",
-        id: "VE_header"
-    }, [
-        utils.createElement('div', {
+class ControlsHeader {
+    public content: any;
+    private driver: ChatruletkaDriver;
+    private module: any
+    private leftScreen: HTMLElement;
+    private leftPip: HTMLElement;
+    private leftStreamerPip: HTMLElement;
+    private rightPip: HTMLElement;
+    private rightScreen: HTMLElement;
+    private left: HTMLElement;
+    private right: HTMLElement;
+    private header: HTMLElement;
+
+    public constructor(driver: ChatruletkaDriver, module?: any) {
+        this.driver = driver
+        this.module = module
+
+        this.leftScreen = this.createLeftScreen()
+        this.leftPip = this.createLeftPip()
+        this.leftStreamerPip = this.createLeftStreamerPip()
+
+        this.rightPip = this.createRightPip()
+        this.rightScreen = this.createRightScreen()
+
+        this.left = this.createLeft()
+        this.header = this.createExtensionHeader()
+        this.right = this.createRight()
+
+        this.content = utils.createElement('center', {
+            style: "user-select:none",
+            id: "VE_header"
+        }, [
+            this.left,
+            this.header,
+            this.right
+        ])
+    }
+
+    private createLeft() {
+        return utils.createElement('div', {
             style: "position:absolute; left:0;top:0",
         }, [
-            utils.createElement('button', {
-                style: "color: red; height:15px",
-                title: chrome.i18n.getMessage("screen_remote"),
-                onclick: () => {
-                    let dwncanvas = document.createElement('canvas');
-                    dwncanvas.width = (document.getElementById('remote-video') as HTMLVideoElement)?.videoWidth
-                    dwncanvas.height = (document.getElementById('remote-video') as HTMLVideoElement)?.videoHeight
+            this.leftScreen,
+            this.leftPip,
+            this.leftStreamerPip,
+        ])
+    }
 
-                    let ctx = dwncanvas.getContext('2d');
-                    if (ctx instanceof CanvasRenderingContext2D) {
-                        ctx.drawImage((document.getElementById('remote-video') as HTMLVideoElement), 0, 0, dwncanvas.width, dwncanvas.height);
-                        utils.downloadImage(dwncanvas.toDataURL('image/jpg'))
-                    }
-                },
-            }, [
-                utils.createElement('b', {
-                    innerText: "^"
-                })
-            ]),
-            utils.createElement('button', {
-                // requestPictureInPicture is not supported by firefox
-                style: function f() {
-                    if (getUserBrowser() === "firefox") {
-                        return "color: green; height:15px; display:none"
-                    } else {
-                        return "color: green; height:15px"
-                    }
-                }(),
-                title: "pip remote",
-                onclick: () => {
-                    if (document.pictureInPictureElement === document.getElementById("remote-video"))
-                        document.exitPictureInPicture()
-                    else
-                        (document.getElementById("remote-video") as HTMLVideoElement).requestPictureInPicture()
-                },
-            }, [
-                utils.createElement('b', {
-                    innerText: "^"
-                })
-            ]),
-            utils.createElement('button', {
-                id: "streamerPipButton",
-                style: function f() {
-                    if (globalThis.platformSettings.get("streamer") && globalThis.platformSettings.get("streamerPip")) {
-                        return "height:15px"
-                    } else {
-                        return "height:15px;display:none"
-                    }
-                }(),
-                title: "pip remote clone (for streamers)",
-                onclick: () => {
-                    if (document.pictureInPictureElement === document.getElementById("echo-video"))
-                        document.exitPictureInPicture()
-                    else
-                        (document.getElementById("echo-video") as HTMLVideoElement).requestPictureInPicture()
-                },
-            }, [
-                utils.createElement('b', {
-                    innerText: "^"
-                })
-            ]),
-        ]),
-        utils.createElement('a', {
+    private createRight() {
+        return utils.createElement('div', {
+            style: "position:absolute; right:0; top:0",
+        }, [
+            this.rightPip,
+            this.rightScreen
+        ])
+    }
+
+    private createLeftScreen() {
+        return utils.createElement('button', {
+            style: "color: red; height:15px",
+            title: chrome.i18n.getMessage("screen_remote"),
+            onclick: () => {
+                let dwncanvas = document.createElement('canvas');
+                dwncanvas.width = (document.getElementById('remote-video') as HTMLVideoElement)?.videoWidth
+                dwncanvas.height = (document.getElementById('remote-video') as HTMLVideoElement)?.videoHeight
+
+                let ctx = dwncanvas.getContext('2d');
+                if (ctx instanceof CanvasRenderingContext2D) {
+                    ctx.drawImage((document.getElementById('remote-video') as HTMLVideoElement), 0, 0, dwncanvas.width, dwncanvas.height);
+                    utils.downloadImage(dwncanvas.toDataURL('image/jpg'))
+                }
+            },
+        }, [
+            utils.createElement('b', {
+                innerText: "^"
+            })
+        ])
+    }
+
+    private createLeftPip() {
+        return utils.createElement('button', {
+            // requestPictureInPicture is not supported by firefox
+            style: function f() {
+                if (getUserBrowser() === "firefox") {
+                    return "color: green; height:15px; display:none"
+                } else {
+                    return "color: green; height:15px"
+                }
+            }(),
+            title: "pip remote",
+            onclick: () => {
+                if (document.pictureInPictureElement === document.getElementById("remote-video"))
+                    document.exitPictureInPicture()
+                else
+                    (document.getElementById("remote-video") as HTMLVideoElement).requestPictureInPicture()
+            },
+        }, [
+            utils.createElement('b', {
+                innerText: "^"
+            })
+        ])
+    }
+
+    private createLeftStreamerPip() {
+        return utils.createElement('button', {
+            id: "streamerPipButton",
+            style: function f() {
+                if (globalThis.platformSettings.get("streamer") && globalThis.platformSettings.get("streamerPip")) {
+                    return "height:15px"
+                } else {
+                    return "height:15px;display:none"
+                }
+            }(),
+            title: "pip remote clone (for streamers)",
+            onclick: () => {
+                if (document.pictureInPictureElement === document.getElementById("echo-video"))
+                    document.exitPictureInPicture()
+                else
+                    (document.getElementById("echo-video") as HTMLVideoElement).requestPictureInPicture()
+            },
+        }, [
+            utils.createElement('b', {
+                innerText: "^"
+            })
+        ])
+    }
+
+    private createExtensionHeader() {
+        return utils.createElement('a', {
             target: "_blank",
             style: "text-decoration: none!important; color: #000000;",
             href: "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi"
@@ -694,50 +755,52 @@ function createHeader() {
                 innerText: chrome.i18n.getMessage("extension_name_header") + " v" + chrome.runtime.getManifest().version.substring(0, 3),
                 id: "VE_extension_name_header",
             })
-        ]),
-        utils.createElement('div', {
-            style: "position:absolute; right:0; top:0",
-        }, [
-            utils.createElement('button', {
-                // requestPictureInPicture is not supported by firefox
-                style: function f() {
-                    if (getUserBrowser() === "firefox") {
-                        return "color: green; height:15px; display:none"
-                    } else {
-                        return "color: green; height:15px"
-                    }
-                }(),
-                title: "pip local",
-                onclick: () => {
-                    if (document.pictureInPictureElement === document.getElementById("local-video"))
-                        document.exitPictureInPicture()
-                    else
-                        (document.getElementById("local-video") as HTMLVideoElement).requestPictureInPicture()
-                },
-            }, [
-                utils.createElement('b', {
-                    innerText: "^"
-                })
-            ]),
-            utils.createElement('button', {
-                style: "color: red; height:15px",
-                title: chrome.i18n.getMessage("screen_local"),
-                onclick: () => {
-                    let dwncanvas = document.createElement('canvas');
-                    dwncanvas.width = (document.getElementById('local-video') as HTMLVideoElement)?.videoWidth
-                    dwncanvas.height = (document.getElementById('local-video') as HTMLVideoElement)?.videoHeight
+        ])
+    }
 
-                    let ctx = dwncanvas.getContext('2d');
-                    if (ctx instanceof CanvasRenderingContext2D) {
-                        ctx.drawImage((document.getElementById('local-video') as HTMLVideoElement), 0, 0, dwncanvas.width, dwncanvas.height);
-                        utils.downloadImage(dwncanvas.toDataURL('image/jpg'))
-                    }
-                },
-            }, [
-                utils.createElement('b', {
-                    innerText: "^"
-                })
-            ]),
-        ]),
-    ])
+    private createRightPip() {
+        return utils.createElement('button', {
+            // requestPictureInPicture is not supported by firefox
+            style: function f() {
+                if (getUserBrowser() === "firefox") {
+                    return "color: green; height:15px; display:none"
+                } else {
+                    return "color: green; height:15px"
+                }
+            }(),
+            title: "pip local",
+            onclick: () => {
+                if (document.pictureInPictureElement === document.getElementById("local-video"))
+                    document.exitPictureInPicture()
+                else
+                    (document.getElementById("local-video") as HTMLVideoElement).requestPictureInPicture()
+            },
+        }, [
+            utils.createElement('b', {
+                innerText: "^"
+            })
+        ])
+    }
+
+    private createRightScreen() {
+        return utils.createElement('button', {
+            style: "color: red; height:15px",
+            title: chrome.i18n.getMessage("screen_local"),
+            onclick: () => {
+                let dwncanvas = document.createElement('canvas');
+                dwncanvas.width = (document.getElementById('local-video') as HTMLVideoElement)?.videoWidth
+                dwncanvas.height = (document.getElementById('local-video') as HTMLVideoElement)?.videoHeight
+
+                let ctx = dwncanvas.getContext('2d');
+                if (ctx instanceof CanvasRenderingContext2D) {
+                    ctx.drawImage((document.getElementById('local-video') as HTMLVideoElement), 0, 0, dwncanvas.width, dwncanvas.height);
+                    utils.downloadImage(dwncanvas.toDataURL('image/jpg'))
+                }
+            },
+        }, [
+            utils.createElement('b', {
+                innerText: "^"
+            })
+        ])
+    }
 }
