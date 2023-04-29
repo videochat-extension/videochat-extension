@@ -1,22 +1,28 @@
 import {ChatruletkaDriver} from "../content-driver-chatruletka";
 import * as utils from "../../utils/utils";
+import {getUserBrowser} from "../../utils/utils";
 import $ from "jquery";
 import {ContentSwalChangelog} from "../../swal/content-swal-changelog";
 import {ContentSwalInfo} from "./content-swal-info";
 import {ControlsTabApi} from "./content-module-geolocation";
-import {getUserBrowser} from "../../utils/utils";
 
 require('tooltipster')
 
 export class ControlsModule {
+    public static defaults = {
+        expand: true,
+        ignoreSiteStyles: true,
+        showHints: true,
+        showHintsMoreOften: false
+    }
     private static instanceRef: ControlsModule;
     public videoContainerHeight = 0
     public chatContainerHeight = 0
     public driver: ChatruletkaDriver;
+    public vertical = false
+    public header: ControlsHeader;
     private tabs: any = []
     private controls: HTMLElement | undefined;
-    public vertical = false
-    private header: ControlsHeader;
 
     protected constructor(driver: ChatruletkaDriver) {
         this.driver = driver
@@ -123,12 +129,6 @@ export class ControlsModule {
         })
     }
 
-    public static defaults = {
-        expand: true,
-        ignoreSiteStyles: true,
-        showHints: true,
-        showHintsMoreOften: false
-    }
     public settings = [
         {
             type: "header",
@@ -342,6 +342,13 @@ export class ControlsModule {
               
               p {
                 display: inline-block;
+              }
+              
+              .ve__header__button {
+                    width: 22.67px;
+                    padding-right: 0;
+                    padding-left: 0;
+                    height: 15px;
               }
               
               small {font-size: xx-small!important;}
@@ -624,7 +631,8 @@ class ControlsHeader {
     private module: any
     private leftScreen: HTMLElement;
     private leftPip: HTMLElement;
-    private leftStreamerPip: HTMLElement;
+    public leftBlur: HTMLElement;
+    public leftMute: HTMLElement;
     private rightPip: HTMLElement;
     private rightScreen: HTMLElement;
     private left: HTMLElement;
@@ -637,7 +645,8 @@ class ControlsHeader {
 
         this.leftScreen = this.createLeftScreen()
         this.leftPip = this.createLeftPip()
-        this.leftStreamerPip = this.createLeftStreamerPip()
+        this.leftBlur = this.createLeftBlur()
+        this.leftMute = this.createLeftMute()
 
         this.rightPip = this.createRightPip()
         this.rightScreen = this.createRightScreen()
@@ -656,19 +665,38 @@ class ControlsHeader {
         ])
     }
 
+    public minifyButtons() {
+        this.leftScreen.style.width = "16px"
+        this.leftPip.style.width = "16px"
+        this.leftBlur.style.width = "16px"
+        this.leftMute.style.width = "16px"
+        this.rightPip.style.width = "16px"
+        this.rightScreen.style.width = "16px"
+    }
+
+    public restoreButtons() {
+        this.leftScreen.style.width = ""
+        this.leftPip.style.width = ""
+        this.leftBlur.style.width = ""
+        this.leftMute.style.width = ""
+        this.rightPip.style.width = ""
+        this.rightScreen.style.width = ""
+    }
+
     private createLeft() {
         return utils.createElement('div', {
-            style: "position:absolute; left:0;top:0",
+            style: "display:flex; position:absolute; left:0; top:0",
         }, [
             this.leftScreen,
             this.leftPip,
-            this.leftStreamerPip,
+            this.leftBlur,
+            this.leftMute,
         ])
     }
 
     private createRight() {
         return utils.createElement('div', {
-            style: "position:absolute; right:0; top:0",
+            style: "display:flex; position:absolute; right:0; top:0",
         }, [
             this.rightPip,
             this.rightScreen
@@ -677,7 +705,8 @@ class ControlsHeader {
 
     private createLeftScreen() {
         return utils.createElement('button', {
-            style: "color: red; height:15px",
+            className: "ve__header__button",
+            style: "color: red;",
             title: chrome.i18n.getMessage("screen_remote"),
             onclick: () => {
                 let dwncanvas = document.createElement('canvas');
@@ -699,20 +728,26 @@ class ControlsHeader {
 
     private createLeftPip() {
         return utils.createElement('button', {
+            className: "ve__header__button",
             // requestPictureInPicture is not supported by firefox
             style: function f() {
                 if (getUserBrowser() === "firefox") {
-                    return "color: green; height:15px; display:none"
+                    return "color:green; display:none"
                 } else {
-                    return "color: green; height:15px"
+                    return "color:green;"
                 }
             }(),
-            title: "pip remote",
+            title: chrome.i18n.getMessage("pip_remote"),
             onclick: () => {
-                if (document.pictureInPictureElement === document.getElementById("remote-video"))
+                let v = (document.getElementById(globalThis.platformSettings.get('streamer') ? "echo-video" : "remote-video") as HTMLVideoElement)
+
+                if (document.pictureInPictureElement === v)
                     document.exitPictureInPicture()
-                else
-                    (document.getElementById("remote-video") as HTMLVideoElement).requestPictureInPicture()
+                else {
+                    if (v.readyState > 0) {
+                        v.requestPictureInPicture()
+                    }
+                }
             },
         }, [
             utils.createElement('b', {
@@ -721,26 +756,53 @@ class ControlsHeader {
         ])
     }
 
-    private createLeftStreamerPip() {
+
+    private createLeftBlur() {
         return utils.createElement('button', {
-            id: "streamerPipButton",
+            id: "blurButton",
+            className: "ve__header__button",
             style: function f() {
-                if (globalThis.platformSettings.get("streamer") && globalThis.platformSettings.get("streamerPip")) {
-                    return "height:15px"
+                if (globalThis.platformSettings.get("streamer")) {
+                    return "line-height:0"
                 } else {
-                    return "height:15px;display:none"
+                    return "line-height:0; display:none"
                 }
             }(),
-            title: "pip remote clone (for streamers)",
-            onclick: () => {
-                if (document.pictureInPictureElement === document.getElementById("echo-video"))
-                    document.exitPictureInPicture()
-                else
-                    (document.getElementById("echo-video") as HTMLVideoElement).requestPictureInPicture()
+            title: "Hide / unhide",
+            onclick: (e: MouseEvent)=>{
+                if (this.driver.modules.streamer) {
+                    this.driver.modules.streamer.handleBlurButtonClick(e)
+                }
             },
         }, [
             utils.createElement('b', {
-                innerText: "^"
+                style: 'font-size: xx-small',
+                innerText: "h"
+            })
+        ])
+    }
+
+    private createLeftMute() {
+        return utils.createElement('button', {
+            id: "muteButton",
+            className: "ve__header__button",
+            style: function f() {
+                if (globalThis.platformSettings.get("streamer")) {
+                    return "line-height:0"
+                } else {
+                    return "line-height:0; display:none"
+                }
+            }(),
+            title: "Mute / unmute",
+            onclick: (e: MouseEvent)=>{
+                if (this.driver.modules.streamer) {
+                    this.driver.modules.streamer.handleMuteButtonClick(e)
+                }
+            },
+        }, [
+            utils.createElement('b', {
+                style: 'font-size: xx-small',
+                innerText: "m"
             })
         ])
     }
@@ -760,20 +822,26 @@ class ControlsHeader {
 
     private createRightPip() {
         return utils.createElement('button', {
+            className: "ve__header__button",
             // requestPictureInPicture is not supported by firefox
             style: function f() {
                 if (getUserBrowser() === "firefox") {
-                    return "color: green; height:15px; display:none"
+                    return "color: green; display:none"
                 } else {
-                    return "color: green; height:15px"
+                    return "color: green;"
                 }
             }(),
-            title: "pip local",
+            title: chrome.i18n.getMessage("pip_local"),
             onclick: () => {
-                if (document.pictureInPictureElement === document.getElementById("local-video"))
+                let v = (document.getElementById("local-video") as HTMLVideoElement)
+
+                if (document.pictureInPictureElement === v)
                     document.exitPictureInPicture()
-                else
-                    (document.getElementById("local-video") as HTMLVideoElement).requestPictureInPicture()
+                else {
+                    if (v.readyState > 0) {
+                        v.requestPictureInPicture()
+                    }
+                }
             },
         }, [
             utils.createElement('b', {
@@ -784,7 +852,8 @@ class ControlsHeader {
 
     private createRightScreen() {
         return utils.createElement('button', {
-            style: "color: red; height:15px",
+            className: "ve__header__button",
+            style: "color: red;",
             title: chrome.i18n.getMessage("screen_local"),
             onclick: () => {
                 let dwncanvas = document.createElement('canvas');

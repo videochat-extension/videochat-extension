@@ -23,6 +23,12 @@
   "screen_local": {
     "message": "Make a screenshot from your camera"
   },
+  "pip_remote": {
+    "message": "Open the video from the stranger's camera in picture-in-picture mode"
+  },
+  "pip_local": {
+    "message": "Open the video from your camera in picture-in-picture mode"
+  },
   "tab1": {
     "message": "IP"
   },
@@ -265,12 +271,6 @@
   },
   "streamerHotkeysText": {
     "message": "<dd style='margin-inline-start: 40px!important;'>right arrow - blur</dd><dd style='margin-inline-start: 40px!important;'>m - mute remote video</dd>"
-  },
-  "streamerPip": {
-    "message": "streamer's pip: "
-  },
-  "tooltipStreamerPip": {
-    "message": "Allows you to open the interlocutor's camera in Picture-in-Picture mode. It can be used to monitor the interlocutor's camera while it is blurred. PiP is a separate window that does not affect the captured browser window (OBS)."
   },
   "blurOnStart": {
     "message": "auto apply blur/cover: "

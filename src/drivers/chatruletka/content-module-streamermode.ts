@@ -1,7 +1,6 @@
 import $ from "jquery";
 import * as utils from "../../utils/utils";
 import {ChatruletkaDriver} from "../content-driver-chatruletka";
-import {confirmAndReload} from "./content-module-settings";
 import ChangeEvent = JQuery.ChangeEvent;
 
 export class StreamerModule {
@@ -10,7 +9,6 @@ export class StreamerModule {
         streamerKeys: true,
         streamerMirror: false,
         blurOnStart: true,
-        streamerPip: true,
         blurPreview: false,
         blurFilter: 55,
         blurPreviewFilter: 20,
@@ -26,6 +24,7 @@ export class StreamerModule {
     public BLUR_FILTER_PREVIEW = "blur(" + globalThis.platformSettings.get("blurPreviewFilter") + "px)"
     public started = false
     public manualBlur = false
+    public blur = false
     public echoV: HTMLVideoElement = document.createElement('video')
     public settings = [
         {
@@ -62,6 +61,7 @@ export class StreamerModule {
                     type: "checkbox",
                     important: false,
                     key: "streamerKeys",
+                    controlsSection: "streamerHotkeysSection",
                     text: chrome.i18n.getMessage("streamerHotkeys"),
                     tooltip: chrome.i18n.getMessage("tooltipStreamerHotkeys"),
                     enable: () => {
@@ -72,23 +72,17 @@ export class StreamerModule {
                     }
                 },
                 {
-                    type: "HTMLElement",
-                    element: utils.createElement('span', {
-                        innerHTML: chrome.i18n.getMessage("streamerHotkeysText")
-                    })
-                },
-                {
-                    type: "checkbox",
-                    important: false,
-                    key: "streamerPip",
-                    text: chrome.i18n.getMessage("streamerPip"),
-                    tooltip: chrome.i18n.getMessage("tooltipStreamerPip"),
-                    enable: () => {
-                        confirmAndReload()
-                    },
-                    disable: () => {
-                        confirmAndReload()
-                    }
+                    type: "section",
+                    hide: globalThis.platformSettings.get("streamerKeys"),
+                    sectionId: "streamerHotkeysSection",
+                    children: [
+                        {
+                            type: "HTMLElement",
+                            element: utils.createElement('span', {
+                                innerHTML: chrome.i18n.getMessage("streamerHotkeysText")
+                            })
+                        }
+                    ]
                 },
                 {
                     type: "br",
@@ -155,7 +149,15 @@ export class StreamerModule {
                     important: false,
                     key: "streamerMirror",
                     text: chrome.i18n.getMessage("blurCoverLocal"),
-                    tooltip: chrome.i18n.getMessage("tooltipBlurCoverLocal")
+                    tooltip: chrome.i18n.getMessage("tooltipBlurCoverLocal"),
+                    enable: () => {
+                        if (this.blur || this.manualBlur) {
+                            this.blurLocal()
+                        }
+                    },
+                    disable: () => {
+                        this.unblurLocal()
+                    }
                 },
                 {
                     type: "br",
@@ -231,7 +233,6 @@ export class StreamerModule {
             ]
         }
     ]
-    private interval: NodeJS.Timer | undefined;
     private driver: ChatruletkaDriver;
 
     private constructor(driver: ChatruletkaDriver) {
@@ -264,6 +265,8 @@ export class StreamerModule {
         } else {
             this.getRemoteVideo()!.style.filter = this.BLUR_FILTER
         }
+        this.blur = true
+        this.updStatus()
     }
 
     public unblurRemote() {
@@ -276,46 +279,58 @@ export class StreamerModule {
         } else {
             this.getRemoteVideo()!.style.filter = ""
         }
+        this.blur = false
+        this.manualBlur = false
+        this.updStatus()
     }
 
     public blurLocal() {
         if (globalThis.platformSettings.get("cover") || globalThis.platformSettings.get("coverNoise") || globalThis.platformSettings.get("coverPreview") || globalThis.platformSettings.get("coverStop")) {
-            this.getLocalVideo()!.style.filter = "opacity(0%)"
+            this.getLocalVideo().style.filter = "opacity(0%)"
             document.getElementById('cover2')!.style.display = ""
         } else {
-            this.getLocalVideo()!.style.filter = this.BLUR_FILTER
+            this.getLocalVideo().style.filter = this.BLUR_FILTER
         }
     }
 
     public unblurLocal() {
         if (globalThis.platformSettings.get("cover") || globalThis.platformSettings.get("coverNoise") || globalThis.platformSettings.get("coverPreview") || globalThis.platformSettings.get("coverStop")) {
-            this.getLocalVideo()!.style.filter = ""
+            this.getLocalVideo().style.filter = ""
             document.getElementById('cover2')!.style.display = "none"
         } else {
-            this.getLocalVideo()!.style.filter = ""
+            this.getLocalVideo().style.filter = ""
         }
     }
 
     public updStatus() {
-        let strings = []
-        if (this.getRemoteVideo()!.muted)
-            strings.push("muted")
-        if (this.manualBlur)
-            strings.push("manual blur")
+        if (this.manualBlur || this.blur) {
+            (this.driver.modules.controls.header.leftBlur.children[0] as HTMLElement).innerText = "H";
+            (this.driver.modules.controls.header.leftBlur.children[0] as HTMLElement).style.fontSize = "";
+        } else {
+            (this.driver.modules.controls.header.leftBlur.children[0] as HTMLElement).innerText = "h";
+            (this.driver.modules.controls.header.leftBlur.children[0] as HTMLElement).style.fontSize = "xx-small";
+        }
 
-        document.getElementById('streamerStatus')!.innerText = strings.join(' || ')
+        if (this.getRemoteVideo()!.muted) {
+            (this.driver.modules.controls.header.leftMute.children[0] as HTMLElement).innerText = "M";
+            (this.driver.modules.controls.header.leftMute.children[0] as HTMLElement).style.fontSize = "";
+        } else {
+            (this.driver.modules.controls.header.leftMute.children[0] as HTMLElement).innerText = "m";
+            (this.driver.modules.controls.header.leftMute.children[0] as HTMLElement).style.fontSize = "xx-small";
+        }
     }
 
     public onConversationEnd() {
-        if (globalThis.platformSettings.get("streamerMirror"))
-            this.getLocalVideo()!.style.filter = ""
-        this.getRemoteVideo()!.style.filter = ""
-        if (globalThis.platformSettings.get("cover")) {
-            // cover.style.display = "none"
-        }
-        this.manualBlur = false
-        this.updStatus()
-        console.dir("Сброс из-за конца разговора")
+        // TODO: what is it for? why unblur?
+
+        // if (globalThis.platformSettings.get("streamerMirror"))
+        //     this.getLocalVideo()!.style.filter = ""
+        // this.getRemoteVideo()!.style.filter = ""
+        // if (globalThis.platformSettings.get("cover")) {
+        // cover.style.display = "none"
+        // }
+        // this.manualBlur = false
+        // this.updStatus()
     }
 
     public onStageSearch() {
@@ -338,9 +353,7 @@ export class StreamerModule {
     public onStagePlay() {
         this.manualBlur = false
 
-        if (globalThis.platformSettings.get("streamerPip")) {
-            this.echoV.srcObject = (document.getElementById("remote-video") as HTMLVideoElement).srcObject;
-        }
+        this.echoV.srcObject = this.getRemoteVideo().srcObject;
 
         if (globalThis.platformSettings.get("blurOnStart")) {
             this.blurRemote()
@@ -356,9 +369,8 @@ export class StreamerModule {
     }
 
     public start() {
-        if (globalThis.platformSettings.get("streamerPip")) {
-            document.getElementById("streamerPipButton")!.style.display = ""
-        }
+        this.driver.modules.controls.header.leftBlur.style.display = ""
+        this.driver.modules.controls.header.leftMute.style.display = ""
 
         try {
             (document.getElementsByClassName("remote-video__watermark")[0] as HTMLElement).style.display = "none"
@@ -391,12 +403,9 @@ export class StreamerModule {
 
         $(".remote-video__noise").insertBefore("#cover")
 
-
         if (globalThis.platformSettings.get("streamerKeys")) {
             document.addEventListener('keyup', this.hotkeys)
         }
-
-        this.interval = setInterval(this.updStatus.bind(this), 500)
 
         this.echoV.id = "echo-video"
         this.echoV.autoplay = true
@@ -407,25 +416,28 @@ export class StreamerModule {
         document.getElementById('video-container')!.appendChild(this.echoV);
         let self = this
 
-        function echoStart() {
-            self.echoV.srcObject = (document.getElementById("local-video") as HTMLVideoElement).srcObject
-            document.getElementById('local-video')!.removeEventListener("play", echoStart)
+        const echoStart = () => {
+            self.echoV.srcObject = this.getLocalVideo().srcObject
+            this.getLocalVideo().removeEventListener("play", echoStart)
         }
 
-        document.getElementById('local-video')!.addEventListener("play", echoStart)
+        this.getLocalVideo().addEventListener("play", echoStart)
 
         this.started = true
 
         if (globalThis.platformSettings.get("blurOnStart")) {
             this.blurRemote()
         }
+        this.driver.modules.controls.header.minifyButtons();
+
+        this.updStatus();
     }
 
     public stop() {
-        clearInterval(this.interval)
         this.unblurLocal()
         this.unblurRemote()
-        document.getElementById("streamerPipButton")!.style.display = "none";
+        this.driver.modules.controls.header.leftBlur.style.display = "none";
+        this.driver.modules.controls.header.leftMute.style.display = "none";
         (document.getElementById("report-screen") as HTMLElement).style.filter = "";
         $("#cover").remove()
         $("#cover2").remove()
@@ -436,6 +448,23 @@ export class StreamerModule {
         document.removeEventListener('keyup', this.hotkeys);
 
         this.started = false
+        this.driver.modules.controls.header.restoreButtons();
+    }
+
+    public handleBlurButtonClick(e: MouseEvent) {
+        if (!this.manualBlur && !this.blur) {
+            this.blurRemote()
+            this.manualBlur = true
+        } else {
+            this.unblurRemote()
+            this.manualBlur = false
+        }
+        this.updStatus()
+    }
+
+    public handleMuteButtonClick(e: MouseEvent) {
+        this.getRemoteVideo()!.muted = !this.getRemoteVideo()!.muted
+        this.updStatus()
     }
 
     protected hotkeys = (e: KeyboardEvent) => {
@@ -444,22 +473,12 @@ export class StreamerModule {
         switch (e.key) {
             case "ArrowRight":
                 if (!(document.getElementById("report-popup")!.style.display === "block")) {
-                    {
-                        if (this.getRemoteVideo()!.style.filter === "") {
-                            this.blurRemote()
-                            this.manualBlur = true
-                        } else {
-                            this.unblurRemote()
-                            this.manualBlur = false
-                        }
-                    }
-                    this.updStatus()
+                    this.driver.modules.controls.header.leftBlur.click()
                 }
                 break;
 
             case "m":
-                this.getRemoteVideo()!.muted = !this.getRemoteVideo()!.muted
-                this.updStatus()
+                this.driver.modules.controls.header.leftMute.click()
                 break;
         }
     }

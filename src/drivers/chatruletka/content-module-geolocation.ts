@@ -1167,9 +1167,6 @@ export class ControlsTabApi {
                     id: "remoteFace",
                 }),
                 utils.createElement('div', {
-                    id: "streamerStatus",
-                }),
-                utils.createElement('div', {
                     id: "remoteInfo",
                     style: "overflow-y: auto; height: 100%; padding-top:2px;"
                 })
