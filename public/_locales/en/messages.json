@@ -309,10 +309,10 @@
     "message": "enable this if you also want to blur/cover your local video (mirror)"
   },
   "coverOverBlur": {
-    "message": "cover over blur: "
+    "message": "use img/gif as cover: "
   },
   "tooltipCoverOverBlur": {
-    "message": "enable this if you want cover instead of blur"
+    "message": "enable this if you want to use img/gif instead of blurring video"
   },
   "coverOverPreview": {
     "message": "cover over preview: "
@@ -330,13 +330,21 @@
     "message": "cover over stop: "
   },
   "tooltipCoverOverStop": {
-    "message": "enable this if you want to activate cover when stopped"
+    "message": "enable this if you want to auto-activate cover when stopped"
   },
+
+  "uncoverOnPlay": {
+    "message": "uncover on play: "
+  },
+  "tooltipUncoverOnPlay": {
+    "message": "enable this if you want to use the cover only as a replacement for the search noise"
+  },
+
   "promptCoverSrc": {
     "message": "Enter a direct link to the picture/gif (4:3) for use as the cover."
   },
   "coverSrc": {
-    "message": "cover source"
+    "message": "custom img/gif"
   },
   "doNotReflect": {
     "message": "do not reflect the camera: "

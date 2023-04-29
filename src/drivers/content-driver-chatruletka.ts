@@ -292,6 +292,9 @@ export class ChatruletkaDriver {
                     }
                 } else if (attributeValue.includes("s-connected")) {
                     this.stage = 3;
+                    if (this.modules.streamer && globalThis.platformSettings.get("streamer")) {
+                        this.modules.streamer.onStageFound()
+                    }
                 } else if (attributeValue.includes("s-play")) {
                     this.stage = 4;
 
