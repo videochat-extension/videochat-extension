@@ -5,23 +5,6 @@ import {confirmAndReload} from "./content-module-settings";
 import ChangeEvent = JQuery.ChangeEvent;
 
 export class StreamerModule {
-    private static instanceRef: StreamerModule;
-    public BLUR_FILTER = "blur(" + globalThis.platformSettings.get("blurFilter") + "px)"
-    public BLUR_FILTER_PREVIEW = "blur(" + globalThis.platformSettings.get("blurPreviewFilter") + "px)"
-    private interval: NodeJS.Timer | undefined;
-    public started = false
-
-    public getLocalVideo(): HTMLVideoElement {
-        return <HTMLVideoElement>document.getElementById("local-video")
-    }
-
-    public getRemoteVideo(): HTMLVideoElement {
-        return <HTMLVideoElement>document.getElementById("remote-video")
-    }
-
-    public manualBlur = false
-    public preds = []
-    public echoV: HTMLVideoElement = document.createElement('video')
     public static defaults = {
         streamer: false,
         streamerKeys: true,
@@ -38,6 +21,12 @@ export class StreamerModule {
         coverStop: true,
         coverSrc: "https://i.imgur.com/Ud2uLYQ.gif",
     }
+    private static instanceRef: StreamerModule;
+    public BLUR_FILTER = "blur(" + globalThis.platformSettings.get("blurFilter") + "px)"
+    public BLUR_FILTER_PREVIEW = "blur(" + globalThis.platformSettings.get("blurPreviewFilter") + "px)"
+    public started = false
+    public manualBlur = false
+    public echoV: HTMLVideoElement = document.createElement('video')
     public settings = [
         {
             type: "header",
@@ -242,6 +231,7 @@ export class StreamerModule {
             ]
         }
     ]
+    private interval: NodeJS.Timer | undefined;
     private driver: ChatruletkaDriver;
 
     private constructor(driver: ChatruletkaDriver) {
@@ -256,10 +246,21 @@ export class StreamerModule {
         return StreamerModule.instanceRef;
     }
 
+    public getLocalVideo(): HTMLVideoElement {
+        return <HTMLVideoElement>document.getElementById("local-video")
+    }
+
+    public getRemoteVideo(): HTMLVideoElement {
+        return <HTMLVideoElement>document.getElementById("remote-video")
+    }
+
     public blurRemote() {
         if (globalThis.platformSettings.get("cover") || globalThis.platformSettings.get("coverNoise") || globalThis.platformSettings.get("coverPreview") || globalThis.platformSettings.get("coverStop")) {
             this.getRemoteVideo()!!.style.filter = "opacity(0%)"
             document.getElementById('cover')!.style.display = ""
+
+            if (globalThis.platformSettings.get("streamerMirror"))
+                this.blurLocal()
         } else {
             this.getRemoteVideo()!.style.filter = this.BLUR_FILTER
         }
@@ -269,6 +270,9 @@ export class StreamerModule {
         if (globalThis.platformSettings.get("cover") || globalThis.platformSettings.get("coverNoise") || globalThis.platformSettings.get("coverPreview") || globalThis.platformSettings.get("coverStop")) {
             this.getRemoteVideo()!.style.filter = ""
             document.getElementById('cover')!.style.display = "none"
+
+            if (globalThis.platformSettings.get("streamerMirror"))
+                this.unblurLocal()
         } else {
             this.getRemoteVideo()!.style.filter = ""
         }
@@ -303,7 +307,6 @@ export class StreamerModule {
     }
 
     public onConversationEnd() {
-        this.preds = []
         if (globalThis.platformSettings.get("streamerMirror"))
             this.getLocalVideo()!.style.filter = ""
         this.getRemoteVideo()!.style.filter = ""
@@ -340,9 +343,6 @@ export class StreamerModule {
         }
 
         if (globalThis.platformSettings.get("blurOnStart")) {
-            if (globalThis.platformSettings.get("streamerMirror"))
-                this.blurLocal()
-
             this.blurRemote()
         }
     }
@@ -352,39 +352,6 @@ export class StreamerModule {
 
         if (globalThis.platformSettings.get("blurOnStart") && globalThis.platformSettings.get("coverStop")) {
             this.blurRemote()
-        }
-    }
-
-    protected hotkeys = (e: KeyboardEvent) => {
-        if (e.target instanceof HTMLElement && e.target.className === "emojionearea-editor" || document.getElementsByClassName("swal2-popup").length > 0)
-            return
-        switch (e.key) {
-            case "ArrowRight":
-                if (!(document.getElementById("report-popup")!.style.display === "block")) {
-                    {
-                        if (this.getRemoteVideo()!.style.filter === "") {
-                            this.blurRemote()
-                            this.manualBlur = true
-                        } else {
-                            this.unblurRemote()
-                            this.manualBlur = false
-                        }
-
-                        if (globalThis.platformSettings.get("streamerMirror")) {
-                            if (this.getLocalVideo()!.style.filter === "")
-                                this.blurLocal()
-                            else
-                                this.unblurLocal()
-                        }
-                    }
-                    this.updStatus()
-                }
-                break;
-
-            case "m":
-                this.getRemoteVideo()!.muted = !this.getRemoteVideo()!.muted
-                this.updStatus()
-                break;
         }
     }
 
@@ -448,6 +415,10 @@ export class StreamerModule {
         document.getElementById('local-video')!.addEventListener("play", echoStart)
 
         this.started = true
+
+        if (globalThis.platformSettings.get("blurOnStart")) {
+            this.blurRemote()
+        }
     }
 
     public stop() {
@@ -465,5 +436,31 @@ export class StreamerModule {
         document.removeEventListener('keyup', this.hotkeys);
 
         this.started = false
+    }
+
+    protected hotkeys = (e: KeyboardEvent) => {
+        if (e.target instanceof HTMLElement && e.target.className === "emojionearea-editor" || document.getElementsByClassName("swal2-popup").length > 0)
+            return
+        switch (e.key) {
+            case "ArrowRight":
+                if (!(document.getElementById("report-popup")!.style.display === "block")) {
+                    {
+                        if (this.getRemoteVideo()!.style.filter === "") {
+                            this.blurRemote()
+                            this.manualBlur = true
+                        } else {
+                            this.unblurRemote()
+                            this.manualBlur = false
+                        }
+                    }
+                    this.updStatus()
+                }
+                break;
+
+            case "m":
+                this.getRemoteVideo()!.muted = !this.getRemoteVideo()!.muted
+                this.updStatus()
+                break;
+        }
     }
 }
