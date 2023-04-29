@@ -65,10 +65,10 @@ export class StreamerModule {
                     text: chrome.i18n.getMessage("streamerHotkeys"),
                     tooltip: chrome.i18n.getMessage("tooltipStreamerHotkeys"),
                     enable: () => {
-                        (document.getElementById("report-screen") as HTMLElement).style.filter = "blur(10px)"
+                        document.addEventListener('keyup', this.hotkeys)
                     },
                     disable: () => {
-                        (document.getElementById("report-screen") as HTMLElement).style.filter = ""
+                        document.removeEventListener('keyup', this.hotkeys);
                     }
                 },
                 {
