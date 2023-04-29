@@ -7,6 +7,7 @@ export class StreamerModule {
     public static defaults = {
         streamer: false,
         streamerKeys: true,
+        streamerBlurCoverSection: true,
         streamerMirror: false,
         blurOnStart: true,
         blurPreview: false,
@@ -40,13 +41,12 @@ export class StreamerModule {
             tooltip: chrome.i18n.getMessage("tooltipStreamerMode"),
             controlsSection: "streamerList",
             enable: () => {
-                if (!this.started) {
-                    this.start()
-                }
+                this.start()
             },
             disable: () => {
+                this.stopBase()
                 if (this.started) {
-                    this.stop()
+                    this.stopBlurCover()
                 }
             }
         },
@@ -60,7 +60,7 @@ export class StreamerModule {
                 },
                 {
                     type: "checkbox",
-                    important: false,
+                    important: true,
                     key: "streamerKeys",
                     controlsSection: "streamerHotkeysSection",
                     text: chrome.i18n.getMessage("streamerHotkeys"),
@@ -90,169 +90,195 @@ export class StreamerModule {
                 },
                 {
                     type: "checkbox",
-                    important: false,
-                    key: "blurOnStart",
-                    controlsSection: "blurOnStartSection",
-                    text: chrome.i18n.getMessage("blurOnStart"),
-                    tooltip: chrome.i18n.getMessage("tooltipBlurOnStart")
+                    important: true,
+                    key: "streamerBlurCoverSection",
+                    controlsSection: "streamerBlurCoverSectionSection",
+                    text: chrome.i18n.getMessage("streamerBlurCoverSection"),
+                    tooltip: chrome.i18n.getMessage("tooltipStreamerBlurCoverSection"),
+                    enable: () => {
+                        this.startBlurCover()
+                    },
+                    disable: () => {
+                        if (this.started) {
+                            this.stopBlurCover()
+                        }
+                    }
                 },
                 {
                     type: "section",
-                    hide: globalThis.platformSettings.get("blurOnStart"),
-                    sectionId: "blurOnStartSection",
+                    hide: globalThis.platformSettings.get("streamerBlurCoverSection"),
+                    sectionId: "streamerBlurCoverSectionSection",
                     children: [
                         {
-                            type: "checkbox",
-                            important: false,
-                            key: "coverPreview",
-                            text: chrome.i18n.getMessage("coverOverPreview"),
-                            tooltip: chrome.i18n.getMessage("tooltipCoverOverPreview")
+                            type: "br",
                         },
                         {
                             type: "checkbox",
                             important: false,
-                            key: "coverNoise",
-                            text: chrome.i18n.getMessage("coverOverNoise"),
-                            tooltip: chrome.i18n.getMessage("tooltipCoverOverNoise")
+                            key: "blurOnStart",
+                            controlsSection: "blurOnStartSection",
+                            text: chrome.i18n.getMessage("blurOnStart"),
+                            tooltip: chrome.i18n.getMessage("tooltipBlurOnStart")
+                        },
+                        {
+                            type: "section",
+                            hide: globalThis.platformSettings.get("blurOnStart"),
+                            sectionId: "blurOnStartSection",
+                            children: [
+                                {
+                                    type: "checkbox",
+                                    important: false,
+                                    key: "coverPreview",
+                                    text: chrome.i18n.getMessage("coverOverPreview"),
+                                    tooltip: chrome.i18n.getMessage("tooltipCoverOverPreview")
+                                },
+                                {
+                                    type: "checkbox",
+                                    important: false,
+                                    key: "coverNoise",
+                                    text: chrome.i18n.getMessage("coverOverNoise"),
+                                    tooltip: chrome.i18n.getMessage("tooltipCoverOverNoise")
+                                },
+                                {
+                                    type: "checkbox",
+                                    important: false,
+                                    key: "coverStop",
+                                    text: chrome.i18n.getMessage("coverOverStop"),
+                                    tooltip: chrome.i18n.getMessage("tooltipCoverOverStop")
+                                }
+                            ]
+                        },
+                        {
+                            type: "br",
                         },
                         {
                             type: "checkbox",
                             important: false,
-                            key: "coverStop",
-                            text: chrome.i18n.getMessage("coverOverStop"),
-                            tooltip: chrome.i18n.getMessage("tooltipCoverOverStop")
-                        }
-                    ]
-                },
-                {
-                    type: "br",
-                },
-                {
-                    type: "checkbox",
-                    important: false,
-                    key: "streamerMirror",
-                    text: chrome.i18n.getMessage("blurCoverLocal"),
-                    tooltip: chrome.i18n.getMessage("tooltipBlurCoverLocal"),
-                    enable: () => {
-                        if (this.blur || this.manualBlur) {
-                            this.blurLocal()
-                        }
-                    },
-                    disable: () => {
-                        this.unblurLocal()
-                    }
-                },
-                {
-                    type: "checkbox",
-                    important: false,
-                    key: "blurReport",
-                    text: chrome.i18n.getMessage("blurReport"),
-                    tooltip: chrome.i18n.getMessage("tooltipBlurReport"),
-                    enable: () => {
-                        (document.getElementById("report-screen") as HTMLElement).style.filter = "blur(10px)"
-                    },
-                    disable: () => {
-                        (document.getElementById("report-screen") as HTMLElement).style.filter = ""
-                    }
-                },
-                {
-                    type: "checkbox",
-                    important: false,
-                    key: "blurPreview",
-                    controlsSection: "blurPreviewSection",
-                    text: chrome.i18n.getMessage("blurPreviews"),
-                    tooltip: chrome.i18n.getMessage("tooltipBlurPreviews")
-                },
-                {
-                    type: "section",
-                    hide: globalThis.platformSettings.get("blurPreview"),
-                    sectionId: "blurPreviewSection",
-                    children: [
+                            key: "streamerMirror",
+                            text: chrome.i18n.getMessage("blurCoverLocal"),
+                            tooltip: chrome.i18n.getMessage("tooltipBlurCoverLocal"),
+                            enable: () => {
+                                if (this.blur || this.manualBlur) {
+                                    this.blurLocal()
+                                }
+                            },
+                            disable: () => {
+                                this.unblurLocal()
+                            }
+                        },
+                        {
+                            type: "checkbox",
+                            important: false,
+                            key: "blurReport",
+                            text: chrome.i18n.getMessage("blurReport"),
+                            tooltip: chrome.i18n.getMessage("tooltipBlurReport"),
+                            enable: () => {
+                                (document.getElementById("report-screen") as HTMLElement).style.filter = "blur(10px)"
+                            },
+                            disable: () => {
+                                (document.getElementById("report-screen") as HTMLElement).style.filter = ""
+                            }
+                        },
+                        {
+                            type: "checkbox",
+                            important: false,
+                            key: "blurPreview",
+                            controlsSection: "blurPreviewSection",
+                            text: chrome.i18n.getMessage("blurPreviews"),
+                            tooltip: chrome.i18n.getMessage("tooltipBlurPreviews")
+                        },
+                        {
+                            type: "section",
+                            hide: globalThis.platformSettings.get("blurPreview"),
+                            sectionId: "blurPreviewSection",
+                            children: [
+                                {
+                                    type: "range",
+                                    important: false,
+                                    text: chrome.i18n.getMessage("previewBlurStrength"),
+                                    tooltip: chrome.i18n.getMessage("tooltipPreviewBlurStrength"),
+                                    key: "blurPreviewFilter",
+                                    min: 0,
+                                    max: 200,
+                                    onchange: (event: ChangeEvent) => {
+                                        this.BLUR_FILTER_PREVIEW = "blur(" + event.target.value + "px)"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            type: "br",
+                        },
                         {
                             type: "range",
                             important: false,
-                            text: chrome.i18n.getMessage("previewBlurStrength"),
-                            tooltip: chrome.i18n.getMessage("tooltipPreviewBlurStrength"),
-                            key: "blurPreviewFilter",
+                            text: chrome.i18n.getMessage("remoteBlurStrength"),
+                            tooltip: chrome.i18n.getMessage("tooltipRemoteBlurStrength"),
+                            key: "blurFilter",
                             min: 0,
                             max: 200,
                             onchange: (event: ChangeEvent) => {
-                                this.BLUR_FILTER_PREVIEW = "blur(" + event.target.value + "px)"
-                            }
-                        }
-                    ]
-                },
-                {
-                    type: "br",
-                },
-                {
-                    type: "range",
-                    important: false,
-                    text: chrome.i18n.getMessage("remoteBlurStrength"),
-                    tooltip: chrome.i18n.getMessage("tooltipRemoteBlurStrength"),
-                    key: "blurFilter",
-                    min: 0,
-                    max: 200,
-                    onchange: (event: ChangeEvent) => {
-                        this.BLUR_FILTER = "blur(" + event.target.value + "px)"
-                        if (this.getRemoteVideo()!.style.filter !== "") {
-                            this.getRemoteVideo()!.style.filter = this.BLUR_FILTER
-                        }
-                    }
-                },
-                {
-                    type: "checkbox",
-                    important: false,
-                    key: "cover",
-                    controlsSection: "coverStreamerSection",
-                    text: chrome.i18n.getMessage("coverOverBlur"),
-                    tooltip: chrome.i18n.getMessage("tooltipCoverOverBlur"),
-                    enable: () => {
-                        if (this.blur || this.manualBlur) {
-                            this.unblurRemote()
-                            this.blurRemote()
-                        }
-                    },
-                    disable: () => {
-                        if (this.blur || this.manualBlur) {
-                            this.unblurRemote()
-                            this.blurRemote()
-                        }
-                    }
-                },
-                {
-                    type: "section",
-                    hide: globalThis.platformSettings.get("cover"),
-                    sectionId: "coverStreamerSection",
-                    children: [
-                        {
-                            type: "checkbox",
-                            important: false,
-                            key: "uncoverOnPlay",
-                            text: chrome.i18n.getMessage("uncoverOnPlay"),
-                            tooltip: chrome.i18n.getMessage("tooltipUncoverOnPlay"),
-                            enable: () => {
-                                // confirmAndReload()
-                            },
-                            disable: () => {
-                                // confirmAndReload()
+                                this.BLUR_FILTER = "blur(" + event.target.value + "px)"
+                                if (this.getRemoteVideo()!.style.filter !== "") {
+                                    this.getRemoteVideo()!.style.filter = this.BLUR_FILTER
+                                }
                             }
                         },
                         {
-                            type: "button",
-                            text: chrome.i18n.getMessage("coverSrc"),
-                            onclick: (e: MouseEvent) => {
-                                const result = prompt(chrome.i18n.getMessage("promptCoverSrc"), globalThis.platformSettings.get("coverSrc"))
-                                if (result) {
-                                    // TODO: test this
-                                    globalThis.platformSettings.setBack({"coverSrc": result}, function () {
-                                        (document.getElementById('cover') as HTMLImageElement).src = result
-                                    });
+                            type: "checkbox",
+                            important: false,
+                            key: "cover",
+                            controlsSection: "coverStreamerSection",
+                            text: chrome.i18n.getMessage("coverOverBlur"),
+                            tooltip: chrome.i18n.getMessage("tooltipCoverOverBlur"),
+                            enable: () => {
+                                if (this.blur || this.manualBlur) {
+                                    this.unblurRemote()
+                                    this.blurRemote()
+                                }
+                            },
+                            disable: () => {
+                                if (this.blur || this.manualBlur) {
+                                    this.unblurRemote()
+                                    this.blurRemote()
                                 }
                             }
+                        },
+                        {
+                            type: "section",
+                            hide: globalThis.platformSettings.get("cover"),
+                            sectionId: "coverStreamerSection",
+                            children: [
+                                {
+                                    type: "checkbox",
+                                    important: false,
+                                    key: "uncoverOnPlay",
+                                    text: chrome.i18n.getMessage("uncoverOnPlay"),
+                                    tooltip: chrome.i18n.getMessage("tooltipUncoverOnPlay"),
+                                    enable: () => {
+                                        // confirmAndReload()
+                                    },
+                                    disable: () => {
+                                        // confirmAndReload()
+                                    }
+                                },
+                                {
+                                    type: "button",
+                                    text: chrome.i18n.getMessage("coverSrc"),
+                                    onclick: (e: MouseEvent) => {
+                                        const result = prompt(chrome.i18n.getMessage("promptCoverSrc"), globalThis.platformSettings.get("coverSrc"))
+                                        if (result) {
+                                            // TODO: test this
+                                            globalThis.platformSettings.setBack({"coverSrc": result}, function () {
+                                                (document.getElementById('cover') as HTMLImageElement).src = result
+                                            });
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     ]
-                },
+                }
             ]
         }
     ]
@@ -327,6 +353,7 @@ export class StreamerModule {
         } else {
             this.getLocalVideo().style.filter = ""
         }
+
     }
 
     public updStatus() {
@@ -363,18 +390,23 @@ export class StreamerModule {
 
     public onStageSearch() {
         this.onConversationEnd()
-        if (globalThis.platformSettings.get("blurOnStart") && globalThis.platformSettings.get("coverNoise")) {
-            this.blurRemote()
+
+        if (globalThis.platformSettings.get("streamerBlurCoverSection")) {
+            if (globalThis.platformSettings.get("blurOnStart") && globalThis.platformSettings.get("coverNoise")) {
+                this.blurRemote()
+            }
         }
     }
 
     public onStageFound() {
-        if (globalThis.platformSettings.get("blurPreview")) {
-            (document.getElementsByClassName("remote-video__preview")[0].children[0] as HTMLElement).style.filter = this.BLUR_FILTER_PREVIEW;
-            (document.getElementsByClassName("remote-video__preview")[0].children[1] as HTMLElement).style.filter = this.BLUR_FILTER_PREVIEW
-        }
-        if (globalThis.platformSettings.get("blurOnStart") && globalThis.platformSettings.get("coverPreview")) {
-            this.blurRemote()
+        if (globalThis.platformSettings.get("streamerBlurCoverSection")) {
+            if (globalThis.platformSettings.get("blurPreview")) {
+                (document.getElementsByClassName("remote-video__preview")[0].children[0] as HTMLElement).style.filter = this.BLUR_FILTER_PREVIEW;
+                (document.getElementsByClassName("remote-video__preview")[0].children[1] as HTMLElement).style.filter = this.BLUR_FILTER_PREVIEW
+            }
+            if (globalThis.platformSettings.get("blurOnStart") && globalThis.platformSettings.get("coverPreview")) {
+                this.blurRemote()
+            }
         }
     }
 
@@ -383,11 +415,13 @@ export class StreamerModule {
 
         this.echoV.srcObject = this.getRemoteVideo().srcObject;
 
-        if (globalThis.platformSettings.get("uncoverOnPlay")) {
-            this.unblurRemote()
-        } else {
-            if (globalThis.platformSettings.get("blurOnStart")) {
-                this.blurRemote()
+        if (globalThis.platformSettings.get("streamerBlurCoverSection")) {
+            if (globalThis.platformSettings.get("uncoverOnPlay")) {
+                this.unblurRemote()
+            } else {
+                if (globalThis.platformSettings.get("blurOnStart")) {
+                    this.blurRemote()
+                }
             }
         }
     }
@@ -395,15 +429,33 @@ export class StreamerModule {
     public onStageStop() {
         this.onConversationEnd()
 
-        if (globalThis.platformSettings.get("blurOnStart") && globalThis.platformSettings.get("coverStop")) {
-            this.blurRemote()
+        if (globalThis.platformSettings.get("streamerBlurCoverSection")) {
+            if (globalThis.platformSettings.get("blurOnStart") && globalThis.platformSettings.get("coverStop")) {
+                this.blurRemote()
+            }
         }
     }
 
     public start() {
+        this.startBase();
+
+        if (globalThis.platformSettings.get("streamerBlurCoverSection")) {
+            this.startBlurCover();
+        }
+    }
+
+    public startBase() {
         this.driver.modules.controls.header.leftBlur.style.display = ""
         this.driver.modules.controls.header.leftMute.style.display = ""
 
+        if (globalThis.platformSettings.get("streamerKeys")) {
+            document.addEventListener('keyup', this.hotkeys)
+        }
+
+        this.driver.modules.controls.header.minifyButtons();
+    }
+
+    public startBlurCover() {
         try {
             (document.getElementsByClassName("remote-video__watermark")[0] as HTMLElement).style.display = "none"
         } catch (e) {
@@ -435,9 +487,6 @@ export class StreamerModule {
 
         $(".remote-video__noise").insertBefore("#cover")
 
-        if (globalThis.platformSettings.get("streamerKeys")) {
-            document.addEventListener('keyup', this.hotkeys)
-        }
 
         this.echoV.id = "echo-video"
         this.echoV.autoplay = true
@@ -460,16 +509,22 @@ export class StreamerModule {
         if (globalThis.platformSettings.get("blurOnStart")) {
             this.blurRemote()
         }
-        this.driver.modules.controls.header.minifyButtons();
 
         this.updStatus();
     }
 
-    public stop() {
-        this.unblurLocal()
-        this.unblurRemote()
+    public stopBase() {
         this.driver.modules.controls.header.leftBlur.style.display = "none";
         this.driver.modules.controls.header.leftMute.style.display = "none";
+
+        document.removeEventListener('keyup', this.hotkeys);
+
+        this.driver.modules.controls.header.restoreButtons();
+    }
+
+    public stopBlurCover() {
+        this.unblurLocal();
+        this.unblurRemote();
         (document.getElementById("report-screen") as HTMLElement).style.filter = "";
         $("#cover").remove()
         $("#cover2").remove()
@@ -477,19 +532,20 @@ export class StreamerModule {
         if (document.pictureInPictureElement === document.getElementById("echo-video"))
             document.exitPictureInPicture()
 
-        document.removeEventListener('keyup', this.hotkeys);
+
 
         this.started = false
-        this.driver.modules.controls.header.restoreButtons();
     }
 
     public handleBlurButtonClick(e: MouseEvent) {
-        if (!this.manualBlur && !this.blur) {
-            this.blurRemote()
-            this.manualBlur = true
-        } else {
-            this.unblurRemote()
-            this.manualBlur = false
+        if (globalThis.platformSettings.get("streamerBlurCoverSection")) {
+            if (!this.manualBlur && !this.blur) {
+                this.blurRemote()
+                this.manualBlur = true
+            } else {
+                this.unblurRemote()
+                this.manualBlur = false
+            }
         }
         this.updStatus()
     }

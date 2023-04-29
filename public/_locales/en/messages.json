@@ -263,6 +263,12 @@
   "tooltipStreamerMode": {
     "message": "Enables a special set of functions for streamers. If you disable it, everything below will not work."
   },
+  "streamerBlurCoverSection": {
+    "message": "blur&cover: "
+  },
+  "tooltipStreamerBlurCoverSection": {
+    "message": "Enable if you want to hide your stranger's camera feed. You will be able to capture just the browser in OBS, cover the stranger with custom image/gif, and look at him through picture-in-picture mode to decide whether to show him on yout broadcast."
+  },
   "streamerHotkeys": {
     "message": "streamer hotkeys: "
   },
