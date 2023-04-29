@@ -8,12 +8,12 @@ let needReload = false
 export function confirmAndReload() {
     if (!needReload) {
         needReload = true
-        let connectionStatus: HTMLElement = document.getElementById("connectionStatus") as HTMLElement
-        connectionStatus.setAttribute("data-tooltip", chrome.i18n.getMessage("reloadRequired"))
-        connectionStatus.className = "tooltip-multiline tooltip-bottom";
-        (connectionStatus.parentElement as HTMLAnchorElement).href = ".";
-        (connectionStatus.parentElement as HTMLAnchorElement).target = ""
-        connectionStatus.style.color = "red"
+        let VE_extension_name_header: HTMLElement = document.getElementById("VE_extension_name_header") as HTMLElement
+        VE_extension_name_header.setAttribute("data-tooltip", chrome.i18n.getMessage("reloadRequired"))
+        VE_extension_name_header.className = "tooltip-multiline tooltip-bottom";
+        (VE_extension_name_header.parentElement as HTMLAnchorElement).href = ".";
+        (VE_extension_name_header.parentElement as HTMLAnchorElement).target = ""
+        VE_extension_name_header.style.color = "red"
 
         document.getElementsByClassName('buttons__button start-button')[0].addEventListener('click', () => {
             if (confirm(chrome.i18n.getMessage("reloadRequired"))) {

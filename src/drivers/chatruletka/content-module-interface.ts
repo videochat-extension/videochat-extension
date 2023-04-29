@@ -99,7 +99,7 @@ export class InterfaceModule {
         darkMode: {
             enable: () => {
                 utils.tryCatch(() => {
-                    (document.getElementById("connectionStatus") as HTMLElement).style.color = "#E8E6E3";
+                    (document.getElementById("VE_extension_name_header") as HTMLElement).style.color = "#E8E6E3";
                     if (!document.getElementById("darkMode")) {
                         (document.body || document.documentElement).appendChild(this.dark);
                     }
@@ -113,7 +113,7 @@ export class InterfaceModule {
             },
             disable: () => {
                 utils.tryCatch(() => {
-                    (document.getElementById("connectionStatus") as HTMLElement).style.color = "#000000";
+                    (document.getElementById("VE_extension_name_header") as HTMLElement).style.color = "#000000";
                     if (document.getElementById("darkMode") as HTMLElement)
                         (document.getElementById("darkMode") as HTMLElement).remove();
 

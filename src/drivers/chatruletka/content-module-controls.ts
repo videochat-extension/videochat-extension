@@ -692,7 +692,7 @@ function createHeader() {
         }, [
             utils.createElement('b', {
                 innerText: chrome.i18n.getMessage("extension_name_header") + " v" + chrome.runtime.getManifest().version.substring(0, 3),
-                id: "connectionStatus",
+                id: "VE_extension_name_header",
             })
         ]),
         utils.createElement('div', {
