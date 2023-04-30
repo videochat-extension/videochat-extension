@@ -276,7 +276,7 @@
     "message": "enable a special set of hotkeys for streamers"
   },
   "streamerHotkeysText": {
-    "message": "<dd style='margin-inline-start: 40px!important;'>right arrow - blur</dd><dd style='margin-inline-start: 40px!important;'>m - mute remote video</dd>"
+    "message": "<dd style='margin-inline-start: 40px!important;'>right arrow - blur / cover</dd><dd style='margin-inline-start: 40px!important;'>m - mute remote video</dd>"
   },
   "blurOnStart": {
     "message": "auto apply blur/cover: "
