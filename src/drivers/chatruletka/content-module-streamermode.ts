@@ -474,13 +474,13 @@ export class StreamerModule {
         $(utils.createElement('img', {
             src: globalThis.platformSettings.get("coverSrc"),
             id: "cover",
-            style: "height: 100%; max-width: 100%; position: relative; object-fit: cover; display:none"
+            style: "height: 100%; width: 100%; position: relative; object-fit: cover; display:none"
         })).insertBefore("#remote-video")
 
         $(utils.createElement('img', {
             src: globalThis.platformSettings.get("coverSrc"),
             id: "cover2",
-            style: "height: 100%; max-width: 100%; position: relative; object-fit: cover; display:none; transform: scaleX(-1)"
+            style: "height: 100%; width: 100%; position: relative; object-fit: cover; display:none; transform: scaleX(-1)"
         })).insertBefore("#local-video")
 
         $(".remote-video__preview").insertBefore("#cover")
