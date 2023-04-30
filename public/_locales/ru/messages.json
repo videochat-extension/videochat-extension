@@ -343,6 +343,18 @@
   "coverSrc": {
     "message": "своя заглушка"
   },
+  "randomFromList": {
+    "message": "случайная gif из списка"
+  },
+  "fetchRandomGiphy": {
+    "message": "получить случайную gif"
+  },
+  "promptRandomGiphyTag": {
+    "message": "Введите запрос, который вы хотите использоваться для запроса случайной gif."
+  },
+  "randomGiphyTag": {
+    "message": "текст запроса: "
+  },
   "doNotReflect": {
     "message": "не отражать камеру: "
   },

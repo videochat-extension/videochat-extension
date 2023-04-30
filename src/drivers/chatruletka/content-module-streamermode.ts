@@ -19,7 +19,8 @@ export class StreamerModule {
         coverNoise: true,
         coverStop: true,
         uncoverOnPlay: false,
-        coverSrc: "https://i.imgur.com/Ud2uLYQ.gif",
+        coverSrc: "https://media3.giphy.com/media/pVGsAWjzvXcZW4ZBTE/giphy.gif",
+        randomGiphyTag: "loop"
     }
     private static instanceRef: StreamerModule;
     public BLUR_FILTER = "blur(" + globalThis.platformSettings.get("blurFilter") + "px)"
@@ -271,6 +272,60 @@ export class StreamerModule {
                                             // TODO: test this
                                             globalThis.platformSettings.setBack({"coverSrc": result}, function () {
                                                 (document.getElementById('cover') as HTMLImageElement).src = result
+                                            });
+                                        }
+                                    }
+                                },
+                                {
+                                    type: "button",
+                                    text: chrome.i18n.getMessage("randomFromList"),
+                                    onclick: (e: MouseEvent) => {
+                                        const covers = [
+                                            "https://media3.giphy.com/media/TFSxpAIYz5inJGuY8f/giphy.gif",
+                                            "https://media0.giphy.com/media/u2wg2uXJbHzkXkPphr/giphy.gif",
+                                            "https://media0.giphy.com/media/l0He4fJxPCbfqv7Xi/giphy.gif",
+                                            "https://media3.giphy.com/media/TvLuZ00OIADoQ/giphy.gif",
+                                            "https://media3.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif",
+                                            "https://media3.giphy.com/media/r8GMmlV8qGrfZ3txfX/giphy.gif",
+                                            "https://media3.giphy.com/media/JmNubSOrG4E63Nv0Op/giphy.gif",
+                                            "https://media3.giphy.com/media/3o7qEbukQhgu3v1Ci4/giphy.gif",
+                                            "https://media3.giphy.com/media/YrIq06kG5yrtxQEhj3/giphy.gif",
+                                            "https://media3.giphy.com/media/GGqwHutw9TpT9xOIfW/giphy.gif",
+                                            "https://media3.giphy.com/media/HdkzWcDvoRmLmkrWOt/giphy.gif",
+                                            "https://media3.giphy.com/media/78E3Cv7kKD5XW/giphy.gif",
+                                            "https://media3.giphy.com/media/TfP7y73UkILlvC0EFa/giphy.gif",
+                                            "https://media3.giphy.com/media/pVGsAWjzvXcZW4ZBTE/giphy.gif",
+                                            "https://media3.giphy.com/media/2GBfKwJ7bypANDoqRt/giphy.gif",
+                                            "https://media3.giphy.com/media/9B7XwCQZRQfQs/giphy.gif",
+                                            "https://media3.giphy.com/media/NKEt9elQ5cR68/giphy.gif",
+                                            "https://media3.giphy.com/media/ieaUdBJJC19uw/giphy.gif",
+                                            "https://media3.giphy.com/media/l2SqaK2Kec3IzRYhG/giphy.gif"
+                                        ]
+                                        let result = covers[utils.getRandomInt(0, covers.length-1)]
+                                        globalThis.platformSettings.setBack({"coverSrc": result}, function () {
+                                            (document.getElementById('cover') as HTMLImageElement).src = result
+                                        });
+                                    }
+                                },
+                                {
+                                    type: "button",
+                                    text: chrome.i18n.getMessage("fetchRandomGiphy"),
+                                    onclick: async (e: MouseEvent) => {
+                                        let r = await fetch(`https://api.giphy.com/v1/gifs/random?api_key=0UTRbFtkMxAplrohufYco5IY74U8hOes&tag=${globalThis.platformSettings.get("randomGiphyTag")}&rating=pg-13`)
+                                        let result = (await r.json()).data.images.original.url
+                                        globalThis.platformSettings.setBack({"coverSrc": result}, function () {
+                                            (document.getElementById('cover') as HTMLImageElement).src = result
+                                        });
+                                    }
+                                },
+                                {
+                                    type: "button",
+                                    text: chrome.i18n.getMessage("randomGiphyTag") + globalThis.platformSettings.get("randomGiphyTag"),
+                                    onclick: (e: MouseEvent) => {
+                                        const result = prompt(chrome.i18n.getMessage("promptRandomGiphyTag"))
+                                        if (result) {
+                                            globalThis.platformSettings.setBack({"randomGiphyTag": result}, function () {
+                                                (e.target! as HTMLElement).innerText = chrome.i18n.getMessage("randomGiphyTag") + result
                                             });
                                         }
                                     }

@@ -352,6 +352,18 @@
   "coverSrc": {
     "message": "custom img/gif"
   },
+  "randomFromList": {
+    "message": "random from our list"
+  },
+  "fetchRandomGiphy": {
+    "message": "fetch random from giphy"
+  },
+  "promptRandomGiphyTag": {
+    "message": "Enter the query you want to use for the random gif."
+  },
+  "randomGiphyTag": {
+    "message": "tag for random: "
+  },
   "doNotReflect": {
     "message": "do not reflect the camera: "
   },
