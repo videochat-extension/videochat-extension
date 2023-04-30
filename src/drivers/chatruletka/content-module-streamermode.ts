@@ -361,10 +361,11 @@ export class StreamerModule {
 
     public blurRemote() {
         if (globalThis.platformSettings.get("cover")) {
-            if (globalThis.platformSettings.get("coverNoise") || globalThis.platformSettings.get("coverPreview") || globalThis.platformSettings.get("coverStop")) {
-                this.getRemoteVideo().style.filter = "opacity(0%)"
+            // TODO: that does not make sense
+            // if (globalThis.platformSettings.get("coverNoise") || globalThis.platformSettings.get("coverPreview") || globalThis.platformSettings.get("coverStop")) {
                 document.getElementById('cover')!.style.display = ""
-            }
+                this.getRemoteVideo().style.filter = "opacity(0%)"
+            // }
         } else {
             this.getRemoteVideo()!.style.filter = this.BLUR_FILTER
         }

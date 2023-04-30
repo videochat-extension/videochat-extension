@@ -287,9 +287,9 @@ export class ChatruletkaDriver {
 
                     this.found = Date.now()
 
-                    if (this.modules.streamer && globalThis.platformSettings.get("streamer")) {
-                        this.modules.streamer.onStageFound()
-                    }
+                    // if (this.modules.streamer && globalThis.platformSettings.get("streamer")) {
+                    //     this.modules.streamer.onStageFound()
+                    // }
                 } else if (attributeValue.includes("s-connected")) {
                     this.stage = 3;
                     if (this.modules.streamer && globalThis.platformSettings.get("streamer")) {
