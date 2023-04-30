@@ -20,6 +20,7 @@ export class StreamerModule {
         coverStop: true,
         uncoverOnPlay: false,
         coverSrc: "https://media3.giphy.com/media/pVGsAWjzvXcZW4ZBTE/giphy.gif",
+        coverSrcChangedDefault: false,
         randomGiphyTag: "loop"
     }
     private static instanceRef: StreamerModule;
@@ -346,6 +347,15 @@ export class StreamerModule {
     static initInstance(driver: ChatruletkaDriver): StreamerModule {
         if (StreamerModule.instanceRef === undefined) {
             StreamerModule.instanceRef = new StreamerModule(driver);
+        }
+
+        // change legacy streamer mode default gif
+        if (!globalThis.platformSettings.get("coverSrcChangedDefault")) {
+            if (globalThis.platformSettings.get("coverSrc") === "https://i.imgur.com/Ud2uLYQ.gif") {
+                globalThis.platformSettings.set({"coverSrc": "https://media3.giphy.com/media/pVGsAWjzvXcZW4ZBTE/giphy.gif", "coverSrcChangedDefault": true})
+            } else {
+                globalThis.platformSettings.set({"coverSrcChangedDefault": true})
+            }
         }
 
         return StreamerModule.instanceRef;
