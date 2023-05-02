@@ -328,13 +328,15 @@ export class StreamerModule {
                                     text: chrome.i18n.getMessage("obsControlCoverGrayscale"),
                                     tooltip: "tooltip",
                                     enable: () => {
-                                        if (this.blur) {
-                                            this.getRemoteVideo().style.filter = "grayscale(100%)"
+                                        if (this.blur && this.obs.connected) {
+                                            this.getRemoteVideo().style.filter = "grayscale(100%)";
+                                            (document.getElementsByClassName("remote-video__preview")[0] as HTMLElement).style.filter = "grayscale(100%)";
                                         }
                                     },
                                     disable: () => {
                                         if (this.getRemoteVideo().style.filter === "grayscale(100%)") {
-                                            this.getRemoteVideo().style.filter = ""
+                                            this.getRemoteVideo().style.filter = "";
+                                            (document.getElementsByClassName("remote-video__preview")[0] as HTMLElement).style.filter = "";
                                         }
                                     }
                                 },
@@ -726,7 +728,8 @@ export class StreamerModule {
 
             // TODO: need confirmation
             if (globalThis.platformSettings.get("obsControlCoverGrayscale")) {
-                this.getRemoteVideo().style.filter = "grayscale(100%)"
+                this.getRemoteVideo().style.filter = "grayscale(100%)";
+                (document.getElementsByClassName("remote-video__preview")[0] as HTMLElement).style.filter = "grayscale(100%)";
             }
         }
     }
@@ -736,7 +739,8 @@ export class StreamerModule {
             this.obs.setCoverVisibility(false)
             // TODO: need confirmation
             if (globalThis.platformSettings.get("obsControlCoverGrayscale")) {
-                this.getRemoteVideo().style.filter = ""
+                this.getRemoteVideo().style.filter = "";
+                (document.getElementsByClassName("remote-video__preview")[0] as HTMLElement).style.filter = ""
             }
         }
     }
