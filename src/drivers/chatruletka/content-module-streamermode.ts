@@ -83,7 +83,8 @@ class StreamerModuleOBS {
             this.setStatus(`error ${WebSocketCloseCode[e.code]}`)
         });
     }
-    public reportError(er:any){
+
+    public reportError(er: any) {
         console.dir(er)
         if (!globalThis.platformSettings.get("obsShowErrorsStatus")) {
             return
@@ -104,6 +105,7 @@ class StreamerModuleOBS {
             confirmButtonText: "OK"
         })
     }
+
     private setStatus(text: string) {
         document.getElementById('obsIntegrationStatus')!.innerText = `status: ${text}`
     }
@@ -212,7 +214,7 @@ class StreamerModuleOBS {
     public async start() {
         if (!this.connected) {
             let creds = await chrome.storage.local.get({"obsUrl": "ws://127.0.0.1:4455", "obsPassword": ""})
-            try{
+            try {
                 await this.obs.connect(creds.obsUrl, creds.obsPassword);
             } catch (e) {
                 console.dir(e)
@@ -794,11 +796,11 @@ export class StreamerModule {
         this.updStatus()
     }
 
-    private async syncObsCover(){
+    private async syncObsCover() {
         this.obs.getCoverVisibility().then(this.syncGrey.bind(this)).catch(this.obs.reportError)
     }
 
-    private syncGrey(res:boolean) {
+    private syncGrey(res: boolean) {
         if (globalThis.platformSettings.get("obsControlCoverGrayscale")) {
             if (res) {
                 this.getRemoteVideo().style.filter = "grayscale(100%)";
@@ -1011,6 +1013,16 @@ export class StreamerModule {
         if (globalThis.platformSettings.get("blurOnStart")) {
             this.blurAll()
         }
+        // checking if user enabled manually
+        setTimeout(()=>{
+            this.obs.getCoverVisibility().then((res) => {
+                if (res) {
+                    this.blurAll()
+                } else {
+                    this.unblurAll()
+                }
+            }).catch(this.obs.reportError)
+        }, 1000)
     }
 
     public startBlurCover() {
@@ -1092,7 +1104,7 @@ export class StreamerModule {
             .replace(/\$lat/g, `${json.lat}`)
             .replace(/\$lon/g, `${json.lon}`)
             .replace(/\$isp/g, `${json.isp}`)
-            .replace(/\\n/g,"\n")
+            .replace(/\\n/g, "\n")
     }
 
     public async setGeoData(json: any) {
