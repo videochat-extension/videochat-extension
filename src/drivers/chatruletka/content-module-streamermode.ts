@@ -984,8 +984,10 @@ export class StreamerModule {
     }
 
     public handleBlurButtonClick(e: MouseEvent) {
-        this.toggle()
-        this.updStatus()
+        if (globalThis.platformSettings.get("streamerBlurCoverSection") || (globalThis.platformSettings.get("obsIntegrationSection") && this.obs.connected)) {
+            this.toggle()
+            this.updStatus()
+        }
     }
 
     public handleMuteButtonClick(e: MouseEvent) {
