@@ -457,7 +457,7 @@ export class GeolocationModule {
             language: this.apiLanguage,
             allow: this.apiProviders
         }, (response) => {
-            console.dir(`ip-api.com returned ${response.status} (${response.body.status}) for '${ip}'`)
+            console.dir(`geolocation returned ${response.status} (${response.body.status}) for '${ip}'`)
 
             if (response.status === 200) {
                 this.processData(response.body, ip)
