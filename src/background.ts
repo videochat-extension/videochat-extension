@@ -507,9 +507,9 @@ function runtimeOnMessage(request: any, sender: chrome.runtime.MessageSender, se
         });
     }
 
-    if (request.openLink) {
+    if (request.openSetup) {
         chrome.tabs.create({
-            url: request.openLink
+            url: `obs/setup.html`
         });
     }
 }

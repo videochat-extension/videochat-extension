@@ -48,6 +48,7 @@
     "arrive": "^2.4.1",
     "dompurify": "^3.0.0",
     "leaflet": "1.9.3",
+    "obs-websocket-js": "^5.0.2",
     "sdp": "^3.2.0",
     "sweetalert2": "11.4.8",
     "tooltipster": "^4.2.8"

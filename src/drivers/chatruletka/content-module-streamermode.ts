@@ -1,12 +1,153 @@
 import $ from "jquery";
+import OBSWebSocket from 'obs-websocket-js';
 import * as utils from "../../utils/utils";
 import {ChatruletkaDriver} from "../content-driver-chatruletka";
 import ChangeEvent = JQuery.ChangeEvent;
+
+class StreamerModuleOBS {
+    private obs: OBSWebSocket;
+    public connected = false;
+
+    public constructor() {
+        this.obs = new OBSWebSocket()
+        this.obs.on('Identified', () => {
+            this.connected = true
+            this.setStatus('connected')
+        });
+        this.obs.on('ConnectionClosed', (e) => {
+            this.connected = false
+            enum WebSocketCloseCode {
+                /** For internal use only to tell the request handler not to perform any close action. */
+                DontClose = 0,
+
+                /** Cant connect the server.  */
+                CantConnect = 1006,
+
+                /** Unknown reason, should never be used. **/
+                UnknownReason = 4000,
+
+                /** The server was unable to decode the incoming websocket message. */
+                MessageDecodeError = 4002,
+
+                /** A data field is required but missing from the payload. */
+                MissingDataField = 4003,
+
+                /** A data field's value type is invalid. */
+                InvalidDataFieldType = 4004,
+
+                /** A data field's value is invalid. */
+                InvalidDataFieldValue = 4005,
+
+                /** The specified `op` was invalid or missing. */
+                UnknownOpCode = 4006,
+
+                /** The client sent a websocket message without first sending `Identify` message. */
+                NotIdentified = 4007,
+
+                /** The client sent an `Identify` message while already identified.\n\nNote: Once a client has identified, only `Reidentify` may be used to change session parameters. */
+                AlreadyIdentified = 4008,
+
+                /** The authentication attempt (via `Identify`) failed. */
+                AuthenticationFailed = 4009,
+
+                /** The server detected the usage of an old version of the obs-websocket RPC protocol. */
+                UnsupportedRpcVersion = 4010,
+
+                /** The websocket session has been invalidated by the obs-websocket server.\n\nNote: This is the code used by the `Kick` button in the UI Session List. If you receive this code, you must not automatically reconnect. */
+                SessionInvalidated = 4011,
+
+                /** A requested feature is not supported due to hardware/software limitations. */
+                UnsupportedFeature = 4012,
+            }
+
+            this.setStatus(`error ${WebSocketCloseCode[e.code]}`)
+        });
+    }
+
+    private setStatus(text: string) {
+        document.getElementById('obsIntegrationStatus')!.innerText = `status: ${text}`
+    }
+
+    public async setItemVisibility(itemName: string, enabled: boolean) {
+        return this.obs.callBatch([
+            {
+                "requestType": "GetCurrentProgramScene",
+                // @ts-ignore
+                "outputVariables": {
+                    "activeScene": "currentProgramSceneName"
+                }
+            },
+            {
+                "requestType": "GetSceneItemId",
+                // @ts-ignore
+                "requestData": {
+                    "sourceName": itemName
+                },
+                "inputVariables": {
+                    "sceneName": "activeScene"
+                },
+                "outputVariables": {
+                    "sceneItemIdVariable": "sceneItemId"
+                }
+            },
+            {
+                "requestType": "SetSceneItemEnabled",
+                // @ts-ignore
+                "requestData": {
+                    "sceneItemEnabled": enabled
+                },
+                "inputVariables": {
+                    "sceneName": "activeScene",
+                    "sceneItemId": "sceneItemIdVariable"
+                }
+            }
+        ])
+    }
+
+    public async setItemText(itemName: string, text: string) {
+        return this.obs.call("SetInputSettings", {
+            inputName: itemName,
+            inputSettings: {
+                text: text,
+            },
+        });
+    }
+
+    public setGeolocationString(str: string) {
+        if (!this.connected) {
+            return
+        }
+        this.setItemText("VE_TEXT", str)
+    }
+
+    public setCoverVisibility(enable: boolean) {
+        if (!this.connected) {
+            return
+        }
+        return this.setItemVisibility("VE_COVER", enable)
+    }
+
+    public async start() {
+        if (!this.connected) {
+            let creds = await chrome.storage.local.get({"obsUrl": "ws://127.0.0.1:4455", "obsPassword": ""})
+            await this.obs.connect(creds.obsUrl, creds.obsPassword);
+        }
+    }
+
+    public async stop() {
+        if (this.connected) {
+            await this.obs.disconnect()
+        }
+    }
+}
 
 export class StreamerModule {
     public static defaults = {
         streamer: false,
         streamerKeys: true,
+        obsIntegrationSection: false,
+        obsControlCover: false,
+        obsControlGeolocation: false,
         streamerBlurCoverSection: true,
         streamerMirror: false,
         blurOnStart: true,
@@ -27,7 +168,6 @@ export class StreamerModule {
     public BLUR_FILTER = "blur(" + globalThis.platformSettings.get("blurFilter") + "px)"
     public BLUR_FILTER_PREVIEW = "blur(" + globalThis.platformSettings.get("blurPreviewFilter") + "px)"
     public started = false
-    public manualBlur = false
     public blur = false
     public echoV: HTMLVideoElement = document.createElement('video')
     public settings = [
@@ -93,6 +233,80 @@ export class StreamerModule {
                 {
                     type: "checkbox",
                     important: true,
+                    key: "obsIntegrationSection",
+                    controlsSection: "obsIntegrationSection",
+                    text: "OBS INTEGRATION: ",
+                    tooltip: "enables obs integration",
+                    enable: () => {
+                        if (!this.obs.connected) {
+                            this.obs.start()
+                        }
+                    },
+                    disable: () => {
+                        if (this.obs.connected) {
+                            this.obs.stop()
+                        }
+                    }
+                },
+                {
+                    type: "section",
+                    hide: globalThis.platformSettings.get("obsIntegrationSection"),
+                    sectionId: "obsIntegrationSection",
+                    children: [
+                        {
+                            type: "HTMLElement",
+                            element: utils.createElement('span', {}, [
+                                utils.createElement('dd', {
+                                    id: "obsIntegrationStatus",
+                                    style: "margin-inline-start: 20px!important;",
+                                    innerHTML: "status: "
+                                })
+                            ])
+                        },
+                        {
+                            type: "button",
+                            text: `change connect info`,
+                            onclick: (e: MouseEvent) => {
+                                chrome.runtime.sendMessage({openSetup: true})
+                            }
+                        },
+                        {
+                            type: "br",
+                        },
+                        {
+                            type: "checkbox",
+                            important: false,
+                            key: "obsControlCover",
+                            text: "control cover: ",
+                            tooltip: "VE_COVER",
+                            enable: () => {
+                                this.obs.setCoverVisibility(true)
+                            },
+                            disable: () => {
+                                this.obs.setCoverVisibility(false)
+                            }
+                        },
+                        {
+                            type: "checkbox",
+                            important: false,
+                            key: "obsControlGeolocation",
+                            text: "geolocation text: ",
+                            tooltip: "VE_TEXT",
+                            enable: () => {
+                                this.obs.setGeolocationString('text')
+                            },
+                            disable: () => {
+                                this.obs.setGeolocationString('')
+                            }
+                        },
+                    ]
+                },
+                {
+                    type: "br",
+                },
+                {
+                    type: "checkbox",
+                    important: true,
                     key: "streamerBlurCoverSection",
                     controlsSection: "streamerBlurCoverSectionSection",
                     text: chrome.i18n.getMessage("streamerBlurCoverSection"),
@@ -117,50 +331,11 @@ export class StreamerModule {
                         {
                             type: "checkbox",
                             important: false,
-                            key: "blurOnStart",
-                            controlsSection: "blurOnStartSection",
-                            text: chrome.i18n.getMessage("blurOnStart"),
-                            tooltip: chrome.i18n.getMessage("tooltipBlurOnStart")
-                        },
-                        {
-                            type: "section",
-                            hide: globalThis.platformSettings.get("blurOnStart"),
-                            sectionId: "blurOnStartSection",
-                            children: [
-                                {
-                                    type: "checkbox",
-                                    important: false,
-                                    key: "coverPreview",
-                                    text: chrome.i18n.getMessage("coverOverPreview"),
-                                    tooltip: chrome.i18n.getMessage("tooltipCoverOverPreview")
-                                },
-                                {
-                                    type: "checkbox",
-                                    important: false,
-                                    key: "coverNoise",
-                                    text: chrome.i18n.getMessage("coverOverNoise"),
-                                    tooltip: chrome.i18n.getMessage("tooltipCoverOverNoise")
-                                },
-                                {
-                                    type: "checkbox",
-                                    important: false,
-                                    key: "coverStop",
-                                    text: chrome.i18n.getMessage("coverOverStop"),
-                                    tooltip: chrome.i18n.getMessage("tooltipCoverOverStop")
-                                }
-                            ]
-                        },
-                        {
-                            type: "br",
-                        },
-                        {
-                            type: "checkbox",
-                            important: false,
                             key: "streamerMirror",
                             text: chrome.i18n.getMessage("blurCoverLocal"),
                             tooltip: chrome.i18n.getMessage("tooltipBlurCoverLocal"),
                             enable: () => {
-                                if (this.blur || this.manualBlur) {
+                                if (this.blur) {
                                     this.blurLocal()
                                 }
                             },
@@ -234,15 +409,15 @@ export class StreamerModule {
                             text: chrome.i18n.getMessage("coverOverBlur"),
                             tooltip: chrome.i18n.getMessage("tooltipCoverOverBlur"),
                             enable: () => {
-                                if (this.blur || this.manualBlur) {
-                                    this.unblurRemote()
-                                    this.blurRemote()
+                                if (this.blur) {
+                                    this.unblurAll()
+                                    this.blurAll()
                                 }
                             },
                             disable: () => {
-                                if (this.blur || this.manualBlur) {
-                                    this.unblurRemote()
-                                    this.blurRemote()
+                                if (this.blur) {
+                                    this.unblurAll()
+                                    this.blurAll()
                                 }
                             }
                         },
@@ -302,7 +477,7 @@ export class StreamerModule {
                                             "https://media3.giphy.com/media/ieaUdBJJC19uw/giphy.gif",
                                             "https://media3.giphy.com/media/l2SqaK2Kec3IzRYhG/giphy.gif"
                                         ]
-                                        let result = covers[utils.getRandomInt(0, covers.length-1)]
+                                        let result = covers[utils.getRandomInt(0, covers.length - 1)]
                                         globalThis.platformSettings.setBack({"coverSrc": result}, function () {
                                             (document.getElementById('cover') as HTMLImageElement).src = result
                                         });
@@ -334,14 +509,55 @@ export class StreamerModule {
                             ]
                         }
                     ]
+                },
+                {
+                    type: "br",
+                },
+                {
+                    type: "checkbox",
+                    important: true,
+                    key: "blurOnStart",
+                    controlsSection: "blurOnStartSection",
+                    text: chrome.i18n.getMessage("blurOnStart"),
+                    tooltip: chrome.i18n.getMessage("tooltipBlurOnStart")
+                },
+                {
+                    type: "section",
+                    hide: globalThis.platformSettings.get("blurOnStart"),
+                    sectionId: "blurOnStartSection",
+                    children: [
+                        {
+                            type: "checkbox",
+                            important: false,
+                            key: "coverPreview",
+                            text: chrome.i18n.getMessage("coverOverPreview"),
+                            tooltip: chrome.i18n.getMessage("tooltipCoverOverPreview")
+                        },
+                        {
+                            type: "checkbox",
+                            important: false,
+                            key: "coverNoise",
+                            text: chrome.i18n.getMessage("coverOverNoise"),
+                            tooltip: chrome.i18n.getMessage("tooltipCoverOverNoise")
+                        },
+                        {
+                            type: "checkbox",
+                            important: false,
+                            key: "coverStop",
+                            text: chrome.i18n.getMessage("coverOverStop"),
+                            tooltip: chrome.i18n.getMessage("tooltipCoverOverStop")
+                        }
+                    ]
                 }
             ]
         }
     ]
     private driver: ChatruletkaDriver;
+    private obs: StreamerModuleOBS;
 
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver
+        this.obs = new StreamerModuleOBS()
     }
 
     static initInstance(driver: ChatruletkaDriver): StreamerModule {
@@ -352,7 +568,10 @@ export class StreamerModule {
         // change legacy streamer mode default gif
         if (!globalThis.platformSettings.get("coverSrcChangedDefault")) {
             if (globalThis.platformSettings.get("coverSrc") === "https://i.imgur.com/Ud2uLYQ.gif") {
-                globalThis.platformSettings.set({"coverSrc": "https://media3.giphy.com/media/pVGsAWjzvXcZW4ZBTE/giphy.gif", "coverSrcChangedDefault": true})
+                globalThis.platformSettings.set({
+                    "coverSrc": "https://media3.giphy.com/media/pVGsAWjzvXcZW4ZBTE/giphy.gif",
+                    "coverSrcChangedDefault": true
+                })
             } else {
                 globalThis.platformSettings.set({"coverSrcChangedDefault": true})
             }
@@ -369,34 +588,51 @@ export class StreamerModule {
         return <HTMLVideoElement>document.getElementById("remote-video")
     }
 
+    public toggle() {
+        if (this.blur) {
+            this.unblurAll()
+        } else {
+            this.blurAll()
+        }
+        this.updStatus()
+    }
+
+    public blurAll() {
+        this.blurRemote()
+        this.coverObs()
+        this.blur = true
+        this.updStatus()
+    }
+
+    public unblurAll() {
+        this.unblurRemote()
+        this.uncoverObs()
+        this.blur = false
+        this.updStatus()
+    }
+
+    public coverObs() {
+        if (globalThis.platformSettings.get("obsControlCover")) {
+            this.obs.setCoverVisibility(true)
+        }
+    }
+
+    public uncoverObs() {
+        if (globalThis.platformSettings.get("obsControlCover")) {
+            this.obs.setCoverVisibility(false)
+        }
+    }
+
     public blurRemote() {
         if (globalThis.platformSettings.get("cover")) {
-            // TODO: that does not make sense
-            // if (globalThis.platformSettings.get("coverNoise") || globalThis.platformSettings.get("coverPreview") || globalThis.platformSettings.get("coverStop")) {
-                document.getElementById('cover')!.style.display = ""
-                this.getRemoteVideo().style.filter = "opacity(0%)"
-            // }
+            document.getElementById('cover')!.style.display = ""
+            this.getRemoteVideo().style.filter = "opacity(0%)"
         } else {
             this.getRemoteVideo()!.style.filter = this.BLUR_FILTER
         }
 
         if (globalThis.platformSettings.get("streamerMirror"))
             this.blurLocal()
-
-        this.blur = true
-        this.updStatus()
-    }
-
-    public unblurRemote() {
-        this.getRemoteVideo()!.style.filter = ""
-        document.getElementById('cover')!.style.display = "none"
-
-        if (globalThis.platformSettings.get("streamerMirror"))
-            this.unblurLocal()
-
-        this.blur = false
-        this.manualBlur = false
-        this.updStatus()
     }
 
     public blurLocal() {
@@ -408,6 +644,14 @@ export class StreamerModule {
         } else {
             this.getLocalVideo().style.filter = this.BLUR_FILTER
         }
+    }
+
+    public unblurRemote() {
+        this.getRemoteVideo()!.style.filter = ""
+        document.getElementById('cover')!.style.display = "none"
+
+        if (globalThis.platformSettings.get("streamerMirror"))
+            this.unblurLocal()
     }
 
     public unblurLocal() {
@@ -423,7 +667,7 @@ export class StreamerModule {
     }
 
     public updStatus() {
-        if (this.manualBlur || this.blur) {
+        if (this.blur) {
             (this.driver.modules.controls.header.leftBlur.children[0] as HTMLElement).innerText = "H";
             (this.driver.modules.controls.header.leftBlur.children[0] as HTMLElement).style.fontSize = "";
         } else {
@@ -441,16 +685,7 @@ export class StreamerModule {
     }
 
     public onConversationEnd() {
-        // TODO: what is it for? why unblur?
-
-        // if (globalThis.platformSettings.get("streamerMirror"))
-        //     this.getLocalVideo()!.style.filter = ""
-        // this.getRemoteVideo()!.style.filter = ""
-        // if (globalThis.platformSettings.get("cover")) {
-        // cover.style.display = "none"
-        // }
-        // this.manualBlur = false
-        // this.updStatus()
+        // TODO: what was it for? why remove blur here?
         console.dir('ended')
     }
 
@@ -459,7 +694,8 @@ export class StreamerModule {
 
         if (globalThis.platformSettings.get("streamerBlurCoverSection")) {
             if (globalThis.platformSettings.get("blurOnStart") && globalThis.platformSettings.get("coverNoise")) {
-                this.blurRemote()
+                this.blurAll()
+                return
             }
         }
     }
@@ -471,22 +707,23 @@ export class StreamerModule {
                 (document.getElementsByClassName("remote-video__preview")[0].children[1] as HTMLElement).style.filter = this.BLUR_FILTER_PREVIEW
             }
             if (globalThis.platformSettings.get("blurOnStart") && globalThis.platformSettings.get("coverPreview")) {
-                this.blurRemote()
+                this.blurAll()
+                return
             }
         }
     }
 
     public onStagePlay() {
-        this.manualBlur = false
-
         this.echoV.srcObject = this.getRemoteVideo().srcObject;
 
         if (globalThis.platformSettings.get("streamerBlurCoverSection")) {
             if (globalThis.platformSettings.get("uncoverOnPlay")) {
-                this.unblurRemote()
+                this.unblurAll()
+                return
             } else {
                 if (globalThis.platformSettings.get("blurOnStart")) {
-                    this.blurRemote()
+                    this.blurAll()
+                    return
                 }
             }
         }
@@ -497,13 +734,20 @@ export class StreamerModule {
 
         if (globalThis.platformSettings.get("streamerBlurCoverSection")) {
             if (globalThis.platformSettings.get("blurOnStart") && globalThis.platformSettings.get("coverStop")) {
-                this.blurRemote()
+                this.blurAll()
+                return
             }
         }
     }
 
     public start() {
         this.startBase();
+
+        if (globalThis.platformSettings.get("obsIntegrationSection")) {
+            this.obs.start().then(() => {
+                this.startObsCover()
+            });
+        }
 
         if (globalThis.platformSettings.get("streamerBlurCoverSection")) {
             this.startBlurCover();
@@ -519,6 +763,42 @@ export class StreamerModule {
         }
 
         this.driver.modules.controls.header.minifyButtons();
+
+        this.echoV.id = "echo-video"
+        this.echoV.autoplay = true
+        this.echoV.muted = true
+        this.echoV.playsInline = true
+        this.echoV.style.maxWidth = "0px"
+        this.echoV.style.position = "absolute"
+        this.echoV.style.bottom = "0"
+
+        document.getElementById('local-video-wrapper')!.prepend(this.echoV);
+        let self = this
+
+        const echoStart = () => {
+            self.echoV.srcObject = this.getLocalVideo().srcObject
+            this.getLocalVideo().removeEventListener("play", echoStart)
+        }
+
+        this.getLocalVideo().addEventListener("play", echoStart)
+    }
+
+    public stopBase() {
+        this.driver.modules.controls.header.leftBlur.style.display = "none";
+        this.driver.modules.controls.header.leftMute.style.display = "none";
+
+        document.removeEventListener('keyup', this.hotkeys);
+
+        this.driver.modules.controls.header.restoreButtons();
+
+        if (document.pictureInPictureElement === document.getElementById("echo-video"))
+            document.exitPictureInPicture()
+    }
+
+    public startObsCover() {
+        if (globalThis.platformSettings.get("blurOnStart")) {
+            this.blurAll()
+        }
     }
 
     public startBlurCover() {
@@ -554,38 +834,13 @@ export class StreamerModule {
         $(".remote-video__noise").insertBefore("#cover")
 
 
-        this.echoV.id = "echo-video"
-        this.echoV.autoplay = true
-        this.echoV.muted = true
-        this.echoV.playsInline = true
-        this.echoV.width = 0
-
-        document.getElementById('video-container')!.appendChild(this.echoV);
-        let self = this
-
-        const echoStart = () => {
-            self.echoV.srcObject = this.getLocalVideo().srcObject
-            this.getLocalVideo().removeEventListener("play", echoStart)
-        }
-
-        this.getLocalVideo().addEventListener("play", echoStart)
-
         this.started = true
 
         if (globalThis.platformSettings.get("blurOnStart")) {
-            this.blurRemote()
+            this.blurAll()
         }
 
         this.updStatus();
-    }
-
-    public stopBase() {
-        this.driver.modules.controls.header.leftBlur.style.display = "none";
-        this.driver.modules.controls.header.leftMute.style.display = "none";
-
-        document.removeEventListener('keyup', this.hotkeys);
-
-        this.driver.modules.controls.header.restoreButtons();
     }
 
     public stopBlurCover() {
@@ -595,24 +850,11 @@ export class StreamerModule {
         $("#cover").remove()
         $("#cover2").remove()
 
-        if (document.pictureInPictureElement === document.getElementById("echo-video"))
-            document.exitPictureInPicture()
-
-
-
         this.started = false
     }
 
     public handleBlurButtonClick(e: MouseEvent) {
-        if (globalThis.platformSettings.get("streamerBlurCoverSection")) {
-            if (!this.manualBlur && !this.blur) {
-                this.blurRemote()
-                this.manualBlur = true
-            } else {
-                this.unblurRemote()
-                this.manualBlur = false
-            }
-        }
+        this.toggle()
         this.updStatus()
     }
 
@@ -629,6 +871,10 @@ export class StreamerModule {
                 if (!(document.getElementById("report-popup")!.style.display === "block")) {
                     this.driver.modules.controls.header.leftBlur.click()
                 }
+                break;
+
+            case "h":
+                this.driver.modules.controls.header.leftBlur.click()
                 break;
 
             case "m":

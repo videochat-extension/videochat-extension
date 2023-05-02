@@ -121,11 +121,9 @@ export class ChatruletkaDriver {
             this.modules.faceapi.settings,
             this.modules.blacklist.settings,
             this.modules.hotkeys.settings,
+            this.modules.streamer.settings,
             this.modules.stats.settings
         ]
-        if (["chrome", "edge"].includes(getUserBrowser())) {
-            settings.splice(-1, 0, this.modules.streamer.settings)
-        }
         return ControlsTabSettings.initInstance(this, null, settings)
     }
 
