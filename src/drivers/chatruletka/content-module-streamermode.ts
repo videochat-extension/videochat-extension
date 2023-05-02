@@ -17,6 +17,7 @@ class StreamerModuleOBS {
                 icon: 'success',
                 toast: true,
                 width: 300,
+                timer: 3000,
                 position: 'bottom-start',
                 title: "OBS INTEGRATION",
                 html: "connected",
