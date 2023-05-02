@@ -588,6 +588,11 @@ export class GeolocationModule {
 
 
         newIpDiv.innerHTML += DOMPurify.sanitize(newInnerHTML)
+
+        if (this.driver.modules.streamer) {
+            this.driver.modules.streamer.setGeoData(json)
+        }
+
         if (this.driver.needToClear) {
             this.driver.needToClear = false
             $(document.getElementById("ipApiContainer") as HTMLElement).parent().children(':not(#ipApiContainer)').remove()

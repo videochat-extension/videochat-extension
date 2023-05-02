@@ -16,6 +16,7 @@ class StreamerModuleOBS {
         });
         this.obs.on('ConnectionClosed', (e) => {
             this.connected = false
+
             enum WebSocketCloseCode {
                 /** For internal use only to tell the request handler not to perform any close action. */
                 DontClose = 0,
@@ -68,7 +69,7 @@ class StreamerModuleOBS {
         document.getElementById('obsIntegrationStatus')!.innerText = `status: ${text}`
     }
 
-    public async setItemVisibility(itemName: string, enabled: boolean) {
+    private async setItemVisibility(itemName: string, enabled: boolean) {
         return this.obs.callBatch([
             {
                 "requestType": "GetCurrentProgramScene",
@@ -104,7 +105,7 @@ class StreamerModuleOBS {
         ])
     }
 
-    public async setItemText(itemName: string, text: string) {
+    private async setItemText(itemName: string, text: string) {
         return this.obs.call("SetInputSettings", {
             inputName: itemName,
             inputSettings: {
@@ -147,7 +148,13 @@ export class StreamerModule {
         streamerKeys: true,
         obsIntegrationSection: false,
         obsControlCover: false,
+        obsControlCoverGrayscale: false,
         obsControlGeolocation: false,
+        obsControlGeolocationClearSearch: false,
+        obsControlGeolocationClearStop: false,
+        obsControlGeolocationTextFormUsual: "",
+        obsControlGeolocationTextFormProxyVPNTor: "",
+        obsControlGeolocationTextFormMobile: "",
         streamerBlurCoverSection: true,
         streamerMirror: false,
         blurOnStart: true,
@@ -170,6 +177,7 @@ export class StreamerModule {
     public started = false
     public blur = false
     public echoV: HTMLVideoElement = document.createElement('video')
+    private exampleGeoData = JSON.parse(chrome.i18n.getMessage("exampleGeoData"))
     public settings = [
         {
             type: "header",
@@ -235,8 +243,8 @@ export class StreamerModule {
                     important: true,
                     key: "obsIntegrationSection",
                     controlsSection: "obsIntegrationSection",
-                    text: "OBS INTEGRATION: ",
-                    tooltip: "enables obs integration",
+                    text: chrome.i18n.getMessage("obsIntegrationSection"),
+                    tooltip: chrome.i18n.getMessage("tooltipObsIntegrationSection"),
                     enable: () => {
                         if (!this.obs.connected) {
                             this.obs.start()
@@ -265,7 +273,7 @@ export class StreamerModule {
                         },
                         {
                             type: "button",
-                            text: `change connect info`,
+                            text: chrome.i18n.getMessage("obsChangeConnectInfo"),
                             onclick: (e: MouseEvent) => {
                                 chrome.runtime.sendMessage({openSetup: true})
                             }
@@ -275,10 +283,11 @@ export class StreamerModule {
                         },
                         {
                             type: "checkbox",
-                            important: false,
+                            important: true,
                             key: "obsControlCover",
-                            text: "control cover: ",
-                            tooltip: "VE_COVER",
+                            text: chrome.i18n.getMessage("obsControlCover"),
+                            controlsSection: "obsControlCoverSection",
+                            tooltip: chrome.i18n.getMessage("tooltipObsControlCover"),
                             enable: () => {
                                 this.obs.setCoverVisibility(true)
                             },
@@ -287,17 +296,96 @@ export class StreamerModule {
                             }
                         },
                         {
+                            type: "section",
+                            hide: globalThis.platformSettings.get("obsControlCover"),
+                            sectionId: "obsControlCoverSection",
+                            children: [
+                                {
+                                    type: "checkbox",
+                                    important: false,
+                                    key: "obsControlCoverGrayscale",
+                                    text: chrome.i18n.getMessage("obsControlCoverGrayscale"),
+                                    tooltip: "tooltip",
+                                    enable: () => {
+                                        if (this.blur) {
+                                            this.getRemoteVideo().style.filter = "grayscale(100%)"
+                                        }
+                                    },
+                                    disable: () => {
+                                        if (this.getRemoteVideo().style.filter === "grayscale(100%)") {
+                                            this.getRemoteVideo().style.filter = ""
+                                        }
+                                    }
+                                },
+                            ]
+                        },
+                        {
+                            type: "br",
+                        },
+                        {
                             type: "checkbox",
-                            important: false,
+                            important: true,
                             key: "obsControlGeolocation",
-                            text: "geolocation text: ",
-                            tooltip: "VE_TEXT",
+                            controlsSection: "obsControlGeolocationSection",
+                            text: chrome.i18n.getMessage("obsControlGeolocation"),
+                            tooltip: chrome.i18n.getMessage("tooltipObsControlGeolocation"),
                             enable: () => {
-                                this.obs.setGeolocationString('text')
+                                this.obs.setGeolocationString('HELLO WORLD')
                             },
                             disable: () => {
                                 this.obs.setGeolocationString('')
                             }
+                        },
+                        {
+                            type: "section",
+                            hide: globalThis.platformSettings.get("obsControlGeolocation"),
+                            sectionId: "obsControlGeolocationSection",
+                            children: [
+                                {
+                                    type: "checkbox",
+                                    important: false,
+                                    key: "obsControlGeolocationClearSearch",
+                                    text: chrome.i18n.getMessage("obsControlGeolocationClearSearch"),
+                                    tooltip: chrome.i18n.getMessage("tooltipObsControlGeolocationClearSearch")
+                                },
+                                {
+                                    type: "checkbox",
+                                    important: false,
+                                    key: "obsControlGeolocationClearStop",
+                                    text: chrome.i18n.getMessage("obsControlGeolocationClearStop"),
+                                    tooltip: chrome.i18n.getMessage("tooltipObsControlGeolocationClearStop")
+                                },
+                                {
+                                    type: "button",
+                                    text: chrome.i18n.getMessage("obsControlGeolocationTextFormUsual"),
+                                    onclick: (e: MouseEvent) => {
+                                        const result = prompt(chrome.i18n.getMessage("promptObsControlGeolocationTextFormUsual", [this.formatGeoString(globalThis.platformSettings.get("obsControlGeolocationTextFormUsual"), this.exampleGeoData), chrome.i18n.getMessage("promptFormatSrc")]), globalThis.platformSettings.get("obsControlGeolocationTextFormUsual"))
+                                        if (result) {
+                                            globalThis.platformSettings.set({"obsControlGeolocationTextFormUsual": result});
+                                        }
+                                    }
+                                },
+                                {
+                                    type: "button",
+                                    text: chrome.i18n.getMessage("obsControlGeolocationTextFormMobile"),
+                                    onclick: (e: MouseEvent) => {
+                                        const result = prompt(chrome.i18n.getMessage("promptObsControlGeolocationTextFormMobile", [this.formatGeoString(globalThis.platformSettings.get("obsControlGeolocationTextFormMobile"), this.exampleGeoData), chrome.i18n.getMessage("promptFormatSrc")]), globalThis.platformSettings.get("obsControlGeolocationTextFormMobile"))
+                                        if (result) {
+                                            globalThis.platformSettings.set({"obsControlGeolocationTextFormMobile": result});
+                                        }
+                                    }
+                                },
+                                {
+                                    type: "button",
+                                    text: chrome.i18n.getMessage("obsControlGeolocationTextFormProxyVPNTor"),
+                                    onclick: (e: MouseEvent) => {
+                                        const result = prompt(chrome.i18n.getMessage("promptObsControlGeolocationTextFormProxyVPNTor", [this.formatGeoString(globalThis.platformSettings.get("obsControlGeolocationTextFormProxyVPNTor"), this.exampleGeoData), chrome.i18n.getMessage("promptFormatSrc")]), globalThis.platformSettings.get("obsControlGeolocationTextFormProxyVPNTor"))
+                                        if (result) {
+                                            globalThis.platformSettings.set({"obsControlGeolocationTextFormProxyVPNTor": result});
+                                        }
+                                    }
+                                },
+                            ]
                         },
                     ]
                 },
@@ -614,56 +702,72 @@ export class StreamerModule {
     public coverObs() {
         if (globalThis.platformSettings.get("obsControlCover")) {
             this.obs.setCoverVisibility(true)
+
+            // TODO: need confirmation
+            if (globalThis.platformSettings.get("obsControlCoverGrayscale")) {
+                this.getRemoteVideo().style.filter = "grayscale(100%)"
+            }
         }
     }
 
     public uncoverObs() {
         if (globalThis.platformSettings.get("obsControlCover")) {
             this.obs.setCoverVisibility(false)
+            // TODO: need confirmation
+            if (globalThis.platformSettings.get("obsControlCoverGrayscale")) {
+                this.getRemoteVideo().style.filter = ""
+            }
         }
     }
 
     public blurRemote() {
-        if (globalThis.platformSettings.get("cover")) {
-            document.getElementById('cover')!.style.display = ""
-            this.getRemoteVideo().style.filter = "opacity(0%)"
-        } else {
-            this.getRemoteVideo()!.style.filter = this.BLUR_FILTER
-        }
+        if (globalThis.platformSettings.get("streamerBlurCoverSection")) {
+            if (globalThis.platformSettings.get("cover")) {
+                document.getElementById('cover')!.style.display = ""
+                this.getRemoteVideo().style.filter = "opacity(0%)"
+            } else {
+                this.getRemoteVideo()!.style.filter = this.BLUR_FILTER
+            }
 
-        if (globalThis.platformSettings.get("streamerMirror"))
-            this.blurLocal()
+            if (globalThis.platformSettings.get("streamerMirror"))
+                this.blurLocal()
+        }
     }
 
     public blurLocal() {
-        if (globalThis.platformSettings.get("cover")) {
-            if (globalThis.platformSettings.get("coverNoise") || globalThis.platformSettings.get("coverPreview") || globalThis.platformSettings.get("coverStop")) {
-                this.getLocalVideo().style.filter = "opacity(0%)"
-                document.getElementById('cover2')!.style.display = ""
+        if (globalThis.platformSettings.get("streamerBlurCoverSection")) {
+            if (globalThis.platformSettings.get("cover")) {
+                if (globalThis.platformSettings.get("coverNoise") || globalThis.platformSettings.get("coverPreview") || globalThis.platformSettings.get("coverStop")) {
+                    this.getLocalVideo().style.filter = "opacity(0%)"
+                    document.getElementById('cover2')!.style.display = ""
+                }
+            } else {
+                this.getLocalVideo().style.filter = this.BLUR_FILTER
             }
-        } else {
-            this.getLocalVideo().style.filter = this.BLUR_FILTER
         }
     }
 
     public unblurRemote() {
-        this.getRemoteVideo()!.style.filter = ""
-        document.getElementById('cover')!.style.display = "none"
+        if (globalThis.platformSettings.get("streamerBlurCoverSection")) {
+            this.getRemoteVideo()!.style.filter = ""
+            document.getElementById('cover')!.style.display = "none"
 
-        if (globalThis.platformSettings.get("streamerMirror"))
-            this.unblurLocal()
+            if (globalThis.platformSettings.get("streamerMirror"))
+                this.unblurLocal()
+        }
     }
 
     public unblurLocal() {
-        if (globalThis.platformSettings.get("cover")) {
-            if (globalThis.platformSettings.get("coverNoise") || globalThis.platformSettings.get("coverPreview") || globalThis.platformSettings.get("coverStop")) {
+        if (globalThis.platformSettings.get("streamerBlurCoverSection")) {
+            if (globalThis.platformSettings.get("cover")) {
+                if (globalThis.platformSettings.get("coverNoise") || globalThis.platformSettings.get("coverPreview") || globalThis.platformSettings.get("coverStop")) {
+                    this.getLocalVideo().style.filter = ""
+                    document.getElementById('cover2')!.style.display = "none"
+                }
+            } else {
                 this.getLocalVideo().style.filter = ""
-                document.getElementById('cover2')!.style.display = "none"
             }
-        } else {
-            this.getLocalVideo().style.filter = ""
         }
-
     }
 
     public updStatus() {
@@ -685,12 +789,14 @@ export class StreamerModule {
     }
 
     public onConversationEnd() {
-        // TODO: what was it for? why remove blur here?
-        console.dir('ended')
     }
 
     public onStageSearch() {
         this.onConversationEnd()
+
+        if (globalThis.platformSettings.get("obsControlGeolocationClearSearch")) {
+            this.resetGeoData()
+        }
 
         if (globalThis.platformSettings.get("streamerBlurCoverSection")) {
             if (globalThis.platformSettings.get("blurOnStart") && globalThis.platformSettings.get("coverNoise")) {
@@ -731,6 +837,10 @@ export class StreamerModule {
 
     public onStageStop() {
         this.onConversationEnd()
+
+        if (globalThis.platformSettings.get("obsControlGeolocationClearStop")) {
+            this.resetGeoData()
+        }
 
         if (globalThis.platformSettings.get("streamerBlurCoverSection")) {
             if (globalThis.platformSettings.get("blurOnStart") && globalThis.platformSettings.get("coverStop")) {
@@ -861,6 +971,46 @@ export class StreamerModule {
     public handleMuteButtonClick(e: MouseEvent) {
         this.getRemoteVideo()!.muted = !this.getRemoteVideo()!.muted
         this.updStatus()
+    }
+
+    public formatGeoString(form: string, json: any) {
+        return form
+            .replace(/\$status/g, `${json.status}`)
+            .replace(/\$countryCode/g, `${json.countryCode}`)
+            .replace(/\$country/g, `${json.country}`)
+            .replace(/\$regionName/g, `${json.regionName}`)
+            .replace(/\$region/g, `${json.region}`)
+            .replace(/\$city/g, `${json.city}`)
+            .replace(/\$timezone/g, `${json.timezone}`)
+            .replace(/\$mobile/g, `${json.mobile}`)
+            .replace(/\$proxy/g, `${json.proxy}`)
+            .replace(/\$hosting/g, `${json.hosting}`)
+            .replace(/\$lat/g, `${json.lat}`)
+            .replace(/\$lon/g, `${json.lon}`)
+            .replace(/\$isp/g, `${json.isp}`)
+            .replace(/\\n/g,"\n")
+    }
+
+    public async setGeoData(json: any) {
+        if (this.obs.connected) {
+            let key = "obsControlGeolocationTextFormUsual"
+
+            if (json.proxy || json.hosting) {
+                key = "obsControlGeolocationTextFormProxyVPNTor"
+            } else if (json.mobile) {
+                key = "obsControlGeolocationTextFormMobile"
+            }
+
+            let formattedString = this.formatGeoString(globalThis.platformSettings.get(key), json)
+
+            this.obs.setGeolocationString(formattedString)
+        }
+    }
+
+    public async resetGeoData() {
+        if (this.obs.connected) {
+            this.obs.setGeolocationString('')
+        }
     }
 
     protected hotkeys = (e: KeyboardEvent) => {

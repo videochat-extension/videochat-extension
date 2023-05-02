@@ -284,6 +284,66 @@
   "streamerHotkeysText": {
     "message": "<dd style='margin-inline-start: 40px!important;'>h / right arrow - blur / cover</dd><dd style='margin-inline-start: 40px!important;'>m - mute remote video</dd>"
   },
+  "obsIntegrationSection": {
+    "message": "OBS INTEGRATION: "
+  },
+  "tooltipObsIntegrationSection": {
+    "message": "enables obs integration"
+  },
+  "obsChangeConnectInfo": {
+    "message": "change connect info"
+  },
+  "obsControlCover": {
+    "message": "control cover: "
+  },
+  "tooltipObsControlCover": {
+    "message": "VE_COVER"
+  },
+  "obsControlCoverGrayscale": {
+    "message": "grayscale filter: "
+  },
+  "obsControlGeolocation": {
+    "message": "geolocation text: "
+  },
+  "tooltipObsControlGeolocation": {
+    "message": "VE_TEXT"
+  },
+  "obsControlGeolocationClearSearch": {
+    "message": "clear on search: "
+  },
+  "tooltipObsControlGeolocationClearSearch": {
+    "message": "clear VE_TEXT on the 'search' phase"
+  },
+  "obsControlGeolocationClearStop": {
+    "message": "clear on stop: "
+  },
+  "tooltipObsControlGeolocationClearStop": {
+    "message": "clear VE_TEXT on the 'stop' phase"
+  },
+  "obsControlGeolocationTextFormUsual": {
+    "message": "format usual"
+  },
+  "promptObsControlGeolocationTextFormUsual": {
+    "message": "here you can define how geolocation data will be turned into text for:\n* regular wired ip (this means high accuracy).\n\n`$1`\n\n$2"
+  },
+  "obsControlGeolocationTextFormMobile": {
+    "message": "format mobile"
+  },
+  "promptObsControlGeolocationTextFormMobile": {
+    "message": "here you can define how geolocation data will be turned into text for:\n* mobile ip (this means low accuracy).\n\n`$1`\n\n$2"
+  },
+  "obsControlGeolocationTextFormProxyVPNTor": {
+    "message": "format proxy/hostring/vpn/tor"
+  },
+  "promptObsControlGeolocationTextFormProxyVPNTor": {
+    "message": "here you can define how geolocation data will be turned into text for:\n* vpn/proxy/tor/hosting ip (this means very low accuracy, probably fake location).\n\n`$1`\n\n$2"
+  },
+  "exampleGeoData": {
+    "message": "{\"status\":\"success\",\"country\":\"Australia\",\"countryCode\":\"AU\",\"region\":\"QLD\",\"regionName\":\"Queensland\", \"city\":\"South Brisbane\",\"lat\":-27.4766,\"lon\":153.0166,\"timezone\":\"Australia/Brisbane\",\"isp\":\"Cloudflare, Inc\", \"mobile\":false,\"proxy\":false,\"hosting\":true}"
+  },
+  "promptFormatSrc": {
+    "message": "these special words will be replaced with actual data:\n\n* \\n -> break line\n* $$status -> json.status (success)\n* $$country -> json.country (Australia)\n* $$countryCode -> json.countryCode (AU)\n* $$region -> json.region (QLD)\n* $$regionName -> json.regionName (Queensland)\n* $$city -> json.city (South Brisbane)\n* $$lat -> json.lat (-27.4766)\n* $$lon -> json.lon (153.0166)\n* $$timezone -> json.timezone (Australia/Brisbane)\n* $$isp -> json.isp (Cloudflare, Inc)\n* $$mobile -> json.mobile (false)\n* $$proxy -> json.proxy (false)\n* $$hosting -> json.hosting (true)"
+  },
   "blurOnStart": {
     "message": "auto apply blur/cover: "
   },

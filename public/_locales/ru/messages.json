@@ -275,6 +275,7 @@
   "streamerHotkeysText": {
     "message": "<dd style='margin-inline-start: 40px!important;'>h / стрелка вправо - блюр / заглушка</dd><dd style='margin-inline-start: 40px!important;'>m - замутить собеседника</dd>"
   },
+
   "blurOnStart": {
     "message": "авто активация блюра/заглушки: "
   },
