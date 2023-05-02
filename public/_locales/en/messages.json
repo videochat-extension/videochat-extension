@@ -293,6 +293,12 @@
   "obsChangeConnectInfo": {
     "message": "change connect info"
   },
+  "obsShowErrorsStatus": {
+    "message": "show errors: "
+  },
+  "tooltipObsShowErrorsStatus": {
+    "message": "show errors & status of connection in the left bottom corner."
+  },
   "obsControlCover": {
     "message": "control cover: "
   },
@@ -301,6 +307,9 @@
   },
   "obsControlCoverGrayscale": {
     "message": "grayscale filter: "
+  },
+  "tooltipObsControlCoverGrayscale": {
+    "message": "tooltip"
   },
   "obsControlGeolocation": {
     "message": "geolocation text: "

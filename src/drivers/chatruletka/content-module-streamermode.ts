@@ -13,17 +13,22 @@ class StreamerModuleOBS {
         this.obs = new OBSWebSocket()
         this.obs.on('Identified', () => {
             this.connected = true
-            // need to let dark mode styles to load
-            setTimeout(()=>{Swal.fire({
-                icon: 'success',
-                toast: true,
-                width: 300,
-                timer: 3000,
-                position: 'bottom-start',
-                title: "OBS INTEGRATION",
-                html: "connected",
-                confirmButtonText: "OK"
-            })}, 1000)
+
+            if (globalThis.platformSettings.get("obsShowErrorsStatus")) {
+                // need to let dark mode styles to load
+                setTimeout(() => {
+                    Swal.fire({
+                        icon: 'success',
+                        toast: true,
+                        width: 300,
+                        timer: 3000,
+                        position: 'bottom-start',
+                        title: "OBS INTEGRATION",
+                        html: "connected",
+                        confirmButtonText: "OK"
+                    })
+                }, 1000)
+            }
             this.setStatus('connected')
         });
         this.obs.on('ConnectionClosed', (e) => {
@@ -73,20 +78,32 @@ class StreamerModuleOBS {
                 UnsupportedFeature = 4012,
             }
 
-            Swal.fire({
-                icon: 'error',
-                toast: true,
-                width: 300,
-                position: 'bottom-start',
-                title: `${chrome.i18n.getMessage("extension_name_header")} ${chrome.i18n.getMessage("obsIntegrationSection")}`,
-                html: `error ${WebSocketCloseCode[e.code]}`,
-                confirmButtonText: "OK"
-            })
+            this.reportError(WebSocketCloseCode[e.code])
 
             this.setStatus(`error ${WebSocketCloseCode[e.code]}`)
         });
     }
-
+    public reportError(er:any){
+        console.dir(er)
+        if (!globalThis.platformSettings.get("obsShowErrorsStatus")) {
+            return
+        }
+        if (typeof er !== "string" && typeof er.message !== "undefined") {
+            er = er.message
+        }
+        if (er === "not connected") {
+            return
+        }
+        Swal.fire({
+            icon: 'error',
+            toast: true,
+            width: 300,
+            position: 'bottom-start',
+            title: `${chrome.i18n.getMessage("extension_name_header")} ${chrome.i18n.getMessage("obsIntegrationSection")}`,
+            html: `error: ${er}`,
+            confirmButtonText: "OK"
+        })
+    }
     private setStatus(text: string) {
         document.getElementById('obsIntegrationStatus')!.innerText = `status: ${text}`
     }
@@ -127,6 +144,39 @@ class StreamerModuleOBS {
         ])
     }
 
+    private async getItemVisibility(itemName: string) {
+        return this.obs.callBatch([
+            {
+                "requestType": "GetCurrentProgramScene",
+                // @ts-ignore
+                "outputVariables": {
+                    "activeScene": "currentProgramSceneName"
+                }
+            },
+            {
+                "requestType": "GetSceneItemId",
+                // @ts-ignore
+                "requestData": {
+                    "sourceName": itemName
+                },
+                "inputVariables": {
+                    "sceneName": "activeScene"
+                },
+                "outputVariables": {
+                    "sceneItemIdVariable": "sceneItemId"
+                }
+            },
+            {
+                "requestType": "GetSceneItemEnabled",
+                // @ts-ignore
+                "inputVariables": {
+                    "sceneName": "activeScene",
+                    "sceneItemId": "sceneItemIdVariable"
+                }
+            }
+        ])
+    }
+
     private async setItemText(itemName: string, text: string) {
         return this.obs.call("SetInputSettings", {
             inputName: itemName,
@@ -138,22 +188,35 @@ class StreamerModuleOBS {
 
     public setGeolocationString(str: string) {
         if (!this.connected) {
-            return
+            return Promise.reject("not connected")
         }
-        this.setItemText("VE_TEXT", str)
+        return this.setItemText("VE_TEXT", str)
     }
 
     public setCoverVisibility(enable: boolean) {
         if (!this.connected) {
-            return
+            return Promise.reject("not connected")
         }
         return this.setItemVisibility("VE_COVER", enable)
+    }
+
+    public async getCoverVisibility() {
+        if (!this.connected) {
+            return Promise.reject("not connected")
+        }
+        let res = await this.getItemVisibility("VE_COVER")
+        // @ts-ignore
+        return res[2].responseData.sceneItemEnabled
     }
 
     public async start() {
         if (!this.connected) {
             let creds = await chrome.storage.local.get({"obsUrl": "ws://127.0.0.1:4455", "obsPassword": ""})
-            await this.obs.connect(creds.obsUrl, creds.obsPassword);
+            try{
+                await this.obs.connect(creds.obsUrl, creds.obsPassword);
+            } catch (e) {
+                console.dir(e)
+            }
         }
     }
 
@@ -169,14 +232,15 @@ export class StreamerModule {
         streamer: false,
         streamerKeys: true,
         obsIntegrationSection: false,
+        obsShowErrorsStatus: true,
         obsControlCover: false,
         obsControlCoverGrayscale: false,
         obsControlGeolocation: false,
         obsControlGeolocationClearSearch: false,
         obsControlGeolocationClearStop: false,
-        obsControlGeolocationTextFormUsual: "",
-        obsControlGeolocationTextFormProxyVPNTor: "",
-        obsControlGeolocationTextFormMobile: "",
+        obsControlGeolocationTextFormUsual: "$city, $regionName ($country [$countryCode])",
+        obsControlGeolocationTextFormProxyVPNTor: "$country [$countryCode] (mobile)",
+        obsControlGeolocationTextFormMobile: "$country [$countryCode] (fake)",
         streamerBlurCoverSection: true,
         streamerMirror: false,
         blurOnStart: true,
@@ -301,6 +365,13 @@ export class StreamerModule {
                             }
                         },
                         {
+                            type: "checkbox",
+                            important: false,
+                            key: "obsShowErrorsStatus",
+                            text: chrome.i18n.getMessage("obsShowErrorsStatus"),
+                            tooltip: chrome.i18n.getMessage("tooltipObsShowErrorsStatus"),
+                        },
+                        {
                             type: "br",
                         },
                         {
@@ -311,10 +382,10 @@ export class StreamerModule {
                             controlsSection: "obsControlCoverSection",
                             tooltip: chrome.i18n.getMessage("tooltipObsControlCover"),
                             enable: () => {
-                                this.obs.setCoverVisibility(true)
+                                this.obs.setCoverVisibility(true).catch(this.obs.reportError)
                             },
                             disable: () => {
-                                this.obs.setCoverVisibility(false)
+                                this.obs.setCoverVisibility(false).catch(this.obs.reportError)
                             }
                         },
                         {
@@ -327,7 +398,7 @@ export class StreamerModule {
                                     important: false,
                                     key: "obsControlCoverGrayscale",
                                     text: chrome.i18n.getMessage("obsControlCoverGrayscale"),
-                                    tooltip: "tooltip",
+                                    tooltip: chrome.i18n.getMessage("tooltipObsControlCoverGrayscale"),
                                     enable: () => {
                                         if (this.blur && this.obs.connected) {
                                             this.getRemoteVideo().style.filter = "grayscale(100%)";
@@ -354,10 +425,10 @@ export class StreamerModule {
                             text: chrome.i18n.getMessage("obsControlGeolocation"),
                             tooltip: chrome.i18n.getMessage("tooltipObsControlGeolocation"),
                             enable: () => {
-                                this.obs.setGeolocationString('HELLO WORLD')
+                                this.obs.setGeolocationString('HELLO WORLD').catch(this.obs.reportError)
                             },
                             disable: () => {
-                                this.obs.setGeolocationString('')
+                                this.obs.setGeolocationString('').catch(this.obs.reportError)
                             }
                         },
                         {
@@ -723,26 +794,31 @@ export class StreamerModule {
         this.updStatus()
     }
 
-    public coverObs() {
-        if (globalThis.platformSettings.get("obsControlCover")) {
-            this.obs.setCoverVisibility(true)
+    private async syncObsCover(){
+        this.obs.getCoverVisibility().then(this.syncGrey.bind(this)).catch(this.obs.reportError)
+    }
 
-            // TODO: need confirmation
-            if (globalThis.platformSettings.get("obsControlCoverGrayscale")) {
+    private syncGrey(res:boolean) {
+        if (globalThis.platformSettings.get("obsControlCoverGrayscale")) {
+            if (res) {
                 this.getRemoteVideo().style.filter = "grayscale(100%)";
                 (document.getElementsByClassName("remote-video__preview")[0] as HTMLElement).style.filter = "grayscale(100%)";
+            } else {
+                this.getRemoteVideo().style.filter = "";
+                (document.getElementsByClassName("remote-video__preview")[0] as HTMLElement).style.filter = ""
             }
+        }
+    }
+
+    public coverObs() {
+        if (globalThis.platformSettings.get("obsControlCover")) {
+            this.obs.setCoverVisibility(true).then(this.syncObsCover.bind(this)).catch(this.obs.reportError)
         }
     }
 
     public uncoverObs() {
         if (globalThis.platformSettings.get("obsControlCover")) {
-            this.obs.setCoverVisibility(false)
-            // TODO: need confirmation
-            if (globalThis.platformSettings.get("obsControlCoverGrayscale")) {
-                this.getRemoteVideo().style.filter = "";
-                (document.getElementsByClassName("remote-video__preview")[0] as HTMLElement).style.filter = ""
-            }
+            this.obs.setCoverVisibility(false).then(this.syncObsCover.bind(this)).catch(this.obs.reportError)
         }
     }
 
@@ -1031,13 +1107,13 @@ export class StreamerModule {
 
             let formattedString = this.formatGeoString(globalThis.platformSettings.get(key), json)
 
-            this.obs.setGeolocationString(formattedString)
+            this.obs.setGeolocationString(formattedString).catch(this.obs.reportError)
         }
     }
 
     public async resetGeoData() {
         if (this.obs.connected) {
-            this.obs.setGeolocationString('')
+            this.obs.setGeolocationString('').catch(this.obs.reportError)
         }
     }
 
