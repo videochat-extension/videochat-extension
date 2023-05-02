@@ -13,7 +13,8 @@ class StreamerModuleOBS {
         this.obs = new OBSWebSocket()
         this.obs.on('Identified', () => {
             this.connected = true
-            Swal.fire({
+            // need to let dark mode styles to load
+            setTimeout(()=>{Swal.fire({
                 icon: 'success',
                 toast: true,
                 width: 300,
@@ -22,7 +23,7 @@ class StreamerModuleOBS {
                 title: "OBS INTEGRATION",
                 html: "connected",
                 confirmButtonText: "OK"
-            })
+            })}, 1000)
             this.setStatus('connected')
         });
         this.obs.on('ConnectionClosed', (e) => {
