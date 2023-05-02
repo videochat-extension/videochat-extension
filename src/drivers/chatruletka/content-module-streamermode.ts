@@ -3,6 +3,7 @@ import OBSWebSocket from 'obs-websocket-js';
 import * as utils from "../../utils/utils";
 import {ChatruletkaDriver} from "../content-driver-chatruletka";
 import ChangeEvent = JQuery.ChangeEvent;
+import Swal from "sweetalert2";
 
 class StreamerModuleOBS {
     private obs: OBSWebSocket;
@@ -12,6 +13,15 @@ class StreamerModuleOBS {
         this.obs = new OBSWebSocket()
         this.obs.on('Identified', () => {
             this.connected = true
+            Swal.fire({
+                icon: 'success',
+                toast: true,
+                width: 300,
+                position: 'bottom-start',
+                title: "OBS INTEGRATION",
+                html: "connected",
+                confirmButtonText: "OK"
+            })
             this.setStatus('connected')
         });
         this.obs.on('ConnectionClosed', (e) => {
@@ -60,6 +70,16 @@ class StreamerModuleOBS {
                 /** A requested feature is not supported due to hardware/software limitations. */
                 UnsupportedFeature = 4012,
             }
+
+            Swal.fire({
+                icon: 'error',
+                toast: true,
+                width: 300,
+                position: 'bottom-start',
+                title: `${chrome.i18n.getMessage("extension_name_header")} ${chrome.i18n.getMessage("obsIntegrationSection")}`,
+                html: `error ${WebSocketCloseCode[e.code]}`,
+                confirmButtonText: "OK"
+            })
 
             this.setStatus(`error ${WebSocketCloseCode[e.code]}`)
         });
