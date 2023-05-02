@@ -9,7 +9,7 @@
 * **problem:** global hotkeys for switch don't work
     * **solution:** remove switch command from manifest
 * **problem:** requestPictureInPicture doesn't work
-    * **solution:** hide pip buttons if firefox detected
+    * **solution:** show swal with info how to enable pip manually
 * **problem:** faceapi can't fetch models from the content script
     * **solution:** monkeyPatch readFile method, use loadFromDisk instead of loadFromUri
 * **problem:** user gesture in welcome.html not recognised, permissions can't be asked for

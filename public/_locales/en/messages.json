@@ -29,6 +29,12 @@
   "pip_local": {
     "message": "Open the video from your camera in picture-in-picture mode"
   },
+  "firefoxHandlePip": {
+    "message": "On chromium browsers this button is used to activate the picture-in-picture mode, which allows you to open the video in a small window on top of other windows.<br><br>Unfortunately, in Firefox we cannot programmatically activate this mode, but it can be activated <a href=\"https://www.mozilla.org/firefox/features/picture-in-picture/\" target='_blank' style=\"text-decoration: none!important;\">manually</a>."
+  },
+  "firefoxHandleStreamerPip": {
+    "message": "this toggles echo-video visibility.<br><br>it is used in streamer mode to watch your interlocutors while they are covered/blurred and decide whether you should uncover/unblur them.<br><br>unfortunately this is the only way to get the same functionality as in chrome, because Picture-In-Picture in firefox acts weird.<br><br>FYI: chrome extension opens echo-video in the PiP mode."
+  },
   "tab1": {
     "message": "IP"
   },

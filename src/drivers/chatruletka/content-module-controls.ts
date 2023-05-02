@@ -5,6 +5,7 @@ import $ from "jquery";
 import {ContentSwalChangelog} from "../../swal/content-swal-changelog";
 import {ContentSwalInfo} from "./content-swal-info";
 import {ControlsTabApi} from "./content-module-geolocation";
+import Swal from "sweetalert2";
 
 require('tooltipster')
 
@@ -665,6 +666,53 @@ class ControlsHeader {
         ])
     }
 
+    private createScreenshot(videoId: string) {
+        let dwncanvas = document.createElement('canvas');
+        dwncanvas.width = (document.getElementById(videoId) as HTMLVideoElement)?.videoWidth
+        dwncanvas.height = (document.getElementById(videoId) as HTMLVideoElement)?.videoHeight
+
+        let ctx = dwncanvas.getContext('2d');
+        if (ctx instanceof CanvasRenderingContext2D) {
+            ctx.drawImage((document.getElementById(videoId) as HTMLVideoElement), 0, 0, dwncanvas.width, dwncanvas.height);
+            utils.downloadImage(dwncanvas.toDataURL('image/jpg'))
+        }
+        return
+    }
+
+    private handlePip(videoId: string) {
+        if (utils.getUserBrowser() === "firefox") {
+            // let parent: JQuery<HTMLElement>, vid: JQuery<HTMLElement>
+            if (videoId === "echo-video") {
+                let vid = document.getElementById("echo-video")!
+                if (vid.style.maxWidth === "0px") {
+                    vid.style.maxWidth = "160px"
+                    vid.style.zIndex = "99"
+                } else {
+                    vid.style.maxWidth = "0px"
+                    vid.style.zIndex = ""
+                }
+            }
+            Swal.fire({
+                title: 'Picture-In-Picture',
+                heightAuto: false,
+                confirmButtonText: chrome.i18n.getMessage("denyButtonText"),
+                html: videoId === "echo-video" ? chrome.i18n.getMessage("firefoxHandleStreamerPip") : chrome.i18n.getMessage("firefoxHandlePip"),
+            }).then((result) => {
+
+            })
+        } else {
+            let v = (document.getElementById(videoId) as HTMLVideoElement)
+
+            if (document.pictureInPictureElement === v)
+                document.exitPictureInPicture()
+            else {
+                if (v.readyState > 0) {
+                    v.requestPictureInPicture()
+                }
+            }
+        }
+    }
+
     public minifyButtons() {
         this.leftScreen.style.width = "16px"
         this.leftPip.style.width = "16px"
@@ -709,16 +757,8 @@ class ControlsHeader {
             style: "color: red;",
             title: chrome.i18n.getMessage("screen_remote"),
             onclick: () => {
-                let dwncanvas = document.createElement('canvas');
-                dwncanvas.width = (document.getElementById('remote-video') as HTMLVideoElement)?.videoWidth
-                dwncanvas.height = (document.getElementById('remote-video') as HTMLVideoElement)?.videoHeight
-
-                let ctx = dwncanvas.getContext('2d');
-                if (ctx instanceof CanvasRenderingContext2D) {
-                    ctx.drawImage((document.getElementById('remote-video') as HTMLVideoElement), 0, 0, dwncanvas.width, dwncanvas.height);
-                    utils.downloadImage(dwncanvas.toDataURL('image/jpg'))
-                }
-            },
+                this.createScreenshot('remote-video')
+            }
         }, [
             utils.createElement('b', {
                 innerText: "^"
@@ -729,25 +769,10 @@ class ControlsHeader {
     private createLeftPip() {
         return utils.createElement('button', {
             className: "ve__header__button",
-            // requestPictureInPicture is not supported by firefox
-            style: function f() {
-                if (getUserBrowser() === "firefox") {
-                    return "color:green; display:none"
-                } else {
-                    return "color:green;"
-                }
-            }(),
+            style: "color:green;",
             title: chrome.i18n.getMessage("pip_remote"),
             onclick: () => {
-                let v = (document.getElementById(globalThis.platformSettings.get('streamer') ? "echo-video" : "remote-video") as HTMLVideoElement)
-
-                if (document.pictureInPictureElement === v)
-                    document.exitPictureInPicture()
-                else {
-                    if (v.readyState > 0) {
-                        v.requestPictureInPicture()
-                    }
-                }
+                this.handlePip(globalThis.platformSettings.get('streamer') ? "echo-video" : "remote-video")
             },
         }, [
             utils.createElement('b', {
@@ -823,25 +848,10 @@ class ControlsHeader {
     private createRightPip() {
         return utils.createElement('button', {
             className: "ve__header__button",
-            // requestPictureInPicture is not supported by firefox
-            style: function f() {
-                if (getUserBrowser() === "firefox") {
-                    return "color: green; display:none"
-                } else {
-                    return "color: green;"
-                }
-            }(),
+            style: "color:green;",
             title: chrome.i18n.getMessage("pip_local"),
             onclick: () => {
-                let v = (document.getElementById("local-video") as HTMLVideoElement)
-
-                if (document.pictureInPictureElement === v)
-                    document.exitPictureInPicture()
-                else {
-                    if (v.readyState > 0) {
-                        v.requestPictureInPicture()
-                    }
-                }
+                this.handlePip('local-video')
             },
         }, [
             utils.createElement('b', {
@@ -856,15 +866,7 @@ class ControlsHeader {
             style: "color: red;",
             title: chrome.i18n.getMessage("screen_local"),
             onclick: () => {
-                let dwncanvas = document.createElement('canvas');
-                dwncanvas.width = (document.getElementById('local-video') as HTMLVideoElement)?.videoWidth
-                dwncanvas.height = (document.getElementById('local-video') as HTMLVideoElement)?.videoHeight
-
-                let ctx = dwncanvas.getContext('2d');
-                if (ctx instanceof CanvasRenderingContext2D) {
-                    ctx.drawImage((document.getElementById('local-video') as HTMLVideoElement), 0, 0, dwncanvas.width, dwncanvas.height);
-                    utils.downloadImage(dwncanvas.toDataURL('image/jpg'))
-                }
+                this.createScreenshot('local-video')
             },
         }, [
             utils.createElement('b', {
