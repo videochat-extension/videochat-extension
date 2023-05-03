@@ -273,9 +273,14 @@
     "message": "активирует набор хоткеев для стримеров"
   },
   "streamerHotkeysText": {
-    "message": "<dd style='margin-inline-start: 40px!important;'>h / стрелка вправо - блюр / заглушка</dd><dd style='margin-inline-start: 40px!important;'>m - замутить собеседника</dd>"
+    "message": "<dd style='margin-inline-start: 40px!important;'>h / стрелка вправо - блюр / заглушка</dd><dd style='margin-inline-start: 40px!important;'>m - замутить собеседника</dd><dd style='margin-inline-start: 40px!important;'>держать m - вр. подавить звук</dd>"
   },
-
+  "suppressVolumeValue": {
+    "message": "громкость при подавлении: "
+  },
+  "tooltipSuppressVolumeValue": {
+    "message": "Установите уровень громкости, который будет установлен вашему собеседнику пока вы держите клавишу / кнопку \"m\". Собеседнику будет временно установлен этот уровень звука, а после отмены удержания - прежний уровень звука будет восстановлен. Очень полезно для подавления эхо: зажимаете клавишу -> говорите -> отжимаете через секунду."
+  },
   "blurOnStart": {
     "message": "авто активация блюра/заглушки: "
   },

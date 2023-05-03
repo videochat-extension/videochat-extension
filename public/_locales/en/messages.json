@@ -282,7 +282,13 @@
     "message": "enable a special set of hotkeys for streamers"
   },
   "streamerHotkeysText": {
-    "message": "<dd style='margin-inline-start: 40px!important;'>h / right arrow - blur / cover</dd><dd style='margin-inline-start: 40px!important;'>m - mute remote video</dd>"
+    "message": "<dd style='margin-inline-start: 40px!important;'>h / right arrow - blur / cover</dd><dd style='margin-inline-start: 40px!important;'>m - mute remote video</dd><dd style='margin-inline-start: 40px!important;'>hold m - suppress the volume (temp.)</dd>"
+  },
+  "suppressVolumeValue": {
+    "message": "volume while suppressed: "
+  },
+  "tooltipSuppressVolumeValue": {
+    "message": "Set the volume that will be set for your interlocutor while you hold the \"m\" key / button. The stranger's volume will be temporarily set to this value, and after the hold is released, the previous volume will be restored. Very useful for echo cancellation: hold down a key, speak, release after a bit."
   },
   "obsIntegrationSection": {
     "message": "OBS INTEGRATION: "

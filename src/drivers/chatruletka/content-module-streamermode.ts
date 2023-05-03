@@ -233,6 +233,7 @@ export class StreamerModule {
     public static defaults = {
         streamer: false,
         streamerKeys: true,
+        suppressVolumeValue: 15,
         obsIntegrationSection: false,
         obsShowErrorsStatus: true,
         obsControlCover: false,
@@ -308,9 +309,11 @@ export class StreamerModule {
                     tooltip: chrome.i18n.getMessage("tooltipStreamerHotkeys"),
                     enable: () => {
                         document.addEventListener('keyup', this.hotkeys)
+                        document.addEventListener('keyup', this.hotkeysDown)
                     },
                     disable: () => {
                         document.removeEventListener('keyup', this.hotkeys);
+                        document.removeEventListener('keyup', this.hotkeysDown);
                     }
                 },
                 {
@@ -325,6 +328,23 @@ export class StreamerModule {
                             })
                         }
                     ]
+                },
+                {
+                    type: "br",
+                },
+                {
+                    type: "range",
+                    important: false,
+                    text: chrome.i18n.getMessage("suppressVolumeValue"),
+                    tooltip: chrome.i18n.getMessage("tooltipSuppressVolumeValue"),
+                    key: "suppressVolumeValue",
+                    min: 0,
+                    max: 100,
+                    onchange: (event: ChangeEvent) => {
+                        if (this.isSupressed) {
+                            this.getRemoteVideo().volume = +(event.target.value / 100).toFixed(2);
+                        }
+                    }
                 },
                 {
                     type: "br",
@@ -886,12 +906,17 @@ export class StreamerModule {
             (this.driver.modules.controls.header.leftBlur.children[0] as HTMLElement).style.fontSize = "xx-small";
         }
 
-        if (this.getRemoteVideo()!.muted) {
-            (this.driver.modules.controls.header.leftMute.children[0] as HTMLElement).innerText = "M";
+        if (this.isSupressed) {
+            (this.driver.modules.controls.header.leftMute.children[0] as HTMLElement).innerText = "S";
             (this.driver.modules.controls.header.leftMute.children[0] as HTMLElement).style.fontSize = "";
         } else {
-            (this.driver.modules.controls.header.leftMute.children[0] as HTMLElement).innerText = "m";
-            (this.driver.modules.controls.header.leftMute.children[0] as HTMLElement).style.fontSize = "xx-small";
+            if (this.getRemoteVideo()!.muted) {
+                (this.driver.modules.controls.header.leftMute.children[0] as HTMLElement).innerText = "M";
+                (this.driver.modules.controls.header.leftMute.children[0] as HTMLElement).style.fontSize = "";
+            } else {
+                (this.driver.modules.controls.header.leftMute.children[0] as HTMLElement).innerText = "m";
+                (this.driver.modules.controls.header.leftMute.children[0] as HTMLElement).style.fontSize = "xx-small";
+            }
         }
     }
 
@@ -977,6 +1002,7 @@ export class StreamerModule {
 
         if (globalThis.platformSettings.get("streamerKeys")) {
             document.addEventListener('keyup', this.hotkeys)
+            document.addEventListener('keyup', this.hotkeysDown)
         }
 
         this.driver.modules.controls.header.minifyButtons();
@@ -1005,6 +1031,7 @@ export class StreamerModule {
         this.driver.modules.controls.header.leftMute.style.display = "none";
 
         document.removeEventListener('keyup', this.hotkeys);
+        document.removeEventListener('keyup', this.hotkeysDown);
 
         this.driver.modules.controls.header.restoreButtons();
 
@@ -1017,7 +1044,7 @@ export class StreamerModule {
             this.blurAll()
         }
         // checking if user enabled manually
-        setTimeout(()=>{
+        setTimeout(() => {
             this.obs.getCoverVisibility().then((res) => {
                 if (res) {
                     this.blurAll()
@@ -1087,9 +1114,59 @@ export class StreamerModule {
         }
     }
 
-    public handleMuteButtonClick(e: MouseEvent) {
+    public handleMuteButtonClick() {
         this.getRemoteVideo()!.muted = !this.getRemoteVideo()!.muted
         this.updStatus()
+    }
+
+    private muteButtonDown = 0
+    private muteButtonTimeout: NodeJS.Timeout | undefined
+    private isSupressed = false
+    private restoreVolume: number = 1
+
+    private muteSuppressVolume() {
+        this.restoreVolume = this.getRemoteVideo()!.volume
+        this.getRemoteVideo()!.volume = +(globalThis.platformSettings.get("suppressVolumeValue") / 100).toFixed(2);
+        this.isSupressed = true
+        this.updStatus()
+    }
+
+    private muteUnsupressVolume() {
+        this.isSupressed = false
+        this.getRemoteVideo()!.volume = +this.restoreVolume
+        this.updStatus()
+    }
+
+    public handleMuteButtonDown(e?: MouseEvent) {
+        if (this.getRemoteVideo().muted) {
+            this.handleMuteButtonClick()
+        } else {
+            if (this.muteButtonDown === 0) {
+                this.muteButtonDown = Date.now()
+                this.muteButtonTimeout = setTimeout(this.muteSuppressVolume.bind(this), 300)
+            }
+        }
+    }
+
+    public handleMuteButtonUp(e?: MouseEvent) {
+        if (this.muteButtonDown !== 0) {
+            if (Date.now() - this.muteButtonDown > 300) {
+                if (this.isSupressed) {
+                    this.muteUnsupressVolume()
+                }
+            } else {
+                clearTimeout(this.muteButtonTimeout)
+                this.handleMuteButtonClick()
+            }
+            this.muteButtonDown = 0
+        }
+    }
+
+    public handleMuteButtonLeave(e: MouseEvent) {
+        if (this.isSupressed) {
+            this.muteUnsupressVolume()
+        }
+        this.muteButtonDown = 0
     }
 
     public formatGeoString(form: string, json: any) {
@@ -1147,8 +1224,17 @@ export class StreamerModule {
                 break;
 
             case "m":
-                this.driver.modules.controls.header.leftMute.click()
+                this.handleMuteButtonDown();
                 break;
+        }
+    }
+
+    protected hotkeysDown = (e: KeyboardEvent) => {
+        if (e.target instanceof HTMLElement && e.target.className === "emojionearea-editor" || document.getElementsByClassName("swal2-popup").length > 0)
+            return
+        switch (e.key) {
+            case "m":
+                this.handleMuteButtonUp();
         }
     }
 }

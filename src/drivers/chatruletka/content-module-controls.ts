@@ -819,11 +819,21 @@ class ControlsHeader {
                 }
             }(),
             title: "Mute / unmute",
-            onclick: (e: MouseEvent)=>{
+            onmousedown: (e: MouseEvent)=>{
                 if (this.driver.modules.streamer) {
-                    this.driver.modules.streamer.handleMuteButtonClick(e)
+                    this.driver.modules.streamer.handleMuteButtonDown(e)
                 }
             },
+            onmouseleave: (e: MouseEvent)=>{
+                if (this.driver.modules.streamer) {
+                    this.driver.modules.streamer.handleMuteButtonLeave(e)
+                }
+            },
+            onmouseup:(e: MouseEvent)=>{
+                if (this.driver.modules.streamer) {
+                    this.driver.modules.streamer.handleMuteButtonUp(e)
+                }
+            }
         }, [
             utils.createElement('b', {
                 style: 'font-size: xx-small',
