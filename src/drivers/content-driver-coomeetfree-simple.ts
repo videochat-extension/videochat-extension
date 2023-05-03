@@ -225,6 +225,16 @@ export class CooMeetFreeSimpleDriver {
                 })
             ])
             el.appendChild(setting2)
+            setting1.style.display = "none"
+            setting2.style.display = "none"
+            $(el).on("mouseenter", () => {
+                setting1.style.display = ""
+                setting2.style.display = ""
+            })
+            $(el).on("mouseleave", () => {
+                setting1.style.display = "none"
+                setting2.style.display = "none"
+            })
         })
     }
 
