@@ -1071,7 +1071,8 @@ export class StreamerModule {
     }
 
     public stopBlurCover() {
-        this.unblurAll();
+        this.getRemoteVideo()!.style.filter = "";
+        this.getLocalVideo().style.filter = "";
         (document.getElementById("report-screen") as HTMLElement).style.filter = "";
         $("#cover").remove()
         $("#cover2").remove()
