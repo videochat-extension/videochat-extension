@@ -572,7 +572,7 @@ export class GeolocationModule {
             } else {
                 newInnerHTML += "<br><br><br>"
             }
-            newInnerHTML += "<b>TM: </b><sup class='remoteTM'>" + utils.secondsToHms((+new Date() - this.started) / 1000) + "</sup>"
+            newInnerHTML += "<b>TM: </b><sup class='remoteTM'>" + utils.secondsToHms((Date.now() - this.started) / 1000) + "</sup>"
 
         } else {
             newInnerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br>"
@@ -585,7 +585,7 @@ export class GeolocationModule {
             } catch {
                 newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + "???" + "</sup>) </br>"
             }
-            newInnerHTML += "<b>TM: </b><sup class='remoteTM'>" + utils.secondsToHms((+new Date() - this.started) / 1000) + "</sup>"
+            newInnerHTML += "<b>TM: </b><sup class='remoteTM'>" + utils.secondsToHms((Date.now() - this.started) / 1000) + "</sup>"
         }
 
         if (globalThis.platformSettings.get("showISP")) {
@@ -671,7 +671,7 @@ export class GeolocationModule {
             if (document.getElementsByClassName("remoteTM").length > 0) {
                 if (this.driver.stage === 4) {
                     for (let el of document.getElementsByClassName("remoteTM") as HTMLCollectionOf<HTMLElement>) {
-                        el.innerText = utils.secondsToHms((+new Date() - this.started) / 1000)
+                        el.innerText = utils.secondsToHms((Date.now() - this.started) / 1000)
                     }
                 }
             }

@@ -86,19 +86,19 @@ export class HotkeysModule {
     private localHotkeysKeyDownTiming(e: KeyboardEvent) {
         switch (e.key) {
             case "ArrowLeft":
-                this.arrowLeft = +new Date()
+                this.arrowLeft = Date.now()
                 break;
 
             case "ArrowUp":
-                this.arrowUp = +new Date()
+                this.arrowUp = Date.now()
                 break;
 
             case "ArrowDown":
-                this.arrowDown = +new Date()
+                this.arrowDown = Date.now()
                 break;
 
             case "ArrowRight":
-                this.arrowRight = +new Date()
+                this.arrowRight = Date.now()
                 break;
         }
     }
@@ -109,7 +109,7 @@ export class HotkeysModule {
 
         switch (e.key) {
             case "ArrowLeft":
-                if (+new Date() - this.arrowLeft < 5000) {
+                if (Date.now() - this.arrowLeft < 5000) {
                     if (document.getElementById("report-popup")?.style.display === "block") {
                         document.getElementById("report-popup")!.querySelectorAll(".btn-gray").forEach((el: any) => {
                             el.click()
@@ -126,14 +126,14 @@ export class HotkeysModule {
                 break;
 
             case "ArrowUp":
-                if (+new Date() - this.arrowUp < 5000) {
+                if (Date.now() - this.arrowUp < 5000) {
                     let stopButton: HTMLElement = document.getElementsByClassName('buttons__button stop-button')[0] as HTMLElement;
                     stopButton.click()
                 }
                 break;
 
             case "ArrowDown":
-                if (+new Date() - this.arrowDown < 5000) {
+                if (Date.now() - this.arrowDown < 5000) {
                     if (document.getElementsByClassName("message-report-link tr").length !== 0) {
                         let openReportButton: HTMLElement = document.getElementsByClassName("message-report-link tr")[0] as HTMLElement;
                         openReportButton.click()
@@ -142,7 +142,7 @@ export class HotkeysModule {
                 break;
 
             case "ArrowRight":
-                if (+new Date() - this.arrowRight < 5000) {
+                if (Date.now() - this.arrowRight < 5000) {
                     if (document.getElementById("report-popup")?.style.display === "block") {
                         document.getElementById("report-popup")!.querySelectorAll(".send-report").forEach((el: any) => {
                             el.click()

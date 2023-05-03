@@ -76,7 +76,7 @@ export class ChatruletkaDriver {
                 (document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement).click()
             }, delay)
         } else {
-            this.requestToStartTiming = +new Date();
+            this.requestToStartTiming = Date.now();
             (document.getElementsByClassName('buttons__button stop-button')[0] as HTMLElement).click()
         }
     }
@@ -243,7 +243,7 @@ export class ChatruletkaDriver {
                     this.needToClear = true;
                     (document.getElementById("remoteFace") as HTMLElement).innerHTML = '';
 
-                    if (this.requestToStartTiming !== 0 && +new Date() - this.requestToStartTiming < 1000) {
+                    if (this.requestToStartTiming !== 0 && Date.now() - this.requestToStartTiming < 1000) {
                         this.requestToStartTiming = 0;
                         (document.getElementsByClassName('buttons__button start-button')[0] as HTMLElement).click()
                     }

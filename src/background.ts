@@ -557,7 +557,7 @@ async function checkIfMissingPermissions(windowId: number, url: string, fromTabI
 
             if (site && site.site && site.site.id) {
                 let recentDict = await getValue("recentDict", {})
-                recentDict[site.site.id] = Math.ceil(+new Date() / 1000)
+                recentDict[site.site.id] = Math.ceil(Date.now() / 1000)
                 await setValue("recentDict", recentDict)
             }
 
@@ -568,7 +568,7 @@ async function checkIfMissingPermissions(windowId: number, url: string, fromTabI
 
                 if (site && site.site && site.site.origin) {
                     let recentDict = await getValue("recentDict", {})
-                    recentDict[site.site.id] = Math.ceil(+new Date() / 1000)
+                    recentDict[site.site.id] = Math.ceil(Date.now() / 1000)
                     await setValue("recentDict", recentDict)
 
                     console.dir(site)
