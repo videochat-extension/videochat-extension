@@ -279,7 +279,7 @@
     "message": "streamer hotkeys: "
   },
   "tooltipStreamerHotkeys": {
-    "message": "enable a special set of hotkeys for streamers"
+    "message": "enable a special set of hotkeys for streamers. they are used mostly to quickly activate the streamer buttons in the header of the extension"
   },
   "streamerHotkeysText": {
     "message": "<dd style='margin-inline-start: 40px!important;'>h / right arrow - blur / cover</dd><dd style='margin-inline-start: 40px!important;'>m - mute remote video</dd><dd style='margin-inline-start: 40px!important;'>hold m - suppress the volume (temp.)</dd>"
@@ -288,13 +288,13 @@
     "message": "volume while suppressed: "
   },
   "tooltipSuppressVolumeValue": {
-    "message": "Set the volume that will be set for your interlocutor while you hold the \"m\" key / button. The stranger's volume will be temporarily set to this value, and after the hold is released, the previous volume will be restored. Very useful for echo cancellation: hold down a key, speak, release after a bit."
+    "message": "Set the volume that will be set for your interlocutor while you hold the \"m\" key / button. The stranger's volume will be temporarily set to this value, and after the hold is released, the previous volume will be restored. Very useful for echo cancellation: hold down a key -> speak -> release after a bit."
   },
   "obsIntegrationSection": {
     "message": "OBS INTEGRATION: "
   },
   "tooltipObsIntegrationSection": {
-    "message": "enables obs integration"
+    "message": "enables integration with Open Broadcaster Software (the most popular social media streaming software). It allows the extension to output the location of the interlocutor and control the image that covers his image."
   },
   "obsChangeConnectInfo": {
     "message": "change connect info"
@@ -309,19 +309,19 @@
     "message": "control cover: "
   },
   "tooltipObsControlCover": {
-    "message": "VE_COVER"
+    "message": "allows the extension to control the visibility of the image that covers the interlocutor. many streamers do this in order to be able to turn off the image of the interlocutor on the live stream at any time. you need to create any source in the OBS named VE_COVER and place it above the image of the interlocutor. Now you can toggle this VE_COVER visibility with one button (h/H) / by pressing a shorcut (h / right arrow) / automatically (configurable at the very bottom)"
   },
   "obsControlCoverGrayscale": {
     "message": "grayscale filter: "
   },
   "tooltipObsControlCoverGrayscale": {
-    "message": "tooltip"
+    "message": "turns on the gray filter while the interlocutor is closed in the OBS. I highly recommend using this function, because it asks obs at the start of each dialogue if BE_COVER is visible in the active scene. This greatly reduces the chance of error and gives you a sense of security. for example, if you manually change the scene or visibility of VE_COVER, the extension will ignore it, otherwise you will notice that something has happened."
   },
   "obsControlGeolocation": {
     "message": "geolocation text: "
   },
   "tooltipObsControlGeolocation": {
-    "message": "VE_TEXT"
+    "message": "displays the location of the stranger in the text source named VE_TEXT in the active scene. first, of course, you need to create a VE_TEXT text source and style it however you like."
   },
   "obsControlGeolocationClearSearch": {
     "message": "clear on search: "
@@ -359,12 +359,6 @@
   "promptFormatSrc": {
     "message": "these special words will be replaced with actual data:\n\n* \\n -> break line\n* $$status -> json.status (success)\n* $$country -> json.country (Australia)\n* $$countryCode -> json.countryCode (AU)\n* $$region -> json.region (QLD)\n* $$regionName -> json.regionName (Queensland)\n* $$city -> json.city (South Brisbane)\n* $$lat -> json.lat (-27.4766)\n* $$lon -> json.lon (153.0166)\n* $$timezone -> json.timezone (Australia/Brisbane)\n* $$isp -> json.isp (Cloudflare, Inc)\n* $$mobile -> json.mobile (false)\n* $$proxy -> json.proxy (false)\n* $$hosting -> json.hosting (true)"
   },
-  "blurOnStart": {
-    "message": "auto apply blur/cover: "
-  },
-  "tooltipBlurOnStart": {
-    "message": "every new conversation will start blurred / covered. you need to enable BLUR / COVER or OBS INTEGRATION first."
-  },
   "blurReport": {
     "message": "blur report screen: "
   },
@@ -399,25 +393,31 @@
     "message": "use img/gif as cover: "
   },
   "tooltipCoverOverBlur": {
-    "message": "enable this if you want to use img/gif instead of blurring video"
+    "message": "enable this if you want to use a img/gif instead of just blurring video. you will be able to choose your own cover to stand out from the crowd!"
+  },
+  "blurOnStart": {
+    "message": "auto apply blur/cover: "
+  },
+  "tooltipBlurOnStart": {
+    "message": "every new conversation will start blurred / covered. remember: you need to enable BLUR / COVER or OBS INTEGRATION first."
   },
   "coverOverPreview": {
-    "message": "cover over preview: "
+    "message": "apply at 'preview' stage: "
   },
   "tooltipCoverOverPreview": {
-    "message": "enable this if you want to activate cover when found (preview)"
+    "message": "enable this if you want to auto-enable blur/cover at 'preview' stage"
   },
   "coverOverNoise": {
-    "message": "cover over noise: "
+    "message": "apply at 'search' stage: "
   },
   "tooltipCoverOverNoise": {
-    "message": "enable this if you want to activate cover when searching"
+    "message": "enable this if you want to auto-enable blur/cover at 'search' stage"
   },
   "coverOverStop": {
-    "message": "cover over stop: "
+    "message": "apply at 'stop' stage: "
   },
   "tooltipCoverOverStop": {
-    "message": "enable this if you want to auto-activate cover when stopped"
+    "message": "enable this if you want to auto-enable blur/cover at 'stop' stage"
   },
 
   "uncoverOnPlay": {

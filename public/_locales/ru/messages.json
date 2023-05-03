@@ -270,7 +270,7 @@
     "message": "стримерские хоткеи: "
   },
   "tooltipStreamerHotkeys": {
-    "message": "активирует набор хоткеев для стримеров"
+    "message": "активирует набор хоткеев для стримеров. они в основном позволяют быстро активировать стримерские кнопки в заголовке расширения."
   },
   "streamerHotkeysText": {
     "message": "<dd style='margin-inline-start: 40px!important;'>h / стрелка вправо - блюр / заглушка</dd><dd style='margin-inline-start: 40px!important;'>m - замутить собеседника</dd><dd style='margin-inline-start: 40px!important;'>держать m - вр. подавить звук</dd>"
@@ -281,11 +281,74 @@
   "tooltipSuppressVolumeValue": {
     "message": "Установите уровень громкости, который будет установлен вашему собеседнику пока вы держите клавишу / кнопку \"m\". Собеседнику будет временно установлен этот уровень звука, а после отмены удержания - прежний уровень звука будет восстановлен. Очень полезно для подавления эхо: зажимаете клавишу -> говорите -> отжимаете через секунду."
   },
-  "blurOnStart": {
-    "message": "авто активация блюра/заглушки: "
+  "obsIntegrationSection": {
+    "message": "ИНТЕГРАЦИЯ OBS"
   },
-  "tooltipBlurOnStart": {
-    "message": "каждый новый диалог изначально будет заблюрен / закрыт заглушкой. сначала нужно включить БЛЮР/ЗАГЛУШКА / ИНТЕГРАЦИЯ OBS."
+  "tooltipObsIntegrationSection": {
+    "message": "включает интеграцию с Open Broadcaster Software (самой популярной программой для ведения стримов в социальных сетях). Она позволяет расширению выводить на сцену местоположение собеседника и управлять изображением, которое закрывает изображение собеседника."
+  },
+  "obsChangeConnectInfo": {
+    "message": "изменить данные для подключения"
+  },
+  "obsShowErrorsStatus": {
+    "message": "отображать ошибки: "
+  },
+  "tooltipObsShowErrorsStatus": {
+    "message": "показывать ошибки & статус подключения в левом нижнем углу."
+  },
+  "obsControlCover": {
+    "message": "контроль заглушки: "
+  },
+  "tooltipObsControlCover": {
+    "message": "позволяет расширению контролировать видимость изображения, которое закрывает собеседника. многие стримеры так делают, чтобы иметь возможность в любой момент отключить собеседнику изображение на стриме. вам нужно создать в OBS любой источник с названием VE_COVER и разместить его над изображением собеседника. теперь вы можете переключать его видимость одной кнопкой / нажатием горячей клавиши / автоматически (настраивается в самом низу)"
+  },
+  "obsControlCoverGrayscale": {
+    "message": "серый фильтр: "
+  },
+  "tooltipObsControlCoverGrayscale": {
+    "message": "включает серый фильтр, пока собеседник закрыт в ОБС. очень рекомендую использовать эту функцию, потому что она спрашивает у OBS при старте каждого диалога: 'а видно ли VE_COVER в активной сцене?'. это сильно снижает вероятность ошибки и даёт вам ощущение безопасности. например, если вы вручную измените сцену или видимость VE_COVER, расширение это проигнорирует, а так вы заметите, что что-то случилось."
+  },
+  "obsControlGeolocation": {
+    "message": "вывод геолокации: "
+  },
+  "tooltipObsControlGeolocation": {
+    "message": "выводит местоположение собеседника в текстовый источник VE_TEXT в активной сцене. сначала, разумеется, вам нужно создать текстовый источник VE_TEXT и стилизовать его как вам угодно."
+  },
+  "obsControlGeolocationClearSearch": {
+    "message": "очищать на стадии поиска: "
+  },
+  "tooltipObsControlGeolocationClearSearch": {
+    "message": "очищать VE_TEXT на стадии поиска"
+  },
+  "obsControlGeolocationClearStop": {
+    "message": "очищать на стадии стоп: "
+  },
+  "tooltipObsControlGeolocationClearStop": {
+    "message": "очищать VE_TEXT на стадии стоп"
+  },
+  "obsControlGeolocationTextFormUsual": {
+    "message": "формат обычного ip"
+  },
+  "promptObsControlGeolocationTextFormUsual": {
+    "message": "здесь вы можете определить, как данные геолокации будут преобразованы в текст для:\n* обычный проводной ip (это означает высокую точность).\n\n`$1`\n\n$2"
+  },
+  "obsControlGeolocationTextFormMobile": {
+    "message": "формат мобильного ip"
+  },
+  "promptObsControlGeolocationTextFormMobile": {
+    "message": "здесь вы можете определить, как данные геолокации будут преобразованы в текст для:\n* мобильный ip (имеется в виду низкая точность).\n\n`$1`\n\n$2"
+  },
+  "obsControlGeolocationTextFormProxyVPNTor": {
+    "message": "формат ip proxy/vpn/tor"
+  },
+  "promptObsControlGeolocationTextFormProxyVPNTor": {
+    "message": "здесь вы можете определить, как данные геолокации будут преобразованы в текст для:\n* IP-адрес vpn/proxy/tor/hosting (это означает очень низкую точность, вероятно, поддельное местоположение).\n\n`$1`\n\n$2"
+  },
+  "exampleGeoData": {
+    "message": "{\"status\":\"success\",\"country\":\"Австралия\",\"countryCode\":\"AU\",\"region\":\"QLD\",\"regionName\":\"Штат Квинсленд\",\"city\":\"Южный Брисбен\",\"lat\":-27.4766,\"lon\":153.0166,\"timezone\":\"Australia/Brisbane\",\"isp\":\"Cloudflare, Inc\",\"mobile\":false,\"proxy\":false,\"hosting\":true}"
+  },
+  "promptFormatSrc": {
+    "message": "эти специальные слова будут заменены реальными данными:\n\n* \\n -> перенос строки\n* $$status -> json.status (success)\n* $$country -> json.country (Австралия)\n* $$countryCode -> json.countryCode (AU)\n* $$region -> json.region (QLD)\n* $$regionName -> json.regionName (Штат Квинсленд)\n* $$city -> json.city (Южный Брисбен)\n* $$lat -> json.lat (-27.4766)\n* $$lon -> json.lon (153.0166)\n* $$timezone -> json.timezone (Australia/Brisbane)\n* $$isp -> json.isp (Cloudflare, Inc)\n* $$mobile -> json.mobile (false)\n* $$proxy -> json.proxy (false)\n* $$hosting -> json.hosting (true)"
   },
   "blurReport": {
     "message": "блюрить экран репорта: "
@@ -323,20 +386,26 @@
   "tooltipCoverOverBlur": {
     "message": "включите, если хотите свою картинку/гифку поверх блюра"
   },
+  "blurOnStart": {
+    "message": "авто активация блюра/заглушки: "
+  },
+  "tooltipBlurOnStart": {
+    "message": "каждый новый диалог изначально будет заблюрен / закрыт заглушкой. помните: сначало нужно включить БЛЮР/ЗАГЛУШКА / ИНТЕГРАЦИЯ OBS."
+  },
   "coverOverPreview": {
-    "message": "закрывать превьюшки: "
+    "message": "активировать на стадии превью: "
   },
   "tooltipCoverOverPreview": {
     "message": "включите, если хотите активировать заглушку когда нашло собеседника (превью)"
   },
   "coverOverNoise": {
-    "message": "закрывать шум: "
+    "message": "активировать на стадии поиска: "
   },
   "tooltipCoverOverNoise": {
     "message": "включите, если хотите активировать заглушку при поиске"
   },
   "coverOverStop": {
-    "message": "закрывать стоп: "
+    "message": "активировать на стадии стоп: "
   },
   "tooltipCoverOverStop": {
     "message": "включите, если хотите активировать заглушку, когда остановлено"
@@ -666,9 +735,6 @@
   },
   "welcomeSwalPermissionContent": {
     "message": "У расширения сейчас недостаточно прав.<br><br>Расширение запросило доступ у браузера к сайтам поддерживаемых видеочатов, у вас должно было появиться диалоговое окно.<br><br>Вы можете не давать разрешение, но тогда расширение на этих сайтах работать не будет ¯\\_(ツ)_/¯"
-  },
-  "welcomeSwalTimerTitle": {
-    "message": "Всё готово"
   },
   "welcomeSwalTimerText": {
     "message": "Меню откроется через <b></b> с."
