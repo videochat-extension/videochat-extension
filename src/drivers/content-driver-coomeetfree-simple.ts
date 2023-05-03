@@ -18,6 +18,23 @@ export class CooMeetFreeSimpleDriver {
     private volumeButton: HTMLElement | undefined;
     private loader: HTMLElement | undefined;
 
+    private volume = 0;
+    private volumeControl = utils.createElement('div', {
+        className: "free-cm-app-country-selector__item free-cm-app-country-selector2__item"
+    }, [
+        utils.createElement('span', {
+            innerText: `v: ${this.volume}%`,
+            style: "white-space: nowrap; overflow: hidden; cursor: ns-resize"
+        })
+    ])
+
+    private updVolume(volume: number) {
+        this.volume = volume;
+        if (this.video)
+            this.video.volume = +volume.toFixed(2);
+        (this.volumeControl.children[0] as HTMLElement).innerText = `v: ${Math.ceil(this.volume * 100)}%`
+    }
+
     private constructor() {
     }
 
@@ -41,6 +58,8 @@ export class CooMeetFreeSimpleDriver {
 
         if (!this.video) {
             throw new Error("remote video not found")
+        } else {
+            this.updVolume(this.video.volume)
         }
         if (!this.cmtNext) {
             throw new Error("cmtNext not found")
@@ -143,6 +162,28 @@ export class CooMeetFreeSimpleDriver {
     // TODO: fix dry
     public injectInterface() {
         let self = this
+
+        document.arrive(".free-cm-app-country-selector__container,.free-cm-app-country-selector2__container", {
+            existing: true,
+            onceOnly: true
+        }, function (el) {
+            $(self.volumeControl).on('wheel', function (event: any) {
+                event.preventDefault()
+                if (self.video) {
+                    const delta = 0.02
+
+                    if (event.originalEvent.deltaY > 0 && self.video.volume - delta >= 0) {
+                        self.video.volume -= delta;
+                    } else if (event.originalEvent.deltaY < 0 && self.video.volume + delta <= 1) {
+                        self.video.volume += delta;
+                    }
+
+                    self.updVolume(self.video.volume)
+                }
+            })
+            el.appendChild(self.volumeControl)
+        })
+
         document.arrive(".free-cm-app-tape-detect__container", {existing: true, onceOnly: true}, function (el) {
             let extensionHeader = utils.createElement('div', {
                 className: 'free-cm-app-tape-detect__item'
