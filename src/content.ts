@@ -79,8 +79,6 @@ async function content() {
 
     await globalThis.platformSettings.setup()
 
-    console.dir(globalThis.platformSettings.settings)
-
     await chrome.storage.sync.set({"recentDict": recentDict})
     await chrome.storage.sync.set({"lastIconName": website.site.favicon})
     await chrome.storage.sync.set({"lastDomain": domain})

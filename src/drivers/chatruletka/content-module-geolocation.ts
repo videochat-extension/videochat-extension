@@ -722,8 +722,6 @@ export class GeolocationModule {
             allow.push('ip-api')
         }
 
-        console.dir(allow)
-
         return allow
     }
 
@@ -1139,7 +1137,6 @@ export class ControlsTabApi {
             text: string
         }[] = []
 
-        console.dir(this.hintsDict[lang]);
         for (const hint of this.hintsDict[lang]) {
             if (hint.enabled) {
                 // hint is pushed by ref so no memory issues here
