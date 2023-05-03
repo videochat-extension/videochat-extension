@@ -89,7 +89,7 @@ class StreamerModuleOBS {
         if (!globalThis.platformSettings.get("obsShowErrorsStatus")) {
             return
         }
-        if (typeof er !== "string" && typeof er.message !== "undefined") {
+        if (typeof er !== "string" && typeof er !== "undefined" && typeof er.message !== "undefined") {
             er = er.message
         }
         if (er === "not connected") {
@@ -283,6 +283,9 @@ export class StreamerModule {
             },
             disable: () => {
                 this.stopBase()
+                if (this.obs.connected) {
+                    this.obs.stop()
+                }
                 if (this.started) {
                     this.stopBlurCover()
                 }
@@ -1060,7 +1063,7 @@ export class StreamerModule {
 
         this.started = true
 
-        if (globalThis.platformSettings.get("blurOnStart")) {
+        if (globalThis.platformSettings.get("blurOnStart") || this.blur) {
             this.blurAll()
         }
 
@@ -1068,8 +1071,7 @@ export class StreamerModule {
     }
 
     public stopBlurCover() {
-        this.unblurLocal();
-        this.unblurRemote();
+        this.unblurAll();
         (document.getElementById("report-screen") as HTMLElement).style.filter = "";
         $("#cover").remove()
         $("#cover2").remove()
