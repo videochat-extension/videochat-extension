@@ -954,6 +954,12 @@ export class StreamerModule {
     public onStagePlay() {
         this.echoV.srcObject = this.getRemoteVideo().srcObject;
 
+        if (this.obs.connected) {
+            if (globalThis.platformSettings.get("obsControlCover") && globalThis.platformSettings.get("obsControlCoverGrayscale")) {
+                this.syncObsCover()
+            }
+        }
+
         if (globalThis.platformSettings.get("streamerBlurCoverSection")) {
             if (globalThis.platformSettings.get("uncoverOnPlay")) {
                 this.unblurAll()
