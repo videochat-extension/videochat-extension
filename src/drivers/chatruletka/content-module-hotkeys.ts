@@ -86,19 +86,23 @@ export class HotkeysModule {
     private localHotkeysKeyDownTiming(e: KeyboardEvent) {
         switch (e.key) {
             case "ArrowLeft":
-                this.arrowLeft = Date.now()
+                if (this.arrowLeft === 0)
+                    this.arrowLeft = Date.now()
                 break;
 
             case "ArrowUp":
-                this.arrowUp = Date.now()
+                if (this.arrowUp === 0)
+                    this.arrowUp = Date.now()
                 break;
 
             case "ArrowDown":
-                this.arrowDown = Date.now()
+                if (this.arrowDown === 0)
+                    this.arrowDown = Date.now()
                 break;
 
             case "ArrowRight":
-                this.arrowRight = Date.now()
+                if (this.arrowRight === 0)
+                    this.arrowRight = Date.now()
                 break;
         }
     }
@@ -123,6 +127,7 @@ export class HotkeysModule {
                         startButton.click()
                     }
                 }
+                this.arrowLeft = 0
                 break;
 
             case "ArrowUp":
@@ -130,6 +135,7 @@ export class HotkeysModule {
                     let stopButton: HTMLElement = document.getElementsByClassName('buttons__button stop-button')[0] as HTMLElement;
                     stopButton.click()
                 }
+                this.arrowUp = 0
                 break;
 
             case "ArrowDown":
@@ -139,6 +145,7 @@ export class HotkeysModule {
                         openReportButton.click()
                     }
                 }
+                this.arrowDown = 0
                 break;
 
             case "ArrowRight":
@@ -149,6 +156,7 @@ export class HotkeysModule {
                         })
                     }
                 }
+                this.arrowRight = 0
                 break;
         }
     }
