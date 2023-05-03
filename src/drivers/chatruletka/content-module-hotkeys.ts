@@ -111,8 +111,9 @@ export class HotkeysModule {
             case "ArrowLeft":
                 if (+new Date() - this.arrowLeft < 5000) {
                     if (document.getElementById("report-popup")?.style.display === "block") {
-                        let cancelReportButton: HTMLElement = document.getElementsByClassName('btn')[0] as HTMLElement;
-                        cancelReportButton.click()
+                        document.getElementById("report-popup")!.querySelectorAll(".btn-gray").forEach((el: any) => {
+                            el.click()
+                        })
                     } else {
                         if (e.shiftKey) {
                             this.driver.modules.blacklist.addIpsToList(this.driver.modules.geolocation.curIps)
@@ -143,8 +144,9 @@ export class HotkeysModule {
             case "ArrowRight":
                 if (+new Date() - this.arrowRight < 5000) {
                     if (document.getElementById("report-popup")?.style.display === "block") {
-                        let submitReportButton: HTMLElement = document.getElementsByClassName("btn btn-main send-report")[1] as HTMLElement;
-                        submitReportButton.click()
+                        document.getElementById("report-popup")!.querySelectorAll(".send-report").forEach((el: any) => {
+                            el.click()
+                        })
                     }
                 }
                 break;
