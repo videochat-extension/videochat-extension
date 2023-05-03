@@ -50,6 +50,16 @@ export class BlacklistModule {
         this.ban.volume = 0.45;
         this.male.volume = 0.3;
 
+        // firefox audio issue workaround
+        if (utils.getUserBrowser() == "Firefox") {
+            document.append(this.male)
+            document.append(this.ban)
+            document.addEventListener("click", () => {
+                this.male.load()
+                this.ban.load()
+            }, {once: true})
+        }
+
         chrome.storage.local.get({'ips': []}, (result) => {
             this.list = result.ips;
             this.blacklistLoaded = true
@@ -89,13 +99,11 @@ export class BlacklistModule {
         this.sync()
     }
 
-    // TODO: does not work in firefox
     public playBanSound() {
         if (globalThis.platformSettings.get("skipSound"))
             this.ban.play();
     }
 
-    // TODO: does not work in firefox
     public playMaleSound() {
         if (globalThis.platformSettings.get("skipSound"))
             this.male.play();

@@ -315,6 +315,15 @@ export class GeolocationModule {
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver
         this.targetSound.volume = 0.5
+
+        // firefox audio issue workaround
+        if (utils.getUserBrowser() == "Firefox") {
+            document.append(this.targetSound)
+            document.addEventListener("click", () => {
+                this.targetSound.load()
+            }, {once: true})
+        }
+
         this.createTabs()
     }
 
@@ -628,7 +637,6 @@ export class GeolocationModule {
                     } else {
                         this.driver.needToCheckTarget = false
                         if (globalThis.platformSettings.get("targetSound")) {
-                            // TODO: does not work in firefox
                             this.targetSound.play();
                             console.dir(`FOUND TARGET CITY: ${globalThis.platformSettings.get("targetCity")}`)
                         }

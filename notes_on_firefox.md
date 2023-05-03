@@ -1,7 +1,5 @@
 ### actual
 
-* **problem:** mp3 audio sounds don't work
-
 ### solved
 
 * **problem:** chrome.storage.session not implemented in firefox
@@ -20,4 +18,7 @@
     * **solution:** disable sentry initialising ¯\_(ツ)_/¯
 * **problem:** content scripts executes in about:blank in dynamic script which shows
     * **solution:** filter location.href when executing content()
+* **problem:** mp3 audio sounds don't work
+  * **solution:** append them to the document & .load() on user interaction
+
 * to be continued...
