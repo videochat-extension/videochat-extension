@@ -315,7 +315,7 @@
     "message": "grayscale filter: "
   },
   "tooltipObsControlCoverGrayscale": {
-    "message": "turns on the gray filter while the interlocutor is closed in the OBS. I highly recommend using this function, because it asks obs at the start of each dialogue if BE_COVER is visible in the active scene. This greatly reduces the chance of error and gives you a sense of security. for example, if you manually change the scene or visibility of VE_COVER, the extension will ignore it, otherwise you will notice that something has happened."
+    "message": "turns on the gray filter while the stranger is covered in the OBS. I highly recommend using this function, because it asks obs at the start of each dialogue if VE_COVER is visible in the active scene. This greatly reduces the chance of error and gives you a sense of security. for example, if you manually change the scene or visibility of VE_COVER, the extension will ignore it, otherwise you will notice that something has happened."
   },
   "obsControlGeolocation": {
     "message": "geolocation text: "
