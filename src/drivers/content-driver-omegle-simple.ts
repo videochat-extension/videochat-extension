@@ -29,6 +29,7 @@ export class OmegleSimpleDriver {
     private resultsContainer: HTMLElement = utils.createElement('div', {
         className: "logitem"
     })
+    private browser = utils.getUserBrowser();
 
     private constructor() {
         this.stageObserver = new MutationObserver(this.onChangeStage)
@@ -142,11 +143,19 @@ export class OmegleSimpleDriver {
 
     public injectIpEventListener = () => {
         window.addEventListener("[object Object]", (evt) => {
-            let candidate: any = (<CustomEvent>evt).detail.candidate
+            let candidate: string = (<CustomEvent>evt).detail.candidate
 
-            let parsedCandidate = SDPUtils.parseCandidate(JSON.parse(candidate).candidate)
+            let parsedCandidate: RTCIceCandidate | SDPUtils.SDPIceCandidate | undefined
+            if (this.browser === "firefox") {
+                // avoiding errors while parsing useless candidates
+                if (candidate.includes('srflx')) {
+                    parsedCandidate = SDPUtils.parseCandidate(JSON.parse(candidate).candidate)
+                }
+            } else {
+                parsedCandidate = new RTCIceCandidate(JSON.parse(candidate))
+            }
 
-            if (parsedCandidate.type === "srflx" && parsedCandidate.address) {
+            if (typeof parsedCandidate !== "undefined" && parsedCandidate.type === "srflx" && parsedCandidate.address) {
                 console.dir("IP: " + parsedCandidate.address)
                 if (this.rmdaddr !== parsedCandidate.address) {
                     this.rmdaddr = parsedCandidate.address;

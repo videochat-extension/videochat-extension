@@ -21,6 +21,7 @@ export class ChatruletkaSimpleDriver {
     }();
     private rmdaddr = "0.0.0.0"
     private curIps: string[] = []
+    private browser = utils.getUserBrowser()
 
     private resultsContainer: HTMLElement = utils.createElement('span')
 
@@ -53,11 +54,19 @@ export class ChatruletkaSimpleDriver {
 
     public injectIpEventListener = () => {
         window.addEventListener("[object Object]", (evt) => {
-            let candidate: any = (<CustomEvent>evt).detail.candidate
+            let candidate: string = (<CustomEvent>evt).detail.candidate
 
-            let parsedCandidate = SDPUtils.parseCandidate(JSON.parse(candidate).candidate)
+            let parsedCandidate: RTCIceCandidate | SDPUtils.SDPIceCandidate | undefined
+            if (this.browser === "firefox") {
+                // avoiding errors while parsing useless candidates
+                if (candidate.includes('srflx')) {
+                    parsedCandidate = SDPUtils.parseCandidate(JSON.parse(candidate).candidate)
+                }
+            } else {
+                parsedCandidate = new RTCIceCandidate(JSON.parse(candidate))
+            }
 
-            if (parsedCandidate.type === "srflx" && parsedCandidate.address) {
+            if (typeof parsedCandidate !== "undefined" && parsedCandidate.type === "srflx" && parsedCandidate.address) {
                 console.dir("IP: " + parsedCandidate.address)
                 if (this.rmdaddr !== parsedCandidate.address) {
                     this.rmdaddr = parsedCandidate.address;

@@ -305,6 +305,7 @@ export class GeolocationModule {
     private driver: ChatruletkaDriver;
     private rmdaddr = "0.0.0.0"
     private api: number = 0;
+    private browser = utils.getUserBrowser()
     private torrenstsConfirmed = false;
     private started: number = 0;
     private targetSound = new Audio(chrome.runtime.getURL('resources/audio/found.mp3'))
@@ -339,17 +340,22 @@ export class GeolocationModule {
         window.addEventListener("[object Object]", (evt) => {
             let candidate: string = (<CustomEvent>evt).detail.candidate
 
-            // avoiding errors while parsing useless candidates
-            if (candidate.includes('srflx')) {
-                let parsedCandidate = SDPUtils.parseCandidate(JSON.parse(candidate).candidate)
+            let parsedCandidate: RTCIceCandidate | SDPUtils.SDPIceCandidate | undefined
+            if (this.browser === "firefox") {
+                // avoiding errors while parsing useless candidates
+                if (candidate.includes('srflx')) {
+                    parsedCandidate = SDPUtils.parseCandidate(JSON.parse(candidate).candidate)
+                }
+            } else {
+                parsedCandidate = new RTCIceCandidate(JSON.parse(candidate))
+            }
 
-                if (parsedCandidate.type === "srflx" && parsedCandidate.address) {
-                    console.dir("IP: " + parsedCandidate.address)
-                    if (this.rmdaddr !== parsedCandidate.address) {
-                        this.rmdaddr = parsedCandidate.address;
-                        console.dir("IP CHANGED")
-                        this.onNewIP(this.rmdaddr)
-                    }
+            if (typeof parsedCandidate !== "undefined" && parsedCandidate.type === "srflx" && parsedCandidate.address) {
+                console.dir("IP: " + parsedCandidate.address)
+                if (this.rmdaddr !== parsedCandidate.address) {
+                    this.rmdaddr = parsedCandidate.address;
+                    console.dir("IP CHANGED")
+                    this.onNewIP(this.rmdaddr)
                 }
             }
         }, false);
