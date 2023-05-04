@@ -1584,7 +1584,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
     },
     {
         version: "1.8.0",
-        date: "2023-XX-XX",
+        date: "2023-05-04",
         description: {
             en: '<b>Geolocation & streamer mode improvements.</b><br>' +
                 '<br>' +
