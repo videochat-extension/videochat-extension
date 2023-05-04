@@ -1588,6 +1588,8 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
         description: {
             en: '<b>Geolocation & streamer mode improvements.</b><br>' +
                 '<br>' +
+                'This update improves the stability of the geolocation feature, adds the ability to manually select the language of geolocation data, fixes some bugs and rethinks the concept of the streamer mode.<br><br><b>New features in the streamer mode</b>: suppress the stranger\'s volume while holding a key, integration with OBS (the ability to output geolocation data directly to text in OBS, control of the cover image source directly from the extension).<br>' +
+                '<br>' +
                 '<b>- VE-API.</b><br>' +
                 '— Added new geolocation provider: ve-api (videochat-extension-api).<br>' +
                 '— For the past two years, the extension has been using the free version of ip-api.com, which has serious limitations: 45 requests per minute limit and no HTTPS support (which caused problems for a small number of users, for some reason especially in Turkey).<br>' +
@@ -1627,13 +1629,13 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<b>- Streamer mode: integration with OBS.</b><br>' +
                 '— Added integration with OBS.<br>' +
                 '— The integration requires OBS v28+, mutants like Streamlabs OBS are not yet supported.<br>' +
-                '— The extension can send OBS commands through the built-in Websocket server: to do this, you need to enable this function in the OBS menu and enter the password on a separate page of the extension.<br>' +
+                '— The extension can send OBS commands through the built-in Websocket server: to do this, you need to enable this feature in the OBS menu and enter the password on a separate page of the extension.<br>' +
                 '— Connection data (server address, password) are stored in the extension\'s local storage: they do not leave your browser and, in principle, it is very hard to connect to OBS from an external network without preliminary manipulations with the network on your part.<br>' +
                 '— If a server disconnect or error occurs, you will receive a notification in the lower left corner of the chat.<br>' +
                 '— <b>Now you can output the stranger\'s geolocation directly to the VE_TEXT text source on the active scene.</b><br>' +
                 '— You can customize the appearance of VE_TEXT (font, size) in OBS, and how the text will be formed - in the streamer mode settings.<br>' +
                 '— <b>Now you can switch the visibility of the VE_COVER source (it should cover the interlocutor\'s camera) directly in the extension!</b><br>' +
-                '— There is a gray filter function. It will check at the start of each dialogue whether VE_COVER is visible on the active scene and apply a gray filter over the interlocutor\'s camera (in the browser) if it is not visible on the broadcast.<br>' +
+                '— There is a gray filter feature. It will check at the start of each dialogue whether VE_COVER is visible on the active scene and apply a gray filter over the interlocutor\'s camera (in the browser) if it is not visible on the broadcast.<br>' +
                 '— You can switch the visibility of VE_COVER automatically / with the h button / hotkeys (h or right-arrow).<br>' +
                 '<br>' +
                 '<b>- Streamer mode: blur&mute.</b><br>' +
@@ -1688,6 +1690,8 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— The default favorites list now depends on the browser (it now contains those chats that, due to technical reasons, do not require additional permissions).<br>' +
                 '— Disabled the ability to select text in the \'Settings\' tab.',
             ru: '<b>Улучшение геолокации и режима стримера.</b><br>' +
+                '<br>' +
+                'В этом обновлении значительно улучшена стабильность работы геолокации, добавлена возможность вручную выбрать язык данных геолокации, исправлены некоторые ошибки и переработан режим стримера.<br><br><b>Новые функции в режиме стримера</b>: подавление звука собеседника на время удержания клавиши, интеграция с OBS (возможность вывода данных геолокации прямо в текст в OBS, контроль изображения-заглушки прямо из расширения).<br>' +
                 '<br>' +
                 '<b>- VE-API.</b><br>' +
                 '— Добавлен новый провайдер геолокации: ve-api (videochat-extension-api).<br>' +
@@ -1746,7 +1750,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Вы можете выбрать заглушку из списка заготовленных разработчиком гифок.<br>' +
                 '— Вы можете выбрать случайную заглушку из giphy по заранее указанному в настройках запросу.<br>' +
                 '<br>' +
-                '<b>- Режим стримера: послеслование.</b><br>' +
+                '<b>- Режим стримера: заключение.</b><br>' +
                 '— Вам нужно помнить, что заглушка не даёт вам абсолютной безопасности.<br>' +
                 '— Например, какой-нибудь школьник с OBS может запустить два видеочата и вывести вам реального человека, а потом сделать на своей камере какую-нибудь гадость.<br>' +
                 '— Вам стоит держать палец на правой стрелке клавиатуры. Левая стрелка - скип, стрелка вверх - стоп, стрелка вправо - переключение заглушки. Что может быть удобнее?<br>' +
