@@ -258,7 +258,7 @@ export class ControlsTabSettings {
         return utils.createElement('div', {
             className: "tabs__content",
             id: "settingsPanel",
-            style: "height:100%; padding-top: 1px"
+            style: "height:100%;"
         }, [
             utils.createElement('div', {
                     id: "settingsInfo",
