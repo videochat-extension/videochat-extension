@@ -46,7 +46,7 @@ export class ChatruletkaSimpleDriver {
 
     public injectResultsContainer() {
         let self = this
-        document.arrive("[data-tr=\"connection\"]", function (el) {
+        document.arrive(".message-report-link", function (el) {
             $(self.resultsContainer).appendTo(el.parentElement!)
         })
     }
