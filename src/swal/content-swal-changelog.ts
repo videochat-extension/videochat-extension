@@ -1589,9 +1589,9 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
             en: '<b>Geolocation & streamer mode improvements.</b><br>' +
                 '<br>' +
                 '<b>- VE-API.</b><br>' +
-                '— New geolocation provider: ve-api (videochat-extension-api).<br>' +
-                '— For the past two years, the extension has been using the free version of ip-api.com, which has serious limitations: a 45 requests per minute limit and no HTTPS support (which caused problems for a small number of users, especially in Turkey).<br>' +
-                '— To get around these restrictions, we rented a dedicated server in the EU and signed up for a paid subscription to ip-api.com.<br>' +
+                '— Added new geolocation provider: ve-api (videochat-extension-api).<br>' +
+                '— For the past two years, the extension has been using the free version of ip-api.com, which has serious limitations: 45 requests per minute limit and no HTTPS support (which caused problems for a small number of users, for some reason especially in Turkey).<br>' +
+                '— To get around these restrictions, we rented a server and subscribed to the paid version of ip-api.com.<br>' +
                 '— ve-api has twice the request per minute limit of the free version of ip-api.com.<br>' +
                 '— ve-api supports SSL, which should solve problems with the API for some users.<br>' +
                 '— The quality of the data will not change - behind the scenes we use the same geolocation service.<br>' +
@@ -1609,7 +1609,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<br>' +
                 '<b>- Minor changes.</b><br>' +
                 '— Updated text for some hints.<br>' +
-                '— The default favorites list now depends on the browser (it now includes only those chats that do not require additional permissions).<br>' +
+                '— The default favorites list now depends on the browser (it now contains those chats that, due to technical reasons, do not require additional permissions).<br>' +
                 '— Fixed enabling/disabling the script on omegle.com and omegle.tv (Edge).<br>' +
                 '— Disabled the ability to select text in the \'Settings\' tab.',
             ru: '<b>Улучшение геолокации и режима стримера.</b><br>' +
@@ -1617,7 +1617,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<b>- VE-API.</b><br>' +
                 '— Добавлен новый провайдер геолокации: ve-api (videochat-extension-api).<br>' +
                 '— Последние два года расширение использовало бесплатную версию ip-api.com, у которой были серьёзные ограничения: лимит 45 запросов в минуту и отсутствие HTTPS (из-за этого возникали проблемы у небольшого числа пользователей, особенно в Турции).<br>' +
-                '— Чтобы обойти эти ограничения, мы арендовали выделенный сервер в ЕС и оформили платную подписку на ip-api.com.<br>' +
+                '— Чтобы обойти эти ограничения, мы арендовали сервер и оформили платную подписку на ip-api.com.<br>' +
                 '— ve-api имеет вдвое больший лимит запросов в минуту, чем у бесплатной версии ip-api.com.<br>' +
                 '— ve-api поддерживает SSL, что позволит решить проблемы с API у некоторых пользователей.<br>' +
                 '— Качество данных не изменится - за кулисами мы используем тот же сервис геолокации.<br>' +
@@ -1635,7 +1635,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<br>' +
                 '<b>- Мелкие изменения.</b><br>' +
                 '— Обновлен текст некоторых подсказок.<br>' +
-                '— Список избранного по умолчанию теперь зависит от браузера (в нем теперь те чаты, для запуска которых не нужны дополнительные разрешения).<br>' +
+                '— Список избранного по умолчанию теперь зависит от браузера (в нем теперь те чаты, для запуска которых из-за технических причин не нужны дополнительные разрешения).<br>' +
                 '— Исправлено включение/выключения скрипта на omegle.com и omegle.tv (Edge).<br>' +
                 '— Отключена возможность выделять текст во вкладке \'Настройки\'.'
         }
