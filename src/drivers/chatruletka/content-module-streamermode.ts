@@ -332,11 +332,11 @@ export class StreamerModule {
                     tooltip: chrome.i18n.getMessage("tooltipStreamerHotkeys"),
                     enable: () => {
                         document.addEventListener('keyup', this.hotkeys)
-                        document.addEventListener('keyup', this.hotkeysDown)
+                        document.addEventListener('keydown', this.hotkeysDown)
                     },
                     disable: () => {
                         document.removeEventListener('keyup', this.hotkeys);
-                        document.removeEventListener('keyup', this.hotkeysDown);
+                        document.removeEventListener('keydown', this.hotkeysDown);
                     }
                 },
                 {
@@ -1039,7 +1039,7 @@ export class StreamerModule {
 
         if (globalThis.platformSettings.get("streamerKeys")) {
             document.addEventListener('keyup', this.hotkeys)
-            document.addEventListener('keyup', this.hotkeysDown)
+            document.addEventListener('keydown', this.hotkeysDown)
         }
 
         this.driver.modules.controls.header.minifyButtons();
@@ -1068,7 +1068,7 @@ export class StreamerModule {
         this.driver.modules.controls.header.leftMute.style.display = "none";
 
         document.removeEventListener('keyup', this.hotkeys);
-        document.removeEventListener('keyup', this.hotkeysDown);
+        document.removeEventListener('keydown', this.hotkeysDown);
 
         this.driver.modules.controls.header.restoreButtons();
 
@@ -1261,7 +1261,7 @@ export class StreamerModule {
                 break;
 
             case "m":
-                this.handleMuteButtonDown();
+                this.handleMuteButtonUp();
                 break;
         }
     }
@@ -1271,7 +1271,7 @@ export class StreamerModule {
             return
         switch (e.key) {
             case "m":
-                this.handleMuteButtonUp();
+                this.handleMuteButtonDown();
         }
     }
 }
