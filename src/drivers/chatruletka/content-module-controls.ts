@@ -473,7 +473,7 @@ export class ControlsTabAbout {
         return utils.createElement('div', {
             className: "tabs__content",
             id: "aboutPanel",
-            style: "height:100%; padding-top: 1px"
+            style: "height:100%;"
         }, [
             utils.createElement('div', {
                     id: "aboutInfo",
