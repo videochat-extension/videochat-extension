@@ -1605,12 +1605,87 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Now you can choose the language of geolocation, available languages: English, German, Spanish, Portuguese, French, Japanese, Chinese, Russian. Previously it was possible to request the browser language, but now you can choose manually from the list in the geolocation settings. Works only in full COMC mode, in other modes the language is selected based on the browser language.<br>' +
                 '<br>' +
                 '<b>- Streamer mode.</b><br>' +
-                '— Text.<br>' +
+                '— Streamer Mode contains features that make video chats more suitable for broadcasting on YouTube and other services.<br>' +
+                '— Streamer mode was first added on 2021-12-31, but it was difficult to understand and was in alpha stage for quite a long time.<br>' +
+                '— Streamer mode has been the most undeveloped part of the extension, so it had to be seriously reworked.<br>' +
+                '— This update brings new features for the streamer mode with a focus on reworking and simplifying old ones.<br>' +
+                '— If you\'re a YouTuber you\'ll love this mode because it\'s packed with useful features and gives you a sense of security and control over what you are broadcasting.<br>' +
+                '— If you\'re creating content on Twitch, you should be aware that Twitch does not allow \'randomized video chat services\' to be broadcast on its platform.<br>' +
+                '<br>' +
+                '<b>- Streamer mode: general changes.</b><br>' +
+                '— When you turn on the streamer mode, a window opens with information on how to use it.<br>' +
+                '— Added buttons to the control panel to mute and toggle mute: previously this only worked through non-intuitive hotkeys.<br>' +
+                '— Buttons are used to control the streamer mode and display the status: whether the stranger\'s cam is covered, whether the muting is active, etc.<br>' +
+                '— Removed streamer mode status bar (previously the status was displayed in the geolocation tab).<br>' +
+                '— The h, m and right-arrow hotkeys can still be used to control streamer mode.<br>' +
+                '<br>' +
+                '<b>- Streamer mode: suppress volume.</b><br>' +
+                '— Added the ability to temporarily suppresse the stranger\'s volume by holding down a key/button.<br>' +
+                '— This can be useful for echo suppression: hold down the \'m\' key -> the sound is muted to the set value -> say your lines -> wait a second -> release the key -> the sound level is restored to its previous value.<br>' +
+                '— The sound level of the interlocutor at the time of suppression can be specified in the settings.<br>' +
+                '<br>' +
+                '<b>- Streamer mode: integration with OBS.</b><br>' +
+                '— Added integration with OBS.<br>' +
+                '— The integration requires OBS v28+, mutants like Streamlabs OBS are not yet supported.<br>' +
+                '— The extension can send OBS commands through the built-in Websocket server: to do this, you need to enable this function in the OBS menu and enter the password on a separate page of the extension.<br>' +
+                '— Connection data (server address, password) are stored in the extension\'s local storage: they do not leave your browser and, in principle, it is very hard to connect to OBS from an external network without preliminary manipulations with the network on your part.<br>' +
+                '— If a server disconnect or error occurs, you will receive a notification in the lower left corner of the chat.<br>' +
+                '— <b>Now you can output the stranger\'s geolocation directly to the VE_TEXT text source on the active scene.</b><br>' +
+                '— You can customize the appearance of VE_TEXT (font, size) in OBS, and how the text will be formed - in the streamer mode settings.<br>' +
+                '— <b>Now you can switch the visibility of the VE_COVER source (it should cover the interlocutor\'s camera) directly in the extension!</b><br>' +
+                '— There is a gray filter function. It will check at the start of each dialogue whether VE_COVER is visible on the active scene and apply a gray filter over the interlocutor\'s camera (in the browser) if it is not visible on the broadcast.<br>' +
+                '— You can switch the visibility of VE_COVER automatically / with the h button / hotkeys (h or right-arrow).<br>' +
+                '<br>' +
+                '<b>- Streamer mode: blur&mute.</b><br>' +
+                '— This is a slightly reworked old streamer mode.<br>' +
+                '— It allows you to close the image of the interlocutor with a blur / image / gif.<br>' +
+                '— After that, you can observe the interlocutor through the picture-in-picture mode (turned on by the green button on the control panel) and decide whether to show it to your audience. In Firefox, PiP does not work, so the video is displayed in the lower left corner of your camera.<br>' +
+                '— You can switch the visibility of the cover automatically / using the h button / hotkeys (h or right-arrow).<br>' +
+                '— You can set your own 4:3 image/gif (you need a direct link, for example, you can upload it to Imgur).<br>' +
+                '— You can choose a random cover from a list of gifs prepared by the developer.<br>' +
+                '— You can choose a random cover from giphy, tag for request can be specified in the settings.<br>' +
+                '<br>' +
+                '<b>- Streamer mode: conclusion.</b><br>' +
+                '— You need to remember that a cover does not give you absolute security.<br>' +
+                '— For example, some kid with OBS can start two video chats and show you a real person, and then do something nasty on his camera.<br>' +
+                '— You should keep your finger on the right arrow of the keyboard. Left arrow - skip, up arrow - stop, right arrow - toggle cover. What could be more convenient?<br>' +
+                '<br>' +
+                '<b>- Hotkeys.</b><br>' +
+                '- Fixed \'cancel\' feature of local hotkeys after 5 second hold.<br>' +
+                '— Fixed incorrect behavior of local hotkeys when the report window is open.<br>' +
+                '<br>' +
+                '<b>- Hints.</b><br>' +
+                '— Updated the text of some hints: bugs fixed, amount of text reduced.<br>' +
+                '— Hints will now appear much less frequently: 33% chance when opening a video chat site.<br>' +
+                '— Added a setting to show tooltips every time the site is opened (disabled by default).<br>' +
+                '<br>' +
+                '<b>- Minimalistic COMC mode.</b><br>' +
+                '— Fixed displaying of geolocation data in the \'connected\' window (there were some changes on the part of the site, to which I had to adapt).<br>' +
+                '— Greatly improved geolocation stability.<br>' +
+                '— COMC is an abbreviation for \'Chatruletka, Ome.tv, Minichat, Chatrulez\'.<br>' +
+                '<br>' +
+                '<b>- Omegle.</b><br>' +
+                '— Change in dark theme: added a border to the window with information about the extension, it used to be ugly: it blended into the background.<br>' +
+                '— Greatly improved geolocation stability.<br>' +
+                '<br>' +
+                '<b>- Coomeet Free.</b><br>' +
+                '— Interface simplification: extension settings (hide bots / mute bots) will now only be displayed when you hover over the controls on your video.<br>' +
+                '— Added a simple volume control to the stranger\'s video control panel: you can click to mute/unmute and scroll to change the volume.<br>' +
+                '— In early versions of freecm there was a volume control, but the chat interface was rewritten, where the ability to adjust volume was removed.<br>' +
+                '<br>' +
+                '<b>- Firefox support.</b><br>' +
+                '— The Firefox version is now almost identical to the Chrome version.<br>' +
+                '— The extension sound notifications should now work.<br>' +
+                '— The PiP buttons now exist on the control panel to explain that they don\'t work.<br>' +
+                '— Added support for the streamer mode: except for the inability to use PiP, it is identical to the Chrome version.<br>' +
+                '<br>' +
+                '<b>- Microsoft Edge support.</b><br>' +
+                '— Fixed enabling/disabling the script on omegle.com and omegle.tv (Edge).<br>' +
                 '<br>' +
                 '<b>- Minor changes.</b><br>' +
-                '— Updated text for some hints.<br>' +
+                '— Reworked the appearance of the version list in the changelog window so that it looks the same on all platforms and browsers.<br>' +
+                '— Removed scrolling in post-installation window in \'non-curious\' mode.<br>' +
                 '— The default favorites list now depends on the browser (it now contains those chats that, due to technical reasons, do not require additional permissions).<br>' +
-                '— Fixed enabling/disabling the script on omegle.com and omegle.tv (Edge).<br>' +
                 '— Disabled the ability to select text in the \'Settings\' tab.',
             ru: '<b>Улучшение геолокации и режима стримера.</b><br>' +
                 '<br>' +
@@ -1631,12 +1706,87 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Теперь можно выбрать язык геолокации, доступны: Английский, Немецкий, Испанский, Португальский, Французский, Японский, Китайский, Русский. Раньше была возможность запрашивать язык браузера, а теперь можно выбрать вручную. Это работает только в полноценном режиме COMC, в остальных режимах язык выбирается исходя из языка браузера.<br>' +
                 '<br>' +
                 '<b>- Режим стримера.</b><br>' +
-                '— Текст.<br>' +
+                '— Режим стримера содержит функции, упрощающие ведение трансляций на YouTube и других сервисах.<br>' +
+                '— Режим стримера был впервые добавлен 2021-12-31, но он был сложным в освоении и долгое время пребывал в альфа версии.<br>' +
+                '— Режим стримера долгое время оставался самой сырой частью расширения, поэтому пришлось его серьёзно переработать перед тем, как двигаться дальше.<br>' +
+                '— В этом обновлении появились новые функции и особое внимание было уделено переработке и упрощению старых.<br>' +
+                '— Если вы создаёте контент на YouTube, вам должен понравится этот режим: в нём есть полезные функции и он даёт ощущение безопасности и контроля над ситуацией.<br>' +
+                '— Если вы создаёте контент на Twitch, вам стоит помнить, что Twitch запрещает транслировать \'randomized video chat services\' на своей платформе.<br>' +
+                '<br>' +
+                '<b>- Режим стримера: общие изменения.</b><br>' +
+                '— При включении режима стримера открывается окошко с информацией о том, как всем этим пользоваться.<br>' +
+                '— Добавлены кнопки в панель управления для отключения звука и переключения заглушки: раньше это работало только через неинтуитивные горячие клавиши.<br>' +
+                '— Кнопки используются для управления режимом стримера и отображения статуса: замучен ли собеседник, активна ли заглушка.<br>' +
+                '— Убрана статусная строка режима стримера (раньше статус отображался в окошке геолокации).<br>' +
+                '— Горячие клавиши h, m и стрелка-вправо всё ещё можно использовать для управления режимом стримера.<br>' +
+                '<br>' +
+                '<b>- Режим стримера: подавление звука.</b><br>' +
+                '— Добавлена возможность удержанием клавиши/кнопки временно подавить звук собеседнику.<br>' +
+                '— Это может быть полезно для подавления эхо: зажали клавишу \'m\' -> звук подавлен до установленного значения -> сказали свою реплику -> подождали секунду -> отпустили клавишу -> уровень звука восстановлен до прежнего значения.<br>' +
+                '— Уровень звука собеседника на время подавления можно указать в настройках.<br>' +
+                '<br>' +
+                '<b>- Режим стримера: интеграция с OBS.</b><br>' +
+                '— Добавлена интеграция с OBS.<br>' +
+                '— Для работы интеграции нужна OBS v28+, мутанты вроде Streamlabs OBS пока не поддерживаются.<br>' +
+                '— Расширение может отправлять команды OBS через встроенный Websocket сервер: для этого эту функцию нужно включить в меню OBS и ввести пароль на отдельной страничке расширения.<br>' +
+                '— Данные подключения (адрес сервера, пароль) находятся в локальном хранилище расширения: они не покидают ваш браузер и в принципе из внешней сети к OBS подключиться без предварительных манипуляций с сетью с вашей стороны нереально.<br>' +
+                '— Если произойдет разрыв соединения или ошибка - вы получите об этом уведомление в нижнем левом угле чата.<br>' +
+                '— <b>Теперь можно выводить геолокацию собеседника прямо в текстовый источник VE_TEXT на активной сцене.</b><br>' +
+                '— Вы можете настроить внешний вид VE_TEXT (шрифт, размер) в OBS, а как будет формироваться текст - в настройках режима стримера.<br>' +
+                '— <b>Теперь можно переключать видимость источника VE_COVER (он должен закрывать камеру собеседника) прямо в расширении!</b><br>' +
+                '— Существует функция серого фильтра. Она будет проверять при старте каждого диалога видно ли VE_COVER на активной сцене и применять серый фильтр поверх камеры собеседника (в браузере), если её не видно на трансляции.<br>' +
+                '— Переключать видимость VE_COVER можно автоматически / кнопкой h / горячими клавишами (h или стрелка-вправо).<br>' +
+                '<br>' +
+                '<b>- Режим стримера: блюр&заглушка.</b><br>' +
+                '— Это немного переработанный старый режим стримера.<br>' +
+                '— Он позволяет закрыть изображение собеседника размытием / изображением / гифкой.<br>' +
+                '— После этого вы можете наблюдать за собеседником через режим картинка-в-картинке (включается зеленой кнопкой на панели управления) и решить, стоит ли его показывать вашей аудитории. В Firefox PiP не работает, так что видео отображается в левом нижнем углу вашей камеры.<br>' +
+                '— Переключать видимость блюра/заглушки можно автоматически / кнопкой h / горячими клавишами (h или стрелка-вправо).<br>' +
+                '— Вы можете установить свою 4:3 картинку/gif (нужна прямая ссылка, например можно загрузить на Imgur).<br>' +
+                '— Вы можете выбрать заглушку из списка заготовленных разработчиком гифок.<br>' +
+                '— Вы можете выбрать случайную заглушку из giphy по заранее указанному в настройках запросу.<br>' +
+                '<br>' +
+                '<b>- Режим стримера: послеслование.</b><br>' +
+                '— Вам нужно помнить, что заглушка не даёт вам абсолютной безопасности.<br>' +
+                '— Например, какой-нибудь школьник с OBS может запустить два видеочата и вывести вам реального человека, а потом сделать на своей камере какую-нибудь гадость.<br>' +
+                '— Вам стоит держать палец на правой стрелке клавиатуры. Левая стрелка - скип, стрелка вверх - стоп, стрелка вправо - переключение заглушки. Что может быть удобнее?<br>' +
+                '<br>' +
+                '<b>- Горячие клавиши.</b><br>' +
+                '— Исправлена \'отмена\' действия локальной горячей клавиши после 5-ти секундного удержания.<br>' +
+                '— Исправлено неправильное поведение локальных горячих клавиш при открытом окне репорта.<br>' +
+                '<br>' +
+                '<b>- Подсказки.</b><br>' +
+                '— Обновлен текст некоторых подсказок: исправлены ошибки, уменьшено кол-во текста.<br>' +
+                '— Теперь подсказки будут появляться намного реже: 33% шанс при открытии сайта видеочата.<br>' +
+                '— Добавлена настройка, чтобы показывать подсказки при каждом открытии сайта (отключено по умолчанию).<br>' +
+                '<br>' +
+                '<b>- Минималистичный режим COMC.</b><br>' +
+                '— Исправлен вывод данных геолокации в окошко подключения (произошли доброкачественные изменения со стороны сайта, к которым пришлось адаптироваться).<br>' +
+                '— Значительно улучшена стабильность геолокации.<br>' +
+                '— COMC - это сокращение для \'Chatruletka, Ome.tv, Minichat, Chatrulez\'.<br>' +
+                '<br>' +
+                '<b>- Omegle.</b><br>' +
+                '— Изменение в тёмной теме: добавлена граница у окошка с информацией о расширении, раньше было некрасиво: сливалось с фоном.<br>' +
+                '— Значительно улучшена стабильность геолокации.<br>' +
+                '<br>' +
+                '<b>- Coomeet Free.</b><br>' +
+                '— Упрощение интерфейса: настройки расширения (скрывать ботов / мутить ботов) теперь будут отображаться только когда вы наводите курсор на контрольную панель на вашем видео.<br>' +
+                '— Добавлена простенькая регулировка громкости в контрольную панель видео собеседника: можно кликать, чтобы мутить/размутить, и скроллить, чтобы менять уровень звука.<br>' +
+                '— В ранних версиях freecm была регулировка громкости, но интерфейс чата был впоследствии переписан, где возможность регулировки была убрана.<br>' +
+                '<br>' +
+                '<b>- Поддержка Firefox.</b><br>' +
+                '— Версия Firefox теперь практически идентична версии Chrome.<br>' +
+                '— Звуковые уведомления расширения теперь должны работать.<br>' +
+                '— Кнопки PiP теперь отображаются на контрольной панели и поясняют, что они не работают.<br>' +
+                '— Добавлена поддержка режима стримера: за исключением невозможности использовать PiP, он идентичен версии Chrome.<br>' +
+                '<br>' +
+                '<b>- Поддержка Microsoft Edge.</b><br>' +
+                '— Исправлено включение/выключения скрипта на omegle.com и omegle.tv (Edge).<br>' +
                 '<br>' +
                 '<b>- Мелкие изменения.</b><br>' +
-                '— Обновлен текст некоторых подсказок.<br>' +
+                '— Переделан внешний вид списка версий в окне истории версий: теперь на всех платформах и браузерах он будет выглядеть одинаково аккуратно.<br>' +
+                '— Убран скролл в после-установочном окошке в \'нелюбознательном\' режиме.<br>' +
                 '— Список избранного по умолчанию теперь зависит от браузера (в нем теперь те чаты, для запуска которых из-за технических причин не нужны дополнительные разрешения).<br>' +
-                '— Исправлено включение/выключения скрипта на omegle.com и omegle.tv (Edge).<br>' +
                 '— Отключена возможность выделять текст во вкладке \'Настройки\'.'
         }
     },
@@ -1668,8 +1818,8 @@ export class ContentSwalChangelog extends SwalWithSteps {
         })
     }
 
-    private styleStep(v:string) {
-        return`<span style="font-size: 14px;font-family: 'Times New Roman',serif; vertical-align: super;">${v}</span>`
+    private styleStep(v: string) {
+        return `<span style="font-size: 14px;font-family: 'Times New Roman',serif; vertical-align: super;">${v}</span>`
     }
 
     private constructor() {
