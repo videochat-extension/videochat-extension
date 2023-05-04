@@ -19,19 +19,22 @@ export class CooMeetFreeSimpleDriver {
     private loader: HTMLElement | undefined;
 
     private volume = 0;
+    private predVolume = 0;
     private volumeControl = utils.createElement('div', {
         className: "free-cm-app-country-selector__item free-cm-app-country-selector2__item"
     }, [
         utils.createElement('span', {
             innerText: `v: ${this.volume}%`,
-            style: "white-space: nowrap; overflow: hidden; cursor: ns-resize"
+            style: "white-space: nowrap; overflow: hidden; user-select: none; cursor: ns-resize"
         })
     ])
 
     private updVolume(volume: number) {
         this.volume = volume;
-        if (this.video)
+        if (this.video) {
+            this.predVolume = this.video.volume
             this.video.volume = +volume.toFixed(2);
+        }
         (this.volumeControl.children[0] as HTMLElement).innerText = `v: ${Math.ceil(this.volume * 100)}%`
     }
 
@@ -179,6 +182,16 @@ export class CooMeetFreeSimpleDriver {
                     }
 
                     self.updVolume(self.video.volume)
+                }
+            })
+            $(self.volumeControl).on('click', function (event: any) {
+                event.preventDefault()
+                if (self.video) {
+                    if (self.video.volume == 0) {
+                        self.updVolume(self.predVolume)
+                    } else {
+                        self.updVolume(0)
+                    }
                 }
             })
             el.appendChild(self.volumeControl)
