@@ -280,7 +280,8 @@ export class StreamerModule {
             tooltip: chrome.i18n.getMessage("tooltipStreamerMode"),
             controlsSection: "streamerList",
             enable: () => {
-                this.start()
+                this.start();
+                document.getElementById('VE_obsHelpSwalButton')!.click();
             },
             disable: () => {
                 this.stopBase()
@@ -297,6 +298,27 @@ export class StreamerModule {
             hide: globalThis.platformSettings.get("streamer"),
             sectionId: "streamerList",
             children: [
+                {
+                    type: "HTMLElement",
+                    element: utils.createElement('dd', {}, [
+                        utils.createElement('button', {
+                            style: "margin-top: 2px",
+                            id: "VE_obsHelpSwalButton",
+                            onclick: (e: MouseEvent) => {
+                                Swal.fire({
+                                    title: chrome.i18n.getMessage('streamerMode'),
+                                    html: `<div id="container" style="text-align: left; min-height: 400px; max-height: 400px">${chrome.i18n.getMessage('obsHelpSwalHtml')}</div>`,
+                                    heightAuto: false,
+                                    icon: 'info',
+                                })
+                            },
+                        }, [
+                            utils.createElement('b', {
+                                innerText: chrome.i18n.getMessage("obsHelpSwal")
+                            })
+                        ])
+                    ])
+                },
                 {
                     type: "br",
                 },
