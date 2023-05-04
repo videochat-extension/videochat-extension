@@ -1,5 +1,6 @@
 import {SwalWithSteps} from "../drivers/chatruletka/content-swal-info";
 import {ControlsTabSettings} from "../drivers/chatruletka/content-module-settings";
+import $ from "jquery";
 
 let changelog: { version: string, date: string, description: { en: string, ru: string } }[] = [
     {
@@ -1654,12 +1655,29 @@ export class ContentSwalChangelog extends SwalWithSteps {
         })
     }
 
+    public didRender = () => {
+        let progressSteps = $(".swal2-progress-step")
+        progressSteps.css({
+            "user-select": "none",
+            'cursor': 'pointer'
+        })
+        let self = this
+        progressSteps.click(function (el) {
+            self.currentStep = self.steps.indexOf(self.styleStep(el.target.innerText))
+            self.selectStep(self.currentStep)
+        })
+    }
+
+    private styleStep(v:string) {
+        return`<span style="font-size: 14px;font-family: 'Times New Roman',serif; vertical-align: super;">${v}</span>`
+    }
+
     private constructor() {
         super();
 
         this.steps = []
         changelog.forEach((log) => {
-            this.steps.push(log.version)
+            this.steps.push(this.styleStep(log.version))
         })
 
         this.titles = []
@@ -1671,7 +1689,7 @@ export class ContentSwalChangelog extends SwalWithSteps {
             showCancelButton: true,
             allowEscapeKey: true,
             progressSteps: this.steps,
-            progressStepsDistance: "4%",
+            progressStepsDistance: "2%",
             // TODO: this changes platform settings, but need to change global
             footer: ControlsTabSettings.createSettingsCheckbox(true, 'span', 'allowShowChangelog', chrome.i18n.getMessage('showChangelogToggle'), chrome.i18n.getMessage("tooltipShowChangelogToggle"))
         })
@@ -1689,8 +1707,8 @@ export class ContentSwalChangelog extends SwalWithSteps {
         if (version === "") {
             version = chrome.runtime.getManifest().version
         }
-        let index = this.steps.indexOf(version)
-        if (this.steps.indexOf(version) + 1 < this.steps.length) {
+        let index = this.steps.indexOf(this.styleStep(version))
+        if (index + 1 < this.steps.length) {
             index++
         }
 
