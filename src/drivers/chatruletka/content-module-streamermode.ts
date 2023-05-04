@@ -4,6 +4,7 @@ import * as utils from "../../utils/utils";
 import {ChatruletkaDriver} from "../content-driver-chatruletka";
 import ChangeEvent = JQuery.ChangeEvent;
 import Swal from "sweetalert2";
+import set = chrome.cookies.set;
 
 class StreamerModuleOBS {
     private obs: OBSWebSocket;
@@ -873,7 +874,11 @@ export class StreamerModule {
         if (globalThis.platformSettings.get("streamerBlurCoverSection")) {
             if (globalThis.platformSettings.get("cover")) {
                 document.getElementById('cover')!.style.display = ""
-                this.getRemoteVideo().style.filter = "opacity(0%)"
+                setTimeout(()=>{
+                    if (this.blur) {
+                        this.getRemoteVideo().style.filter = "opacity(0%)"
+                    }
+                },200)
             } else {
                 this.getRemoteVideo()!.style.filter = this.BLUR_FILTER
             }
@@ -887,8 +892,12 @@ export class StreamerModule {
         if (globalThis.platformSettings.get("streamerBlurCoverSection")) {
             if (globalThis.platformSettings.get("cover")) {
                 if (globalThis.platformSettings.get("coverNoise") || globalThis.platformSettings.get("coverPreview") || globalThis.platformSettings.get("coverStop")) {
-                    this.getLocalVideo().style.filter = "opacity(0%)"
                     document.getElementById('cover2')!.style.display = ""
+                    setTimeout(()=>{
+                        if (this.blur) {
+                            this.getLocalVideo().style.filter = "opacity(0%)"
+                        }
+                    },200)
                 }
             } else {
                 this.getLocalVideo().style.filter = this.BLUR_FILTER
