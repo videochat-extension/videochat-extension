@@ -384,11 +384,16 @@ export class GeolocationModule {
             (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStartCheck") + "</br></br>" + chrome.i18n.getMessage("main", [this.driver.site.text]);
         }
 
+        this.apiProviders = this.getApiProviders();
+
         chrome.runtime.sendMessage({
             makeGeolocationRequest: "1.1.1.1",
             language: "en",
             allow: this.apiProviders
         }, (response) => {
+            if (response.failed && response.failed.includes('ve-api')) {
+                this.apiProviders = this.apiProviders.filter(provider => provider !== "ve-api")
+            }
             if (response.status === 200) {
                 this.api = 2;
                 if (this.needToShowHint) {

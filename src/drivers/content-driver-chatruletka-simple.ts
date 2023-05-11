@@ -19,6 +19,7 @@ export class ChatruletkaSimpleDriver {
         }
         return lang
     }();
+    private apiProviders = ["ve-api", "ip-api", "geojs"];
     private rmdaddr = "0.0.0.0"
     private curIps: string[] = []
     private browser = utils.getUserBrowser()
@@ -78,8 +79,12 @@ export class ChatruletkaSimpleDriver {
     }
 
     private checkApi() {
-        chrome.runtime.sendMessage({makeGeolocationRequest: "1.1.1.1", language: this.apiLanguage, allow: ["ve-api", "ip-api", "geojs"]}, (response) => {
+        this.apiProviders = ["ve-api", "ip-api", "geojs"];
+        chrome.runtime.sendMessage({makeGeolocationRequest: "1.1.1.1", language: this.apiLanguage, allow: this.apiProviders}, (response) => {
             console.dir(`geolocation test: ${response.status}`)
+            if (response.failed && response.failed.includes('ve-api')) {
+                this.apiProviders = this.apiProviders.filter(provider => provider !== "ve-api")
+            }
             let apiStatusContainer = $('#apiStatusContainer')
             if (response.status === 200) {
                 if ($('span[data-tr="rules"]').length === 1 && apiStatusContainer.length == 1) {

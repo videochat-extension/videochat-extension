@@ -23,6 +23,7 @@ export class OmegleSimpleDriver {
         }
         return lang
     }();
+    private apiProviders = ["ve-api", "ip-api", "geojs"];
     private rmdaddr = "0.0.0.0"
     private curIps: string[] = []
 
@@ -177,7 +178,10 @@ export class OmegleSimpleDriver {
             this.curIps.push(newIp)
         }
 
-        chrome.runtime.sendMessage({makeGeolocationRequest: newIp, language: this.apiLanguage, allow: ["ve-api", "ip-api", "geojs"]}, (response) => {
+        chrome.runtime.sendMessage({makeGeolocationRequest: newIp, language: this.apiLanguage, allow: this.apiProviders}, (response) => {
+            if (response.failed && response.failed.includes('ve-api')) {
+                this.apiProviders = this.apiProviders.filter(provider => provider !== "ve-api")
+            }
             if (!this.curIps.includes(newIp)) {
                 return
             }

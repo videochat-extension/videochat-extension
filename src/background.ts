@@ -397,7 +397,7 @@ function tabsOnActivated(chTab: chrome.tabs.TabActiveInfo) {
     });
 }
 
-function geo(urls: { url: string, service: string }[], index: number, sendResponse: (response?: any) => void) {
+function geo(urls: { url: string, service: string }[], index: number, failed: string[], sendResponse: (response?: any) => void) {
     const nextIndex = index + 1
     fetchWithTimeout(urls[index].url, {}, 5000)
         .then((response: any) => {
@@ -419,22 +419,25 @@ function geo(urls: { url: string, service: string }[], index: number, sendRespon
                         "hosting": data.hosting || false,
                         "query": data.query || data.ip
                     }
-                    sendResponse({status: response.status, body: json})
+                    sendResponse({status: response.status, failed: failed, body: json})
                 })
             } else {
                 if (nextIndex == urls.length) {
-                    sendResponse({status: response.status, body: {}})
+                    sendResponse({status: response.status, failed: failed, body: {}})
                 } else {
-                    geo(urls, nextIndex, sendResponse)
+                    geo(urls, nextIndex, failed, sendResponse)
                 }
             }
         })
         .catch(
             (error) => {
+                if (["timeout", "Failed to fetch"].includes(error.message)) {
+                    failed.push(urls[index].service)
+                }
                 if (nextIndex == urls.length) {
-                    sendResponse({status: 0, body: `${error.message}`})
+                    sendResponse({status: 0, failed: failed, body: `${error.message}`})
                 } else {
-                    geo(urls, nextIndex, sendResponse)
+                    geo(urls, nextIndex, failed, sendResponse)
                 }
             }
         )
@@ -442,6 +445,7 @@ function geo(urls: { url: string, service: string }[], index: number, sendRespon
 
 function geolocate(ip: string, language: string, allow: string[], sendResponse: (response?: any) => void) {
     const urls: { url: string, service: string }[] = []
+    const failed: string[] = []
     if (allow.includes('ve-api')) {
         urls.push({url: `https://ve-api.starbase.wiki/geo?ip=${ip}&lang=${language}`, service: "ve-api"})
     }
@@ -458,7 +462,7 @@ function geolocate(ip: string, language: string, allow: string[], sendResponse: 
     }
 
     let index = 0
-    geo(urls, index, sendResponse)
+    geo(urls, index, failed, sendResponse)
 }
 
 function runtimeOnMessage(request: any, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void) {
