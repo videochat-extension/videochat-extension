@@ -397,10 +397,10 @@ function tabsOnActivated(chTab: chrome.tabs.TabActiveInfo) {
     });
 }
 
-function geo(urls: string[], index: number, sendResponse: (response?: any) => void) {
+function geo(urls: { url: string, service: string }[], index: number, sendResponse: (response?: any) => void) {
     const nextIndex = index + 1
-    fetch(urls[index])
-        .then((response) => {
+    fetchWithTimeout(urls[index].url, {}, 5000)
+        .then((response: any) => {
             if (response.ok) {
                 response.json().then(data => (sendResponse({status: response.status, body: data})))
             } else {
@@ -423,12 +423,12 @@ function geo(urls: string[], index: number, sendResponse: (response?: any) => vo
 }
 
 function geolocate(ip: string, language: string, allow: string[], sendResponse: (response?: any) => void) {
-    const urls: string[] = []
+    const urls: { url: string, service: string }[] = []
     if (allow.includes('ve-api')) {
-        urls.push(`https://ve-api.starbase.wiki/geo?ip=${ip}&lang=${language}`)
+        urls.push({url: `https://ve-api.starbase.wiki/geo?ip=${ip}&lang=${language}`, service: "ve-api"})
     }
     if (allow.includes('ip-api')) {
-        urls.push(`http://ip-api.com/json/${ip}?fields=17032159&lang=${language}`)
+        urls.push({url: `http://ip-api.com/json/${ip}?fields=17032159&lang=${language}`, service: "ip-api"})
     }
 
     if (urls.length === 0) {
@@ -781,4 +781,13 @@ function getUserBrowser(): string {
         }
     }
     return "chrome"
+}
+
+function fetchWithTimeout(url: RequestInfo | URL, options?: RequestInit | undefined, timeout = 5000) {
+    return Promise.race([
+        fetch(url, options),
+        new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('timeout')), timeout)
+        )
+    ]);
 }
