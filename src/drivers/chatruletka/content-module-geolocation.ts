@@ -24,6 +24,7 @@ export class GeolocationModule {
         customApiBehaviour: false,
         allowVeApi: true,
         allowIpApi: true,
+        allowGeoJs: true,
         ipApiLocalisation: true,
         ipApiPreferredLang: 'auto',
         hideMobileLocation: true,
@@ -83,6 +84,19 @@ export class GeolocationModule {
                     key: "allowIpApi",
                     text: chrome.i18n.getMessage("allowIpApi"),
                     tooltip: chrome.i18n.getMessage("tooltipAllowIpApi"),
+                    enable: () => {
+                        this.apiProviders = this.getApiProviders()
+                    },
+                    disable: () => {
+                        this.apiProviders = this.getApiProviders()
+                    }
+                },
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "allowGeoJs",
+                    text: chrome.i18n.getMessage("allowGeoJs"),
+                    tooltip: chrome.i18n.getMessage("tooltipAllowGeoJs"),
                     enable: () => {
                         this.apiProviders = this.getApiProviders()
                     },
@@ -726,6 +740,10 @@ export class GeolocationModule {
 
         if (globalThis.platformSettings.get('allowIpApi')) {
             allow.push('ip-api')
+        }
+
+        if (globalThis.platformSettings.get('allowGeoJs')) {
+            allow.push('geojs')
         }
 
         return allow

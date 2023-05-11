@@ -78,7 +78,7 @@ export class ChatruletkaSimpleDriver {
     }
 
     private checkApi() {
-        chrome.runtime.sendMessage({makeGeolocationRequest: "1.1.1.1", language: this.apiLanguage, allow: ["ve-api", "ip-api"]}, (response) => {
+        chrome.runtime.sendMessage({makeGeolocationRequest: "1.1.1.1", language: this.apiLanguage, allow: ["ve-api", "ip-api", "geojs"]}, (response) => {
             console.dir(`geolocation test: ${response.status}`)
             let apiStatusContainer = $('#apiStatusContainer')
             if (response.status === 200) {
@@ -148,7 +148,7 @@ export class ChatruletkaSimpleDriver {
             this.curIps.push(newIp)
         }
 
-        chrome.runtime.sendMessage({makeGeolocationRequest: newIp, language: this.apiLanguage, allow: ["ve-api", "ip-api"]}, (response) => {
+        chrome.runtime.sendMessage({makeGeolocationRequest: newIp, language: this.apiLanguage, allow: ["ve-api", "ip-api", "geojs"]}, (response) => {
             if (!this.curIps.includes(newIp)) {
                 return
             }

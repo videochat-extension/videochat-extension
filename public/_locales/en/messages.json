@@ -515,6 +515,12 @@
   "tooltipAllowIpApi": {
     "message": "turn this on if you want to use the service 'ip-api.com' to process geolocation requests. we have used this service as the only one for many years: it is very fast and reliable, gives acceptable data quality and is free for non-commercial use. cons: the free version only works via http (some users may have technical issues) and has a limit of 45 requests per minute. to avoid this issues we started using our own server with a paid subscription to the same service by default."
   },
+  "allowGeoJs": {
+    "message": "use geojs.io: "
+  },
+  "tooltipAllowGeoJs": {
+    "message": "turn this on if you want to use the service 'geojs.io' to process geolocation requests. it has low data quality and will most likely never be used, because we use it as a backup service for a backup service."
+  },
   "apiLocalisation": {
     "message": "localisation: "
   },

@@ -402,7 +402,25 @@ function geo(urls: { url: string, service: string }[], index: number, sendRespon
     fetchWithTimeout(urls[index].url, {}, 5000)
         .then((response: any) => {
             if (response.ok) {
-                response.json().then(data => (sendResponse({status: response.status, body: data})))
+                response.json().then((data: any) => {
+                    let json = {
+                        "status": data.status || "success",
+                        "country": data.country || "unknown",
+                        "countryCode": data.countryCode || data.country_code || "unknown",
+                        "region": data.hasOwnProperty("status") ? data.region : (data.hasOwnProperty("region") ?  data.region.substring(0,2).toUpperCase() : "unknown"),
+                        "regionName": data.regionName || data.region || "unknown",
+                        "city": data.city || "unknown",
+                        "lat": data.lat || parseFloat(data.latitude) || 0,
+                        "lon": data.lon || parseFloat(data.longitude) || 0,
+                        "timezone": data.timezone || "unknown",
+                        "isp": data.isp || data.organization_name || "unknown",
+                        "mobile": data.hasOwnProperty("mobile") ? data.mobile : (data.hasOwnProperty("accuracy") ? (data.accuracy > 100) : false),
+                        "proxy": data.proxy || false,
+                        "hosting": data.hosting || false,
+                        "query": data.query || data.ip
+                    }
+                    sendResponse({status: response.status, body: json})
+                })
             } else {
                 if (nextIndex == urls.length) {
                     sendResponse({status: response.status, body: {}})
@@ -429,6 +447,9 @@ function geolocate(ip: string, language: string, allow: string[], sendResponse: 
     }
     if (allow.includes('ip-api')) {
         urls.push({url: `http://ip-api.com/json/${ip}?fields=17032159&lang=${language}`, service: "ip-api"})
+    }
+    if (allow.includes('geojs')) {
+        urls.push({url: `https://get.geojs.io/v1/ip/geo/${ip}.json`, service: "geojs"})
     }
 
     if (urls.length === 0) {
