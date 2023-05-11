@@ -1794,6 +1794,22 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Отключена возможность выделять текст во вкладке \'Настройки\'.'
         }
     },
+    {
+        version: "1.8.1",
+        date: "2023-05-XX",
+        description: {
+            en: '<b>Stability improvements.</b><br>' +
+                '<br>' +
+                '<b>- Geolocation.</b><br>' +
+                '— Added another reserve geolocation provider.<br>' +
+                '— A timeout of 5 seconds is set for all geolocation requests.',
+            ru: '<b>Улучшение стабильности.</b><br>' +
+                '<br>' +
+                '<b>- Геолокация.</b><br>' +
+                '— Добавлен ещё один резервный способ геолокации.<br>' +
+                '— Установлен timeout в 5 секунды для всех запросов геолокации.'
+        }
+    },
 ]
 
 
