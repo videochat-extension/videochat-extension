@@ -1802,11 +1802,13 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<br>' +
                 '<b>- Geolocation.</b><br>' +
                 '— Added another reserve geolocation provider.<br>' +
+                '— Temporarily disables ve-api if a timeout occurs (until the next api check).<br>' +
                 '— A timeout of 5 seconds is set for all geolocation requests.',
             ru: '<b>Улучшение стабильности.</b><br>' +
                 '<br>' +
                 '<b>- Геолокация.</b><br>' +
                 '— Добавлен ещё один резервный способ геолокации.<br>' +
+                '— Временно отключает ve-api, если произошел таймаут (до следующей проверки api).<br>' +
                 '— Установлен timeout в 5 секунды для всех запросов геолокации.'
         }
     },
