@@ -1653,7 +1653,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— You should keep your finger on the right arrow of the keyboard. Left arrow - skip, up arrow - stop, right arrow - toggle cover. What could be more convenient?<br>' +
                 '<br>' +
                 '<b>- Hotkeys.</b><br>' +
-                '- Fixed \'cancel\' feature of local hotkeys after 5 second hold.<br>' +
+                '— Fixed \'cancel\' feature of local hotkeys after 5 second hold.<br>' +
                 '— Fixed incorrect behavior of local hotkeys when the report window is open.<br>' +
                 '<br>' +
                 '<b>- Hints.</b><br>' +
