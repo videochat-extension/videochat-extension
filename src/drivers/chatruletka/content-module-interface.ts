@@ -104,6 +104,11 @@ export class InterfaceModule {
                         (document.body || document.documentElement).appendChild(this.dark);
                     }
 
+                    // temp fix
+                    if (document.getElementById("ReportPopup")) {
+                        document.getElementById("ReportPopup")!.style.backgroundColor = "#000"
+                    }
+
                     if (this.driver.modules.controls.vertical) {
                         document.getElementById('videochat-extension-controls-container')!.style.background = "#181a1b"
                         document.getElementById('videochat-extension-controls-container')!.style.boxShadow = "rgba(0, 0, 0, 0.15) 0px 0px 5px 0px inset"
@@ -116,6 +121,11 @@ export class InterfaceModule {
                     (document.getElementById("VE_extension_name_header") as HTMLElement).style.color = "#000000";
                     if (document.getElementById("darkMode") as HTMLElement)
                         (document.getElementById("darkMode") as HTMLElement).remove();
+
+                    // temp fix
+                    if (document.getElementById("ReportPopup")) {
+                        (document.getElementById("ReportPopup")!.style.backgroundColor = "")
+                    }
 
                     if (this.driver.modules.controls.vertical) {
                         document.getElementById('videochat-extension-controls-container')!.style.background = "#fff"
