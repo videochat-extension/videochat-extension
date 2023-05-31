@@ -1803,6 +1803,9 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<b>- Adapting to COMC changes.</b><br>' +
                 '— Fixed work on Chatruletka, Ome.tv, Minichat & Chatrulez when \'autoresume\' / \'blur report screen\' (streamer mode) features are enabled.<br>' +
                 '<br>' +
+                '<b>- Coomeet Free.</b><br>' +
+                '— Volume control is now only displayed when hovering over the control panel.<br>' +
+                '<br>' +
                 '<b>- Geolocation.</b><br>' +
                 '— Added another reserve geolocation provider.<br>' +
                 '— Temporarily disables ve-api if a timeout occurs (until the next api check).<br>' +
@@ -1811,6 +1814,9 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<br>' +
                 '<b>- Адаптация к изменениям COMC.</b><br>' +
                 '— Исправлена работа расширения на Chatruletka, Ome.tv, Minichat & Chatrulez при активных функциях \'авто ок\' / \'блюрить экран репорта\' (режим стримера).<br>' +
+                '<br>' +
+                '<b>- Coomeet Free.</b><br>' +
+                '— Регулировка громкости теперь отображается только при наведении на контрольную панель.<br>' +
                 '<br>' +
                 '<b>- Геолокация.</b><br>' +
                 '— Добавлен ещё один резервный способ геолокации.<br>' +
