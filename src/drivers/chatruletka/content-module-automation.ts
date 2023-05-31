@@ -78,7 +78,7 @@ export class AutomationModule {
             (document.getElementById('overlay') as HTMLElement).style.background = "none";
             // document.getElementById('overlay').style.position = "unset"
 
-            (document.getElementById('local-video-warning-popup') as HTMLElement).style.filter = "opacity(0)"
+            (document.getElementById('ShowFacePopup') as HTMLElement).style.filter = "opacity(0)"
             this.autoResumeObserver = new MutationObserver(function (mutations) {
                 mutations.forEach(function (mutation) {
                         if (mutation.attributeName === "class") {
@@ -97,7 +97,7 @@ export class AutomationModule {
             (document.getElementById('overlay') as HTMLElement).style.background = "";
             // document.getElementById('overlay').style.position = "unset"
 
-            (document.getElementById('local-video-warning-popup') as HTMLElement).style.filter = ""
+            (document.getElementById('ShowFacePopup') as HTMLElement).style.filter = ""
 
             if (this.autoResumeObserver) {
                 this.autoResumeObserver.disconnect()

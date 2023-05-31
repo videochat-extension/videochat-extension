@@ -114,8 +114,8 @@ export class HotkeysModule {
         switch (e.key) {
             case "ArrowLeft":
                 if (Date.now() - this.arrowLeft < 5000) {
-                    if (document.getElementById("report-popup")?.style.display === "block") {
-                        document.getElementById("report-popup")!.querySelectorAll(".btn-gray").forEach((el: any) => {
+                    if (document.getElementById("ReportPopup")?.style.display === "block") {
+                        document.getElementById("ReportPopup")!.querySelectorAll(".btn-gray").forEach((el: any) => {
                             el.click()
                         })
                     } else {
@@ -150,8 +150,8 @@ export class HotkeysModule {
 
             case "ArrowRight":
                 if (Date.now() - this.arrowRight < 5000) {
-                    if (document.getElementById("report-popup")?.style.display === "block") {
-                        document.getElementById("report-popup")!.querySelectorAll(".send-report").forEach((el: any) => {
+                    if (document.getElementById("ReportPopup")?.style.display === "block") {
+                        document.getElementById("ReportPopup")!.querySelectorAll(".send-report").forEach((el: any) => {
                             el.click()
                         })
                     }

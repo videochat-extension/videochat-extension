@@ -581,10 +581,10 @@ export class StreamerModule {
                             text: chrome.i18n.getMessage("blurReport"),
                             tooltip: chrome.i18n.getMessage("tooltipBlurReport"),
                             enable: () => {
-                                (document.getElementById("report-screen") as HTMLElement).style.filter = "blur(10px)"
+                                (document.getElementsByClassName("report-popup__image-wrap")[0] as HTMLElement).style.filter = "blur(10px)"
                             },
                             disable: () => {
-                                (document.getElementById("report-screen") as HTMLElement).style.filter = ""
+                                (document.getElementsByClassName("report-popup__image-wrap")[0] as HTMLElement).style.filter = ""
                             }
                         },
                         {
@@ -1106,7 +1106,7 @@ export class StreamerModule {
         }
 
         if (globalThis.platformSettings.get("blurReport"))
-            (document.getElementById("report-screen") as HTMLElement).style.filter = "blur(10px)"
+            (document.getElementsByClassName("report-popup__image-wrap")[0] as HTMLElement).style.filter = "blur(10px)"
 
         $(utils.createElement('img', {
             src: globalThis.platformSettings.get("coverSrc"),
@@ -1137,7 +1137,7 @@ export class StreamerModule {
     public stopBlurCover() {
         this.getRemoteVideo()!.style.filter = "";
         this.getLocalVideo().style.filter = "";
-        (document.getElementById("report-screen") as HTMLElement).style.filter = "";
+        (document.getElementsByClassName("report-popup__image-wrap")[0] as HTMLElement).style.filter = "";
         $("#cover").remove()
         $("#cover2").remove()
 
@@ -1251,7 +1251,7 @@ export class StreamerModule {
             return
         switch (e.key) {
             case "ArrowRight":
-                if (!(document.getElementById("report-popup")!.style.display === "block")) {
+                if (!(document.getElementById("ReportPopup")!.style.display === "block")) {
                     this.driver.modules.controls.header.leftBlur.click()
                 }
                 break;
