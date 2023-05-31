@@ -1800,16 +1800,22 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
         description: {
             en: '<b>Stability improvements.</b><br>' +
                 '<br>' +
+                '<b>- Adapting to COMC changes.</b><br>' +
+                '— Fixed work on Chatruletka, Ome.tv, Minichat & Chatrulez when \'autoresume\' / \'blur report screen\' (streamer mode) features are enabled.<br>' +
+                '<br>' +
                 '<b>- Geolocation.</b><br>' +
                 '— Added another reserve geolocation provider.<br>' +
                 '— Temporarily disables ve-api if a timeout occurs (until the next api check).<br>' +
                 '— A timeout of 5 seconds is set for all geolocation requests.',
             ru: '<b>Улучшение стабильности.</b><br>' +
                 '<br>' +
+                '<b>- Адаптация к изменениям COMC.</b><br>' +
+                '— Исправлена работа расширения на Chatruletka, Ome.tv, Minichat & Chatrulez при активных функциях \'авто ок\' / \'блюрить экран репорта\' (режим стримера).<br>' +
+                '<br>' +
                 '<b>- Геолокация.</b><br>' +
                 '— Добавлен ещё один резервный способ геолокации.<br>' +
                 '— Временно отключает ve-api, если произошел таймаут (до следующей проверки api).<br>' +
-                '— Установлен timeout в 5 секунды для всех запросов геолокации.'
+                '— Установлен timeout в 5 секунд для всех запросов геолокации.'
         }
     },
 ]
