@@ -194,6 +194,15 @@ export class CooMeetFreeSimpleDriver {
                     }
                 }
             })
+
+            self.volumeControl.style.display = "none"
+            $(el).on("mouseenter", () => {
+                self.volumeControl.style.display = ""
+            })
+            $(el).on("mouseleave", () => {
+                self.volumeControl.style.display = "none"
+            })
+
             el.appendChild(self.volumeControl)
         })
 
