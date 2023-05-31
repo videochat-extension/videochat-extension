@@ -1796,7 +1796,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
     },
     {
         version: "1.8.1",
-        date: "2023-05-XX",
+        date: "2023-05-31",
         description: {
             en: '<b>Stability improvements.</b><br>' +
                 '<br>' +
