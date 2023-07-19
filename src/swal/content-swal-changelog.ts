@@ -1824,6 +1824,22 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Установлен timeout в 5 секунд для всех запросов геолокации.'
         }
     },
+    {
+        version: "1.8.2",
+        date: "2023-07-20",
+        description: {
+            en: '<b>Urgent store listing update.</b><br>' +
+                '<br>' +
+                '<b>- Information.</b><br>' +
+                '— Temporarily changed the name and description of the extension in English store listing for better positioning.<br>' +
+                '— More updates coming later, this particular thing couldn\'t wait.',
+            ru: '<b>Экстренное временного обновление для магазина расширений.</b><br>' +
+                '<br>' +
+                '<b>- Информация.</b><br>' +
+                '— Временно изменено название и описание расширения в английской локализации для более удачного позиционирования.<br>' +
+                '— Больше обновлений будет позже, конкретно это обновление не могло ждать.'
+        }
+    },
 ]
 
 
