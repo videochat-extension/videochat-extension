@@ -756,7 +756,7 @@
     "message": "Missing permissions detected"
   },
   "welcomeSwalPermissionContent": {
-    "message": "The extension doesn't have enough permissions right now.<br><br>The extension requested access to the sites of supported video chats, you should have a dialog box.<br><br>You may not give permission, but then the extension will not work on these sites ¯\\_(ツ)_/¯"
+    "message": "The extension doesn't have enough permissions right now.<br><br>To activate the necessary features, the extension needs your permission to access video chat sites.<br><br>You should see a dialog box by now.<br><br>You may not give permission, but then the extension will not work on most sites ¯\\_(ツ)_/¯"
   },
   "welcomeSwalTimerText": {
     "message": "The menu will open in <b></b> sec."
