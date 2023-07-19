@@ -76,7 +76,7 @@ const showSwalChangelog = async function () {
             display: block;" src="${typeof browser === "undefined" ? chrome.runtime.getURL('welcome/img/chromium_' + lang + '.png') : chrome.runtime.getURL('welcome/img/firefox_' + lang + '.png')}">` +
             '<br>' +
             '<b>What did I just install?</b><br>' +
-            'This is a browser extension for the following video chats:' +
+            'This is a browser extension for Omegle-like randomized video chats:' +
             '<ul>' +
             '<li><strong>Chatruletka</strong>, <strong>Ome.tv</strong>, <strong>Minichat</strong>, <strong>Chatrulez</strong>.</li>' +
             '<li><strong>Omegle (IP Locator &amp; Dark Mode only)</strong>.</li>' +
