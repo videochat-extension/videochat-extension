@@ -50,7 +50,7 @@ export class OmegleSimpleDriver {
         this.injectIpEventListener()
         this.injectResultsContainer()
 
-        document.arrive("body > div:nth-child(12) > div > p:nth-child(2) > label > input[type=checkbox]", (el: any) => {
+        document.arrive("div > p:nth-child(2) > label > input[type=checkbox]", (el: any) => {
             if (globalThis.platformSettings.get('c1Checked'))
                 el.click()
             // remember user choice
@@ -59,7 +59,7 @@ export class OmegleSimpleDriver {
             })
         })
 
-        document.arrive("body > div:nth-child(12) > div > p:nth-child(3) > label > input[type=checkbox]", (el: any) => {
+        document.arrive("div > p:nth-child(3) > label > input[type=checkbox]", (el: any) => {
             if (globalThis.platformSettings.get('c2Checked'))
                 el.click()
             // remember user choice
