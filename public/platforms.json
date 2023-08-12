@@ -406,7 +406,6 @@
                 "text": "cafeclub.ua",
                 "support": "full",
                 "supportDesc": "supportDescCOMC",
-                "vertical": true,
                 "id": "54d83a2c-646d-44bc-bdac-81955063f062",
                 "favicon": "cafeclubua.png",
                 "origin": "https://*.cafeclub.ua/*",
