@@ -25,6 +25,7 @@ export class CooMeetFreeSimpleDriver {
     }, [
         utils.createElement('span', {
             innerText: `v: ${this.volume}%`,
+            title: chrome.i18n.getMessage('freecmVolumeTitle'),
             style: "white-space: nowrap; overflow: hidden; user-select: none; cursor: ns-resize"
         })
     ])
@@ -211,7 +212,7 @@ export class CooMeetFreeSimpleDriver {
                 className: 'free-cm-app-tape-detect__item'
             }, [
                 utils.createElement('span', {
-                    innerText: "v" + chrome.runtime.getManifest().version + " (?)",
+                    innerText: "v" + chrome.runtime.getManifest().version,
                     title: chrome.i18n.getMessage('freecmExtensionHeaderTitle'),
                     style: "white-space: nowrap; overflow: hidden; cursor: pointer;",
                     onclick: () => {
@@ -292,11 +293,13 @@ export class CooMeetFreeSimpleDriver {
             setting2.style.display = "none"
             $(el).on("mouseenter", () => {
                 setting1.style.display = ""
-                setting2.style.display = ""
+                setting2.style.display = "";
+                (extensionHeader.firstChild as HTMLElement).innerText = "v" + chrome.runtime.getManifest().version + " (?)"
             })
             $(el).on("mouseleave", () => {
                 setting1.style.display = "none"
-                setting2.style.display = "none"
+                setting2.style.display = "none";
+                (extensionHeader.firstChild as HTMLElement).innerText = "v" + chrome.runtime.getManifest().version
             })
         })
     }
@@ -322,12 +325,12 @@ export class CooMeetFreeSimpleDriver {
                     let countriesSelected = $('.free-cm-app-inline-status2_disabled')
                     if (countriesSelected.length > 0) {
                         countriesSelected[0].title = title
-                        countriesSelected[0].innerText += " (?)"
+                        // countriesSelected[0].innerText += " (?)"
                     }
                     countriesSelected = $('.free-cm-app-inline-status_disabled')
                     if (countriesSelected.length > 0) {
                         countriesSelected[0].title = title
-                        countriesSelected[0].innerText += " (?)"
+                        // countriesSelected[0].innerText += " (?)"
                     }
                 }
             } catch (e) {
