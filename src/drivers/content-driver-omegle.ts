@@ -95,6 +95,10 @@ export class OmegleDriver {
         this.stageObserver.observe(element, {attributes: true});
 
         document.arrive("div > p:nth-child(2) > label > input[type=checkbox]", (el: any) => {
+            if (globalThis.platformSettings.get('darkMode')) {
+                // add inset boxshadow for checkboxes
+                el.parentElement.parentElement.parentElement.style.boxShadow = "#363636 0 0 0.5em inset"
+            }
             if (globalThis.platformSettings.get('c1Checked'))
                 el.click()
             // remember user choice
