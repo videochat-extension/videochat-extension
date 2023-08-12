@@ -1846,14 +1846,26 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
         description: {
             en: '<b>Brief Description.</b><br>' +
                 '<br>' +
-                '<b>- Control Panel.</b><br>' +
-                '— Now the full version of the extension (v1.9.0) is displayed in the control panel header by default.<br>' +
-                '— In the control panel settings, you can revert as it was (v1.9) or disable the version display altogether.<br>' +
+                '<b>- Omegle (simple \'minimalism\' mode).</b><br>' +
+                '— The extension will now remember your choices in the TOS box to fill in the checkboxes for you. All you have to do is confirm.<br>' +
+                '— Added a shadow in the TOS box when the dark theme is active.<br>' +
+                '— Added option to switch to "advanced" mode.<br>' +
+                '<br>' +
+                '<b>- Omegle (wip \'advanced\' mode).</b><br>' +
+                '— The work-in-progress \'advanced\' mode is our full-fledged mode, tasked with giving you much more than just geolocation and a dark theme.<br>' +
+                '— At the moment, by enabling this mode, you will be able to see geolocation in a more convenient format, see how long you are in a conversation, open the stranger\'s approximate location on the world\'s map directly in the extension, open the list of torrents downloaded by a stranger, take screenshots, set up auto-skipping until you meet the city or region you want, enable picture-in-picture mode and open the changelog.<br>' +
+                '— Currently it\'s not as functional as on other video chats, but the most important thing is done: the extension core is adapted to support different video chat platforms. This means that very soon almost all of our functionality will be available on Omegle and in the future all changes/improvements will work on all fully supported platforms at once.<br>' +
+                '— Other extension modules will be adapted in the coming weeks, giving you access to hotkeys, gender recognition, stats, blacklist, streamer mode and much more.<br>' +
+                '— In addition, there are plans to develop platform-specific features on both COMC and Omegle platforms, stay tuned.<br>' +
                 '<br>' +
                 '<b>- COMC (Chatruletka, Ome.tv, Minichat, Chatrulez).</b><br>' +
                 '— Fixed work on cafeclub.ua site (extension thought it was vertical like ome.chat).<br>' +
                 '— The dark theme has been updated to match the latest changes at all 49 sites.<br>' +
                 '— Chatrulez is now using Minichat\'s dark theme.<br>' +
+                '<br>' +
+                '<b>- Control Panel.</b><br>' +
+                '— Now the full version of the extension (v1.9.0) is displayed in the control panel header by default.<br>' +
+                '— In the control panel settings, you can revert as it was (v1.9) or disable the version display altogether.<br>' +
                 '<br>' +
                 '<b>- Hotkeys.</b><br>' +
                 '— Fixed a bug that caused hotkeys to not disable when a feature is turned off until the next page reload.<br>' +
@@ -1863,14 +1875,26 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— These lines were mistakenly mixed up, if you edited them, you need to do it again.',
             ru: '<b>Краткое описание.</b><br>' +
                 '<br>' +
-                '<b>- Панель управления.</b><br>' +
-                '— Теперь в заголовке панели управления по умолчанию отображается полная версия расширения (пример: v1.9.0).<br>' +
-                '— В настройках контрольной панели можно вернуть как было (v1.9) или же вовсе отключить отображение версии.<br>' +
+                '<b>- Omegle (режим \'минимализм\').</b><br>' +
+                '— Расширение теперь будет запоминать ваш выбор в окошке TOS, чтобы заполнить чекбоксы для вашего удобства. Всё, что вам нужно сделать, это подтвердить выбор.<br>' +
+                '— Добавлена небольшая тень в окошко TOS, если тёмная тема активна.<br>' +
+                '— Добавлена возможность переключения в \'advanced\' режим.<br>' +
+                '<br>' +
+                '<b>– Omegle (режим \'advanced\').</b><br>' +
+                '— \'Advanced\' режим - это наш полноценный режим, задача которого дать вам гораздо больше, чем просто геолокацию и тёмную тему.<br>' +
+                '— На данный момент, включив этот режим, вы сможете увидеть геолокацию собеседника в более удобном формате, посмотреть, сколько времени вы находитесь в разговоре, открыть примерное местоположение незнакомца на карте мира прямо в расширении, открыть список торрентов, скачанных незнакомцем, сделать скриншоты, настроить автопропуск до нужного вам города или региона, включить режим «картинка в картинке» и открыть список изменений.<br>' +
+                '— На данный момент он не такой функциональный, как в других видеочатах, но самое главное сделано: основа расширения адаптирована для поддержки разных платформ видеочатов. Это означает, что очень скоро почти весь функционал будет доступен на Omegle и в дальнейшем все изменения/улучшения будут работать сразу на всех полноценно поддерживаемых платформах.<br>' +
+                '— Другие модули расширения будут адаптированы в ближайшие недели, что даст вам доступ к горячим клавишам, распознаванию пола, статистике, черному списку, режиму стримера и многому другому.<br>' +
+                '— Кроме того, есть планы по разработке уникальных функций как для COMC, так и для Omegle.<br>' +
                 '<br>' +
                 '<b>- COMC (Chatruletka, Ome.tv, Minichat, Chatrulez).</b><br>' +
                 '— Исправлена работа на сайте cafeclub.ua (расширение думало, что он вертикальный как ome.chat).<br>' +
                 '— Тёмная тема обновлена у всех 49 сайтов платформы.<br>' +
                 '— Chatrulez теперь использует тёмную тему Minichat.<br>' +
+                '<br>' +
+                '<b>- Панель управления.</b><br>' +
+                '— Теперь в заголовке панели управления по умолчанию отображается полная версия расширения (пример: v1.9.0).<br>' +
+                '— В настройках контрольной панели можно вернуть как было (v1.9) или же вовсе отключить отображение версии.<br>' +
                 '<br>' +
                 '<b>- Горячие клавиши.</b><br>' +
                 '— Исправлен баг, из-за которого горячие клавиши не отключались до перезагрузки страницы.<br>' +
