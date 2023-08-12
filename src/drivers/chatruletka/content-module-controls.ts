@@ -1,11 +1,11 @@
 import {ChatruletkaDriver} from "../content-driver-chatruletka";
 import * as utils from "../../utils/utils";
-import {getUserBrowser} from "../../utils/utils";
 import $ from "jquery";
 import {ContentSwalChangelog} from "../../swal/content-swal-changelog";
 import {ContentSwalInfo} from "./content-swal-info";
 import {ControlsTabApi} from "./content-module-geolocation";
 import Swal from "sweetalert2";
+import {OmegleDriver} from "../content-driver-omegle";
 
 require('tooltipster')
 
@@ -16,30 +16,21 @@ export class ControlsModule {
         showHints: true,
         showHintsMoreOften: false
     }
-    private static instanceRef: ControlsModule;
     public videoContainerHeight = 0
     public chatContainerHeight = 0
-    public driver: ChatruletkaDriver;
+    public driver: ChatruletkaDriver | OmegleDriver;
     public vertical = false
     public header: ControlsHeader;
-    private tabs: any = []
-    private controls: HTMLElement | undefined;
+    public tabs: any = []
+    public controls: HTMLElement | undefined;
 
-    protected constructor(driver: ChatruletkaDriver) {
+    public constructor(driver: ChatruletkaDriver | OmegleDriver) {
         this.driver = driver
         if (driver.site.vertical) {
             this.vertical = true
         }
 
         this.header = new ControlsHeader(this.driver, this)
-    }
-
-    static initInstance(driver: ChatruletkaDriver): ControlsModule {
-        if (ControlsModule.instanceRef === undefined) {
-            ControlsModule.instanceRef = new ControlsModule(driver);
-        }
-
-        return ControlsModule.instanceRef;
     }
 
     public start(tabs: any[]) {
@@ -231,8 +222,6 @@ export class ControlsModule {
             }
         }
 
-        this.addTabClickHandler()
-
         $('.tooltip').tooltipster({maxWidth: 300, distance: -1})
 
         if (!this.vertical) {
@@ -295,6 +284,7 @@ export class ControlsModule {
                 bottom: 0px;
                 background: #f8f8f8;
                 margin: 0;
+                padding: 0;
                 position: absolute;
                 width: 100%;
                 border-bottom: 1px solid lightgray;
@@ -381,6 +371,7 @@ export class ControlsModule {
 
     protected createControls() {
         let tabs = this.createTabs()
+        this.addTabClickHandler(tabs)
         let content = [this.createStyle(), this.header.content, utils.createElement('div', {
             id: 'VE_tab_content', style: "width:100%; height: 100%;"
         }, this.createContent()), tabs]
@@ -420,9 +411,9 @@ export class ControlsModule {
         }
     }
 
-    protected addTabClickHandler() {
+    protected addTabClickHandler(tabs: HTMLElement) {
         let self = this
-        $('ul.tabs__caption').on('click', 'li:not(.active)', function () {
+        $(tabs).on('click', 'li:not(.active)', function () {
             $(this)
                 .addClass('active').siblings().removeClass('active')
                 .closest('div.tabs').find('div.tabs__content').removeClass('active').eq($(this).index()).addClass('active');
@@ -432,27 +423,18 @@ export class ControlsModule {
 }
 
 export class ControlsTabAbout {
-    private static instanceRef: ControlsTabAbout;
     public name = chrome.i18n.getMessage("tab4")
     public content: HTMLElement
     public tab: HTMLElement
     public readonly marginBottom = 5
-    private driver: ChatruletkaDriver;
+    private driver: ChatruletkaDriver | OmegleDriver;
     private module: any;
 
-    private constructor(driver: ChatruletkaDriver, module?: any) {
+    public constructor(driver: ChatruletkaDriver | OmegleDriver, module?: any) {
         this.driver = driver
         this.module = module
         this.tab = this.getTabHTML()
         this.content = this.getContentHTML()
-    }
-
-    static initInstance(driver: ChatruletkaDriver, module?: any): ControlsTabAbout {
-        if (ControlsTabAbout.instanceRef === undefined) {
-            ControlsTabAbout.instanceRef = new ControlsTabAbout(driver, module);
-        }
-
-        return ControlsTabAbout.instanceRef;
     }
 
     public handleTabClick() {
@@ -535,7 +517,9 @@ export class ControlsTabAbout {
                     }),
                     utils.createElement('br'),
                     utils.createElement('br'),
-                    utils.createElement('dl', {},
+                    utils.createElement('dl', {
+                            style: 'margin:0'
+                        },
                         [
                             this.createDTHeader(chrome.i18n.getMessage("author")),
                             this.createDDLink("qrlk", "https://github.com/qrlk"),
@@ -573,7 +557,7 @@ export class ControlsTabAbout {
                     utils.createElement('br'),
                     utils.createElement('button', {
                         onclick: () => {
-                            new ContentSwalInfo(this.driver.platform.name).showFromStart()
+                            this.showSwalWelcome()
                         },
                     }, [
                         utils.createElement('b', {
@@ -624,11 +608,15 @@ export class ControlsTabAbout {
             })
         ])
     }
+
+    protected showSwalWelcome() {
+        new ContentSwalInfo(this.driver.platform.name).showFromStart()
+    }
 }
 
-class ControlsHeader {
+export class ControlsHeader {
     public content: any;
-    private driver: ChatruletkaDriver;
+    private driver: ChatruletkaDriver | OmegleDriver;
     private module: any
     private leftScreen: HTMLElement;
     private leftPip: HTMLElement;
@@ -640,7 +628,11 @@ class ControlsHeader {
     private right: HTMLElement;
     private header: HTMLElement;
 
-    public constructor(driver: ChatruletkaDriver, module?: any) {
+    public remote = "remote-video"
+    public echo = "echo-video"
+    public local = "local-video"
+
+    public constructor(driver: ChatruletkaDriver | OmegleDriver, module?: any) {
         this.driver = driver
         this.module = module
 
@@ -657,7 +649,7 @@ class ControlsHeader {
         this.right = this.createRight()
 
         this.content = utils.createElement('center', {
-            style: "user-select:none",
+            style: "user-select:none;line-height: 1;font-family: \"PT Sans\",sans-serif;",
             id: "VE_header"
         }, [
             this.left,
@@ -682,8 +674,8 @@ class ControlsHeader {
     private handlePip(videoId: string) {
         if (utils.getUserBrowser() === "firefox") {
             // let parent: JQuery<HTMLElement>, vid: JQuery<HTMLElement>
-            if (videoId === "echo-video") {
-                let vid = document.getElementById("echo-video")!
+            if (videoId === this.echo) {
+                let vid = document.getElementById(this.echo)!
                 if (vid.style.maxWidth === "0px") {
                     vid.style.maxWidth = "160px"
                     vid.style.zIndex = "99"
@@ -696,7 +688,7 @@ class ControlsHeader {
                 title: 'Picture-In-Picture',
                 heightAuto: false,
                 confirmButtonText: chrome.i18n.getMessage("denyButtonText"),
-                html: videoId === "echo-video" ? chrome.i18n.getMessage("firefoxHandleStreamerPip") : chrome.i18n.getMessage("firefoxHandlePip"),
+                html: videoId === this.echo ? chrome.i18n.getMessage("firefoxHandleStreamerPip") : chrome.i18n.getMessage("firefoxHandlePip"),
             }).then((result) => {
 
             })
@@ -757,7 +749,7 @@ class ControlsHeader {
             style: "color: red;",
             title: chrome.i18n.getMessage("screen_remote"),
             onclick: () => {
-                this.createScreenshot('remote-video')
+                this.createScreenshot(this.remote)
             }
         }, [
             utils.createElement('b', {
@@ -772,7 +764,7 @@ class ControlsHeader {
             style: "color:green;",
             title: chrome.i18n.getMessage("pip_remote"),
             onclick: () => {
-                this.handlePip(globalThis.platformSettings.get('streamer') ? "echo-video" : "remote-video")
+                this.handlePip(globalThis.platformSettings.get('streamer') ? this.echo : this.remote)
             },
         }, [
             utils.createElement('b', {
@@ -794,7 +786,7 @@ class ControlsHeader {
                 }
             }(),
             title: "Hide / unhide",
-            onclick: (e: MouseEvent)=>{
+            onclick: (e: MouseEvent) => {
                 if (this.driver.modules.streamer) {
                     this.driver.modules.streamer.handleBlurButtonClick(e)
                 }
@@ -819,17 +811,17 @@ class ControlsHeader {
                 }
             }(),
             title: "Mute / unmute",
-            onmousedown: (e: MouseEvent)=>{
+            onmousedown: (e: MouseEvent) => {
                 if (this.driver.modules.streamer) {
                     this.driver.modules.streamer.handleMuteButtonDown(e)
                 }
             },
-            onmouseleave: (e: MouseEvent)=>{
+            onmouseleave: (e: MouseEvent) => {
                 if (this.driver.modules.streamer) {
                     this.driver.modules.streamer.handleMuteButtonLeave(e)
                 }
             },
-            onmouseup:(e: MouseEvent)=>{
+            onmouseup: (e: MouseEvent) => {
                 if (this.driver.modules.streamer) {
                     this.driver.modules.streamer.handleMuteButtonUp(e)
                 }
@@ -861,7 +853,7 @@ class ControlsHeader {
             style: "color:green;",
             title: chrome.i18n.getMessage("pip_local"),
             onclick: () => {
-                this.handlePip('local-video')
+                this.handlePip(this.local)
             },
         }, [
             utils.createElement('b', {
@@ -876,7 +868,7 @@ class ControlsHeader {
             style: "color: red;",
             title: chrome.i18n.getMessage("screen_local"),
             onclick: () => {
-                this.createScreenshot('local-video')
+                this.createScreenshot(this.local)
             },
         }, [
             utils.createElement('b', {

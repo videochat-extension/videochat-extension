@@ -6,7 +6,7 @@ import {ChatruletkaDriver} from "../content-driver-chatruletka";
 import {mapModule} from "./content-module-controls-map";
 import * as SDPUtils from "sdp";
 import {getUserBrowser} from "../../utils/utils";
-import {parseCandidate} from "sdp";
+import {OmegleDriver} from "../content-driver-omegle";
 
 
 export function injectScript(path: string) {
@@ -18,7 +18,6 @@ export function injectScript(path: string) {
 
 
 export class GeolocationModule {
-    private static instanceRef: GeolocationModule;
     public curIps: string[] = []
     public static defaults = {
         customApiBehaviour: false,
@@ -316,18 +315,17 @@ export class GeolocationModule {
     ]
     public curInfo: { [key: string]: { [key: string]: string } } = {};
     public tabs: any = []
-    private driver: ChatruletkaDriver;
+    protected driver: ChatruletkaDriver | OmegleDriver;
     private rmdaddr = "0.0.0.0"
     private api: number = 0;
     private browser = utils.getUserBrowser()
     private torrenstsConfirmed = false;
-    private started: number = 0;
     private targetSound = new Audio(chrome.runtime.getURL('resources/audio/found.mp3'))
     public delayIPs: string[] = [];
     private needToShowHint = globalThis.platformSettings.get("showHints") ? (globalThis.platformSettings.get("showHintsMoreOften") ? true : utils.getRandomInt(1, 3) === 2) : false;
     private hint: number = 0;
 
-    private constructor(driver: ChatruletkaDriver) {
+    public constructor(driver: ChatruletkaDriver | OmegleDriver) {
         this.driver = driver
         this.targetSound.volume = 0.5
 
@@ -340,14 +338,6 @@ export class GeolocationModule {
         }
 
         this.createTabs()
-    }
-
-    static initInstance(driver: ChatruletkaDriver): GeolocationModule {
-        if (GeolocationModule.instanceRef === undefined) {
-            GeolocationModule.instanceRef = new GeolocationModule(driver);
-        }
-
-        return GeolocationModule.instanceRef;
     }
 
     public injectIpEventListener() {
@@ -442,7 +432,7 @@ export class GeolocationModule {
         }
 
         console.dir("IP CHANGE DETECTED")
-        if (this.driver.modules.blacklist.isIpInBlacklist(newIp)) {
+        if (this.driver.modules.blacklist && this.driver.modules.blacklist.isIpInBlacklist(newIp)) {
             if (this.driver.modules.stats) {
                 this.driver.modules.stats.increaseCountDup()
             }
@@ -459,7 +449,7 @@ export class GeolocationModule {
             switch (this.api) {
                 case 2: {
                     if (globalThis.platformSettings.get("skipwrongcountry")) {
-                        if (this.driver.modules.automation.checkedCountry) {
+                        if (this.driver.modules.automation && this.driver.modules.automation.checkedCountry) {
                             console.dir('CHECKED')
                             this.doLookupRequest2(newIp)
                         } else {
@@ -558,7 +548,6 @@ export class GeolocationModule {
         console.dir(`PROCESS ${ip}`)
 
         this.curInfo[ip] = json
-        this.started = Date.now()
         let strings = []
         let newInnerHTML = ''
         let newIpDiv = utils.createElement('div')
@@ -590,14 +579,14 @@ export class GeolocationModule {
             if (globalThis.platformSettings.get("showCT")) {
                 newInnerHTML += chrome.i18n.getMessage("apiCT") + `${json.city}/${json.regionName}</br>`
                 try {
-                    newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>"
+                    newInnerHTML += "<b>TZ: </b><sup class='remoteTZ' style='font-size:100%;vertical-align:baseline'>" + json.timezone + "</sup> (<sup class = 'remoteTime' style='font-size:100%;vertical-align:baseline'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>"
                 } catch {
-                    newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + "???" + "</sup>) </br>"
+                    newInnerHTML += "<b>TZ: </b><sup class='remoteTZ' style='font-size:100%;vertical-align:baseline'>" + json.timezone + "</sup> (<sup class = 'remoteTime' style='font-size:100%;vertical-align:baseline'>" + "???" + "</sup>) </br>"
                 }
             } else {
                 newInnerHTML += "<br><br><br>"
             }
-            newInnerHTML += "<b>TM: </b><sup class='remoteTM'>" + utils.secondsToHms((Date.now() - this.started) / 1000) + "</sup>"
+            newInnerHTML += "<b>TM: </b><sup class='remoteTM'>" + utils.secondsToHms(0) + "</sup>"
 
         } else {
             newInnerHTML = chrome.i18n.getMessage("apiCountry") + json.country + " [" + json.countryCode + "] </br>"
@@ -606,11 +595,11 @@ export class GeolocationModule {
                 chrome.i18n.getMessage("apiCity") + json.city + " (" + json.region + ") </br>" +
                 chrome.i18n.getMessage("apiRegion") + json.regionName + "</br>"
             try {
-                newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>"
+                newInnerHTML += "<b>TZ: </b><sup class='remoteTZ' style='font-size:100%;vertical-align:baseline'>" + json.timezone + "</sup> (<sup class = 'remoteTime' style='font-size:100%;vertical-align:baseline'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>"
             } catch {
-                newInnerHTML += "<b>TZ: </b><sup class='remoteTZ'>" + json.timezone + "</sup> (<sup class = 'remoteTime'>" + "???" + "</sup>) </br>"
+                newInnerHTML += "<b>TZ: </b><sup class='remoteTZ' style='font-size:100%;vertical-align:baseline'>" + json.timezone + "</sup> (<sup class = 'remoteTime' style='font-size:100%;vertical-align:baseline'>" + "???" + "</sup>) </br>"
             }
-            newInnerHTML += "<b>TM: </b><sup class='remoteTM'>" + utils.secondsToHms((Date.now() - this.started) / 1000) + "</sup>"
+            newInnerHTML += "<b>TM: </b><sup class='remoteTM'>" + utils.secondsToHms(0) + "</sup>"
         }
 
         if (globalThis.platformSettings.get("showISP")) {
@@ -696,7 +685,7 @@ export class GeolocationModule {
             if (document.getElementsByClassName("remoteTM").length > 0) {
                 if (this.driver.stage === 4) {
                     for (let el of document.getElementsByClassName("remoteTM") as HTMLCollectionOf<HTMLElement>) {
-                        el.innerText = utils.secondsToHms((Date.now() - this.started) / 1000)
+                        el.innerText = utils.secondsToHms((Date.now() - this.driver.play) / 1000)
                     }
                 }
             }
@@ -713,8 +702,8 @@ export class GeolocationModule {
     }
 
     protected createTabs() {
-        this.tabs[0] = ControlsTabApi.initInstance(this.driver, this)
-        this.tabs[1] = ControlsTabMap.initInstance(this.driver, this)
+        this.tabs[0] = new ControlsTabApi(this.driver, this)
+        this.tabs[1] = new ControlsTabMap(this.driver, this)
     }
 
     // https://ip-api.com/docs/api:json#:~:text=DEMO-,Localization,-Localized%20city%2C
@@ -758,17 +747,16 @@ export class GeolocationModule {
 }
 
 export class ControlsTabApi {
-    private static instanceRef: ControlsTabApi;
     public name = chrome.i18n.getMessage("tab1")
     public content: HTMLElement
     public tab: HTMLElement
     public readonly marginBottom = 5
-    private driver: ChatruletkaDriver;
+    private driver: ChatruletkaDriver | OmegleDriver;
     private module: any
     private reviewLinkContainer: JQuery<HTMLElement>;
     private discordLinkContainer: JQuery<HTMLElement>;
 
-    private constructor(driver: ChatruletkaDriver, module?: any) {
+    public constructor(driver: ChatruletkaDriver | OmegleDriver, module?: any) {
         this.driver = driver
         this.module = module
         this.tab = this.getTabHTML()
@@ -785,14 +773,6 @@ export class ControlsTabApi {
         })
     }
 
-    static initInstance(driver: ChatruletkaDriver, module?: any): ControlsTabApi {
-        if (ControlsTabApi.instanceRef === undefined) {
-            ControlsTabApi.instanceRef = new ControlsTabApi(driver, module);
-        }
-
-        return ControlsTabApi.instanceRef;
-    }
-
     public handleResize() {
 
     }
@@ -807,7 +787,7 @@ export class ControlsTabApi {
         })
     }
 
-    private hintsDict = {
+    protected hintsDict = {
         "en": [
             {
                 imgcontainer: "discordImageContainer",
@@ -1207,7 +1187,7 @@ export class ControlsTabApi {
                 }),
                 utils.createElement('div', {
                     id: "remoteInfo",
-                    style: "overflow-y: auto; height: 100%; padding-top:2px;"
+                    style: "overflow-y: auto; height: 100%; padding-top:2px; line-height: 1"
                 })
             ])
         ])
@@ -1273,18 +1253,17 @@ export class ControlsTabApi {
 }
 
 export class ControlsTabMap {
-    private static instanceRef: ControlsTabMap;
     public name = chrome.i18n.getMessage("tab2")
     public content: HTMLElement
     public tab: HTMLElement
     public readonly marginBottom = 0
     public map: mapModule;
-    private driver: ChatruletkaDriver;
+    private driver: ChatruletkaDriver | OmegleDriver;
     private module: any;
 
     private mapContainer: HTMLElement;
 
-    private constructor(driver: ChatruletkaDriver, module?: any) {
+    public constructor(driver: ChatruletkaDriver | OmegleDriver, module?: any) {
         this.driver = driver
         this.module = module
         this.tab = this.getTabHTML()
@@ -1295,14 +1274,6 @@ export class ControlsTabMap {
         })
         this.map = new mapModule(this.mapContainer)
         this.content = this.getContentHTML()
-    }
-
-    static initInstance(driver: ChatruletkaDriver, module?: any): ControlsTabMap {
-        if (ControlsTabMap.instanceRef === undefined) {
-            ControlsTabMap.instanceRef = new ControlsTabMap(driver, module);
-        }
-
-        return ControlsTabMap.instanceRef;
     }
 
     public handleResize() {

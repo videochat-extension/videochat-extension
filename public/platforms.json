@@ -490,6 +490,7 @@
                 "text": "omegle.com",
                 "support": "limited",
                 "supportDesc": "supportDescOmegle",
+                "vertical": true,
                 "id": "13fa70ac-6a70-4eab-8410-0fca063fbdea",
                 "favicon": "omegle.png",
                 "origin": "https://*.omegle.com/*",

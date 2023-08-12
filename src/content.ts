@@ -6,6 +6,7 @@ require('arrive')
 import {ChatruletkaDriver} from "./drivers/content-driver-chatruletka";
 import {ChatruletkaSimpleDriver} from "./drivers/content-driver-chatruletka-simple";
 import {switchMode} from "./drivers/chatruletka/content-swal-switchmode";
+import {switchModeOmegle} from "./drivers/omegle/content-swal-switchmode";
 import {injectScript} from "./drivers/chatruletka/content-module-geolocation";
 import {injectContextInvalidatedCheck} from "./swal/content-swal-context-invalidated"
 import {ContentSwalInfo, ContentSwalInfoSimplified} from "./drivers/chatruletka/content-swal-info";
@@ -20,6 +21,7 @@ import {
     ContentSwalInfoCoomeetFree,
     ContentSwalInfoCoomeetFreeSimplified
 } from "./drivers/coomeetfree/content-swal-info";
+import {OmegleDriver} from "./drivers/content-driver-omegle";
 
 injectScript('injection/ip-api.js')
 
@@ -140,21 +142,48 @@ async function content() {
         }
         case "Omegle": {
             if (location.pathname === "/" && window === window.top) {
-                document.arrive("body", {onceOnly: true, existing: true}, async () => {
-                    injectContextInvalidatedCheck()
-                    await globalThis.platformSettings.setDriverDefaults({
-                        darkMode: false
+                if (globalThis.platformSettings.get("askForMode")) {
+                    document.arrive("body", {onceOnly: true, existing: true}, async () => {
+                        switchModeOmegle()
                     })
-                    globalThis.driver = OmegleSimpleDriver.getInstance()
-                    globalThis.driver.start(document.body)
-                    if (!globalThis.platformSettings.get("swalInfoCompleted")) {
-                        if (settings.curious) {
-                            new ContentSwalInfoOmegle().showFromStart()
-                        } else {
-                            new ContentSwalInfoOmegleSimplified().showFromStart()
+                    return false
+                } else if (globalThis.platformSettings.get("minimalism")) {
+                    document.arrive("body", {onceOnly: true, existing: true}, async () => {
+                        injectContextInvalidatedCheck()
+                        await globalThis.platformSettings.setDriverDefaults({
+                            darkMode: false,
+                            c1Checked: false,
+                            c2Checked: false
+                        })
+                        globalThis.driver = OmegleSimpleDriver.getInstance()
+                        globalThis.driver.start(document.body)
+                        if (!globalThis.platformSettings.get("swalInfoCompleted")) {
+                            if (settings.curious) {
+                                new ContentSwalInfoOmegle().showFromStart()
+                            } else {
+                                new ContentSwalInfoOmegleSimplified().showFromStart()
+                            }
                         }
-                    }
-                })
+                    })
+                    return false
+                } else {
+                    await globalThis.platformSettings.setDriverDefaults(OmegleDriver.defaults)
+                    document.arrive("body", {onceOnly: true, existing: true}, async () => {
+                        if (website) {
+                            injectContextInvalidatedCheck()
+                            // processSwals(website)
+                            globalThis.driver = OmegleDriver.getInstance(website)
+                            globalThis.driver.start(document.body)
+                            if (!globalThis.platformSettings.get("swalInfoCompleted")) {
+                                if (settings.curious) {
+                                    new ContentSwalInfoOmegle().showFromStart()
+                                } else {
+                                    new ContentSwalInfoOmegleSimplified().showFromStart()
+                                }
+                            }
+                        }
+                    })
+                }
             }
             break;
         }

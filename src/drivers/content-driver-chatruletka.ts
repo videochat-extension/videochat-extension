@@ -51,12 +51,12 @@ export class ChatruletkaDriver {
             hotkeys: HotkeysModule.initInstance(this),
             automation: AutomationModule.initInstance(this),
             interface: InterfaceModule.initInstance(this),
-            geolocation: GeolocationModule.initInstance(this),
+            geolocation: new GeolocationModule(this),
             blacklist: BlacklistModule.initInstance(this),
             faceapi: FaceapiModule.initInstance(this),
             stats: StatsModule.initInstance(this),
             streamer: StreamerModule.initInstance(this),
-            controls: ControlsModule.initInstance(this)
+            controls: new ControlsModule(this)
         }
     }
 
@@ -122,9 +122,10 @@ export class ChatruletkaDriver {
             this.modules.blacklist.settings,
             this.modules.hotkeys.settings,
             this.modules.streamer.settings,
+            ControlsTabSettings.miscSettings,
             this.modules.stats.settings
         ]
-        return ControlsTabSettings.initInstance(this, null, settings)
+        return new ControlsTabSettings(this, null, settings)
     }
 
     public getTabs() {
@@ -133,7 +134,7 @@ export class ChatruletkaDriver {
             ...this.modules.blacklist.tabs,
             ...this.modules.stats.tabs,
             this.getSettingsTab(),
-            ControlsTabAbout.initInstance(this)
+            new ControlsTabAbout(this)
         ]
     }
 

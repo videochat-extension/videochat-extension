@@ -3,6 +3,7 @@ import * as DOMPurify from "dompurify";
 import * as utils from "../utils/utils";
 import {ContentSwalInfoOmegle} from "./omegle/content-swal-info";
 import * as SDPUtils from "sdp"
+import {switchModeOmegle} from "./omegle/content-swal-switchmode";
 
 export class OmegleSimpleDriver {
     private static instanceRef: OmegleSimpleDriver;
@@ -48,6 +49,24 @@ export class OmegleSimpleDriver {
         this.stageObserver.observe(element, {attributes: true});
         this.injectIpEventListener()
         this.injectResultsContainer()
+
+        document.arrive("body > div:nth-child(12) > div > p:nth-child(2) > label > input[type=checkbox]", (el: any) => {
+            if (globalThis.platformSettings.get('c1Checked'))
+                el.click()
+            // remember user choice
+            el.addEventListener("change", (event: JQuery.ChangeEvent) => {
+                globalThis.platformSettings.set({'c1Checked': event.currentTarget.checked})
+            })
+        })
+
+        document.arrive("body > div:nth-child(12) > div > p:nth-child(3) > label > input[type=checkbox]", (el: any) => {
+            if (globalThis.platformSettings.get('c2Checked'))
+                el.click()
+            // remember user choice
+            el.addEventListener("change", (event: JQuery.ChangeEvent) => {
+                globalThis.platformSettings.set({'c2Checked': event.currentTarget.checked})
+            })
+        })
 
         document.arrive("#logo > canvas", {onceOnly: true, existing: true}, this.processDarkMode.bind(this))
         return true
@@ -138,6 +157,22 @@ export class OmegleSimpleDriver {
                 }
             })).insertBefore(el.children[0])
             $(switchDarkMode).insertBefore(el.children[0])
+
+            let switchModeLabel = utils.createElement('label', null, [
+                utils.createElement('input', {
+                    type: "checkbox",
+                    checked: globalThis.platformSettings.get('minimalism'),
+                    onchange: async function (ev: JQuery.ChangeEvent) {
+                        switchModeOmegle()
+                        ev.currentTarget.checked = true
+                    }
+                }),
+                utils.createElement('span', {
+                    innerText: " Enable simple mode"
+                })
+            ])
+            $('<br>').insertBefore(el.children[0])
+            $(switchModeLabel).insertBefore(el.children[0])
         })
 
     }
@@ -178,7 +213,11 @@ export class OmegleSimpleDriver {
             this.curIps.push(newIp)
         }
 
-        chrome.runtime.sendMessage({makeGeolocationRequest: newIp, language: this.apiLanguage, allow: this.apiProviders}, (response) => {
+        chrome.runtime.sendMessage({
+            makeGeolocationRequest: newIp,
+            language: this.apiLanguage,
+            allow: this.apiProviders
+        }, (response) => {
             if (response.failed && response.failed.includes('ve-api')) {
                 this.apiProviders = this.apiProviders.filter(provider => provider !== "ve-api")
             }

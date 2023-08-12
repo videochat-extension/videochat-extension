@@ -2,6 +2,7 @@ import * as utils from "../../utils/utils";
 import {switchMode} from "./content-swal-switchmode";
 import {ChatruletkaDriver} from "../content-driver-chatruletka";
 import ChangeEvent = JQuery.ChangeEvent;
+import {OmegleDriver} from "../content-driver-omegle";
 
 let needReload = false
 
@@ -24,9 +25,8 @@ export function confirmAndReload() {
 }
 
 export class ControlsTabSettings {
-    private static instanceRef: ControlsTabSettings;
     public name = chrome.i18n.getMessage("tab3")
-    public miscSettings = [
+    public static miscSettings = [
         {
             type: "header",
             text: chrome.i18n.getMessage("settingsMisc")
@@ -50,10 +50,10 @@ export class ControlsTabSettings {
     public tab: HTMLElement
     public readonly marginBottom = 5
     public settings: any[] | undefined;
-    private driver: ChatruletkaDriver;
+    private driver: ChatruletkaDriver | OmegleDriver;
     private module: any;
 
-    private constructor(driver: ChatruletkaDriver, module?: any, settings?: any[]) {
+    public constructor(driver: ChatruletkaDriver | OmegleDriver, module?: any, settings?: any[]) {
         this.driver = driver
         this.module = module
         this.settings = settings
@@ -61,13 +61,6 @@ export class ControlsTabSettings {
         this.content = this.getContentHTML()
     }
 
-    static initInstance(driver: ChatruletkaDriver, module?: any, settings?: any[]): ControlsTabSettings {
-        if (ControlsTabSettings.instanceRef === undefined) {
-            ControlsTabSettings.instanceRef = new ControlsTabSettings(driver, module, settings);
-        }
-
-        return ControlsTabSettings.instanceRef;
-    }
 
     static createSettingsHeader(innerHTML: string) {
         return utils.createElement('dt', {
@@ -94,7 +87,7 @@ export class ControlsTabSettings {
                 utils.createElement(tagName, {
                     innerText: settingText,
                     className: "tooltip",
-                    style: "cursor: pointer",
+                    style: "cursor: pointer; margin: 0",
                     title: settingTooltip,
                     onclick: () => {
                         document.getElementById(`${key}Check`)!.click()
@@ -239,7 +232,6 @@ export class ControlsTabSettings {
 
     public getSettingsHTML(settings: any): HTMLElement[] {
         let array: HTMLElement[] = []
-        settings.splice(-1, 0, this.miscSettings)
         settings.forEach((setting: any) => {
             array.push(utils.createElement('div', {}, this.processSettings(setting)))
             array.push(utils.createElement('br'))
@@ -265,7 +257,9 @@ export class ControlsTabSettings {
                     style: "overflow-y: auto; height:100%; user-select: none;"
                 },
                 [
-                    utils.createElement('dl', {}, this.getSettingsHTML(this.settings)),
+                    utils.createElement('dl', {
+                        style: "margin:0"
+                    }, this.getSettingsHTML(this.settings)),
                 ])
         ])
     }

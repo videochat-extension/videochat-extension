@@ -31,19 +31,13 @@ export function createSwitchModeButtonContainer() {
     ])
 }
 
-export function switchMode() {
+export function switchModeBase(html: string) {
     let preselect = globalThis.platformSettings.get("minimalism")
     Swal.fire({
         title: chrome.i18n.getMessage("switchModeTitle"),
         allowOutsideClick: false,
         heightAuto: false,
-        html: `${chrome.i18n.getMessage("switchModeText")}<br><br>
- <form id="modeSelector">
- <input type="radio" id="minimalism" name="mode" value="minimalism">
- <label for="minimalism">${chrome.i18n.getMessage("switchModeLabelMod1")}<br><img src="${chrome.runtime.getURL('resources/img/' + chrome.i18n.getMessage("minimalismImg"))}" style="border:1px solid; margin-top: 5px;"></label><br>
- <br>
- <input type="radio" id="full" name="mode" value="full">
- <label for="full">${chrome.i18n.getMessage("switchModeLabelMod2")}</label></form>`,
+        html: html,
         preConfirm: () => {
             let newMode = $("#modeSelector").serializeArray()[0]['value']
             if (typeof newMode === "undefined") {
@@ -74,4 +68,15 @@ export function switchMode() {
             }
         }
     })
+}
+
+export function switchMode() {
+    let html = `${chrome.i18n.getMessage("switchModeText")}<br><br>
+ <form id="modeSelector">
+ <input type="radio" id="minimalism" name="mode" value="minimalism">
+ <label for="minimalism">${chrome.i18n.getMessage("switchModeLabelMod1")}<br><img src="${chrome.runtime.getURL('resources/img/' + chrome.i18n.getMessage("minimalismImg"))}" style="border:1px solid; margin-top: 5px;"></label><br>
+ <br>
+ <input type="radio" id="full" name="mode" value="full">
+ <label for="full">${chrome.i18n.getMessage("switchModeLabelMod2")}</label></form>`
+    switchModeBase(html)
 }
