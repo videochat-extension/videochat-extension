@@ -1,0 +1,4 @@
+/*hide black lines in dark mode when moving around the map*/
+.leaflet-container {background: #ddd;outline-offset: 1px;}
+/*fake dark mode for social buttons*/
+.twitter-share-button{filter: grayscale(1) invert(1)}.fb-share-button{filter: grayscale(1) invert(1)}.fb-like{filter: grayscale(1) invert(1)}

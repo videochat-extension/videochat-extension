@@ -6,6 +6,7 @@ export class InterfaceModule {
     private static instanceRef: InterfaceModule;
     private driver: ChatruletkaDriver;
     private dark: HTMLLinkElement;
+    private darkTweaks: HTMLLinkElement | undefined;
     public tweaks = {
         hideLogo: {
             enable: () => {
@@ -102,11 +103,8 @@ export class InterfaceModule {
                     (document.getElementById("VE_extension_name_header") as HTMLElement).style.color = "#E8E6E3";
                     if (!document.getElementById("darkMode")) {
                         (document.body || document.documentElement).appendChild(this.dark);
-                    }
-
-                    // temp fix
-                    if (document.getElementById("ReportPopup")) {
-                        document.getElementById("ReportPopup")!.style.backgroundColor = "#000"
+                        if (this.darkTweaks)
+                            (document.body || document.documentElement).appendChild(this.darkTweaks);
                     }
 
                     if (this.driver.modules.controls.vertical) {
@@ -122,10 +120,8 @@ export class InterfaceModule {
                     if (document.getElementById("darkMode") as HTMLElement)
                         (document.getElementById("darkMode") as HTMLElement).remove();
 
-                    // temp fix
-                    if (document.getElementById("ReportPopup")) {
-                        (document.getElementById("ReportPopup")!.style.backgroundColor = "")
-                    }
+                    if (document.getElementById("darkModeTweaks") as HTMLElement)
+                        (document.getElementById("darkModeTweaks") as HTMLElement).remove();
 
                     if (this.driver.modules.controls.vertical) {
                         document.getElementById('videochat-extension-controls-container')!.style.background = "#fff"
@@ -260,6 +256,7 @@ export class InterfaceModule {
     private constructor(driver: ChatruletkaDriver) {
         this.driver = driver
         this.dark = this.createDarkMode()
+        this.darkTweaks = this.createDarkModeTweaks()
     }
 
     static initInstance(driver: ChatruletkaDriver): InterfaceModule {
@@ -310,7 +307,12 @@ export class InterfaceModule {
         let dark = document.createElement('link');
         dark.rel = "stylesheet";
         dark.id = "darkMode"
-        switch (this.driver.platform) {
+        switch (this.driver.platform.id) {
+            // forcing chatrulez to use minichat's dark mode cause darkreader breaks on chatrulez
+            case "b0073d25-a35d-4388-8dfb-6db6c81ad6ed":
+                dark.href = chrome.runtime.getURL(`resources/dark/4626defa-6c31-4d5c-9777-691022a59997.css`)
+                break;
+
             default:
                 // TODO: find a way to reduce size of darkreader css files
                 dark.href = chrome.runtime.getURL(`resources/dark/${this.driver.site.id}.css`)
@@ -318,5 +320,27 @@ export class InterfaceModule {
         }
         // dark.href = chrome.runtime.getURL(`resources/dark/DarkReader-camki-com.css`)
         return dark
+    }
+
+    private createDarkModeTweaks() {
+        let dark = document.createElement('link');
+        dark.rel = "stylesheet";
+        dark.id = "darkModeTweaks"
+        switch (this.driver.platform.id) {
+            case "7390db38-a617-4f6e-8a8a-ee353b76cc25":
+                dark.href = chrome.runtime.getURL(`resources/dark/tweaks-comc.css`)
+                return dark
+            case "8fa234f6-1767-4d81-897e-758df844ae31":
+                dark.href = chrome.runtime.getURL(`resources/dark/tweaks-comc.css`)
+                return dark
+            case "b15b920c-6882-4023-af28-f31e296b80e3":
+                dark.href = chrome.runtime.getURL(`resources/dark/tweaks-comc.css`)
+                return dark
+            case "b0073d25-a35d-4388-8dfb-6db6c81ad6ed":
+                dark.href = chrome.runtime.getURL(`resources/dark/tweaks-comc.css`)
+                return dark
+            default:
+                return undefined
+        }
     }
 }
