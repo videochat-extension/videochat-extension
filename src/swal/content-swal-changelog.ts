@@ -1833,7 +1833,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<b>- Information.</b><br>' +
                 '— Temporarily changed the name and description of the extension in English store listing for better positioning.<br>' +
                 '— More updates coming later, this particular thing couldn\'t wait.',
-            ru: '<b>Экстренное временного обновление для магазина расширений.</b><br>' +
+            ru: '<b>Экстренное временное обновление для магазина расширений.</b><br>' +
                 '<br>' +
                 '<b>- Информация.</b><br>' +
                 '— Временно изменено название и описание расширения в английской локализации для более удачного позиционирования.<br>' +
