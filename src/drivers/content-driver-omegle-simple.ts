@@ -161,14 +161,14 @@ export class OmegleSimpleDriver {
             let switchModeLabel = utils.createElement('label', null, [
                 utils.createElement('input', {
                     type: "checkbox",
-                    checked: globalThis.platformSettings.get('minimalism'),
+                    checked: !globalThis.platformSettings.get('minimalism'),
                     onchange: async function (ev: JQuery.ChangeEvent) {
                         switchModeOmegle()
-                        ev.currentTarget.checked = true
+                        ev.currentTarget.checked = false
                     }
                 }),
                 utils.createElement('span', {
-                    innerText: " Enable simple mode"
+                    innerText: " Enable advanced mode"
                 })
             ])
             $('<br>').insertBefore(el.children[0])
