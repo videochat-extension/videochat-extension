@@ -1840,6 +1840,30 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Больше обновлений будет позже, конкретно это обновление не могло ждать.'
         }
     },
+    {
+        version: "1.9.0",
+        date: "2023-08-XX",
+        description: {
+            en: '<b>Brief Description.</b><br>' +
+                '<br>' +
+                '<b>- Control Panel.</b><br>' +
+                '— Now the full version of the extension (v1.9.0) is displayed in the control panel header by default.<br>' +
+                '— In the control panel settings, you can revert as it was (v1.9) or disable the version display altogether.<br>' +
+                '<br>' +
+                '<b>- Streamer Mode.</b><br>' +
+                '— Fixed a bug that caused the formatting string for vpn to be used when outputting mobile geolocation data in the OBS text source (and vise versa).<br>' +
+                '— These lines were mistakenly mixed up, if you edited them, you need to do it again.',
+            ru: '<b>Краткое описание.</b><br>' +
+                '<br>' +
+                '<b>- Панель управления.</b><br>' +
+                '— Теперь в заголовке панели управления по умолчанию отображается полная версия расширения (пример: v1.9.0).<br>' +
+                '— В настройках контрольной панели можно вернуть как было (v1.9) или же вовсе отключить отображение версии.<br>' +
+                '<br>' +
+                '<b>- Режим стримера.</b><br>' +
+                '— Исправлена ошибка из-за которой при выводе мобильных данных геолокации в текст-источник использовалась строка форматирования для vpn (и наоборот).<br>' +
+                '— Эти строки были перепутаны местами, если вы их редактировали под себя, вам придётся сделать это ещё раз.'
+        }
+    },
 ]
 
 
