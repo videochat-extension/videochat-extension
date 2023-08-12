@@ -69,13 +69,13 @@ export class HotkeysModule {
     }
 
     public unregister() {
-        document.removeEventListener('keydown', this.localHotkeysKeyDownTiming.bind(this))
-        document.removeEventListener('keyup', this.localHotkeys.bind(this))
+        document.removeEventListener('keydown', this.localHotkeysKeyDownTiming)
+        document.removeEventListener('keyup', this.localHotkeys)
     }
 
     public register() {
-        document.addEventListener('keydown', this.localHotkeysKeyDownTiming.bind(this))
-        document.addEventListener('keyup', this.localHotkeys.bind(this))
+        document.addEventListener('keydown', this.localHotkeysKeyDownTiming)
+        document.addEventListener('keyup', this.localHotkeys)
     }
 
     private arrowLeft = 0
@@ -83,7 +83,7 @@ export class HotkeysModule {
     private arrowDown = 0
     private arrowUp = 0
 
-    private localHotkeysKeyDownTiming(e: KeyboardEvent) {
+    private localHotkeysKeyDownTiming = (e: KeyboardEvent) => {
         switch (e.key) {
             case "ArrowLeft":
                 if (this.arrowLeft === 0)
@@ -107,7 +107,7 @@ export class HotkeysModule {
         }
     }
 
-    private localHotkeys(e: KeyboardEvent) {
+    private localHotkeys = (e: KeyboardEvent) => {
         if ((e.target instanceof HTMLElement && e.target.className === "emojionearea-editor") || (e.target instanceof HTMLElement && e.target.id === "mapid") || $(".swal2-popup").length > 0)
             return
 
