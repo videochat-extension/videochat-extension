@@ -1855,6 +1855,9 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— The dark theme has been updated to match the latest changes at all 49 sites.<br>' +
                 '— Chatrulez is now using Minichat\'s dark theme.<br>' +
                 '<br>' +
+                '<b>- Hotkeys.</b><br>' +
+                '— Fixed a bug that caused hotkeys to not disable when a feature is turned off until the next page reload.<br>' +
+                '<br>' +
                 '<b>- Streamer Mode.</b><br>' +
                 '— Fixed a bug that caused the formatting string for vpn to be used when outputting mobile geolocation data in the OBS text source (and vise versa).<br>' +
                 '— These lines were mistakenly mixed up, if you edited them, you need to do it again.',
@@ -1868,6 +1871,9 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Исправлена работа на сайте cafeclub.ua (расширение думало, что он вертикальный как ome.chat).<br>' +
                 '— Тёмная тема обновлена у всех 49 сайтов платформы.<br>' +
                 '— Chatrulez теперь использует тёмную тему Minichat.<br>' +
+                '<br>' +
+                '<b>- Горячие клавиши.</b><br>' +
+                '— Исправлен баг, из-за которого горячие клавиши не отключались до перезагрузки страницы.<br>' +
                 '<br>' +
                 '<b>- Режим стримера.</b><br>' +
                 '— Исправлена ошибка из-за которой при выводе мобильных данных геолокации в текст-источник использовалась строка форматирования для vpn (и наоборот).<br>' +
