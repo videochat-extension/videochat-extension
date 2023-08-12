@@ -134,6 +134,18 @@
   "settingsControls": {
     "message": "<b>Панель управления</b>"
   },
+  "showHeaderVersion": {
+    "message": "показывать версию в заголовке:"
+  },
+  "tooltipShowHeaderVersion": {
+    "message": "если включено, версия расширения будет отображаться в заголовке контрольной панели"
+  },
+  "showHeaderVersionFull": {
+    "message": "показывать полную версию в заголовке:"
+  },
+  "tooltipShowHeaderVersionFull": {
+    "message": "если включено, номер версии будет отображаться полностью"
+  },
   "tooltipWatermark": {
     "message": "прячет ватермарку в верхнем левом углу камеры собеседника"
   },

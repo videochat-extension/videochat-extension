@@ -14,7 +14,9 @@ export class ControlsModule {
         expand: true,
         ignoreSiteStyles: true,
         showHints: true,
-        showHintsMoreOften: false
+        showHintsMoreOften: false,
+        showHeaderVersion: true,
+        showHeaderVersionFull: true,
     }
     public videoContainerHeight = 0
     public chatContainerHeight = 0
@@ -181,7 +183,41 @@ export class ControlsModule {
                     tooltip: chrome.i18n.getMessage("tooltipshowHintsMoreOften")
                 }
             ]
-        }
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "showHeaderVersion",
+            text: chrome.i18n.getMessage("showHeaderVersion"),
+            tooltip: chrome.i18n.getMessage("tooltipShowHeaderVersion"),
+            enable: () => {
+                this.header.updHeaderString()
+            },
+            disable: () => {
+                this.header.updHeaderString()
+            },
+            controlsSection: 'showHeaderVersionEnabled',
+        },
+        {
+            type: "section",
+            hide: globalThis.platformSettings.get("showHeaderVersion"),
+            sectionId: "showHeaderVersionEnabled",
+            children: [
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "showHeaderVersionFull",
+                    text: chrome.i18n.getMessage("showHeaderVersionFull"),
+                    tooltip: chrome.i18n.getMessage("tooltipShowHeaderVersionFull"),
+                    enable: () => {
+                        this.header.updHeaderString()
+                    },
+                    disable: () => {
+                        this.header.updHeaderString()
+                    },
+                },
+            ]
+        },
     ]
 
     public injectControls(tabs: any[]) {
@@ -627,6 +663,7 @@ export class ControlsHeader {
     private left: HTMLElement;
     private right: HTMLElement;
     private header: HTMLElement;
+    private headerText: HTMLElement;
 
     public remote = "remote-video"
     public echo = "echo-video"
@@ -645,6 +682,8 @@ export class ControlsHeader {
         this.rightScreen = this.createRightScreen()
 
         this.left = this.createLeft()
+        this.headerText = this.createExtensionHeaderText()
+        this.updHeaderString()
         this.header = this.createExtensionHeader()
         this.right = this.createRight()
 
@@ -834,16 +873,23 @@ export class ControlsHeader {
         ])
     }
 
+    public updHeaderString() {
+        this.headerText.innerText = chrome.i18n.getMessage("extension_name_header") + (globalThis.platformSettings.get("showHeaderVersion") ? " v" + (globalThis.platformSettings.get("showHeaderVersionFull") ? chrome.runtime.getManifest().version : chrome.runtime.getManifest().version.substring(0, 3)) : "")
+    }
+
+    private createExtensionHeaderText() {
+        return utils.createElement('b', {
+            id: "VE_extension_name_header",
+        })
+    }
+
     private createExtensionHeader() {
         return utils.createElement('a', {
             target: "_blank",
             style: "text-decoration: none!important; color: #000000;",
             href: "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi"
         }, [
-            utils.createElement('b', {
-                innerText: chrome.i18n.getMessage("extension_name_header") + " v" + chrome.runtime.getManifest().version.substring(0, 3),
-                id: "VE_extension_name_header",
-            })
+            this.headerText
         ])
     }
 
