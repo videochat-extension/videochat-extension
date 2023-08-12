@@ -243,8 +243,8 @@ export class StreamerModule {
         obsControlGeolocationClearSearch: false,
         obsControlGeolocationClearStop: false,
         obsControlGeolocationTextFormUsual: "$city, $regionName ($country [$countryCode])",
-        obsControlGeolocationTextFormProxyVPNTor: "$country [$countryCode] (mobile)",
-        obsControlGeolocationTextFormMobile: "$country [$countryCode] (fake)",
+        obsControlGeolocationTextFormProxyVPNTorFix: "$country [$countryCode] (fake)",
+        obsControlGeolocationTextFormMobileFix: "$country [$countryCode] (mobile)",
         streamerBlurCoverSection: true,
         streamerMirror: false,
         blurOnStart: true,
@@ -510,21 +510,21 @@ export class StreamerModule {
                                 },
                                 {
                                     type: "button",
-                                    text: chrome.i18n.getMessage("obsControlGeolocationTextFormMobile"),
+                                    text: chrome.i18n.getMessage("obsControlGeolocationTextFormMobileFix"),
                                     onclick: (e: MouseEvent) => {
-                                        const result = prompt(chrome.i18n.getMessage("promptObsControlGeolocationTextFormMobile", [this.formatGeoString(globalThis.platformSettings.get("obsControlGeolocationTextFormMobile"), this.exampleGeoData), chrome.i18n.getMessage("promptFormatSrc")]), globalThis.platformSettings.get("obsControlGeolocationTextFormMobile"))
+                                        const result = prompt(chrome.i18n.getMessage("promptobsControlGeolocationTextFormMobileFix", [this.formatGeoString(globalThis.platformSettings.get("obsControlGeolocationTextFormMobileFix"), this.exampleGeoData), chrome.i18n.getMessage("promptFormatSrc")]), globalThis.platformSettings.get("obsControlGeolocationTextFormMobileFix"))
                                         if (result) {
-                                            globalThis.platformSettings.set({"obsControlGeolocationTextFormMobile": result});
+                                            globalThis.platformSettings.set({"obsControlGeolocationTextFormMobileFix": result});
                                         }
                                     }
                                 },
                                 {
                                     type: "button",
-                                    text: chrome.i18n.getMessage("obsControlGeolocationTextFormProxyVPNTor"),
+                                    text: chrome.i18n.getMessage("obsControlGeolocationTextFormProxyVPNTorFix"),
                                     onclick: (e: MouseEvent) => {
-                                        const result = prompt(chrome.i18n.getMessage("promptObsControlGeolocationTextFormProxyVPNTor", [this.formatGeoString(globalThis.platformSettings.get("obsControlGeolocationTextFormProxyVPNTor"), this.exampleGeoData), chrome.i18n.getMessage("promptFormatSrc")]), globalThis.platformSettings.get("obsControlGeolocationTextFormProxyVPNTor"))
+                                        const result = prompt(chrome.i18n.getMessage("promptobsControlGeolocationTextFormProxyVPNTorFix", [this.formatGeoString(globalThis.platformSettings.get("obsControlGeolocationTextFormProxyVPNTorFix"), this.exampleGeoData), chrome.i18n.getMessage("promptFormatSrc")]), globalThis.platformSettings.get("obsControlGeolocationTextFormProxyVPNTorFix"))
                                         if (result) {
-                                            globalThis.platformSettings.set({"obsControlGeolocationTextFormProxyVPNTor": result});
+                                            globalThis.platformSettings.set({"obsControlGeolocationTextFormProxyVPNTorFix": result});
                                         }
                                     }
                                 },
@@ -1229,9 +1229,9 @@ export class StreamerModule {
             let key = "obsControlGeolocationTextFormUsual"
 
             if (json.proxy || json.hosting) {
-                key = "obsControlGeolocationTextFormProxyVPNTor"
+                key = "obsControlGeolocationTextFormProxyVPNTorFix"
             } else if (json.mobile) {
-                key = "obsControlGeolocationTextFormMobile"
+                key = "obsControlGeolocationTextFormMobileFix"
             }
 
             let formattedString = this.formatGeoString(globalThis.platformSettings.get(key), json)

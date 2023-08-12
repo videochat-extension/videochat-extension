@@ -348,16 +348,16 @@
   "promptObsControlGeolocationTextFormUsual": {
     "message": "here you can define how geolocation data will be turned into text for:\n* regular wired ip (this means high accuracy).\n\n`$1`\n\n$2"
   },
-  "obsControlGeolocationTextFormMobile": {
+  "obsControlGeolocationTextFormMobileFix": {
     "message": "format mobile"
   },
-  "promptObsControlGeolocationTextFormMobile": {
+  "promptobsControlGeolocationTextFormMobileFix": {
     "message": "here you can define how geolocation data will be turned into text for:\n* mobile ip (this means low accuracy).\n\n`$1`\n\n$2"
   },
-  "obsControlGeolocationTextFormProxyVPNTor": {
+  "obsControlGeolocationTextFormProxyVPNTorFix": {
     "message": "format proxy/hosting/vpn/tor"
   },
-  "promptObsControlGeolocationTextFormProxyVPNTor": {
+  "promptobsControlGeolocationTextFormProxyVPNTorFix": {
     "message": "here you can define how geolocation data will be turned into text for:\n* vpn/proxy/tor/hosting ip (this means very low accuracy, probably fake location).\n\n`$1`\n\n$2"
   },
   "exampleGeoData": {

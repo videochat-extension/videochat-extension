@@ -338,16 +338,16 @@
   "promptObsControlGeolocationTextFormUsual": {
     "message": "здесь вы можете определить, как данные геолокации будут преобразованы в текст для:\n* обычный проводной ip (это означает высокую точность).\n\n`$1`\n\n$2"
   },
-  "obsControlGeolocationTextFormMobile": {
+  "obsControlGeolocationTextFormMobileFix": {
     "message": "формат мобильного ip"
   },
-  "promptObsControlGeolocationTextFormMobile": {
+  "promptobsControlGeolocationTextFormMobileFix": {
     "message": "здесь вы можете определить, как данные геолокации будут преобразованы в текст для:\n* мобильный ip (имеется в виду низкая точность).\n\n`$1`\n\n$2"
   },
-  "obsControlGeolocationTextFormProxyVPNTor": {
+  "obsControlGeolocationTextFormProxyVPNTorFix": {
     "message": "формат ip proxy/vpn/tor"
   },
-  "promptObsControlGeolocationTextFormProxyVPNTor": {
+  "promptobsControlGeolocationTextFormProxyVPNTorFix": {
     "message": "здесь вы можете определить, как данные геолокации будут преобразованы в текст для:\n* IP-адрес vpn/proxy/tor/hosting (это означает очень низкую точность, вероятно, поддельное местоположение).\n\n`$1`\n\n$2"
   },
   "exampleGeoData": {
