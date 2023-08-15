@@ -1868,7 +1868,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— In the control panel settings, you can revert as it was (v1.9) or disable the version display altogether.<br>' +
                 '<br>' +
                 '<b>- Hotkeys.</b><br>' +
-                '— Fixed a bug that caused hotkeys to not disable when a feature is turned off until the next page reload.<br>' +
+                '— Fixed a bug due to which hotkeys were not disabled when the user disabled the feature (hotkeys continued to work until the next page reload).<br>' +
                 '<br>' +
                 '<b>- Streamer Mode.</b><br>' +
                 '— Fixed a bug that caused the formatting string for vpn to be used when outputting mobile geolocation data in the OBS text source (and vise versa).<br>' +
@@ -1897,7 +1897,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— В настройках контрольной панели можно вернуть как было (v1.9) или же вовсе отключить отображение версии.<br>' +
                 '<br>' +
                 '<b>- Горячие клавиши.</b><br>' +
-                '— Исправлен баг, из-за которого горячие клавиши не отключались до перезагрузки страницы.<br>' +
+                '— Исправлен баг, из-за которого горячие клавиши не отключались при отключении функции (они продолжали работать до перезагрузки страницы).<br>' +
                 '<br>' +
                 '<b>- Режим стримера.</b><br>' +
                 '— Исправлена ошибка из-за которой при выводе мобильных данных геолокации в текст-источник использовалась строка форматирования для vpn (и наоборот).<br>' +
