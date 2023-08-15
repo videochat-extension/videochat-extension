@@ -193,7 +193,8 @@ async function content() {
                 injectScript('injection/coomeetfree.js')
                 await globalThis.platformSettings.setDriverDefaults({
                     hideBots: false,
-                    muteBots: false
+                    muteBots: false,
+                    emoji: false
                 })
                 globalThis.driver = CooMeetFreeSimpleDriver.getInstance()
                 globalThis.driver.start(document.body)

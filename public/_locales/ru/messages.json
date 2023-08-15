@@ -854,16 +854,22 @@
     "message": "Нажмите чтобы прочитать о функциях расширения на этом сайте."
   },
   "freecmSettingHideBots": {
-    "message": "С. ботов: "
+    "message": "Скрывать ботов: "
   },
   "freecmSettingHideBotsTooltip": {
-    "message": "Расширение будет скрывать видео для собеседников-ботов"
+    "message": "Чат Рулетное Расширение будет скрывать видео у обнаруженных собеседников-ботов."
+  },
+  "freecmSettingEmoji": {
+    "message": "\uD83E\uDD16: "
+  },
+  "freecmSettingEmojiTooltip": {
+    "message": "Чат Рулетное Расширение будет показывать '\uD83E\uDD16' emoji пока собеседник-бот скрыт."
   },
   "freecmSettingMuteBots": {
-    "message": "М. ботов: "
+    "message": "\uD83D\uDD07: "
   },
   "freecmSettingMuteTooltip": {
-    "message": "Расширение будет отключать звук для собеседников-ботов"
+    "message": "Чат Рулетное Расширение будет отключать звук собеседникам-ботам."
   },
   "freecmCountriesListTitle": {
     "message": "$1: Вас определило как $2. Вам будут попадаться следующие страны: $3."

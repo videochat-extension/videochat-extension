@@ -15,8 +15,10 @@ export class CooMeetFreeSimpleDriver {
     private video: HTMLVideoElement | undefined;
     private cmtNext: HTMLElement | undefined;
     private cmtStop: HTMLElement | undefined;
-    private volumeButton: HTMLElement | undefined;
-    private loader: HTMLElement | undefined;
+    private emoji = utils.createElement('p', {
+        style: "position: absolute; visibility: hidden; top:50%; left:50%; color:white; transform: translate(-50%, -50%); margin:0; padding:0; user-select: none; font-size: 150%; line-height: 150%",
+        innerText: "🤖",
+    })
 
     private volume = 0;
     private predVolume = 0;
@@ -55,10 +57,8 @@ export class CooMeetFreeSimpleDriver {
         this.injectInterface()
 
         this.video = this.getRemoteVideo()
-        console.dir(this.video)
         this.cmtNext = this.getNextButton()
         this.cmtStop = this.getStopButton()
-        this.volumeButton = this.getVolumeButton()
 
         if (!this.video) {
             throw new Error("remote video not found")
@@ -72,26 +72,15 @@ export class CooMeetFreeSimpleDriver {
             throw new Error("cmtStop not found")
         }
 
-        if (!this.volumeButton) {
-            console.warn("volume button not found")
+        if (this.video) {
+            this.video.parentElement!.appendChild(this.emoji)
         }
-
-        // TODO: adapt to layout on free.coomeet.com to support loader there
         let self = this
-        document.arrive('.free-cm-app-loader2', {onceOnly: true, existing: true}, (el: Element) => {
-            self.loader = (el as HTMLElement).cloneNode(true) as HTMLElement
-            self.loader.style.visibility = "hidden"
-
-            if (self.video) {
-                self.video.parentElement!.appendChild(self.loader)
-            }
-        })
-
         this.cmtStop.addEventListener('click', () => {
             this.setNextButtonText(chrome.i18n.getMessage('freecmBotButtonReset'))
             this.cmtNext!.style.background = ''
-            if (self.loader) {
-                self.loader.style.visibility = "hidden"
+            if (globalThis.platformSettings.get('emoji')) {
+                this.emoji.style.visibility = "hidden"
             }
         })
 
@@ -106,10 +95,8 @@ export class CooMeetFreeSimpleDriver {
             }
             if (this.bot) {
                 this.hideVideo()
-                this.muteAudio()
             } else {
                 this.showVideo()
-                this.unmuteAudio()
             }
         })
 
@@ -125,9 +112,11 @@ export class CooMeetFreeSimpleDriver {
             this.video!.style.visibility = "hidden"
             this.botHidden = true
 
-            if (this.loader) {
-                this.loader.style.visibility = "visible"
+            if (globalThis.platformSettings.get('emoji')) {
+                this.emoji.style.visibility = "visible"
             }
+
+            this.muteAudio()
         }
     }
 
@@ -136,29 +125,26 @@ export class CooMeetFreeSimpleDriver {
             this.video!.style.visibility = "visible"
             this.botHidden = false
 
-            if (this.loader) {
-                this.loader.style.visibility = "hidden"
+            if (globalThis.platformSettings.get('emoji')) {
+                this.emoji.style.visibility = "hidden"
             }
+
+            this.unmuteAudio()
         }
     }
 
     private muteAudio() {
-        if (globalThis.platformSettings.get('muteBots')) {
-            this.video!.muted = true
-            this.botMuted = true
+        if (globalThis.platformSettings.get('hideBots')) {
+            if (globalThis.platformSettings.get('muteBots')) {
+                this.video!.muted = true
+                this.botMuted = true
+            }
         }
     }
 
     private unmuteAudio() {
         if (this.botMuted) {
-            if (this.volumeButton) {
-                let userMuted = this.volumeButton!.className.includes('_off')
-                if (!userMuted) {
-                    this.video!.muted = false
-                }
-            } else {
-                this.video!.muted = false
-            }
+            this.video!.muted = false
             this.botMuted = false
         }
     }
@@ -207,14 +193,24 @@ export class CooMeetFreeSimpleDriver {
             el.appendChild(self.volumeControl)
         })
 
+        document.arrive('.free-cm-app-tape-detect__item__icon', {existing: true}, function(el) {
+            if (el instanceof HTMLElement) {
+                el.style.minWidth = '12px'
+            }
+        })
+
         document.arrive(".free-cm-app-tape-detect__container", {existing: true, onceOnly: true}, function (el) {
+            if (el instanceof HTMLElement) {
+                el.style.overflow = 'auto'
+                el.style.overflowY = 'hidden'
+            }
             let extensionHeader = utils.createElement('div', {
                 className: 'free-cm-app-tape-detect__item'
             }, [
                 utils.createElement('span', {
                     innerText: "v" + chrome.runtime.getManifest().version,
                     title: chrome.i18n.getMessage('freecmExtensionHeaderTitle'),
-                    style: "white-space: nowrap; overflow: hidden; cursor: pointer;",
+                    style: "white-space: nowrap; overflow: hidden; cursor: pointer;user-select:none;",
                     onclick: () => {
                         new ContentSwalInfoCoomeetFree().showFromStart()
                     }
@@ -227,7 +223,7 @@ export class CooMeetFreeSimpleDriver {
             }, [
                 utils.createElement("span", {
                     innerText: chrome.i18n.getMessage('freecmSettingHideBots'),
-                    style: "cursor:pointer; white-space: nowrap; overflow: hidden;",
+                    style: "cursor:pointer; white-space: nowrap; overflow: hidden;  user-select:none;",
                     title: chrome.i18n.getMessage('freecmSettingHideBotsTooltip'),
                     onclick: () => {
                         document.getElementById('hideBotsCheck')!.click()
@@ -248,20 +244,60 @@ export class CooMeetFreeSimpleDriver {
                             if (self.bot) {
                                 self.hideVideo()
                             }
+                            setting2.style.display = ""
+                            setting3.style.display = "";
                         } else {
                             self.showVideo()
+                            setting2.style.display = "none"
+                            setting3.style.display = "none"
                         }
                     }
                 }),
             ])
 
             el.appendChild(setting1)
+
             let setting2 = utils.createElement('div', {
                 className: 'free-cm-app-tape-detect__item'
             }, [
                 utils.createElement("span", {
+                    innerText: chrome.i18n.getMessage('freecmSettingEmoji'),
+                    style: "cursor:pointer; white-space: nowrap; overflow: hidden;  user-select:none;",
+                    title: chrome.i18n.getMessage('freecmSettingEmojiTooltip'),
+                    onclick: () => {
+                        document.getElementById('emojiCheck')!.click()
+                    }
+                }),
+                utils.createElement('input', {
+                    type: "checkbox",
+                    checked: globalThis.platformSettings.get('emoji'),
+                    style: "margin:0!important",
+                    id: "emojiCheck",
+                    onchange: (event: JQuery.ChangeEvent) => {
+                        let key = "emoji"
+                        let bool = event.currentTarget.checked
+                        let syncDict: { [key: string]: any } = {}
+                        syncDict[key] = bool
+                        globalThis.platformSettings.set(syncDict)
+                        if (bool) {
+                            if (self.botHidden) {
+                                self.emoji.style.visibility = "visible"
+                            }
+                        } else {
+                            self.emoji.style.visibility = "hidden"
+                        }
+                    }
+                }),
+            ])
+
+            el.appendChild(setting2)
+
+            let setting3 = utils.createElement('div', {
+                className: 'free-cm-app-tape-detect__item'
+            }, [
+                utils.createElement("span", {
                     innerText: chrome.i18n.getMessage('freecmSettingMuteBots'),
-                    style: "cursor:pointer; white-space: nowrap; overflow: hidden;",
+                    style: "cursor:pointer; white-space: nowrap; overflow: hidden;  user-select:none;",
                     title: chrome.i18n.getMessage('freecmSettingMuteTooltip'),
                     onclick: () => {
                         document.getElementById('muteBotsCheck')!.click()
@@ -288,17 +324,22 @@ export class CooMeetFreeSimpleDriver {
                     }
                 })
             ])
-            el.appendChild(setting2)
+            el.appendChild(setting3)
             setting1.style.display = "none"
             setting2.style.display = "none"
+            setting3.style.display = "none"
             $(el).on("mouseenter", () => {
                 setting1.style.display = ""
-                setting2.style.display = "";
+                if (globalThis.platformSettings.get('hideBots')) {
+                    setting2.style.display = ""
+                    setting3.style.display = "";
+                }
                 (extensionHeader.firstChild as HTMLElement).innerText = "v" + chrome.runtime.getManifest().version + " (?)"
             })
             $(el).on("mouseleave", () => {
                 setting1.style.display = "none"
-                setting2.style.display = "none";
+                setting2.style.display = "none"
+                setting3.style.display = "none";
                 (extensionHeader.firstChild as HTMLElement).innerText = "v" + chrome.runtime.getManifest().version
             })
         })
@@ -378,18 +419,6 @@ export class CooMeetFreeSimpleDriver {
             if (button) {
                 return button as HTMLElement
             }
-        }
-        return undefined;
-    }
-
-    private getVolumeButton() {
-        let vol = $(".free-cm-app-control-volume")
-        if (vol.length > 0) {
-            return vol[0] as HTMLElement
-        }
-        let vol2 = $(".free-cm-app-control-volume2")
-        if (vol2.length > 0) {
-            return vol2[0] as HTMLElement
         }
         return undefined;
     }
