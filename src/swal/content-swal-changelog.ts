@@ -1863,6 +1863,11 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— The dark theme has been updated to match the latest changes at all 49 sites.<br>' +
                 '— Chatrulez is now using Minichat\'s dark theme.<br>' +
                 '<br>' +
+                '<b>- Coomeet Free.</b><br>' +
+                '— The UI of the control panel has been improved: now it is more intuitive and takes up less space.<br>' +
+                '— Removed the display of the duplicated loader (it indicated that the bot was hidden).<br>' +
+                '— Added the ability to show robot emoji while the video from the bot\'s camera is hidden.<br>' +
+                '<br>' +
                 '<b>- Control Panel.</b><br>' +
                 '— Now the full version of the extension (v1.9.0) is displayed in the control panel header by default.<br>' +
                 '— In the control panel settings, you can revert as it was (v1.9) or disable the version display altogether.<br>' +
@@ -1891,6 +1896,11 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Исправлена работа на сайте cafeclub.ua (расширение думало, что он вертикальный как ome.chat).<br>' +
                 '— Тёмная тема обновлена у всех 49 сайтов платформы.<br>' +
                 '— Chatrulez теперь использует тёмную тему Minichat.<br>' +
+                '<br>' +
+                '<b>- Coomeet Free.</b><br>' +
+                '— Улучшен интерфейс панели управления: теперь он более интуитивен и занимает меньше места.<br>' +
+                '— Убрано отображение дублирующегося загрузчика (он указывал на то, что бот был скрыт).<br>' +
+                '— Добавлена возможность показывать эмодзи робота, когда видео собеседника-бота скрыто.<br>' +
                 '<br>' +
                 '<b>- Панель управления.</b><br>' +
                 '— Теперь в заголовке панели управления по умолчанию отображается полная версия расширения (пример: v1.9.0).<br>' +
