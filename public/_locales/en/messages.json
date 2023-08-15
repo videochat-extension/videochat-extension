@@ -639,10 +639,10 @@
     "message": "hides header"
   },
   "discordBadge": {
-    "message": "https://img.shields.io/discord/925632108150530108?label=join%20our%20discord&logo=discord"
+    "message": "https://img.shields.io/discord/925632108150530108?label=join%20our%20discord&logo=discord&cacheSeconds=600"
   },
   "mainDiscordBadge": {
-    "message": "https://img.shields.io/discord/925632108150530108?label=You%20should%20join%20our%20official%20Discord%20server&logo=discord&style=plastic"
+    "message": "https://img.shields.io/discord/925632108150530108?label=You%20should%20join%20our%20official%20Discord%20server&logo=discord&style=plastic&cacheSeconds=600"
   },
   "expand": {
     "message": "expand 'Settings' tab:"
