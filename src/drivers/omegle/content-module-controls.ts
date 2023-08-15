@@ -91,7 +91,7 @@ export class ControlsModuleOmegle extends ControlsModule {
                 flex-wrap: wrap!important;
                 list-style-type: none!important;
                 bottom: 0px!important;
-                background: #f8f8f8!important;
+                background: #f8f8f8;
                 margin: 0!important;
                 padding: 0!important;
                 position: absolute!important;

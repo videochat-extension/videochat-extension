@@ -152,7 +152,6 @@ export class OmegleDriver {
                         $('.tooltip').tooltipster({maxWidth: 300, distance: -1})
                         if (this.modules.interface) {
                             this.modules.interface.applyTweaks()
-                            setTimeout(this.modules.interface.applyTweaks.bind(this),5000)
                         }
                         firstInjection = false
                     }
