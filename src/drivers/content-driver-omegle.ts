@@ -6,6 +6,7 @@ import {ControlsTabSettingsOmegle} from "./omegle/content-module-settings";
 require('tooltipster')
 import {GeolocationModuleOmegle} from "./omegle/content-module-geolocation";
 import {InterfaceModuleOmegle} from "./omegle/content-module-interface";
+import {switchModeOmegle} from "./omegle/content-swal-switchmode";
 
 export class OmegleDriver {
     private static instanceRef: OmegleDriver;
@@ -93,6 +94,7 @@ export class OmegleDriver {
 
     public start(element: HTMLElement): boolean {
         this.stageObserver.observe(element, {attributes: true});
+        this.injectSwitchModeButton()
 
         document.arrive("div > p:nth-child(2) > label > input[type=checkbox]", (el: any) => {
             if (globalThis.platformSettings.get('darkMode')) {
@@ -172,7 +174,25 @@ export class OmegleDriver {
         return true
     }
 
-    public injectSwitchModeButton() {}
+    public injectSwitchModeButton() {
+        document.arrive(".logtopicsettings", {existing:true, onceOnly:true}, function (el) {
+            let switchModeLabel = utils.createElement('label', null, [
+                utils.createElement('input', {
+                    type: "checkbox",
+                    checked: !globalThis.platformSettings.get('minimalism'),
+                    onchange: async function (ev: JQuery.ChangeEvent) {
+                        switchModeOmegle()
+                        ev.currentTarget.checked = true
+                    }
+                }),
+                utils.createElement('span', {
+                    innerText: " Enable advanced mode"
+                })
+            ])
+            $('<br>').insertBefore(el.children[0])
+            $(switchModeLabel).insertBefore(el.children[0])
+        })
+    }
 
 
     public stopAndStart(delay?: number | undefined): void {}
