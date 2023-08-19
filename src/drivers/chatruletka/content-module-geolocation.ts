@@ -386,14 +386,18 @@ export class GeolocationModule {
             }
             if (response.status === 200) {
                 this.api = 2;
-                if (this.needToShowHint) {
-                    this.needToShowHint = false;
-                    (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + this.tabs[0].getHintHTML(this.hint)
-                } else {
-                    (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage("main", [this.driver.site.text])
-                }
-                if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                    this.driver.modules.controls.resizemap(false)
+                // prevents geolocation data from being overwritten if the api check result arrives after the geolocation result.
+                // this happens if a person with a very good internet connection triggers api check and immediately presses 'start', while the extension server is overloaded with requests.
+                if (this.driver.stage < 2) {
+                    if (this.needToShowHint) {
+                        this.needToShowHint = false;
+                        (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + this.tabs[0].getHintHTML(this.hint)
+                    } else {
+                        (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage("main", [this.driver.site.text])
+                    }
+                    if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
+                        this.driver.modules.controls.resizemap(false)
+                    }
                 }
                 console.dir(`geolocation test passed: ${response.status}`)
             } else if (response.status === 429) {
