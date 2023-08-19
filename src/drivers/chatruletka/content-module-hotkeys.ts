@@ -93,11 +93,13 @@ export class HotkeysModule {
             case "ArrowUp":
                 if (this.arrowUp === 0)
                     this.arrowUp = Date.now()
+                e.preventDefault()
                 break;
 
             case "ArrowDown":
                 if (this.arrowDown === 0)
                     this.arrowDown = Date.now()
+                e.preventDefault()
                 break;
 
             case "ArrowRight":
@@ -131,6 +133,7 @@ export class HotkeysModule {
                 break;
 
             case "ArrowUp":
+                e.preventDefault()
                 if (Date.now() - this.arrowUp < 5000) {
                     let stopButton: HTMLElement = document.getElementsByClassName('buttons__button stop-button')[0] as HTMLElement;
                     stopButton.click()
@@ -139,6 +142,7 @@ export class HotkeysModule {
                 break;
 
             case "ArrowDown":
+                e.preventDefault()
                 if (Date.now() - this.arrowDown < 5000) {
                     if (document.getElementsByClassName("message-report-link tr").length !== 0) {
                         let openReportButton: HTMLElement = document.getElementsByClassName("message-report-link tr")[0] as HTMLElement;
