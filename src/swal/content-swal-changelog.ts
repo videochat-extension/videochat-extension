@@ -1862,6 +1862,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Fixed work on cafeclub.ua site (extension thought it was vertical like ome.chat).<br>' +
                 '— The dark theme has been updated to match the latest changes at all 49 sites.<br>' +
                 '— Chatrulez is now using Minichat\'s dark theme.<br>' +
+                '— Fixed a bug that could cause the API check result to overwrite the interlocutor\'s geolocation data if the check result came later than the geolocation data. This happened if a person with a good internet connection started the API check (by clicking on stop), immediately started the search (by clicking on start) and due to heavy load on the extension server the API check result could come later than the geolocation data in very rare cases.<br>' +
                 '<br>' +
                 '<b>- Coomeet Free.</b><br>' +
                 '— The UI of the control panel has been improved: now it is more intuitive and takes up less space.<br>' +
@@ -1874,6 +1875,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<br>' +
                 '<b>- Hotkeys.</b><br>' +
                 '— Fixed a bug due to which hotkeys were not disabled when the user disabled the feature (hotkeys continued to work until the next page reload).<br>' +
+                '— Standard key behavior is now prevented when local hotkeys are enabled (no more scrolling down and up when the down and up arrow hotkeys are activated).<br>' +
                 '<br>' +
                 '<b>- Streamer Mode.</b><br>' +
                 '— Fixed a bug that caused the formatting string for vpn to be used when outputting mobile geolocation data in the OBS text source (and vise versa).<br>' +
@@ -1896,6 +1898,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Исправлена работа на сайте cafeclub.ua (расширение думало, что он вертикальный как ome.chat).<br>' +
                 '— Тёмная тема обновлена у всех 49 сайтов платформы.<br>' +
                 '— Chatrulez теперь использует тёмную тему Minichat.<br>' +
+                '— Исправлена ошибка из-за которой результат проверки API мог перезаписать данные геолокации собеседника, если результат проверки пришёл позже данных геолокации. Такое случалось, если человек с хорошим интернет соединением запускал проверку API (нажав мышкой на стоп), сразу же запускал поиск (нажав мышкой на старт) и из-за большой нагрузки на сервер расширения результат проверки API в очень редких случаях мог придти позже данных геолокации.<br>' +
                 '<br>' +
                 '<b>- Coomeet Free.</b><br>' +
                 '— Улучшен интерфейс панели управления: теперь он более интуитивен и занимает меньше места.<br>' +
@@ -1908,6 +1911,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<br>' +
                 '<b>- Горячие клавиши.</b><br>' +
                 '— Исправлен баг, из-за которого горячие клавиши не отключались при отключении функции (они продолжали работать до перезагрузки страницы).<br>' +
+                '— При включенных хоткеях теперь предотвращается стандартное поведение клавиш (больше не будет прокручивать вниз и вверх при активации хоткеев на стрелках вниз и вверх).<br>' +
                 '<br>' +
                 '<b>- Режим стримера.</b><br>' +
                 '— Исправлена ошибка из-за которой при выводе мобильных данных геолокации в текст-источник использовалась строка форматирования для vpn (и наоборот).<br>' +
