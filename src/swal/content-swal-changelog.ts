@@ -1848,7 +1848,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<br>' +
                 '<b>- Omegle (simple \'minimalism\' mode).</b><br>' +
                 '— The extension will now remember your choices in the TOS box to fill in the checkboxes for you. All you have to do is confirm.<br>' +
-                '— Added a shadow in the TOS box when the dark theme is active.<br>' +
+                '— Dark mode was slightly improved.<br>' +
                 '— Added option to switch to "advanced" mode.<br>' +
                 '<br>' +
                 '<b>- Omegle (wip \'advanced\' mode).</b><br>' +
@@ -1884,7 +1884,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<br>' +
                 '<b>- Omegle (режим \'минимализм\').</b><br>' +
                 '— Расширение теперь будет запоминать ваш выбор в окошке TOS, чтобы заполнить чекбоксы для вашего удобства. Всё, что вам нужно сделать, это подтвердить выбор.<br>' +
-                '— Добавлена небольшая тень в окошко TOS, если тёмная тема активна.<br>' +
+                '— Тёмная тема немного улучшена.<br>' +
                 '— Добавлена возможность переключения в \'advanced\' режим.<br>' +
                 '<br>' +
                 '<b>– Omegle (режим \'advanced\').</b><br>' +
