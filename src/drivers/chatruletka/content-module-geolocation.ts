@@ -324,6 +324,7 @@ export class GeolocationModule {
     public delayIPs: string[] = [];
     private needToShowHint = globalThis.platformSettings.get("showHints") ? (globalThis.platformSettings.get("showHintsMoreOften") ? true : utils.getRandomInt(1, 3) === 2) : false;
     private hint: number = 0;
+    private firstCheck = true;
 
     public constructor(driver: ChatruletkaDriver | OmegleDriver) {
         this.driver = driver
@@ -388,7 +389,8 @@ export class GeolocationModule {
                 this.api = 2;
                 // prevents geolocation data from being overwritten if the api check result arrives after the geolocation result.
                 // this happens if a person with a very good internet connection triggers api check and immediately presses 'start', while the extension server is overloaded with requests.
-                if (this.driver.stage < 2) {
+                if (this.driver.stage < 2 || this.firstCheck) {
+                    this.firstCheck = false
                     if (this.needToShowHint) {
                         this.needToShowHint = false;
                         (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + this.tabs[0].getHintHTML(this.hint)
