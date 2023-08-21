@@ -944,6 +944,7 @@ body.swal2-toast-shown .swal2-container {
 
 .topictageditor {
     background-color: #000;
+    background: #000!important;
     border-color: #424242
 }
 
