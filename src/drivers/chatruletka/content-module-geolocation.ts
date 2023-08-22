@@ -357,10 +357,11 @@ export class GeolocationModule {
             }
 
             if (typeof parsedCandidate !== "undefined" && parsedCandidate.type === "srflx" && parsedCandidate.address) {
-                console.dir("IP: " + parsedCandidate.address)
+                this.driver.addStringToLog(false, "IP: " + parsedCandidate.address)
                 if (this.rmdaddr !== parsedCandidate.address) {
                     this.rmdaddr = parsedCandidate.address;
-                    console.dir("IP CHANGED")
+                    this.driver.addStringToLog(true, "NEW IP: " + parsedCandidate.address)
+                    this.driver.addStringToLog(false, "IP CHANGED")
                     this.onNewIP(this.rmdaddr)
                 }
             }
@@ -654,7 +655,7 @@ export class GeolocationModule {
                 if (globalThis.platformSettings.get("enableTargetCity")) {
                     if (!globalThis.platformSettings.get("targetCity").includes(json.city)) {
                         if (this.curIps.indexOf(ip) + 1 === this.curIps.length) {
-                            console.dir("SKIPPING WRONG CITY")
+                            this.driver.addStringToLog(true, "Skipping wrong city")
                             this.driver.stopAndStart()
                         }
                         return
@@ -662,13 +663,14 @@ export class GeolocationModule {
                         this.driver.needToCheckTarget = false
                         if (globalThis.platformSettings.get("targetSound")) {
                             this.targetSound.play();
-                            console.dir(`FOUND TARGET CITY: ${globalThis.platformSettings.get("targetCity")}`)
+                            this.driver.addStringToLog(true, `FOUND TARGET CITY: ${globalThis.platformSettings.get("targetCity")}`)
                         }
                     }
                 }
                 if (globalThis.platformSettings.get("enableTargetRegion")) {
                     if (!globalThis.platformSettings.get("targetRegion").includes(json.regionName)) {
                         if (this.curIps.indexOf(ip) + 1 === this.curIps.length) {
+                            this.driver.addStringToLog(true, "Skipping wrong region")
                             this.driver.stopAndStart()
                         }
                         return
@@ -677,7 +679,7 @@ export class GeolocationModule {
                         if (globalThis.platformSettings.get("targetSound")) {
                             // TODO: does not work in firefox
                             (this.targetSound).play();
-                            console.dir(`FOUND TARGET REGION: ${globalThis.platformSettings.get("targetRegion")}`)
+                            this.driver.addStringToLog(true, `found target region: ${globalThis.platformSettings.get("targetRegion")}`)
                         }
                     }
                 }

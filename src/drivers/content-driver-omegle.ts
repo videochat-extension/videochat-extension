@@ -1,24 +1,36 @@
 import $ from "jquery";
 import * as utils from "../utils/utils";
-import {ControlsModuleOmegle} from "./omegle/content-module-controls";
-import {ControlsTabAboutOmegle} from "./omegle/content-module-controls";
+import {ControlsModuleOmegle, ControlsTabAboutOmegle} from "./omegle/content-module-controls";
 import {ControlsTabSettingsOmegle} from "./omegle/content-module-settings";
-require('tooltipster')
 import {GeolocationModuleOmegle} from "./omegle/content-module-geolocation";
 import {InterfaceModuleOmegle} from "./omegle/content-module-interface";
 import {switchModeOmegle} from "./omegle/content-swal-switchmode";
 
+require('tooltipster')
+
 export class OmegleDriver {
+    public static defaults = {
+        darkMode: false,
+        c1Checked: false,
+        c2Checked: false,
+        ...GeolocationModuleOmegle.defaults,
+        ...ControlsModuleOmegle.defaults
+    }
     private static instanceRef: OmegleDriver;
-
-    private stageObserver: MutationObserver;
-
-    private mode: "video" | "text" | undefined
-
     public stage: 0 | 1 | 2 | 3 | 4 = 0
     public platform: any
     public site: any
-    public modules : {hotkeys: undefined, automation: undefined, interface: InterfaceModuleOmegle, geolocation: GeolocationModuleOmegle, blacklist: undefined, faceapi: undefined, stats: undefined, streamer: undefined, controls: ControlsModuleOmegle}
+    public modules: {
+        hotkeys: undefined,
+        automation: undefined,
+        interface: InterfaceModuleOmegle,
+        geolocation: GeolocationModuleOmegle,
+        blacklist: undefined,
+        faceapi: undefined,
+        stats: undefined,
+        streamer: undefined,
+        controls: ControlsModuleOmegle
+    }
     public play: number = 0;
     public search: number = 0;
     public found: number = 0;
@@ -27,19 +39,8 @@ export class OmegleDriver {
     public needToCheckTarget: boolean = false;
     public needToClear: boolean = false;
     public timeout: NodeJS.Timeout | undefined;
-
-    public static defaults = {
-        darkMode: false,
-        c1Checked: false,
-        c2Checked: false,
-        ...GeolocationModuleOmegle.defaults,
-        ...ControlsModuleOmegle.defaults
-    }
-
-
-    private resultsContainer: HTMLElement = utils.createElement('div', {
-        className: "logitem"
-    })
+    private stageObserver: MutationObserver;
+    private mode: "video" | "text" | undefined
 
     private constructor(cur: any) {
         this.stageObserver = new MutationObserver(this.onChangeStage)
@@ -96,6 +97,18 @@ export class OmegleDriver {
         this.stageObserver.observe(element, {attributes: true});
         this.injectSwitchModeButton()
 
+        document.arrive("td.chatmsgcell > div > textarea", (textarea: any) => {
+            this.stageObserver.observe(textarea, {attributes: true})
+        })
+
+        // document.addEventListener('keyup', (ev) => {
+        //     switch (ev.key) {
+        //         case "ArrowLeft":
+        //             this.stopAndStart(1000)
+        //             break;
+        //     }
+        // })
+
         document.arrive("div > p:nth-child(2) > label > input[type=checkbox]", (el: any) => {
             if (globalThis.platformSettings.get('darkMode')) {
                 // add inset boxshadow for checkboxes
@@ -144,7 +157,7 @@ export class OmegleDriver {
             controls.style.overflow = 'hidden'
             controls.style.resize = 'both'
 
-            new ResizeObserver(()=>{
+            new ResizeObserver(() => {
                 if (document.getElementById("videochat-extension-controls-container")) {
                     this.modules.controls.resizemap(false)
                 }
@@ -175,7 +188,7 @@ export class OmegleDriver {
     }
 
     public injectSwitchModeButton() {
-        document.arrive(".logtopicsettings", {existing:true, onceOnly:true}, function (el) {
+        document.arrive(".logtopicsettings", {existing: true, onceOnly: true}, function (el) {
             let switchModeLabel = utils.createElement('label', null, [
                 utils.createElement('input', {
                     type: "checkbox",
@@ -194,12 +207,57 @@ export class OmegleDriver {
         })
     }
 
+    public addStringToLog(show: boolean, string: string): void {
+        console.dir(string)
+        if (show && globalThis.platformSettings.get('logToChat')) {
+            if (!globalThis.platformSettings.get('logIpToChat') && string.includes("IP: ")) {
+                return
+            }
+            let logitem = utils.createElement('div', {
+                className: "logitem",
+            }, [
+                utils.createElement('p', {
+                    className: "statuslog",
+                    innerText: `Videochat Extension: ${string}`
+                })
+            ])
+            let logbox = document.querySelector("div.logwrapper > div.logbox > div")
+            if (logbox) {
+                logbox.appendChild(logitem)
+            }
+        }
+    }
 
-    public stopAndStart(delay?: number | undefined): void {}
+    // dont need to auto-start on omegle since auto-rererolling is a part of the ui
+    public stopAndStart(delay?: number): void {
+        if (typeof delay === "undefined") {
+            delay = 1000
+        }
+        clearTimeout(this.timeout)
+        this.timeout = setTimeout(() => {
+            let disconnectbtns = document.getElementsByClassName("disconnectbtn");
+            if (disconnectbtns.length > 0) {
+                let button = (disconnectbtns[0] as HTMLButtonElement)
+                if (this.stage > 0) {
+                    this.addStringToLog(true, "Disconnecting...")
+                    button.click();
+                    button.click();
+                }
+            }
+        }, delay)
+        this.addStringToLog(true, `Skipping in ${(delay / 1000).toFixed(1)} s.`)
+    }
 
 
     private onChangeStage = (mutations: MutationRecord[]) => {
         mutations.forEach((mutation: MutationRecord) => {
+            if (mutation.attributeName === "disabled") {
+                if (!(mutation.target as HTMLTextAreaElement).disabled) {
+                    this.play = Date.now()
+                    this.stage = 4
+                    // alert('found -> play')
+                }
+            }
             if (mutation.attributeName === "class") {
                 const attributeValue = String($(mutation.target).prop(mutation.attributeName));
 
@@ -207,11 +265,18 @@ export class OmegleDriver {
                     this.mode = "video"
                     if (attributeValue.includes('inconversation')) {
                         // active or in search
-                        this.play = Date.now()
-                        this.stage = 4
-                        this.resultsContainer.innerHTML = ""
+                        this.stage = 1
+                        if (this.modules.geolocation) {
+                            this.modules.geolocation.curIps = []
+                            this.modules.geolocation.delayIPs = []
+                            this.modules.geolocation.curInfo = {}
+                        }
+
+                        this.stage = 1
+                        // alert('search')
                     } else {
                         this.stage = 0
+                        clearTimeout(this.timeout)
                         if (this.modules.geolocation) {
                             this.modules.geolocation.curIps = []
                             this.modules.geolocation.delayIPs = []
@@ -222,6 +287,8 @@ export class OmegleDriver {
                             }
                         }
                         this.needToClear = true;
+                        this.needToCheckTarget = true
+                        // alert('stop')
                     }
                 } else {
                     this.mode = "text"

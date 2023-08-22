@@ -668,6 +668,18 @@
   "tooltipshowHintsMoreOften": {
     "message": "if enabled, hints will show every time you open a video chat. if disabled, there is only a 33% chance of appearing"
   },
+  "logToChat": {
+    "message": "show log in the chat:"
+  },
+  "tooltipLogToChat": {
+    "message": "if enabled, the extension will output its important log messages to the chat. Examples: auto-skipping notifications, the stranger's IP address, etc."
+  },
+  "logIpToChat": {
+    "message": "show IPs in the chat log:"
+  },
+  "tooltipLogIpToChat": {
+    "message": "if enabled, the extension will output the IP address of your conversation partner to the chat log."
+  },
   "swalInfoTitle1": {
     "message": "Congratulations!"
   },

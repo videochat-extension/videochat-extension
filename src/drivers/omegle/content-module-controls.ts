@@ -5,11 +5,19 @@ import {ContentSwalInfoOmegle} from "./content-swal-info";
 import * as utils from "../../utils/utils";
 
 export class ControlsModuleOmegle extends ControlsModule {
+    public static defaults = {
+        ...super.defaults, ...{
+            logToChat: true,
+            logIpToChat: false,
+        }
+    }
+
     public constructor(driver: OmegleDriver) {
         super(driver)
 
         this.header = new ControlsHeaderOmegle(this.driver, this)
     }
+
     public injectControls(tabs: any[]) {
         this.start(tabs)
 
@@ -50,6 +58,36 @@ export class ControlsModuleOmegle extends ControlsModule {
                     key: "showHintsMoreOften",
                     text: chrome.i18n.getMessage("showHintsMoreOften"),
                     tooltip: chrome.i18n.getMessage("tooltipshowHintsMoreOften")
+                }
+            ]
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "logToChat",
+            controlsSection: 'logToChatEnabled',
+            text: chrome.i18n.getMessage("logToChat"),
+            tooltip: chrome.i18n.getMessage("tooltipLogToChat"),
+            enable: () => {
+            },
+            disable: () => {
+            },
+        },
+        {
+            type: "section",
+            hide: globalThis.platformSettings.get("logToChat"),
+            sectionId: "logToChatEnabled",
+            children: [
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "logIpToChat",
+                    text: chrome.i18n.getMessage("logIpToChat"),
+                    tooltip: chrome.i18n.getMessage("tooltipLogIpToChat"),
+                    enable: () => {
+                    },
+                    disable: () => {
+                    },
                 }
             ]
         }

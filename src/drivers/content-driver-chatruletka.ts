@@ -10,7 +10,6 @@ import {FaceapiModule} from "./chatruletka/content-module-faceapi";
 import {createSwitchModeButtonContainer} from "./chatruletka/content-swal-switchmode";
 import {StatsModule} from "./chatruletka/content-module-stats";
 import {ControlsTabSettings} from "./chatruletka/content-module-settings";
-import {getUserBrowser} from "../utils/utils";
 
 export class ChatruletkaDriver {
     private static instanceRef: ChatruletkaDriver;
@@ -66,6 +65,17 @@ export class ChatruletkaDriver {
         }
 
         return ChatruletkaDriver.instanceRef;
+    }
+
+    public addStringToLog(show: boolean, string: string): void {
+        console.dir(string)
+        // IPs on the COMC platform are shown only in the console
+        if (string.includes("IP: ")) {
+            return
+        }
+        // if (show) {
+           // output to chat?
+        // }
     }
 
     public stopAndStart(delay?: number | undefined): void {
