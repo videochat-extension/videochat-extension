@@ -1096,7 +1096,7 @@ export class ControlsTabApi {
                 src: undefined,
                 strength: 3,
                 enabled: !globalThis.platformSettings.get("darkMode"),
-                text: `Расширение может включить тёмную тему для вас: <input type="checkbox" onchange="document.getElementById('darkModeCheck').click()">`
+                text: `Расширение может включить тёмную тему: <input type="checkbox" onchange="document.getElementById('darkModeCheck').click()">`
             },
 
             {
