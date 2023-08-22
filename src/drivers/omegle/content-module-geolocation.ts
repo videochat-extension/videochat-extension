@@ -30,7 +30,7 @@ export class ControlsTabApiOmegle extends ControlsTabApi {
                 imgcontainer: "reviewImageContainer",
                 href: undefined,
                 src: undefined,
-                strength: 15,
+                strength: 6,
                 enabled: (globalThis.platformSettings.get("enableTarget") && (globalThis.platformSettings.get("enableTargetCity") || globalThis.platformSettings.get("enableTargetRegion") || globalThis.platformSettings.get("enableTargetCountry"))),
                 text: `You have 'target search' enabled.<br><br>The extension will now skip everyone until it finds you someone from a country/region/city that you specified in the list in the settings.<br><br>You can disable this feature in the geolocation settings.`
             },
@@ -40,7 +40,7 @@ export class ControlsTabApiOmegle extends ControlsTabApi {
                 src: undefined,
                 strength: 3,
                 enabled: !globalThis.platformSettings.get("darkMode"),
-                text: `We can turn on the dark theme for you: <input type="checkbox" onchange="document.getElementById('darkModeCheck').click()">`
+                text: `We can turn on the dark mode for you: <input type="checkbox" onchange="document.getElementById('darkModeCheck').click()">`
             },
         ],
         "ru": [
@@ -56,7 +56,7 @@ export class ControlsTabApiOmegle extends ControlsTabApi {
                 imgcontainer: "reviewImageContainer",
                 href: undefined,
                 src: undefined,
-                strength: 15,
+                strength: 6,
                 enabled: (globalThis.platformSettings.get("enableTarget") && (globalThis.platformSettings.get("enableTargetCity") || globalThis.platformSettings.get("enableTargetRegion") || globalThis.platformSettings.get("enableTargetCountry"))),
                 text: `У вас включен таргетированный поиск.<br><br>Расширение будет пропускать всех ваших собеседников, пока не найдет кого-нибудь из списка стран/регионов/городов, который вы задали в настройках<br><br>Вы можете отключить эту функцию в настройках геолокации.'.`
             },
