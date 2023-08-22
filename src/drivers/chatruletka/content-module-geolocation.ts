@@ -953,25 +953,9 @@ export class ControlsTabApi {
                 imgcontainer: "reviewImageContainer",
                 href: undefined,
                 src: undefined,
-                strength: 5,
-                enabled: globalThis.platformSettings.get("enableTargetCity") && !globalThis.platformSettings.get("enableTargetRegion"),
-                text: `You have 'search by city' enabled.<br><br>The extension will skip everyone until it finds you someone from a city that is in the list: '${globalThis.platformSettings.get("targetCity")}'.`
-            },
-            {
-                imgcontainer: "reviewImageContainer",
-                href: undefined,
-                src: undefined,
-                strength: 5,
-                enabled: !globalThis.platformSettings.get("enableTargetCity") && globalThis.platformSettings.get("enableTargetRegion"),
-                text: `You have 'search by region' enabled.<br><br>The extension will skip everyone until it finds you someone from the region that is in the list: '${globalThis.platformSettings.get("targetRegion")}'.`
-            },
-            {
-                imgcontainer: "reviewImageContainer",
-                href: undefined,
-                src: undefined,
-                strength: 5,
-                enabled: globalThis.platformSettings.get("enableTargetCity") && globalThis.platformSettings.get("enableTargetRegion"),
-                text: `You have both 'search by city' and 'search by region' enabled.<br><br>The extension will skip everyone until it finds you someone from a city that is in the list: '${globalThis.platformSettings.get("targetCity ")}', & a region that is in the list: '${globalThis.platformSettings.get("targetRegion")}'.`
+                strength: 15,
+                enabled: (globalThis.platformSettings.get("enableTarget") && (globalThis.platformSettings.get("enableTargetCity") || globalThis.platformSettings.get("enableTargetRegion") || globalThis.platformSettings.get("enableTargetCountry"))),
+                text: `You have 'target search' enabled.<br><br>The extension will now skip everyone until it finds you someone from a country/region/city that you specified in the list in the settings.<br><br>You can disable this feature in the geolocation settings.`
             },
             {
                 imgcontainer: "reviewImageContainer",
@@ -1121,30 +1105,13 @@ export class ControlsTabApi {
                 enabled: globalThis.platformSettings.get("hotkeys"),
                 text: `У вас активны локальные горячие клавиши.<br><br>Например, вы можете пропускать собеседников левой стрелкой клавиатуры. В настройках вы можете увидеть полный список горячих клавиш.<br><br>Если вы случайно нажали клавишу, просто подержите её пять секунд и отпустите, чтобы отменить её действие.`
             },
-
             {
                 imgcontainer: "reviewImageContainer",
                 href: undefined,
                 src: undefined,
-                strength: 5,
-                enabled: globalThis.platformSettings.get("enableTargetCity") && !globalThis.platformSettings.get("enableTargetRegion"),
-                text: `У вас включен поиск по городу.<br><br>Расширение будет пропускать всех ваших собеседников, пока не найдет кого-нибудь из города, который входит в список: '${globalThis.platformSettings.get("targetCity")}'.`
-            },
-            {
-                imgcontainer: "reviewImageContainer",
-                href: undefined,
-                src: undefined,
-                strength: 5,
-                enabled: !globalThis.platformSettings.get("enableTargetCity") && globalThis.platformSettings.get("enableTargetRegion"),
-                text: `У вас включен поиск по региону.<br><br>Расширение будет пропускать всех ваших собеседников, пока не найдет кого-нибудь из региона, который входит в список: '${globalThis.platformSettings.get("targetRegion")}'.`
-            },
-            {
-                imgcontainer: "reviewImageContainer",
-                href: undefined,
-                src: undefined,
-                strength: 5,
-                enabled: globalThis.platformSettings.get("enableTargetCity") && globalThis.platformSettings.get("enableTargetRegion"),
-                text: `У вас включен поиск по городу и региону.<br><br>Расширение будет пропускать всех ваших собеседников, пока не найдет кого-нибудь из города, который входит в список: '${globalThis.platformSettings.get("targetCity")}', и региона, который входит в список: '${globalThis.platformSettings.get("targetRegion")}'.`
+                strength: 15,
+                enabled: (globalThis.platformSettings.get("enableTarget") && (globalThis.platformSettings.get("enableTargetCity") || globalThis.platformSettings.get("enableTargetRegion") || globalThis.platformSettings.get("enableTargetCountry"))),
+                text: `У вас включен таргетированный поиск.<br><br>Расширение будет пропускать всех ваших собеседников, пока не найдет кого-нибудь из списка стран/регионов/городов, который вы задали в настройках<br><br>Вы можете отключить эту функцию в настройках геолокации.'.`
             },
             {
                 imgcontainer: "reviewImageContainer",
