@@ -295,6 +295,13 @@ export class GeolocationModule {
             children: [
                 {
                     type: "button",
+                    text: chrome.i18n.getMessage("countryCodeListButtonText"),
+                    onclick: (e: MouseEvent) => {
+                        window.open(chrome.i18n.getMessage("countryCodeListUrl"))
+                    }
+                },
+                {
+                    type: "button",
                     text: chrome.i18n.getMessage("prefixTargetCountry") + globalThis.platformSettings.get("targetCountry"),
                     onclick: (e: MouseEvent) => {
                         const result = prompt(chrome.i18n.getMessage("promptTargetCountry"), globalThis.platformSettings.get("targetCountry"))

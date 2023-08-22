@@ -588,7 +588,7 @@
     "message": "if interlocutor's city is not in provided list (City1, City2, City3) => skip."
   },
   "promptTargetCity": {
-    "message": "enter city/list of cities you want to find"
+    "message": "the city name must be entered exactly as it is returned by the geolocation service (important: you must specify it in the language in which your geolocation service works).\n\nif you enter: 'New York, Jakarta, Berlin', the extension will auto-skip all strangers whose city is not in the list."
   },
   "prefixTargetCity": {
     "message": "target: "
@@ -600,7 +600,7 @@
     "message": "if interlocutor's region is not in provided list (Region1, Region2, Region3) => skip."
   },
   "promptTargetRegion": {
-    "message": "enter region/list of regions you want to find"
+    "message": "the region (state) must be entered exactly as it is returned by the geolocation service (important: you must specify it in the language in which your geolocation service works).\n\nif you enter: 'Arizona, Queensland, Vermont, Ontario', the extension will auto-skip all strangers whose region/state is not in the list."
   },
   "prefixTargetRegion": {
     "message": "target: "
@@ -612,7 +612,13 @@
     "message": "if interlocutor's country code (such as IN / US) is not in provided list (XX, YY, ZZ) => skip."
   },
   "promptTargetCountry": {
-    "message": "enter countrycode/list of countrycodes you want to find"
+    "message": "Countries are specified in the two-letter country code (ISO 3166-1 alpha-2). You can open the full list of countries by clicking the button below.\n\nIf you enter 'US, CA', the extension will auto-skip all interlocutors that are not defined as being from the US or Canada."
+  },
+  "countryCodeListButtonText": {
+    "message": "open country code list"
+  },
+  "countryCodeListUrl": {
+    "message": "https://www.nationsonline.org/oneworld/country_code_list.htm"
   },
   "prefixTargetCountry": {
     "message": "target: "
