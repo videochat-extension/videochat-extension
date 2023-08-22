@@ -443,7 +443,7 @@ export class GeolocationModule {
                     if (this.needToShowHint) {
                         // TODO: need to find a better solution
                         if (this.driver.platform.name === "Omegle") {
-                            if (this.checks > 2) {
+                            if (this.checks > 1) {
                                 this.needToShowHint = false;
                             }
                         } else {
