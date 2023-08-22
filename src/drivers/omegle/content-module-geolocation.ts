@@ -4,6 +4,7 @@ import {OmegleDriver} from "../content-driver-omegle";
 
 export class GeolocationModuleOmegle extends GeolocationModule {
     public mainDisclaimerKey = "main2"
+
     public constructor(driver: ChatruletkaDriver | OmegleDriver) {
         super(driver);
 
@@ -40,7 +41,7 @@ export class ControlsTabApiOmegle extends ControlsTabApi {
                 src: undefined,
                 strength: 3,
                 enabled: !globalThis.platformSettings.get("darkMode"),
-                text: `We can turn on the dark mode for you: <input type="checkbox" onchange="document.getElementById('darkModeCheck').click()">`
+                text: this.hintsGenerateCheckboxShorcut('darkModeCheck', 'We can turn on the dark mode for you:', 'hintDarkMode')
             },
         ],
         "ru": [
@@ -66,7 +67,7 @@ export class ControlsTabApiOmegle extends ControlsTabApi {
                 src: undefined,
                 strength: 3,
                 enabled: !globalThis.platformSettings.get("darkMode"),
-                text: `Расширение может включить тёмную тему: <input type="checkbox" onchange="document.getElementById('darkModeCheck').click()">`
+                text: this.hintsGenerateCheckboxShorcut('darkModeCheck', 'Расширение может включить тёмную тему:', 'hintDarkMode')
             },
         ]
     }

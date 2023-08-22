@@ -854,6 +854,10 @@ export class ControlsTabApi {
         })
     }
 
+    protected hintsGenerateCheckboxShorcut(checkbox: string, label:string, id: string) {
+        return `<label for="${id}ShortcutCheck">${label}</label><input type="checkbox" onchange="document.getElementById('${checkbox}').click()" id="${id}ShortcutCheck">`
+    }
+
     protected hintsDict = {
         "en": [
             {
