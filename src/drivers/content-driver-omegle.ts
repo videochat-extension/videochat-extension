@@ -187,23 +187,24 @@ export class OmegleDriver {
         return true
     }
 
+    private switchModeLabel = utils.createElement('label', null, [
+        utils.createElement('input', {
+            type: "checkbox",
+            checked: !globalThis.platformSettings.get('minimalism'),
+            onchange: async function (ev: JQuery.ChangeEvent) {
+                switchModeOmegle()
+                ev.currentTarget.checked = true
+            }
+        }),
+        utils.createElement('span', {
+            innerText: " Enable advanced mode"
+        })
+    ])
+
     public injectSwitchModeButton() {
-        document.arrive(".logtopicsettings", {existing: true, onceOnly: true}, function (el) {
-            let switchModeLabel = utils.createElement('label', null, [
-                utils.createElement('input', {
-                    type: "checkbox",
-                    checked: !globalThis.platformSettings.get('minimalism'),
-                    onchange: async function (ev: JQuery.ChangeEvent) {
-                        switchModeOmegle()
-                        ev.currentTarget.checked = true
-                    }
-                }),
-                utils.createElement('span', {
-                    innerText: " Enable advanced mode"
-                })
-            ])
+        document.arrive(".logtopicsettings", {existing: true}, (el) => {
             $('<br>').insertBefore(el.children[0])
-            $(switchModeLabel).insertBefore(el.children[0])
+            $(this.switchModeLabel).insertBefore(el.children[0])
         })
     }
 
