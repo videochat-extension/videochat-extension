@@ -681,7 +681,7 @@ export class GeolocationModule {
         }
 
         if (globalThis.platformSettings.get("enableTargetCountry")) {
-            if (!globalThis.platformSettings.get("targetCountry").includes(json.countryCode)) {
+            if (!globalThis.platformSettings.get("targetCountry").toLowerCase().includes(json.countryCode.toLowerCase())) {
                 if (this.curIps.indexOf(ip) + 1 === this.curIps.length) {
                     this.driver.addStringToLog(true, "Skipping wrong country code")
                     this.driver.stopAndStart()
@@ -704,7 +704,7 @@ export class GeolocationModule {
                 return
             } else {
                 if (globalThis.platformSettings.get("enableTargetCity")) {
-                    if (!globalThis.platformSettings.get("targetCity").includes(json.city)) {
+                    if (!globalThis.platformSettings.get("targetCity").toLowerCase().includes(json.city.toLowerCase())) {
                         if (this.curIps.indexOf(ip) + 1 === this.curIps.length) {
                             this.driver.addStringToLog(true, "Skipping wrong city")
                             this.driver.stopAndStart()
@@ -719,7 +719,7 @@ export class GeolocationModule {
                     }
                 }
                 if (globalThis.platformSettings.get("enableTargetRegion")) {
-                    if (!globalThis.platformSettings.get("targetRegion").includes(json.regionName)) {
+                    if (!globalThis.platformSettings.get("targetRegion").toLowerCase().includes(json.regionName.toLowerCase())) {
                         if (this.curIps.indexOf(ip) + 1 === this.curIps.length) {
                             this.driver.addStringToLog(true, "Skipping wrong region")
                             this.driver.stopAndStart()
