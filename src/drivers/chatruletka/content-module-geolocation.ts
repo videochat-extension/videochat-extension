@@ -415,7 +415,10 @@ export class GeolocationModule {
     public checkApi() {
 
         if (this.needToShowHint) {
-            this.hint = utils.getRandomInt(0, this.tabs[0].hints.length - 1);
+            // only one hint per session
+            if (this.hint === 0) {
+                this.hint = utils.getRandomInt(0, this.tabs[0].hints.length - 1);
+            }
             (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStartCheck") + "</br></br>" + this.tabs[0].getHintHTML(this.hint);
         } else {
             (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStartCheck") + "</br></br>" + chrome.i18n.getMessage(this.mainDisclaimerKey, [this.driver.site.text]);
