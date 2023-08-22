@@ -43,6 +43,14 @@ export class ControlsTabApiOmegle extends ControlsTabApi {
                 enabled: !globalThis.platformSettings.get("darkMode"),
                 text: this.hintsGenerateCheckboxShorcut('darkModeCheck', 'We can turn on the dark mode for you:', 'hintDarkMode')
             },
+            {
+                imgcontainer: "reviewImageContainer",
+                href: undefined,
+                src: undefined,
+                strength: 3,
+                enabled: true,
+                text: "You can resize the extension control panel in the bottom right corner"
+            },
         ],
         "ru": [
             {
@@ -68,6 +76,14 @@ export class ControlsTabApiOmegle extends ControlsTabApi {
                 strength: 3,
                 enabled: !globalThis.platformSettings.get("darkMode"),
                 text: this.hintsGenerateCheckboxShorcut('darkModeCheck', 'Расширение может включить тёмную тему:', 'hintDarkMode')
+            },
+            {
+                imgcontainer: "reviewImageContainer",
+                href: undefined,
+                src: undefined,
+                strength: 3,
+                enabled: true,
+                text: "Вы можете менять размер окошка расширения в правом нижнем углу."
             },
         ]
     }
