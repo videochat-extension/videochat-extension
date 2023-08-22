@@ -592,6 +592,18 @@
   "prefixTargetRegion": {
     "message": "цель: "
   },
+  "targetCountry": {
+    "message": "поиск страны: "
+  },
+  "tooltipTargetCountry": {
+    "message": "если код страны собеседника (например: IN / US) отсутствует в предоставленном списке (XX, YY, ZZ) => скип."
+  },
+  "promptTargetCountry": {
+    "message": "введите код страны/список кодов стран, с которыми вы хотите общаться"
+  },
+  "prefixTargetCountry": {
+    "message": "цель: "
+  },
   "targetSound": {
     "message": "озвучивать успех:"
   },

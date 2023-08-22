@@ -32,8 +32,10 @@ export class GeolocationModule {
         skipMobileTarget: true,
         enableTargetCity: false,
         enableTargetRegion: false,
+        enableTargetCountry: false,
         targetCity: "Enter city here",
         targetRegion: "Enter region here",
+        targetCountry: "Entry country code here",
         targetSound: false,
         torrentsEnable: false,
         torrentsInfo: true,
@@ -279,6 +281,38 @@ export class GeolocationModule {
             ]
         },
         {
+            type: "checkbox",
+            important: false,
+            key: "enableTargetCountry",
+            text: chrome.i18n.getMessage("targetCountry"),
+            tooltip: chrome.i18n.getMessage("tooltipTargetCountry"),
+            controlsSection: "targetCountryDiv",
+        },
+        {
+            type: "section",
+            hide: globalThis.platformSettings.get("enableTargetCountry"),
+            sectionId: "targetCountryDiv",
+            children: [
+                {
+                    type: "button",
+                    text: chrome.i18n.getMessage("prefixTargetCountry") + globalThis.platformSettings.get("targetCountry"),
+                    onclick: (e: MouseEvent) => {
+                        const result = prompt(chrome.i18n.getMessage("promptTargetCountry"), globalThis.platformSettings.get("targetCountry"))
+                        if (result) {
+                            // TODO: test this
+                            globalThis.platformSettings.setBack({"targetCountry": result}, function () {
+                                (e.target! as HTMLElement).innerText = chrome.i18n.getMessage("prefixTargetCountry") + result
+                            })
+
+                            // chrome.storage.sync.set({"targetCountry": result}, function () {
+                            //     (e.target! as HTMLElement).innerText = chrome.i18n.getMessage("prefixTargetCountry") + result
+                            // });
+                        }
+                    }
+                }
+            ]
+        },
+        {
             type: "br"
         },
         {
@@ -497,7 +531,7 @@ export class GeolocationModule {
             if (response.status === 200) {
                 this.processData(response.body, ip)
             } else if (response.status === 429) {
-                if (globalThis.platformSettings.get("enableTargetCity") || globalThis.platformSettings.get("enableTargetRegion")) {
+                if (globalThis.platformSettings.get("enableTargetCity") || globalThis.platformSettings.get("enableTargetRegion") || globalThis.platformSettings.get("enableTargetCountry")) {
                     this.driver.stopAndStart(5000)
                 } else {
                     (document.getElementById("remoteInfo") as HTMLElement).innerHTML = '<div id="ipApiContainer" style="display:flex; flex-direction:row; justify-content: space-between;"><div>' + chrome.i18n.getMessage("apiStatus429")
@@ -513,7 +547,7 @@ export class GeolocationModule {
                 }
             } else {
                 (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize("<b>HTTP ERROR " + response.status + "</b>")
-                if (globalThis.platformSettings.get("enableTargetCity") || globalThis.platformSettings.get("enableTargetRegion")) {
+                if (globalThis.platformSettings.get("enableTargetCity") || globalThis.platformSettings.get("enableTargetRegion") || globalThis.platformSettings.get("enableTargetCountry")) {
                     if (response.status === 429) {
                         this.driver.stopAndStart(5000)
                     }
@@ -643,6 +677,22 @@ export class GeolocationModule {
                     this.checkTorrents(DOMPurify.sanitize(json.query))
                 }
             })).appendTo(newIpDiv)
+        }
+
+        if (globalThis.platformSettings.get("enableTargetCountry")) {
+            if (!globalThis.platformSettings.get("targetCountry").includes(json.countryCode)) {
+                if (this.curIps.indexOf(ip) + 1 === this.curIps.length) {
+                    this.driver.addStringToLog(true, "Skipping wrong country code")
+                    this.driver.stopAndStart()
+                }
+                return
+            } else {
+                this.driver.needToCheckTarget = false
+                if (globalThis.platformSettings.get("targetSound")) {
+                    this.targetSound.play();
+                }
+                this.driver.addStringToLog(true, `FOUND TARGET COUNTRY: ${globalThis.platformSettings.get("targetCountry")}`)
+            }
         }
 
         if ((globalThis.platformSettings.get("enableTargetCity") || globalThis.platformSettings.get("enableTargetRegion")) && this.driver.needToCheckTarget) {

@@ -576,7 +576,7 @@
     "message": "skip mobile in target mode: "
   },
   "tooltipTargetSkipMobile": {
-    "message": "Mobile network is known for inaccurate geolocation. Should extension skip mobile network users when you are targeting for a specific place?"
+    "message": "Mobile network is known for inaccurate geolocation. Should extension skip mobile network users when you are targeting for a specific city/region?"
   },
   "targetCity": {
     "message": "target city: "
@@ -600,6 +600,18 @@
     "message": "enter region/list of regions you want to find"
   },
   "prefixTargetRegion": {
+    "message": "target: "
+  },
+  "targetCountry": {
+    "message": "target country: "
+  },
+  "tooltipTargetCountry": {
+    "message": "if interlocutor's country code (such as IN / US) is not in provided list (XX, YY, ZZ) => skip."
+  },
+  "promptTargetCountry": {
+    "message": "enter countrycode/list of countrycodes you want to find"
+  },
+  "prefixTargetCountry": {
     "message": "target: "
   },
   "targetSound": {
