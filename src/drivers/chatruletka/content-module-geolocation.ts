@@ -30,6 +30,7 @@ export class GeolocationModule {
         showCT: false,
         showMoreEnabledByDefault: true,
         skipMobileTarget: true,
+        enableTarget: false,
         enableTargetCity: false,
         enableTargetRegion: false,
         enableTargetCountry: false,
@@ -216,125 +217,126 @@ export class GeolocationModule {
         {
             type: "br"
         },
-        {
-            type: "checkbox",
-            important: false,
-            key: "enableTargetCity",
-            text: chrome.i18n.getMessage("targetCity"),
-            tooltip: chrome.i18n.getMessage("tooltipTargetCity"),
-            controlsSection: "targetCityDiv",
-        },
-        {
-            type: "section",
-            hide: globalThis.platformSettings.get("enableTargetCity"),
-            sectionId: "targetCityDiv",
-            children: [
-                {
-                    type: "button",
-                    text: chrome.i18n.getMessage("prefixTargetCity") + globalThis.platformSettings.get("targetCity"),
-                    onclick: (e: MouseEvent) => {
-                        const result = prompt(chrome.i18n.getMessage("promptTargetCity"), globalThis.platformSettings.get("targetCity"))
-                        if (result) {
-                            // TODO: test this
-                            globalThis.platformSettings.setBack({"targetCity": result}, function () {
-                                (e.target! as HTMLElement).innerText = chrome.i18n.getMessage("prefixTargetCity") + result
-                            });
 
-                            // chrome.storage.sync.set({"targetCity": result}, function () {
-                            //     (e.target! as HTMLElement).innerText = chrome.i18n.getMessage("prefixTargetCity") + result
-                            // });
-                        }
-                    }
-                }
-            ]
-        },
         {
             type: "checkbox",
-            important: false,
-            key: "enableTargetRegion",
-            text: chrome.i18n.getMessage("targetRegion"),
-            tooltip: chrome.i18n.getMessage("tooltipTargetRegion"),
-            controlsSection: "targetRegionDiv",
+            important: true,
+            key: "enableTarget",
+            text: chrome.i18n.getMessage("target"),
+            tooltip: chrome.i18n.getMessage("tooltipTarget"),
+            controlsSection: "targetSection",
         },
         {
             type: "section",
-            hide: globalThis.platformSettings.get("enableTargetRegion"),
-            sectionId: "targetRegionDiv",
+            hide: globalThis.platformSettings.get("enableTarget"),
+            sectionId: "targetSection",
             children: [
                 {
-                    type: "button",
-                    text: chrome.i18n.getMessage("prefixTargetRegion") + globalThis.platformSettings.get("targetRegion"),
-                    onclick: (e: MouseEvent) => {
-                        const result = prompt(chrome.i18n.getMessage("promptTargetRegion"), globalThis.platformSettings.get("targetRegion"))
-                        if (result) {
-                            // TODO: test this
-                            globalThis.platformSettings.setBack({"targetRegion": result}, function () {
-                                (e.target! as HTMLElement).innerText = chrome.i18n.getMessage("prefixTargetRegion") + result
-                            })
-
-                            // chrome.storage.sync.set({"targetRegion": result}, function () {
-                            //     (e.target! as HTMLElement).innerText = chrome.i18n.getMessage("prefixTargetRegion") + result
-                            // });
-                        }
-                    }
-                }
-            ]
-        },
-        {
-            type: "checkbox",
-            important: false,
-            key: "enableTargetCountry",
-            text: chrome.i18n.getMessage("targetCountry"),
-            tooltip: chrome.i18n.getMessage("tooltipTargetCountry"),
-            controlsSection: "targetCountryDiv",
-        },
-        {
-            type: "section",
-            hide: globalThis.platformSettings.get("enableTargetCountry"),
-            sectionId: "targetCountryDiv",
-            children: [
-                {
-                    type: "button",
-                    text: chrome.i18n.getMessage("countryCodeListButtonText"),
-                    onclick: (e: MouseEvent) => {
-                        window.open(chrome.i18n.getMessage("countryCodeListUrl"))
-                    }
+                    type: "checkbox",
+                    important: false,
+                    key: "enableTargetCountry",
+                    text: chrome.i18n.getMessage("targetCountry"),
+                    tooltip: chrome.i18n.getMessage("tooltipTargetCountry"),
+                    controlsSection: "targetCountryDiv",
                 },
                 {
-                    type: "button",
-                    text: chrome.i18n.getMessage("prefixTargetCountry") + globalThis.platformSettings.get("targetCountry"),
-                    onclick: (e: MouseEvent) => {
-                        const result = prompt(chrome.i18n.getMessage("promptTargetCountry"), globalThis.platformSettings.get("targetCountry"))
-                        if (result) {
-                            // TODO: test this
-                            globalThis.platformSettings.setBack({"targetCountry": result}, function () {
-                                (e.target! as HTMLElement).innerText = chrome.i18n.getMessage("prefixTargetCountry") + result
-                            })
-
-                            // chrome.storage.sync.set({"targetCountry": result}, function () {
-                            //     (e.target! as HTMLElement).innerText = chrome.i18n.getMessage("prefixTargetCountry") + result
-                            // });
+                    type: "section",
+                    hide: globalThis.platformSettings.get("enableTargetCountry"),
+                    sectionId: "targetCountryDiv",
+                    children: [
+                        {
+                            type: "button",
+                            text: chrome.i18n.getMessage("countryCodeListButtonText"),
+                            onclick: (e: MouseEvent) => {
+                                window.open(chrome.i18n.getMessage("countryCodeListUrl"))
+                            }
+                        },
+                        {
+                            type: "button",
+                            text: chrome.i18n.getMessage("prefixTargetCountry") + globalThis.platformSettings.get("targetCountry"),
+                            onclick: (e: MouseEvent) => {
+                                const result = prompt(chrome.i18n.getMessage("promptTargetCountry"), globalThis.platformSettings.get("targetCountry"))
+                                if (result) {
+                                    globalThis.platformSettings.setBack({"targetCountry": result}, function () {
+                                        (e.target! as HTMLElement).innerText = chrome.i18n.getMessage("prefixTargetCountry") + result
+                                    })
+                                }
+                            }
+                        },
+                    ]
+                },
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "enableTargetRegion",
+                    text: chrome.i18n.getMessage("targetRegion"),
+                    tooltip: chrome.i18n.getMessage("tooltipTargetRegion"),
+                    controlsSection: "targetRegionDiv",
+                },
+                {
+                    type: "section",
+                    hide: globalThis.platformSettings.get("enableTargetRegion"),
+                    sectionId: "targetRegionDiv",
+                    children: [
+                        {
+                            type: "button",
+                            text: chrome.i18n.getMessage("prefixTargetRegion") + globalThis.platformSettings.get("targetRegion"),
+                            onclick: (e: MouseEvent) => {
+                                const result = prompt(chrome.i18n.getMessage("promptTargetRegion"), globalThis.platformSettings.get("targetRegion"))
+                                if (result) {
+                                    globalThis.platformSettings.setBack({"targetRegion": result}, function () {
+                                        (e.target! as HTMLElement).innerText = chrome.i18n.getMessage("prefixTargetRegion") + result
+                                    })
+                                }
+                            }
                         }
-                    }
-                }
+                    ]
+                },
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "enableTargetCity",
+                    text: chrome.i18n.getMessage("targetCity"),
+                    tooltip: chrome.i18n.getMessage("tooltipTargetCity"),
+                    controlsSection: "targetCityDiv",
+                },
+                {
+                    type: "section",
+                    hide: globalThis.platformSettings.get("enableTargetCity"),
+                    sectionId: "targetCityDiv",
+                    children: [
+                        {
+                            type: "button",
+                            text: chrome.i18n.getMessage("prefixTargetCity") + globalThis.platformSettings.get("targetCity"),
+                            onclick: (e: MouseEvent) => {
+                                const result = prompt(chrome.i18n.getMessage("promptTargetCity"), globalThis.platformSettings.get("targetCity"))
+                                if (result) {
+                                    globalThis.platformSettings.setBack({"targetCity": result}, function () {
+                                        (e.target! as HTMLElement).innerText = chrome.i18n.getMessage("prefixTargetCity") + result
+                                    });
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    type: "br"
+                },
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "skipMobileTarget",
+                    text: chrome.i18n.getMessage("targetSkipMobile"),
+                    tooltip: chrome.i18n.getMessage("tooltipTargetSkipMobile")
+                },
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "targetSound",
+                    text: chrome.i18n.getMessage("targetSound"),
+                    tooltip: chrome.i18n.getMessage("tooltipTargetSound")
+                },
             ]
-        },
-        {
-            type: "br"
-        },
-        {
-            type: "checkbox",
-            important: false,
-            key: "skipMobileTarget",
-            text: chrome.i18n.getMessage("targetSkipMobile"),
-            tooltip: chrome.i18n.getMessage("tooltipTargetSkipMobile")
-        },
-        {
-            type: "checkbox",
-            important: false,
-            key: "targetSound",
-            text: chrome.i18n.getMessage("targetSound"),
-            tooltip: chrome.i18n.getMessage("tooltipTargetSound")
         },
         {
             type: "br"
@@ -539,7 +541,7 @@ export class GeolocationModule {
             if (response.status === 200) {
                 this.processData(response.body, ip)
             } else if (response.status === 429) {
-                if (globalThis.platformSettings.get("enableTargetCity") || globalThis.platformSettings.get("enableTargetRegion") || globalThis.platformSettings.get("enableTargetCountry")) {
+                if (globalThis.platformSettings.get("enableTarget") && (globalThis.platformSettings.get("enableTargetCity") || globalThis.platformSettings.get("enableTargetRegion") || globalThis.platformSettings.get("enableTargetCountry"))) {
                     this.driver.stopAndStart(5000)
                 } else {
                     (document.getElementById("remoteInfo") as HTMLElement).innerHTML = '<div id="ipApiContainer" style="display:flex; flex-direction:row; justify-content: space-between;"><div>' + chrome.i18n.getMessage("apiStatus429")
@@ -555,7 +557,7 @@ export class GeolocationModule {
                 }
             } else {
                 (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize("<b>HTTP ERROR " + response.status + "</b>")
-                if (globalThis.platformSettings.get("enableTargetCity") || globalThis.platformSettings.get("enableTargetRegion") || globalThis.platformSettings.get("enableTargetCountry")) {
+                if (globalThis.platformSettings.get("enableTarget") && (globalThis.platformSettings.get("enableTargetCity") || globalThis.platformSettings.get("enableTargetRegion") || globalThis.platformSettings.get("enableTargetCountry"))) {
                     if (response.status === 429) {
                         this.driver.stopAndStart(5000)
                     }
@@ -687,59 +689,49 @@ export class GeolocationModule {
             })).appendTo(newIpDiv)
         }
 
-        if (globalThis.platformSettings.get("enableTargetCountry")) {
-            if (!globalThis.platformSettings.get("targetCountry").toLowerCase().includes(json.countryCode.toLowerCase())) {
-                if (this.curIps.indexOf(ip) + 1 === this.curIps.length) {
-                    this.driver.addStringToLog(true, "Skipping wrong country code")
-                    this.driver.stopAndStart()
+        if (globalThis.platformSettings.get("enableTarget")) {
+            if (globalThis.platformSettings.get("enableTargetCountry")) {
+                if (globalThis.platformSettings.get("targetCountry").toLowerCase().includes(json.countryCode.toLowerCase())) {
+                    this.driver.needToCheckTarget = false
+                    if (globalThis.platformSettings.get("targetSound")) {
+                        this.targetSound.play();
+                    }
+                    this.driver.addStringToLog(true, `found target country: ${json.countryCode} is in ${globalThis.platformSettings.get("targetCountry")}`)
                 }
-                return
-            } else {
-                this.driver.needToCheckTarget = false
-                if (globalThis.platformSettings.get("targetSound")) {
-                    this.targetSound.play();
-                }
-                this.driver.addStringToLog(true, `FOUND TARGET COUNTRY: ${globalThis.platformSettings.get("targetCountry")}`)
             }
-        }
 
-        if ((globalThis.platformSettings.get("enableTargetCity") || globalThis.platformSettings.get("enableTargetRegion")) && this.driver.needToCheckTarget) {
-            if (globalThis.platformSettings.get("skipMobileTarget") && json.mobile) {
+            if ((globalThis.platformSettings.get("enableTargetCity") || globalThis.platformSettings.get("enableTargetRegion")) && this.driver.needToCheckTarget) {
+                if (globalThis.platformSettings.get("skipMobileTarget") && json.mobile) {
+                    if (this.curIps.indexOf(ip) + 1 === this.curIps.length) {
+                        this.driver.addStringToLog(true, "Skipping mobile in target mode")
+                        this.driver.stopAndStart()
+                    }
+                    return
+                } else {
+                    if (globalThis.platformSettings.get("enableTargetRegion")) {
+                        if (globalThis.platformSettings.get("targetRegion").toLowerCase().includes(json.regionName.toLowerCase())) {
+                            this.driver.needToCheckTarget = false
+                            if (globalThis.platformSettings.get("targetSound")) {
+                                (this.targetSound).play();
+                                this.driver.addStringToLog(true, `Found target region: ${json.regionName} is in '${globalThis.platformSettings.get("targetRegion")}'`)
+                            }
+                        }
+                    }
+                    if (globalThis.platformSettings.get("enableTargetCity")) {
+                        if (globalThis.platformSettings.get("targetCity").toLowerCase().includes(json.city.toLowerCase())) {
+                            this.driver.needToCheckTarget = false
+                            if (globalThis.platformSettings.get("targetSound")) {
+                                this.targetSound.play();
+                                this.driver.addStringToLog(true, `Found target city: ${json.city} is in '${globalThis.platformSettings.get("targetCity")}'`)
+                            }
+                        }
+                    }
+                }
+            }
+            if (this.driver.needToCheckTarget) {
                 if (this.curIps.indexOf(ip) + 1 === this.curIps.length) {
+                    this.driver.addStringToLog(true, "Skipping due to lack of matches in targeted searches...")
                     this.driver.stopAndStart()
-                }
-                return
-            } else {
-                if (globalThis.platformSettings.get("enableTargetCity")) {
-                    if (!globalThis.platformSettings.get("targetCity").toLowerCase().includes(json.city.toLowerCase())) {
-                        if (this.curIps.indexOf(ip) + 1 === this.curIps.length) {
-                            this.driver.addStringToLog(true, "Skipping wrong city")
-                            this.driver.stopAndStart()
-                        }
-                        return
-                    } else {
-                        this.driver.needToCheckTarget = false
-                        if (globalThis.platformSettings.get("targetSound")) {
-                            this.targetSound.play();
-                            this.driver.addStringToLog(true, `FOUND TARGET CITY: ${globalThis.platformSettings.get("targetCity")}`)
-                        }
-                    }
-                }
-                if (globalThis.platformSettings.get("enableTargetRegion")) {
-                    if (!globalThis.platformSettings.get("targetRegion").toLowerCase().includes(json.regionName.toLowerCase())) {
-                        if (this.curIps.indexOf(ip) + 1 === this.curIps.length) {
-                            this.driver.addStringToLog(true, "Skipping wrong region")
-                            this.driver.stopAndStart()
-                        }
-                        return
-                    } else {
-                        this.driver.needToCheckTarget = false
-                        if (globalThis.platformSettings.get("targetSound")) {
-                            // TODO: does not work in firefox
-                            (this.targetSound).play();
-                            this.driver.addStringToLog(true, `found target region: ${globalThis.platformSettings.get("targetRegion")}`)
-                        }
-                    }
                 }
             }
         }

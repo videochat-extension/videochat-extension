@@ -576,10 +576,16 @@
     "message": "Enable this to show ISP (Internet Service Provider) data if available."
   },
   "targetSkipMobile": {
-    "message": "skip mobile in target mode: "
+    "message": "skip mobile when searching for a region/city: "
   },
   "tooltipTargetSkipMobile": {
-    "message": "Mobile network is known for inaccurate geolocation. Should extension skip mobile network users when you are targeting for a specific city/region?"
+    "message": "Mobile (cellular) networks are known for inaccurate city/region geolocation. Country-level geolocation works fine. Should extension skip mobile network users when you are targeting for a specific city/region?"
+  },
+  "target": {
+    "message": "search for a specific country/region/city:"
+  },
+  "tooltipTarget": {
+    "message": "if enabled, gives access to the 'target search' features. you set a list of countries/regions/cities you want to communicate with. If your conversation partner's geolocation data matches at least one list - you will have a great chat! If there are no matches -> the interlocutor will be auto-skipped."
   },
   "targetCity": {
     "message": "target city: "
