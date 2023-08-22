@@ -3,6 +3,7 @@ import {ChatruletkaDriver} from "../content-driver-chatruletka";
 import {OmegleDriver} from "../content-driver-omegle";
 
 export class GeolocationModuleOmegle extends GeolocationModule {
+    public mainDisclaimerKey = "main2"
     public constructor(driver: ChatruletkaDriver | OmegleDriver) {
         super(driver);
 

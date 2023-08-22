@@ -150,7 +150,7 @@ export class OmegleDriver {
         if (this.modules.controls.controls) {
             let controls = utils.createElement('div', {
                 id: "videochat-extension-controls-container",
-                style: "height:200px; width:390px; min-height:200px; min-width:390px; border: 1px solid #d5d5d5;box-shadow: 0 0 5px 0 rgba(0,0,0,.15) inset;background: #fff;margin-bottom:0.5em"
+                style: "height:215px; width:390px; min-height:215px; min-width:390px; border: 1px solid #d5d5d5;box-shadow: 0 0 5px 0 rgba(0,0,0,.15) inset;background: #fff;margin-bottom:0.5em"
             }, [
                 this.modules.controls.controls
             ])

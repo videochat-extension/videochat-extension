@@ -68,6 +68,9 @@
   "main": {
     "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"reviewImageContainer\"></div><br><b>Important:</b><br>This extension is a hobby project and is not affiliated with '$1' in any way.</div></div>"
   },
+  "main2": {
+    "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"reviewImageContainer\"></div><br><b>Important:</b><br>This extension is a hobby project and is not affiliated with '$1' in any way.<br><br>P.S. 'Advanced' mode for Omegle is still work-in-progress, expect minor bugs and missing features.</div></div>"
+  },
   "mainHint": {
     "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"$1\">$3</div><br><b>Did you know?</b><br>$2</div></div>"
   },

@@ -360,6 +360,7 @@ export class GeolocationModule {
     private hint: number = 0;
     private firstCheck = true;
     public secondCheck = true;
+    public mainDisclaimerKey = "main";
 
     public constructor(driver: ChatruletkaDriver | OmegleDriver) {
         this.driver = driver
@@ -408,7 +409,7 @@ export class GeolocationModule {
             this.hint = utils.getRandomInt(0, this.tabs[0].hints.length - 1);
             (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStartCheck") + "</br></br>" + this.tabs[0].getHintHTML(this.hint);
         } else {
-            (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStartCheck") + "</br></br>" + chrome.i18n.getMessage("main", [this.driver.site.text]);
+            (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStartCheck") + "</br></br>" + chrome.i18n.getMessage(this.mainDisclaimerKey, [this.driver.site.text]);
         }
 
         this.apiProviders = this.getApiProviders();
@@ -434,7 +435,7 @@ export class GeolocationModule {
                         this.needToShowHint = false;
                         (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + this.tabs[0].getHintHTML(this.hint)
                     } else {
-                        (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage("main", [this.driver.site.text])
+                        (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage(this.mainDisclaimerKey, [this.driver.site.text])
                     }
                     if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
                         this.driver.modules.controls.resizemap(false)
@@ -442,7 +443,7 @@ export class GeolocationModule {
                 }
                 console.dir(`geolocation test passed: ${response.status}`)
             } else if (response.status === 429) {
-                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus429") + "</br></br>" + chrome.i18n.getMessage("main", [this.driver.site.text])
+                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus429") + "</br></br>" + chrome.i18n.getMessage(this.mainDisclaimerKey, [this.driver.site.text])
                 this.api = 2;
 
                 console.dir(`geolocation test passed: ${response.status}`)

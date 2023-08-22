@@ -59,6 +59,9 @@
   "main": {
     "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"reviewImageContainer\"></div><br><b>Важно:</b><br>Это расширение не имеет никакого отношения к администрации видеочата '$1'.</div></div>"
   },
+  "main2": {
+    "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"reviewImageContainer\"></div><br><b>Важно:</b><br>Это расширение не имеет никакого отношения к администрации видеочата '$1'.<br><br>'Полноценный режим' для Omegle всё ещё в разработке, ожидайте багов.</div></div>"
+  },
   "mainHint": {
     "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"$1\">$3</div><br><b>А Вы знали?</b><br>$2</div></div>"
   },
