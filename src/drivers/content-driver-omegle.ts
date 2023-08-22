@@ -283,7 +283,7 @@ export class OmegleDriver {
                             this.modules.geolocation.delayIPs = []
                             this.modules.geolocation.curInfo = {}
                             // temporary solution to not spam with api check on every skip
-                            if (this.modules.geolocation.secondCheck) {
+                            if (this.modules.geolocation.checks < 2) {
                                 this.modules.geolocation.checkApi()
                             }
                         }

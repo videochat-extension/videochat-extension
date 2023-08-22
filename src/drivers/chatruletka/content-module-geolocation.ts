@@ -367,8 +367,8 @@ export class GeolocationModule {
     public delayIPs: string[] = [];
     private needToShowHint = globalThis.platformSettings.get("showHints") ? (globalThis.platformSettings.get("showHintsMoreOften") ? true : utils.getRandomInt(1, 3) === 2) : false;
     private hint: number = 0;
-    private firstCheck = true;
-    public secondCheck = true;
+    private apiProviders = this.getApiProviders();
+    public checks = 0
     public mainDisclaimerKey = "main";
 
     public constructor(driver: ChatruletkaDriver | OmegleDriver) {
@@ -428,6 +428,7 @@ export class GeolocationModule {
             language: "en",
             allow: this.apiProviders
         }, (response) => {
+            this.checks += 1
             if (response.failed && response.failed.includes('ve-api')) {
                 this.apiProviders = this.apiProviders.filter(provider => provider !== "ve-api")
             }
@@ -435,13 +436,16 @@ export class GeolocationModule {
                 this.api = 2;
                 // prevents geolocation data from being overwritten if the api check result arrives after the geolocation result.
                 // this happens if a person with a very good internet connection triggers api check and immediately presses 'start', while the extension server is overloaded with requests.
-                if (this.driver.stage < 2 || this.firstCheck) {
-                    if (!this.firstCheck) {
-                        this.secondCheck = false
-                    }
-                    this.firstCheck = false
+                if (this.driver.stage < 2 || this.checks == 1) {
                     if (this.needToShowHint) {
-                        this.needToShowHint = false;
+                        // TODO: need to find a better solution
+                        if (this.driver.platform.name === "Omegle") {
+                            if (this.checks > 2) {
+                                this.needToShowHint = false;
+                            }
+                        } else {
+                            this.needToShowHint = false;
+                        }
                         (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + this.tabs[0].getHintHTML(this.hint)
                     } else {
                         (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage(this.mainDisclaimerKey, [this.driver.site.text])
@@ -804,8 +808,6 @@ export class GeolocationModule {
 
         return allow
     }
-
-    private apiProviders = this.getApiProviders();
 }
 
 export class ControlsTabApi {
