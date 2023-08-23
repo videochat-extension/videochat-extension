@@ -63,7 +63,7 @@ const showSwalChangelog = async function () {
             'Это браузерное расширение для Чат Рулеток:' +
             '<ul>' +
             '<li><strong>Chatruletka</strong>, <strong>Ome.tv</strong>, <strong>Minichat</strong>, <strong>Chatrulez</strong>.</li>' +
-            '<li><strong>Omegle (IP Locator &amp; Dark Mode only)</strong>.</li>' +
+            '<li><strong>Omegle (work-in-progress)</strong>.</li>' +
             '<li><strong>Coomeet Free (bot recognition only)</strong>.</li>' +
             '</ul>' +
             '<b>Важно</b><br>' +
@@ -79,7 +79,7 @@ const showSwalChangelog = async function () {
             'This is a browser extension for Omegle-like randomized video chats:' +
             '<ul>' +
             '<li><strong>Chatruletka</strong>, <strong>Ome.tv</strong>, <strong>Minichat</strong>, <strong>Chatrulez</strong>.</li>' +
-            '<li><strong>Omegle (IP Locator &amp; Dark Mode only)</strong>.</li>' +
+            '<li><strong>Omegle (work-in-progress)</strong>.</li>' +
             '<li><strong>Coomeet Free (bot recognition only)</strong>.</li>' +
             '</ul>' +
             '<b>Important</b><br>' +

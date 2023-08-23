@@ -12,7 +12,7 @@ Videochat Extension (Chatruletka Extension) is an independent open-source browse
 functionality of your favorite online video chats.
 
 It currently supports 55 video chat sites belonging to six platforms: Chatruletka (Чат Рулетка), Ome.tv, Minichat,
-Chatrulez, Omegle (IP Locator & Dark Mode only) and Coomeet Free (bot recognition only).
+Chatrulez, Omegle (work-in-progress) and Coomeet Free (bot recognition only).
 
 <center>
 
@@ -154,7 +154,7 @@ Chatrulez, Omegle (IP Locator & Dark Mode only) and Coomeet Free (bot recognitio
 * **https://videochatruletka.com**
 * **https://videochatruletka.ru**
 
-### Omegle (IP Locator & Dark Mode):
+### Omegle (work-in-progress):
 
 * **https://www.omegle.com**
 * **https://www.omegle.tv**
