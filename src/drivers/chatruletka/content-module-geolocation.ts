@@ -29,6 +29,14 @@ export class GeolocationModule {
         hideMobileLocation: true,
         showCT: false,
         showMoreEnabledByDefault: true,
+        filterIgnoreMobile: true,
+        enableFilter: false,
+        enableFilterCity: false,
+        enableFilterRegion: false,
+        enableFilterCountry: false,
+        filterCity: "Enter city here",
+        filterRegion: "Enter region here",
+        filterCountry: "IN",
         skipMobileTarget: true,
         enableTarget: false,
         enableTargetCity: false,
@@ -217,7 +225,120 @@ export class GeolocationModule {
         {
             type: "br"
         },
+        {
+            type: "checkbox",
+            important: true,
+            key: "enableFilter",
+            text: chrome.i18n.getMessage("filter"),
+            tooltip: chrome.i18n.getMessage("tooltipFilter"),
+            controlsSection: "filterSection",
+        },
+        {
+            type: "section",
+            hide: globalThis.platformSettings.get("enableFilter"),
+            sectionId: "filterSection",
+            children: [
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "enableFilterCountry",
+                    text: chrome.i18n.getMessage("filterCountry"),
+                    tooltip: chrome.i18n.getMessage("tooltipFilterCountry"),
+                    controlsSection: "filterCountryDiv",
+                },
+                {
+                    type: "section",
+                    hide: globalThis.platformSettings.get("enableFilterCountry"),
+                    sectionId: "filterCountryDiv",
+                    children: [
+                        {
+                            type: "button",
+                            text: chrome.i18n.getMessage("countryCodeListButtonText"),
+                            onclick: (e: MouseEvent) => {
+                                window.open(chrome.i18n.getMessage("countryCodeListUrl"))
+                            }
+                        },
+                        {
+                            type: "button",
+                            text: chrome.i18n.getMessage("prefixFilterCountry") + globalThis.platformSettings.get("filterCountry"),
+                            onclick: (e: MouseEvent) => {
+                                const result = prompt(chrome.i18n.getMessage("promptFilterCountry"), globalThis.platformSettings.get("filterCountry"))
+                                if (result) {
+                                    globalThis.platformSettings.setBack({"filterCountry": result}, function () {
+                                        (e.target! as HTMLElement).innerText = chrome.i18n.getMessage("prefixFilterCountry") + result
+                                    })
+                                }
+                            }
+                        },
+                    ]
+                },
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "filterIgnoreMobile",
+                    text: chrome.i18n.getMessage("filterIgnoreMobile"),
+                    tooltip: chrome.i18n.getMessage("tooltipFilterIgnoreMobile")
+                },
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "enableFilterRegion",
+                    text: chrome.i18n.getMessage("filterRegion"),
+                    tooltip: chrome.i18n.getMessage("tooltipFilterRegion"),
+                    controlsSection: "filterRegionDiv",
+                },
+                {
+                    type: "section",
+                    hide: globalThis.platformSettings.get("enableFilterRegion"),
+                    sectionId: "filterRegionDiv",
+                    children: [
+                        {
+                            type: "button",
+                            text: chrome.i18n.getMessage("prefixFilterRegion") + globalThis.platformSettings.get("filterRegion"),
+                            onclick: (e: MouseEvent) => {
+                                const result = prompt(chrome.i18n.getMessage("promptFilterRegion"), globalThis.platformSettings.get("filterRegion"))
+                                if (result) {
+                                    globalThis.platformSettings.setBack({"filterRegion": result}, function () {
+                                        (e.target! as HTMLElement).innerText = chrome.i18n.getMessage("prefixFilterRegion") + result
+                                    })
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "enableFilterCity",
+                    text: chrome.i18n.getMessage("filterCity"),
+                    tooltip: chrome.i18n.getMessage("tooltipFilterCity"),
+                    controlsSection: "filterCityDiv",
+                },
+                {
+                    type: "section",
+                    hide: globalThis.platformSettings.get("enableFilterCity"),
+                    sectionId: "filterCityDiv",
+                    children: [
+                        {
+                            type: "button",
+                            text: chrome.i18n.getMessage("prefixFilterCity") + globalThis.platformSettings.get("filterCity"),
+                            onclick: (e: MouseEvent) => {
+                                const result = prompt(chrome.i18n.getMessage("promptFilterCity"), globalThis.platformSettings.get("filterCity"))
+                                if (result) {
+                                    globalThis.platformSettings.setBack({"filterCity": result}, function () {
+                                        (e.target! as HTMLElement).innerText = chrome.i18n.getMessage("prefixFilterCity") + result
+                                    });
+                                }
+                            }
+                        }
+                    ]
+                },
+            ]
+        },
 
+        {
+            type: "br"
+        },
         {
             type: "checkbox",
             important: true,

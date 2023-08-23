@@ -575,6 +575,54 @@
   "tooltipShowISP": {
     "message": "Enable this to show ISP (Internet Service Provider) data if available."
   },
+  "filterIgnoreMobile": {
+    "message": "ignore mobile data when filtering: "
+  },
+  "tooltipFilterIgnoreMobile": {
+    "message": "Mobile (cellular) networks are known for inaccurate city/region geolocation. Country-level geolocation works fine. Should extension ignore mobile data when auto-skipping by city/region?"
+  },
+  "filter": {
+    "message": "auto-skip certain country/region/city:"
+  },
+  "tooltipFilter": {
+    "message": "if enabled, gives access to the 'filter' features. You set a list of countries/regions/cities you want to auto-skip on sight. If your conversation partner's geolocation data matches at least one -> the interlocutor will be auto-skipped."
+  },
+  "filterCity": {
+    "message": "auto-skip city: "
+  },
+  "tooltipFilterCity": {
+    "message": "if interlocutor's city is in provided list (City1, City2, City3) => skip."
+  },
+  "promptFilterCity": {
+    "message": "the city name must be entered exactly as it is returned by the geolocation service (important: you must specify it in the language in which your geolocation service works).\n\nif you enter: 'New York, Jakarta, Berlin', the extension will auto-skip all strangers who are from New York, Jakarta and Berlin."
+  },
+  "prefixFilterCity": {
+    "message": "skip: "
+  },
+  "filterRegion": {
+    "message": "auto-skip region: "
+  },
+  "tooltipFilterRegion": {
+    "message": "if interlocutor's region is in provided list (Region1, Region2, Region3) => skip."
+  },
+  "promptFilterRegion": {
+    "message": "the region (state) must be entered exactly as it is returned by the geolocation service (important: you must specify it in the language in which your geolocation service works).\n\nif you enter: 'Arizona, Queensland, Vermont, Ontario', the extension will auto-skip all strangers from these regions."
+  },
+  "prefixFilterRegion": {
+    "message": "skip: "
+  },
+  "filterCountry": {
+    "message": "auto-skip country: "
+  },
+  "tooltipFilterCountry": {
+    "message": "if interlocutor's country code (such as IN / US) is in provided list (XX, YY, ZZ) => skip."
+  },
+  "promptFilterCountry": {
+    "message": "Countries are specified in the two-letter country code (ISO 3166-1 alpha-2). You can open the full list of countries by clicking the button below.\n\nIf you enter 'IN, US', the extension will auto-skip all interlocutors from India and the US."
+  },
+  "prefixFilterCountry": {
+    "message": "skip: "
+  },
   "targetSkipMobile": {
     "message": "skip mobile when searching for a region/city: "
   },
@@ -620,14 +668,14 @@
   "promptTargetCountry": {
     "message": "Countries are specified in the two-letter country code (ISO 3166-1 alpha-2). You can open the full list of countries by clicking the button below.\n\nIf you enter 'US, CA', the extension will auto-skip all interlocutors that are not defined as being from the US or Canada."
   },
+  "prefixTargetCountry": {
+    "message": "target: "
+  },
   "countryCodeListButtonText": {
     "message": "open country code list"
   },
   "countryCodeListUrl": {
     "message": "https://www.nationsonline.org/oneworld/country_code_list.htm"
-  },
-  "prefixTargetCountry": {
-    "message": "target: "
   },
   "targetSound": {
     "message": "target sound:"
