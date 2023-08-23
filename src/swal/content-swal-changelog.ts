@@ -1874,6 +1874,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— In the control panel settings, you can revert as it was (v1.9) or disable the version display altogether.<br>' +
                 '<br>' +
                 '<b>- Geolocation.</b><br>' +
+                '— Added features to auto-skip predefined countries/regions/cities.<br>' +
                 '— The features to search for specific locations have been slightly reworked.<br>' +
                 '— Now the searches won\'t conflict. For example: if the desired city was found, but the region was not in the list, skip will not happen.<br>' +
                 '— All features related to targeted search have been grouped together for convenience. This group is disabled by default. If you have previously enabled \'target city\' or \'target region\', you will have to enable the group first.<br>' +
@@ -1917,6 +1918,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— В настройках контрольной панели можно вернуть как было (v1.9) или же вовсе отключить отображение версии.<br>' +
                 '<br>' +
                 '<b>- Геолокация.</b><br>' +
+                '— Добавлены функции для автопропуска заданных заранее стран/регионов/городов.<br>' +
                 '— Немного переработаны функции таргетированного поиска локаций.<br>' +
                 '— Теперь функции не будут конфликтовать. Например: если нужный город был найден, но региона не было в списке, пропуска не будет.<br>' +
                 '— Все функции, связанные с этим поиском, были сгруппированы для удобства. По умолчанию эта группа отключена. Если вы ранее включили «поиск города» или «поиск региона», вам сначала придется включить группу.<br>' +
