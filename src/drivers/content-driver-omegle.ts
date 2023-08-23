@@ -232,7 +232,7 @@ export class OmegleDriver {
     // dont need to auto-start on omegle since auto-rererolling is a part of the ui
     public stopAndStart(delay?: number): void {
         if (typeof delay === "undefined") {
-            delay = 1000
+            delay = 2500
         }
         clearTimeout(this.timeout)
         this.timeout = setTimeout(() => {
