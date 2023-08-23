@@ -760,6 +760,12 @@
   "switchModeLabelMod2": {
     "message": "нормальный (полноценный режим с 50+ функциями)"
   },
+  "switchModeOmegleLabelMod1": {
+    "message": "минимализм (только IP геолокация & тёмная тема)"
+  },
+  "switchModeOmegleLabelMod2": {
+    "message": "нормальный (полноценный режим, в разработке...)"
+  },
   "switchModeButtonText": {
     "message": "сменить режим"
   },

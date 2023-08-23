@@ -770,6 +770,12 @@
   "switchModeLabelMod2": {
     "message": "advanced (full power with 50+ features)"
   },
+  "switchModeOmegleLabelMod1": {
+    "message": "simple (IP Locator & Dark Mode)"
+  },
+  "switchModeOmegleLabelMod2": {
+    "message": "advanced (full power, work-in-progress)"
+  },
   "switchModeButtonText": {
     "message": "switch mode"
   },
