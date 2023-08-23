@@ -820,7 +820,7 @@ export class GeolocationModule {
         if (globalThis.platformSettings.get("filter")) {
             if (globalThis.platformSettings.get("enableFilterCountry")) {
                 if (globalThis.platformSettings.get("filterCountry").toLowerCase().includes(json.countryCode.toLowerCase())) {
-                    this.driver.addStringToLog(true, `auto-skipping banned country: ${json.countryCode} found in ${globalThis.platformSettings.get("filterCountry")}`)
+                    this.driver.addStringToLog(true, `Auto-skipping banned country: ${json.countryCode} found in ${globalThis.platformSettings.get("filterCountry")}`)
                     this.driver.needToCheckTarget = false
                     this.driver.stopAndStart()
                     return
@@ -830,7 +830,7 @@ export class GeolocationModule {
             if (!json.mobile || (json.mobile && !globalThis.platformSettings.get("filterIgnoreMobile"))) {
                 if (globalThis.platformSettings.get("enableFilterRegion")) {
                     if (globalThis.platformSettings.get("filterRegion").toLowerCase().includes(json.regionName.toLowerCase())) {
-                        this.driver.addStringToLog(true, `auto-skipping banned region: ${json.regionName} found in ${globalThis.platformSettings.get("filterRegion")}`)
+                        this.driver.addStringToLog(true, `Auto-skipping banned region: ${json.regionName} found in ${globalThis.platformSettings.get("filterRegion")}`)
                         this.driver.needToCheckTarget = false
                         this.driver.stopAndStart()
                         return
@@ -839,7 +839,7 @@ export class GeolocationModule {
 
                 if (globalThis.platformSettings.get("enableFilterCity")) {
                     if (globalThis.platformSettings.get("filterCity").toLowerCase().includes(json.city.toLowerCase())) {
-                        this.driver.addStringToLog(true, `auto-skipping banned city: ${json.city} found in ${globalThis.platformSettings.get("filterCity")}`)
+                        this.driver.addStringToLog(true, `Auto-skipping banned city: ${json.city} found in ${globalThis.platformSettings.get("filterCity")}`)
                         this.driver.needToCheckTarget = false
                         this.driver.stopAndStart()
                         return
@@ -855,7 +855,7 @@ export class GeolocationModule {
                     if (globalThis.platformSettings.get("targetSound")) {
                         this.targetSound.play();
                     }
-                    this.driver.addStringToLog(true, `found target country: ${json.countryCode} is in ${globalThis.platformSettings.get("targetCountry")}`)
+                    this.driver.addStringToLog(true, `Found target country: ${json.countryCode} is in ${globalThis.platformSettings.get("targetCountry")}`)
                 }
             }
 
