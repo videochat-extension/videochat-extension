@@ -1842,9 +1842,9 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
     },
     {
         version: "1.9.0",
-        date: "2023-08-XX",
+        date: "2023-08-23",
         description: {
-            en: '<b>Brief Description.</b><br>' +
+            en: '<b>Better support for Omegle (work-in-progress), new geolocation features, minor fixes.</b><br>' +
                 '<br>' +
                 '<b>- Omegle (simple \'minimalism\' mode).</b><br>' +
                 '— The extension will now remember your choices in the TOS box to fill in the checkboxes for you. All you have to do is confirm.<br>' +
@@ -1888,7 +1888,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<b>- Streamer Mode.</b><br>' +
                 '— Fixed a bug that caused the formatting string for vpn to be used when outputting mobile geolocation data in the OBS text source (and vise versa).<br>' +
                 '— These lines were mistakenly mixed up, if you edited them, you need to do it again.',
-            ru: '<b>Краткое описание.</b><br>' +
+            ru: '<b>Улучшенная поддержка Omegle, новые функции геолокации, фиксы.</b><br>' +
                 '<br>' +
                 '<b>- Omegle (режим \'минимализм\').</b><br>' +
                 '— Расширение теперь будет запоминать ваш выбор в окошке TOS, чтобы заполнить чекбоксы для вашего удобства. Всё, что вам нужно сделать, это подтвердить выбор.<br>' +
