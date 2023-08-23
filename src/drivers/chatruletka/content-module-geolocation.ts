@@ -366,7 +366,7 @@ export class GeolocationModule {
     private targetSound = new Audio(chrome.runtime.getURL('resources/audio/found.mp3'))
     public delayIPs: string[] = [];
     private needToShowHint = globalThis.platformSettings.get("showHints") ? (globalThis.platformSettings.get("showHintsMoreOften") ? true : utils.getRandomInt(1, 3) === 2) : false;
-    private hint: number = 0;
+    private hint: number = -1;
     private apiProviders = this.getApiProviders();
     public checks = 0
     public mainDisclaimerKey = "main";
@@ -416,7 +416,7 @@ export class GeolocationModule {
 
         if (this.needToShowHint) {
             // only one hint per session
-            if (this.hint === 0) {
+            if (this.hint === -1) {
                 this.hint = utils.getRandomInt(0, this.tabs[0].hints.length - 1);
             }
             (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStartCheck") + "</br></br>" + this.tabs[0].getHintHTML(this.hint);
@@ -854,7 +854,7 @@ export class ControlsTabApi {
         })
     }
 
-    protected hintsGenerateCheckboxShorcut(checkbox: string, label:string, id: string) {
+    protected hintsGenerateCheckboxShorcut(checkbox: string, label: string, id: string) {
         return `<label for="${id}ShortcutCheck">${label}</label><input type="checkbox" onchange="document.getElementById('${checkbox}').click()" id="${id}ShortcutCheck">`
     }
 
