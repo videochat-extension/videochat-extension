@@ -49,7 +49,7 @@ export class ControlsTabApiOmegle extends ControlsTabApi {
                 src: undefined,
                 strength: 3,
                 enabled: true,
-                text: "You can resize the extension control panel in the bottom right corner"
+                text: "You can resize the extension control panel in the bottom right corner."
             },
         ],
         "ru": [
