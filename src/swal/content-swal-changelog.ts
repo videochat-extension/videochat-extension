@@ -1853,7 +1853,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<br>' +
                 '<b>- Omegle (wip \'advanced\' mode).</b><br>' +
                 '— The work-in-progress \'advanced\' mode is our full-fledged mode, tasked with giving you much more than just geolocation and a dark theme.<br>' +
-                '— At the moment, by enabling this mode, you will be able to see geolocation in a more convenient format, see how long you are in a conversation, open the stranger\'s approximate location on the world\'s map directly in the extension, open the list of torrents downloaded by a stranger, take screenshots, set up auto-skipping until you meet the city or region you want, enable picture-in-picture mode and open the changelog.<br>' +
+                '— At the moment, by enabling this mode, you will be able to see geolocation in a more convenient format, see how long you are in a conversation, open the stranger\'s approximate location on the world\'s map directly in the extension, open the list of torrents downloaded by a stranger, take screenshots, enable picture-in-picture mode, open the changelog, and even block unnecessary locations or search for those that you need.<br>' +
                 '— Currently it\'s not as functional as on other video chats, but the most important thing is done: the extension core is adapted to support different video chat platforms. This means that very soon almost all of our functionality will be available on Omegle and in the future all changes/improvements will work on all fully supported platforms at once.<br>' +
                 '— Other extension modules will be adapted in the coming weeks, giving you access to hotkeys, gender recognition, stats, blacklist, streamer mode and much more.<br>' +
                 '— In addition, there are plans to develop platform-specific features on both COMC and Omegle platforms, stay tuned.<br>' +
@@ -1873,6 +1873,13 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Now the full version of the extension (v1.9.0) is displayed in the control panel header by default.<br>' +
                 '— In the control panel settings, you can revert as it was (v1.9) or disable the version display altogether.<br>' +
                 '<br>' +
+                '<b>- Geolocation.</b><br>' +
+                '— The features to search for specific locations have been slightly reworked.<br>' +
+                '— Now the searches won\'t conflict. For example: if the desired city was found, but the region was not in the list, skip will not happen.<br>' +
+                '— All features related to targeted search have been grouped together for convenience. This group is disabled by default. If you have previously enabled \'target city\' or \'target region\', you will have to enable the group first.<br>' +
+                '— The description of these features was changed.<br>' +
+                '— Added ability to search by country code (it\'s similar to \'target city\' and \'target region\').<br>' +
+                '<br>' +
                 '<b>- Hotkeys.</b><br>' +
                 '— Fixed a bug due to which hotkeys were not disabled when the user disabled the feature (hotkeys continued to work until the next page reload).<br>' +
                 '— Standard key behavior is now prevented when local hotkeys are enabled (no more scrolling down and up when the down and up arrow hotkeys are activated).<br>' +
@@ -1889,7 +1896,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<br>' +
                 '<b>– Omegle (режим \'advanced\').</b><br>' +
                 '— \'Advanced\' режим - это наш полноценный режим, задача которого дать вам гораздо больше, чем просто геолокацию и тёмную тему.<br>' +
-                '— На данный момент, включив этот режим, вы сможете увидеть геолокацию собеседника в более удобном формате, посмотреть, сколько времени вы находитесь в разговоре, открыть примерное местоположение незнакомца на карте мира прямо в расширении, открыть список торрентов, скачанных незнакомцем, сделать скриншоты, настроить автопропуск до нужного вам города или региона, включить режим «картинка в картинке» и открыть список изменений.<br>' +
+                '— На данный момент, включив этот режим, вы сможете увидеть геолокацию собеседника в более удобном формате, посмотреть, сколько времени вы находитесь в разговоре, открыть примерное местоположение незнакомца на карте мира прямо в расширении, открыть список торрентов, скачанных незнакомцем, сделать скриншоты, заблокировать ненужные вам локации или искать что-то конкретное, включить режим «картинка в картинке» и открыть список изменений.<br>' +
                 '— На данный момент он не такой функциональный, как в других видеочатах, но самое главное сделано: основа расширения адаптирована для поддержки разных платформ видеочатов. Это означает, что очень скоро почти весь функционал будет доступен на Omegle и в дальнейшем все изменения/улучшения будут работать сразу на всех полноценно поддерживаемых платформах.<br>' +
                 '— Другие модули расширения будут адаптированы в ближайшие недели, что даст вам доступ к горячим клавишам, распознаванию пола, статистике, черному списку, режиму стримера и многому другому.<br>' +
                 '— Кроме того, есть планы по разработке уникальных функций как для COMC, так и для Omegle.<br>' +
@@ -1908,6 +1915,13 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<b>- Панель управления.</b><br>' +
                 '— Теперь в заголовке панели управления по умолчанию отображается полная версия расширения (пример: v1.9.0).<br>' +
                 '— В настройках контрольной панели можно вернуть как было (v1.9) или же вовсе отключить отображение версии.<br>' +
+                '<br>' +
+                '<b>- Геолокация.</b><br>' +
+                '— Немного переработаны функции таргетированного поиска локаций.<br>' +
+                '— Теперь функции не будут конфликтовать. Например: если нужный город был найден, но региона не было в списке, пропуска не будет.<br>' +
+                '— Все функции, связанные с этим поиском, были сгруппированы для удобства. По умолчанию эта группа отключена. Если вы ранее включили «поиск города» или «поиск региона», вам сначала придется включить группу.<br>' +
+                '— Немного изменено описание этих функций.<br>' +
+                '— Добавлена возможность поиска по коду страны.<br>' +
                 '<br>' +
                 '<b>- Горячие клавиши.</b><br>' +
                 '— Исправлен баг, из-за которого горячие клавиши не отключались при отключении функции (они продолжали работать до перезагрузки страницы).<br>' +
