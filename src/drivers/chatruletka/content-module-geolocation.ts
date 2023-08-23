@@ -817,7 +817,7 @@ export class GeolocationModule {
             })).appendTo(newIpDiv)
         }
         
-        if (globalThis.platformSettings.get("filter")) {
+        if (globalThis.platformSettings.get("enableFilter")) {
             if (globalThis.platformSettings.get("enableFilterCountry")) {
                 if (globalThis.platformSettings.get("filterCountry").toLowerCase().includes(json.countryCode.toLowerCase())) {
                     this.driver.addStringToLog(true, `Auto-skipping banned country: ${json.countryCode} found in ${globalThis.platformSettings.get("filterCountry")}`)
