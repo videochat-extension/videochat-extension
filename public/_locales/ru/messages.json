@@ -907,6 +907,30 @@
   "popupTreeLinksTitle": {
     "message": "Ссылки"
   },
+  "popupTreeLinksContentCannyRequest": {
+    "message": "Голосовать за новые фичи"
+  },
+  "popupTreeLinksContentCannyRequestHref": {
+    "message": "https://videochat-extension.canny.io/feature-requests"
+  },
+  "popupTreeLinksContentGFFeatureRequest": {
+    "message": "Предложить идею (RU)"
+  },
+  "popupTreeLinksContentGFFeatureRequestHref": {
+    "message": "https://videochat-extension.starbase.wiki/ru?request-feature-ru"
+  },
+  "popupTreeLinksContentGFBugReport": {
+    "message": "Сообщить об ошибке (RU)"
+  },
+  "popupTreeLinksContentGFBugReportHref": {
+    "message": "https://videochat-extension.canny.io/ru?report-bug-ru"
+  },
+  "popupTreeLinksContentWebsite": {
+    "message": "сайт проекта"
+  },
+  "popupTreeLinksContentWebsiteHref": {
+    "message": "https://videochat-extension.starbase.wiki/ru"
+  },
   "popupTreeLinksContentAbout": {
     "message": "о программе"
   },

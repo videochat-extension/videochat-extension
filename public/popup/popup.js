@@ -533,6 +533,72 @@ $(async function () {
     async function createAbout() {
         return [
             {
+                text: chrome.i18n.getMessage("popupTreeLinksContentCannyRequest"),
+                href: chrome.i18n.getMessage("popupTreeLinksContentCannyRequestHref"),
+                buttons: [{
+                    type: "link",
+                    icon: "bi-box-arrow-up-right",
+                    link: chrome.i18n.getMessage("popupTreeLinksContentCannyRequestHref"),
+                    onclick: handleLink
+                }],
+                icon: "bi-stars"
+            },
+            {
+                text: chrome.i18n.getMessage("popupTreeLinksContentGFFeatureRequest"),
+                href: chrome.i18n.getMessage("popupTreeLinksContentGFFeatureRequestHref"),
+                buttons: [{
+                    type: "link",
+                    icon: "bi-box-arrow-up-right",
+                    link: chrome.i18n.getMessage("popupTreeLinksContentGFFeatureRequestHref"),
+                    onclick: handleLink
+                }],
+                icon: "bi-rocket-fill"
+            },
+            {
+                text: chrome.i18n.getMessage("popupTreeLinksContentGFBugReport"),
+                href: chrome.i18n.getMessage("popupTreeLinksContentGFBugReportHref"),
+                buttons: [{
+                    type: "link",
+                    icon: "bi-box-arrow-up-right",
+                    link: chrome.i18n.getMessage("popupTreeLinksContentGFBugReportHref"),
+                    onclick: handleLink
+                }],
+                icon: "bi-bug-fill"
+            },
+            {
+                text: chrome.i18n.getMessage("popupTreeLinksContentAbout"),
+                href: chrome.runtime.getURL("welcome/welcome.html"),
+                buttons: [{
+                    type: "link",
+                    icon: "bi-box-arrow-up-right",
+                    link: chrome.runtime.getURL("welcome/welcome.html"),
+                    onclick: handleLink
+                }],
+                icon: "bi-info-circle-fill"
+            },
+            {
+                text: chrome.i18n.getMessage("popupTreeLinksContentWebsite"),
+                href: chrome.i18n.getMessage("popupTreeLinksContentWebsiteHref"),
+                buttons: [{
+                    type: "link",
+                    icon: "bi-box-arrow-up-right",
+                    link: chrome.i18n.getMessage("popupTreeLinksContentWebsiteHref"),
+                    onclick: handleLink
+                }],
+                icon: "bi-info-circle-fill"
+            },
+            {
+                text: "discord support server",
+                href: "https://discord.gg/7DYWu5RF7Y",
+                buttons: [{
+                    type: "link",
+                    icon: "bi-box-arrow-up-right",
+                    link: "https://discord.gg/7DYWu5RF7Y",
+                    onclick: handleLink
+                }],
+                icon: "bi-discord"
+            },
+            {
                 text: "github",
                 href: "https://github.com/qrlk/videochat-extension",
                 buttons: [{
@@ -544,27 +610,38 @@ $(async function () {
                 icon: "bi-github"
             },
             {
-                text: "discord",
-                href: "https://discord.gg/7DYWu5RF7Y",
+                text: "chrome extension",
+                href: "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi",
                 buttons: [{
                     type: "link",
                     icon: "bi-box-arrow-up-right",
-                    link: "https://discord.com",
+                    link: "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi",
                     onclick: handleLink
                 }],
-                icon: "bi-discord"
+                icon: "bi-browser-chrome"
             },
             {
-                text: chrome.i18n.getMessage("popupTreeLinksContentAbout"),
-                href: chrome.runtime.getURL("welcome/welcome.html"),
+                text: "edge add-on",
+                href: "https://microsoftedge.microsoft.com/addons/detail/jdpiggacibaaecfbegkhakcmgaafjajn",
                 buttons: [{
                     type: "link",
                     icon: "bi-box-arrow-up-right",
-                    link: chrome.runtime.getURL("welcome/welcome.html"),
+                    link: "https://microsoftedge.microsoft.com/addons/detail/jdpiggacibaaecfbegkhakcmgaafjajn",
                     onclick: handleLink
                 }],
-                icon: "bi-info-circle"
+                icon: "bi-browser-edge"
             },
+            {
+                text: "firefox add-on",
+                href: "https://addons.mozilla.org/firefox/addon/videochat-extension-ip-locator/",
+                buttons: [{
+                    type: "link",
+                    icon: "bi-box-arrow-up-right",
+                    link: "https://addons.mozilla.org/firefox/addon/videochat-extension-ip-locator/",
+                    onclick: handleLink
+                }],
+                icon: "bi-browser-firefox"
+            }
         ]
     }
 
@@ -673,6 +750,13 @@ $(async function () {
         {
             text: chrome.i18n.getMessage("popupTreeLinksTitle"),
             id: "about",
+            bigFixButton: {
+                text: "ROADMAP",
+                class: "btn btn-primary btn-sm",
+                onclick: ()=>{
+                    window.open("https://videochat-extension.canny.io", "_blank")
+                }
+            },
             nodes: await createAbout()
         },
     ];

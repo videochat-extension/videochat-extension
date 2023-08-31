@@ -917,8 +917,32 @@
   "popupTreeLinksTitle": {
     "message": "Links"
   },
+  "popupTreeLinksContentCannyRequest": {
+    "message": "Suggest & upvote new features"
+  },
+  "popupTreeLinksContentCannyRequestHref": {
+    "message": "https://videochat-extension.canny.io/feature-requests"
+  },
+  "popupTreeLinksContentGFFeatureRequest": {
+    "message": "Request a feature (google form)"
+  },
+  "popupTreeLinksContentGFFeatureRequestHref": {
+    "message": "https://videochat-extension.starbase.wiki/en?request-feature-en"
+  },
+  "popupTreeLinksContentGFBugReport": {
+    "message": "Report a bug (google form)"
+  },
+  "popupTreeLinksContentGFBugReportHref": {
+    "message": "https://videochat-extension.canny.io/en?report-bug-en"
+  },
+  "popupTreeLinksContentWebsite": {
+    "message": "website"
+  },
+  "popupTreeLinksContentWebsiteHref": {
+    "message": "https://videochat-extension.starbase.wiki/en"
+  },
   "popupTreeLinksContentAbout": {
-    "message": "info"
+    "message": "about"
   },
   "popupMissingPermissionSwalTitle": {
     "message": "Missing permission detected"
