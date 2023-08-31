@@ -162,7 +162,11 @@
                 } else if (node.text) {
                     let text = document.createElement('span')
                     text.innerText = node.text
-                    $(treeItem[0].children[0]).append(text);
+                    $(treeItem[0].children[0]).append(text)
+                } else if (node.html) {
+                        let div = document.createElement('span')
+                        div.innerHTML = node.html
+                        $(treeItem[0].children[0]).append(div);
                 } else if (node.switch) {
                     let sw = $(templates.treeviewSettingsSwitch);
                     sw[0].firstChild.id = node.switch.id
@@ -236,6 +240,10 @@
                     let html = $(`<button type="button" class="${node.bigFixButton.class}"></button>`)
                     html[0].innerText = node.bigFixButton.text
                     html[0].style.display = node.bigFixButton.display
+
+                    if (node.bigFixButton.id) {
+                        html[0].id = node.bigFixButton.id
+                    }
 
                     html.bind('click', node.bigFixButton.onclick)
                     treeItem.append(html)
