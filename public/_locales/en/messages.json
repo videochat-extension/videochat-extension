@@ -933,7 +933,7 @@
     "message": "Report a bug (google form)"
   },
   "popupTreeLinksContentGFBugReportHref": {
-    "message": "https://videochat-extension.canny.io/en?report-bug-en"
+    "message": "https://videochat-extension.starbase.wiki/en?report-bug-en"
   },
   "popupTreeLinksContentWebsite": {
     "message": "website"
