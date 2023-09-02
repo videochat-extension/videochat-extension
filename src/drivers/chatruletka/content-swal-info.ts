@@ -108,7 +108,9 @@ export class SwalWithSteps {
         document.addEventListener('keyup', this.arrowHotkeys)
     }
 
-    public didRender = () => {
+    public didRender = (e: HTMLElement) => {
+        e.style.fontSize = "initial"
+        e.style.fontFamily = "pt sans,sans-serif"
         let progressSteps = $(".swal2-progress-step")
         progressSteps.css({
             "user-select": "none",
