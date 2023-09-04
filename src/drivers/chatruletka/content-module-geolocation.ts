@@ -946,7 +946,7 @@ export class GeolocationModule {
         let allow = []
 
         if (!globalThis.platformSettings.get('customApiBehaviour')) {
-            return ["ve-api", "ip-api"]
+            return ["ve-api", "ip-api", 'geojs']
         }
 
         if (globalThis.platformSettings.get('allowVeApi')) {
