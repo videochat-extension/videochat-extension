@@ -554,7 +554,7 @@ export class GeolocationModule {
         }, (response) => {
             this.checks += 1
             if (response.failed && response.failed.includes('ve-api')) {
-                this.apiProviders = this.apiProviders.filter(provider => provider !== "ve-api")
+                delete this.apiProviders['ve-api']
             }
             if (response.status === 200) {
                 this.api = 2;
@@ -943,22 +943,38 @@ export class GeolocationModule {
     private apiLanguage = this.getApiLanguage();
 
     private getApiProviders() {
-        let allow = []
+        let allow: { [key: string]: { options: {} } } = {}
 
         if (!globalThis.platformSettings.get('customApiBehaviour')) {
-            return ["ve-api", "ip-api", 'geojs']
+            return {
+                've-api': {
+                    'options': {}
+                },
+                'ip-api': {
+                    'options': {}
+                },
+                'geojs': {
+                    'options': {}
+                }
+            }
         }
 
         if (globalThis.platformSettings.get('allowVeApi')) {
-            allow.push('ve-api')
+            allow['ve-api'] = {
+                'options': {}
+            }
         }
 
         if (globalThis.platformSettings.get('allowIpApi')) {
-            allow.push('ip-api')
+            allow['ip-api'] = {
+                'options': {}
+            }
         }
 
         if (globalThis.platformSettings.get('allowGeoJs')) {
-            allow.push('geojs')
+            allow['geojs'] = {
+                'options': {}
+            }
         }
 
         return allow

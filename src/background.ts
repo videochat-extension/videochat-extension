@@ -397,9 +397,13 @@ function tabsOnActivated(chTab: chrome.tabs.TabActiveInfo) {
     });
 }
 
-function geo(urls: { url: string, service: string }[], index: number, failed: string[], sendResponse: (response?: any) => void) {
+function geo(urls: {
+    url: string,
+    options: RequestInit,
+    service: string
+}[], index: number, failed: string[], sendResponse: (response?: any) => void) {
     const nextIndex = index + 1
-    fetchWithTimeout(urls[index].url, {}, 5000)
+    fetchWithTimeout(urls[index].url, urls[index].options, 5000)
         .then((response: any) => {
             if (response.ok) {
                 response.json().then((data: any) => {
@@ -407,7 +411,7 @@ function geo(urls: { url: string, service: string }[], index: number, failed: st
                         "status": data.status || "success",
                         "country": data.country || "unknown",
                         "countryCode": data.countryCode || data.country_code || "unknown",
-                        "region": data.hasOwnProperty("status") ? data.region : (data.hasOwnProperty("region") ?  data.region.substring(0,2).toUpperCase() : "unknown"),
+                        "region": data.hasOwnProperty("status") ? data.region : (data.hasOwnProperty("region") ? data.region.substring(0, 2).toUpperCase() : "unknown"),
                         "regionName": data.regionName || data.region || "unknown",
                         "city": data.city || "unknown",
                         "lat": data.lat || parseFloat(data.latitude) || 0,
@@ -443,17 +447,32 @@ function geo(urls: { url: string, service: string }[], index: number, failed: st
         )
 }
 
-function geolocate(ip: string, language: string, allow: string[], sendResponse: (response?: any) => void) {
-    const urls: { url: string, service: string }[] = []
+function geolocate(ip: string, language: string, allow: {
+    [key: string]: { options: {} }
+}, sendResponse: (response?: any) => void) {
+    const urls: { url: string, options: RequestInit, service: string }[] = []
     const failed: string[] = []
-    if (allow.includes('ve-api')) {
-        urls.push({url: `https://ve-api.starbase.wiki/geo?ip=${ip}&lang=${language}`, service: "ve-api"})
+    let allow_dict = Object.keys(allow)
+    if (allow_dict.includes('ve-api')) {
+        urls.push({
+            url: `https://ve-api.starbase.wiki/geo?ip=${ip}&lang=${language}`,
+            options: allow['ve-api'].options,
+            service: "ve-api"
+        })
     }
-    if (allow.includes('ip-api')) {
-        urls.push({url: `http://ip-api.com/json/${ip}?fields=17032159&lang=${language}`, service: "ip-api"})
+    if (allow_dict.includes('ip-api')) {
+        urls.push({
+            url: `http://ip-api.com/json/${ip}?fields=17032159&lang=${language}`,
+            options: allow['ip-api'].options,
+            service: "ip-api"
+        })
     }
-    if (allow.includes('geojs')) {
-        urls.push({url: `https://get.geojs.io/v1/ip/geo/${ip}.json`, service: "geojs"})
+    if (allow_dict.includes('geojs')) {
+        urls.push({
+            url: `https://get.geojs.io/v1/ip/geo/${ip}.json`,
+            options: allow['geojs'].options,
+            service: "geojs"
+        })
     }
 
     if (urls.length === 0) {

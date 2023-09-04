@@ -24,7 +24,17 @@ export class OmegleSimpleDriver {
         }
         return lang
     }();
-    private apiProviders = ["ve-api", "ip-api", "geojs"];
+    private apiProviders: { [key: string]: { options: {} } } = {
+        've-api': {
+            'options': {}
+        },
+        'ip-api': {
+            'options': {}
+        },
+        'geojs': {
+            'options': {}
+        }
+    }
     private rmdaddr = "0.0.0.0"
     private curIps: string[] = []
 
@@ -229,7 +239,7 @@ export class OmegleSimpleDriver {
             allow: this.apiProviders
         }, (response) => {
             if (response.failed && response.failed.includes('ve-api')) {
-                this.apiProviders = this.apiProviders.filter(provider => provider !== "ve-api")
+                delete this.apiProviders['ve-api']
             }
             if (!this.curIps.includes(newIp)) {
                 return

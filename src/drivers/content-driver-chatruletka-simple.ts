@@ -19,7 +19,17 @@ export class ChatruletkaSimpleDriver {
         }
         return lang
     }();
-    private apiProviders = ["ve-api", "ip-api", "geojs"];
+    private apiProviders: { [key: string]: { options: {} } } = {
+        've-api': {
+            'options': {}
+        },
+        'ip-api': {
+            'options': {}
+        },
+        'geojs': {
+            'options': {}
+        }
+    }
     private rmdaddr = "0.0.0.0"
     private curIps: string[] = []
     private browser = utils.getUserBrowser()
@@ -79,11 +89,25 @@ export class ChatruletkaSimpleDriver {
     }
 
     private checkApi() {
-        this.apiProviders = ["ve-api", "ip-api", "geojs"];
-        chrome.runtime.sendMessage({makeGeolocationRequest: "1.1.1.1", language: this.apiLanguage, allow: this.apiProviders}, (response) => {
+        this.apiProviders = {
+            've-api': {
+                'options': {}
+            },
+            'ip-api': {
+                'options': {}
+            },
+            'geojs': {
+                'options': {}
+            }
+        }
+        chrome.runtime.sendMessage({
+            makeGeolocationRequest: "1.1.1.1",
+            language: this.apiLanguage,
+            allow: this.apiProviders
+        }, (response) => {
             console.dir(`geolocation test: ${response.status}`)
             if (response.failed && response.failed.includes('ve-api')) {
-                this.apiProviders = this.apiProviders.filter(provider => provider !== "ve-api")
+                delete this.apiProviders['ve-api']
             }
             let apiStatusContainer = $('#apiStatusContainer')
             if (response.status === 200) {
@@ -153,7 +177,11 @@ export class ChatruletkaSimpleDriver {
             this.curIps.push(newIp)
         }
 
-        chrome.runtime.sendMessage({makeGeolocationRequest: newIp, language: this.apiLanguage, allow: ["ve-api", "ip-api", "geojs"]}, (response) => {
+        chrome.runtime.sendMessage({
+            makeGeolocationRequest: newIp,
+            language: this.apiLanguage,
+            allow: this.apiProviders
+        }, (response) => {
             if (!this.curIps.includes(newIp)) {
                 return
             }
