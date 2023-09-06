@@ -1028,3 +1028,167 @@ gr-main-header {
 embed[type="application/pdf"][src="about:blank"] {
     filter: invert(100%) contrast(90%)
 }
+
+
+.leaflet-tile::selection {
+    background-image: initial;
+    background-color: transparent;
+}
+.leaflet-container {
+    -webkit-tap-highlight-color: transparent;
+}
+.leaflet-container a {
+    -webkit-tap-highlight-color: rgba(67, 187, 231, 0.4);
+}
+.leaflet-container {
+    background-image: initial;
+    background-color: rgb(43, 47, 49);
+}
+.leaflet-container a {
+    color: rgb(86, 207, 255);
+}
+.leaflet-zoom-box {
+    border-color: rgb(0, 68, 163);
+    background-image: initial;
+    background-color: rgba(24, 26, 27, 0.5);
+}
+.leaflet-bar {
+    box-shadow: rgba(0, 0, 0, 0.65) 0px 1px 5px;
+}
+.leaflet-bar a {
+    background-color: rgb(24, 26, 27);
+    border-bottom-color: rgb(62, 68, 70);
+    text-decoration-color: initial;
+    color: rgb(232, 230, 227);
+}
+.leaflet-bar a:hover,
+.leaflet-bar a:focus {
+    background-color: rgb(30, 33, 34);
+}
+.leaflet-bar a:last-child {
+    border-bottom-color: initial;
+}
+.leaflet-bar a.leaflet-disabled {
+    background-color: rgb(30, 33, 34);
+    color: rgb(189, 183, 175);
+}
+.leaflet-control-layers {
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 5px;
+    background-image: initial;
+    background-color: rgb(24, 26, 27);
+}
+.leaflet-control-layers-toggle {
+    background-image: url("https://cafeclub.ua/embed/images/layers.png");
+}
+.leaflet-retina .leaflet-control-layers-toggle {
+    background-image: url("https://cafeclub.ua/embed/images/layers-2x.png");
+}
+.leaflet-control-layers-expanded {
+    color: rgb(200, 195, 188);
+    background-image: initial;
+    background-color: rgb(24, 26, 27);
+}
+.leaflet-control-layers-separator {
+    border-top-color: rgb(58, 62, 65);
+}
+.leaflet-default-icon-path {
+    background-image: url("https://cafeclub.ua/embed/images/marker-icon.png");
+}
+.leaflet-container .leaflet-control-attribution {
+    background-image: initial;
+    background-color: rgba(24, 26, 27, 0.8);
+}
+.leaflet-control-attribution,
+.leaflet-control-scale-line {
+    color: rgb(200, 195, 188);
+}
+.leaflet-control-attribution a {
+    text-decoration-color: initial;
+}
+.leaflet-control-attribution a:hover,
+.leaflet-control-attribution a:focus {
+    text-decoration-color: initial;
+}
+.leaflet-control-scale-line {
+    border-right-color: rgb(101, 94, 83);
+    border-bottom-color: rgb(101, 94, 83);
+    border-left-color: rgb(101, 94, 83);
+    border-top-color: initial;
+    background-image: initial;
+    background-color: rgba(24, 26, 27, 0.8);
+    text-shadow: rgb(24, 26, 27) 1px 1px;
+}
+.leaflet-control-scale-line:not(:first-child) {
+    border-top-color: rgb(101, 94, 83);
+    border-bottom-color: initial;
+}
+.leaflet-control-scale-line:not(:first-child):not(:last-child) {
+    border-bottom-color: rgb(101, 94, 83);
+}
+.leaflet-touch .leaflet-control-attribution,
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+    box-shadow: none;
+}
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+    border-color: rgba(140, 130, 115, 0.2);
+}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+    background-image: initial;
+    background-color: rgb(24, 26, 27);
+    color: rgb(200, 195, 188);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 3px 14px;
+}
+.leaflet-container a.leaflet-popup-close-button {
+    border-color: initial;
+    color: rgb(158, 150, 137);
+    text-decoration-color: initial;
+    background-image: initial;
+    background-color: transparent;
+}
+.leaflet-container a.leaflet-popup-close-button:hover,
+.leaflet-container a.leaflet-popup-close-button:focus {
+    color: rgb(176, 170, 159);
+}
+.leaflet-oldie .leaflet-control-zoom,
+.leaflet-oldie .leaflet-control-layers,
+.leaflet-oldie .leaflet-popup-content-wrapper,
+.leaflet-oldie .leaflet-popup-tip {
+    border-color: rgb(77, 83, 86);
+}
+.leaflet-div-icon {
+    background-image: initial;
+    background-color: rgb(24, 26, 27);
+    border-color: rgb(106, 99, 87);
+}
+.leaflet-tooltip {
+    background-color: rgb(24, 26, 27);
+    border-color: rgb(48, 52, 54);
+    color: rgb(211, 207, 201);
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 3px;
+}
+.leaflet-tooltip-top::before,
+.leaflet-tooltip-bottom::before,
+.leaflet-tooltip-left::before,
+.leaflet-tooltip-right::before {
+    border-color: transparent;
+    background-image: initial;
+    background-color: transparent;
+}
+.leaflet-tooltip-top::before {
+    border-top-color: rgb(48, 52, 54);
+}
+.leaflet-tooltip-bottom::before {
+    border-bottom-color: rgb(48, 52, 54);
+}
+.leaflet-tooltip-left::before {
+    border-left-color: rgb(48, 52, 54);
+}
+.leaflet-tooltip-right::before {
+    border-right-color: rgb(48, 52, 54);
+}
+
+/*TODO: move to tweaks hide black lines in dark mode when moving around the map*/
+.leaflet-container {background: #ddd;outline-offset: 1px;}

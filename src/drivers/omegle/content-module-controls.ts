@@ -96,7 +96,8 @@ export class ControlsModuleOmegle extends ControlsModule {
     protected createStyle() {
         return utils.createElement('style', {
             textContent: `
-            .tabs :is(a, abbr, acronym, address, applet, big, blockquote, body, caption, cite, code, dd, del, dfn, div, dl, dt, em, fieldset, font, form, h1, h2, h3, h4, h5, h6, html, iframe, img, input, ins, kbd, label, legend, li, object, ol, p, pre, q, s, samp, small, span, strike, strong, sub, sup, table, tbody, td, textarea, tfoot, th, thead, tr, tt, ul, var) {
+            // TODO: what is this?
+            .tabs :is(a, abbr, acronym, address, applet, big, blockquote, body, caption, cite, code, dd, del, dfn, dl, dt, em, fieldset, font, form, h1, h2, h3, h4, h5, h6, html, iframe, img, input, ins, kbd, label, legend, li, object, ol, p, pre, q, s, samp, small, span, strike, strong, sub, sup, table, tbody, td, textarea, tfoot, th, thead, tr, tt, ul, var) {
                 margin: 0;
                 padding: 0;
                 border: 0;
@@ -105,6 +106,13 @@ export class ControlsModuleOmegle extends ControlsModule {
                 font-style: inherit;
                 font-size: 100%;
                 vertical-align: baseline;
+            }
+            
+            .remoteTM {
+                font-weight: inherit;
+                font-style: inherit;
+                font-size: 100%;
+                vertical-align: baseline!important;
             }
             
             .tabs__content {
@@ -125,6 +133,7 @@ export class ControlsModuleOmegle extends ControlsModule {
               }
               
               .tabs__caption {
+                border: 0!important;
                 display: flex!important;
                 flex-wrap: wrap!important;
                 list-style-type: none!important;
