@@ -1950,6 +1950,8 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<br>' +
                 '<br>This extension remains free and open source: there will be no paid features - we leave the right to implement them to the platforms themselves, but we hope for the voluntary support of our most active users.<br><br>We have been working on this project on our own for the last 2.5 years, but now we need your support!</b>' +
                 '<br>' +
+                '<br>' +
+                `<div style="text-align: center"><img style="max-width: 90%;margin: 0px;" src="${chrome.runtime.getURL('resources/img/example.png')}"><p style="font-size: small;margin: 0;">example of more accurate confidence area<br>list of supported languages is the same</p></div>` +
                 '<br>At the end of each month, we\'ll be posting a big report for our patrons on <a id="openPatreonExtensionLink" href="https://patreon.com/videochat_extension" style="text-decoration:none;">Patreon</a> about the status of the project and the work we\'ve done that month!' +
                 '<br><br>' +
                 '<b>Transparent development, taking into account the voice of the community.</b><br>We have integrated the <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io">canny.io</a> service to the extension - this will help make future development more transparent.' +
@@ -2028,6 +2030,8 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<br>' +
                 '<br>Расширение остается бесплатным проектом с открытым исходным кодом: никаких платных функций не будет - мы оставляем право их реализации самим платформам, но надеемся на добровольную поддержку наших самых активных пользователей.<br><br>Мы работали над этим проектом безвозмездно последние 2.5 года, но теперь нам нужна ваша поддержка!</b>' +
                 '<br>' +
+                '<br>' +
+                `<div style="text-align: center"><img style="max-width: 90%;margin: 0px;" src="${chrome.runtime.getURL('resources/img/example.png')}"><p style="font-size: small;margin: 0;">пример более точной зоны уверенности<br>список поддерживаемых языков не изменился</p></div>` +
                 '<br>В конце каждого месяца на <a id="openPatreonExtensionLink" href="https://patreon.com/videochat_extension" style="text-decoration:none;">Patreon</a> будет публиковаться большой отчёт для патронов с информацией о проделанной работе и текущем статусе проекта!' +
                 '<br><br>' +
                 '<b>Прозрачная разработка с учётом настроений сообщества.</b><br>Мы интегрировали сервис <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io">canny.io</a> в расширение - это поможет сделать дальнейшую разработку более прозрачным процессом.' +
