@@ -1963,7 +1963,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<br><br>' +
                 'Only one person (qrlk) does the actual development and his (mine) ideas should be enough for many months to come - but you can also submit your own ideas and influence what comes first!' +
                 '<br><br>' +
-                'We have published a <a style="text-decoration:none;" target="_blank" href="https://www.patreon.com/videochat_extension">big post on patreon with plans for further development of the project</a>!' +
+                'We have published a <a style="text-decoration:none;" target="_blank" href="https://www.patreon.com/posts/88867175">big post on patreon with plans for further development of the project</a>!' +
                 '<br><br>' +
                 '<b>- Patreon.</b><br>' +
                 '— You can now support the extension on <a id="openPatreonExtensionLink" href="https://patreon.com/videochat_extension" style="text-decoration:none;">Patreon</a>.<br>' +
@@ -2043,7 +2043,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '<br><br>' +
                 'Непосредственно разработкой расширения занимается один человек (qrlk) в свободное время и его (моих) идей хватит на много месяцев вперед - но вы можете предложить и свои идеи и повлиять на то, что появится раньше.' +
                 '<br><br>' +
-                'На Patreon был опубликован <a style="text-decoration:none;" target="_blank" href="https://www.patreon.com/videochat_extension">большой пост (на английском языке) с планами на будущее проекта</a>!' +
+                'На Patreon был опубликован <a style="text-decoration:none;" target="_blank" href="https://www.patreon.com/posts/88867175">большой пост (на английском языке) с планами на будущее проекта</a>!' +
                 '<br><br>' +
                 '<b>- Patreon.</b><br>' +
                 '— Теперь вы можете поддержать проект на <a id="openPatreonExtensionLink" href="https://patreon.com/videochat_extension" style="text-decoration:none;">Patreon</a>.<br>' +
