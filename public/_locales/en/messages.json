@@ -522,7 +522,7 @@
     "message": "use ve-api-patron: "
   },
   "tooltipAllowVeApiPatron": {
-    "message": "If you are not logged into your account in the extension menu, it has no effect. if enabled, a service available only to expansion patrons will be used. Under the hood, it uses a hundreds of times more expensive geolocation service that returns more accurate information about the location of the interlocutor. First you need to subscribe to a patreon (more details in the extension menu by clicking on its icon), then go to your account and turn it on in the settings (in the menu). Then reload the page and enjoy."
+    "message": "If you are not logged into your account in the extension menu, it has no effect. If enabled, a service available only to our patrons will be used. Under the hood, it uses a hundreds of times more expensive geolocation service that returns more accurate information about the location of the interlocutor. First you need to subscribe to a patreon (more details in the extension menu by clicking on its icon), then go to your account and turn it on in the settings (in the menu). Then reload the page and enjoy."
   },
   "allowVeApi": {
     "message": "use ve-api: "
