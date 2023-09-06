@@ -106,7 +106,12 @@ async function content() {
         } else {
             if (settings.allowShowChangelog) {
                 if (settings.lastVersion !== chrome.runtime.getManifest().version) {
-                    ContentSwalChangelog.getInstance().showFromVersion(settings.lastVersion)
+                    // I forgot to enable processSwals for omegle :(
+                    if (settings.lastVersion.substring(0, 1) == "1" && website.platform.name == "Omegle") {
+                        ContentSwalChangelog.getInstance().showFromVersion('1.9.0')
+                    } else {
+                        ContentSwalChangelog.getInstance().showFromVersion(settings.lastVersion)
+                    }
                 }
                 chrome.storage.sync.set({lastVersion: chrome.runtime.getManifest().version})
             }
@@ -244,7 +249,7 @@ async function content() {
                     document.arrive("body", {onceOnly: true, existing: true}, async () => {
                         if (website) {
                             injectContextInvalidatedCheck()
-                            // processSwals(website)
+                            processSwals(website)
                             globalThis.driver = OmegleDriver.getInstance(website)
                             globalThis.driver.start(document.body)
                             if (!globalThis.platformSettings.get("swalInfoCompleted")) {
