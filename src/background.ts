@@ -256,6 +256,7 @@ async function ensureContentScriptsAreRegistered() {
 
         // TODO: add check which should remove from favorites all uuids not found in the platforms.json
         let platforms = await fetchPlatforms()
+        // TODO: chrome.storage.sync.set({'script':{}}) fixes very rare DUPLICATED SCRIPT ID issue
         let scripts = (await chrome.storage.sync.get({scripts: {}})).scripts
         let actualScripts = (await chrome.scripting.getRegisteredContentScripts())
 
