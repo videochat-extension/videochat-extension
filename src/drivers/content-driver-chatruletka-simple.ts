@@ -100,6 +100,9 @@ export class ChatruletkaSimpleDriver {
                 'options': {}
             }
         }
+        if (globalThis.patreon) {
+            this.apiProviders[globalThis.patreon.name] = globalThis.patreon
+        }
         chrome.runtime.sendMessage({
             makeGeolocationRequest: "1.1.1.1",
             language: this.apiLanguage,

@@ -111,7 +111,8 @@
   },
   "optional_permissions": [
     "scripting",
-    "history"
+    "history",
+    "identity"
   ],
   "optional_host_permissions": [
     "https://*.chatruletka.com/*",

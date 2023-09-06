@@ -113,6 +113,79 @@ async function content() {
         }
     }
 
+    let patreon = (await chrome.storage.sync.get({
+        "patreonIsPatron": false,
+        "patreonLoggedIn": false,
+        "patreonAccessToken": "",
+        "patreonRefreshToken": "",
+        "patreonTokenExpires": -1,
+        "patreonSettingWired": false,
+        "patreonSettingCellural": false
+    }))
+
+    if (patreon.patreonAccessToken !== "") {
+        try {
+            let response = await fetch('https://ve-api.starbase.wiki/whoami', {
+                signal: AbortSignal.timeout(5000),
+                headers: {
+                    "Authorization": `Bearer ${patreon.patreonAccessToken}`
+                }
+            });
+            if (response.ok) {
+                let user = await response.json()
+
+                if (user.active) {
+                    let patreonProvider = {
+                        'name': 've-api-patron',
+                        'options': {
+                            headers: {
+                                "Authorization": `Bearer ${patreon.patreonAccessToken}`
+                            }
+                        },
+                        'config': {
+                            'wired': false,
+                            'cellural': false,
+                        }
+                    }
+                    if (user.allow_wired) {
+                        if (patreon.patreonSettingWired) {
+                            patreonProvider.config.wired = true
+                        }
+                    }
+                    if (user.allow_mobile) {
+                        if (patreon.patreonSettingCellural) {
+                            patreonProvider.config.cellural = true
+                        }
+                    }
+                    globalThis.patreon = patreonProvider
+                } else {
+                    globalThis.patreon = false
+                }
+            } else {
+                globalThis.patreon = false
+                // TODO: refresh expired tokens
+                if (response.status === 401) {
+                    globalThis.platformSettings.set({
+                        "patreonIsPatron": false,
+                        "patreonLoggedIn": false,
+                        "patreonAccessToken": "",
+                        "patreonRefreshToken": "",
+                        "patreonTokenExpires": -1,
+                        "patreonSettingWired": false,
+                        "patreonSettingCellural": false
+                    })
+                }
+            }
+        } catch (e: any) {
+            if (e.name === "TimeoutError" || e.name === "AbortError") {
+                console.dir('5000 ms timeout, could not verify');
+            } else {
+                console.dir('unknown error')
+            }
+            globalThis.patreon = false
+        }
+    }
+
     switch (platform) {
         case "COMC": {
             if (globalThis.platformSettings.get("askForMode")) {

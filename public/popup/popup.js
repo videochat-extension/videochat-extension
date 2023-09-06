@@ -12,6 +12,8 @@ document.title = chrome.i18n.getMessage('popupTitle')
 
 let content = ["vendor.js", "content_script.js"]
 let params = new URLSearchParams(window.location.search);
+let API = 'https://ve-api.starbase.wiki'
+let OAUTH_ID = 'hqFg3ttNGk4A85vFiQZGrl2bzNG6vJ6mwPnyaLiW'
 
 console.time("show tree")
 $(async function () {
@@ -340,6 +342,87 @@ $(async function () {
         window.open($(this).attr('link'), "_blank")
     }
 
+    async function handlePatreon() {
+        let patreon = (await chrome.storage.sync.get({
+            "patreonIsPatron": false,
+            "patreonLoggedIn": false,
+            "patreonAccessToken": "",
+            "patreonRefreshToken": "",
+            "patreonTokenExpires": -1,
+            "patreonSettingWired": false,
+            "patreonSettingCellural": false
+        }))
+        if (patreon.patreonLoggedIn && patreon.patreonAccessToken !== "") {
+            fetch(`${API}/whoami`, {
+                headers: {
+                    "Authorization": `Bearer ${patreon.patreonAccessToken}`
+                },
+            }).then(async (response) => {
+                if (response.ok) {
+                    let user = await response.json()
+                    let logout = $("#patreonLogOut")
+                    logout.removeClass('d-none')
+                    logout.addClass('d-flex')
+                    logout[0].children[0].children[0].innerText = `${user.username}`
+                    logout[0].children[0].children[0].title = `patreon id: ${user.uid}`
+                    document.getElementById('quotaText').innerText = `: ${user.api_usage_patreon_quota}/${user.plan_limit}`
+
+                    let login = $("#patreonLogIn")
+                    login.removeClass('d-flex')
+                    login.addClass('d-none')
+
+                    if (patreon.patreonIsPatron) {
+                        document.getElementById('becomePatronButton').style.display = 'none'
+                    }
+
+                    if (user.allow_wired) {
+                        document.getElementById('patreonSettingWired').disabled = false
+                    }
+
+                    if (user.active) {
+                        document.getElementById('becomePatronButton').className = "btn btn-success btn-sm"
+                        document.getElementById('becomePatronButton').innerText = chrome.i18n.getMessage("popupTreePatreonPatronThanks")
+                    }
+
+                    if (user.allow_mobile) {
+                        document.getElementById('patreonSettingCellural').disabled = false
+                    }
+                } else {
+                    if (response.status === 401) {
+                        chrome.storage.sync.set({
+                            "patreonIsPatron": false,
+                            "patreonLoggedIn": false,
+                            "patreonAccessToken": "",
+                            "patreonRefreshToken": "",
+                            "patreonTokenExpires": -1,
+                            "patreonSettingWired": false,
+                            "patreonSettingCellural": false
+                        }).then(handlePatreon)
+                    }
+                    alert(response.status + response.statusText)
+                }
+            }).catch((error) => {
+                let logout = $("#patreonLogOut")
+                logout.removeClass('d-none')
+                logout.addClass('d-flex')
+                alert(error)
+            })
+        } else {
+            let logout = $("#patreonLogOut")
+            logout.addClass('d-none')
+            logout.removeClass('d-flex')
+
+            let login = $("#patreonLogIn")
+            login.removeClass('d-none')
+            login.addClass('d-flex')
+
+            document.getElementById('becomePatronButton').className = "btn btn-danger btn-sm"
+            document.getElementById('becomePatronButton').innerText = "BECOME A PATRON"
+
+            login[0].children[0].children[0].innerText = chrome.i18n.getMessage("popupTreePatreonAccountLogInPlease")
+        }
+    }
+
     function toggleFavoritesVisibility() {
         let cur = document.getElementById("tree-item-0")
         let fav = $("#favorites")
@@ -469,12 +552,13 @@ $(async function () {
         }
     }
 
-    async function createSetting(id, text, disabled, onchange) {
+    async function createSetting(id, text, disabled, onchange, title) {
         return {
             switch: {
                 id: id,
                 text: text,
                 disabled: disabled,
+                title: title,
                 checked: (await chrome.storage.sync.get({[id]: true}))[id],
                 onchange: async function () {
                     chrome.storage.sync.set({[id]: this.checked})
@@ -704,9 +788,44 @@ $(async function () {
         }
     }
 
+    let patreonBlockedTZs = [
+        "Asia/Anadyr",
+        "Asia/Barnaul",
+        "Asia/Chita",
+        "Asia/Irkutsk",
+        "Asia/Kamchatka",
+        "Asia/Khandyga",
+        "Asia/Krasnoyarsk",
+        "Asia/Magadan",
+        "Asia/Novokuznetsk",
+        "Asia/Novosibirsk",
+        "Asia/Omsk",
+        "Asia/Sakhalin",
+        "Asia/Srednekolymsk",
+        "Asia/Tomsk",
+        "Asia/Ust-Nera",
+        "Asia/Vladivostok",
+        "Asia/Yakutsk",
+        "Asia/Yekaterinburg",
+        "Europe/Astrakhan",
+        "Europe/Kaliningrad",
+        "Europe/Kirov",
+        "Europe/Minsk",
+        "Europe/Moscow",
+        "Europe/Samara",
+        "Europe/Saratov",
+        "Europe/Ulyanovsk",
+        "Europe/Volgograd"
+    ]
+
+    function isPatreonBlocked() {
+        return patreonBlockedTZs.includes(Intl.DateTimeFormat().resolvedOptions().timeZone);
+    }
+
+
     let json = [{
         text: chrome.i18n.getMessage("popupTreeFavoritesTitle"),
-        expanded: !params.has('recent'),
+        expanded: !params.has('recent') && !params.has("patreon"),
         id: "favorites",
         hide: favorites.length === 0,
 
@@ -723,7 +842,7 @@ $(async function () {
         {
             text: chrome.i18n.getMessage("popupTreeRecentTitle"),
             id: "recents",
-            expanded: params.has('recent') || favorites.length === 0,
+            expanded: (params.has('recent') || favorites.length === 0) && !params.has("patreon"),
             hide: Object.keys(recentDict).length === 0,
             nodes: createRecents(recentDict)
         },
@@ -742,6 +861,301 @@ $(async function () {
         },
 
         {
+            text: chrome.i18n.getMessage("popupTreePatreonTitle"),
+            id: "patreon",
+            expanded: params.has("patreon"),
+            nodes: [
+                {
+                    text: chrome.i18n.getMessage("popupTreePatreonIronCurtainTitle"),
+                    hide: !isPatreonBlocked(),
+                    nodes: [
+                        {
+                            text: chrome.i18n.getMessage("popupTreePatreonIronCurtainText1")
+                        },
+                        {
+                            text: chrome.i18n.getMessage("popupTreePatreonIronCurtainText2")
+                        },
+                        {
+                            text: chrome.i18n.getMessage("popupTreePatreonIronCurtainText3")
+                        },
+                        {
+                            text: chrome.i18n.getMessage("popupTreePatreonIronCurtainText4")
+                        }
+                    ]
+                },
+                {
+                    text: chrome.i18n.getMessage("popupTreePatreonPerksTitle"),
+                    nodes: [
+                        {
+                            text: chrome.i18n.getMessage("popupTreePatreonPerksAccuracyTitle"),
+                            nodes: [
+                                {
+                                    text: chrome.i18n.getMessage("popupTreePatreonPerksAccuracyText1")
+                                },
+                                {
+                                    text: chrome.i18n.getMessage("popupTreePatreonPerksAccuracyText2")
+                                },
+                                {
+                                    text: chrome.i18n.getMessage("popupTreePatreonPerksAccuracyText3")
+                                }
+                            ]
+                        },
+                        {
+                            text: chrome.i18n.getMessage("popupTreePatreonPerksSupportTitle"),
+                            nodes: [
+                                {
+                                    text: chrome.i18n.getMessage("popupTreePatreonPerksSupportText1")
+                                },
+                                {
+                                    text: chrome.i18n.getMessage("popupTreePatreonPerksSupportText2")
+                                },
+                                {
+                                    text: chrome.i18n.getMessage("popupTreePatreonPerksSupportText3")
+                                },
+                                {
+                                    text: chrome.i18n.getMessage("popupTreePatreonPerksSupportText4")
+                                },
+                                {
+                                    text: chrome.i18n.getMessage("popupTreePatreonPerksSupportText5")
+                                },
+                                {
+                                    text: chrome.i18n.getMessage("popupTreePatreonPerksSupportText6")
+                                }
+                            ]
+                        },
+                    ]
+                },
+                {
+                    text: chrome.i18n.getMessage("popupTreePatreonGuideTitle"),
+                    hide: false,
+                    nodes: [
+                        {
+                            text: chrome.i18n.getMessage("popupTreePatreonGuideText1")
+                        },
+                        {
+                            text: chrome.i18n.getMessage("popupTreePatreonGuideText2")
+                        },
+                        {
+                            text: chrome.i18n.getMessage("popupTreePatreonGuideText3")
+                        },
+                        {
+                            text: chrome.i18n.getMessage("popupTreePatreonGuideText4")
+                        },
+                        {
+                            text: chrome.i18n.getMessage("popupTreePatreonGuideText5")
+                        },
+                        {
+                            text: chrome.i18n.getMessage("popupTreePatreonGuideText6")
+                        }
+                    ]
+                },
+                {
+                    text: chrome.i18n.getMessage("popupTreePatreonAccountTitle"),
+                    expanded: params.has('patreon'),
+                    // badge: "text",
+                    bigFixButton: {
+                        text: "BECOME A PATRON",
+                        id: "becomePatronButton",
+                        class: "btn btn-danger btn-sm",
+                        onclick: () => {
+                            window.open("https://www.patreon.com/videochat_extension", "_blank")
+                        }
+                    },
+                    nodes: [
+                        {
+                            id: "patreonLogIn",
+                            text: chrome.i18n.getMessage("popupTreePatreonAccountChecking"),
+                            bigFixButton: {
+                                text: chrome.i18n.getMessage("popupTreePatreonAccountLogIn"),
+                                class: "btn btn-danger btn-sm",
+                                onclick: async () => {
+
+                                    let res = await chrome.permissions.request({
+                                        permissions: ["identity"]
+                                    })
+                                    if (res) {
+                                        // GENERATING CODE VERIFIER
+                                        function dec2hex(dec) {
+                                            return ("0" + dec.toString(16)).substr(-2);
+                                        }
+
+                                        function generateCodeVerifier() {
+                                            var array = new Uint32Array(56 / 2);
+                                            window.crypto.getRandomValues(array);
+                                            return Array.from(array, dec2hex).join("");
+                                        }
+
+                                        function sha256(plain) {
+                                            // returns promise ArrayBuffer
+                                            const encoder = new TextEncoder();
+                                            const data = encoder.encode(plain);
+                                            return window.crypto.subtle.digest("SHA-256", data);
+                                        }
+
+                                        function base64urlencode(a) {
+                                            var str = "";
+                                            var bytes = new Uint8Array(a);
+                                            var len = bytes.byteLength;
+                                            for (var i = 0; i < len; i++) {
+                                                str += String.fromCharCode(bytes[i]);
+                                            }
+                                            return btoa(str)
+                                                .replace(/\+/g, "-")
+                                                .replace(/\//g, "_")
+                                                .replace(/=+$/, "");
+                                        }
+
+                                        async function generateCodeChallengeFromVerifier(v) {
+                                            var hashed = await sha256(v);
+                                            var base64encoded = base64urlencode(hashed);
+                                            return base64encoded;
+                                        }
+
+                                        function exchangeCodeForToken(code) {
+                                            fetch(`${API}/o/token/`, {
+                                                body: `client_id=${OAUTH_ID}&code=${code}&code_verifier=${verifier}&redirect_uri=${encodeURIComponent(redirectUri)}&grant_type=authorization_code&scope=read%20write`,
+                                                headers: {
+                                                    "Content-Type": "application/x-www-form-urlencoded"
+                                                },
+                                                method: "POST"
+                                            }).then(async (res) => {
+                                                let data = await res.json()
+                                                await chrome.storage.sync.set({
+                                                    "patreonLoggedIn": true,
+                                                    "patreonAccessToken": data.access_token,
+                                                    "patreonRefreshToken": data.refresh_token,
+                                                    "patreonTokenExpires": Math.floor(Date.now() / 1000) + data.expires_in
+                                                })
+                                                handlePatreon()
+                                            })
+                                        }
+
+                                        let verifier
+
+                                        async function getToken() {
+                                            redirectUri = chrome.identity.getRedirectURL('login');
+                                            console.dir(redirectUri)
+                                            verifier = generateCodeVerifier()
+                                            let challenge = await generateCodeChallengeFromVerifier(verifier)
+
+                                            var options = {
+                                                'interactive': true,
+                                                'url': `${API}/o/authorize/?response_type=code&code_challenge=${challenge}&code_challenge_method=S256&client_id=${OAUTH_ID}&redirect_uri=${encodeURIComponent(redirectUri)}`
+                                            }
+                                            console.dir(options)
+                                            let queryString = new URLSearchParams(redirectUri)
+
+                                            chrome.identity.launchWebAuthFlow(options, function (redirectUri) {
+                                                console.log('launchWebAuthFlow completed', chrome.runtime.lastError, redirectUri);
+
+                                                let paramString = redirectUri.split('?')[1];
+                                                let queryString = new URLSearchParams(paramString);
+
+                                                if (queryString.has('code'))
+                                                    exchangeCodeForToken(queryString.get('code'));
+                                                else
+                                                    callback(new Error('Invalid redirect URI'));
+                                            });
+                                        }
+
+                                        getToken()
+                                    }
+                                }
+                            },
+                        },
+
+                        {
+                            id: "patreonLogOut",
+                            text: "User Name",
+                            hide: true,
+                            bigFixButton: {
+                                text: chrome.i18n.getMessage("popupTreePatreonAccountLogOut"),
+                                class: "btn btn-danger btn-sm",
+                                onclick: async () => {
+                                    let res = await chrome.permissions.request({
+                                        permissions: ["identity"]
+                                    })
+                                    if (res) {
+                                        chrome.identity.launchWebAuthFlow({
+                                            'url': `${API}/accounts/logout`,
+                                            'interactive': true,
+                                        }).catch((e) => {
+                                            // alert(e)
+                                        }).finally(() => {
+                                            if (!chrome.runtime.getManifest().browser_specific_settings) {
+                                                chrome.identity.launchWebAuthFlow({
+                                                    'url': `https://patreon.com/logout`,
+                                                    'interactive': true,
+                                                }).catch((e) => {
+                                                    // alert(e)
+                                                })
+                                            }
+                                        })
+                                    }
+
+                                    chrome.storage.sync.get({"patreonRefreshToken": ""}, (res) => {
+                                        fetch(`${API}/o/revoke_token/`, {
+                                            body: `token=${res.patreonRefreshToken}&client_id=${OAUTH_ID}`,
+                                            headers: {
+                                                "Content-Type": "application/x-www-form-urlencoded"
+                                            },
+                                            method: "POST"
+                                        }).finally(() => {
+                                            chrome.storage.sync.set({
+                                                "patreonIsPatron": false,
+                                                "patreonLoggedIn": false,
+                                                "patreonAccessToken": "",
+                                                "patreonRefreshToken": "",
+                                                "patreonTokenExpires": -1,
+                                                "patreonSettingWired": false,
+                                                "patreonSettingCellural": false
+                                            }).then(handlePatreon)
+                                        })
+                                    })
+
+                                }
+                            },
+                        },
+                        {
+                            html: `${chrome.i18n.getMessage("popupTreePatreonAccountQuotaTitle")}<span id='quotaText'></span>`,
+                            nodes: [
+                                {
+                                    text: chrome.i18n.getMessage("popupTreePatreonAccountQuotaText1"),
+                                },
+                                {
+                                    text: chrome.i18n.getMessage("popupTreePatreonAccountQuotaText2"),
+                                },
+                                {
+                                    text: chrome.i18n.getMessage("popupTreePatreonAccountQuotaText3"),
+                                },
+                                {
+                                    text: chrome.i18n.getMessage("popupTreePatreonAccountQuotaText4"),
+                                },
+                                {
+                                    text: chrome.i18n.getMessage("popupTreePatreonAccountQuotaText5"),
+                                },
+                                {
+                                    text: chrome.i18n.getMessage("popupTreePatreonAccountQuotaText6"),
+                                },
+                            ]
+                        },
+                        {
+                            text: chrome.i18n.getMessage("popupTreePatreonAccountSettingsTitle"),
+                            nodes: [
+                                await createSetting('patreonSettingWired', chrome.i18n.getMessage("popupTreePatreonAccountSettingsWiredEnabled"), true, (bool) => {
+
+                                }, chrome.i18n.getMessage("popupTreePatreonAccountSettingsWiredEnabledTitle")),
+                                await createSetting('patreonSettingCellural', chrome.i18n.getMessage("popupTreePatreonAccountSettingsCelluralEnabled"), true, (bool) => {
+
+                                }, chrome.i18n.getMessage("popupTreePatreonAccountSettingsCelluralEnabledTitle")),
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
             text: chrome.i18n.getMessage("popupTreeSettingsTitle"),
             id: "settings",
             nodes: await createSettings()
@@ -753,7 +1167,7 @@ $(async function () {
             bigFixButton: {
                 text: "ROADMAP",
                 class: "btn btn-primary btn-sm",
-                onclick: ()=>{
+                onclick: () => {
                     window.open("https://videochat-extension.canny.io", "_blank")
                 }
             },
@@ -775,7 +1189,7 @@ $(async function () {
     $('#cached').remove();
     document.body.style.minHeight = null
 
-    if (!params.has('missingPermission') && !params.has('scanHistory')) {
+    if (!params.has('missingPermission') && !params.has('scanHistory') && !params.has('patreon')) {
         await updCache();
     }
 
@@ -798,6 +1212,7 @@ $(async function () {
     console.timeEnd("start tree")
     // toggleFavoritesVisibility()
     console.timeEnd("show tree")
+    handlePatreon()
     // document.getElementById('container').style.display=""
 
     if (params.has('zoom')) {

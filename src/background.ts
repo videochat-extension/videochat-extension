@@ -66,6 +66,14 @@ const defaults = {
     "curious": false,
     // settings managed by PlatformSettings
     // "98ea82db-9d50-4951-935e-2405d9fe892e": {},
+    // patreon integration
+    "patreonIsPatron": false,
+    "patreonLoggedIn": false,
+    "patreonAccessToken": "",
+    "patreonRefreshToken": "",
+    "patreonTokenExpires": -1,
+    "patreonSettingWired": false,
+    "patreonSettingCellural": false
 };
 
 // actual content script list, ensureContentScriptsAreRegistered() should reregister on change
@@ -407,6 +415,40 @@ function geo(urls: {
         .then((response: any) => {
             if (response.ok) {
                 response.json().then((data: any) => {
+                    if (urls[index].url.includes('patron')) {
+                        if (data.bdc_data && data.ipapi_data) {
+                            let json = {
+                                "status": data.bdc.location ? "success" : "fail",
+                                "country": data.bdc.country.name || "unknown",
+                                "countryCode": data.bdc.country.isoAlpha2 || "unknown",
+                                "region": data.bdc.location.isoPrincipalSubdivisionCode.substring(3) || "unknown",
+                                "regionName": data.bdc.location.principalSubdivision || "unknown",
+                                "city": data.bdc.location.city || "unknown",
+                                "lat": data.bdc.location.latitude || 0,
+                                "lon": data.bdc.location.longitude || 0,
+                                "confidence": data.bdc.confidence,
+                                "confidenceArea": data.bdc.confidenceArea,
+                                "timezone": data.bdc.location.timeZone.ianaTimeId || "unknown",
+                                "isp": data.bdc.network.organisation || "unknown",
+                                "mobile": data.bdc.hazardReport.isCellular || false,
+                                "proxy": (data.bdc.hazardReport.isKnownAsTorServer || data.bdc.hazardReport.isKnownAsVpn || data.bdc.hazardReport.isKnownAsProxy) || false,
+                                "hosting": data.bdc.hazardReport.isHostingAsn || false,
+                                "query": data.bdc.ip || data.ipapi.query,
+                                "ipapi": data.ipapi
+                            }
+                            console.dir('PATREON DATA!!!')
+                            console.dir(data)
+                            sendResponse({status: response.status, failed: failed, body: json})
+                        } else if (data.ipapi_data) {
+                            data = data.ipapi
+                        } else {
+                            if (nextIndex == urls.length) {
+                                sendResponse({status: response.status, failed: failed, body: {}})
+                            } else {
+                                geo(urls, nextIndex, failed, sendResponse)
+                            }
+                        }
+                    }
                     let json = {
                         "status": data.status || "success",
                         "country": data.country || "unknown",
@@ -448,11 +490,21 @@ function geo(urls: {
 }
 
 function geolocate(ip: string, language: string, allow: {
-    [key: string]: { options: {} }
+    [key: string]: { options: {}, config?: { wired: boolean, cellural: boolean } }
 }, sendResponse: (response?: any) => void) {
     const urls: { url: string, options: RequestInit, service: string }[] = []
     const failed: string[] = []
     let allow_dict = Object.keys(allow)
+    if (allow_dict.includes('ve-api-patron')) {
+        if (allow['ve-api-patron'].config?.wired || allow['ve-api-patron'].config?.cellural) {
+            urls.push({
+                url: `https://ve-api.starbase.wiki/patron-geo?ip=${ip}&lang=${language}&requestWired=${allow['ve-api-patron'].config?.wired}&requestCellural=${allow['ve-api-patron'].config?.cellural}`,
+                options: allow['ve-api-patron'].options,
+                service: "ve-api-patron"
+            })
+        }
+    }
+
     if (allow_dict.includes('ve-api')) {
         urls.push({
             url: `https://ve-api.starbase.wiki/geo?ip=${ip}&lang=${language}`,
@@ -555,6 +607,12 @@ function runtimeOnMessage(request: any, sender: chrome.runtime.MessageSender, se
         chrome.tabs.create({
             url: `obs/setup.html`
         });
+    }
+
+    if (request.openPopupPatreon) {
+        chrome.tabs.create({
+            url: chrome.runtime.getURL("popup/popup.html?zoom=120&patreon")
+        })
     }
 }
 

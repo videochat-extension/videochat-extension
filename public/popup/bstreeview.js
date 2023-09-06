@@ -177,6 +177,9 @@
                     if (node.switch.onchange) {
                         $(sw[0].firstChild).bind('change', node.switch.onchange)
                     }
+                    if (node.switch.title) {
+                        sw[0].lastChild.title = node.switch.title
+                    }
 
                     $(treeItem[0].children[0]).append(sw);
                 }

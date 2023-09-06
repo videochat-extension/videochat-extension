@@ -518,6 +518,12 @@
   "tooltipCustomApiBehaviour": {
     "message": "turn on if you want to configure which providers to use for your geolocation requests. the providers are arranged in order of use, if first one fails, the extension will try the next one and so on until the last one"
   },
+  "allowVeApiPatron": {
+    "message": "use ve-api-patron: "
+  },
+  "tooltipAllowVeApiPatron": {
+    "message": "If you are not logged into your account in the extension menu, it has no effect. if enabled, a service available only to expansion patrons will be used. Under the hood, it uses a hundreds of times more expensive geolocation service that returns more accurate information about the location of the interlocutor. First you need to subscribe to a patreon (more details in the extension menu by clicking on its icon), then go to your account and turn it on in the settings (in the menu). Then reload the page and enjoy."
+  },
   "allowVeApi": {
     "message": "use ve-api: "
   },
@@ -574,6 +580,24 @@
   },
   "tooltipShowISP": {
     "message": "Enable this to show ISP (Internet Service Provider) data if available."
+  },
+  "autoOpenPopup": {
+    "message": "map: auto-open popup: "
+  },
+  "tooltipAutoOpenPopup": {
+    "message": "If enabled, in the 'map' section, a window with information about the location will open automatically. If disabled, you can still open it manually."
+  },
+  "autoFitBounds": {
+    "message": "map - auto-fitbounds: "
+  },
+  "tooltipAutoFitBounds": {
+    "message": "If enabled, the map will change its scale to fit the estimated area of the interlocutor."
+  },
+  "autoSetView": {
+    "message": "map - auto-setview: "
+  },
+  "tooltipAutoSetView": {
+    "message": "If enabled, the map will set its center to the stranger's approximate coordinates."
   },
   "filterIgnoreMobile": {
     "message": "ignore mobile data when filtering: "
@@ -910,6 +934,136 @@
   },
   "popupTreeSupportedContentFixPermissionsButtonText": {
     "message": "Fix Permissions"
+  },
+
+  "popupTreePatreonTitle": {
+    "message": "Support us on Patreon!"
+  },
+  "popupTreePatreonIronCurtainTitle": {
+    "message": "Patreon in Russia and Belarus"
+  },
+  "popupTreePatreonIronCurtainText1": {
+    "message": "For obvious reasons, users in Russia and Belarus may have problems using Patreon."
+  },
+  "popupTreePatreonIronCurtainText2": {
+    "message": "Due to imposed sanctions, the platform is technically unable to process payments from local payment systems."
+  },
+  "popupTreePatreonIronCurtainText3": {
+    "message": "Besides this, the regulators (internet censors) of these countries also decided to ban Patreon."
+  },
+  "popupTreePatreonIronCurtainText4": {
+    "message": "The service itself did not impose any restrictions, but if you do not have access to international payment systems, you will not be able to support our project."
+  },
+  "popupTreePatreonPerksTitle": {
+    "message": "What does Patreon give?"
+  },
+  "popupTreePatreonPerksAccuracyTitle": {
+    "message": "Geolocation accuracy"
+  },
+  "popupTreePatreonPerksAccuracyText1": {
+    "message": "You can significantly improve the accuracy of the geolocation of the interlocutors by supporting the project on Patreon."
+  },
+  "popupTreePatreonPerksAccuracyText2": {
+    "message": "For our Patrons, we use hundreds of times more expensive geolocation service, which if used for 100% of users would cost ~5.000$$/month."
+  },
+  "popupTreePatreonPerksAccuracyText3": {
+    "message": "Behind the extension is an independent team of just two people: we can't afford that kind of expense."
+  },
+  "popupTreePatreonPerksSupportTitle": {
+    "message": "Support indie development"
+  },
+  "popupTreePatreonPerksSupportText1": {
+    "message": "Videochat Extension is a free and open-source project: we do not introduce paid features, leaving it up to the video chats themselves."
+  },
+  "popupTreePatreonPerksSupportText2": {
+    "message": "For us, the extension is far from being free: development and testing take up significant resources (time), the needs of the project (paying for servers and geolocation services) take up serious money."
+  },
+  "popupTreePatreonPerksSupportText3": {
+    "message": "Currently we can afford to spend both money and time (which we have been doing for the last 2.5 years). But our expenses are growing, and this project will need to be supported for a very long time, so the problem with altruism needs to be addressed now."
+  },
+  "popupTreePatreonPerksSupportText4": {
+    "message": "Even if 0.1-0.5% of active users decide to support the extension, it will already be enough to pay off all our expenses and ensure the stable development of the project for many years to come: developing new features, fixing bugs and adding support for new video chats!"
+  },
+  "popupTreePatreonPerksSupportText5": {
+    "message": "We're using hundreds of times more expensive geolocation service for users who support the extension, making it much more accurate! You can learn more about it in the description on Patreon."
+  },
+  "popupTreePatreonPerksSupportText6": {
+    "message": "At the end of each month, we publish a big post on Patreon with a report for patrons on the status of the project and the work we've done that month!"
+  },
+  "popupTreePatreonGuideTitle": {
+    "message": "How do I subscribe to Patreon?"
+  },
+  "popupTreePatreonGuideText1": {
+    "message": "1. Click on 'BECOME A PATRON'."
+  },
+  "popupTreePatreonGuideText2": {
+    "message": "2. Choose an appropriate Tier."
+  },
+  "popupTreePatreonGuideText3": {
+    "message": "3. Login to your account and subscribe."
+  },
+  "popupTreePatreonGuideText4": {
+    "message": "4. Click the 'Login' button in the 'Account' section of the extension's menu (pop-up window)."
+  },
+  "popupTreePatreonGuideText5": {
+    "message": "5. If the popup closed during the process, try again."
+  },
+  "popupTreePatreonGuideText6": {
+    "message": "6. Turn on more accurate geolocation in settings and enjoy!"
+  },
+  "popupTreePatreonAccountTitle": {
+    "message": "Account"
+  },
+  "popupTreePatreonPatronThanks": {
+    "message": "Thank you for your support!"
+  },
+  "popupTreePatreonAccountChecking": {
+    "message": "Checking account..."
+  },
+  "popupTreePatreonAccountLogIn": {
+    "message": "Login"
+  },
+  "popupTreePatreonAccountLogInPlease": {
+    "message": "Login with patreon"
+  },
+  "popupTreePatreonAccountLogOut": {
+    "message": "Logout"
+  },
+  "popupTreePatreonAccountQuotaTitle": {
+    "message": "Quota"
+  },
+  "popupTreePatreonAccountQuotaText1": {
+    "message": "We have been forced to implement a quota system that prevents us from spending significantly more money on your requests than we received from Patreon for your subscription."
+  },
+  "popupTreePatreonAccountQuotaText2": {
+    "message": "Only those requests for which we had to pay are counted in the quota. If a request was cached (another Patron recently met your interlocutor) - it will not be counted in the quota."
+  },
+  "popupTreePatreonAccountQuotaText3": {
+    "message": "The quota size depends on your tier on Patreon. It will be increased in the future. With normal human use, you are unlikely to hit it."
+  },
+  "popupTreePatreonAccountQuotaText4": {
+    "message": "If you do run into a quota, you will continue to receive cached data (from other Patrons). If no cached data was found, you'll get data from our public geolocation service."
+  },
+  "popupTreePatreonAccountQuotaText5": {
+    "message": "The quota resets every first day of the month."
+  },
+  "popupTreePatreonAccountQuotaText6": {
+    "message": "Without this system, bad people could sign up for the smallest tier and artificially make thousands of dollars worth of requests."
+  },
+  "popupTreePatreonAccountSettingsTitle": {
+    "message": "Settings"
+  },
+  "popupTreePatreonAccountSettingsWiredEnabled": {
+    "message": "geolocation for wired IPs (?)"
+  },
+  "popupTreePatreonAccountSettingsWiredEnabledTitle": {
+    "message": "Want to request expensive geolocation for wired IP addresses? The accuracy will be much better!"
+  },
+  "popupTreePatreonAccountSettingsCelluralEnabled": {
+    "message": "geolocation for cellural IPs (?)"
+  },
+  "popupTreePatreonAccountSettingsCelluralEnabledTitle": {
+    "message": "Do you want to request expensive geolocation for mobile IP addresses? The accuracy will be almost no different: mobile IPs are known for very poor geolocation quality. Please do not enable."
   },
   "popupTreeSettingsTitle": {
     "message": "Settings"

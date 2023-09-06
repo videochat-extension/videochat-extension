@@ -56,6 +56,10 @@ export class OmegleSimpleDriver {
     }
 
     public start(element: HTMLElement): boolean {
+        if (globalThis.patreon) {
+            this.apiProviders[globalThis.patreon.name] = globalThis.patreon
+        }
+
         this.stageObserver.observe(element, {attributes: true});
         this.injectIpEventListener()
         this.injectResultsContainer()

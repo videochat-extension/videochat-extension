@@ -1934,6 +1934,167 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Эти строки были перепутаны местами, если вы их редактировали под себя, вам придётся сделать это ещё раз.'
         }
     },
+    {
+        version: "2.0.0",
+        date: "2023-09-07",
+        description: {
+            en: `<b><a style="text-decoration:none;" id="openPatreonExtensionLink">Patreon</a> with improved geolocation for patrons. Transparent <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io">Roadmap</a> based on user suggestions. Plans for the future.</b>` +
+                '<br><br>' +
+                `<b>Now you can support Videochat Extension on <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a>!</b><br>For our patrons we use a hundreds of times more expensive IP geolocation service, which in practice gives a much more accurate determination of the city and confidence zone!` +
+                `<div style="text-align: center"><a target="_blank" href="https://www.bigdatacloud.com/insights/ip-geolocation-accuracy-report#:~:text=false% 2Dpositive%20cases.-,Wired%20consumers,-(Global)"><img style="max-width: 90%;margin: 10px;" src="${chrome.runtime.getURL('resources/img/wired2.png')}" width="400px"></a>` +
+                `<br><p style="font-size: small;margin: 0;">Videochat Extension\'s patron-only geolocation vs Chromegle\'s provider<br><br>our main geolocation provider sometimes uses GeoLite2 too,<br>so that it should be somewhere between the two, closer to blue<br><br>accuracy depends on the country of the interlocutor, but in general it is much better<br>BDC claims 90% in Canada & 85% in the USA (for wired)<br><br>click on the picture to see what will change in your country</p></div>` +
+                '<br>' +
+                'The main goals of <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a> are to provide patrons with the best geolocation accuracy possible, cover the costs of the extension, and ensure its independent development for many years to come.' +
+                '<br>' +
+                '<br>Please note: Videochat Extension is an independent third-party project and is NOT affiliated with the video chats you use.</b>' +
+                '<br>' +
+                '<br>This extension remains free and open source: there will be no paid features - we leave the right to implement them to the platforms themselves, but we hope for the voluntary support of our most active users.<br><br>We have been working on this project on our own for the last 2.5 years, but now we need your support!</b>' +
+                '<br>' +
+                '<br>At the end of each month, we\'ll be posting a big report for our patrons on <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a> about the status of the project and the work we\'ve done that month!' +
+                '<br><br>' +
+                '<b>Transparent development, taking into account the voice of the community.</b><br>We have integrated the <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io">canny.io</a> service to the extension - this will help make future development more transparent.' +
+                '<br><br>' +
+                'Now you can <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.starbase.wiki/en?request-feature-en">suggest your ideas</a> to improve the extension (like new features / improvements for existing features / support for new platforms / new localization languages) and vote for suggestions from other users.<br><br>' +
+                'Future updates will include the most popular user suggestions, which are compatible with our vision of peaceful coexistence with the platforms.</b>' +
+                '<br><br>' +
+                '<b>What to expect from v2.x.x?</b><br>Transparent development means transparent <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io">roadmap</a> - a public development plan for the project. You can now follow what we\'re currently working on, participate in the discussion, and vote for what you\'d like to see next.' +
+                '<br><br>' +
+                'Only one person (qrlk) does the actual development and his (mine) ideas should be enough for many months to come - but you can also submit your own ideas and influence what comes first!' +
+                '<br><br>' +
+                'We have published a <a style="text-decoration:none;" target="_blank" href="https://www.patreon.com/videochat_extension">big post on patreon with plans for further development of the project</a>!' +
+                '<br><br>' +
+                '<b>- Patreon.</b><br>' +
+                '— You can now support the extension on <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a>.<br>' +
+                '— The goals of <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a> are to provide patrons with the best geolocation accuracy possible, cover the costs of the extension, and ensure its independent development for many years to come.<br>' +
+                '— We will not be introducing any exclusive paid features (for a variety of reasons, described on our <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a>).<br>' +
+                '— The only difference is the use of a hundred of times more expensive geolocation service, which provides a more accurate determination of the possible location of the interlocutor.<br>' +
+                '— <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a> will re-new the pledge on the first day of the month. You can unsubscribe at any time.<br>' +
+                '— At the end of each month, we will publish a large report for <a id="openPatreonExtensionLink" style="text-decoration:none;">our patrons on Patreon</a> about the status of the project and the work we\'ve done that month.<br>' +
+                '— Subscribing to <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a> should be taken solely as voluntary support for the development of the extension (which we have been developing and maintaining on our own for the last 2.5 years).' +
+                '<br><br>' +
+                '<b>- Geolocation for patrons.</b><br>' +
+                '— Added a new IP geolocation service for patrons, which provides a much more accurate geolocation of the interlocutor and his city.<br>' +
+                '— We can\'t guarantee 100% IP geolocation accuracy (that\'s only available to the goverment), but for our patrons we\'ll use the best and most expensive service available.<br>' +
+                '— It\'s not possible to use this geolocation service for all of our users - it would cost thousands of dollars a month, which is too expensive for an open-source project.<br>' +
+                '— Improvement of the quality of geolocation depends on the country of the interlocutor - <a style="text-decoration:none;" target="_blank" href="https://www.bigdatacloud.com/insights/ip-geolocation-accuracy-report">read more here</a>. In most developed countries, the accuracy will increase significantly, but not for mobile networks.<br>' +
+                '— To activate, you need to subscribe to <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a>, log in with your account in the <a id="openPatreonExtensionLink" style="text-decoration:none;">extension menu</a> (popup that opens by clicking on the icon extensions) and enable the patron geolocation in the settings (after that, you need to reload the page).<br>' +
+                '— The confidence zone shown on the map will become much more accurate. This is the unique feature of the geolocation service that we use for patrons. The city is also often defined more precisely, especially in small towns located in developed countries.<br>' +
+                '— The quality of cellular geolocation will not improve much, so it is better not to enable it.<br>' +
+                '— We implemented a quota system that prevents us from spending much more money on your requests than we received from your subscription to <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a>.<br >' +
+                '— Under normal human usage you are unlikely to run into a quota: we use our limited resources very efficiently and only count requests that we had to pay for in the quota.<br>' +
+                '— If you run into a quota, you will still continue to receive cached data from other patrons.<br>' +
+                '— The quota is reset every first day of the month.<br>' +
+                '— The quota is a security measure against possible abuse, it will be increased in the future.<br>' +
+                '— For more information about Patreon, please see the <a id="openPatreonExtensionLink" style="text-decoration:none;">extension menu</a>.' +
+                '<br><br>' +
+                '<b>- Section \'Map\'.</b><br>' +
+                '— Added support for displaying multiple zones at the same time.<br>' +
+                '— Added popup with data about the zone (country, city, region) - it opens by clicking on the marker.<br>' +
+                '— By default, the popup opens automatically. You can disable this behavior in the geolocation settings.<br>' +
+                '— Added several settings for the map (in the geolocation section). For example, you can disable auto-zooming to the coordinates of the interlocutor or disable changing the center of the map.<br>' +
+                '— Approximate radius of cellular geolocation zone increased from 300km to 500km.<br>' +
+                '— Approximate radius of wired geolocation zone increased from 30km to 100km.<br>' +
+                '— Added display of the proxy / hosting zone in a separate color - black (500 km).<br>' +
+                '— For <a id="openPatreonExtensionLink" style="text-decoration:none;">Patron-only geolocation</a>, the confidence zone depends on the geolocation service - it is determined much more precisely!<br>' +
+                '<br>' +
+                '<b>- Canny roadmap.</b><br>' +
+                '— We have integrated the <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io">canny.io</a> service into the development process.<br>' +
+                '— Canny.io has <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io">roadmap</a> and two boards - <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io/feature-requests">Community Requests</a> and <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io/dev-ideas">Developer\'s Ideas</a>.<br>' +
+                '— In <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io/feature-requests">Community Requests</a> You can submit ideas and vote for other users\' ideas. An idea can be any suggestion to improve the extension: a new feature, an improvement for an old one, support for a new platform or a new UI language.<br>' +
+                '— In <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io/dev-ideas">Developer\'s Ideas</a> only developer\'s own ideas / plans are published. You can discuss and vote for the ones you would like to see in the future.<br>' +
+                '— In <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io">Roadmap</a> you can see what tasks are currently in progress, what are planned and what we are still thinking about.<br>' +
+                '— You can also use a <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.starbase.wiki/en?request-feature-en">google form</a> to submit a suggestion.<br>' +
+                '<br>' +
+                '<b>- Form \'report a bug\'.</b><br>' +
+                '— Added a <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.starbase.wiki/en?report-bug-en">google form</a> for reporting an extension-related bug/problem, it creates an issue on GitHub.<br>' +
+                '<br>' +
+                '<b>- Popup (menu on click in the list of extensions).</b><br>' +
+                '— Added a special <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a> section.<br>' +
+                '— Updated the links section to include a roadmap, website, and other links related to feedback.<br>' +
+                '<br>' +
+                '<b>- Hints.</b><br>' +
+                '— Added new tooltips related to <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io">canny.io</a> and google contact forms.',
+            ru: `<b><a style="text-decoration:none;" id="openPatreonExtensionLink">Patreon</a> с улучшенной геолокацией для патронов. Прозрачная <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io">Roadmap</a> с учетом предложений пользователей. Планы на будущее.</b>` +
+                '<br><br>' +
+                `<b>Теперь вы можете поддержать Чат Рулетное Расширение на <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a>!</b><br>Для наших патронов мы используем в сотни раз более дорогой сервис геолокации IP, что на практике даёт значительно более точное определение города и зоны местоположения собеседника!` +
+                `<div style="text-align: center"><a target="_blank" href="https://www.bigdatacloud.com/insights/ip-geolocation-accuracy-report#:~:text=false%2Dpositive%20cases.-,Wired%20consumers,-(Global)"><img style="max-width: 90%;margin: 10px;" src="${chrome.runtime.getURL('resources/img/wired2.png')}" width="400px"></a>` +
+                `<br><p style="font-size: small;margin: 0;">wired: оранжевый - геолокация для патронов, синий - GeoLite2<br><br>наш основной провайдер геолокации иногда использует GeoLite2,<br>так что он должен быть где-то между двумя, ближе к синему<br><br>точность зависит от страны собеседника, но в целом она значительно лучше (у мобильных сетей всё по-прежнему плохо)<br>BDC заявляет 90% в Канаде, 85% в США и 82% в Украине (для wired)<br>с РФ немного хуже (страна слишком большая), но улучшение будет заметно<br><br>нажмите на картинку, чтобы увидеть что изменится в вашей стране</p></div>` +
+                '<br>' +
+                'Основные цели <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a>\'a - обеспечить наилучшее качество геолокации из возможных, покрыть расходы расширения и обеспечить его независимое развитие на долгие годы вперед.' +
+                '<br>' +
+                '<br>Предупреждение: сервис <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a> заблокирован на территории РФ и РБ местными регуляторами и не может использовать платежные системы этих стран из-за санкций.' +
+                '<br>' +
+                '<br>Напоминание: Чат Рулетное Расширение является независимым сторонним проектом и никак НЕ аффилировано с видеочатами, которыми вы пользуетесь.</b>' +
+                '<br>' +
+                '<br>Расширение остается бесплатным проектом с открытым исходным кодом: никаких платных функций не будет - мы оставляем право их реализации самим платформам, но надеемся на добровольную поддержку наших самых активных пользователей.<br><br>Мы работали над этим проектом безвозмездно последние 2.5 года, но теперь нам нужна ваша поддержка!</b>' +
+                '<br>' +
+                '<br>В конце каждого месяца на <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a> будет публиковаться большой отчёт для патронов с информацией о проделанной работе и текущем статусе проекта!' +
+                '<br><br>' +
+                '<b>Прозрачная разработка с учётом настроений сообщества.</b><br>Мы интегрировали сервис <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io">canny.io</a> в расширение - это поможет сделать дальнейшую разработку более прозрачным процессом.' +
+                '<br><br>' +
+                'Теперь вы можете <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.starbase.wiki/ru?request-feature-ru">предлагать свои идеи</a> по улучшению расширения (вроде новых функций / улучшений для старых / поддержки новых платформ / языков локализации) и голосовать за предложения других пользователей.<br><br>' +
+                'В будущие обновления будут попадать именно наиболее востребованные предложения пользователей, которые совпадают и с нашим общим видением мирного сосуществования с платформами.</b>' +
+                '<br><br>' +
+                '<b>Что стоит ожидать от v2.x.x?</b><br>Прозрачная разработка означает и прозрачную <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io">дорожную карту</a> - публичный план развития проекта. Теперь вы можете отслеживать то, над чем мы сейчас работаем, принимать участие в обсуждении и голосовать за то, что вы хотели бы видеть в дальнейшем.' +
+                '<br><br>' +
+                'Непосредственно разработкой расширения занимается один человек (qrlk) в свободное время и его (моих) идей хватит на много месяцев вперед - но вы можете предложить и свои идеи и повлиять на то, что появится раньше.' +
+                '<br><br>' +
+                'На Patreon был опубликован <a style="text-decoration:none;" target="_blank" href="https://www.patreon.com/videochat_extension">большой пост (на английском языке) с планами на будущее проекта</a>!' +
+                '<br><br>' +
+                '<b>- Patreon.</b><br>' +
+                '— Теперь вы можете поддержать проект на <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a>.<br>' +
+                '— Задачи <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a>: обеспечить наилучшее качество геолокации из возможных, покрыть расходы расширения и обеспечить его независимое развитие на долгие годы вперед.<br>' +
+                '— Мы не будем вводить никаких эксклюзивных платных функций (по целому ряду причин, описанных на странице <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a>).<br>' +
+                '— Единственное отличие: использование в сотни раз более дорогого сервиса геолокации, который обеспечивает более точное определение возможного местоположения собеседника.<br>' +
+                '— <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a> будет продлевать pledge первого числа каждого месяца. Вы можете отписаться в любой момент.<br>' +
+                '— В конце каждого месяца на <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a> будет публиковаться большой пост с информацией о состоянии проекта и проделанной работе (доступно только патронам проекта).<br>' +
+                '— Подписку на <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a> стоит воспринимать исключительно как добровольную поддержку развития расширения (последние 2.5 года мы справлялись исключительно своими силами).' +
+                '<br><br>' +
+                '<b>- Геолокация для патронов.</b><br>' +
+                '— Добавлен новый сервис геолокации для патронов, который обеспечивает значительно более точное определение зоны собеседника и его города.<br>' +
+                '— Мы не в состоянии гарантировать 100% точность геолокации (она доступна разве что спецслужбам), но мы будем использовать для патронов самый лучший и дорогой сервис из доступных.<br>' +
+                '— Использовать этот сервис геолокации для всех пользователей невозможно - это обошлось бы в тысячи долларов в месяц, что слишком дорого для open-source проекта.<br>' +
+                '— Улучшение качества геолокации зависит от страны собеседника - <a style="text-decoration:none;" target="_blank" href="https://www.bigdatacloud.com/insights/ip-geolocation-accuracy-report">подробнее смотрите тут</a>. В большинстве развитых стран точность значительно возрастёт, но не для мобильных сетей.<br>' +
+                '— Для активации нужно подписаться на Patreon, войти в систему с помощью вашего аккаунта в <a id="openPatreonExtensionLink" style="text-decoration:none;">меню расширения</a> (попап, который открывается по клику на иконку расширения) и включить в настройках геолокацию patreon (после этого нужно перезагрузить страницу с чатом).<br>' +
+                '— Сильно улучшится отображение зоны возможного местоположения собеседника на карте. Особенностью патрон-сервиса геолокации является именно отображение более точной зоны возможного местоположения собеседника (на карте в расширении). Но и город тоже часто определяется более точно, особенно в небольших населенных пунктах в развитых странах.<br>' +
+                '— Качество геолокации мобильных сетей улучшится не сильно, поэтому её лучше не включать.<br>' +
+                '— Реализована система квот, которая не даёт проекту потратить на ваши запросы больше денег, чем мы получили от вашей подписки на <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a>.<br>' +
+                '— При человеческом использовании вы вряд ли наткнётесь на квоту: мы очень эффективно используем ограниченные ресурсы и считаем в квоте только те запросы, за которые нам пришлось заплатить.<br>' +
+                '— Если же вы наткнетесь на квоту, то вы всё равно продолжите получать кэшированные данные от других патронов.<br>' +
+                '— Квота сбрасывается каждое первое число месяца.<br>' +
+                '— Квота является защитной мерой против абьюза и в будущем будем сильно увеличена.<br>' +
+                '— Больше актуальной информации о <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a> смотрите в <a id="openPatreonExtensionLink" style="text-decoration:none;">меню расширения</a>.<br>' +
+                '— Внимание: патреон заблокирован в РФ и РБ (по решению регуляторов этих стран), а так же этот сервис не способен обрабатывать транзакции локальных платежных систем из-за санкций.' +
+                '<br><br>' +
+                '<b>- Раздел \'Карта\'.</b><br>' +
+                '— Добавлена поддержка отображения нескольких зон одновременно.<br>' +
+                '— Добавлен вывод данных о зоне (страна, город, регион) в попап метки зоны - открывается по клику на маркер.<br>' +
+                '— По умолчанию маркер открывается автоматически. В настройках геолокации можно отключить это поведение.<br>' +
+                '— Добавлено несколько настроек для карты (в разделе геолокации). Например, вы можете отключить автозум до координат собеседника или изменение центра карты.<br>' +
+                '— Приблизительный радиус зоны cellular геолокации увеличен с 300км до 500км.<br>' +
+                '— Приблизительный радиус зоны wired геолокации увеличен с 30км до 100км.<br>' +
+                '— Добавлено отображение зоны прокси/хостинга отдельным цветом - чёрным (500 км).<br>' +
+                '— Для <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon-геолокации</a> зона зависит от сервиса геолокации - она определяется значительно более точно!<br>' +
+                '<br>' +
+                '<b>- Canny roadmap.</b><br>' +
+                '— В процесс разработки интегрирован сервис <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io">canny.io</a>.<br>' +
+                '— На canny.io есть <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io">roadmap</a> и две доски - <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io/feature-requests">Community Requests</a> и <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io/dev-ideas">Developer\'s Ideas</a>.<br>' +
+                '— В <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io/feature-requests">Community Requests</a> вы можете предлагать свои идеи и голосовать за идеи других пользователей. Идеей может быть любое предложение по улучшению расширения: новая функция, улучшение для старой, поддержка новой платформы или языка интерфейса.<br>' +
+                '— В <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io/dev-ideas">Developer\'s Ideas</a> публикуются только идеи разработчика. Вы можете обсуждать и голосовать за те, которые вы хотели бы увидеть в будущем.<br>' +
+                '— В <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io">Roadmap</a> можно увидеть какие задачи сейчас в работе, какие запланированы и над какими мы ещё думаем.<br>' +
+                '— Сам сайт на английском языке, но для создания идеи созданы и специальные гугл формы - как например, <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.starbase.wiki/ru?request-feature-ru">русифицированная гугл форма</a>.<br>' +
+                '<br>' +
+                '<b>- Форма \'сообщить об ошибке\'.</b><br>' +
+                '— Добавлена <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.starbase.wiki/ru?report-bug-ru">локализованная гугл форма</a> для сообщения о баге / ошибке расширения, её результат создает issue на github.<br>' +
+                '<br>' +
+                '<b>- Popup (меню по клику в списке расширений).</b><br>' +
+                '— Добавлен специальный раздел <a id="openPatreonExtensionLink" style="text-decoration:none;">Patreon</a>.<br>' +
+                '— Обновлён раздел с ссылками: добавлены roadmap, вебсайт и другие ссылки, связанные с обратной связью.<br>' +
+                '<br>' +
+                '<b>- Подсказки.</b><br>' +
+                '— Добавлены новые подсказки, связанные с <a style="text-decoration:none;" target="_blank" href="https://videochat-extension.canny.io">canny.io</a> и гугл формами обратной связи.'
+        }
+    },
 ]
 
 
@@ -1962,6 +2123,17 @@ export class ContentSwalChangelog extends SwalWithSteps {
             self.currentStep = self.steps.indexOf(self.styleStep(el.target.innerText))
             self.selectStep(self.currentStep)
         })
+
+        // TODO: need to find better solution
+        let patreon = e.querySelectorAll("#openPatreonExtensionLink")
+        if (patreon.length > 0) {
+            for (const el of patreon) {
+                el.addEventListener("click", (e: Event) => {
+                    chrome.runtime.sendMessage({openPopupPatreon: true});
+                    e.preventDefault()
+                })
+            }
+        }
     }
 
     private styleStep(v: string) {

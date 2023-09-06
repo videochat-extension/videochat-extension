@@ -508,6 +508,12 @@
   "tooltipCustomApiBehaviour": {
     "message": "включите, если вы хотите настроить какие провайдеры использовать для ваших запросов геолокации. провайдеры расположены в порядке использования, если откажет один - расширение попробует следующий и так до последнего"
   },
+  "allowVeApiPatron": {
+    "message": "использовать ve-api-patron: "
+  },
+  "tooltipAllowVeApiPatron": {
+    "message": "Если вы не зашли в свой аккаунт в меню расширения - настройка не имеет эффекта. Если включено, будет использован сервис доступный только патронам расширения. Под капотом использует в сотни раз более дорогой сервис геолокации, который возвращает более точную информацию о местоположении собеседника. Сначала нужно подписаться на патреон (подробнее в меню расширения по клику на его иконку), потом зайти в аккаунт и включить там геолокацию в настройках (в меню). После этого перезагрузите страницу и наслаждайтесь."
+  },
   "allowVeApi": {
     "message": "использовать ve-api: "
   },
@@ -570,6 +576,24 @@
   },
   "tooltipShowISP": {
     "message": "Включите это, чтобы показывать данные о провайдере (очень мелким шрифтом, тк очень длинные строки бывают)"
+  },
+  "autoOpenPopup": {
+    "message": "карта - авто-открытие попапа: "
+  },
+  "tooltipAutoOpenPopup": {
+    "message": "Если включено, в разделе 'карта' окошко с информацией о местоположении собеседника будет открываться автоматически. Если выключено, вы можете открыть его вручную (нажав на метку)."
+  },
+  "autoFitBounds": {
+    "message": "карта - авто-вместить зону: "
+  },
+  "tooltipAutoFitBounds": {
+    "message": "Если включено, карта будет менять свой масштаб чтобы вместить предположительную зону собеседника."
+  },
+  "autoSetView": {
+    "message": "карта - авто-изменение центра: "
+  },
+  "tooltipAutoSetView": {
+    "message": "Если включено, карта будет менять свой центр на приблизительные координаты собеседника."
   },
   "filterIgnoreMobile": {
     "message": "игнорировать мобильные данные при автоскипе: "
@@ -900,6 +924,135 @@
   },
   "popupTreeSupportedContentFixPermissionsButtonText": {
     "message": "Исправить доступ"
+  },
+  "popupTreePatreonTitle": {
+    "message": "Поддержите нас на Patreon!"
+  },
+  "popupTreePatreonIronCurtainTitle": {
+    "message": "Patreon в РФ и РБ"
+  },
+  "popupTreePatreonIronCurtainText1": {
+    "message": "По очевидным причинам у пользователей в РФ и РБ могут возникнуть проблемы с использованием Patreon."
+  },
+  "popupTreePatreonIronCurtainText2": {
+    "message": "Из-за наложенных санкций платформа технически неспособна обрабатывать платежи местных платежных систем."
+  },
+  "popupTreePatreonIronCurtainText3": {
+    "message": "Помимо этого, регуляторы (интернет-цензоры) этих стран ещё и добили Patreon блокировкой."
+  },
+  "popupTreePatreonIronCurtainText4": {
+    "message": "Сам сервис никаких ограничений не вводил, но если у вас нет доступа к международным платёжным системам - вы не сможете поддержать наш проект."
+  },
+  "popupTreePatreonPerksTitle": {
+    "message": "Что даёт Patreon?"
+  },
+  "popupTreePatreonPerksAccuracyTitle": {
+    "message": "Точность геолокации"
+  },
+  "popupTreePatreonPerksAccuracyText1": {
+    "message": "Вы можете значительно улучшить точность геолокации собеседников, поддержав проект на Patreon."
+  },
+  "popupTreePatreonPerksAccuracyText2": {
+    "message": "Для наших Patron'ов мы используем в сотни раз более дорогой сервис геолокации, который при использовании для 100% пользователей обошелся бы в ~5.000$$/месяц."
+  },
+  "popupTreePatreonPerksAccuracyText3": {
+    "message": "За расширением стоит независимая команда из всего двух человек: мы не можем позволить такие расходы."
+  },
+  "popupTreePatreonPerksSupportTitle": {
+    "message": "Поддержка проекта"
+  },
+  "popupTreePatreonPerksSupportText1": {
+    "message": "Чат Рулетное Расширение является бесплатным и свободным проектом: мы не вводим платные функции, оставляя право на это самим видеочатам."
+  },
+  "popupTreePatreonPerksSupportText2": {
+    "message": "Для нас расширение далеко не бесплатно: разработка и тестирование отнимают значительные ресурсы (время), нужды проекта (оплата серверов и сервиса геолокации) отнимают серьёзные деньги."
+  },
+  "popupTreePatreonPerksSupportText3": {
+    "message": "Сейчас мы можем себе позволить тратить как деньги, так и время (что мы и делали последние 2.5 года). Но наши траты растут, а этот проект нужно будет поддерживать очень долго, поэтому проблему с альтруизмом нужно решать уже сейчас."
+  },
+  "popupTreePatreonPerksSupportText4": {
+    "message": "Даже если 0.1-0.5% активных пользователей поддержат расширение, этого уже будет достаточно, чтобы погасить все наши расходы и обеспечить стабильное развитие проекта на долгие годы вперед: разработку новых функций, исправление ошибок и добавление поддержки новых видеочатов!"
+  },
+  "popupTreePatreonPerksSupportText5": {
+    "message": "Для поддержавших расширение пользователей мы используем в сотни раз более дорогой сервис геолокации, благодаря чему местоположение ваших собеседников будет определяться намного точнее! Подробности можно узнать в описании страницы на Patreon."
+  },
+  "popupTreePatreonPerksSupportText6": {
+    "message": "В конце каждого месяца мы публикуем большой пост на Patreon с отчётом для патронов о статусе проекта и проделанной работе!"
+  },
+  "popupTreePatreonGuideTitle": {
+    "message": "Как подписаться на Patreon?"
+  },
+  "popupTreePatreonGuideText1": {
+    "message": "1. Кликните по 'BECOME A PATRON'."
+  },
+  "popupTreePatreonGuideText2": {
+    "message": "2. Выберите подходящий Tier."
+  },
+  "popupTreePatreonGuideText3": {
+    "message": "3. Зайдите в свой аккаунт и оформите подписку."
+  },
+  "popupTreePatreonGuideText4": {
+    "message": "4. Нажмите 'Войти' в разделе 'Аккаунт' в расширении."
+  },
+  "popupTreePatreonGuideText5": {
+    "message": "5. Если попап закрылся в процессе, попробуйте ещё раз."
+  },
+  "popupTreePatreonGuideText6": {
+    "message": "6. Включите более точную геолокацию в настройках и наслаждайтесь!"
+  },
+  "popupTreePatreonAccountTitle": {
+    "message": "Аккаунт"
+  },
+  "popupTreePatreonPatronThanks": {
+    "message": "Спасибо за поддержку!"
+  },
+  "popupTreePatreonAccountChecking": {
+    "message": "Проверяем аккаунт..."
+  },
+  "popupTreePatreonAccountLogIn": {
+    "message": "Войти"
+  },
+  "popupTreePatreonAccountLogInPlease": {
+    "message": "Войдите в аккунт"
+  },
+  "popupTreePatreonAccountLogOut": {
+    "message": "Выйти"
+  },
+  "popupTreePatreonAccountQuotaTitle": {
+    "message": "Квота"
+  },
+  "popupTreePatreonAccountQuotaText1": {
+    "message": "Мы были вынуждены ввести систему квот, которая не даёт нам потратить значительно больше денег на ваши запросы, чем мы получили от Patreon за вашу подписку."
+  },
+  "popupTreePatreonAccountQuotaText2": {
+    "message": "В квоте считаются только те запросы, за которые нам пришлось заплатить. Если запрос попал в кэш (другой Patron недавно встретил вашего собеседника) - это не будет учитываться в квоте."
+  },
+  "popupTreePatreonAccountQuotaText3": {
+    "message": "Размер квоты зависит от вашего тира на Patreon. В будущем он будет сильно увеличен. При нормальном человеческом использовании вы вряд ли наткнетесь на квоту."
+  },
+  "popupTreePatreonAccountQuotaText4": {
+    "message": "Если вы всё же наткнетесь на квоту, вы продолжите получать кэшированные данные (от других Patron'ов). Если кэшированных данных не было, вы получите данные с нашего публичного сервиса геолокации."
+  },
+  "popupTreePatreonAccountQuotaText5": {
+    "message": "Квота обнуляется каждое первое число месяца."
+  },
+  "popupTreePatreonAccountQuotaText6": {
+    "message": "Без этой системы наши недоброжелатели могли бы подписаться на самый маленький тир и искусственно наделать запросов на тысячи долларов."
+  },
+  "popupTreePatreonAccountSettingsTitle": {
+    "message": "Настройки"
+  },
+  "popupTreePatreonAccountSettingsWiredEnabled": {
+    "message": "геолокация wired IPs (?)"
+  },
+  "popupTreePatreonAccountSettingsWiredEnabledTitle": {
+    "message": "Хотите запрашивать дорогую геолокацию для проводных айпи адресов? Точность будет намного лучше!"
+  },
+  "popupTreePatreonAccountSettingsCelluralEnabled": {
+    "message": "геолокация cellural IPs (?)"
+  },
+  "popupTreePatreonAccountSettingsCelluralEnabledTitle": {
+    "message": "хотите запрашивать дорогую геолокацию для мобильных айпи адресов? Точность почти не будет отличаться: мобильные адреса везде дают очень плохое качество геолокации."
   },
   "popupTreeSettingsTitle": {
     "message": "Настройки"

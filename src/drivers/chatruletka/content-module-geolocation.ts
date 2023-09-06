@@ -21,6 +21,7 @@ export class GeolocationModule {
     public curIps: string[] = []
     public static defaults = {
         customApiBehaviour: false,
+        allowVeApiPatron: true,
         allowVeApi: true,
         allowIpApi: true,
         allowGeoJs: true,
@@ -30,6 +31,9 @@ export class GeolocationModule {
         showCT: false,
         showMoreEnabledByDefault: true,
         filterIgnoreMobile: true,
+        autoOpenPopup: true,
+        autoFitBounds: true,
+        autoSetView: true,
         enableFilter: false,
         enableFilterCity: false,
         enableFilterRegion: false,
@@ -75,6 +79,19 @@ export class GeolocationModule {
             hide: globalThis.platformSettings.get("customApiBehaviour"),
             sectionId: "providersSection",
             children: [
+                {
+                    type: "checkbox",
+                    important: false,
+                    key: "allowVeApiPatron",
+                    text: chrome.i18n.getMessage("allowVeApiPatron"),
+                    tooltip: chrome.i18n.getMessage("tooltipallowVeApiPatron"),
+                    enable: () => {
+                        this.apiProviders = this.getApiProviders()
+                    },
+                    disable: () => {
+                        this.apiProviders = this.getApiProviders()
+                    }
+                },
                 {
                     type: "checkbox",
                     important: false,
@@ -221,6 +238,30 @@ export class GeolocationModule {
             key: "showISP",
             text: chrome.i18n.getMessage("showISP"),
             tooltip: chrome.i18n.getMessage("tooltipShowISP")
+        },
+        {
+            type: "br"
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "autoOpenPopup",
+            text: chrome.i18n.getMessage("autoOpenPopup"),
+            tooltip: chrome.i18n.getMessage("tooltipAutoOpenPopup")
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "autoFitBounds",
+            text: chrome.i18n.getMessage("autoFitBounds"),
+            tooltip: chrome.i18n.getMessage("tooltipAutoFitBounds")
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "autoSetView",
+            text: chrome.i18n.getMessage("autoSetView"),
+            tooltip: chrome.i18n.getMessage("tooltipAutoSetView")
         },
         {
             type: "br"
@@ -730,9 +771,14 @@ export class GeolocationModule {
         }
         console.dir(`PROCESS ${ip}`)
 
+        if (this.curIps.indexOf(ip) == 0) {
+            this.tabs[1].map.clearMapItems()
+        }
+
         this.curInfo[ip] = json
         let strings = []
         let newInnerHTML = ''
+        let newInnerHTMLForMap = ''
         let newIpDiv = utils.createElement('div')
         if (globalThis.platformSettings.get("showMoreEnabledByDefault") && (json.mobile || json.proxy || json.hosting)) {
             if (json.mobile) {
@@ -761,12 +807,15 @@ export class GeolocationModule {
 
             if (globalThis.platformSettings.get("showCT")) {
                 newInnerHTML += chrome.i18n.getMessage("apiCT") + `${json.city}/${json.regionName}</br>`
+
+                newInnerHTMLForMap = newInnerHTML
                 try {
                     newInnerHTML += "<b>TZ: </b><sup class='remoteTZ' style='font-size:100%;vertical-align:baseline'>" + json.timezone + "</sup> (<sup class = 'remoteTime' style='font-size:100%;vertical-align:baseline'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>"
                 } catch {
                     newInnerHTML += "<b>TZ: </b><sup class='remoteTZ' style='font-size:100%;vertical-align:baseline'>" + json.timezone + "</sup> (<sup class = 'remoteTime' style='font-size:100%;vertical-align:baseline'>" + "???" + "</sup>) </br>"
                 }
             } else {
+                newInnerHTMLForMap = newInnerHTML
                 newInnerHTML += "<br><br><br>"
             }
             newInnerHTML += "<b>TM: </b><sup class='remoteTM'>" + utils.secondsToHms(0) + "</sup>"
@@ -777,6 +826,8 @@ export class GeolocationModule {
             newInnerHTML += "</br>" +
                 chrome.i18n.getMessage("apiCity") + json.city + " (" + json.region + ") </br>" +
                 chrome.i18n.getMessage("apiRegion") + json.regionName + "</br>"
+
+            newInnerHTMLForMap = newInnerHTML
             try {
                 newInnerHTML += "<b>TZ: </b><sup class='remoteTZ' style='font-size:100%;vertical-align:baseline'>" + json.timezone + "</sup> (<sup class = 'remoteTime' style='font-size:100%;vertical-align:baseline'>" + new Date().toLocaleTimeString("ru", {timeZone: json.timezone}).slice(0, -3) + "</sup>) </br>"
             } catch {
@@ -789,11 +840,14 @@ export class GeolocationModule {
             newInnerHTML += `<br><small style="font-size: x-small!important;"><b>${json.isp}</b></small>`
         }
 
-        if (strings.length > 0)
-            newInnerHTML += "</br>" + strings.join('<small> || </small>')
-
+        if (strings.length > 0) {
+            let add = "</br>" + strings.join('<small> || </small>')
+            newInnerHTML += add
+            newInnerHTMLForMap += add
+        }
 
         newIpDiv.innerHTML += DOMPurify.sanitize(newInnerHTML)
+        this.curInfo[ip].mapPopup = DOMPurify.sanitize(newInnerHTMLForMap)
 
         if (this.driver.modules.streamer) {
             this.driver.modules.streamer.setGeoData(json)
@@ -945,33 +999,23 @@ export class GeolocationModule {
     private getApiProviders() {
         let allow: { [key: string]: { options: {} } } = {}
 
-        if (!globalThis.platformSettings.get('customApiBehaviour')) {
-            return {
-                've-api': {
-                    'options': {}
-                },
-                'ip-api': {
-                    'options': {}
-                },
-                'geojs': {
-                    'options': {}
-                }
-            }
+        if (globalThis.patreon && (!globalThis.platformSettings.get('customApiBehaviour') || globalThis.platformSettings.get('allowVeApiPatron'))) {
+            allow[globalThis.patreon.name] = globalThis.patreon
         }
 
-        if (globalThis.platformSettings.get('allowVeApi')) {
+        if (!globalThis.platformSettings.get('customApiBehaviour') || globalThis.platformSettings.get('allowVeApi')) {
             allow['ve-api'] = {
                 'options': {}
             }
         }
 
-        if (globalThis.platformSettings.get('allowIpApi')) {
+        if (!globalThis.platformSettings.get('customApiBehaviour') || globalThis.platformSettings.get('allowIpApi')) {
             allow['ip-api'] = {
                 'options': {}
             }
         }
 
-        if (globalThis.platformSettings.get('allowGeoJs')) {
+        if (!globalThis.platformSettings.get('customApiBehaviour') || globalThis.platformSettings.get('allowGeoJs')) {
             allow['geojs'] = {
                 'options': {}
             }
@@ -1541,8 +1585,11 @@ export class ControlsTabMap {
     }
 
     public handleTabClick() {
-        if (this.map && $(this.tab).hasClass("active"))
-            this.map.updateMap(this.module.curInfo)
+        if (this.map && $(this.tab).hasClass("active")) {
+            setTimeout(()=>{
+                this.map.updateMap(this.module.curInfo)
+            }, 250)
+        }
     }
 
     protected getTabHTML() {

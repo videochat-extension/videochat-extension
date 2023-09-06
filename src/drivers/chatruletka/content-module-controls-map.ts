@@ -3,8 +3,13 @@ import * as L from "leaflet";
 
 export class mapModule {
     public map: L.Map
-    private marker: L.Marker | undefined;
-    private circle: L.Circle | undefined;
+    private data: {
+        [key: string]: {
+            marker: L.Marker | undefined;
+            circle: L.Circle | undefined;
+            polygon: L.Polygon | undefined;
+        }
+    } = {}
 
     public constructor(mapContainer: string | HTMLElement) {
         L.Icon.Default.imagePath = chrome.runtime.getURL('libs/js/leaflet/');
@@ -18,8 +23,41 @@ export class mapModule {
         this.map.locate({setView: true});
 
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png', {
-            minZoom: 3, maxZoom: 18
+            minZoom: 1, maxZoom: 18
         }).addTo(this.map);
+    }
+
+    public clearMapItems = () => {
+        Object.keys(this.data).forEach((key: string) => {
+            let item = this.data[key]
+            if (item.marker) {
+                this.map.removeLayer(item.marker)
+            }
+            if (item.polygon) {
+                this.map.removeLayer(item.polygon)
+            }
+            if (item.circle) {
+                this.map.removeLayer(item.circle)
+            }
+        })
+        this.data = {}
+    }
+
+    private addMapItems = (key: string, items: {
+        marker: L.Marker | undefined;
+        circle: L.Circle | undefined;
+        polygon: L.Polygon | undefined;
+    }) => {
+        if (items.polygon) {
+            this.map.addLayer(items.polygon)
+        }
+        if (items.circle) {
+            this.map.addLayer(items.circle)
+        }
+        if (items.marker) {
+            this.map.addLayer(items.marker)
+        }
+        this.data[key] = items
     }
 
     public updateMap = (info: any) => {
@@ -27,36 +65,141 @@ export class mapModule {
             return
         }
 
-        let json = info[Object.keys(info)[0]]
+        Object.keys(info).forEach((key) => {
+            if (!Object.keys(this.data).includes(key)) {
+                let json = info[key]
 
-        if (typeof this.marker !== 'undefined')
-            this.map.removeLayer(this.marker)
+                let mapItems: {
+                    marker: L.Marker | undefined;
+                    circle: L.Circle | undefined;
+                    polygon: L.Polygon | undefined;
+                } = {
+                    polygon: undefined,
+                    circle: undefined,
+                    marker: undefined
+                }
 
-        if (typeof this.circle !== 'undefined')
-            this.map.removeLayer(this.circle)
+                if (json.confidenceArea) {
+                    let res: any[] = []
+                    json.confidenceArea.forEach((item: { latitude: number, longitude: number }) => {
+                        res.push([item.latitude, item.longitude])
+                    })
+                    let color = "green"
+                    if (json.proxy || json.hosting) {
+                        color = "black"
+                    } else if (json.mobile) {
+                        color = "red"
+                    } else {
+                        switch (json.confidenceArea) {
+                            case "high":
+                                color = "green"
+                                break;
+                            case "moderate":
+                                color = "blue"
+                                break;
+                            case "low":
+                                color = "red"
+                                break;
+                        }
+                    }
 
-        if (json.mobile) {
-            this.circle = L.circle([json.lat, json.lon], 300000, {
-                color: 'red',
-                fillColor: '#f03',
-                fillOpacity: 0.2
-            })
+                    mapItems.polygon = L.polygon(res, {color: color})
+                    mapItems.marker = new L.Marker([json.lat, json.lon]);
 
-            this.map.setView(new L.LatLng(json.lat, json.lon), 5);
-            this.marker = new L.Marker([json.lat, json.lon]);
-        } else {
-            this.circle = L.circle([json.lat, json.lon], 30000, {
-                color: 'blue',
-                fillColor: '#808080',
-                fillOpacity: 0.1
-            })
+                    if (globalThis.platformSettings.get("autoFitBounds")) {
+                        this.map.fitBounds(res)
+                    }
 
-            this.map.setView(new L.LatLng(json.lat, json.lon), 8);
-            this.marker = new L.Marker([json.lat, json.lon]);
-        }
+                    if (globalThis.platformSettings.get("autoSetView")) {
+                        this.map.setView(new L.LatLng(json.lat, json.lon));
+                    }
 
-        this.map.addLayer(this.circle)
-        this.map.addLayer(this.marker)
+                    this.addMapItems(key, mapItems)
+
+                    mapItems.marker.bindPopup(json.mapPopup);
+                    if (globalThis.platformSettings.get("autoOpenPopup")) {
+                        setTimeout(() => {
+                            if (mapItems.marker)
+                                mapItems.marker.openPopup();
+                        }, 500)
+                    }
+                    // TODO: this debug code conflicts with the key: items this.data structure
+                    // let mapItems2: {
+                    //     marker: L.Marker | undefined;
+                    //     circle: L.Circle | undefined;
+                    //     polygon: L.Polygon | undefined;
+                    // } = {
+                    //     polygon: undefined,
+                    //     circle: undefined,
+                    //     marker: undefined
+                    // }
+                    // if (json.mobile) {
+                    //     mapItems2.circle = L.circle([json.ipapi.lat, json.ipapi.lon], 300000, {
+                    //         color: 'red',
+                    //         fillColor: '#f03',
+                    //         fillOpacity: 0.2
+                    //     })
+                    //
+                    //     this.map.setView(new L.LatLng(json.ipapi.lat, json.ipapi.lon), 5);
+                    //     mapItems2.marker = new L.Marker([json.ipapi.lat, json.ipapi.lon]);
+                    // } else {
+                    //     mapItems2.circle = L.circle([json.ipapi.lat, json.ipapi.lon], 100000, {
+                    //         color: 'blue',
+                    //         fillColor: '#808080',
+                    //         fillOpacity: 0.1
+                    //     })
+                    //
+                    //     // this.map.setView(new L.LatLng(json.ipapi.lat, json.ipapi.lon), 8);
+                    //     mapItems2.marker = new L.Marker([json.ipapi.lat, json.ipapi.lon]);
+                    // }
+                    // this.addMapItems(mapItems2)
+                    // mapItems2.marker.bindPopup(`${JSON.stringify(json.ipapi)}`).openPopup()
+                } else {
+                    if (json.mobile) {
+                        mapItems.circle = L.circle([json.lat, json.lon], 500000, {
+                            color: 'red',
+                            fillColor: '#f03',
+                            fillOpacity: 0.2
+                        })
+                    } else if (json.proxy || json.hosting) {
+                        mapItems.circle = L.circle([json.lat, json.lon], 500000, {
+                            color: 'black',
+                        })
+                    } else {
+                        mapItems.circle = L.circle([json.lat, json.lon], 100000, {
+                            color: 'blue',
+                            fillColor: '#808080',
+                            fillOpacity: 0.1
+                        })
+                    }
+
+                    mapItems.marker = new L.Marker([json.lat, json.lon]);
+
+                    if (globalThis.platformSettings.get("autoSetView")) {
+                        // if (Object.keys(this.data).length == 1) {
+                            this.map.setView(new L.LatLng(json.lat, json.lon))
+                            console.dir('setView')
+                        // }
+                    }
+
+                    this.addMapItems(key, mapItems)
+
+                    mapItems.marker.bindPopup(json.mapPopup)
+
+                    // if (Object.keys(this.data).length == 1) {
+                        if (globalThis.platformSettings.get("autoFitBounds")) {
+                            this.map.fitBounds(mapItems.circle.getBounds())
+                        }
+                        if (globalThis.platformSettings.get("autoOpenPopup")) {
+                            setTimeout(() => {
+                                if (mapItems.marker)
+                                    mapItems.marker.openPopup();
+                            }, 500)
+                        }
+                    // }
+                }
+            }
+        })
     }
 
 
