@@ -1167,7 +1167,7 @@
     "message": "What's new in [Videochat Extension](https://videochat-extension.starbase.wiki)?"
   },
   "clog_full": {
-    "message": "Full release notes for v$1."
+    "message": "Full release notes for v$1"
   },
   "clog_v0_1_title": {
     "message": "The first known version for a mass audience."
@@ -1227,7 +1227,7 @@
     "message": "Error monitoring system."
   },
   "clog_v1_1_summary": {
-    "message": "\nIntegrated an error-monitoring system that automatically detects and reports any errors from the extension code in runtime.\nMinor fixes and improvements."
+    "message": "Integrated an error-monitoring system that automatically detects and reports any errors from the extension code in runtime.\nMinor fixes and improvements."
   },
   "clog_v1_1_1_title": {
     "message": "Unsuccessful hotfix of the tab hanging issue."
@@ -1323,7 +1323,7 @@
     "message": "Change the default location display."
   },
   "clog_v1_5_3_summary": {
-    "message": "\nInstead of hiding the location of the cell ISP, it now displays as a CT (cell tower).\nSuch data may not be accurate and should not be trusted."
+    "message": "Instead of hiding the location of the cell ISP, it now displays as a CT (cell tower).\nSuch data may not be accurate and should not be trusted."
   },
   "clog_v1_5_4_title": {
     "message": "Minor update."

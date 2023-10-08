@@ -1158,7 +1158,7 @@
     "message": "Что нового в [Videochat Extension](https://videochat-extension.starbase.wiki)?"
   },
   "clog_full": {
-    "message": "Полный список изменений v$1."
+    "message": "Полный список изменений v$1"
   },
   "clog_v0_1_title": {
     "message": "Первая известная версия для массовой аудитории."
