@@ -432,9 +432,9 @@ export class ContentSwalChangelog extends SwalWithSteps {
         // let step = this.steps.indexOf(this.styleStep(v.version))
         // let compareLink = ''
         // if (step == 0) {
-        //     compareLink = `[View commits on GitHub](https://github.com/qrlk/videochatru-extension/commits/v${changelog[step].version})`
+        //     compareLink = `[View commits on GitHub](https://github.com/videochat-extension/videochat-extension/commits/v${changelog[step].version})`
         // } else {
-        //     compareLink = `https://github.com/qrlk/videochatru-extension/compare/v${changelog[step-1].version}...v${changelog[step].version}`
+        //     compareLink = `https://github.com/videochat-extension/videochat-extension/compare/v${changelog[step-1].version}...v${changelog[step].version}`
         // }
         //
         // let gh = `# ${chrome.i18n.getMessage(v.keyTitle)}\n\n----\n\n* #### [${chrome.i18n.getMessage('clog_full', v.version)}](${v.url})\n----\n## ${chrome.i18n.getMessage('clog_caption')}\n${l}\n----\n\n* #### [${chrome.i18n.getMessage('clog_full', v.version)}](${v.url})\n* #### ${compareLink}`
@@ -446,9 +446,5 @@ export class ContentSwalChangelog extends SwalWithSteps {
         // console.dir(canny)
 
         return str.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" style=\"text-decoration:none;\" target=\"_blank\" >$1</a>')
-    }
-
-    private getGitHub = (tag: string, date: string) => {
-        return `<a href="https://github.com/qrlk/videochatru-extension/releases/tag/${tag}" style=\"text-decoration: none!important;\" target=\"_blank\">${tag} ${date}</a>`
     }
 }
