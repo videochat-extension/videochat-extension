@@ -106,12 +106,7 @@ async function content() {
         } else {
             if (settings.allowShowChangelog) {
                 if (settings.lastVersion !== chrome.runtime.getManifest().version) {
-                    // I forgot to enable processSwals for omegle :(
-                    if (settings.lastVersion.substring(0, 1) == "1" && website.platform.name == "Omegle") {
-                        ContentSwalChangelog.getInstance().showFromVersion('1.9.0')
-                    } else {
-                        ContentSwalChangelog.getInstance().showFromVersion(settings.lastVersion)
-                    }
+                    ContentSwalChangelog.getInstance().showFromVersion(settings.lastVersion)
                 }
                 chrome.storage.sync.set({lastVersion: chrome.runtime.getManifest().version})
             }
