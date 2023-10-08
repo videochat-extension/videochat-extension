@@ -431,14 +431,12 @@
   "tooltipCoverOverStop": {
     "message": "включите, если хотите активировать заглушку, когда остановлено"
   },
-
   "uncoverOnPlay": {
     "message": "убирать при старте беседы: "
   },
   "tooltipUncoverOnPlay": {
     "message": "включите, если хотите использовать заглушку только как замену шума при поиске"
   },
-
   "promptCoverSrc": {
     "message": "Вставьте прямую ссылку на картинку/гифку, чтобы использовать её как заглушку. Соотношение сторон лучше 4:3, разрешение от 640x480"
   },
@@ -1155,5 +1153,152 @@
   },
   "supportDescFreecm": {
     "message": "Ограниченная поддержка. Функции: распознавание ботов и твики интерфейса."
+  },
+  "clog_caption": {
+    "message": "Что нового в [Videochat Extension](https://videochat-extension.starbase.wiki)?"
+  },
+  "clog_full": {
+    "message": "Полный список изменений v$1."
+  },
+  "clog_v0_1_title": {
+    "message": "Первая известная версия для массовой аудитории."
+  },
+  "clog_v0_2_title": {
+    "message": "Пропуск собеседников по полу, смена провайдера карт."
+  },
+  "clog_v0_3_title": {
+    "message": "Чёрный список, статистика."
+  },
+  "clog_v0_4_title": {
+    "message": "Смена названия в английской локализации."
+  },
+  "clog_v0_5_title": {
+    "message": "Разделы в настройках, ws hacks, эксперименты с блокировкой nsfw."
+  },
+  "clog_v0_6_title": {
+    "message": "Режим стримера, поиск по городу/региону."
+  },
+  "clog_v0_7_title": {
+    "message": "Тёмная тема."
+  },
+  "clog_v0_7_1_title": {
+    "message": "Опрос при удалении расширения."
+  },
+  "clog_v1_0_title": {
+    "message": "Manifest v3 (будет работать в 2023+)."
+  },
+  "clog_v1_1_title": {
+    "message": "Система мониторинга ошибок."
+  },
+  "clog_v1_1_1_title": {
+    "message": "Неудачный хотфикс фризов."
+  },
+  "clog_v1_1_2_title": {
+    "message": "Удачный хотфикс фризов."
+  },
+  "clog_v1_1_3_title": {
+    "message": "Мелкий фикс."
+  },
+  "clog_v1_1_4_title": {
+    "message": "Неудачная попытка пофиксить http error 429."
+  },
+  "clog_v1_2_0_title": {
+    "message": "Геолокация IP без настройки браузера."
+  },
+  "clog_v1_3_0_title": {
+    "message": "Проверка торрентов и приветственное окно."
+  },
+  "clog_v1_3_1_title": {
+    "message": "Мелкий фикс."
+  },
+  "clog_v1_3_2_title": {
+    "message": "Мелкий фикс."
+  },
+  "clog_v1_3_3_title": {
+    "message": "Информация о нескольких IP адресах."
+  },
+  "clog_v1_4_0_title": {
+    "message": "Минимализм, поддержка ome.tv, история версий."
+  },
+  "clog_v1_4_1_title": {
+    "message": "Мелкие фиксы."
+  },
+  "clog_v1_4_2_title": {
+    "message": "Мелкий фикс."
+  },
+  "clog_v1_5_0_title": {
+    "message": "Косметические улучшения, новая опция для запрета обрезания камеры у мобильных собеседников"
+  },
+  "clog_v1_5_1_title": {
+    "message": "Несколько изменений для 'режима стримера'."
+  },
+  "clog_v1_5_2_title": {
+    "message": "Удалена ссылка на инструкцию по обходу бана."
+  },
+  "clog_v1_5_3_title": {
+    "message": "Изменения в отображении геолокации."
+  },
+  "clog_v1_5_4_title": {
+    "message": "Незначительное обновление."
+  },
+  "clog_v1_5_5_title": {
+    "message": "Незначительное обновление."
+  },
+  "clog_v1_6_0_title": {
+    "message": "Отказ от 'опасной зоны', исправления для режима минимализма."
+  },
+  "clog_v1_6_1_title": {
+    "message": "Новая настройка автоматизации: 'aвтопропуск неверной страны', скрытие данных геолокации мобильного интернета по умолчанию."
+  },
+  "clog_v1_6_2_title": {
+    "message": "Небольшой релиз с 2 исправлениями."
+  },
+  "clog_v1_6_3_title": {
+    "message": "Фикс ошибки проверки торрентов."
+  },
+  "clog_v1_6_4_title": {
+    "message": "Срочный временный релиз, исправляющий работу на ome.tv."
+  },
+  "clog_v1_7_0_title": {
+    "message": "Поддержка 46 сайтов-видеочатов, [Firefox](https://addons.mozilla.org/firefox/addon/videochat-extension-ip-locator), [Edge](https://microsoftedge.microsoft.com/addons/detail/jdpiggacibaaecfbegkhakcmgaafjajn) и TypeScript."
+  },
+  "clog_v1_7_1_title": {
+    "message": "Мелкие улучшения для Chatruletka."
+  },
+  "clog_v1_7_2_title": {
+    "message": "Исправление ошибок."
+  },
+  "clog_v1_7_3_title": {
+    "message": "Новые зеркала для ome.tv, базовая поддержка Coomeet Free, мелкие улучшения."
+  },
+  "clog_v1_7_5_title": {
+    "message": "Небольшое исправление."
+  },
+  "clog_v1_7_6_title": {
+    "message": "Небольшое исправление."
+  },
+  "clog_v1_7_7_title": {
+    "message": "Наш [веб-сайт](https://videochat-extension.starbase.wiki/en) & [сервер в Discord](https://discord.gg/7DYWu5RF7Y). Исправления ошибок."
+  },
+  "clog_v1_7_8_title": {
+    "message": "Переработаны приветственные экраны."
+  },
+  "clog_v1_7_9_title": {
+    "message": "Система подсказок, исправление багов, оптимизация."
+  },
+  "clog_v1_8_0_title": {
+    "message": "Улучшение геолокации и режима стримера."
+  },
+  "clog_v1_8_1_title": {
+    "message": "Улучшение стабильности."
+  },
+  "clog_v1_8_2_title": {
+    "message": "Экстренное временное обновление для магазина расширений."
+  },
+  "clog_v1_9_0_title": {
+    "message": "Улучшенная поддержка Omegle, новые функции геолокации, фиксы."
+  },
+  "clog_v2_0_0_title": {
+    "message": "[Patreon](https://patreon.com/videochat_extension) с улучшенной геолокацией для патронов. Прозрачная [Roadmap](https://videochat-extension.canny.io) с учетом предложений пользователей."
   }
 }

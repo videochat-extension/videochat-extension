@@ -287,7 +287,6 @@
   "obsHelpSwal": {
     "message": "help"
   },
-
   "obsHelpSwalHtml": {
     "message": "you have activated a special section that contains features that make video chats more suitable for broadcasting on YouTube and other services.<br><br>* <b>temporarily lower the volume of the interlocutor</b><br>— by holding down the 'm' button / 'm' key.<br>— allows you to avoid echo on the broadcast.<br>* <b>integration with obs</b><br>— allows you to display geolocation data in the text source.<br>— allows you to control the visibility of the image, which covers the video while you look for a suitable interlocutor.<br>— you can activate the cover with the h / right arrow key or the h button on the control panel.<br>* <b>blur & cover</b><br>— allows you to cover the interlocutor's camera with a blur/picture/gif and look at it through picture-in-picture mode to decide if the interlocutor is suitable to show to your audience.<br>— you have to capture the browser, not the whole screen, in your program for streaming. then you open the chat site, click on the green button in the upper left corner of the control panel (enables picture-in-picture mode), and the video from the stranger's camera will open in a separate window that will be on top of all the windows! this video will not be visible on the broadcast, but you will see it!<br>— you can activate the cover with the h / right arrow key or the h button on the control panel.<br><br><b>Streamer mode, like other extension modules, is well customizable:</b> for example, you can apply a gray filter while the interlocutor is covered in obs, set your own picture to cover the interlocutor, or choose one of ours. Most of the features require some configuration before you can use them, but I have tried to make it as easy as possible.<br><br><b>Please note that not all platforms allow users to stream random video chats</b>: for example, youtube is tolerant of this, but the twitch community guidelines explicitly state that \"Use randomized video chat services\" is forbidden.<br><br><b>Beware of a man-in-the-middle attack!</b><br>— You need to remember that a cover does not give you absolute security.<br>— For example, some kid with OBS can start two video chats and show you a real person, and then do something nasty on his camera.<br>— You should keep your finger on the right arrow of the keyboard. Left arrow - skip, up arrow - stop, right arrow - toggle cover. What could be more convenient?"
   },
@@ -441,14 +440,12 @@
   "tooltipCoverOverStop": {
     "message": "enable this if you want to auto-enable blur/cover at 'stop' stage"
   },
-
   "uncoverOnPlay": {
     "message": "uncover on play: "
   },
   "tooltipUncoverOnPlay": {
     "message": "enable this if you want to use the cover only as a replacement for the search noise"
   },
-
   "promptCoverSrc": {
     "message": "Enter a direct link to the picture/gif (4:3) for use as the cover."
   },
@@ -935,7 +932,6 @@
   "popupTreeSupportedContentFixPermissionsButtonText": {
     "message": "Fix Permissions"
   },
-
   "popupTreePatreonTitle": {
     "message": "Support us on Patreon!"
   },
@@ -1166,5 +1162,293 @@
   },
   "supportDescFreecm": {
     "message": "Limited support. Features: bot recognition & interface tweaks."
+  },
+  "clog_caption": {
+    "message": "What's new in [Videochat Extension](https://videochat-extension.starbase.wiki)?"
+  },
+  "clog_full": {
+    "message": "Full release notes for v$1."
+  },
+  "clog_v0_1_title": {
+    "message": "The first known version for a mass audience."
+  },
+  "clog_v0_1_summary": {
+    "message": "Added support for videochatru.com, allowing users to enjoy additional features on that website.\nAdded a 'Remote IP' section, providing information about the stranger's approximate geolocation.\nAdded a 'Map' section, which allows you to see the approximate geographical location of the person you are chatting with.\nAdded a 'Settings' section, allowing users to customize their video chat experience.\nImplemented global hotkeys, making controlling the extension easier while using other applications.\nUsers can now take screenshots from the cameras of themselves or their interlocutors during video chats.\nClicking on the extension icon now opens the embedded version of video chat, providing a clean interface without any unnecessary elements."
+  },
+  "clog_v0_2_title": {
+    "message": "Skipping interlocutors by gender, changing the map provider."
+  },
+  "clog_v0_2_summary": {
+    "message": "The 'Remote IP' section now displays the time in the timezone of the interlocutor's geolocation.\nChanged the map provider in the 'Map' section.\nAdded a new feature to skip interlocutors based on their gender, as determined by the faceapi on the client side.\nAdded local hotkeys for the keyboard arrows for skipping, stopping, and reporting.\nAdded a global hotkey to quickly switch between the chat tab and the last active tab.\nMinor fixes and improvements."
+  },
+  "clog_v0_3_title": {
+    "message": "Blacklist, statistics."
+  },
+  "clog_v0_3_summary": {
+    "message": "Added a 'Bans' section allowing you to blacklist specific strangers, preventing future interactions.\nAdded global and local hotkeys that enable you to add a stranger to the blacklist and immediately auto-skip banned strangers.\nAdded a 'Stats' section that keeps track of various metrics, including the number of conversations, total time spent in the chat, manual and automatic skips, and encounters with males and females.\nImplemented a feature to skip interlocutors who load more than 4 seconds.\nAdded an automatic closure of the \"Are you there?\" dialogue when the timer expires.\nAdded new buttons to the header that facilitate opening cameras in picture-in-picture mode."
+  },
+  "clog_v0_4_title": {
+    "message": "Changed the English extension name."
+  },
+  "clog_v0_4_summary": {
+    "message": "Added badges from shields.io to the 'Info' section.\n'Chat Roulette Extension' was renamed to 'Chatruletka Extension'.\nMinor fixes and improvements."
+  },
+  "clog_v0_5_title": {
+    "message": "Sections in settings, WS hacks, experiments with NSFWJS."
+  },
+  "clog_v0_5_summary": {
+    "message": "Added WS hacks and NSFWJS experiments.\nSeparated the settings into several sections.\nImproved Russian localization.\nMinor fixes and improvements."
+  },
+  "clog_v0_6_title": {
+    "message": "Streamer mode, search by city/region."
+  },
+  "clog_v0_6_summary": {
+    "message": "Streamer mode: A new feature that allows streamers to blur the stranger's camera using a hotkey while still being able to view the original picture in Picture-in-Picture mode. Users also have the option to choose the cover image instead of just blurring and mute the interlocutor using a hotkey.\nAdded the ability to search for strangers from a specific city/region.\nA lot of minor fixes and cosmetic improvements.\nA lot of internal architectural changes."
+  },
+  "clog_v0_7_title": {
+    "message": "Dark mode."
+  },
+  "clog_v0_7_summary": {
+    "message": "Added dark mode.\nFixed the 'report+left arrow' hotkey."
+  },
+  "clog_v0_7_1_title": {
+    "message": "Polling when deleting an extension."
+  },
+  "clog_v0_7_1_summary": {
+    "message": "Added a Google form asking the user why he deleted the extension. The response is sent straight to the public channel in Discord."
+  },
+  "clog_v1_0_title": {
+    "message": "Manifest v3 (will work in 2023+)."
+  },
+  "clog_v1_0_summary": {
+    "message": "Added an alternative IP geolocation API, which works via HTTPS. However, it is less robust than the previous HTTP counterpart, offering only 1k requests per day and lacking the ability to detect mobile Internet.\nAdded a detailed guide on activating the better API to the wiki on GitHub. If the HTTP API is unavailable, a link to the wiki will appear in the IP tab.\nReplaced the donation button with a button encouraging users to leave a review in the Chrome Web Store.\nClicking on the 'Stop' button now resets the IP section.\nThe default map display in the English version now shows Europe.\nThe extension has been adapted to manifest v3 and will continue to work in Chrome in the coming future.\nRenamed the English extension name to 'Chatruletka (ome.tv) extension'.\nThe control panel header now displays the version of the extension.\nUpon login, a warning displays to clarify that videochatru.com and ome.tv belong to the same platform."
+  },
+  "clog_v1_1_title": {
+    "message": "Error monitoring system."
+  },
+  "clog_v1_1_summary": {
+    "message": "\nIntegrated an error-monitoring system that automatically detects and reports any errors from the extension code in runtime.\nMinor fixes and improvements."
+  },
+  "clog_v1_1_1_title": {
+    "message": "Unsuccessful hotfix of the tab hanging issue."
+  },
+  "clog_v1_1_1_summary": {
+    "message": "Attempted to fix the problem of tab hanging when ws-hacks are enabled.\nLimited the version string in the control panel to 3 characters."
+  },
+  "clog_v1_1_2_title": {
+    "message": "A successful hotfix of the tab hanging issue."
+  },
+  "clog_v1_1_2_summary": {
+    "message": "Fixed the problem of tab hanging when ws-hacks are enabled."
+  },
+  "clog_v1_1_3_title": {
+    "message": "Minor fix."
+  },
+  "clog_v1_1_3_summary": {
+    "message": "Increased the delay before resizing after resizing the window."
+  },
+  "clog_v1_1_4_title": {
+    "message": "Failed attempt to fix http error 429."
+  },
+  "clog_v1_1_4_summary": {
+    "message": "Failed attempt to replace the backup IP geolocation provider."
+  },
+  "clog_v1_2_0_title": {
+    "message": "IP geolocation without allowing insecure content."
+  },
+  "clog_v1_2_0_summary": {
+    "message": "IP geolocation should work without allowing insecure content now (with a slightly longer delay).\nEnabled by default the option to display additional IP information (tor vpn mobile)"
+  },
+  "clog_v1_3_0_title": {
+    "message": "Checking torrents and a welcome window."
+  },
+  "clog_v1_3_0_summary": {
+    "message": "Added the 'iknowwhatyoudownload' button to open a link with possible torrents downloaded by the interlocutor.\nAdded the ability to show the ISP in the 'IP' section (disabled by default).\nAdded a modal queue that welcomes new users with useless information.\nAdded the ability to turn off the error collection system.\nMinor fixes and improvements."
+  },
+  "clog_v1_3_1_title": {
+    "message": "Minor fix."
+  },
+  "clog_v1_3_1_summary": {
+    "message": "Adapted the dark theme for the welcome window."
+  },
+  "clog_v1_3_2_title": {
+    "message": "Minor fix."
+  },
+  "clog_v1_3_2_summary": {
+    "message": "The 'iknowwhatyoudownload' button should now work correctly for UI locales other than en/ru."
+  },
+  "clog_v1_3_3_title": {
+    "message": "Information about multiple IP addresses."
+  },
+  "clog_v1_3_3_summary": {
+    "message": "The interlocutor's revelation of multiple IP addresses will now display information about all of revealed IPs."
+  },
+  "clog_v1_4_0_title": {
+    "message": "Minimalism, ome.tv support, version history."
+  },
+  "clog_v1_4_0_summary": {
+    "message": "Added support for ome.tv website (ome.tv is essentially the same thing as videochatru.com, but marketed as an alternative to Omegle).\nAdded 'Minimalism' mode: the extension will only display IP geolocation in the chat area.\nAdded support for multiple cities/regions in the target search.\nAdded a version history (changelog). It will trigger if you visit the supported video chat website with a newer version of the extension than you used previously.\nMinor fixes and improvements."
+  },
+  "clog_v1_4_1_title": {
+    "message": "Minor fixes."
+  },
+  "clog_v1_4_1_summary": {
+    "message": "Minor fixes and improvements."
+  },
+  "clog_v1_4_2_title": {
+    "message": "Minor fix."
+  },
+  "clog_v1_4_2_summary": {
+    "message": "Minor fixes and improvements."
+  },
+  "clog_v1_5_0_title": {
+    "message": "Cosmetic improvements, a new option to prohibit camera cropping for mobile interlocutors."
+  },
+  "clog_v1_5_0_summary": {
+    "message": "Added a new interface setting called 'do not crop the interlocutor's camera' to prevent cropping when the interlocutor's camera does not shoot at a 4:3 aspect ratio. This option allows you to see the whole interlocutor's video feed (with the addition of black bars).\nMade cosmetic improvements to the changelog and welcome window, including smooth transition between alerts, keyboard arrows/click switching, fixed sizes, and minor improvements.\nFixed the incompatibility of the Chrome hotkey 'switch between the active tab and the chat tab' for ome.tv.\nIf the extension is updated while you are using the chat, you will receive a message asking you to reload the page.\nMinor fixes and improvements."
+  },
+  "clog_v1_5_1_title": {
+    "message": "A few changes to the 'streamer mode'."
+  },
+  "clog_v1_5_1_summary": {
+    "message": "Improved the 'streamer mode' features.\nTemporarily disabled broken NSFWJS integration (streamer mode) and hid its settings.\nRemoved poll when uninstalling an extension.\nMinor fixes and improvements."
+  },
+  "clog_v1_5_2_title": {
+    "message": "Removed link to instructions for bypassing the ban."
+  },
+  "clog_v1_5_2_summary": {
+    "message": "Target city/region searches now should work as expected if the interlocutor reveals multiple IP addresses.\nAdded a modal window with information on how not to get banned by accident.\nImproved the notification shown when the browser has updated the extension while you are in the chat: it is now less intrusive."
+  },
+  "clog_v1_5_3_title": {
+    "message": "Change the default location display."
+  },
+  "clog_v1_5_3_summary": {
+    "message": "\nInstead of hiding the location of the cell ISP, it now displays as a CT (cell tower).\nSuch data may not be accurate and should not be trusted."
+  },
+  "clog_v1_5_4_title": {
+    "message": "Minor update."
+  },
+  "clog_v1_5_4_summary": {
+    "message": "Added a little explanation of what MOBILE/PROXY/HOSTING means in the 'IP' tab."
+  },
+  "clog_v1_5_5_title": {
+    "message": "Minor update."
+  },
+  "clog_v1_5_5_summary": {
+    "message": "PROXY and HOSTING merged into one to save some space."
+  },
+  "clog_v1_6_0_title": {
+    "message": "Removal of the 'danger zone', fixes for the minimalism mode."
+  },
+  "clog_v1_6_0_summary": {
+    "message": "Discontinued the 'danger zone' tweaks.\nMinor fixes and improvements for the 'minimalism' mode."
+  },
+  "clog_v1_6_1_title": {
+    "message": "New automation setting: 'autoskip wrong country', hide cellular (mobile) internet geolocation data by default."
+  },
+  "clog_v1_6_1_summary": {
+    "message": "Added a new automation setting to auto-skip the wrong country.\nRolled back the experiment of showing mobile locations as CT.\nYou can return to the 'CT' logic in the geolocation settings."
+  },
+  "clog_v1_6_2_title": {
+    "message": "Minor release with 2 small fixes."
+  },
+  "clog_v1_6_2_summary": {
+    "message": "Hotkeys are no longer activated if a map is selected so that you can move around the map with arrows.\nFixed the 'autoskip wrong country' function."
+  },
+  "clog_v1_6_3_title": {
+    "message": "Fixed 'check torrents' function."
+  },
+  "clog_v1_6_3_summary": {
+    "message": "Fixed an incorrect locale detection that caused 'iknowwhatyoudownload' torrent checking to work incorrectly for some users."
+  },
+  "clog_v1_6_4_title": {
+    "message": "Urgent temporary release fixing work on ome.tv."
+  },
+  "clog_v1_6_4_summary": {
+    "message": "Fixed a bug when the extension were not starting when the ome.tv website was loading slowly (videochatru.com worked fine)."
+  },
+  "clog_v1_7_0_title": {
+    "message": "Support for 46 video chat sites, [Firefox](https://addons.mozilla.org/firefox/addon/videochat-extension-ip-locator), [Edge](https://microsoftedge.microsoft.com/addons/detail/jdpiggacibaaecfbegkhakcmgaafjajn) and TypeScript."
+  },
+  "clog_v1_7_0_summary": {
+    "message": "A very time-consuming (~180 hours of work) rewrite of the extension architecture to simplify its long-term development.\nAdded support for 46 video chat sites, including basic Omegle support.\nAdded support for [Edge](https://microsoftedge.microsoft.com/addons/detail/jdpiggacibaaecfbegkhakcmgaafjajn) & [Firefox](https://addons.mozilla.org/firefox/addon/videochat-extension-ip-locator).\nAdded a post-install onboarding window.\nAdded a popup menu where you can find supported video chats and configure the extension. It can be opened by clicking on the extension icon in your browser's toolbar.\nRenamed the English version of the extension to Videochat Extension.\nCountless fixes & improvements."
+  },
+  "clog_v1_7_1_title": {
+    "message": "Minor improvements for Chatruletka."
+  },
+  "clog_v1_7_1_summary": {
+    "message": "Improved the look & feel of the API health check by adding information on how to fix common errors.\nAdded a mention in the tooltip that the user can cancel the hotkey activation if the user holds it for more than 5 seconds (for example, you accidentally pressed the arrow to skip and do not want to skip the interlocutor).\nMinor fixes and improvements."
+  },
+  "clog_v1_7_2_title": {
+    "message": "Bug fixes and minor improvements."
+  },
+  "clog_v1_7_2_summary": {
+    "message": "Fixed incorrect activation of local hotkeys: arrow-up and arrow-right.\nMinor fixes and improvements."
+  },
+  "clog_v1_7_3_title": {
+    "message": "New mirrors for ome.tv, basic Coomeet Free support, minor improvements."
+  },
+  "clog_v1_7_3_summary": {
+    "message": "Suppose the mobile IP city/region display is disabled (by default). In that case, you can now hover over LOCATION HIDDEN to see which city and region have been determined for the stranger. Once again, the accuracy of geolocation of IP addresses of mobile ISPs is very, very low.\nChanged the display format of geolocation data of mobile IP addresses on Omegle.\nAdded basic support for Coomeet Free. Features: bots recognition, UI tweaks & more.\nAdded support for 5 more mirror websites of the ome.tv platform.\nAdded post-uninstall Google Form.\nMinor fixes and improvements."
+  },
+  "clog_v1_7_5_title": {
+    "message": "Minor release."
+  },
+  "clog_v1_7_5_summary": {
+    "message": "Returned temporary v1.6.4 to the changelog because when updating from v1.6.4, the changelog was not displayed correctly."
+  },
+  "clog_v1_7_6_title": {
+    "message": "Minor release."
+  },
+  "clog_v1_7_6_summary": {
+    "message": "Downgraded sweetalert2 because of the protestware code."
+  },
+  "clog_v1_7_7_title": {
+    "message": "Our [website](https://videochat-extension.starbase.wiki/en) & [Discord server](https://discord.gg/7DYWu5RF7Y). Minor fixes."
+  },
+  "clog_v1_7_7_summary": {
+    "message": "Launched a simple [promo website](https://videochat-extension.starbase.wiki/en).\nRedesigned [our Discord server](https://discord.gg/7DYWu5RF7Y).\nFixed shift+arrow-left ban hotkey (Chatruletka, Ome.tv, Minichat, Chatrulez).\nFixed the 'autoskip long loading' automation feature.\nPost-uninstall survey now opens on the extension's website.\nMinor fixes and improvements."
+  },
+  "clog_v1_7_8_title": {
+    "message": "Redesigned welcome screens."
+  },
+  "clog_v1_7_8_summary": {
+    "message": "Reduced the amount of information displayed after installing the extension / opening the platform for the first time.\nYou can still view full welcome screens by opening them in the chat interface or by clicking on the checkbox in the post-installation window."
+  },
+  "clog_v1_7_9_title": {
+    "message": "Hint system, bug fixes, optimization."
+  },
+  "clog_v1_7_9_summary": {
+    "message": "Implemented a hint system that displays informative messages when opening a video chat.\nMinor fixes and performance improvements."
+  },
+  "clog_v1_8_0_title": {
+    "message": "Geolocation & streamer mode improvements."
+  },
+  "clog_v1_8_0_summary": {
+    "message": "Significantly improved geolocation stability.\nYou can now manually select the language of the geolocation data from a list of available options.\nCross-browser compatibility was improved, making the Firefox version almost identical to the Chrome version.\nStreamer mode was reworked to make it more useful, user-friendly, and intuitive.\nNew features in the streamer mode: suppress the stranger's volume while holding a key, integration with OBS (the ability to output geolocation data directly to text in OBS, control of the cover image source directly from the extension).\nMinor fixes and improvements."
+  },
+  "clog_v1_8_1_title": {
+    "message": "Stability improvements."
+  },
+  "clog_v1_8_1_summary": {
+    "message": "Fixed work on Chatruletka, Ome.tv, Minichat & Chatrulez when 'autoresume' / 'blur report screen' (streamer mode) features are enabled.\nAdded another reserve geolocation provider.\nImproved geolocation stability by ensuring a 5-second timeout handling.\nMinor fixes and improvements."
+  },
+  "clog_v1_8_2_title": {
+    "message": "Urgent store listing update."
+  },
+  "clog_v1_8_2_summary": {
+    "message": "Temporarily changed the name and description of the extension in the English store listing for better positioning."
+  },
+  "clog_v1_9_0_title": {
+    "message": "Better support for Omegle (work-in-progress), new geolocation features, minor fixes."
+  },
+  "clog_v1_9_0_summary": {
+    "message": "Added a WiP 'advanced' mode for Omegle. It is our full-fledged mode, giving you much more than geolocation and a dark theme.\nAt the moment, by enabling this 'advanced' mode, you will be able to see geolocation in a more convenient format, see how long you are in a conversation, open the stranger's approximate location on the world's map directly in the extension, open the list of torrents downloaded by a stranger, take screenshots, enable picture-in-picture mode, open the changelog, and even block unnecessary locations or search for those that you need.\nOmegle: the extension will now remember your choices in the TOS box to fill in the checkboxes for you. All you have to do is confirm.\nAdded geolocation features to auto-skip predefined countries/regions/cities.\nSlightly reworked all geolocation features to search for specific locations.\nCoomeet Free: improved the UI of the control panel - now it is more intuitive and takes up less space.\nUpdated the dark theme to match changes on 49 supported sites.\nMinor fixes and improvements."
+  },
+  "clog_v2_0_0_title": {
+    "message": "[Patreon](https://patreon.com/videochat_extension) with improved geolocation for patrons. Transparent [Roadmap](https://videochat-extension.canny.io) based on user suggestions."
+  },
+  "clog_v2_0_0_summary": {
+    "message": "You can now support our project on [Patreon](https://patreon.com/videochat_extension).\nOur patrons get access to much more accurate (and expensive for us) geolocation data and monthly progress reports.\nAdded integration with [Patreon](https://patreon.com/videochat_extension): you can log in to your account via Patreon in the extension menu to confirm your patron tier.\nRedesigned the 'Map' section: added new settings and display of geolocation data in the popup.\nAdded [our public roadmap](https://videochat-extension.canny.io) integration: you can now vote for future features and suggest your ideas to improve the extension.\nMinor fixes and improvements."
   }
 }
