@@ -422,6 +422,29 @@ export class ContentSwalChangelog extends SwalWithSteps {
 
         str += `<br><b><a href="${v.url!}" style=\"text-decoration: none!important;\" target=\"_blank\">${chrome.i18n.getMessage('clog_full', v.version)}</a></b>`
 
+
+        // // generate markdown code for a github release
+        // let l = ''
+        // content.forEach(value => {
+        //     l += `- ${value}\n`
+        // })
+        //
+        // let step = this.steps.indexOf(this.styleStep(v.version))
+        // let compareLink = ''
+        // if (step == 0) {
+        //     compareLink = `[View commits on GitHub](https://github.com/qrlk/videochatru-extension/commits/v${changelog[step].version})`
+        // } else {
+        //     compareLink = `https://github.com/qrlk/videochatru-extension/compare/v${changelog[step-1].version}...v${changelog[step].version}`
+        // }
+        //
+        // let gh = `# ${chrome.i18n.getMessage(v.keyTitle)}\n\n----\n\n* #### [${chrome.i18n.getMessage('clog_full', v.version)}](${v.url})\n----\n## ${chrome.i18n.getMessage('clog_caption')}\n${l}\n----\n\n* #### [${chrome.i18n.getMessage('clog_full', v.version)}](${v.url})\n* #### ${compareLink}`
+        //
+        // // generate markdown code for a canny / discord release
+        //
+        // let canny = `# ${chrome.i18n.getMessage(v.keyTitle)}\n\n- [**${chrome.i18n.getMessage('clog_full', v.version)}**](${v.url})\n\n# ${chrome.i18n.getMessage('clog_caption')}\n${l}\n----\n\n- [**${chrome.i18n.getMessage('clog_full', v.version)}**](${v.url})\n- [**View changes on GitHub**](${compareLink})`
+        //
+        // console.dir(canny)
+
         return str.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" style=\"text-decoration:none;\" target=\"_blank\" >$1</a>')
     }
 
