@@ -68,6 +68,9 @@
   "main": {
     "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"reviewImageContainer\"></div><br><b>Important:</b><br>This extension is a hobby project and is not affiliated with '$1' in any way.</div></div>"
   },
+  "mainPatreon": {
+    "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"patreonImageContainer\"></div><br><b>Important:</b><br>This third-party browser extension is a free & open source project, but it exists and evolves only because of people who support us on <a href=\"https://patreon.com/videochat_extension\" target='_blank' style=\"text-decoration: none!important;\">Patreon</a>!<br><br>Become our patron today to significantly improve your geolocation accuracy and get access to the monthly progress reports!</div></div>"
+  },
   "main2": {
     "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"reviewImageContainer\"></div><br><b>Important:</b><br>This extension is a hobby project and is not affiliated with '$1' in any way.<br><br>P.S. 'Advanced' mode for Omegle is still work-in-progress, expect minor bugs and missing features.</div></div>"
   },
@@ -740,6 +743,9 @@
   "mainDiscordBadge": {
     "message": "https://img.shields.io/discord/925632108150530108?label=You%20should%20join%20our%20official%20Discord%20server&logo=discord&style=plastic&cacheSeconds=600"
   },
+  "mainPatreonBadge": {
+    "message": "https://img.shields.io/badge/Patreon_-Become_a_patron-blue?style=plastic&logo=patreon&color=red&cacheSeconds=600"
+  },
   "expand": {
     "message": "expand 'Settings' tab:"
   },
@@ -951,7 +957,7 @@
     "message": "The service itself did not impose any restrictions, but if you do not have access to international payment systems, you will not be able to support our project."
   },
   "popupTreePatreonPerksTitle": {
-    "message": "What does Patreon give?"
+    "message": "Why?"
   },
   "popupTreePatreonPerksAccuracyTitle": {
     "message": "Geolocation accuracy"
@@ -960,34 +966,61 @@
     "message": "You can significantly improve the accuracy of the geolocation of the interlocutors by supporting the project on Patreon."
   },
   "popupTreePatreonPerksAccuracyText2": {
-    "message": "For our Patrons, we use hundreds of times more expensive geolocation service, which if used for 100% of users would cost ~5.000$$/month."
+    "message": "For our Patrons, we use hundreds of times more expensive geolocation service, which if used for 100% of users would cost ~$$5,000/month."
   },
   "popupTreePatreonPerksAccuracyText3": {
     "message": "Behind the extension is an independent team of just two people: we can't afford that kind of expense."
   },
   "popupTreePatreonPerksSupportTitle": {
-    "message": "Support indie development"
+    "message": "Overall project support"
   },
   "popupTreePatreonPerksSupportText1": {
-    "message": "Videochat Extension is a free and open-source project: we do not introduce paid features, leaving it up to the video chats themselves."
+    "message": "This browser extension is developed by indie developers."
   },
   "popupTreePatreonPerksSupportText2": {
-    "message": "For us, the extension is far from being free: development and testing take up significant resources (time), the needs of the project (paying for servers and geolocation services) take up serious money."
+    "message": "Videochat Extension is a free and open source project, but it exists and evolves only thanks to those users who support the project on Patreon."
   },
   "popupTreePatreonPerksSupportText3": {
-    "message": "Currently we can afford to spend both money and time (which we have been doing for the last 2.5 years). But our expenses are growing, and this project will need to be supported for a very long time, so the problem with altruism needs to be addressed now."
+    "message": "Your support allows us to cover project costs (such as server costs and geolocation services) and spend much more time on development and testing."
   },
-  "popupTreePatreonPerksSupportText4": {
-    "message": "Even if 0.1-0.5% of active users decide to support the extension, it will already be enough to pay off all our expenses and ensure the stable development of the project for many years to come: developing new features, fixing bugs and adding support for new video chats!"
+  "popupTreePatreonPerksMonthlyReportsTitle": {
+    "message": "Monthly progress reports"
   },
-  "popupTreePatreonPerksSupportText5": {
-    "message": "We're using hundreds of times more expensive geolocation service for users who support the extension, making it much more accurate! You can learn more about it in the description on Patreon."
+  "popupTreePatreonPerksMonthlyReportsText1": {
+    "message": "At the end of each month, we publish a big report on the progress and status of the project exclusively for our patrons."
   },
-  "popupTreePatreonPerksSupportText6": {
-    "message": "At the end of each month, we publish a big post on Patreon with a report for patrons on the status of the project and the work we've done that month!"
+  "popupTreePatreonPerksMonthlyReportsText2": {
+    "message": "These reports provide a unique behind-the-scenes look at what's going on and an assessment of what we've accomplished in each month."
+  },
+  "popupTreePatreonPerksDiscordChatTitle": {
+    "message": "Private chat"
+  },
+  "popupTreePatreonPerksDiscordChatText1": {
+    "message": "Our patrons get access to a private Discord text chat available to patrons only."
+  },
+  "popupTreePatreonPerksPatronBadgeTitle": {
+    "message": "[SOON] Patron badge"
+  },
+  "popupTreePatreonPerksPatronBadgeText1": {
+    "message": "In future updates, your interlocutors (those that also use the extension) will see that you support the project on Patreon."
+  },
+  "popupTreePatreonPerksPatronBadgeText2": {
+    "message": "This is an optional feature and you may choose not to enable it."
+  },
+  "popupTreePatreonPerksPatronShoutoutTitle": {
+    "message": "[SOON] Patron shout-out"
+  },
+  "popupTreePatreonPerksPatronShoutoutText1": {
+    "message": "In future updates, the 'Patrons' section will be added to the extension UI."
+  },
+  "popupTreePatreonPerksPatronShoutoutText2": {
+    "message": "To get to this list, you will need to enter your name/nickname in the settings. You will be added to the list after your name/nickname is approved by the developers."
+  },
+  "popupTreePatreonPerksPatronShoutoutText3": {
+    "message": "This is an optional feature and you may choose not to use it."
   },
   "popupTreePatreonGuideTitle": {
-    "message": "How do I subscribe to Patreon?"
+    "message": "How?"
   },
   "popupTreePatreonGuideText1": {
     "message": "1. Click on 'BECOME A PATRON'."
@@ -1002,10 +1035,7 @@
     "message": "4. Click the 'Login' button in the 'Account' section of the extension's menu (pop-up window)."
   },
   "popupTreePatreonGuideText5": {
-    "message": "5. If the popup closed during the process, try again."
-  },
-  "popupTreePatreonGuideText6": {
-    "message": "6. Turn on more accurate geolocation in settings and enjoy!"
+    "message": "5. Turn on more accurate geolocation in settings and enjoy!"
   },
   "popupTreePatreonAccountTitle": {
     "message": "Account"
@@ -1029,22 +1059,16 @@
     "message": "Quota"
   },
   "popupTreePatreonAccountQuotaText1": {
-    "message": "We have been forced to implement a quota system that prevents us from spending significantly more money on your requests than we received from Patreon for your subscription."
+    "message": "More accurate geolocation costs a lot of money for us, so it is only available to patrons and with a certain limitation (quota)."
   },
   "popupTreePatreonAccountQuotaText2": {
-    "message": "Only those requests for which we had to pay are counted in the quota. If a request was cached (another Patron recently met your interlocutor) - it will not be counted in the quota."
+    "message": "Only those requests for which we had to pay are counted in the quota. If your request hit the cache (another Patron recently met your interlocutor) - it will not be counted in the quota."
   },
   "popupTreePatreonAccountQuotaText3": {
-    "message": "The quota size depends on your tier on Patreon. It will be increased in the future. With normal human use, you are unlikely to hit it."
+    "message": "The quota size depends on your tier on Patreon. If you exceed the quota (which is unlikely because it's quite large), you will continue to receive cached data from other patrons."
   },
   "popupTreePatreonAccountQuotaText4": {
-    "message": "If you do run into a quota, you will continue to receive cached data (from other Patrons). If no cached data was found, you'll get data from our public geolocation service."
-  },
-  "popupTreePatreonAccountQuotaText5": {
     "message": "The quota resets every first day of the month."
-  },
-  "popupTreePatreonAccountQuotaText6": {
-    "message": "Without this system, bad people could sign up for the smallest tier and artificially make thousands of dollars worth of requests."
   },
   "popupTreePatreonAccountSettingsTitle": {
     "message": "Settings"

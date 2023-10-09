@@ -911,15 +911,50 @@ $(async function () {
                                 },
                                 {
                                     text: chrome.i18n.getMessage("popupTreePatreonPerksSupportText3")
+                                }
+                            ]
+                        },
+                        {
+                            text: chrome.i18n.getMessage("popupTreePatreonPerksMonthlyReportsTitle"),
+                            nodes: [
+                                {
+                                    text: chrome.i18n.getMessage("popupTreePatreonPerksMonthlyReportsText1")
                                 },
                                 {
-                                    text: chrome.i18n.getMessage("popupTreePatreonPerksSupportText4")
+                                    text: chrome.i18n.getMessage("popupTreePatreonPerksMonthlyReportsText2")
+                                }
+                            ]
+                        },
+                        {
+                            text: chrome.i18n.getMessage("popupTreePatreonPerksDiscordChatTitle"),
+                            nodes: [
+                                {
+                                    text: chrome.i18n.getMessage("popupTreePatreonPerksDiscordChatText1")
+                                }
+                            ]
+                        },
+                        {
+                            text: chrome.i18n.getMessage("popupTreePatreonPerksPatronBadgeTitle"),
+                            nodes: [
+                                {
+                                    text: chrome.i18n.getMessage("popupTreePatreonPerksPatronBadgeText1")
                                 },
                                 {
-                                    text: chrome.i18n.getMessage("popupTreePatreonPerksSupportText5")
+                                    text: chrome.i18n.getMessage("popupTreePatreonPerksPatronBadgeText2")
+                                }
+                            ]
+                        },
+                        {
+                            text: chrome.i18n.getMessage("popupTreePatreonPerksPatronShoutoutTitle"),
+                            nodes: [
+                                {
+                                    text: chrome.i18n.getMessage("popupTreePatreonPerksPatronShoutoutText1")
                                 },
                                 {
-                                    text: chrome.i18n.getMessage("popupTreePatreonPerksSupportText6")
+                                    text: chrome.i18n.getMessage("popupTreePatreonPerksPatronShoutoutText2")
+                                },
+                                {
+                                    text: chrome.i18n.getMessage("popupTreePatreonPerksPatronShoutoutText3")
                                 }
                             ]
                         },
@@ -943,9 +978,6 @@ $(async function () {
                         },
                         {
                             text: chrome.i18n.getMessage("popupTreePatreonGuideText5")
-                        },
-                        {
-                            text: chrome.i18n.getMessage("popupTreePatreonGuideText6")
                         }
                     ]
                 },
@@ -1130,12 +1162,6 @@ $(async function () {
                                 },
                                 {
                                     text: chrome.i18n.getMessage("popupTreePatreonAccountQuotaText4"),
-                                },
-                                {
-                                    text: chrome.i18n.getMessage("popupTreePatreonAccountQuotaText5"),
-                                },
-                                {
-                                    text: chrome.i18n.getMessage("popupTreePatreonAccountQuotaText6"),
                                 },
                             ]
                         },

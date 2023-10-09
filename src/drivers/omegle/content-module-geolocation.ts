@@ -10,6 +10,7 @@ export class GeolocationModuleOmegle extends GeolocationModule {
 
         document.unbindArrive("#reviewImageContainer")
         document.unbindArrive("#discordImageContainer")
+        document.unbindArrive("#patreonImageContainer")
 
         this.tabs[0] = new ControlsTabApiOmegle(this.driver, this)
     }

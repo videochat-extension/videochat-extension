@@ -5,7 +5,7 @@ import * as utils from "../../utils/utils";
 import {ChatruletkaDriver} from "../content-driver-chatruletka";
 import {mapModule} from "./content-module-controls-map";
 import * as SDPUtils from "sdp";
-import {getUserBrowser} from "../../utils/utils";
+import {getUserBrowser, isPatreonBlocked} from "../../utils/utils";
 import {OmegleDriver} from "../content-driver-omegle";
 
 
@@ -528,6 +528,7 @@ export class GeolocationModule {
     private targetSound = new Audio(chrome.runtime.getURL('resources/audio/found.mp3'))
     public delayIPs: string[] = [];
     private needToShowHint = globalThis.platformSettings.get("showHints") ? (globalThis.platformSettings.get("showHintsMoreOften") ? true : utils.getRandomInt(1, 3) === 2) : false;
+    private needToPromotePatreon = !globalThis.patreon //&& !isPatreonBlocked()
     private hint: number = -1;
     private apiProviders = this.getApiProviders();
     public checks = 0
@@ -582,6 +583,8 @@ export class GeolocationModule {
                 this.hint = utils.getRandomInt(0, this.tabs[0].hints.length - 1);
             }
             (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStartCheck") + "</br></br>" + this.tabs[0].getHintHTML(this.hint);
+        } else if (this.needToPromotePatreon) {
+            (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStartCheck") + "</br></br>" + chrome.i18n.getMessage('mainPatreon')
         } else {
             (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStartCheck") + "</br></br>" + chrome.i18n.getMessage(this.mainDisclaimerKey, [this.driver.site.text]);
         }
@@ -612,6 +615,15 @@ export class GeolocationModule {
                             this.needToShowHint = false;
                         }
                         (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + this.tabs[0].getHintHTML(this.hint)
+                    } else if (this.needToPromotePatreon) {
+                        if (this.driver.platform.name === "Omegle") {
+                            if (this.checks > 2) {
+                                this.needToPromotePatreon = false;
+                            }
+                        } else {
+                            this.needToPromotePatreon = false;
+                        }
+                        (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage('mainPatreon')
                     } else {
                         (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage(this.mainDisclaimerKey, [this.driver.site.text])
                     }
@@ -1034,6 +1046,7 @@ export class ControlsTabApi {
     private module: any
     private reviewLinkContainer: JQuery<HTMLElement>;
     private discordLinkContainer: JQuery<HTMLElement>;
+    private patreonLinkContainer: JQuery<HTMLElement>;
 
     public constructor(driver: ChatruletkaDriver | OmegleDriver, module?: any) {
         this.driver = driver
@@ -1043,12 +1056,16 @@ export class ControlsTabApi {
 
         this.reviewLinkContainer = this.getReviewLink()
         this.discordLinkContainer = this.getDiscordLink()
+        this.patreonLinkContainer = this.getPatreonLink()
         let self = this
         document.arrive("#reviewImageContainer", {existing: true}, function (el) {
             self.reviewLinkContainer.appendTo(el)
         })
         document.arrive("#discordImageContainer", {existing: true}, function (el) {
             self.discordLinkContainer.appendTo(el)
+        })
+        document.arrive("#patreonImageContainer", {existing: true}, function (el) {
+            self.patreonLinkContainer.appendTo(el)
         })
     }
 
@@ -1549,6 +1566,39 @@ export class ControlsTabApi {
             }, [
                 utils.createElement('img', {
                     src: chrome.i18n.getMessage('mainDiscordBadge')
+                })
+            ]
+        ))
+    }
+
+    private getPatreonLink() {
+        return $(utils.createElement('a', {
+                target: "_blank",
+                style: "margin-left: 3px; text-decoration: none !important;",
+                href: "https://patreon.com/videochat_extension",
+                onclick: (e: MouseEvent) => {
+                    e.preventDefault()
+                    let choice = utils.getRandomInt(0, 3)
+                    switch (choice) {
+                        case 0:
+                            window.open('https://www.patreon.com/videochat_extension')
+                            break;
+                        case 1:
+                            window.open('https://www.patreon.com/videochat_extension/about')
+                            break;
+                        case 2:
+                            window.open('https://www.patreon.com/videochat_extension/membership')
+                            break;
+                        case 3:
+                            chrome.runtime.sendMessage({openPopupPatreon: true});
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }, [
+                utils.createElement('img', {
+                    src: chrome.i18n.getMessage('mainPatreonBadge')
                 })
             ]
         ))

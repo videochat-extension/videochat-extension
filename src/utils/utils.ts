@@ -112,3 +112,37 @@ export function getPlatformByHost(platforms: any[], host: string) {
 export function extractHost(url: string) {
     return new URL(url.replace(/(\*\.)|(www\.)/g, '')).hostname;
 }
+
+let patreonBlockedTZs = [
+    "Asia/Anadyr",
+    "Asia/Barnaul",
+    "Asia/Chita",
+    "Asia/Irkutsk",
+    "Asia/Kamchatka",
+    "Asia/Khandyga",
+    "Asia/Krasnoyarsk",
+    "Asia/Magadan",
+    "Asia/Novokuznetsk",
+    "Asia/Novosibirsk",
+    "Asia/Omsk",
+    "Asia/Sakhalin",
+    "Asia/Srednekolymsk",
+    "Asia/Tomsk",
+    "Asia/Ust-Nera",
+    "Asia/Vladivostok",
+    "Asia/Yakutsk",
+    "Asia/Yekaterinburg",
+    "Europe/Astrakhan",
+    "Europe/Kaliningrad",
+    "Europe/Kirov",
+    "Europe/Minsk",
+    "Europe/Moscow",
+    "Europe/Samara",
+    "Europe/Saratov",
+    "Europe/Ulyanovsk",
+    "Europe/Volgograd"
+]
+
+export function isPatreonBlocked() {
+    return patreonBlockedTZs.includes(Intl.DateTimeFormat().resolvedOptions().timeZone);
+}
