@@ -1474,5 +1474,11 @@
   },
   "clog_v2_0_0_summary": {
     "message": "You can now support our project on [Patreon](https://patreon.com/videochat_extension).\nOur patrons get access to much more accurate (and expensive for us) geolocation data and monthly progress reports.\nAdded integration with [Patreon](https://patreon.com/videochat_extension): you can log in to your account via Patreon in the extension menu to confirm your patron tier.\nRedesigned the 'Map' section: added new settings and display of geolocation data in the popup.\nAdded [our public roadmap](https://videochat-extension.canny.io) integration: you can now vote for future features and suggest your ideas to improve the extension.\nMinor fixes and improvements."
+  },
+  "clog_v2_1_0_title": {
+    "message": "Reworked the changelog system."
+  },
+  "clog_v2_1_0_summary": {
+    "message": "Reworked the changelog system towards simplification and support for multiple languages.\nActualized the Patreon section. Patreon gained more visibility.\nThe extension is now named the same in all localizations.\nMinor fixes and improvements."
   }
 }
