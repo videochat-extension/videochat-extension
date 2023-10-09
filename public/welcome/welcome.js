@@ -641,7 +641,7 @@ async function fixPermissions() {
             origins: origins
         }).then(() => {
             if (!shouldWait) {
-                location.href = chrome.runtime.getURL('popup/popup.html?zoom=120&scanHistory')
+                location.href = chrome.runtime.getURL('popup/popup.html?scanHistory')
             } else {
                 // background service worker needs some time to register content scripts on new origins
                 let timerInterval
@@ -660,14 +660,14 @@ async function fixPermissions() {
                         clearInterval(timerInterval)
                     }
                 }).then((result) => {
-                    location.href = chrome.runtime.getURL('popup/popup.html?zoom=120&scanHistory')
+                    location.href = chrome.runtime.getURL('popup/popup.html?scanHistory')
                 })
             }
         })
     } catch (el) {
         // TODO: should collect this error
         console.dir(el)
-        location.href = chrome.runtime.getURL('popup/popup.html?zoom=120&scanHistory')
+        location.href = chrome.runtime.getURL('popup/popup.html?scanHistory')
     }
 }
 

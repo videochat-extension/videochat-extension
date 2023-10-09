@@ -612,7 +612,7 @@ function runtimeOnMessage(request: any, sender: chrome.runtime.MessageSender, se
 
     if (request.openPopupPatreon) {
         chrome.tabs.create({
-            url: chrome.runtime.getURL("popup/popup.html?zoom=120&patreon")
+            url: chrome.runtime.getURL("popup/popup.html?patreon")
         })
     }
 }
