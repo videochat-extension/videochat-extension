@@ -969,7 +969,7 @@
     "message": "For our Patrons, we use hundreds of times more expensive geolocation service, which if used for 100% of users would cost ~$$5,000/month."
   },
   "popupTreePatreonPerksAccuracyText3": {
-    "message": "Behind the extension is an independent team of just two people: we can't afford that kind of expense."
+    "message": "In addition to a more precise determination of the city and region, the map will show a much more accurate area of the possible location of your conversation partner."
   },
   "popupTreePatreonPerksSupportTitle": {
     "message": "Overall project support"
