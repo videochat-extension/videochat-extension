@@ -11,12 +11,12 @@
 Videochat Extension is a fully independent open-source browser extension that expands the
 functionality of Omegle-like randomized video chats. Previously known as Chatruletka Extension and 'Чат Рулетное Расширение'.
 
-It currently supports 55 video chat sites belonging to six platforms: Chatruletka (Чат Рулетка), Ome.tv, Minichat,
-Chatrulez, Omegle (work-in-progress) and Coomeet Free (bot recognition only).
+It currently supports 55 video chat sites belonging to six platforms: Omegle (work-in-progress), Chatruletka (Чат Рулетка), Ome.tv, Minichat,
+Chatrulez, and Coomeet Free (bot recognition only).
 
 <center>
 
-[![Открыть](screens/basic.png)](https://www.youtube.com/watch?v=KXDwuV9YUjY)
+![Open](screens/en/0.7/en1_3.jpg)
 </center>
 
 [<sup>more screens</sup>](screens.md)
