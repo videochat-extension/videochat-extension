@@ -1,6 +1,6 @@
 {
   "name": "__MSG_extension_name__",
-  "version": "1.9.0",
+  "version": "2.1.0",
   "description": "__MSG_extension_description__",
   "default_locale": "en",
   "manifest_version": 3,
@@ -113,7 +113,8 @@
   },
   "optional_permissions": [
     "scripting",
-    "history"
+    "history",
+    "identity"
   ],
   "optional_host_permissions": [
     "https://*.chatruletka.com/*",
