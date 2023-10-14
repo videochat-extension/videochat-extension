@@ -1,6 +1,6 @@
 import $ from "jquery";
 import * as utils from "../utils/utils";
-import {ContentSwalInfoCoomeetFree} from "./coomeetfree/content-swal-info";
+import {ContentSwalInfoCoomeetFreeSimplified} from "./coomeetfree/content-swal-info";
 
 export class CooMeetFreeSimpleDriver {
     private static instanceRef: CooMeetFreeSimpleDriver;
@@ -212,7 +212,7 @@ export class CooMeetFreeSimpleDriver {
                     title: chrome.i18n.getMessage('freecmExtensionHeaderTitle'),
                     style: "white-space: nowrap; overflow: hidden; cursor: pointer;user-select:none;",
                     onclick: () => {
-                        new ContentSwalInfoCoomeetFree().showFromStart()
+                        new ContentSwalInfoCoomeetFreeSimplified().showFromStart()
                     }
                 })
             ])

@@ -17,10 +17,7 @@ import {PlatformSettings} from "./content-platform";
 import {OmegleSimpleDriver} from "./drivers/content-driver-omegle-simple";
 import {ContentSwalInfoOmegleSimplified} from "./drivers/omegle/content-swal-info";
 import {CooMeetFreeSimpleDriver} from "./drivers/content-driver-coomeetfree-simple";
-import {
-    ContentSwalInfoCoomeetFree,
-    ContentSwalInfoCoomeetFreeSimplified
-} from "./drivers/coomeetfree/content-swal-info";
+import {ContentSwalInfoCoomeetFreeSimplified} from "./drivers/coomeetfree/content-swal-info";
 import {OmegleDriver} from "./drivers/content-driver-omegle";
 
 injectScript('injection/ip-api.js')
@@ -264,11 +261,7 @@ async function content() {
                 globalThis.driver = CooMeetFreeSimpleDriver.getInstance()
                 globalThis.driver.start(document.body)
                 if (!globalThis.platformSettings.get("swalInfoCompleted")) {
-                    if (settings.curious) {
-                        new ContentSwalInfoCoomeetFree().showFromStart()
-                    } else {
-                        new ContentSwalInfoCoomeetFreeSimplified().showFromStart()
-                    }
+                    new ContentSwalInfoCoomeetFreeSimplified().showFromStart()
                 }
             })
             break;
