@@ -1,7 +1,7 @@
 import $ from "jquery";
 import * as DOMPurify from "dompurify";
 import * as utils from "../utils/utils";
-import {ContentSwalInfoOmegle} from "./omegle/content-swal-info";
+import {ContentSwalInfoOmegleSimplified} from "./omegle/content-swal-info";
 import * as SDPUtils from "sdp"
 import {switchModeOmegle} from "./omegle/content-swal-switchmode";
 
@@ -177,7 +177,7 @@ export class OmegleSimpleDriver {
                 innerText: " (?)",
                 style: "cursor:pointer",
                 onclick: () => {
-                    new ContentSwalInfoOmegle().showFromStart()
+                    new ContentSwalInfoOmegleSimplified().showFromStart()
                 }
             })).insertBefore(el.children[0])
             $(switchDarkMode).insertBefore(el.children[0])

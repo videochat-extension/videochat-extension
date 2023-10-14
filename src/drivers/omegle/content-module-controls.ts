@@ -1,7 +1,7 @@
 import $ from "jquery";
 import {OmegleDriver} from "../content-driver-omegle";
 import {ControlsHeader, ControlsModule, ControlsTabAbout} from "../chatruletka/content-module-controls";
-import {ContentSwalInfoOmegle} from "./content-swal-info";
+import {ContentSwalInfoOmegleSimplified} from "./content-swal-info";
 import * as utils from "../../utils/utils";
 
 export class ControlsModuleOmegle extends ControlsModule {
@@ -220,7 +220,7 @@ export class ControlsModuleOmegle extends ControlsModule {
 
 export class ControlsTabAboutOmegle extends ControlsTabAbout {
     protected showSwalWelcome() {
-        new ContentSwalInfoOmegle().showFromStart()
+        new ContentSwalInfoOmegleSimplified().showFromStart()
     }
 }
 

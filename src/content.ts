@@ -15,7 +15,7 @@ import {extractHost, getPlatformByHost, getUserBrowser} from "./utils/utils";
 import * as Sentry from "@sentry/browser";
 import {PlatformSettings} from "./content-platform";
 import {OmegleSimpleDriver} from "./drivers/content-driver-omegle-simple";
-import {ContentSwalInfoOmegle, ContentSwalInfoOmegleSimplified} from "./drivers/omegle/content-swal-info";
+import {ContentSwalInfoOmegleSimplified} from "./drivers/omegle/content-swal-info";
 import {CooMeetFreeSimpleDriver} from "./drivers/content-driver-coomeetfree-simple";
 import {
     ContentSwalInfoCoomeetFree,
@@ -231,11 +231,7 @@ async function content() {
                         globalThis.driver = OmegleSimpleDriver.getInstance()
                         globalThis.driver.start(document.body)
                         if (!globalThis.platformSettings.get("swalInfoCompleted")) {
-                            if (settings.curious) {
-                                new ContentSwalInfoOmegle().showFromStart()
-                            } else {
-                                new ContentSwalInfoOmegleSimplified().showFromStart()
-                            }
+                            new ContentSwalInfoOmegleSimplified().showFromStart()
                         }
                     })
                     return false
@@ -248,11 +244,7 @@ async function content() {
                             globalThis.driver = OmegleDriver.getInstance(website)
                             globalThis.driver.start(document.body)
                             if (!globalThis.platformSettings.get("swalInfoCompleted")) {
-                                if (settings.curious) {
-                                    new ContentSwalInfoOmegle().showFromStart()
-                                } else {
-                                    new ContentSwalInfoOmegleSimplified().showFromStart()
-                                }
+                                new ContentSwalInfoOmegleSimplified().showFromStart()
                             }
                         }
                     })
