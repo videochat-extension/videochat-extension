@@ -11,6 +11,9 @@
   "extension_description": {
     "message": "Расширение для ваших любимых Чат Рулеток (Видеочат RU, ome.tv и др.): 'пробив' собеседника по IP и многое другое."
   },
+  "setUninstallURL": {
+    "message": "https://videochat-extension.starbase.wiki/ru?uninstall-ru"
+  },
   "desc": {
     "message": "Это браузерное расширение, которое расширяет функционал Чат Рулетки и других видеочатов."
   },

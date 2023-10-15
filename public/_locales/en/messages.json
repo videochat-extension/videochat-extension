@@ -11,6 +11,9 @@
   "extension_description": {
     "message": "IP Locator & more for Omegle-like randomized video chats: Omegle, ome.tv, Chatruletka. Previously known as Chatruletka Extension."
   },
+  "setUninstallURL": {
+    "message": "https://videochat-extension.starbase.wiki/en?uninstall-en"
+  },
   "desc": {
     "message": "This is a browser extension that extends the functionality of Omegle-like randomized video chats."
   },

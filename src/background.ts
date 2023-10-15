@@ -729,7 +729,7 @@ function init() {
     // this thing handles all messages coming from content scripts
     chrome.runtime.onMessage.addListener(runtimeOnMessage);
 
-    chrome.runtime.setUninstallURL(chrome.i18n.getMessage('lang') === "ru" ? "https://videochat-extension.starbase.wiki/ru?uninstall-ru" : "https://videochat-extension.starbase.wiki/en?uninstall-en")
+    chrome.runtime.setUninstallURL(chrome.i18n.getMessage('setUninstallURL'))
 }
 
 try {
