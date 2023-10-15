@@ -133,7 +133,7 @@ export class ContentSwalInfoSimplified extends SwalWithSteps {
     protected titles = [
         chrome.i18n.getMessage("swalInfoTitle1")
     ]
-    protected values: { en: string[], ru: string[] }
+    protected values: string[];
     private platform: string;
 
     public constructor(platform: string) {
@@ -141,14 +141,10 @@ export class ContentSwalInfoSimplified extends SwalWithSteps {
         this.platform = platform
         let copyrightLicense = `<b>Videochat Extension is an <a style="text-decoration:none;" target="_blank" href="https://github.com/qrlk/videochat-extension">open source</a> project <a style="text-decoration:none;" target="_blank" href="https://github.com/videochat-extension/videochat-extension/blob/main/LICENSE">licensed under BSD-4</a>.</b><br><br><b>Copyright (c) 2021-2023, <a href="http://qrlk.me" style="text-decoration: none!important;" target="_blank">Fyodor Kurlyuk</a><br>
             All rights reserved.</b></div>`
-        this.values = {
-            "en": [
-                `<b>This is your first use of the «Videochat Extension» on the «${this.platform}» video chat platform!</b><br><br>Now you can enjoy such features as the stranger's IP Locator, Picture-in-Picture mode, city and gender filtering, streamer mode, hotkeys and 40+ other features!<br><br>Join <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://discord.gg/7DYWu5RF7Y\">our Discord server</a>, so you can follow the life of the project and give your feedback!<br><br>` + copyrightLicense
-            ],
-            "ru": [
-                `<b>Это ваше первое использование Чат Рулетного Расширения на платформе видеочата «${this.platform}»!</b><br><br>Теперь вам доступен такой функционал, как геолокация IP собеседника, режим Картинка-в-Картинке, фильтр по городу и полу, режим стримера, горячие клавиши и ещё 40+ функций!<br><br>Вступайте в наш <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://discord.gg/7DYWu5RF7Y\">Discord</a>, чтобы следить за жизнью проекта и поделиться своим отзывом!<br><br>` + copyrightLicense
-            ]
-        }
+
+        this.values = [
+            chrome.i18n.getMessage('swalInfoChatruletkaSimplified', this.platform) + copyrightLicense
+        ]
 
         this.swalQueueStep = this.swalQueueStep.mixin({
             progressSteps: this.steps,
@@ -166,12 +162,7 @@ export class ContentSwalInfoSimplified extends SwalWithSteps {
     }
 
     protected getValue: () => string = () => {
-        let lang = chrome.i18n.getMessage('lang')
-        if (lang == "en" || lang === "ru") {
-            return this.values[lang][this.currentStep]
-        } else {
-            return this.values["en"][this.currentStep]
-        }
+        return this.values[this.currentStep]
     }
 
     public showFromStart = async () => {

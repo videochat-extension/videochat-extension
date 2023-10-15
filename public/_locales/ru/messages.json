@@ -776,11 +776,14 @@
   "swalInfoTitle1": {
     "message": "Поздравляем!"
   },
-  "swalInfoTitle2": {
-    "message": "Функции Расширения"
+  "swalInfoChatruletkaSimplified": {
+    "message": "<b>Это ваше первое использование «Videochat Extension» на платформе видеочата «$1»!</b><br><br><b>Теперь вам доступен такой функционал, как геолокация IP собеседника, режим Картинка-в-Картинке, фильтр по городу и полу, режим стримера, горячие клавиши и ещё 40+ функций!</b><br><br>Посетите <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://videochat-extension.starbase.wiki\">наш официальный сайт</a>, чтобы узнать больше о Videochat Extension.<br><br>Присоединяйтесь к нашему <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://patreon.com/videochat_extension\">бесплатному Patreon сообществу</a> или <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://discord.gg/7DYWu5RF7Y\">Discord серверу</a>, чтобы следить за жизнью проекта!<br><br>"
   },
-  "swalInfoTitle3": {
-    "message": "Лицензия"
+  "swalInfoOmegleSimplified": {
+    "message": "<p><b>Это ваше первое использование «Videochat Extension» на платформе видеочата «$1»!</b><br><br><b>Вы можете выбрать между стабильным режимом 'минимализм' (IP Геолокация & Тёмная тема) и 'нормальным' режимом, который ещё находится в разработке.</b><br><br>Посетите <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://videochat-extension.starbase.wiki\">наш официальный сайт</a>, чтобы узнать больше о Videochat Extension.<br><br>Присоединяйтесь к нашему <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://patreon.com/videochat_extension\">бесплатному Patreon сообществу</a> или <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://discord.gg/7DYWu5RF7Y\">Discord серверу</a>, чтобы следить за жизнью проекта!<br><br>"
+  },
+  "swalInfoCoomeetFreeSimplified": {
+    "message": "<b style=\"font-weight: bold!important;\">Это ваше первое использование «Videochat Extension» на платформе видеочата «$1»!</b><br><br><b style=\"font-weight: bold!important;\">Полной поддержки платформы не планируется, реализованы только фильтр ботов, отображение страны собеседника и регулировка громкости</b>.<br><br>Посетите <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://videochat-extension.starbase.wiki\">наш официальный сайт</a>, чтобы узнать больше о Videochat Extension.<br><br>Присоединяйтесь к нашему <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://patreon.com/videochat_extension\">бесплатному Patreon сообществу</a> или <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://discord.gg/7DYWu5RF7Y\">Discord серверу</a>, чтобы следить за жизнью проекта!<br><br>"
   },
   "confirmButtonText": {
     "message": "Дальше"

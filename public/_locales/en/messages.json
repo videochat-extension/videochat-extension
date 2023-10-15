@@ -785,11 +785,14 @@
   "swalInfoTitle1": {
     "message": "Congratulations!"
   },
-  "swalInfoTitle2": {
-    "message": "Extension Features"
+  "swalInfoChatruletkaSimplified": {
+    "message": "<b>This is your first use of the «Videochat Extension» on the «$1» video chat platform!</b><br><br><b>Now you can enjoy such features as the stranger's IP Locator, Picture-in-Picture mode, city and gender filtering, streamer mode, hotkeys, and 40+ other features!</b><br><br>You can <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://videochat-extension.starbase.wiki\">visit our official site</a> to learn more about Videochat Extension.<br><br>You should also join our <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://patreon.com/videochat_extension\">free Patreon community</a> or <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://discord.gg/7DYWu5RF7Y\">Discord server</a> to receive updates about the project!<br><br>"
   },
-  "swalInfoTitle3": {
-    "message": "License"
+  "swalInfoOmegleSimplified": {
+    "message": "<p><b>This is your first use of the «Videochat Extension» on the «$1» video chat platform!</b><br><br><b>You can choose between the stable 'simple' minimalistic mode (IP Locator & Dark Mode) and the 'advanced' mode, which is still under development.</b><br><br>Open the video chat page, so you can check it yourself.<br><br>You can <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://videochat-extension.starbase.wiki\">visit our official site</a> to learn more about Videochat Extension.<br><br>You should also join our <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://patreon.com/videochat_extension\">free Patreon community</a> or <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://discord.gg/7DYWu5RF7Y\">Discord server</a> to receive updates about the project!<br><br>"
+  },
+  "swalInfoCoomeetFreeSimplified": {
+    "message": "<b style=\"font-weight: bold!important;\">This is your first use of the «Videochat Extension» on the «$1» video chat platform!</b><br><br><b style=\"font-weight: bold!important;\">Full support for the platform is not planned, only bot filter, displaying the stranger's country & volume control features are implemented</b>.<br><br>You can <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://videochat-extension.starbase.wiki\">visit our official site</a> to learn more about Videochat Extension.<br><br>You should also join our <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://patreon.com/videochat_extension\">free Patreon community</a> or <a target=\"_blank\" style=\"text-decoration: none!important;\" href=\"https://discord.gg/7DYWu5RF7Y\">Discord server</a> to receive updates about the project!<br><br>"
   },
   "confirmButtonText": {
     "message": "Next"
