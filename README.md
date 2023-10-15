@@ -1,22 +1,22 @@
-<h1 align="center">Videochat Extension (Чат Рулетное Расширение)</h1>
+<h1 align="center">Videochat Extension</h1>
 
 <p align="center">
 <a href = "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi"><img src="https://img.shields.io/chrome-web-store/users/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20users"></a> 
 <a href = "https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi/reviews"><img src="https://img.shields.io/chrome-web-store/rating/alchldmijhnnapijdmchpkdeikibjgoi?label=chrome%20rating"></a>
 <a href = "https://discord.gg/7DYWu5RF7Y"><img src="https://img.shields.io/discord/925632108150530108?label=join%20our%20discord&amp;logo=discord"></a> 
-<a href = "https://github.com/qrlk/videochat-extension/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-BSD--4-brightgreen"></a>
+<a href = "https://github.com/videochat-extension/videochat-extension/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-BSD--4-brightgreen"></a>
 <a href = ""><img src="https://img.shields.io/date/1632816617?label=released"></a>
 </p>
 
-Videochat Extension (Chatruletka Extension) is an independent open-source browser extension that expands the
-functionality of your favorite online video chats.
+Videochat Extension is a fully independent open-source browser extension that expands the
+functionality of Omegle-like randomized video chats. Previously known as Chatruletka Extension and 'Чат Рулетное Расширение'.
 
-It currently supports 55 video chat sites belonging to six platforms: Chatruletka (Чат Рулетка), Ome.tv, Minichat,
-Chatrulez, Omegle (work-in-progress) and Coomeet Free (bot recognition only).
+It currently supports 55 video chat sites belonging to six platforms: Omegle (work-in-progress), Chatruletka (Чат Рулетка), Ome.tv, Minichat,
+Chatrulez, and Coomeet Free (bot recognition only).
 
 <center>
 
-[![Открыть](screens/basic.png)](https://www.youtube.com/watch?v=KXDwuV9YUjY)
+![Open](screens/en/0.7/en1_3.jpg)
 </center>
 
 [<sup>more screens</sup>](screens.md)
@@ -27,69 +27,118 @@ Chatrulez, Omegle (work-in-progress) and Coomeet Free (bot recognition only).
 
 ## Building from source
 
-1. git clone https://github.com/qrlk/videochat-extension
+1. git clone https://github.com/videochat-extension/videochat-extension
 2. npm i
 3. npm run cross-dev
 4. manually load into your browser from 'webpack-builds'
 
-## Features
+## Key Features
 
-* **IP Locator**
-    * uses the ip geolocation service to determine the approximate location and whether the stranger's using a
-      mobile/vpn/tor connection
+* ✓ IP Locator — determines the stranger's approximate location
+* ✓ World map
+* ✓ Ban unwanted countries
+* ✓ Search for specific locations
+* ✓ Gender Filter
+* ✓ Dark Mode
+* ✓ Automation
+* ✓ Blacklist
+* ✓ Stats
+* ✓ Shortcuts/hotkeys
+* ✓ Streamer Mode
+* ✓ Simple Mode — essential features only
+* ✓ Customizable — configure features as you like
+* ✓ Open source — freedom and transparency
+* ✓ Indie project — community-supported development
+* ✓ Private and secure — we don't collect/sell your data
+
+With this extension installed, you can find out where your interlocutors are from, filter them by gender, search for a specific city, enable dark mode, and much more!
+
+
+##  Simple Mode
+* a minimalistic mode that includes only essential features:
+  * ome.tv, chatruletka, minichat, chatrulez: displaying IP geolocation data in the chat area.
+  * omegle: IP Locator & Dark Mode.
+  * coomeet free: displaying the stranger's country, bot recognition and volume control.
+
+
+## Complete list of features
+
+* **geolocation (IP Locator)**
+  * determines the stranger's IP address used for WebRTC connection.
+  * uses the IP geolocation service to get the information about that IP address.
+  * displays the stranger's approximate location (city/region/country), ISP, and whether they use a cellular network.
+  * integration with the 'map' module: IP geolocation data is displayed on the world map.
+  * integration with the 'streamer mode' module: IP geolocation data can be displayed in the OBS's text source.
+  * determines if a stranger is using a proxy/tor/vpn connection to hide their real IP.
+  * option to auto-skip predefined countries/regions/cities.
+  * option to search for specific countries/regions/cities.
+  * iknowwhatyoudownload integration that allows you to open a list of torrents possibly downloaded by a stranger.
+  * option to select the language of ip geolocation data from English, Deutsch (German), Español (Spanish), Português (Portuguese), Français (French), 日本語 (Japanese), 中国 (Chinese), and Русский (Russian).
+  * option to select which ip geolocation services will be used.
+
 * **map**
-    * IP Locator's data is displayed on a world map
-* **auto-skip of certain genders**
-    * ai-powered client-side gender recognition
-    * possibility to add a stranger to the blacklist if he was skipped because of gender
-    * statistics on the number of men/women encountered
-* **search for specific cities/regions**
-    * auto-skip if the stranger is not from a list of cities/regions you have specified
-* **iknowwhatyoudownload**
-    * allows to open a window with a list of torrents potentially downloaded by a stranger
-    * it's a great way to talk to a stranger about their tastes in games, music, movies
-    * does not work for mobile/vpn/tor connections
-    * not useful in countries where torrents are illegal
-* **screenshot**
-    * the ability to take screenshot from a stranger's camera
-    * the ability to take screenshot from your own camera
-* **picture-in-picture**
-    * ability to activate PiP mode on remote/local camera
-    * this way you can see people while you are doing other things on your PC
-* **local hotkeys**
-    * use the keyboard arrows to skip/skip+blacklist/stop/report
-* **global hotkeys**
-    * browser-level hotkeys to skip/skip+blacklist/stop
-    * browser-level hotkeys to make remote/local screenshot
-    * browser-level hotkey to switch from the current tab to the chat tab and back
-* **automation**
-    * auto-skip strangers that take more than 4 seconds to connect
-    * auto-skip if you were looking for someone from X country but the videochat found you someone from Y country
-    * automatically close 'make yourself visible'
-* **blacklist**
-    * ability to blacklist the stranger's IP to auto-skip him the next time you meet
-    * option not to add mobile IPs to the blacklist due to their temporary nature
-    * statistics on how many blacklisted IPs you've encountered again
-* **statistics**
-    * counts the number of people you've met in video chat
-    * counts how much time you spent in video chat
-    * counts various statistics for other modules such as blacklist / gender skipping
-* **interface tweaks**
-    * dark mode
-    * hide/show logo, banner, header, watermark
-    * ability to cancel camera reflection (not on all platforms)
-    * ability to disable cropping stranger's video (not on all platforms)
-    * ability to hide your own camera to make conversation more natural
-* **streamer mode**
-    * a set of features to help streamers to combat nsfw on streams and much more
-    * ability to hide a stranger's camera image with a blur or custom picture/gif and look at it in picture-in-picture
-      mode to check for nsfw
-    * optional auto blurring/hiding when starting a new conversation
-    * hotkey to mute/blur/cover a stranger
-    * this mode is in alfa version, if you have feedback please contact the developer in the project's discord
-* **other less important QoL-features**
+  * IP geolocation data is displayed on a world map embedded in the UI.
+  * displays the approximate area where the stranger you are talking to may be located.
+  * displays a marker popup with information about the stranger's approximate location.
+  * different options to customize map's behavior.
 
-**Not all extension features are available on all platforms.**
+* **faceapi (gender recognition)**
+  * AI-powered client-side gender recognition.
+  * option to auto-skip strangers if their gender does not meet your expectations.
+  * integration with the 'blacklist' module: option to automatically add strangers that were skipped by facepi to the blacklist.
+  * integration with the 'stats' module: counts the statistics of how many men and women you met and how many were auto-skipped.
+
+* **interface**
+  * dark mode (dark theme).
+  * option to hide your own camera to make conversation more natural.
+  * option to hide/show logo, banner, header, and watermark (not on all platforms).
+  * option to cancel camera reflection (not on all platforms).
+  * option to disable cropping stranger's video (not on all platforms).
+
+* **automation**
+  * option to auto-skip strangers that take more than 4 seconds to connect
+  * option to auto-skip if you were looking for someone from X country but the video chat found you someone from Y country (not on all platforms)
+  * option to automatically close 'make yourself visible' (not on all platforms)
+
+* **blacklist**
+  * you can add a stranger's IP address to the blacklist so that the extension can automatically skip them.
+  * integration with the 'hotkeys' module: hotkey to add stranger to the blacklist and skip.
+  * option to avoid adding cellular IPs to the blacklist.
+  * option to play a sound when the extension auto-skips a blacklisted IP.
+  * option to clear the blacklist.
+
+* **stats**
+  * counts the number of people you've met.
+  * counts how much time you've spent in conversations.
+  * counts various statistics for other modules such as faceapi / blacklist.
+
+* **controls**
+  * improvised control panel that acts as the extension UI.
+  * it consists of a header, a content block, and tabs that select what will be displayed in the content block.
+  * list of tabs: 'IP', 'Map', 'Bans', 'Stats', 'Settings', 'Info'.
+  * the 'Info' tab contains helpful information about the extension: useful links, credits, version history, etc.
+  * the header contains the extension name/version, and blocks with buttons for the extension functionality.
+  * use the header's buttons to take a screenshot of the cameras / open the camera in picture-in-picture mode.
+  * provides control buttons for other modules such as 'streamer mode'.
+
+* **hotkeys**
+  * local hotkeys: use the keyboard arrows to skip/skip+blacklist/stop/report.
+  * global hotkeys: browser-level shortcuts to skip/skip+blacklist/stop.
+  * global hotkeys: browser-level shortcuts to make remote/local screenshots.
+  * global hotkeys: browser-level shortcut to switch between the last non-chat tab and the chat tab.
+  * provides hotkeys functionality for other modules such as 'streamer mode'.
+
+* **settings**
+  * this module is responsible for the functionality of the 'Settings' tab in the UI.
+  * all settings are grouped by their module.
+  * if you hover over a setting, detailed information about what this setting does will be displayed.
+
+* **streamer mode**
+  * a section of specialized features that help streamers broadcast video chats on YouTube and other services.
+  * OBS integration - allows you to display IP geolocation data in the text source and control the visibility of the image, which covers the video while you look for a suitable interlocutor.
+  * blur & cover - allows you to cover the interlocutor's camera with a blur/picture/gif and look at it through picture-in-picture mode to decide if the interlocutor is suitable to show to your audience.
+  * integration with the 'hotkeys' module: local shortcuts to toggle mute/blur/cover.
+  * integration with the 'controls' module: header buttons to toggle mute/blur/cover.
 
 ## Supported chats
 
