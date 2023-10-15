@@ -12,7 +12,7 @@ export class ContentSwalInfoCoomeetFreeSimplified extends SwalWithSteps {
     public constructor() {
         super();
         this.platform = "Coomeet Free"
-        let copyrightLicense = `<b style="font-weight: bold!important;">Videochat Extension is an <a style="text-decoration:none;" target="_blank" href="https://github.com/qrlk/videochat-extension">open source</a> extension <a style="text-decoration:none;" target="_blank" href="https://github.com/videochat-extension/videochat-extension/blob/main/LICENSE">licensed under BSD-4</a>.</b><br><br><b style="font-weight: bold!important;">Copyright (c) 2021-2023, <a href="http://qrlk.me" style="text-decoration: none!important;" target="_blank">Fyodor Kurlyuk</a><br>
+        let copyrightLicense = `<b style="font-weight: bold!important;">Videochat Extension is an <a style="text-decoration:none;" target="_blank" href="https://github.com/qrlk/videochat-extension">open-source</a> extension <a style="text-decoration:none;" target="_blank" href="https://github.com/videochat-extension/videochat-extension/blob/main/LICENSE">licensed under BSD-4</a>.</b><br><br><b style="font-weight: bold!important;">Copyright (c) 2021-2023, <a href="http://qrlk.me" style="text-decoration: none!important;" target="_blank">Fyodor Kurlyuk</a><br>
             All rights reserved.</b></div>`
         this.values = [
             chrome.i18n.getMessage('swalInfoCoomeetFreeSimplified', this.platform) + copyrightLicense

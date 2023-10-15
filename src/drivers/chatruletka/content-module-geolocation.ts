@@ -1104,7 +1104,7 @@ export class ControlsTabApi {
                 src: 'https://img.shields.io/github/last-commit/videochat-extension/videochat-extension?label=last%20commit&style=plastic&logo=github',
                 strength: 1,
                 enabled: true,
-                text: `Our source code is available on <a href=\"https://github.com/videochat-extension\" target=\"_blank\" style=\"text-decoration: none!important;\">GitHub</a>!<br><br>This extension is an open source project (BSD-4) and will always be distributed free of charge.`
+                text: `Our source code is available on <a href=\"https://github.com/videochat-extension\" target=\"_blank\" style=\"text-decoration: none!important;\">GitHub</a>!<br><br>This extension is an open-source project (BSD-4) and will always be distributed free of charge.`
             },
 
             {
@@ -1113,7 +1113,7 @@ export class ControlsTabApi {
                 src: 'https://img.shields.io/github/stars/videochat-extension/videochat-extension?label=Star%20this%20project%20on%20GitHub&style=plastic&logo=github',
                 strength: 1,
                 enabled: true,
-                text: `Our source code is available on <a href=\"https://github.com/videochat-extension\" target=\"_blank\" style=\"text-decoration: none!important;\">GitHub</a>!<br><br>This extension is an open source project (BSD-4 license) and will always be distributed for free.`
+                text: `Our source code is available on <a href=\"https://github.com/videochat-extension\" target=\"_blank\" style=\"text-decoration: none!important;\">GitHub</a>!<br><br>This extension is an open-source project (BSD-4 license) and will always be distributed for free.`
             },
 
             {
@@ -1139,7 +1139,7 @@ export class ControlsTabApi {
                 src: undefined,
                 enabled: true,
                 strength: 1,
-                text: "This extension is an independent open source project.<br><br>The developer is not affiliated with the video chats that the extension supports, and does not even have any contact with their administration.<br><br>However, the project maintains its own <a href=\"https://github.com/videochat-extension/videochat-extension#policy-of-neutrality-acceptable-use-and-functional-limitations\" target=\"_blank\" style=\" text-decoration: none!important;\">policy of neutrality, acceptable use and functional limitations</a>, which prohibits commercial relations with video chats, competing with their paid features, as well as developing functionality that may be dangerous for their ecosystem. This greatly reduces the need for any countermeasures.<br><br>In theory, video chats have the ability to prevent the extension from working at their code level, but simple functions (like the geolocation of the interlocutor) can still be implemented in a separate program."
+                text: "This extension is an independent open-source project.<br><br>The developer is not affiliated with the video chats that the extension supports, and does not even have any contact with their administration.<br><br>However, the project maintains its own <a href=\"https://github.com/videochat-extension/videochat-extension#policy-of-neutrality-acceptable-use-and-functional-limitations\" target=\"_blank\" style=\" text-decoration: none!important;\">policy of neutrality, acceptable use and functional limitations</a>, which prohibits commercial relations with video chats, competing with their paid features, as well as developing functionality that may be dangerous for their ecosystem. This greatly reduces the need for any countermeasures.<br><br>In theory, video chats have the ability to prevent the extension from working at their code level, but simple functions (like the geolocation of the interlocutor) can still be implemented in a separate program."
             },
 
             {
@@ -1157,7 +1157,7 @@ export class ControlsTabApi {
                 src: undefined,
                 strength: 1,
                 enabled: true,
-                text: "We respect your privacy.<br><br>We do not analyze your activities on the sites, collect any data about you, or log your geolocation requests.<br><br>This extension doesn't track you — it is <a href=\" https://github.com/videochat-extension\" target=\"_blank\" style=\"text-decoration: none!important;\">open source</a> so you can go check for yourself."
+                text: "We respect your privacy.<br><br>We do not analyze your activities on the sites, collect any data about you, or log your geolocation requests.<br><br>This extension doesn't track you — it is <a href=\" https://github.com/videochat-extension\" target=\"_blank\" style=\"text-decoration: none!important;\">open-source</a> so you can go check for yourself."
             },
 
             {
@@ -1331,7 +1331,7 @@ export class ControlsTabApi {
                 src: undefined,
                 enabled: true,
                 strength: 1,
-                text: "Расширение является независимым open source проектом.<br><br>Разработчик не аффилирован с видеочатами, которые поддерживает расширение, и даже не имеет никаких контактов с их администрацией.<br><br>Тем не менее, проект придерживается собственной <a href=\"https://github.com/videochat-extension/videochat-extension#policy-of-neutrality-acceptable-use-and-functional-limitations\" target=\"_blank\" style=\"text-decoration: none!important;\">политики нейтральности, допустимого использования и функциональных ограничений</a>, которая запрещает коммерчески сотрудничать с видеочатами, составлять конкуренцию их платным функциям, а так же разрабатывать опасный для их экосистемы функционал. Это сильно снижает необходимость контр-мер со стороны чатов.<br><br>В теории видеочаты имеют возможность намеренно помешать расширению работать на уровне кода сайта, но простые функции (вроде геолокации собеседника) всё равно будет возможно реализовать в виде отдельной программы."
+                text: "Расширение является независимым open-source проектом.<br><br>Разработчик не аффилирован с видеочатами, которые поддерживает расширение, и даже не имеет никаких контактов с их администрацией.<br><br>Тем не менее, проект придерживается собственной <a href=\"https://github.com/videochat-extension/videochat-extension#policy-of-neutrality-acceptable-use-and-functional-limitations\" target=\"_blank\" style=\"text-decoration: none!important;\">политики нейтральности, допустимого использования и функциональных ограничений</a>, которая запрещает коммерчески сотрудничать с видеочатами, составлять конкуренцию их платным функциям, а так же разрабатывать опасный для их экосистемы функционал. Это сильно снижает необходимость контр-мер со стороны чатов.<br><br>В теории видеочаты имеют возможность намеренно помешать расширению работать на уровне кода сайта, но простые функции (вроде геолокации собеседника) всё равно будет возможно реализовать в виде отдельной программы."
             },
 
             {

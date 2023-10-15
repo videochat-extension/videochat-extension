@@ -69,7 +69,7 @@
     "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"reviewImageContainer\"></div><br><b>Important:</b><br>This extension is a hobby project and is not affiliated with '$1' in any way.</div></div>"
   },
   "mainPatreon": {
-    "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"patreonImageContainer\"></div><br><b>Important:</b><br>This third-party browser extension is a free & open source project, but it exists and evolves only because of people who support us on <a href=\"https://patreon.com/videochat_extension\" target='_blank' style=\"text-decoration: none!important;\">Patreon</a>!<br><br>Become our patron today to significantly improve your geolocation accuracy and get access to the monthly progress reports!</div></div>"
+    "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"patreonImageContainer\"></div><br><b>Important:</b><br>This third-party browser extension is a free & open-source project, but it exists and evolves only because of people who support us on <a href=\"https://patreon.com/videochat_extension\" target='_blank' style=\"text-decoration: none!important;\">Patreon</a>!<br><br>Become our patron today to significantly improve your geolocation accuracy and get access to the monthly progress reports!</div></div>"
   },
   "main2": {
     "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"reviewImageContainer\"></div><br><b>Important:</b><br>This extension is a hobby project and is not affiliated with '$1' in any way.<br><br>P.S. 'Advanced' mode for Omegle is still work-in-progress, expect minor bugs and missing features.</div></div>"
@@ -987,7 +987,7 @@
     "message": "This browser extension is developed by indie developers."
   },
   "popupTreePatreonPerksSupportText2": {
-    "message": "Videochat Extension is a free and open source project, but it exists and evolves only thanks to those users who support the project on Patreon."
+    "message": "Videochat Extension is a free and open-source project, but it exists and evolves only thanks to those users who support the project on Patreon."
   },
   "popupTreePatreonPerksSupportText3": {
     "message": "Your support allows us to cover project costs (such as server costs and geolocation services) and spend much more time on development and testing."
