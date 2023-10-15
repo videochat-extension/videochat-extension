@@ -128,7 +128,7 @@ export class SwalWithSteps {
     }
 }
 
-export class ContentSwalInfoSimplified extends SwalWithSteps {
+export class ContentSwalInfoChatruletkaSimplified extends SwalWithSteps {
     protected steps = ['🎉']
     protected titles = [
         chrome.i18n.getMessage("swalInfoTitle1")

@@ -2,7 +2,7 @@ import {ChatruletkaDriver} from "../content-driver-chatruletka";
 import * as utils from "../../utils/utils";
 import $ from "jquery";
 import {ContentSwalChangelog} from "../../swal/content-swal-changelog";
-import {ContentSwalInfoSimplified} from "./content-swal-info";
+import {ContentSwalInfoChatruletkaSimplified} from "./content-swal-info";
 import {ControlsTabApi} from "./content-module-geolocation";
 import Swal from "sweetalert2";
 import {OmegleDriver} from "../content-driver-omegle";
@@ -646,7 +646,7 @@ export class ControlsTabAbout {
     }
 
     protected showSwalWelcome() {
-        new ContentSwalInfoSimplified(this.driver.platform.name).showFromStart()
+        new ContentSwalInfoChatruletkaSimplified(this.driver.platform.name).showFromStart()
     }
 }
 

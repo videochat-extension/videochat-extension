@@ -9,7 +9,7 @@ import {switchMode} from "./drivers/chatruletka/content-swal-switchmode";
 import {switchModeOmegle} from "./drivers/omegle/content-swal-switchmode";
 import {injectScript} from "./drivers/chatruletka/content-module-geolocation";
 import {injectContextInvalidatedCheck} from "./swal/content-swal-context-invalidated"
-import {ContentSwalInfoSimplified} from "./drivers/chatruletka/content-swal-info";
+import {ContentSwalInfoChatruletkaSimplified} from "./drivers/chatruletka/content-swal-info";
 import {ContentSwalChangelog} from "./swal/content-swal-changelog";
 import {extractHost, getPlatformByHost, getUserBrowser} from "./utils/utils";
 import * as Sentry from "@sentry/browser";
@@ -95,7 +95,7 @@ async function content() {
 
     async function processSwals(website: { site?: any; platform: any; }) {
         if (!globalThis.platformSettings.get("swalInfoCompleted")) {
-            new ContentSwalInfoSimplified(website.platform.name).showFromStart()
+            new ContentSwalInfoChatruletkaSimplified(website.platform.name).showFromStart()
         } else {
             if (settings.allowShowChangelog) {
                 if (settings.lastVersion !== chrome.runtime.getManifest().version) {
