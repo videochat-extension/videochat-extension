@@ -1492,5 +1492,11 @@
   },
   "clog_v2_1_0_summary": {
     "message": "Reworked the changelog system towards simplification and support for multiple languages.\nActualized the Patreon section. Patreon gained more visibility.\nThe extension is now named the same in all localizations.\nMinor fixes and improvements."
+  },
+  "clog_v2_2_0_title": {
+    "message": "Omegle is dead."
+  },
+  "clog_v2_2_0_summary": {
+    "message": "Added a message about the death of omegle.\nRedesigned post-install page.\nSimplified welcome windows for each platform."
   }
 }
