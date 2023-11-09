@@ -19,6 +19,7 @@ import {ContentSwalInfoOmegleSimplified} from "./drivers/omegle/content-swal-inf
 import {CooMeetFreeSimpleDriver} from "./drivers/content-driver-coomeetfree-simple";
 import {ContentSwalInfoCoomeetFreeSimplified} from "./drivers/coomeetfree/content-swal-info";
 import {OmegleDriver} from "./drivers/content-driver-omegle";
+import Swal from "sweetalert2";
 
 injectScript('injection/ip-api.js')
 
@@ -207,42 +208,64 @@ async function content() {
             break;
         }
         case "Omegle": {
-            if (location.pathname === "/" && window === window.top) {
-                if (globalThis.platformSettings.get("askForMode")) {
-                    document.arrive("body", {onceOnly: true, existing: true}, async () => {
-                        switchModeOmegle()
-                    })
-                    return false
-                } else if (globalThis.platformSettings.get("minimalism")) {
-                    document.arrive("body", {onceOnly: true, existing: true}, async () => {
-                        injectContextInvalidatedCheck()
-                        await globalThis.platformSettings.setDriverDefaults({
-                            darkMode: false,
-                            c1Checked: false,
-                            c2Checked: false
-                        })
-                        globalThis.driver = OmegleSimpleDriver.getInstance()
-                        globalThis.driver.start(document.body)
-                        if (!globalThis.platformSettings.get("swalInfoCompleted")) {
-                            new ContentSwalInfoOmegleSimplified().showFromStart()
-                        }
-                    })
-                    return false
-                } else {
-                    await globalThis.platformSettings.setDriverDefaults(OmegleDriver.defaults)
-                    document.arrive("body", {onceOnly: true, existing: true}, async () => {
-                        if (website) {
-                            injectContextInvalidatedCheck()
-                            processSwals(website)
-                            globalThis.driver = OmegleDriver.getInstance(website)
-                            globalThis.driver.start(document.body)
-                            if (!globalThis.platformSettings.get("swalInfoCompleted")) {
-                                new ContentSwalInfoOmegleSimplified().showFromStart()
-                            }
-                        }
-                    })
-                }
-            }
+            document.arrive("body", {onceOnly: true, existing: true}, async () => {
+                Swal.fire({
+                    title: "Videochat Extension",
+                    html: "<b>Omegle is officially dead.</b><br><br>We're still in shock ourselves, but there's no point in denying reality. At the moment omegle is dead and there is no pulse.<br>" +
+                        "<br>" +
+                        "<b>Join our <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://patreon.com/videochat_extension\">free patreon community</a> or <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/7DYWu5RF7Y\">discord server</a> to stay in touch and keep up with the news.</b><br>" +
+                        "<br>" +
+
+                        "While nothing will ever replace omegle, we will keep an eye on what will try to fill this void and add support for new video chat sites in the future.<br>" +
+                        "<br>" +
+                        "<b>For now, we recommend <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://ome.tv\">ome.tv</a> as the most suitable alternative to omegle</b>.<br><br>This platform has very good moderation, established mobile apps, a huge number of users in different countries and the big plus is that it has been around since 2010. This message has not been sponsored and is in fact our unbiased opinion.<br>" +
+                        "<br>" +
+                        "The extension originally started from that platform, so we support all of our features there (including geolocation, blacklisting, gender recognition and more).<br>" +
+                        "<br>" +
+                        "<b>Join our <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://patreon.com/videochat_extension\">free patreon community</a> or <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://discord.gg/7DYWu5RF7Y\">discord server</a> to stay in touch and keep up with the news.</b><br>" +
+                        "<br>" +
+                        "Omegle, thank you for everything you've been to us and everything you've inspired to create.",
+                    footer: "This message was created by <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://videochat-extension.starbase.wiki\"> Videochat Extension</a>.",
+                    icon: "info"
+                });
+            })
+
+            // if (location.pathname === "/" && window === window.top) {
+            // if (globalThis.platformSettings.get("askForMode")) {
+            //     document.arrive("body", {onceOnly: true, existing: true}, async () => {
+            //         switchModeOmegle()
+            //     })
+            //     return false
+            // } else if (globalThis.platformSettings.get("minimalism")) {
+            //     document.arrive("body", {onceOnly: true, existing: true}, async () => {
+            //         injectContextInvalidatedCheck()
+            //         await globalThis.platformSettings.setDriverDefaults({
+            //             darkMode: false,
+            //             c1Checked: false,
+            //             c2Checked: false
+            //         })
+            //         globalThis.driver = OmegleSimpleDriver.getInstance()
+            //         globalThis.driver.start(document.body)
+            //         if (!globalThis.platformSettings.get("swalInfoCompleted")) {
+            //             new ContentSwalInfoOmegleSimplified().showFromStart()
+            //         }
+            //     })
+            //     return false
+            // } else {
+            //     await globalThis.platformSettings.setDriverDefaults(OmegleDriver.defaults)
+            //     document.arrive("body", {onceOnly: true, existing: true}, async () => {
+            //         if (website) {
+            //             injectContextInvalidatedCheck()
+            //             processSwals(website)
+            //             globalThis.driver = OmegleDriver.getInstance(website)
+            //             globalThis.driver.start(document.body)
+            //             if (!globalThis.platformSettings.get("swalInfoCompleted")) {
+            //                 new ContentSwalInfoOmegleSimplified().showFromStart()
+            //             }
+            //         }
+            //     })
+            // }
+            // }
             break;
         }
         case "Coomeet Free": {
