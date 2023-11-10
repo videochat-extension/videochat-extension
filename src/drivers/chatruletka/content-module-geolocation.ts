@@ -1278,6 +1278,15 @@ export class ControlsTabApi {
                 enabled: true,
                 text: `You can report an extension-related problem using this <a href=\"https://videochat-extension.starbase.wiki/en?report-bug-en\" target=\"_blank\" style=\"text-decoration: none!important;\">google form</a>.`
             },
+
+            {
+                imgcontainer: "reviewImageContainer",
+                href: undefined,
+                src: undefined,
+                strength: 50,
+                enabled: !globalThis.platformSettings.get("autostopafterskip"),
+                text: this.hintsGenerateCheckboxShorcut('autostopafterskipCheck', 'You can enable the \'auto-stop after skip\' feature:', 'hintAutostopafterskipCheck') + '<br><br>Migrating from Omegle?<br><br>We\'ve just added a new automation feature that can automatically pause the chat when your interlocutor skips you.'
+            },
         ],
         "ru": [
             {
