@@ -585,7 +585,7 @@
     "message": "Enable this to show ISP (Internet Service Provider) data if available."
   },
   "autoOpenPopup": {
-    "message": "map: auto-open popup: "
+    "message": "map - auto-open popup: "
   },
   "tooltipAutoOpenPopup": {
     "message": "If enabled, in the 'map' section, a window with information about the location will open automatically. If disabled, you can still open it manually."
