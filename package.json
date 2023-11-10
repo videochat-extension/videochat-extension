@@ -1,6 +1,6 @@
 {
   "name": "videochat-extension",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "",
   "scripts": {
     "ext:chrome": "rimraf 'webpack_builds/release_chrome' && cross-env BROWSER='chrome' DIR='webpack_builds/release_chrome' webpack --config webpack/webpack.prod.js",
