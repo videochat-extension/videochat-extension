@@ -69,7 +69,7 @@ export function insertOmegleDeathAnnouncement() {
                             clearTimeout(timeout);
 
                         let reduceVolume = () => {
-                            if (sadMusic.volume > 0.2) {
+                            if (sadMusic.volume > 0.35) {
                                 sadMusic.volume = sadMusic.volume - 0.01
                             }
                             timeout = setTimeout(reduceVolume, 250)
