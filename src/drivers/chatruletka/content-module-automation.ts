@@ -9,6 +9,7 @@ export class AutomationModule {
         skipFourSec: false,
         autoResume: false,
         skipwrongcountry: false,
+        autostopafterskip: false,
     }
     public settings = [
         {
@@ -41,6 +42,13 @@ export class AutomationModule {
             key: "skipwrongcountry",
             text: chrome.i18n.getMessage("autoskipwrongcountry"),
             tooltip: chrome.i18n.getMessage("tooltipAutoskipWrongCountry")
+        },
+        {
+            type: "checkbox",
+            important: false,
+            key: "autostopafterskip",
+            text: chrome.i18n.getMessage("autostopafterskip"),
+            tooltip: chrome.i18n.getMessage("tooltipAutoStopAfterSkip")
         },
     ]
     private driver: ChatruletkaDriver;
@@ -138,4 +146,6 @@ export class AutomationModule {
             }
         })
     }
+
+    public needToStop = false;
 }

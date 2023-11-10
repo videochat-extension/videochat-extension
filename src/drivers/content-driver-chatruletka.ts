@@ -164,6 +164,11 @@ export class ChatruletkaDriver {
         this.injectSwitchModeButton()
 
         document.getElementsByClassName('buttons__button start-button')[0].addEventListener("click", (e) => {
+            if (this.modules.automation) {
+                this.addStringToLog (false, "NEED_TO_STOP => FALSE");
+                this.modules.automation.needToStop = false
+            }
+
             if (this.stage === 4) {
                 if (this.modules.stats) {
                     this.modules.stats.increaseManSkip()
@@ -238,6 +243,11 @@ export class ChatruletkaDriver {
                 if (attributeValue.includes("s-stop")) {
                     this.stage = 0;
 
+                    if (this.modules.automation) {
+                        this.addStringToLog (false, "NEED_TO_STOP => FALSE");
+                        this.modules.automation.needToStop = false
+                    }
+
                     if (this.modules.faceapi) {
                         this.modules.faceapi.stop()
                     }
@@ -289,6 +299,15 @@ export class ChatruletkaDriver {
                     if (this.modules.streamer && globalThis.platformSettings.get("streamer")) {
                         this.modules.streamer.onStageSearch()
                     }
+
+                    if (this.modules.automation) {
+                        if (this.modules.automation.needToStop) {
+                            if (globalThis.platformSettings.get("autostopafterskip")) {
+                                this.addStringToLog(false, "skip");
+                                (document.getElementsByClassName('buttons__button stop-button')[0] as HTMLElement).click()
+                            }
+                        }
+                    }
                 } else if (attributeValue.includes("s-found")) {
                     this.stage = 2;
 
@@ -306,7 +325,10 @@ export class ChatruletkaDriver {
                     }
                 } else if (attributeValue.includes("s-play")) {
                     this.stage = 4;
-
+                    if (this.modules.automation) {
+                        this.addStringToLog (false, "NEED_TO_STOP => TRUE");
+                        this.modules.automation.needToStop = true
+                    }
                     if (this.modules.faceapi) {
                         this.modules.faceapi.start(0)
                     }
