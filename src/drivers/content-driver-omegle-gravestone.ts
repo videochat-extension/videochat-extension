@@ -37,7 +37,7 @@ export function insertOmegleDeathAnnouncement() {
                         "<b>To help you transition to ome, we've published a <a style=\"text-decoration:none;\" target=\"_blank\" href=\"https://www.patreon.com/posts/92577234\">post on Patreon</a> with important information for long-term omegle users.</b>" +
                         "<br>" +
                         "<br>" +
-                        "The extension was originally built for that platform, so we support all of our features there (including geolocation, blacklists, gender recognition, and more).<br>" +
+                        "The extension was originally built for that platform, so we support all of our features there (including geolocation, blacklist, gender recognition, and more).<br>" +
                         "<br>" +
                         "We will try to add more features to the extension to ease the transition for long-term omegle users.<br>" +
                         "<br>" +
