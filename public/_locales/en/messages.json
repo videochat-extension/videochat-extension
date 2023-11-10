@@ -69,7 +69,7 @@
     "message": "Leave%20a%20review%20in%20the%20Firefox%20Add-ons%20Store"
   },
   "main": {
-    "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"reviewImageContainer\"></div><br><b>Important:</b><br>This extension is a hobby project and is not affiliated with '$1' in any way.</div></div>"
+    "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"reviewImageContainer\"></div><br><b>Important:</b><br>This extension is a hobby project and is not affiliated with '$1' in any way.<br><br>Your feedback gives us the motivation to keep working on the extension even after all the hard work to add Omegle support turned out to be a waste of time :(</div></div>"
   },
   "mainPatreon": {
     "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"patreonImageContainer\"></div><br><b>Important:</b><br>This third-party browser extension is a free & open-source project, but it exists and evolves only because of people who support us on <a href=\"https://patreon.com/videochat_extension\" target='_blank' style=\"text-decoration: none!important;\">Patreon</a>!<br><br>Become our patron today to significantly improve your geolocation accuracy and get access to the monthly progress reports!</div></div>"
