@@ -185,6 +185,12 @@
   "tooltipAutoskipWrongCountry": {
     "message": "automatically skip if you are looking for someone from X country but chatruletka found you someone from Y country"
   },
+  "autostopafterskip": {
+    "message": "autostop after skip:"
+  },
+  "tooltipAutoStopAfterSkip": {
+    "message": "Automatically stops after your conversation partner has skipped you. This setting may be useful for long-term Omegle users who do not like the fast pace."
+  },
   "autoresume": {
     "message": "autoresume:"
   },
