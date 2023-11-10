@@ -528,7 +528,7 @@ export class GeolocationModule {
     private targetSound = new Audio(chrome.runtime.getURL('resources/audio/found.mp3'))
     public delayIPs: string[] = [];
     private needToShowHint = globalThis.platformSettings.get("showHints") ? (globalThis.platformSettings.get("showHintsMoreOften") ? true : utils.getRandomInt(1, 3) === 2) : false;
-    private needToPromotePatreon = !globalThis.patreon && !isPatreonBlocked()
+    private needToPromotePatreon = false //!globalThis.patreon && !isPatreonBlocked()
     private hint: number = -1;
     private apiProviders = this.getApiProviders();
     public checks = 0
