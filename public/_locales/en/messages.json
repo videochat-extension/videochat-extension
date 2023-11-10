@@ -771,7 +771,7 @@
     "message": "show hints more often:"
   },
   "tooltipshowHintsMoreOften": {
-    "message": "if enabled, hints will show every time you open a video chat. if disabled, there is only a 33% chance of appearing"
+    "message": "if enabled, hints will show every time you open a video chat. if disabled, there is only a 20% chance of appearing"
   },
   "logToChat": {
     "message": "show log in the chat:"
