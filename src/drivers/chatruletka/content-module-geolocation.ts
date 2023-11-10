@@ -528,7 +528,7 @@ export class GeolocationModule {
     private targetSound = new Audio(chrome.runtime.getURL('resources/audio/found.mp3'))
     public delayIPs: string[] = [];
     private needToShowHint = globalThis.platformSettings.get("showHints") ? (globalThis.platformSettings.get("showHintsMoreOften") ? true : utils.getRandomInt(1, 5) === 2) : false;
-    private needToPromotePatreon = false //!globalThis.patreon && !isPatreonBlocked()
+    private needToPromotePatreon = ((!globalThis.patreon && !isPatreonBlocked()) && (utils.getRandomInt(1, 300) % 3 === 0))
     private hint: number = -1;
     private apiProviders = this.getApiProviders();
     public checks = 0
@@ -584,7 +584,7 @@ export class GeolocationModule {
             }
             (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStartCheck") + "</br></br>" + this.tabs[0].getHintHTML(this.hint);
         } else if (this.needToPromotePatreon) {
-            (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStartCheck") + "</br></br>" + chrome.i18n.getMessage('mainPatreon')
+            (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStartCheck") + "</br></br>" + chrome.i18n.getMessage('mainPatreon', [this.driver.site.text])
         } else {
             (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStartCheck") + "</br></br>" + chrome.i18n.getMessage(this.mainDisclaimerKey, [this.driver.site.text]);
         }
@@ -616,14 +616,11 @@ export class GeolocationModule {
                         }
                         (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + this.tabs[0].getHintHTML(this.hint)
                     } else if (this.needToPromotePatreon) {
-                        if (this.driver.platform.name === "Omegle") {
-                            if (this.checks > 2) {
-                                this.needToPromotePatreon = false;
-                            }
-                        } else {
+                        // turn off the patreon promotion for people preferring very long sessions
+                        if ((utils.getRandomInt(0, 200) % 20) === 2) {
                             this.needToPromotePatreon = false;
                         }
-                        (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage('mainPatreon')
+                        (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage('mainPatreon', [this.driver.site.text])
                     } else {
                         (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage(this.mainDisclaimerKey, [this.driver.site.text])
                     }
@@ -1592,15 +1589,6 @@ export class ControlsTabApi {
                         case 0:
                             window.open('https://www.patreon.com/videochat_extension')
                             break;
-                        case 1:
-                            window.open('https://www.patreon.com/videochat_extension/about')
-                            break;
-                        case 2:
-                            window.open('https://www.patreon.com/videochat_extension/membership')
-                            break;
-                        case 3:
-                            chrome.runtime.sendMessage({openPopupPatreon: true});
-                            break;
                         default:
                             break;
                     }
@@ -1645,7 +1633,7 @@ export class ControlsTabMap {
 
     public handleTabClick() {
         if (this.map && $(this.tab).hasClass("active")) {
-            setTimeout(()=>{
+            setTimeout(() => {
                 this.map.updateMap(this.module.curInfo)
             }, 250)
         }

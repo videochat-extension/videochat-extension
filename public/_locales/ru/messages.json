@@ -63,7 +63,7 @@
     "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"reviewImageContainer\"></div><br><b>Важно:</b><br>Это расширение не имеет никакого отношения к администрации видеочата '$1'.</div></div>"
   },
   "mainPatreon": {
-    "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"patreonImageContainer\"></div><br><b>Важно:</b><br>Это стороннее браузерное расширение является бесплатным open source проектом, но мы можем существовать и развиваться только благодаря людям, которые поддерживают нас на <a href=\"https://patreon.com/videochat_extension\" target='_blank' style=\"text-decoration: none!important;\">Patreon</a>!<br><br>Поддержите проект сегодня, чтобы значительно улучшить точность геолокации и получить доступ к ежемесячным отчётам о прогрессе!</div></div>"
+    "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"patreonImageContainer\"></div><br><b>Important:</b><br>Это расширение не имеет никакого отношения к администрации видеочата '$1'.<br><br>Нравится расширение? Вступайте в <a href=\"https://patreon.com/videochat_extension\" target='_blank' style=\"text-decoration: none!important;\">наше бесплатное Patreon сообщество</a>, чтобы оставаться на связи и следить за новостями проекта (это бесплатно!).<br><br>Вы так же можете <a href=\"https://patreon.com/join/videochat_extension\" target='_blank' style=\"text-decoration: none!important;\">поддержать проект</a>, чтобы помочь нам покрыть расходы и значительно улучшить точность геолокации собеседников (для наших патронов мы используем в 500 раз более дорогой сервис геолокации).</div></div>"
   },
   "main2": {
     "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"reviewImageContainer\"></div><br><b>Важно:</b><br>Это расширение не имеет никакого отношения к администрации видеочата '$1'.<br><br>'Полноценный режим' для Omegle всё ещё в разработке, ожидайте багов.</div></div>"
@@ -744,7 +744,7 @@
     "message": "https://img.shields.io/discord/925632108150530108?label=%D0%92%D1%81%D1%82%D1%83%D0%BF%D0%B0%D0%B9%D1%82%D0%B5%20%D0%B2%20%D0%BD%D0%B0%D1%88%20%D0%BE%D1%84.%20Discord%20%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80&logo=discord&style=plastic&cacheSeconds=600"
   },
   "mainPatreonBadge": {
-    "message": "https://img.shields.io/badge/Patreon_-%D0%9F%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D1%82%D1%8C_%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82-blue?style=plastic&logo=patreon&color=red"
+    "message": "https://img.shields.io/badge/Patreon_-%D0%92%D1%81%D1%82%D1%83%D0%BF%D0%B0%D0%B9%D1%82%D0%B5_%D0%B2_%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D0%BE%D0%B5_Patreon_%D1%81%D0%BE%D0%BE%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%BE-blue?style=plastic&logo=patreon&color=black"
   },
   "expand": {
     "message": "увеличить высоту 'Настройки':"
