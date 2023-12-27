@@ -226,7 +226,7 @@ export class CooMeetFreeSimpleDriver {
                 className: 'free-cm-video-out__panel-item'
             }, [
                 utils.createElement('span', {
-                    innerText: "v" + chrome.runtime.getManifest().version,
+                    innerText: "Videochat Extension v" + chrome.runtime.getManifest().version,
                     title: chrome.i18n.getMessage('freecmExtensionHeaderTitle'),
                     style: "white-space: nowrap; overflow: hidden; cursor: pointer;user-select:none;",
                     onclick: () => {
@@ -358,7 +358,7 @@ export class CooMeetFreeSimpleDriver {
                 setting1.style.display = "none"
                 setting2.style.display = "none"
                 setting3.style.display = "none";
-                (extensionHeader.firstChild as HTMLElement).innerText = "v" + chrome.runtime.getManifest().version
+                (extensionHeader.firstChild as HTMLElement).innerText = "Videochat Extension v" + chrome.runtime.getManifest().version
             })
         })
     }
