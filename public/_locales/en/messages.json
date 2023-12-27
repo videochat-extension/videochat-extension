@@ -1510,5 +1510,11 @@
   },
   "clog_v2_2_1_summary": {
     "message": "Added a new automation feature: 'auto-stop after skip'. It should help long-term Omegle users to adapt to ome.\nAdapted to the Patreon redesign, which now allows you to [join for free](https://patreon.com/videochat_extension) to subscribe to the newsletter.\nImproved the Videochat Extension's announcement on the gravestoned Omegle.\nMinor improvements."
+  },
+  "clog_v2_2_2_title": {
+    "message": "Adapted to CooMeet Free changes."
+  },
+  "clog_v2_2_2_summary": {
+    "message": "Adapted to minor changes on the freecm platform.\nMinor changes."
   }
 }
