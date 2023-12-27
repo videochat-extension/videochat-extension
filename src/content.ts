@@ -253,7 +253,7 @@ async function content() {
             break;
         }
         case "Coomeet Free": {
-            document.arrive(".free-cm-app-video-stream", {onceOnly: true, existing: true}, async () => {
+            document.arrive(".free-cm-video-in-stream", {onceOnly: true, existing: true}, async () => {
                 injectContextInvalidatedCheck()
                 injectScript('injection/coomeetfree.js')
                 await globalThis.platformSettings.setDriverDefaults({

@@ -23,7 +23,7 @@ export class CooMeetFreeSimpleDriver {
     private volume = 0;
     private predVolume = 0;
     private volumeControl = utils.createElement('div', {
-        className: "free-cm-app-country-selector__item free-cm-app-country-selector2__item"
+        className: "free-cm-video-in__panel-item"
     }, [
         utils.createElement('span', {
             innerText: `v: ${this.volume}%`,
@@ -84,24 +84,34 @@ export class CooMeetFreeSimpleDriver {
             }
         })
 
-        this.video.addEventListener('play', () => {
-            this.stage = 1
-            if (this.bot) {
-                this.setNextButtonText(chrome.i18n.getMessage('freecmBotButton', [this.country]))
-                this.cmtNext!.style.background = 'black'
-            } else {
-                this.setNextButtonText(chrome.i18n.getMessage('freecmBotNextButton', [this.country]))
-                this.cmtNext!.style.background = 'green'
-            }
-            if (this.bot) {
-                this.hideVideo()
-            } else {
-                this.showVideo()
-            }
+        document.arrive(".free-cm-video-in-stream", {
+            existing: true
+        }, function (el) {
+            self.video = el as HTMLVideoElement;
+
+            self.video.volume = +self.volume.toFixed(2);
+            self.video.addEventListener('play', () => {
+
+
+                self.stage = 1
+                if (self.bot) {
+                    self.setNextButtonText(chrome.i18n.getMessage('freecmBotButton', [self.country]))
+                    self.cmtNext!.style.background = 'black'
+                } else {
+                    self.setNextButtonText(chrome.i18n.getMessage('freecmBotNextButton', [self.country]))
+                    self.cmtNext!.style.background = 'green'
+                }
+                if (self.bot) {
+                    self.hideVideo()
+                } else {
+                    self.showVideo()
+                }
+            })
         })
 
-        this.video.addEventListener('emptied', () => {
-            this.stage = 0
+        document.leave(".free-cm-video-in-stream", function (el) {
+            self.stage = 0
+            self.video = undefined
         })
 
         return true
@@ -109,43 +119,51 @@ export class CooMeetFreeSimpleDriver {
 
     private hideVideo() {
         if (globalThis.platformSettings.get('hideBots')) {
-            this.video!.style.visibility = "hidden"
-            this.botHidden = true
+            if (this.video) {
+                this.video!.style.visibility = "hidden"
+                this.botHidden = true
 
-            if (globalThis.platformSettings.get('emoji')) {
-                this.emoji.style.visibility = "visible"
+                if (globalThis.platformSettings.get('emoji')) {
+                    this.emoji.style.visibility = "visible"
+                }
+
+                this.muteAudio()
             }
-
-            this.muteAudio()
         }
     }
 
     private showVideo() {
         if (this.botHidden) {
-            this.video!.style.visibility = "visible"
-            this.botHidden = false
+            if (this.video) {
+                this.video!.style.visibility = "visible"
+                this.botHidden = false
 
-            if (globalThis.platformSettings.get('emoji')) {
-                this.emoji.style.visibility = "hidden"
+                if (globalThis.platformSettings.get('emoji')) {
+                    this.emoji.style.visibility = "hidden"
+                }
+
+                this.unmuteAudio()
             }
-
-            this.unmuteAudio()
         }
     }
 
     private muteAudio() {
         if (globalThis.platformSettings.get('hideBots')) {
             if (globalThis.platformSettings.get('muteBots')) {
-                this.video!.muted = true
-                this.botMuted = true
+                if (this.video) {
+                    this.video!.muted = true
+                    this.botMuted = true
+                }
             }
         }
     }
 
     private unmuteAudio() {
         if (this.botMuted) {
-            this.video!.muted = false
-            this.botMuted = false
+            if (this.video) {
+                this.video!.muted = false
+                this.botMuted = false
+            }
         }
     }
 
@@ -153,7 +171,7 @@ export class CooMeetFreeSimpleDriver {
     public injectInterface() {
         let self = this
 
-        document.arrive(".free-cm-app-country-selector__container,.free-cm-app-country-selector2__container", {
+        document.arrive(".free-cm-video-in__panel", {
             existing: true,
             onceOnly: true
         }, function (el) {
@@ -193,19 +211,19 @@ export class CooMeetFreeSimpleDriver {
             el.appendChild(self.volumeControl)
         })
 
-        document.arrive('.free-cm-app-tape-detect__item__icon', {existing: true}, function(el) {
+        document.arrive('.free-cm-video-out-refresh', {existing: true}, function (el) {
             if (el instanceof HTMLElement) {
                 el.style.minWidth = '12px'
             }
         })
 
-        document.arrive(".free-cm-app-tape-detect__container", {existing: true, onceOnly: true}, function (el) {
+        document.arrive(".free-cm-video-out__panel", {existing: true, onceOnly: true}, function (el) {
             if (el instanceof HTMLElement) {
                 el.style.overflow = 'auto'
                 el.style.overflowY = 'hidden'
             }
             let extensionHeader = utils.createElement('div', {
-                className: 'free-cm-app-tape-detect__item'
+                className: 'free-cm-video-out__panel-item'
             }, [
                 utils.createElement('span', {
                     innerText: "v" + chrome.runtime.getManifest().version,
@@ -219,7 +237,7 @@ export class CooMeetFreeSimpleDriver {
             el.appendChild(extensionHeader)
 
             let setting1 = utils.createElement('div', {
-                className: 'free-cm-app-tape-detect__item'
+                className: 'free-cm-video-out__panel-item'
             }, [
                 utils.createElement("span", {
                     innerText: chrome.i18n.getMessage('freecmSettingHideBots'),
@@ -258,7 +276,7 @@ export class CooMeetFreeSimpleDriver {
             el.appendChild(setting1)
 
             let setting2 = utils.createElement('div', {
-                className: 'free-cm-app-tape-detect__item'
+                className: 'free-cm-video-out__panel-item'
             }, [
                 utils.createElement("span", {
                     innerText: chrome.i18n.getMessage('freecmSettingEmoji'),
@@ -293,7 +311,7 @@ export class CooMeetFreeSimpleDriver {
             el.appendChild(setting2)
 
             let setting3 = utils.createElement('div', {
-                className: 'free-cm-app-tape-detect__item'
+                className: 'free-cm-video-out__panel-item'
             }, [
                 utils.createElement("span", {
                     innerText: chrome.i18n.getMessage('freecmSettingMuteBots'),
@@ -363,12 +381,7 @@ export class CooMeetFreeSimpleDriver {
                 }
                 if (data && data.data && data.data.code && data.data.countries) {
                     let title = chrome.i18n.getMessage('freecmCountriesListTitle', [chrome.i18n.getMessage("extension_name_header"), data.data.code, data.data.countries.join(', ')])
-                    let countriesSelected = $('.free-cm-app-inline-status2_disabled')
-                    if (countriesSelected.length > 0) {
-                        countriesSelected[0].title = title
-                        // countriesSelected[0].innerText += " (?)"
-                    }
-                    countriesSelected = $('.free-cm-app-inline-status_disabled')
+                    let countriesSelected = $('.free-cm-video-in__panel-item')
                     if (countriesSelected.length > 0) {
                         countriesSelected[0].title = title
                         // countriesSelected[0].innerText += " (?)"
@@ -381,7 +394,7 @@ export class CooMeetFreeSimpleDriver {
     }
 
     private getRemoteVideo() {
-        let vid = $(".free-cm-app-video-stream")
+        let vid = $(".free-cm-video-in-stream")
         if (vid.length > 0) {
             return vid[0] as HTMLVideoElement
         }
