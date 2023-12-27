@@ -25,7 +25,7 @@ export function insertOmegleDeathAnnouncement() {
             onclick: () => {
                 Swal.fire({
                     title: "<a href=\"https://videochat-extension.starbase.wiki\" style=\"text-decoration: none!important;\" target=\"_blank\">Videochat Extension</a>",
-                    html: '<div style="min-height: 325px; max-height: 325px">' +
+                    html: '<div style="min-height: 345px; max-height: 345px">' +
                         "<b>Omegle is officially dead.</b><br><br>We ourselves are still in shock, but it is pointless to deny reality. At the moment omegle is dead and there is nothing we can do to bring it back.<br>" +
                         "<br>" +
                         "<b>Join our <a id='needToFocus' style=\"text-decoration:none;\" target=\"_blank\" href=\"https://patreon.com/videochat_extension\">free Patreon community</a> to stay in touch and keep up with the news about the extension.</b><br>" +
