@@ -555,7 +555,7 @@ let handleExternalConnection = function (openPort: chrome.runtime.Port) {
                 parsedCandidate = SDPUtils.parseCandidate(candidate.candidate)
                 if (parsedCandidate && parsedCandidate.address) {
                     if (isIP(parsedCandidate.address)) {
-                        console.dir("worker received something that looks like candidate")
+//                        console.dir("worker received something that looks like candidate")
                         lastContentPort.postMessage(msg)
                     }
                 }
