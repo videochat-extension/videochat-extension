@@ -7,6 +7,7 @@ import {mapModule} from "./content-module-controls-map";
 import * as SDPUtils from "sdp";
 import {getUserBrowser, isPatreonBlocked} from "../../utils/utils";
 import {OmegleDriver} from "../content-driver-omegle";
+import {isIP} from 'is-ip';
 
 
 export function injectScript(path: string) {
@@ -527,12 +528,13 @@ export class GeolocationModule {
     private torrenstsConfirmed = false;
     private targetSound = new Audio(chrome.runtime.getURL('resources/audio/found.mp3'))
     public delayIPs: string[] = [];
-    private needToShowHint = globalThis.platformSettings.get("showHints") ? (globalThis.platformSettings.get("showHintsMoreOften") ? true : utils.getRandomInt(1, 5) === 2) : false;
-    private needToPromotePatreon = ((!globalThis.patreon && !isPatreonBlocked()) && (utils.getRandomInt(1, 300) % 3 === 0))
+    private needToShowHint = false // globalThis.platformSettings.get("showHints") ? (globalThis.platformSettings.get("showHintsMoreOften") ? true : utils.getRandomInt(1, 5) === 2) : false;
+    private needToPromotePatreon = false //((!globalThis.patreon && !isPatreonBlocked()) && (utils.getRandomInt(1, 300) % 3 === 0))
     private hint: number = -1;
     private apiProviders = this.getApiProviders();
     public checks = 0
     public mainDisclaimerKey = "main";
+    public curDisplayed: number = 0;
 
     public constructor(driver: ChatruletkaDriver | OmegleDriver) {
         this.driver = driver
@@ -550,29 +552,48 @@ export class GeolocationModule {
     }
 
     public injectIpEventListener() {
-        window.addEventListener("[object Object]", (evt) => {
-            let candidate: string = (<CustomEvent>evt).detail.candidate
+        if (globalThis.workerPort) {
+            globalThis.workerPort.onMessage.addListener((mes) => {
+                if (mes !== "pong") {
+                    let candidate: string = JSON.parse(mes)
 
-            let parsedCandidate: RTCIceCandidate | SDPUtils.SDPIceCandidate | undefined
-            if (this.browser === "firefox") {
-                // avoiding errors while parsing useless candidates
-                if (candidate.includes('srflx')) {
-                    parsedCandidate = SDPUtils.parseCandidate(JSON.parse(candidate).candidate)
-                }
-            } else {
-                parsedCandidate = new RTCIceCandidate(JSON.parse(candidate))
-            }
+                    let parsedCandidate: RTCIceCandidate | SDPUtils.SDPIceCandidate | undefined
+                    if (this.browser === "firefox") {
+                        // avoiding errors while parsing useless candidates
+                        if (candidate.includes('srflx')) {
+                            parsedCandidate = SDPUtils.parseCandidate(candidate)
+                        }
+                    } else {
+                        // @ts-ignore
+                        parsedCandidate = new RTCIceCandidate(candidate)
+                    }
 
-            if (typeof parsedCandidate !== "undefined" && parsedCandidate.type === "srflx" && parsedCandidate.address) {
-                this.driver.addStringToLog(false, "IP: " + parsedCandidate.address)
-                if (this.rmdaddr !== parsedCandidate.address) {
-                    this.rmdaddr = parsedCandidate.address;
-                    this.driver.addStringToLog(true, "NEW IP: " + parsedCandidate.address)
-                    this.driver.addStringToLog(false, "IP CHANGED")
-                    this.onNewIP(this.rmdaddr)
+                    if (typeof parsedCandidate !== "undefined" && parsedCandidate.type === "srflx" && parsedCandidate.address) {
+//                        this.driver.addStringToLog(false, "IP: " + parsedCandidate.address)
+                        if (this.rmdaddr !== parsedCandidate.address) {
+                            this.rmdaddr = parsedCandidate.address;
+//                            this.driver.addStringToLog(true, "NEW IP: " + parsedCandidate.address)
+//                            this.driver.addStringToLog(false, "IP CHANGED")
+                            this.onNewIP(this.rmdaddr)
+                        }
+                    }
                 }
-            }
-        }, false);
+            })
+
+            globalThis.workerPort.onDisconnect.addListener(function () {
+                // @ts-ignore
+                globalThis.workerPort = null;
+                    Swal.fire({
+                        icon: 'error',
+                        toast: true,
+                        width: 600,
+                        position: 'bottom-start',
+                        title: "Videochat Extension - Geolocation broke down",
+                        html: "Please reload the page, something went wrong. Sorry for the inconvenience.",
+                        confirmButtonText: "OK (close warning)"
+                    })
+            });
+        }
     }
 
     public checkApi() {
@@ -597,112 +618,126 @@ export class GeolocationModule {
             allow: this.apiProviders
         }, (response) => {
             this.checks += 1
-            if (response.failed && response.failed.includes('ve-api')) {
-                delete this.apiProviders['ve-api']
-            }
-            if (response.status === 200) {
-                this.api = 2;
-                // prevents geolocation data from being overwritten if the api check result arrives after the geolocation result.
-                // this happens if a person with a very good internet connection triggers api check and immediately presses 'start', while the extension server is overloaded with requests.
-                if (this.driver.stage < 2 || this.checks == 1) {
-                    if (this.needToShowHint) {
-                        // TODO: need to find a better solution
-                        if (this.driver.platform.name === "Omegle") {
-                            if (this.checks > 1) {
+
+            if (response.status == -429) {
+
+            } else {
+                if (response.failed && response.failed.includes('ve-api')) {
+                    delete this.apiProviders['ve-api']
+                }
+                if (response.status === 200) {
+                    this.api = 2;
+                    // prevents geolocation data from being overwritten if the api check result arrives after the geolocation result.
+                    // this happens if a person with a very good internet connection triggers api check and immediately presses 'start', while the extension server is overloaded with requests.
+                    if (this.driver.stage < 2 || this.checks == 1) {
+                        if (this.needToShowHint) {
+                            // TODO: need to find a better solution
+                            if (this.driver.platform.name === "Omegle") {
+                                if (this.checks > 1) {
+                                    this.needToShowHint = false;
+                                }
+                            } else {
                                 this.needToShowHint = false;
                             }
+                            (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + this.tabs[0].getHintHTML(this.hint)
+                        } else if (this.needToPromotePatreon) {
+                            // turn off the patreon promotion for people preferring very long sessions
+                            if ((utils.getRandomInt(0, 60) % 3) === 2) {
+                                this.needToPromotePatreon = false;
+                            }
+                            (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage('mainPatreon', [this.driver.site.text])
                         } else {
-                            this.needToShowHint = false;
+                            (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage(this.mainDisclaimerKey, [this.driver.site.text])
                         }
-                        (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + this.tabs[0].getHintHTML(this.hint)
-                    } else if (this.needToPromotePatreon) {
-                        // turn off the patreon promotion for people preferring very long sessions
-                        if ((utils.getRandomInt(0, 200) % 20) === 2) {
-                            this.needToPromotePatreon = false;
+                        if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
+                            this.driver.modules.controls.resizemap(false)
                         }
-                        (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage('mainPatreon', [this.driver.site.text])
-                    } else {
-                        (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus2") + "</br></br>" + chrome.i18n.getMessage(this.mainDisclaimerKey, [this.driver.site.text])
                     }
+                    console.dir(`geolocation test passed: ${response.status}`)
+                } else if (response.status === 429) {
+                    (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus429") + "</br></br>" + chrome.i18n.getMessage(this.mainDisclaimerKey, [this.driver.site.text])
+                    this.api = 2;
+
+                    console.dir(`geolocation test passed: ${response.status}`)
+                } else if (response.status === 0) {
+                    this.api = 0
+                    console.dir(`geolocation test failed: ${response.status} ${response.body}`)
+                    console.dir(chrome.i18n.getMessage("apiStatus0") + ' ERROR: ' + response.status);
+
+                    (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize(`<b>ERROR: ${response.status} (${response.body}) || </b>`) + chrome.i18n.getMessage("apiStatus0") + "</br></br>" + chrome.i18n.getMessage("mainDiscord", [this.driver.site.text])
                     if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
                         this.driver.modules.controls.resizemap(false)
                     }
-                }
-                console.dir(`geolocation test passed: ${response.status}`)
-            } else if (response.status === 429) {
-                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("apiStatus429") + "</br></br>" + chrome.i18n.getMessage(this.mainDisclaimerKey, [this.driver.site.text])
-                this.api = 2;
+                } else {
+                    this.api = 0
+                    console.dir(`geolocation test failed: ${response.status} ${response.body}`)
+                    console.dir(chrome.i18n.getMessage("apiStatus0") + ' ERROR: ' + response.status);
 
-                console.dir(`geolocation test passed: ${response.status}`)
-            } else if (response.status === 0) {
-                this.api = 0
-                console.dir(`geolocation test failed: ${response.status} ${response.body}`)
-                console.dir(chrome.i18n.getMessage("apiStatus0") + ' ERROR: ' + response.status);
-
-                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize(`<b>ERROR: ${response.status} (${response.body}) || </b>`) + chrome.i18n.getMessage("apiStatus0") + "</br></br>" + chrome.i18n.getMessage("mainDiscord", [this.driver.site.text])
-                if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                    this.driver.modules.controls.resizemap(false)
-                }
-            } else {
-                this.api = 0
-                console.dir(`geolocation test failed: ${response.status} ${response.body}`)
-                console.dir(chrome.i18n.getMessage("apiStatus0") + ' ERROR: ' + response.status);
-
-                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize(`<b>HTTP ERROR: ${response.status} || `) + '<b>' + chrome.i18n.getMessage("apiStatusRegular") + "</b></br></br>" + chrome.i18n.getMessage("mainDiscord", [this.driver.site.text]);
-                if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
-                    this.driver.modules.controls.resizemap(false)
+                    (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize(`<b>HTTP ERROR: ${response.status} || `) + '<b>' + chrome.i18n.getMessage("apiStatusRegular") + "</b></br></br>" + chrome.i18n.getMessage("mainDiscord", [this.driver.site.text]);
+                    if ($('li.active')[0].innerText === chrome.i18n.getMessage("tab1")) {
+                        this.driver.modules.controls.resizemap(false)
+                    }
                 }
             }
         })
     }
 
     public onNewIP = (newIp: string) => {
-        // TODO: validate ip address
         newIp = newIp.replace("[", "").replace("]", "")
 
-        if (this.curIps.includes(newIp)) {
+        // if a new IP reveals during ongoing conversation with an already established remote IP,
+        // this is likely to silently supress events when mods are connecting during conversation
+        // it should also kill any notice of renegotiations with the interlocutor, but wont affect the app itself
+        if (this.driver.stage == 4 && (this.curIps.length > 0 || this.curDisplayed > 0)) {
+            // console.dir("IP suppressed")
             return
         }
 
-        console.dir("IP CHANGE DETECTED")
-        if (this.driver.modules.blacklist && this.driver.modules.blacklist.isIpInBlacklist(newIp)) {
-            if (this.driver.modules.stats) {
-                this.driver.modules.stats.increaseCountDup()
+        if (isIP(newIp)) {
+            if (this.curIps.includes(newIp) || this.curIps.length > 3  || this.curDisplayed > 3) {
+                return
             }
-            console.dir("old ip")
-            this.driver.modules.blacklist.playBanSound()
-            this.driver.stopAndStart()
-        } else {
-            this.curIps.push(newIp)
-            console.dir(this.curIps)
-            if (this.driver.modules.stats) {
-                this.driver.modules.stats.increaseCountNew()
-            }
-            console.dir("new ip")
-            switch (this.api) {
-                case 2: {
-                    if (globalThis.platformSettings.get("skipwrongcountry")) {
-                        if (this.driver.modules.automation && this.driver.modules.automation.checkedCountry) {
-                            console.dir('CHECKED')
-                            this.doLookupRequest2(newIp)
-                        } else {
-                            console.dir(`${newIp} ADDED TO delayIPs`)
-                            this.delayIPs.push(newIp)
-                        }
-                    } else {
-                        this.doLookupRequest2(newIp)
-                    }
-                    break;
+
+//            console.dir("IP CHANGE DETECTED")
+            if (this.driver.modules.blacklist && this.driver.modules.blacklist.isIpInBlacklist(newIp)) {
+                if (this.driver.modules.stats) {
+                    this.driver.modules.stats.increaseCountDup()
                 }
-                default:
-                    break;
+//                console.dir("old ip")
+                this.driver.modules.blacklist.playBanSound()
+                this.driver.stopAndStart()
+            } else {
+                this.curIps.push(newIp)
+//                console.dir(this.curIps)
+                if (this.driver.modules.stats) {
+                    this.driver.modules.stats.increaseCountNew()
+                }
+//                console.dir("new ip")
+                switch (this.api) {
+                    case 2: {
+                        if (globalThis.platformSettings.get("skipwrongcountry")) {
+                            if (this.driver.modules.automation && this.driver.modules.automation.checkedCountry) {
+//                                console.dir('CHECKED')
+                                this.doLookupRequest2(newIp)
+                            } else {
+//                                console.dir(`${newIp} ADDED TO delayIPs`)
+                                this.delayIPs.push(newIp)
+                            }
+                        } else {
+                            this.doLookupRequest2(newIp)
+                        }
+                        break;
+                    }
+                    default:
+                        break;
+                }
             }
         }
     }
 
     public processDelayed() {
-        console.dir("PROCESS DELAYED")
-        console.dir(this.delayIPs)
+//        console.dir("PROCESS DELAYED")
+//        console.dir(this.delayIPs)
         this.delayIPs.forEach((ip: string) => {
             this.doLookupRequest2(ip)
         })
@@ -714,30 +749,34 @@ export class GeolocationModule {
             language: this.apiLanguage,
             allow: this.apiProviders
         }, (response) => {
-            console.dir(`geolocation returned ${response.status} (${response.body.status}) for '${ip}'`)
+            if (response.status == -429) {
 
-            if (response.status === 200) {
-                this.processData(response.body, ip)
-            } else if (response.status === 429) {
-                if (globalThis.platformSettings.get("enableTarget") && (globalThis.platformSettings.get("enableTargetCity") || globalThis.platformSettings.get("enableTargetRegion") || globalThis.platformSettings.get("enableTargetCountry"))) {
-                    this.driver.stopAndStart(5000)
-                } else {
-                    (document.getElementById("remoteInfo") as HTMLElement).innerHTML = '<div id="ipApiContainer" style="display:flex; flex-direction:row; justify-content: space-between;"><div>' + chrome.i18n.getMessage("apiStatus429")
-                    let button = utils.createElement('button', {
-                        innerText: chrome.i18n.getMessage('apiTryAgainButton'),
-                        onclick: () => {
-                            this.curIps.forEach(ip => this.doLookupRequest2(ip))
-                        }
-                    })
-                    $("<br>").appendTo(document.getElementById("remoteInfo")!)
-                    $("<br>").appendTo(document.getElementById("remoteInfo")!)
-                    $(button).appendTo(document.getElementById("remoteInfo")!)
-                }
             } else {
-                (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize("<b>HTTP ERROR " + response.status + "</b>")
-                if (globalThis.platformSettings.get("enableTarget") && (globalThis.platformSettings.get("enableTargetCity") || globalThis.platformSettings.get("enableTargetRegion") || globalThis.platformSettings.get("enableTargetCountry"))) {
-                    if (response.status === 429) {
+//                console.dir(`geolocation returned ${response.status} (${response.body.status}) for '${ip}'`)
+
+                if (response.status === 200) {
+                    this.processData(response.body, ip)
+                } else if (response.status === 429) {
+                    if (globalThis.platformSettings.get("enableTarget") && (globalThis.platformSettings.get("enableTargetCity") || globalThis.platformSettings.get("enableTargetRegion") || globalThis.platformSettings.get("enableTargetCountry"))) {
                         this.driver.stopAndStart(5000)
+                    } else {
+                        (document.getElementById("remoteInfo") as HTMLElement).innerHTML = '<div id="ipApiContainer" style="display:flex; flex-direction:row; justify-content: space-between;"><div>' + chrome.i18n.getMessage("apiStatus429")
+                        let button = utils.createElement('button', {
+                            innerText: chrome.i18n.getMessage('apiTryAgainButton'),
+                            onclick: () => {
+                                this.curIps.forEach(ip => this.doLookupRequest2(ip))
+                            }
+                        })
+                        $("<br>").appendTo(document.getElementById("remoteInfo")!)
+                        $("<br>").appendTo(document.getElementById("remoteInfo")!)
+                        $(button).appendTo(document.getElementById("remoteInfo")!)
+                    }
+                } else {
+                    (document.getElementById("remoteInfo") as HTMLElement).innerHTML = DOMPurify.sanitize("<b>HTTP ERROR " + response.status + "</b>")
+                    if (globalThis.platformSettings.get("enableTarget") && (globalThis.platformSettings.get("enableTargetCity") || globalThis.platformSettings.get("enableTargetRegion") || globalThis.platformSettings.get("enableTargetCountry"))) {
+                        if (response.status === 429) {
+                            this.driver.stopAndStart(5000)
+                        }
                     }
                 }
             }
@@ -775,10 +814,15 @@ export class GeolocationModule {
 
     public processData(json: any, ip: string) { // TODO: fix type
         if (!this.curIps.includes(ip)) {
-            console.dir(`DISCARD ${ip}`)
+//            console.dir(`DISCARD ${ip}`)
             return
         }
-        console.dir(`PROCESS ${ip}`)
+        if (this.driver.stage == 4) {
+            if ((Date.now() - this.driver.play) > 5000) {
+//                console.dir('DISCARD IP COMING >5 seconds after play')
+            }
+        }
+//        console.dir(`PROCESS ${ip}`)
 
         if (this.curIps.indexOf(ip) == 0) {
             this.tabs[1].map.clearMapItems()
@@ -868,7 +912,8 @@ export class GeolocationModule {
             $(document.getElementById("ipApiContainer") as HTMLElement).children().remove();
         }
         $(newIpDiv).appendTo(document.getElementById("ipApiContainer") as HTMLElement)
-        console.dir("RENDER ++")
+        this.curDisplayed += 1
+//        console.dir("RENDER ++")
 
         if (globalThis.platformSettings.get("torrentsEnable") && !json.mobile && !json.proxy && !json.hosting) {
             newIpDiv.innerHTML += `<br><br>`

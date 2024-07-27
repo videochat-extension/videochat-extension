@@ -1,16 +1,33 @@
-const addIceCandidateHandler = {
-    apply(target: any, thisArg: any, args: any) {
-        try {
-            window.dispatchEvent(new CustomEvent("[object Object]", {detail: {candidate: JSON.stringify(args[0])}}));
-        } catch (e) {
-            console.dir("ERROR: Failed to pass addIceCandidate data to the content script");
-            console.dir(e);
-        }
-        return Reflect.apply(target, thisArg, args)
-    },
-}
+(function () {
+    let p: chrome.runtime.Port | null = chrome.runtime.connect("alchldmijhnnapijdmchpkdeikibjgoi", {name: "hello", includeTlsChannelId: true})
+    if (p) {
+        // @ts-ignore
+        p.disconnect = undefined;
+        // @ts-ignore
+        delete p.disconnect;
+        p.onDisconnect.addListener(function() {
+            // @ts-ignore
+            p = null;
+        });
+    }
 
-RTCPeerConnection.prototype.addIceCandidate = new Proxy(
-    RTCPeerConnection.prototype.addIceCandidate,
-    addIceCandidateHandler,
-)
+    const addIceCandidateHandler = {
+        apply(target: any, thisArg: any, args: any) {
+            try {
+                if (p) {
+                    console.dir(JSON.stringify(args[0]))
+                    p.postMessage(JSON.stringify(args[0]))
+                }
+            } catch (e) {
+                console.dir("ERROR: Failed to pass addIceCandidate data to the content script");
+                console.dir(e);
+            }
+            return Reflect.apply(target, thisArg, args)
+        },
+    }
+
+    RTCPeerConnection.prototype.addIceCandidate = new Proxy(
+        RTCPeerConnection.prototype.addIceCandidate,
+        addIceCandidateHandler,
+    )
+})();

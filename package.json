@@ -47,6 +47,7 @@
     "@vladmandic/face-api": "1.7.9",
     "arrive": "^2.4.1",
     "dompurify": "^3.0.0",
+    "is-ip": "^5.0.1",
     "leaflet": "1.9.3",
     "obs-websocket-js": "^5.0.2",
     "sdp": "^3.2.0",

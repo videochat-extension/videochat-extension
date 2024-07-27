@@ -69,7 +69,7 @@
     "message": "Leave%20a%20review%20in%20the%20Firefox%20Add-ons%20Store"
   },
   "main": {
-    "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"reviewImageContainer\"></div><br><b>Important:</b><br>This extension is a hobby project and is not affiliated with '$1' in any way.<br><br>Like the extension? Support our work on <a href=\"https://patreon.com/join/videochat_extension\" target='_blank' style=\"text-decoration: none!important;\">Patreon</a>.</div></div>"
+    "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"patreonImageContainer\"></div><br><b>Attention:</b><br>Geolocation may be unstable due to <a href=\"https://www.patreon.com/posts/108807678/\" target='_blank' style=\"text-decoration: none!important;\">mysterious events</a>.<br><br>Please report all issues to our <a href=\"https://discord.gg/7DYWu5RF7Y\" target=\"_blank\" style=\"text-decoration: none!important;\">Discord</a>.</div></div>"
   },
   "mainPatreon": {
     "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"patreonImageContainer\"></div><br><b>Important:</b><br>This extension is a hobby project and is not affiliated with '$1' in any way.<br><br>Like the extension? Join <a href=\"https://patreon.com/videochat_extension\" target='_blank' style=\"text-decoration: none!important;\">our free Patreon community</a> to stay connected and subscribe to the project's newsletter (its free!).<br><br>You can also <a href=\"https://patreon.com/join/videochat_extension\" target='_blank' style=\"text-decoration: none!important;\">support the project</a> to help us sustain activities and significantly improve your geolocation accuracy (we use 500 times more expensive geolocation service for our patrons).</div></div>"
@@ -96,7 +96,7 @@
     "message": "retry"
   },
   "apiStatus2": {
-    "message": "<b>API works correctly.</b>"
+    "message": "<b>API works, but <a href=\"https://www.patreon.com/posts/108807678/\" target='_blank' style=\"text-decoration: none!important;\">issues are possible</a>.</b>"
   },
   "apiStartCheck": {
     "message": "<b>Checking the API...</b>"
@@ -1516,5 +1516,11 @@
   },
   "clog_v2_2_2_summary": {
     "message": "Adapted to minor changes on the freecm platform.\nMinor changes."
+  },
+  "clog_v2_2_4_title": {
+    "message": "Improved geolocation stability amid <a href=\"https://www.patreon.com/posts/108807678/\" target='_blank' style=\"text-decoration: none!important;\">issues on ome.tv</a>."
+  },
+  "clog_v2_2_4_summary": {
+    "message": "Reduced attack surface of geolocation services (API).\nGeolocation now accepts new data only before the interlocutor's video starts (will no longer recognize new available connections during the dialog: mods or new networks).\nAdded initial support for backend to fetch data from external sources (such as externally connected websites or desktop software).\nThe way the page communicates with the extension is now tied to the extension ID to distinguish it from forks in the wild. Because of this, Firefox support is likely to be discontinued."
   }
 }

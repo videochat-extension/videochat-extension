@@ -353,6 +353,13 @@ let changelog: { url: string, version: string, date: string, keyTitle: string, k
         keyTitle: "clog_v2_2_2_title",
         keyContent: "clog_v2_2_2_summary"
     },
+    {
+        version: "2.2.4",
+        date: "2024-07-25",
+        url: "https://www.patreon.com/posts/108807678",
+        keyTitle: "clog_v2_2_4_title",
+        keyContent: "clog_v2_2_4_summary"
+    },
 ]
 
 

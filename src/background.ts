@@ -1,4 +1,6 @@
 import * as Sentry from "@sentry/browser";
+import {isIP} from 'is-ip';
+import * as SDPUtils from "sdp";
 
 // dict with default settings that should be applied when installing/updating the extension
 const defaults = {
@@ -537,12 +539,115 @@ function geolocate(ip: string, language: string, allow: {
     geo(urls, index, failed, sendResponse)
 }
 
+let port: chrome.runtime.Port | false = false
+
+let lastContentPort: chrome.runtime.Port | false = false
+let handleExternalConnection = function (openPort: chrome.runtime.Port) {
+    if (chrome.runtime.onConnectExternal.hasListener(handleExternalConnection)) {
+        chrome.runtime.onConnectExternal.removeListener(handleExternalConnection);
+    }
+    port = openPort
+    openPort.onMessage.addListener(function (msg) {
+        if (lastContentPort) {
+            let parsedCandidate:  SDPUtils.SDPIceCandidate  | undefined
+            let candidate: any = JSON.parse(msg)
+            if (candidate && candidate.candidate && candidate.candidate.includes('srflx')) {
+                parsedCandidate = SDPUtils.parseCandidate(candidate.candidate)
+                if (parsedCandidate && parsedCandidate.address) {
+                    if (isIP(parsedCandidate.address)) {
+                        console.dir("worker received something that looks like candidate")
+                        lastContentPort.postMessage(msg)
+                    }
+                }
+            }
+
+        }
+    });
+    openPort.onDisconnect.addListener(function() {
+        // @ts-ignore
+        port = null;
+    });
+}
+
+function runtimeOnConnect(openPort: chrome.runtime.Port) {
+    if (lastContentPort) {
+        lastContentPort.disconnect()
+        lastContentPort = false
+    }
+    lastContentPort = openPort
+    openPort.onMessage.addListener((mes) => {
+        openPort.postMessage("pong")
+    })
+
+    openPort.onDisconnect.addListener(function() {
+        // @ts-ignore
+        openPort = null;
+    });
+}
+
+let lastRequestTime = 0;
+let requestCount = 0;
+const requestLimit = 10;
+const throttleDelay = 1000;
+
+
+let lastRequestTimeExtreme = 0;
+let requestCountExtreme = 0;
+const requestLimitExtreme = 200;
+const throttleDelayExtreme = 60000;
+
 function runtimeOnMessage(request: any, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void) {
     // makes a request to the geolocation service with the requested IP address and language
     // making a request via service worker helps avoid http restrictions
     if (request.makeGeolocationRequest) {
-        geolocate(request.makeGeolocationRequest, request.language, request.allow, sendResponse)
-        return true;
+
+        const currentTime = Date.now();
+        if (currentTime - lastRequestTime >= throttleDelay) {
+            requestCount = 0;
+            lastRequestTime = currentTime;
+        }
+
+        if (currentTime - lastRequestTimeExtreme >= throttleDelayExtreme) {
+            requestCountExtreme = 0;
+            lastRequestTimeExtreme = currentTime;
+        }
+//        console.log(requestCount, requestCountExtreme)
+
+        if (requestCount < requestLimit) {
+            requestCount++;
+            requestCountExtreme++;
+            geolocate(request.makeGeolocationRequest, request.language, request.allow, sendResponse)
+            return true;
+        } else if (requestCountExtreme > requestLimitExtreme) {
+            console.dir('Reached extreme limit')
+            if (lastContentPort) {
+                console.dir('Content script is on its own now...')
+                lastContentPort.disconnect()
+                lastContentPort = false
+            }
+            sendResponse({status: -429})
+        } else {
+            console.dir('Throttling request...');
+            sendResponse({status: -429})
+        }
+    }
+
+    if (request.openRuntimePort) {
+        if (chrome.runtime.onConnectExternal.hasListener(handleExternalConnection)) {
+            console.dir('remove listener');
+            chrome.runtime.onConnectExternal.removeListener(handleExternalConnection);
+            console.dir('listener removed');
+        }
+        if (port) {
+            try {
+                port.disconnect()
+                port = false
+            } catch (e) {
+                console.dir(e)
+            }
+        }
+
+        chrome.runtime.onConnectExternal.addListener(handleExternalConnection);
     }
 
     // this opens new iknowwhatyoudownload tab in the torrentWindowId window
@@ -728,6 +833,8 @@ function init() {
 
     // this thing handles all messages coming from content scripts
     chrome.runtime.onMessage.addListener(runtimeOnMessage);
+
+    chrome.runtime.onConnect.addListener(runtimeOnConnect)
 
     chrome.runtime.setUninstallURL(chrome.i18n.getMessage('setUninstallURL'))
 }

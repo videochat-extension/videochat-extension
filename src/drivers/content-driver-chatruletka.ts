@@ -254,6 +254,7 @@ export class ChatruletkaDriver {
 
                     if (this.modules.geolocation) {
                         this.modules.geolocation.curIps = []
+                        this.modules.geolocation.curDisplayed = 0
                         this.modules.geolocation.delayIPs = []
                         this.modules.geolocation.curInfo = {}
                     }

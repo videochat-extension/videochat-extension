@@ -60,7 +60,7 @@
     "message": "%D0%9E%D1%81%D1%82%D0%B0%D0%B2%D1%8C%D1%82%D0%B5%20%D0%BE%D1%82%D0%B7%D1%8B%D0%B2%20%D0%B2%20Firefox%20Add-ons%20Store"
   },
   "main": {
-    "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"reviewImageContainer\"></div><br><b>Важно:</b><br>Это расширение не имеет никакого отношения к администрации видеочата '$1'.</div></div>"
+    "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"reviewImageContainer\"></div><br><b>Внимание:</b><br>Геолокация может работать нестабильно из-за <a href=\"https://www.patreon.com/posts/108807678/\" target='_blank' style=\"text-decoration: none!important;\">загадочных событий</a>.<br><br>Сообщайте обо всех проблемах в <a href=\"https://discord.gg/7DYWu5RF7Y\" target=\"_blank\" style=\"text-decoration: none!important;\">Discord</a>.</div></div>"
   },
   "mainPatreon": {
     "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"patreonImageContainer\"></div><br><b>Important:</b><br>Это расширение не имеет никакого отношения к администрации видеочата '$1'.<br><br>Нравится расширение? Вступайте в <a href=\"https://patreon.com/videochat_extension\" target='_blank' style=\"text-decoration: none!important;\">наше бесплатное Patreon сообщество</a>, чтобы оставаться на связи и следить за новостями проекта (это бесплатно!).<br><br>Вы так же можете <a href=\"https://patreon.com/join/videochat_extension\" target='_blank' style=\"text-decoration: none!important;\">поддержать проект</a>, чтобы помочь нам покрыть расходы и значительно улучшить точность геолокации собеседников (для наших патронов мы используем в 500 раз более дорогой сервис геолокации).</div></div>"
@@ -87,7 +87,7 @@
     "message": "попробовать"
   },
   "apiStatus2": {
-    "message": "<b>API работает корректно.</b>"
+    "message": "<b>API работает, но <a href=\"https://www.patreon.com/posts/108807678/\" target='_blank' style=\"text-decoration: none!important;\">возможны проблемы</a>.</b>"
   },
   "apiStartCheck": {
     "message": "<b>Проверяем API...</b>"
@@ -1501,5 +1501,11 @@
   },
   "clog_v2_2_2_summary": {
     "message": "Адаптировались под изменения на стороне платформы freecm.\nНекоторые незначительные изменения."
+  },
+  "clog_v2_2_4_title": {
+    "message": "Улучшена стабильность геолокации на фоне <a href=\"https://www.patreon.com/posts/108807678/\" target='_blank' style=\"text-decoration: none!important;\">проблем на ome.tv</a>."
+  },
+  "clog_v2_2_4_summary": {
+    "message": "Снижена поверхность атаки у API служб геолокации.\nГеолокация теперь принимает новые данные только до старта видео собеседника (больше не будет показывать новые доступные соединения в диалоге: модераторов и новые сети собеседника).\nДобавлена ранная поддержка возможности получать данные из внешних источников (таких как externally-connected сайтов и десктоп-программ).\nСпособ коммуникации страницы с расширением теперь привязан к ID расширения, чтобы отличать от форков. В связи с этим поддержка Firefox скорее всего будет прекращена."
   }
 }

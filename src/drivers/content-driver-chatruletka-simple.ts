@@ -3,10 +3,13 @@ import {createSwitchModeButton} from "./chatruletka/content-swal-switchmode";
 import * as DOMPurify from "dompurify";
 import * as utils from "../utils/utils";
 import * as SDPUtils from "sdp";
+import Swal from "sweetalert2";
+import {isIP} from 'is-ip';
 
 export class ChatruletkaSimpleDriver {
     private static instanceRef: ChatruletkaSimpleDriver;
     // Stages: stop = 0 | search = 1 | found = 2 | connected = 3 | play = 4
+    public stage: 0 | 1 | 2 | 3 | 4 = 0
     private stageObserver: MutationObserver;
 
     // https://ip-api.com/docs/api:json#:~:text=DEMO-,Localization,-Localized%20city%2C
@@ -36,6 +39,11 @@ export class ChatruletkaSimpleDriver {
 
     private resultsContainer: HTMLElement = utils.createElement('span')
 
+    public curDisplayed: number = 0;
+    public play: number = 0;
+    public search: number = 0;
+    public found: number = 0;
+
     private constructor() {
         this.stageObserver = new MutationObserver(this.onChangeStage)
     }
@@ -64,28 +72,48 @@ export class ChatruletkaSimpleDriver {
     }
 
     public injectIpEventListener = () => {
-        window.addEventListener("[object Object]", (evt) => {
-            let candidate: string = (<CustomEvent>evt).detail.candidate
+        if (globalThis.workerPort) {
+            globalThis.workerPort.onMessage.addListener((mes) => {
+                if (mes !== "pong") {
+                    let candidate: string = JSON.parse(mes)
 
-            let parsedCandidate: RTCIceCandidate | SDPUtils.SDPIceCandidate | undefined
-            if (this.browser === "firefox") {
-                // avoiding errors while parsing useless candidates
-                if (candidate.includes('srflx')) {
-                    parsedCandidate = SDPUtils.parseCandidate(JSON.parse(candidate).candidate)
-                }
-            } else {
-                parsedCandidate = new RTCIceCandidate(JSON.parse(candidate))
-            }
+                    let parsedCandidate: RTCIceCandidate | SDPUtils.SDPIceCandidate | undefined
+                    if (this.browser === "firefox") {
+                        // avoiding errors while parsing useless candidates
+                        if (candidate.includes('srflx')) {
+                            parsedCandidate = SDPUtils.parseCandidate(candidate)
+                        }
+                    } else {
+                        // @ts-ignore
+                        parsedCandidate = new RTCIceCandidate(candidate)
+                    }
 
-            if (typeof parsedCandidate !== "undefined" && parsedCandidate.type === "srflx" && parsedCandidate.address) {
-                console.dir("IP: " + parsedCandidate.address)
-                if (this.rmdaddr !== parsedCandidate.address) {
-                    this.rmdaddr = parsedCandidate.address;
-                    console.dir("IP CHANGED")
-                    this.onNewIP(this.rmdaddr)
+                    if (typeof parsedCandidate !== "undefined" && parsedCandidate.type === "srflx" && parsedCandidate.address) {
+//                        console.dir("IP: " + parsedCandidate.address)
+                        if (this.rmdaddr !== parsedCandidate.address) {
+                            this.rmdaddr = parsedCandidate.address;
+//                            console.dir("IP CHANGED")
+                            this.onNewIP(this.rmdaddr)
+                        }
+                    }
                 }
-            }
-        }, false);
+
+            })
+
+            globalThis.workerPort.onDisconnect.addListener(function () {
+                // @ts-ignore
+                globalThis.workerPort = null;
+                Swal.fire({
+                    icon: 'error',
+                    toast: true,
+                    width: 600,
+                    position: 'bottom-start',
+                    title: "Videochat Extension - Geolocation broke down",
+                    html: "Please reload the page, something went wrong. Sorry for the inconvenience.",
+                    confirmButtonText: "OK (Close warning)"
+                })
+            });
+        }
     }
 
     private checkApi() {
@@ -104,41 +132,45 @@ export class ChatruletkaSimpleDriver {
             this.apiProviders[globalThis.patreon.name] = globalThis.patreon
         }
         chrome.runtime.sendMessage({
-            makeGeolocationRequest: "1.1.1.1",
-            language: this.apiLanguage,
-            allow: this.apiProviders
-        }, (response) => {
-            console.dir(`geolocation test: ${response.status}`)
-            if (response.failed && response.failed.includes('ve-api')) {
-                delete this.apiProviders['ve-api']
-            }
-            let apiStatusContainer = $('#apiStatusContainer')
-            if (response.status === 200) {
-                if ($('span[data-tr="rules"]').length === 1 && apiStatusContainer.length == 1) {
-                    apiStatusContainer[0].innerHTML = chrome.i18n.getMessage("apiStatus2")
+                makeGeolocationRequest: "1.1.1.1",
+                language: this.apiLanguage,
+                allow: this.apiProviders
+            }, (response) => {
+                let apiStatusContainer = $('#apiStatusContainer')
+                if (response.status == -429) {
+//                    apiStatusContainer[0].innerHTML = "geolocation's internals are overloaded, sorry..."
+                } else {
+                    console.dir(`geolocation test: ${response.status}`)
+                    if (response.failed && response.failed.includes('ve-api')) {
+                        delete this.apiProviders['ve-api']
+                    }
+                    if (response.status === 200) {
+                        if ($('span[data-tr="rules"]').length === 1 && apiStatusContainer.length == 1) {
+                            apiStatusContainer[0].innerHTML = chrome.i18n.getMessage("apiStatus2")
+                        }
+                    } else {
+                        if ($('span[data-tr="rules"]').length === 1 && apiStatusContainer.length == 1) {
+                            apiStatusContainer[0].innerHTML = DOMPurify.sanitize('<b>ERROR: ' + response.status + ' || </b>' + chrome.i18n.getMessage("apiStatus0"))
+                        }
+                    }
                 }
-            } else {
-                if ($('span[data-tr="rules"]').length === 1 && apiStatusContainer.length == 1) {
-                    apiStatusContainer[0].innerHTML = DOMPurify.sanitize('<b>ERROR: ' + response.status + ' || </b>' + chrome.i18n.getMessage("apiStatus0"))
-                }
-            }
-        })
+            })
     }
 
     private injectSwitchModeButton() {
         let self = this
         let switchModeButtonContainer = utils.createElement('div', {
-            id: "switchModeButtonContainer"
-        }, [
-            utils.createElement('br'),
-            createSwitchModeButton(),
-            utils.createElement('span', {
-                innerText: " "
-            }),
-            utils.createElement('span', {
-                id: "apiStatusContainer"
-            })
-        ])
+                id: "switchModeButtonContainer"
+            }, [
+                utils.createElement('br'),
+                createSwitchModeButton(),
+                utils.createElement('span', {
+                    innerText: " "
+                }),
+                utils.createElement('span', {
+                    id: "apiStatusContainer"
+                })
+            ])
 
         function addButtonTo(el: HTMLElement) {
             let switchModeButtonEnjoyer: HTMLElement = el.parentElement!
@@ -171,27 +203,41 @@ export class ChatruletkaSimpleDriver {
     }
 
     private onNewIP = (newIp: string) => {
-        // TODO: validate ip address
         newIp = newIp.replace("[", "").replace("]", "")
 
-        if (this.curIps.includes(newIp)) {
+        // if a new IP reveals during ongoing conversation with an already established remote IP,
+        // this is likely to silently supress events when mods are connecting during conversation
+        // it should also kill any notice of renegotiations with the interlocutor, but wont affect the app itself
+        if (this.stage == 4 && (this.curIps.length > 0 || this.curDisplayed > 0)) {
+            // console.dir("IP suppressed")
             return
-        } else {
-            this.curIps.push(newIp)
         }
-
-        chrome.runtime.sendMessage({
-            makeGeolocationRequest: newIp,
-            language: this.apiLanguage,
-            allow: this.apiProviders
-        }, (response) => {
-            if (!this.curIps.includes(newIp)) {
+        if (isIP(newIp)) {
+            if (this.curIps.includes(newIp) || this.curIps.length > 3) {
                 return
+            } else {
+                this.curIps.push(newIp)
             }
-            if (response.status === 200) {
-                this.processData(response.body, newIp)
-            }
-        });
+
+            chrome.runtime.sendMessage({
+                    makeGeolocationRequest: newIp,
+                    language: this.apiLanguage,
+                    allow: this.apiProviders
+                }, (response) => {
+
+                    if (response.status == -429) {
+                        let apiStatusContainer = $('#apiStatusContainer')
+                        apiStatusContainer[0].innerHTML = "geolocation's internals are overloaded, sorry..."
+                    } else {
+                        if (!this.curIps.includes(newIp)) {
+                            return
+                        }
+                        if (response.status === 200) {
+                            this.processData(response.body, newIp)
+                        }
+                    }
+                });
+        }
     }
 
     private processData = (json: any, ip: string) => {
@@ -218,6 +264,7 @@ export class ChatruletkaSimpleDriver {
             }
 
             $(`<br><span title="${DOMPurify.sanitize(title)}">${DOMPurify.sanitize(ipApiString)}</span>`).appendTo(this.resultsContainer)
+            this.curDisplayed += 1
         }
     }
 
@@ -227,11 +274,24 @@ export class ChatruletkaSimpleDriver {
                 const attributeValue = String($(mutation.target).prop(mutation.attributeName));
 
                 if (attributeValue.includes("s-stop")) {
+                    this.stage = 0
                     this.curIps = []
+                    this.curDisplayed = 0
                     this.resultsContainer.innerHTML = ""
                 } else if (attributeValue.includes("s-search")) {
+                    this.stage = 1
                     this.curIps = []
                     this.resultsContainer.innerHTML = ""
+                    this.curDisplayed = 0
+                    this.search = Date.now()
+                } else if (attributeValue.includes("s-found")) {
+                    this.stage = 2
+                    this.found = Date.now()
+                } else if (attributeValue.includes("s-connected")) {
+                    this.stage = 3
+                } else if (attributeValue.includes("s-play")) {
+                    this.stage = 4
+                    this.play = Date.now()
                 }
             }
         });

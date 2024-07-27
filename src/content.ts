@@ -21,9 +21,23 @@ import {ContentSwalInfoCoomeetFreeSimplified} from "./drivers/coomeetfree/conten
 import {OmegleDriver} from "./drivers/content-driver-omegle";
 import {insertOmegleDeathAnnouncement} from "./drivers/content-driver-omegle-gravestone";
 
-injectScript('injection/ip-api.js')
-
 async function content() {
+
+    let domain = extractHost(location.href)
+    let ignoredDomains = ["free.coomeet.com", "rusvideochat.ru", "video-roulette24.ru", "chatroulette.msk.ru"]
+    if (!ignoredDomains.includes(domain)) {
+        await chrome.runtime.sendMessage({openRuntimePort: true})
+        injectScript('injection/ip-api.js')
+
+        globalThis.workerPort = chrome.runtime.connect({name:"last_content_script"});
+
+        setInterval(() => {
+            if (globalThis.workerPort) {
+                globalThis.workerPort.postMessage('ping')
+            }
+        }, 10000)
+    }
+
     let settings = await chrome.storage.sync.get()
 
     // TODO: firefox just crashes when sentry tries to initialise
@@ -43,7 +57,6 @@ async function content() {
             console.dir(e)
         }
     }
-    let domain = extractHost(location.href)
 
     let platforms = await (await fetch(chrome.runtime.getURL('platforms.json'))).json()
 
