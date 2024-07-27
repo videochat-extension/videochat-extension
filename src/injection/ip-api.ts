@@ -15,7 +15,6 @@
         apply(target: any, thisArg: any, args: any) {
             try {
                 if (p) {
-                    console.dir(JSON.stringify(args[0]))
                     p.postMessage(JSON.stringify(args[0]))
                 }
             } catch (e) {
