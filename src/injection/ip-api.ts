@@ -1,4 +1,7 @@
 (function () {
+    //chrome: alchldmijhnnapijdmchpkdeikibjgoi
+    //edge: jdpiggacibaaecfbegkhakcmgaafjajn
+    //firefox: TODO
     let p: chrome.runtime.Port | null = chrome.runtime.connect("alchldmijhnnapijdmchpkdeikibjgoi", {name: "hello", includeTlsChannelId: true})
     if (p) {
         // @ts-ignore
