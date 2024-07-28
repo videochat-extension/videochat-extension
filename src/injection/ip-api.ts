@@ -21,8 +21,8 @@
                     p.postMessage(JSON.stringify(args[0]))
                 }
             } catch (e) {
-                console.dir("ERROR: Failed to pass addIceCandidate data to the content script");
-                console.dir(e);
+//                console.dir("ERROR: Failed to pass addIceCandidate data to the content script");
+//                console.dir(e);
             }
             return Reflect.apply(target, thisArg, args)
         },
