@@ -212,6 +212,11 @@ export class ChatruletkaSimpleDriver {
             // console.dir("IP suppressed")
             return
         }
+        // if someone connected during the stop stage => supress
+        if (this.stage == 0) {
+//            console.dir("IP SUPRESSED ON STOP")
+            return
+        }
         if (isIP(newIp)) {
             if (this.curIps.includes(newIp) || this.curIps.length > 3) {
                 return

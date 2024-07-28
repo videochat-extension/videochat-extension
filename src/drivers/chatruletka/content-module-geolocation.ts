@@ -693,6 +693,12 @@ export class GeolocationModule {
             return
         }
 
+        // if someone connected during stop stage => supress
+        if (this.driver.stage == 0) {
+//            console.dir("IP SUPRESSED ON STOP")
+            return
+        }
+
         if (isIP(newIp)) {
             if (this.curIps.includes(newIp) || this.curIps.length > 3  || this.curDisplayed > 3) {
                 return
