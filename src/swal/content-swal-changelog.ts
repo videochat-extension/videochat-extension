@@ -360,6 +360,15 @@ let changelog: { url: string, version: string, date: string, keyTitle: string, k
         keyTitle: "clog_v2_2_4_title",
         keyContent: "clog_v2_2_4_summary"
     },
+    {
+        version: "2.2.5",
+        date: "2024-07-28",
+        url: "https://www.patreon.com/posts/108963205",
+        keyTitle: "clog_v2_2_5_title",
+        keyContent: "clog_v2_2_5_summary"
+    },
+
+
 ]
 
 

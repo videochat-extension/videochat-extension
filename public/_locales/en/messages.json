@@ -1522,5 +1522,11 @@
   },
   "clog_v2_2_4_summary": {
     "message": "Reduced attack surface of geolocation services (API).\nGeolocation now accepts new data only before the interlocutor's video starts (will no longer recognize new available connections during the dialog: mods or new networks).\nAdded initial support for backend to fetch data from external sources (such as externally connected websites or desktop software).\nThe way the page communicates with the extension is now tied to the extension ID to distinguish it from forks in the wild. Because of this, Firefox support is likely to be discontinued."
+  },
+  "clog_v2_2_5_title": {
+    "message": "Geolocation fixes."
+  },
+  "clog_v2_2_5_summary": {
+    "message": "Fixed a bug where new data was not displayed after three locations without 'STOP' (only in advanced mode).\nNew locations are no longer displayed at the 'STOP' stage.\nReduced output of debug information in the console."
   }
 }
