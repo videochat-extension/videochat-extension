@@ -1935,7 +1935,7 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
         }
     },
     {
-        version: "1.9.1",
+        version: "2.1.2",
         date: "2024-07-31",
         description: {
             en: '<b>Disabled geolocation api in Firefox.</b><br><br>' +
