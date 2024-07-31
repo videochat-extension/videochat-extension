@@ -469,6 +469,7 @@ function runtimeOnMessage(request: any, sender: chrome.runtime.MessageSender, se
     // makes a request to the geolocation service with the requested IP address and language
     // making a request via service worker helps avoid http restrictions
     if (request.makeGeolocationRequest) {
+        return;
         geolocate(request.makeGeolocationRequest, request.language, request.allow, sendResponse)
         return true;
     }

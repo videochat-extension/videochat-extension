@@ -40,7 +40,7 @@ export class ChatruletkaSimpleDriver {
 
     public start(element: HTMLElement): boolean {
         this.stageObserver.observe(element, {attributes: true});
-        this.injectIpEventListener()
+//        this.injectIpEventListener()
         this.injectSwitchModeButton()
         this.injectResultsContainer()
         return true
@@ -79,6 +79,10 @@ export class ChatruletkaSimpleDriver {
     }
 
     private checkApi() {
+        let apiStatusContainer = $('#apiStatusContainer')
+        apiStatusContainer[0].innerHTML = chrome.i18n.getMessage("firefoxApiDisabledSimple")
+        return
+
         this.apiProviders = ["ve-api", "ip-api", "geojs"];
         chrome.runtime.sendMessage({makeGeolocationRequest: "1.1.1.1", language: this.apiLanguage, allow: this.apiProviders}, (response) => {
             console.dir(`geolocation test: ${response.status}`)
@@ -86,6 +90,7 @@ export class ChatruletkaSimpleDriver {
                 this.apiProviders = this.apiProviders.filter(provider => provider !== "ve-api")
             }
             let apiStatusContainer = $('#apiStatusContainer')
+            apiStatusContainer[0].innerHTML = chrome.i18n.getMessage("apiStatus2")
             if (response.status === 200) {
                 if ($('span[data-tr="rules"]').length === 1 && apiStatusContainer.length == 1) {
                     apiStatusContainer[0].innerHTML = chrome.i18n.getMessage("apiStatus2")

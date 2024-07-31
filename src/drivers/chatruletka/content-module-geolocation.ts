@@ -534,6 +534,9 @@ export class GeolocationModule {
     }
 
     public checkApi() {
+        (document.getElementById("remoteInfo") as HTMLElement).innerHTML = chrome.i18n.getMessage("firefoxApiDisabledAdvanced") + "</br></br>" + chrome.i18n.getMessage("firefoxApiDisabledAdvancedWhy");
+
+        return
 
         if (this.needToShowHint) {
             // only one hint per session

@@ -1934,6 +1934,16 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 '— Эти строки были перепутаны местами, если вы их редактировали под себя, вам придётся сделать это ещё раз.'
         }
     },
+    {
+        version: "1.9.1",
+        date: "2024-07-31",
+        description: {
+            en: '<b>Disabled geolocation api in Firefox.</b><br><br>' +
+                'Geolocation API was disabled in Firefox due to compatibility issues.<br><br>Please use the <a target="_blank" style="text-decoration: none!important;" href="https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi">latest version from the Chrome Web Store</a> until Firefox <a target="_blank" style="text-decoration: none!important;" href="https://bugzilla.mozilla.org/show_bug.cgi?id=1319168">catches up</a> (could take years).<br><br>Features that are not dependent on geolocation — interface tweaks, hotkeys, gender recognition, and others — continue to work as expected.',
+            ru: '<b>Функционал геолокации в Firefox отключен.</b><br><br>' +
+                'API геолокации был отключен в Firefox из-за проблем с совместимостью.<br><br>Пожалуйста, используйте <a target="_blank" style="text-decoration: none!important;" href="https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi">последнюю версию из Chrome Web Store</a> до тех пор, пока Firefox <a target="_blank" style="text-decoration: none!important;" href="https://bugzilla.mozilla.org/show_bug.cgi?id=1319168">не обновится</a> (это может занять годы).<br><br>Функции, не зависящие от геолокации — твики интерфейса, горячие клавиши, распознавание пола и другие — продолжают работать как ожидалось.'
+        }
+    },
 ]
 
 

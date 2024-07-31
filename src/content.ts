@@ -23,7 +23,7 @@ import {
 } from "./drivers/coomeetfree/content-swal-info";
 import {OmegleDriver} from "./drivers/content-driver-omegle";
 
-injectScript('injection/ip-api.js')
+//injectScript('injection/ip-api.js')
 
 async function content() {
     let settings = await chrome.storage.sync.get()

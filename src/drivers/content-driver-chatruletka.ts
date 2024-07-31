@@ -158,7 +158,7 @@ export class ChatruletkaDriver {
         }
 
         if (this.modules.geolocation) {
-            this.modules.geolocation.injectIpEventListener()
+//            this.modules.geolocation.injectIpEventListener()
         }
 
         this.injectSwitchModeButton()
