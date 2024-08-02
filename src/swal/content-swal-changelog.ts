@@ -1944,6 +1944,16 @@ let changelog: { version: string, date: string, description: { en: string, ru: s
                 'API геолокации был отключен в Firefox из-за проблем с совместимостью.<br><br>Пожалуйста, используйте <a target="_blank" style="text-decoration: none!important;" href="https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi">последнюю версию из Chrome Web Store</a> до тех пор, пока Firefox <a target="_blank" style="text-decoration: none!important;" href="https://bugzilla.mozilla.org/show_bug.cgi?id=1319168">не обновится</a> (это может занять годы).<br><br>Функции, не зависящие от геолокации — твики интерфейса, горячие клавиши, распознавание пола и другие — продолжают работать как ожидалось.'
         }
     },
+    {
+        version: "2.1.3",
+        date: "2024-08-01",
+        description: {
+            en: '<b>Added patreon post link about firefox version.</b><br><br>' +
+                'Added a Patreon post with more information about the ongoing compatibility issues with the Firefox version.',
+            ru: '<b>Добавлена ссылка на Patreon о версии Firefox.</b><br><br>' +
+                'Добавлен пост на Patreon с дополнительной информацией о текущих проблемах совместимости с версией для Firefox.'
+        }
+    },
 ]
 
 

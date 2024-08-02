@@ -980,12 +980,12 @@
     "message": "Ограниченная поддержка. Функции: распознавание ботов и твики интерфейса."
   },
   "firefoxApiDisabledSimple": {
-    "message": "API не работает в Firefox. Пожалуйста, используйте последнюю версию из <a target='_blank' style='text-decoration: none!important;' href='https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi'>Chrome Web Store</a> до тех пор, пока Firefox <a target='_blank' style='text-decoration: none!important;' href='https://bugzilla.mozilla.org/show_bug.cgi?id=1319168'>не обновится</a> (это может занять годы)."
+    "message": "<b>API не работает в Firefox (<a target='_blank' style='text-decoration: none!important;' href='https://www.patreon.com/posts/109236050/'>причины</a>).</b><br>Пожалуйста, используйте последнюю версию из <b><a target='_blank' style='text-decoration: none!important;' href='https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi'>Chrome Web Store</a></b> до тех пор, пока Firefox <b><a target='_blank' style='text-decoration: none!important;' href='https://bugzilla.mozilla.org/show_bug.cgi?id=1319168'>не обновится</a></b> (это может занять годы)."
   },
   "firefoxApiDisabledAdvanced": {
-    "message": "<b>API не работает в Firefox.</b>"
+    "message": "<b>API не работает в Firefox (<a target='_blank' style='text-decoration: none!important;' href='https://www.patreon.com/posts/109236050/'>причины</a>).</b>"
   },
   "firefoxApiDisabledAdvancedWhy": {
-    "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"discordImageContainer\"></div><br><b>Важно:</b><br>Пожалуйста, используйте последнюю версию из <a target='_blank' style='text-decoration: none!important;' href='https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi'>Chrome Web Store</a> до тех пор, пока Firefox <a target='_blank' style='text-decoration: none!important;' href='https://bugzilla.mozilla.org/show_bug.cgi?id=1319168'>не обновится</a> (это может занять годы).<br><br>Функции, не зависящие от геолокации — твики интерфейса, горячие клавиши, распознавание пола и другие — могут продолжать работать нормально."
+    "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"discordImageContainer\"></div><br><b>Важно:</b><br>Пожалуйста, используйте последнюю версию из <b><a target='_blank' style='text-decoration: none!important;' href='https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi'>Chrome Web Store</a></b> до тех пор, пока Firefox <b><a target='_blank' style='text-decoration: none!important;' href='https://bugzilla.mozilla.org/show_bug.cgi?id=1319168'>не обновится</a></b> (это может занять годы).<br><br>Функции, не зависящие от геолокации — твики интерфейса, горячие клавиши, распознавание пола и другие — могут продолжать работать нормально."
   }
 }

@@ -990,12 +990,12 @@
     "message": "Limited support. Features: bot recognition & interface tweaks."
   },
   "firefoxApiDisabledSimple": {
-    "message": "API does not work in Firefox. Please use the latest version from the <a target='_blank' style='text-decoration: none!important;' href='https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi'>Chrome Web Store</a> until Firefox <a target='_blank' style='text-decoration: none!important;' href='https://bugzilla.mozilla.org/show_bug.cgi?id=1319168'>catches up</a> (could take years)."
+    "message": "<b>API does not work in Firefox (<a target='_blank' style='text-decoration: none!important;' href='https://www.patreon.com/posts/109236050/'>reasons</a>).</b><br>Please use the latest version from the <b><a target='_blank' style='text-decoration: none!important;' href='https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi'>Chrome Web Store</a></b> until Firefox <b><a target='_blank' style='text-decoration: none!important;' href='https://bugzilla.mozilla.org/show_bug.cgi?id=1319168'>catches up</a></b> (could take years)."
   },
   "firefoxApiDisabledAdvanced": {
-    "message": "<b>API does not work in Firefox.</b>"
+    "message": "<b>API does not work in Firefox (<a target='_blank' style='text-decoration: none!important;' href='https://www.patreon.com/posts/109236050/'>reasons</a>).</b>"
   },
   "firefoxApiDisabledAdvancedWhy": {
-    "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"discordImageContainer\"></div><br><b>Important:</b><br>Please use the latest version from the <a target='_blank' style='text-decoration: none!important;' href='https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi'>Chrome Web Store</a> until Firefox <a target='_blank' style='text-decoration: none!important;' href='https://bugzilla.mozilla.org/show_bug.cgi?id=1319168'>catches up</a> (could take years).<br><br>Features that are not dependent on geolocation — interface tweaks, hotkeys, gender recognition, and others—may continue to work normally."
+    "message": "<div id=\"ipApiContainer\" style=\"display:flex; flex-direction:row; justify-content: space-between;\"><div><div id=\"discordImageContainer\"></div><br><b>Important:</b><br>Please use the latest version from the <b><a target='_blank' style='text-decoration: none!important;' href='https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi'>Chrome Web Store</a></b> until Firefox <b><a target='_blank' style='text-decoration: none!important;' href='https://bugzilla.mozilla.org/show_bug.cgi?id=1319168'>catches up</a></b> (could take years).<br><br>Features that are not dependent on geolocation — interface tweaks, hotkeys, gender recognition, and others — may continue to work normally."
   }
 }
