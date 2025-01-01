@@ -15,9 +15,11 @@
 > Using the old code or any other website modifications may now result in being banned or flagged.
 
 > [!IMPORTANT]
-> This project has been rebuilt from scratch as a [proprietary WebRTC monitoring tool](https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi).  
+> This project has been rebuilt from scratch as a [proprietary WebRTC monitoring tool](https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi).
+> 
 > Features that required modifications to third-party sites are no longer available.  
-> Core features have been preserved and can function at the browser level if needed.  
+> Core features have been preserved and can function at the browser level if needed.
+> 
 > Omegle alternatives that work in Website Mode can be found [here](https://omeglelike.com/?f=p2p-video--dead--blacklisted).
 
 > [!NOTE]
