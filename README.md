@@ -8,6 +8,21 @@
 <a href = ""><img src="https://img.shields.io/date/1632816617?label=released"></a>
 </p>
 
+> [!CAUTION]
+> **This codebase is old and no longer safe to use.**
+> 
+> Omegle has shut down, and Chatruletka (ome.tv, minichat) has changed its internal policy regarding third-party projects.  
+> Using the old code or any other website modifications may now result in being banned or flagged.
+
+> [!IMPORTANT]
+> This project has been rebuilt from scratch as a [proprietary WebRTC monitoring tool](https://chrome.google.com/webstore/detail/alchldmijhnnapijdmchpkdeikibjgoi).  
+> Features that required modifications to third-party sites are no longer available.  
+> Core features have been preserved and can function at the browser level if needed.  
+> Omegle alternatives that work in Website Mode can be found [here](https://omeglelike.com/?f=p2p-video--dead--blacklisted).
+
+> [!NOTE]
+> Coomeet Free support was moved to [Videochat Extension Freecm](https://github.com/videochat-extension/videochat-extension-freecm).
+
 Videochat Extension is a fully independent open-source browser extension that expands the
 functionality of Omegle-like randomized video chats. Previously known as Chatruletka Extension and 'Чат Рулетное Расширение'.
 
